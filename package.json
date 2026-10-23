@@ -20,7 +20,7 @@
     "parity": "node scripts/py.mjs scripts/parity_check.py docs/parity/parity.csv --seed docs/parity/parity-seed.csv",
     "ui:check": "playwright test -c ui-check/playwright.config.ts",
     "verify": "npm run typecheck && npm run lint && npm test && npm run rust:fmt && npm run rust:clippy && npm run rust:test && npm run bindings:check && npm run parity && npm run ui:check",
-    "native:check": "node scripts/native-smoke.mjs"
+    "native:check": "npm run tauri -- build --debug --no-bundle && node scripts/native-smoke.mjs"
   },
   "dependencies": {
     "@fastify/cors": "11.3.1",

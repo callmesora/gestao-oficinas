@@ -17,7 +17,8 @@ jobs:
       - name: Rust toolchain
         run: rustup show
       - name: Cache Rust dependencies and build output
-        uses: actions/cache@v6
+        id: rust-cache
+        uses: actions/cache/restore@v6
         with:
           path: |
             ~/.cargo/registry
@@ -27,8 +28,17 @@ jobs:
       - run: npm install --global npm@11.19.1
       - run: npm ci
       - run: npm run verify
-      - run: npm run build
-      - name: Native executable build
-        run: npm run tauri -- build --debug --no-bundle
+      - name: Ensure WebView2 runtime
+        shell: pwsh
+        run: ./setup/Ensure-WebView2.ps1
       - name: Native WebView2 and IPC smoke
         run: npm run native:check
+      - name: Save Rust cache
+        if: always() && steps.rust-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v6
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            src-tauri/target
+          key: ${{ runner.os }}-rust-1.99.1-${{ hashFiles('src-tauri/Cargo.lock') }}

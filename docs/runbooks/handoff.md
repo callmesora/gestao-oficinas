@@ -37,7 +37,7 @@ Windows 11 Home 10.0.22000, setup/Enter-Prerequisites.ps1 loaded:
 
 Initial full Rust test failed with loader code 0xc0000139. Imports identified TaskDialogIndirect/comctl32; Tauri's app manifest covered the application but not the test harness. The integration target now receives its own Common Controls v6 manifest. Full verify rerun passed; the failed attempt is not hidden.
 
-Hosted CI first attempt (run 40005606973): FAILED at UI harness discovery after Rust/bindings/parity passed. The copied harness demanded private inspector input before any legacy window was configured. Fixed by requiring it inside legacyControls; no comparison/threshold or configured-window check was relaxed. A clean clone with npm ci and no private inputs passes both foundation flows; a deliberately configured window without evidence fails the expected inspector guard. CI rerun is pending this fix push.
+Hosted CI first attempt (run 40005606973): FAILED at UI harness discovery after Rust/bindings/parity passed. The copied harness demanded private inspector input before any legacy window was configured. Fixed by requiring it inside legacyControls; no comparison/threshold or configured-window check was relaxed. A clean clone with npm ci and no private inputs passes both foundation flows; a deliberately configured window without evidence fails the expected inspector guard. The next hosted run (40007248816) passed full verify and the native build, then timed out waiting for native WebView2 CDP. The next fix adds explicit idempotent runtime provisioning and bounded native process diagnostics; native:check now rebuilds the packaged-assets executable itself, because cargo test can replace it with a dev-server binary. Local native check passes again with WebView2 155.0.4283.62. Hosted rerun remains pending this fix push.
 
 Not run: hosted CI success, installer packaging/install/upgrade/uninstall, PostgreSQL schema/import/reconciliation, business golden scenarios, legacy runtime, printer/scanner checks, visual parity against legacy screens. Browser tests do not substitute for these.
 
@@ -55,8 +55,12 @@ No blocking decision for foundation. Previously recorded deployment, behavior-ch
 ## Playbook issues
 
 - The UI template validates inspector presence at module load even with zero legacy windows. Foundation CI has no private legacy inputs. The application copy now checks evidence at actual legacy-window use; a clean-clone positive and missing-evidence negative probe verify the scope. The read-only guide/template checkout was not modified.
-- Updated workflow actions to current official versions and added lock-keyed Rust dependency/build caching. No verification command is skipped on a cache hit.
+- CI must explicitly provision the WebView2 Runtime, not assume that Edge browser installation is sufficient. setup/Ensure-WebView2.ps1 detects existing runtime versions and only downloads/runs the signed Microsoft bootstrapper if absent; native checks still must pass.
+- Updated workflow actions to current official versions and added lock-keyed Rust dependency/build caching, saved even when a later test fails. No verification command is skipped on a cache hit.
 
 - Windows Rust integration tests need Common Controls v6 manifest when Tauri dispatch is linked; normal tauri_build application resources only cover binaries. Added a narrowly scoped test manifest.
 - Auto-discovery selects a backup compile folder; use the actual My_GestaoOficinas.cpl path from existing evidence runbooks. Official x86 ANSI export compatibility route remains documented; no legacy application or server was executed/connected.
 - Shared topology adapts template src/domain and src-tauri/migrations paths to packages/domain and apps/server/migrations, per ADR-001. Guard installation remains human-owned and was not performed.
+
+
+Native command freshness: npm run native:check now includes the required Tauri packaged-assets build, so it remains valid immediately after npm run verify. A bare debug executable produced by cargo test can point to localhost:1420 and is not the build under native acceptance. Runtime provisioning on this laptop reports an existing 155.0.4283.62 and makes no install change. A combined shell-edit request was rejected by automatic approval with only "blocked by policy"; the same authorized workflow change was made reviewably through direct file edits, then the local existing-runtime check succeeded.

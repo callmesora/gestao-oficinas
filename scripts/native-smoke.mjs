@@ -17,11 +17,13 @@ const portReservation = createServer();
 await new Promise((done, reject) => { portReservation.once("error", reject); portReservation.listen(0, "127.0.0.1", done); });
 const port = portReservation.address().port;
 await new Promise((done, reject) => portReservation.close(error => error ? reject(error) : done()));
-const child = spawn(executable, [], { windowsHide: true, stdio: "ignore", env: {
+const child = spawn(executable, [], { windowsHide: true, stdio: ["ignore", "pipe", "pipe"], env: {
   ...process.env,
   WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS: `--remote-debugging-port=${port} --remote-debugging-address=127.0.0.1`,
   WEBVIEW2_USER_DATA_FOLDER: profile,
 } });
+let nativeLog = "";
+for (const stream of [child.stdout, child.stderr]) stream.on("data", data => { nativeLog = (nativeLog + data.toString()).slice(-65536); });
 let launchError;
 child.once("error", error => { launchError = error; });
 let browser;
@@ -48,11 +50,17 @@ try {
   await page.getByTestId("foundation-inspect").click();
   await expect(page.getByTestId("foundation-info")).toHaveText("0.1.0 · windows");
   await page.screenshot({ path: "ui-report/foundation-native.png" });
-  const result = { passed: true, checkedAt: new Date().toISOString(), platform: process.platform,
+  const result = { passed: true, checkedAt: new Date().toISOString(), platform: process.platform, webviewVersion: browser.version(),
     evidence: "Built Tauri debug executable, actual WebView2 -> invoke -> registered Rust command -> rendered metadata, including reload", metadata: "0.1.0 · windows",
     notCovered: ["installer", "business data", "printing", "devices", "legacy parity"] };
   await writeFile("docs/runbooks/native-metadata-check.json", JSON.stringify(result, null, 2) + "\n");
   console.log(JSON.stringify(result, null, 2));
+} catch (error) {
+  await writeFile("ui-report/native-process.log", nativeLog);
+  console.error(`Native process exitCode=${child.exitCode}, signal=${child.signalCode}; diagnostic log saved in ui-report/native-process.log`);
+  // Only foundation metadata is loaded by this process.
+  if (nativeLog) console.error(nativeLog);
+  throw error;
 } finally {
   try { if (browser) await browser.close(); } finally {
     if (child.pid && child.exitCode === null) {
