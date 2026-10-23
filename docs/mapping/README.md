@@ -1,6 +1,6 @@
 # Step 0 mapping index
 
-Scope: evidence and mapping only. No architecture decision or application implementation is approved.
+Historical Step 0 mapping baseline. The owner now authorizes the complete migration; current scope and accepted framing are in AGENTS.md, ROADMAP.md and docs/decisions/. These notes describe legacy evidence, not implemented target behavior.
 
 143 mapped source/table/template units; 877 source-seed rows retained exactly; 2273 total behavior rows.
 

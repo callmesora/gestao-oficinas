@@ -15,3 +15,13 @@ __pycache__/
 *.mmo
 *.MMO
 *.bak
+
+# Target build dependencies and generated runtime/test output.
+/node_modules/
+/dist/
+/src-tauri/target/
+/src-tauri/gen/
+/test-results/
+/playwright-report/
+/ui-report/
+*.tsbuildinfo
