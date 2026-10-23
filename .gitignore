@@ -1,0 +1,7 @@
+# Private legacy material must never enter the future application repository.
+/legacy/
+/GestaoOficinas_TesteIA/
+/analysis-local/
+/.venv/
+/migrate-windev-javascript/
+__pycache__/
