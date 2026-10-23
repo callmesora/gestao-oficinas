@@ -64,3 +64,6 @@ No blocking decision for foundation. Previously recorded deployment, behavior-ch
 
 
 Native command freshness: npm run native:check now includes the required Tauri packaged-assets build, so it remains valid immediately after npm run verify. A bare debug executable produced by cargo test can point to localhost:1420 and is not the build under native acceptance. Runtime provisioning on this laptop reports an existing 155.0.4283.62 and makes no install change. A combined shell-edit request was rejected by automatic approval with only "blocked by policy"; the same authorized workflow change was made reviewably through direct file edits, then the local existing-runtime check succeeded.
+
+
+Hosted run 40008976787 again passed full verify/build, confirmed WebView2 155.0.4283.62 present, but native CDP startup still timed out. Missing runtime is ruled out. Next diagnostic revision uses Playwright's documented real temporary-directory profile (outside the hosted checkout) and reports only this test process's title/session/children/listening port on failure. Local full verify and the revised native profile both pass. The saved Rust cache was confirmed in this hosted run. Foundation remains In progress pending the next hosted result; no schema stage has started.

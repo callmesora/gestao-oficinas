@@ -1,7 +1,8 @@
 // Playwright's official WebView2 CDP approach; only this child receives debugging settings.
 import { spawn, spawnSync } from "node:child_process";
-import { access, mkdir, mkdtemp, writeFile } from "node:fs/promises";
+import { access, mkdir, mkdtemp, realpath, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
+import { tmpdir } from "node:os";
 import { createServer } from "node:net";
 import { setTimeout as delay } from "node:timers/promises";
 import { chromium, expect } from "@playwright/test";
@@ -12,7 +13,7 @@ const executable = resolve("src-tauri/target/debug/gestao-oficinas.exe");
 await access(executable);
 await mkdir("analysis-local", { recursive: true });
 await mkdir("ui-report", { recursive: true });
-const profile = await mkdtemp(resolve("analysis-local/native-webview-"));
+const profile = await mkdtemp(resolve(await realpath(tmpdir()), "gestao-native-webview-"));
 const portReservation = createServer();
 await new Promise((done, reject) => { portReservation.once("error", reject); portReservation.listen(0, "127.0.0.1", done); });
 const port = portReservation.address().port;
@@ -58,6 +59,10 @@ try {
 } catch (error) {
   await writeFile("ui-report/native-process.log", nativeLog);
   console.error(`Native process exitCode=${child.exitCode}, signal=${child.signalCode}; diagnostic log saved in ui-report/native-process.log`);
+  const diagnostics = spawnSync("powershell.exe", ["-NoProfile", "-NonInteractive", "-Command",
+    `$rootProcess = Get-Process -Id ${child.pid} -ErrorAction SilentlyContinue; $rootProcess | Select-Object ProcessName,Id,SessionId,MainWindowTitle | ConvertTo-Json; Get-CimInstance Win32_Process -Filter "ParentProcessId = ${child.pid}" | Select-Object Name,ProcessId,ParentProcessId,SessionId | ConvertTo-Json; Get-NetTCPConnection -LocalPort ${port} -ErrorAction SilentlyContinue | Select-Object State,LocalAddress,LocalPort,OwningProcess | ConvertTo-Json`
+  ], { windowsHide: true, encoding: "utf8" });
+  console.error(diagnostics.stdout);
   // Only foundation metadata is loaded by this process.
   if (nativeLog) console.error(nativeLog);
   throw error;
