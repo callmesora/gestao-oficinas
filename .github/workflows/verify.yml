@@ -1,0 +1,26 @@
+name: Verify Windows
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.22.1'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Rust toolchain
+        run: rustup show
+      - run: npm install --global npm@11.19.1
+      - run: npm ci
+      - run: npm run verify
+      - run: npm run build
+      - name: Native executable build
+        run: npm run tauri -- build --debug --no-bundle
+      - name: Native WebView2 and IPC smoke
+        run: npm run native:check

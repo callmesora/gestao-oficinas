@@ -1,0 +1,7 @@
+:root { font: 14px "Segoe UI", sans-serif; color: #17212b; background: #f0f2f4; }
+main { max-width: 780px; margin: 48px auto; padding: 24px; background: white; border: 1px solid #bbc3cb; }
+aside { padding: 12px; background: #fff4cc; border: 1px solid #c8aa47; }
+button { padding: 8px 16px; cursor: pointer; }
+button:focus-visible { outline: 3px solid #1769aa; outline-offset: 3px; }
+output { display: block; padding-top: 16px; }
+[role="alert"] { color: #a01010; }

@@ -1,0 +1,30 @@
+[package]
+name = "gestao-oficinas"
+version = "0.1.0"
+description = "Gestao Oficinas desktop"
+authors = ["Pedro Azevedo"]
+edition = "2024"
+default-run = "gestao-oficinas"
+
+[lib]
+name = "gestao_oficinas_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+ts-rs = "=12.0.1"
+
+[dev-dependencies]
+tauri = { version = "2", features = ["test"] }
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+panic = "abort"
+strip = true

@@ -1,58 +1,57 @@
 # Handoff — latest stage (Gestao Oficinas)
 
-## Stage — Framing and guide alignment (MIG-2)
+## Stage — Foundation wiring (MIG-3), local gate passed; CI pending
 
-Date: 23 October 2026. Branch: main. Commit: the MIG-2 commit containing this report (resolve with git log). Push is authorized; delivery result is checked after commit. The working tree contains an unfinished, uncommitted Tauri scaffold intended for MIG-3; it is not a completed foundation.
+23 October 2026. Branch main; commit is the MIG-3 commit containing this report (git log). Push authorized. Local verification/review completed; roadmap remains In progress until the newly added remote CI result is checked. Framing commit 13fb9b3 was pushed successfully.
 
-Parity unchanged: 2,273 rows, 1,792 specified, 481 unmapped, zero implemented/verified/excluded. Step 0 baseline commits: 7d3a5c7 and 637fc6b. **Latest owner authorization supersedes Step 0 only: follow the full guide, templates and structure through completion using documented defaults.**
+Parity unchanged: 2,273 rows; 1,792 specified, 481 unmapped, zero implemented/verified/excluded. No legacy functionality is migrated yet. Full migration is authorized, using safe documented defaults. The owner prefers sequential implementation and separate self-review; use subagents only for a substantial expected benefit. Prefer Playwright/CLI to computer use.
 
 ### 1. Delivered
 
-- Read the guide README and chapters 00–10 in full, plus the method templates listed in guide-alignment.md.
-- Root AGENTS.md adapted from the complete template: all section headings and the No guessing verification conditions retained. Actual commands and accepted project paths replace setup placeholders.
-- Applicable local instructions: packages/domain/AGENTS.md, src/bindings/AGENTS.md, apps/server/migrations/AGENTS.md. CI instructions belong with the future workflow. No guard/hooks/settings were installed or changed.
-- Seven accepted evidence/default ADRs; docs/architecture.md, docs/data-migration.md; bounded stage-1.md; ROADMAP.md with every one of 143 units assigned and explicit foundation/cleanup dependencies.
-- docs/porting.md now distinguishes accepted boundaries and reserved concrete homes from functions not yet implemented; the owner stage must add actual symbols/tests before translating a construct.
-- README/mapping entry points reflect the new scope. Dependency/build output is ignored. Original sources and data remain unchanged/private.
-- Independent framing review followed skills/review/SKILL.md in a separate review-only agent. Three findings were fixed: duration representation, stale porting proposal wording, and cleanup checkpoints after 2–3 workflows. Review record: docs/runbooks/reviews/framing.md.
+- Maintained React/TypeScript/Vite/Tauri 2 scaffold, correct project identity, pinned Node/npm/Rust and npm/Cargo locks. Starter greeting/logos/opener capability removed. Accepted src/application/infrastructure/ui and shared packages/domain/apps/server boundaries remain in architecture.md; empty architectural folders have no fake implementations.
+- Narrow native_info command; ts-rs generated NativeInfo and command catalog; exact binding check catches changed/missing/unregistered generated files. Windows bindings use LF deterministically.
+- Temporary foundation-only diagnostic and visible dev browser-preview banner. Strict response validation, failure/retry UI and keyboard flow. Non-legacy identifiers/text are documented in foundation-controls.md; no legacy window/visual fidelity claimed.
+- Fastify process-liveness endpoint, no business routes or database-readiness claim. No protected functionality is exposed.
+- npm run verify chains TypeScript, ESLint, Vitest, Rust format/clippy/tests, generated bindings, parity and browser flows. UI coverage/scoring harness is copied from the guide; zero legacy screens configured until built, explicitly not complete control coverage.
+- Windows CI workflow, local CI instructions, deliberate production CSP, no arbitrary SQL/files/shell capability. No guard/hooks/agent settings modified.
+- Actual native automation: npm run native:check uses Playwright CDP against an isolated child WebView2 process, checks the real Rust command result and reload. No persistent/global debugger setting. Machine-readable local result: native-metadata-check.json; screenshots in ignored ui-report/ inspected by the agent.
+- Self-review and fixes: docs/runbooks/reviews/foundation.md. Missing Windows test manifest corrected without removing tests; keyboard retry focus and binding line-ending consistency corrected.
 
 ### 2. Assumptions and differences
 
-ADRs 001–007 are defaults the owner may supersede. Windows first, shared TypeScript API/PostgreSQL, pure shared domain, MediaPlayer replica, preserved access checks, fixed reports and narrow native adapters. Source supports server configuration but actual deployed topology remains U-PRJ-01; the chosen family is not proof of shared production deployment.
+All framing defaults remain in ADRs 001–007. This is framework/verification wiring only. The foundation page is a developer diagnostic; it is not the legacy menu or an accepted visual redesign. Stock app icon remains a scaffold artifact to replace during the skin/branding stage; no installer/branding acceptance is claimed.
 
-No deliberate business-rule changes or feature exclusions were accepted. Unknown destructive defaults use cancellation and stay unresolved/implemented until observed. Do not mark source confidence as target verification. Every new default remains traceable to an ADR/proposal.
-
-The partial scaffold/dependency installation predates this framing correction. It is uncommitted and has stock greeting/name/CSP/capability defaults; do not present it as the application or build on it without completing MIG-3.
+Official supported WebView2 CDP automation substitutes for slower manual computer use and proves this actual native metadata path. It does not prove database writes, native printers, installers or business parity. Rust mock-runtime dispatch tests are labelled separately from the actual WebView2 smoke.
 
 ### 3. Checks actually executed
 
-Windows, setup/Enter-Prerequisites.ps1 loaded:
+Windows 11 Home 10.0.22000, setup/Enter-Prerequisites.ps1 loaded:
 
-- python scripts/verify_step0.py: PASS, all 143 units, 877 source seeds, 17 exported tables/159,668 rows, 128 source fingerprints, 106 dossier images and 53 layouts; draft DDL loads in memory.
-- python scripts/parity_check.py docs/parity/parity.csv --seed docs/parity/parity-seed.csv --check-files: PASS, unchanged statuses.
-- python -m unittest discover -s tests -v: 4 tests PASS, including actual Windows junction containment and typed export conversion.
-- Template-heading and ownership comparison: PASS; every template section retained, all 143 unit CSVs assigned exactly once, seven ADR files present.
-- python scripts/progress_dashboard.py --title "Gestao Oficinas": generated, 0/2,273 target behaviors complete as expected.
-- git fetch origin and git rev-list --left-right --count HEAD...origin/main: 0/0 before this commit; no remote divergence and no destructive synchronization.
+- npm run verify: PASS. TypeScript and ESLint; 4 Vitest tests; cargo fmt; cargo clippy --locked --all-targets -- -D warnings; Rust unit test plus integration dispatch test; generated binding equality; parity; 2 Playwright browser flows (success and failure/keyboard retry).
+- npm run build: PASS.
+- npm run tauri -- build --debug --no-bundle: PASS; built src-tauri/target/debug/gestao-oficinas.exe.
+- npm run native:check: PASS; actual WebView2 UI -> Tauri IPC -> Rust native_info -> rendered 0.1.0/windows, repeated after reload. Browser preview banner absent. Screenshots inspected.
+- npm install: lock/workspace resolution complete, audit reports zero vulnerabilities; only esbuild@0.28.2 install script explicitly approved.
+- git diff --check: PASS for current tracked changes; staged check is required before commit.
+- Historical Step 0 verifier and 4 Python extraction tests passed during framing, same untouched legacy inputs; no target status advance.
 
-Not run: npm run verify (not wired), application/native build, IPC/UI/golden workflows, target PostgreSQL import/reconciliation, installer, printer/device checks or legacy runtime. None is claimed by framing. Historical Step 0 draft/evidence checks do not prove the target application.
+Initial full Rust test failed with loader code 0xc0000139. Imports identified TaskDialogIndirect/comctl32; Tauri's app manifest covered the application but not the test harness. The integration target now receives its own Common Controls v6 manifest. Full verify rerun passed; the failed attempt is not hidden.
+
+Not run: hosted CI (await first workflow push), installer packaging/install/upgrade/uninstall, PostgreSQL schema/import/reconciliation, business golden scenarios, legacy runtime, printer/scanner checks, visual parity against legacy screens. Browser tests do not substitute for these.
 
 ### 4. Remaining work
 
-1. Start MIG-3 with a bounded stage brief from templates/prompt-stage.md; complete the existing scaffold in accepted structure, pin/lock dependencies, remove starter code and broad unused capabilities, establish deliberate CSP, generated native contracts, real native health path, verify scripts, preview/UI harness and Windows CI. Add local CI instructions then.
-2. MIG-4: explicit mapping of every schema/driver field; isolated real PostgreSQL; complete schema v1, synthetic fixtures, import dry run, quarantine/provenance, failure/retry/rollback tests, full reconciliation and backup/restore. Do not silently repair source anomalies.
-3. MIG-5: skin kit, all generated layouts/assets and temporary launcher before business screens. Follow ROADMAP dependencies and split groups into bounded workflow stages.
-4. Each stage needs actual checks, separate review/fix passes (two for risky slices; the owner permits self-review and prefers no review subagents), parity/roadmap/handoff/progress updates, explicit-file commit and authorized push.
+1. Commit/push explicit MIG-3 files and inspect the Windows CI result. Fix any failure and rerun relevant checks. Do not claim foundation Done merely because the local build passed.
+2. Once MIG-3 is Done, begin MIG-4: read full table maps/specs/source evidence; explicit every-field mapping; real isolated PostgreSQL; schema v1, fixtures, dry-run import, quarantine/provenance and reconciliation, rollback/retry and backup/restore. No silent data repairs.
+3. MIG-5 skin kit, all layouts/assets and temporary launcher; replace scaffold icon from evidenced project assets. Then bounded leaf workflows per ROADMAP, with cleanup after first 2–3 and periodically later.
+4. For every stage use the guide brief, separate review/fix pass (two for risky slices), actual checks, parity/roadmap/handoff/progress, explicit-file commit and authorized push. Final migration remains a large amount of work; no completion claim.
 
 ### 5. Decisions needed from the human
 
-No blocking framing decision: the owner delegates defaults. Confirm/correct when available: actual shared users/offline needs; source-observed bug preserve/change choices; unused screens/reports (none excluded by default); real printers/scanners; integrations beyond source inventory; who accepts results; production freeze/go-live plan. Current defaults preserve full scope and behavior and do not grant production access.
-
-The 12 runtime questions and 17 encoded action groups remain in docs/evidence/encoded-actions.md with assumed proposals. Missing report/template evidence and unknown credential format remain explicit. Never pin an unproposed unknown in a test and call it verified.
+No blocking decision for foundation. Previously recorded deployment, behavior-change, devices, exclusions and go-live questions remain defaults/open evidence; answer sheet retains 12 runtime questions and 17 action groups. Do not infer those answers from tests of the new application. Native hardware/legacy observations require access when the relevant stages reach acceptance.
 
 ## Playbook issues
 
-- Automatic compile discovery selects a backup: reuse the actual My_GestaoOficinas.cpl path recorded in the export/evidence runbooks.
-- Windows x64 HFSQL Python export crashes; the documented existing x86 official-driver ANSI bridge succeeded. Do not repeat installers or decode FIC manually.
-- Foundation template commands target generic src/domain and SQLite migration paths; accepted shared topology uses packages/domain and apps/server/migrations. Local instructions were adapted accordingly.
-- Historical maps retain Step 0 wording as provenance; current AGENTS, roadmap, ADRs and this handoff govern the newly authorized scope.
+- Windows Rust integration tests need Common Controls v6 manifest when Tauri dispatch is linked; normal tauri_build application resources only cover binaries. Added a narrowly scoped test manifest.
+- Auto-discovery selects a backup compile folder; use the actual My_GestaoOficinas.cpl path from existing evidence runbooks. Official x86 ANSI export compatibility route remains documented; no legacy application or server was executed/connected.
+- Shared topology adapts template src/domain and src-tauri/migrations paths to packages/domain and apps/server/migrations, per ADR-001. Guard installation remains human-owned and was not performed.

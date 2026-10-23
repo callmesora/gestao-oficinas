@@ -2,7 +2,7 @@
 
 WINDEV/HFSQL workshop application migration workspace.
 
-**Step 0 evidence/mapping complete; full migration authorized. Framing is being aligned with the guide; foundation and business slices remain unverified.**
+**Step 0 evidence/mapping complete; full migration authorized. Framing is recorded; foundation has local verification and native IPC smoke evidence. Business slices remain unmigrated.**
 
 - [Step 0 results and remaining questions](docs/runbooks/step0-report.md)
 - [Handoff and next-session instructions](docs/runbooks/handoff.md)
@@ -24,3 +24,16 @@ python -m unittest discover -s tests -v
 ```
 
 Copied playbook attribution: [third-party/playbook](third-party/playbook/README.md).
+
+
+Foundation development commands (Windows):
+
+```powershell
+. .\setup\Enter-Prerequisites.ps1
+npm ci
+npm run verify
+npm run tauri -- build --debug --no-bundle
+npm run native:check
+```
+
+`npm run dev` shows an explicitly labelled browser preview with simulated native metadata. It is a temporary foundation diagnostic, not a migrated legacy window. `npm run native:check` uses Playwright with the built app’s actual WebView2 and Rust command. Schema/import, skin kit and business workflows follow the roadmap.

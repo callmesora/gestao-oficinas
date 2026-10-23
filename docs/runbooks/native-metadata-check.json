@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-23T18:41:02.201Z",
+  "platform": "win32",
+  "evidence": "Built Tauri debug executable, actual WebView2 -> invoke -> registered Rust command -> rendered metadata, including reload",
+  "metadata": "0.1.0 · windows",
+  "notCovered": [
+    "installer",
+    "business data",
+    "printing",
+    "devices",
+    "legacy parity"
+  ]
+}

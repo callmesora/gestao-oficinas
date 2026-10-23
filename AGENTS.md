@@ -89,12 +89,16 @@ Load `. ./setup/Enter-Prerequisites.ps1` in PowerShell. Use `.venv/Scripts/pytho
 
 ```powershell
 .venv/Scripts/python.exe scripts/verify_step0.py
+npm run verify
+npm run ui:check
+npm run tauri -- build --debug --no-bundle
+npm run native:check
 .venv/Scripts/python.exe scripts/parity_check.py docs/parity/parity.csv --seed docs/parity/parity-seed.csv --check-files
 .venv/Scripts/python.exe scripts/unit_evidence.py UNIT --out analysis-local/units/UNIT.json
 .venv/Scripts/python.exe scripts/progress_dashboard.py --title "Gestao Oficinas"
 ```
 
-Foundation must establish `npm run verify` (types, lint, unit, Rust, bindings, parity), `npm run ui:check`, and `npm run tauri -- build` before any business slice. Do not claim these checks exist or pass until wired and executed. Stage 0 validator is a historical evidence gate; implementation parity uses the ongoing gate.
+`npm run verify` checks types, lint, unit, Rust, bindings, parity and browser flows. `npm run native:check` tests the built Windows WebView2 app through Playwright CDP; it never installs a global debug setting. Native packaging/install and business persistence checks remain separate gates. Stage 0 validator is a historical evidence gate; implementation parity uses the ongoing gate.
 
 ## Skills (follow the file when the task matches)
 
@@ -114,4 +118,4 @@ Screens `docs/screens/` · Golden scenarios `docs/golden/` · Decisions `docs/de
 
 ## Response preferences (a preference, not a rule)
 
-Concise, concrete updates and honest remaining limits. Persist to the authorized goal; do not repeatedly request permission for defaults or routine work. Sequential work is preferred.
+Concise, concrete updates and honest remaining limits. Persist to the authorized goal; do not repeatedly request permission for defaults or routine work. Sequential work is preferred. Prefer Playwright/CLI tests to slow computer use; native behavior still needs real native evidence.

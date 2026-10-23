@@ -8,7 +8,7 @@ Each group below must be split into bounded stage briefs for individual workflow
 |---|---|---|---|---|---|---|---|---|---|
 | 0 | Mapping | Full inventory, extraction and reviewed mapping | STEP0 | all SRC seeds | implementer/reviewers | templates/mapping-prompt.md | 143 maps; evidence; 2,273 parity rows | — | Done |
 | 1 | Framing | Guide/template alignment and accepted framing | MIG-2 | no parity moves | planner | docs/runbooks/stage-1.md | AGENTS, ADRs, architecture/data contract and roadmap | 0 | Done |
-| 2 | Foundation | Scaffold, verification, generated contracts, preview and CI | MIG-3 | foundation tests; no business parity | implementer | templates/prompt-stage.md | verify green; bindings drift check; native health command; UI harness | 1 | To do |
+| 2 | Foundation | Scaffold, verification, generated contracts, preview and CI | MIG-3 | foundation tests; no business parity | implementer | docs/runbooks/stage-2.md | verify green; bindings drift check; native health command; UI harness | 1 | In progress |
 | 3 | Foundation | Every table/field, schema v1, fixtures and import dry run | MIG-4 | table rows | implementer + 2 reviews | templates/prompt-stage.md | column mappings; real PostgreSQL import/reconciliation/restore tests | 2 | To do |
 | 3b | Foundation | Skin primitives, every generated layout and skin assets | MIG-5 | template/dialog rows | implementer/reviewer | templates/prompt-stage.md | skin kit; scored windows; asset inventory; temporary launcher | 2 | To do |
 | 4 | Slice | Query semantics and shared WLanguage helpers | MIG-6 | QRY rows; named helper rules | implementer/reviewer | templates/prompt-stage.md | real parameter/filter tests against complete schema | 3 | To do |
