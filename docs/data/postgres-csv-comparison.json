@@ -1,0 +1,243 @@
+{
+  "equal": true,
+  "tables": {
+    "Clientes": {
+      "legacy_rows": 2165,
+      "target_rows": 2165,
+      "missing_in_target": 0,
+      "extra_in_target": 0,
+      "mismatched_cells": 0,
+      "problems": [],
+      "samples": {
+        "missing": [],
+        "extra": [],
+        "mismatches": []
+      },
+      "equal": true
+    },
+    "Viaturas": {
+      "legacy_rows": 4544,
+      "target_rows": 4544,
+      "missing_in_target": 0,
+      "extra_in_target": 0,
+      "mismatched_cells": 0,
+      "problems": [],
+      "samples": {
+        "missing": [],
+        "extra": [],
+        "mismatches": []
+      },
+      "equal": true
+    },
+    "mecanicos": {
+      "legacy_rows": 11,
+      "target_rows": 11,
+      "missing_in_target": 0,
+      "extra_in_target": 0,
+      "mismatched_cells": 0,
+      "problems": [],
+      "samples": {
+        "missing": [],
+        "extra": [],
+        "mismatches": []
+      },
+      "equal": true
+    },
+    "artigos": {
+      "legacy_rows": 15558,
+      "target_rows": 15558,
+      "missing_in_target": 0,
+      "extra_in_target": 0,
+      "mismatched_cells": 0,
+      "problems": [],
+      "samples": {
+        "missing": [],
+        "extra": [],
+        "mismatches": []
+      },
+      "equal": true
+    },
+    "ordem_reparacao": {
+      "legacy_rows": 15719,
+      "target_rows": 15719,
+      "missing_in_target": 0,
+      "extra_in_target": 0,
+      "mismatched_cells": 0,
+      "problems": [],
+      "samples": {
+        "missing": [],
+        "extra": [],
+        "mismatches": []
+      },
+      "equal": true
+    },
+    "tempos_reparacao": {
+      "legacy_rows": 21045,
+      "target_rows": 21045,
+      "missing_in_target": 0,
+      "extra_in_target": 0,
+      "mismatched_cells": 0,
+      "problems": [],
+      "samples": {
+        "missing": [],
+        "extra": [],
+        "mismatches": []
+      },
+      "equal": true
+    },
+    "material_reparacao": {
+      "legacy_rows": 72768,
+      "target_rows": 72768,
+      "missing_in_target": 0,
+      "extra_in_target": 0,
+      "mismatched_cells": 0,
+      "problems": [],
+      "samples": {
+        "missing": [],
+        "extra": [],
+        "mismatches": []
+      },
+      "equal": true
+    },
+    "utilizadores": {
+      "legacy_rows": 1,
+      "target_rows": 1,
+      "missing_in_target": 0,
+      "extra_in_target": 0,
+      "mismatched_cells": 0,
+      "problems": [],
+      "samples": {
+        "missing": [],
+        "extra": [],
+        "mismatches": []
+      },
+      "equal": true
+    },
+    "unidades": {
+      "legacy_rows": 4,
+      "target_rows": 4,
+      "missing_in_target": 0,
+      "extra_in_target": 0,
+      "mismatched_cells": 0,
+      "problems": [],
+      "samples": {
+        "missing": [],
+        "extra": [],
+        "mismatches": []
+      },
+      "equal": true
+    },
+    "documentos": {
+      "legacy_rows": 4,
+      "target_rows": 4,
+      "missing_in_target": 0,
+      "extra_in_target": 0,
+      "mismatched_cells": 0,
+      "problems": [],
+      "samples": {
+        "missing": [],
+        "extra": [],
+        "mismatches": []
+      },
+      "equal": true
+    },
+    "cab_stocks": {
+      "legacy_rows": 4217,
+      "target_rows": 4217,
+      "missing_in_target": 0,
+      "extra_in_target": 0,
+      "mismatched_cells": 0,
+      "problems": [],
+      "samples": {
+        "missing": [],
+        "extra": [],
+        "mismatches": []
+      },
+      "equal": true
+    },
+    "lin_stocks": {
+      "legacy_rows": 23615,
+      "target_rows": 23615,
+      "missing_in_target": 0,
+      "extra_in_target": 0,
+      "mismatched_cells": 0,
+      "problems": [],
+      "samples": {
+        "missing": [],
+        "extra": [],
+        "mismatches": []
+      },
+      "equal": true
+    },
+    "estados_reparacao": {
+      "legacy_rows": 11,
+      "target_rows": 11,
+      "missing_in_target": 0,
+      "extra_in_target": 0,
+      "mismatched_cells": 0,
+      "problems": [],
+      "samples": {
+        "missing": [],
+        "extra": [],
+        "mismatches": []
+      },
+      "equal": true
+    },
+    "estados_descritivos": {
+      "legacy_rows": 5,
+      "target_rows": 5,
+      "missing_in_target": 0,
+      "extra_in_target": 0,
+      "mismatched_cells": 0,
+      "problems": [],
+      "samples": {
+        "missing": [],
+        "extra": [],
+        "mismatches": []
+      },
+      "equal": true
+    },
+    "Terminais": {
+      "legacy_rows": 0,
+      "target_rows": 0,
+      "missing_in_target": 0,
+      "extra_in_target": 0,
+      "mismatched_cells": 0,
+      "problems": [],
+      "samples": {
+        "missing": [],
+        "extra": [],
+        "mismatches": []
+      },
+      "equal": true
+    },
+    "sistema": {
+      "legacy_rows": 1,
+      "target_rows": 1,
+      "missing_in_target": 0,
+      "extra_in_target": 0,
+      "mismatched_cells": 0,
+      "problems": [],
+      "samples": {
+        "missing": [],
+        "extra": [],
+        "mismatches": []
+      },
+      "equal": true
+    },
+    "postos": {
+      "legacy_rows": 0,
+      "target_rows": 0,
+      "missing_in_target": 0,
+      "extra_in_target": 0,
+      "mismatched_cells": 0,
+      "problems": [],
+      "samples": {
+        "missing": [],
+        "extra": [],
+        "mismatches": []
+      },
+      "equal": true
+    }
+  }
+}

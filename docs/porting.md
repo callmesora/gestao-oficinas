@@ -40,3 +40,7 @@ Runtime and data edge cases without evidence receive U-UNIT-nn identifiers. No r
 | Encoded actions/event codes | docs/evidence/encoded-actions.md and both event legends remain authoritative; target handlers cite answer/proposal and assumption | every relevant slice |
 
 The first implementation of each pattern must replace its reserved shape with actual symbols/tests in this document. No empty helper or adapter may satisfy a parity row. A missing pattern is added before its construct is ported, reviewed with the slice, and reused thereafter.
+
+## Implemented database foundation
+
+HFSQL export → PostgreSQL: apps/server/src/db/column-mapping.v1.json names every field and conversion; legacy-import.ts exports convertCell/importLegacy/reconcileLegacy. Values cross this import boundary as exact strings, NULL or bytes, with typed provenance. migrate.ts owns transactional migration/checksum checks. legacy-import.test.ts exercises real PostgreSQL, rollback/retry, quarantine, precision, duplicate identities and restore; dry-run.ts reconciles the full copied dataset. This establishes import representation only; domain arithmetic and workflow write patterns above remain to implement in their owning stages.

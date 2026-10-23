@@ -1,0 +1,56 @@
+{
+  "checkedAt": "2026-10-24",
+  "tables": 17,
+  "rows_compared": 159668,
+  "nul_only_cells_corrected_to_empty": 97774,
+  "changed_columns": {
+    "artigos.codbarras": 15307,
+    "cab_stocks.Descricao": 4143,
+    "Clientes.Morada2": 2157,
+    "Clientes.codpostal": 2160,
+    "Clientes.Telemovel": 84,
+    "Clientes.observacao": 2160,
+    "Clientes.Telefone1": 2062,
+    "Clientes.Morada1": 179,
+    "lin_stocks.documento_codigo": 1,
+    "ordem_reparacao.reparacao_estado_obs": 15718,
+    "ordem_reparacao.recepcao_servico": 4506,
+    "ordem_reparacao.recepcao_obs": 12233,
+    "ordem_reparacao.reparacao_servico": 15714,
+    "ordem_reparacao.reparacao_estado_historico": 15005,
+    "ordem_reparacao.recepacao_contatos": 982,
+    "ordem_reparacao.numero_fatura": 5363
+  },
+  "all_other_cells_identical": true,
+  "scratch_files_unchanged": 39,
+  "driver_probe": {
+    "empty_sql_c_char_reported_length": 1,
+    "actual_c_terminator_position": 0,
+    "nonempty_reported_length_matches_terminator": true
+  },
+  "corrected_typed_hashes": {
+    "artigos": "8b3da851370b9b283adf36c68d294fd5698aca6b9eddfe4041d11e01c4ddffa1",
+    "cab_stocks": "d6b6744abc16a8da0231d749e5c28f3bb720a2cacb6234398eaa05a26cc5b9b9",
+    "Clientes": "5a1e93b1d45807813506d4f12706ea2ed4c5e31cc8a35dd33b89650149ac89bd",
+    "documentos": "b0942a1c819dfd171c89235c4d7a3278c272827e5ad98a762dcc236a61e447e0",
+    "estados_descritivos": "805a801635abab72c8451aba37b622d059b17675a9a17ffe0917e01fd30b6bc8",
+    "estados_reparacao": "d4d7cd40a41504b779bfe9896f9bf80bbe1edc841ab86aaf5b2053ecc89a79ef",
+    "lin_stocks": "65778d26bac2d4b20c2c291700109e7fc4110e1cf2df675dcbab4b0757412fbd",
+    "material_reparacao": "1bb0b50274fcd53454a294da2d9cc6c676977f0d53632e2d64f4ed9d87f3b446",
+    "mecanicos": "77f96cd04cb8bd928ac2eaabaf8c4dddc74541e40097100ee81bc0da3ef25000",
+    "ordem_reparacao": "57673b7ee2ee66a9651e56fbb21c01aea7c3e5e4aecd38e524964aad13eabd86",
+    "postos": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sistema": "781d112537d360f9f71b3571f3e7e9b37dec4fc06daf84c43524d67a8d0ac6e2",
+    "tempos_reparacao": "6c3c32fb48f5618da337ec6ef09bb525942713edc1c509c7fddaf075d1530649",
+    "Terminais": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "unidades": "8ecf532db9578182f47ed44b6a1ae6dbbe97054fbc521baf1d77a5eda89ab3c7",
+    "utilizadores": "5e6d8f9969455ff05b43ca28a8ed52c94abcc0c021666dd6ca5397af7aaeca5c",
+    "Viaturas": "77460ec3c7a0f89f007b6b8540061d4b15522de45ebae0a1ce400168e1bae0b3"
+  },
+  "basis": "Microsoft SQLGetData SQL_C_CHAR null-terminated output; scripts/windows/HfSqlOdbcAnsi.cs CharacterCount; scripts/windows/test_ansi_text.ps1",
+  "limitations": [
+    "Official ANSI driver view, not FIC storage decoding",
+    "Native large-payload chunking beyond this dataset remains untested"
+  ],
+  "independent_repeated_driver_read_matches_all_tables": true
+}

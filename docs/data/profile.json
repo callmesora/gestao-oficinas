@@ -66,13 +66,13 @@
      "type": "String",
      "rows": 15558,
      "null": 0,
-     "empty": 0,
+     "empty": 15307,
      "distinct": 252,
      "invalid": 0,
      "max_length": 16,
      "padded": 0,
      "line_breaks": 0,
-     "control": 15307,
+     "control": 0,
      "findings": []
     },
     "unidade": {
@@ -333,13 +333,13 @@
      "type": "String",
      "rows": 4217,
      "null": 0,
-     "empty": 0,
+     "empty": 4143,
      "distinct": 29,
      "invalid": 0,
      "max_length": 47,
      "padded": 4,
      "line_breaks": 0,
-     "control": 4143,
+     "control": 0,
      "findings": [
       "4 values with leading or trailing spaces: keep, or trim in the import?"
      ]
@@ -426,13 +426,13 @@
      "type": "String",
      "rows": 2165,
      "null": 0,
-     "empty": 0,
+     "empty": 179,
      "distinct": 208,
      "invalid": 0,
      "max_length": 30,
      "padded": 5,
      "line_breaks": 0,
-     "control": 179,
+     "control": 0,
      "findings": [
       "5 values with leading or trailing spaces: keep, or trim in the import?"
      ]
@@ -441,39 +441,39 @@
      "type": "String",
      "rows": 2165,
      "null": 0,
-     "empty": 0,
+     "empty": 2157,
      "distinct": 9,
      "invalid": 0,
      "max_length": 30,
      "padded": 0,
      "line_breaks": 0,
-     "control": 2157,
+     "control": 0,
      "findings": []
     },
     "codpostal": {
      "type": "String",
      "rows": 2165,
      "null": 0,
-     "empty": 0,
+     "empty": 2160,
      "distinct": 6,
      "invalid": 0,
      "max_length": 24,
      "padded": 0,
      "line_breaks": 0,
-     "control": 2160,
+     "control": 0,
      "findings": []
     },
     "Telefone1": {
      "type": "String",
      "rows": 2165,
      "null": 0,
-     "empty": 0,
+     "empty": 2062,
      "distinct": 103,
      "invalid": 0,
      "max_length": 36,
      "padded": 3,
      "line_breaks": 0,
-     "control": 2062,
+     "control": 0,
      "findings": [
       "3 values with leading or trailing spaces: keep, or trim in the import?"
      ]
@@ -482,13 +482,13 @@
      "type": "String",
      "rows": 2165,
      "null": 0,
-     "empty": 0,
+     "empty": 84,
      "distinct": 1991,
      "invalid": 0,
      "max_length": 34,
      "padded": 2,
      "line_breaks": 0,
-     "control": 84,
+     "control": 0,
      "findings": [
       "2 values with leading or trailing spaces: keep, or trim in the import?"
      ]
@@ -497,13 +497,13 @@
      "type": "Text Memo",
      "rows": 2165,
      "null": 0,
-     "empty": 0,
+     "empty": 2160,
      "distinct": 6,
      "invalid": 0,
      "max_length": 42,
      "padded": 1,
      "line_breaks": 0,
-     "control": 2160,
+     "control": 0,
      "findings": [
       "1 values with leading or trailing spaces: keep, or trim in the import?"
      ]
@@ -877,13 +877,13 @@
      "type": "String",
      "rows": 23615,
      "null": 0,
-     "empty": 0,
+     "empty": 1,
      "distinct": 3,
      "invalid": 0,
      "max_length": 2,
      "padded": 0,
      "line_breaks": 0,
-     "control": 1,
+     "control": 0,
      "findings": []
     },
     "documento_numero": {
@@ -1500,13 +1500,13 @@
      "type": "String",
      "rows": 15719,
      "null": 0,
-     "empty": 0,
+     "empty": 15718,
      "distinct": 2,
      "invalid": 0,
      "max_length": 43,
      "padded": 0,
      "line_breaks": 0,
-     "control": 15718,
+     "control": 0,
      "findings": []
     },
     "recepcao_entrega_prevista": {
@@ -1611,13 +1611,13 @@
      "type": "Text Memo",
      "rows": 15719,
      "null": 0,
-     "empty": 0,
+     "empty": 4506,
      "distinct": 8551,
      "invalid": 0,
      "max_length": 608,
      "padded": 2154,
      "line_breaks": 7333,
-     "control": 4506,
+     "control": 0,
      "findings": [
       "2154 values with leading or trailing spaces: keep, or trim in the import?",
       "7333 values with line breaks (WINDEV writes CR LF)"
@@ -1627,13 +1627,13 @@
      "type": "Text Memo",
      "rows": 15719,
      "null": 0,
-     "empty": 0,
+     "empty": 12233,
      "distinct": 2657,
      "invalid": 0,
      "max_length": 316,
      "padded": 286,
      "line_breaks": 1046,
-     "control": 12233,
+     "control": 0,
      "findings": [
       "286 values with leading or trailing spaces: keep, or trim in the import?",
       "1046 values with line breaks (WINDEV writes CR LF)"
@@ -1664,13 +1664,13 @@
      "type": "Text Memo",
      "rows": 15719,
      "null": 0,
-     "empty": 0,
+     "empty": 15714,
      "distinct": 6,
      "invalid": 0,
      "max_length": 52,
      "padded": 0,
      "line_breaks": 0,
-     "control": 15714,
+     "control": 0,
      "findings": []
     },
     "reparacao_estado_data": {
@@ -1696,13 +1696,13 @@
      "type": "Text Memo",
      "rows": 15719,
      "null": 0,
-     "empty": 0,
+     "empty": 15005,
      "distinct": 700,
      "invalid": 0,
      "max_length": 340,
      "padded": 713,
      "line_breaks": 714,
-     "control": 15005,
+     "control": 0,
      "findings": [
       "713 values with leading or trailing spaces: keep, or trim in the import?",
       "714 values with line breaks (WINDEV writes CR LF)"
@@ -1712,13 +1712,13 @@
      "type": "Text Memo",
      "rows": 15719,
      "null": 0,
-     "empty": 0,
+     "empty": 982,
      "distinct": 2454,
      "invalid": 0,
      "max_length": 67,
      "padded": 58,
      "line_breaks": 1378,
-     "control": 982,
+     "control": 0,
      "findings": [
       "58 values with leading or trailing spaces: keep, or trim in the import?",
       "1378 values with line breaks (WINDEV writes CR LF)"
@@ -1890,13 +1890,13 @@
      "type": "String",
      "rows": 15719,
      "null": 0,
-     "empty": 0,
+     "empty": 5363,
      "distinct": 9773,
      "invalid": 0,
      "max_length": 20,
      "padded": 1,
      "line_breaks": 0,
-     "control": 5363,
+     "control": 0,
      "findings": [
       "1 values with leading or trailing spaces: keep, or trim in the import?"
      ]

@@ -87,7 +87,7 @@ Named after a table or its identifier, or given with `--ref`; the analysis decla
 | artigosID | Automatic identifier (8 bytes) | 0 | 0 | 15558 | 0 | 5 | 17 … 15757 | `9999` 8902, `99999` 5723, `999` 859 |
 | Codigo | String | 0 | 0 | 15558 | 0 | 20 |  |  |
 | Descricao | String | 0 | 0 | 2969 | 0 | 55 |  |  |
-| codbarras | String | 0 | 0 | 252 | 0 | 16 |  |  |
+| codbarras | String | 0 | 15307 | 252 | 0 | 16 |  |  |
 | unidade | String | 0 | 0 | 4 | 0 | 2 |  |  |
 | preco | 8-byte real | 0 | 0 | 6071 | 0 | 7 | 0 … 8126.06 | `99.99` 6998, `99.9` 2567, `9.99` 1644 |
 | inativo | Boolean | 0 | 0 | 2 | 0 | 1 |  | `9` 15558 |
@@ -106,7 +106,7 @@ Named after a table or its identifier, or given with `--ref`; the analysis decla
 | mecanico | Unsigned 1-byte integer | 0 | 0 | 1 | 0 | 1 | 0 … 0 | `9` 4217 |
 | DocumentosID | 8-byte integer | 0 | 0 | 1 | 0 | 1 | 0 … 0 | `9` 4217 |
 | MecanicosID | 8-byte integer | 0 | 0 | 1 | 0 | 1 | 0 … 0 | `9` 4217 |
-| Descricao | String | 0 | 0 | 29 | 0 | 47 |  |  |
+| Descricao | String | 0 | 4143 | 29 | 0 | 47 |  |  |
 
 ## Clientes
 
@@ -117,12 +117,12 @@ Named after a table or its identifier, or given with `--ref`; the analysis decla
 | ClientesID | Automatic identifier (8 bytes) | 0 | 0 | 2165 | 0 | 4 | 5 … 2176 | `9999` 1171, `999` 900, `99` 89 |
 | Codigo | Unsigned 8-byte integer | 0 | 0 | 2165 | 0 | 4 | 1 … 2165 | `9999` 1166, `999` 900, `99` 90 |
 | Descricao | String | 0 | 0 | 2129 | 0 | 52 |  |  |
-| Morada1 | String | 0 | 0 | 208 | 0 | 30 |  |  |
-| Morada2 | String | 0 | 0 | 9 | 0 | 30 |  |  |
-| codpostal | String | 0 | 0 | 6 | 0 | 24 |  |  |
-| Telefone1 | String | 0 | 0 | 103 | 0 | 36 |  |  |
-| Telemovel | String | 0 | 0 | 1991 | 0 | 34 |  |  |
-| observacao | Text Memo | 0 | 0 | 6 | 0 | 42 |  |  |
+| Morada1 | String | 0 | 179 | 208 | 0 | 30 |  |  |
+| Morada2 | String | 0 | 2157 | 9 | 0 | 30 |  |  |
+| codpostal | String | 0 | 2160 | 6 | 0 | 24 |  |  |
+| Telefone1 | String | 0 | 2062 | 103 | 0 | 36 |  |  |
+| Telemovel | String | 0 | 84 | 1991 | 0 | 34 |  |  |
+| observacao | Text Memo | 0 | 2160 | 6 | 0 | 42 |  |  |
 
 ## documentos
 
@@ -170,7 +170,7 @@ Named after a table or its identifier, or given with `--ref`; the analysis decla
 | Column | Type | Null | Empty | Distinct | Invalid | Max length | Range | Shapes |
 |---|---|---|---|---|---|---|---|---|
 | lin_stocksID | Automatic identifier (8 bytes) | 0 | 0 | 23615 | 0 | 5 | 45 … 30011 | `99999` 15939, `9999` 6967, `999` 684 |
-| documento_codigo | String | 0 | 0 | 3 | 0 | 2 |  |  |
+| documento_codigo | String | 0 | 1 | 3 | 0 | 2 |  |  |
 | documento_numero | Unsigned 8-byte integer | 0 | 0 | 4174 | 0 | 4 | 1 … 4181 | `9999` 18567, `999` 4400, `99` 505 |
 | linha | Unsigned 4-byte integer | 0 | 0 | 46 | 0 | 2 | 1 … 47 | `9` 21037, `99` 2578 |
 | artigo | String | 0 | 0 | 10284 | 0 | 20 |  |  |
@@ -220,18 +220,18 @@ Named after a table or its identifier, or given with `--ref`; the analysis decla
 | numero | Unsigned 8-byte integer | 0 | 0 | 15719 | 0 | 5 | 1 … 15724 | `9999` 8998, `99999` 5723, `999` 900 |
 | recepcao_datahora | Date and Time (yyyymmddhhmmssccc) | 0 | 0 | 15627 | 0 | 23 | 1990-02-05 00:00:00.000 … 2024-09-16 18:26:00.000 | `9999-99-99 99:99:99.999` 15719 |
 | reparacao_estado | String | 0 | 0 | 7 | 0 | 2 |  |  |
-| reparacao_estado_obs | String | 0 | 0 | 2 | 0 | 43 |  |  |
+| reparacao_estado_obs | String | 0 | 15718 | 2 | 0 | 43 |  |  |
 | recepcao_entrega_prevista | Date (yyyymmdd) | 0 | 0 | 2216 | 0 | 8 | 20160328 … 20240916 | `99999999` 15719 |
 | reparacao_mecanico | Unsigned 1-byte integer | 0 | 0 | 11 | 0 | 2 | 1 … 11 | `9` 14965, `99` 754 |
 | km_viatura | Unsigned 8-byte integer | 0 | 0 | 12449 | 0 | 9 | 5 … 9.64085e+08 | `999999` 11083, `99` 2871, `99999` 1715 |
 | recepcao_util | Unsigned 1-byte integer | 0 | 0 | 1 | 0 | 1 | 1 … 1 | `9` 15719 |
-| recepcao_servico | Text Memo | 0 | 0 | 8551 | 0 | 608 |  |  |
-| recepcao_obs | Text Memo | 0 | 0 | 2657 | 0 | 316 |  |  |
+| recepcao_servico | Text Memo | 0 | 4506 | 8551 | 0 | 608 |  |  |
+| recepcao_obs | Text Memo | 0 | 12233 | 2657 | 0 | 316 |  |  |
 | recepcao_prioridade | Unsigned 1-byte integer | 0 | 0 | 3 | 0 | 1 | 1 … 3 | `9` 15719 |
-| reparacao_servico | Text Memo | 0 | 0 | 6 | 0 | 52 |  |  |
+| reparacao_servico | Text Memo | 0 | 15714 | 6 | 0 | 52 |  |  |
 | reparacao_estado_data | Date and Time (yyyymmddhhmmssccc) | 15005 | 0 | 675 | 0 | 23 | 2016-03-29 18:38:00.000 … 2024-05-06 17:02:00.000 | `9999-99-99 99:99:99.999` 714 |
-| reparacao_estado_historico | Text Memo | 0 | 0 | 700 | 0 | 340 |  |  |
-| recepacao_contatos | Text Memo | 0 | 0 | 2454 | 0 | 67 |  |  |
+| reparacao_estado_historico | Text Memo | 0 | 15005 | 700 | 0 | 340 |  |  |
+| recepacao_contatos | Text Memo | 0 | 982 | 2454 | 0 | 67 |  |  |
 | totaL_mao_obra | 8-byte real | 0 | 0 | 1 | 0 | 1 | 0 … 0 | `9` 15719 |
 | total_pecas | 8-byte real | 0 | 0 | 1 | 0 | 1 | 0 … 0 | `9` 15719 |
 | total_desconto | 8-byte real | 0 | 0 | 1 | 0 | 1 | 0 … 0 | `9` 15719 |
@@ -239,7 +239,7 @@ Named after a table or its identifier, or given with `--ref`; the analysis decla
 | faturado | Boolean | 0 | 0 | 2 | 0 | 1 |  | `9` 15719 |
 | total_pago | 8-byte real | 0 | 0 | 8471 | 0 | 8 | 0 … 525920 | `999.99` 6925, `999` 2758, `99.99` 1552 |
 | Estados_reparacaoID | 8-byte integer | 0 | 0 | 1 | 0 | 1 | 0 … 0 | `9` 15719 |
-| numero_fatura | String | 0 | 0 | 9773 | 0 | 20 |  |  |
+| numero_fatura | String | 0 | 5363 | 9773 | 0 | 20 |  |  |
 | recepcao_cliente | Unsigned 8-byte integer | 0 | 0 | 2109 | 0 | 4 | 2 … 2165 | `999` 8787, `9999` 4021, `99` 2775 |
 | data_pagamento | Date (yyyymmdd) | 1974 | 0 | 2164 | 0 | 8 | 20160707 … 20240916 | `99999999` 13745 |
 | recepcao_terceiro | Unsigned 8-byte integer | 0 | 0 | 26 | 0 | 4 | 0 … 1599 | `9` 15648, `99` 39, `999` 26 |

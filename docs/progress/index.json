@@ -1,5 +1,294 @@
 [
  {
+  "name": "artigos",
+  "kind": "table",
+  "total": 4,
+  "done": 1,
+  "stage": "building",
+  "spec": false,
+  "assumed": 0,
+  "statuses": {
+   "verified": 1,
+   "excluded": 0,
+   "implemented": 0,
+   "specified": 0,
+   "unmapped": 3
+  },
+  "looks": null
+ },
+ {
+  "name": "cab_stocks",
+  "kind": "table",
+  "total": 4,
+  "done": 1,
+  "stage": "building",
+  "spec": false,
+  "assumed": 0,
+  "statuses": {
+   "verified": 1,
+   "excluded": 0,
+   "implemented": 0,
+   "specified": 0,
+   "unmapped": 3
+  },
+  "looks": null
+ },
+ {
+  "name": "Clientes",
+  "kind": "table",
+  "total": 4,
+  "done": 1,
+  "stage": "building",
+  "spec": false,
+  "assumed": 0,
+  "statuses": {
+   "verified": 1,
+   "excluded": 0,
+   "implemented": 0,
+   "specified": 0,
+   "unmapped": 3
+  },
+  "looks": null
+ },
+ {
+  "name": "documentos",
+  "kind": "table",
+  "total": 4,
+  "done": 1,
+  "stage": "building",
+  "spec": false,
+  "assumed": 0,
+  "statuses": {
+   "verified": 1,
+   "excluded": 0,
+   "implemented": 0,
+   "specified": 0,
+   "unmapped": 3
+  },
+  "looks": null
+ },
+ {
+  "name": "estados_descritivos",
+  "kind": "table",
+  "total": 4,
+  "done": 1,
+  "stage": "building",
+  "spec": false,
+  "assumed": 0,
+  "statuses": {
+   "verified": 1,
+   "excluded": 0,
+   "implemented": 0,
+   "specified": 0,
+   "unmapped": 3
+  },
+  "looks": null
+ },
+ {
+  "name": "estados_reparacao",
+  "kind": "table",
+  "total": 4,
+  "done": 1,
+  "stage": "building",
+  "spec": false,
+  "assumed": 0,
+  "statuses": {
+   "verified": 1,
+   "excluded": 0,
+   "implemented": 0,
+   "specified": 0,
+   "unmapped": 3
+  },
+  "looks": null
+ },
+ {
+  "name": "lin_stocks",
+  "kind": "table",
+  "total": 4,
+  "done": 1,
+  "stage": "building",
+  "spec": false,
+  "assumed": 0,
+  "statuses": {
+   "verified": 1,
+   "excluded": 0,
+   "implemented": 0,
+   "specified": 0,
+   "unmapped": 3
+  },
+  "looks": null
+ },
+ {
+  "name": "material_reparacao",
+  "kind": "table",
+  "total": 4,
+  "done": 1,
+  "stage": "building",
+  "spec": false,
+  "assumed": 0,
+  "statuses": {
+   "verified": 1,
+   "excluded": 0,
+   "implemented": 0,
+   "specified": 0,
+   "unmapped": 3
+  },
+  "looks": null
+ },
+ {
+  "name": "mecanicos",
+  "kind": "table",
+  "total": 4,
+  "done": 1,
+  "stage": "building",
+  "spec": false,
+  "assumed": 0,
+  "statuses": {
+   "verified": 1,
+   "excluded": 0,
+   "implemented": 0,
+   "specified": 0,
+   "unmapped": 3
+  },
+  "looks": null
+ },
+ {
+  "name": "ordem_reparacao",
+  "kind": "table",
+  "total": 4,
+  "done": 1,
+  "stage": "building",
+  "spec": false,
+  "assumed": 0,
+  "statuses": {
+   "verified": 1,
+   "excluded": 0,
+   "implemented": 0,
+   "specified": 0,
+   "unmapped": 3
+  },
+  "looks": null
+ },
+ {
+  "name": "postos",
+  "kind": "table",
+  "total": 4,
+  "done": 1,
+  "stage": "building",
+  "spec": false,
+  "assumed": 0,
+  "statuses": {
+   "verified": 1,
+   "excluded": 0,
+   "implemented": 0,
+   "specified": 0,
+   "unmapped": 3
+  },
+  "looks": null
+ },
+ {
+  "name": "sistema",
+  "kind": "table",
+  "total": 4,
+  "done": 1,
+  "stage": "building",
+  "spec": false,
+  "assumed": 0,
+  "statuses": {
+   "verified": 1,
+   "excluded": 0,
+   "implemented": 0,
+   "specified": 0,
+   "unmapped": 3
+  },
+  "looks": null
+ },
+ {
+  "name": "tempos_reparacao",
+  "kind": "table",
+  "total": 4,
+  "done": 1,
+  "stage": "building",
+  "spec": false,
+  "assumed": 0,
+  "statuses": {
+   "verified": 1,
+   "excluded": 0,
+   "implemented": 0,
+   "specified": 0,
+   "unmapped": 3
+  },
+  "looks": null
+ },
+ {
+  "name": "Terminais",
+  "kind": "table",
+  "total": 4,
+  "done": 1,
+  "stage": "building",
+  "spec": false,
+  "assumed": 0,
+  "statuses": {
+   "verified": 1,
+   "excluded": 0,
+   "implemented": 0,
+   "specified": 0,
+   "unmapped": 3
+  },
+  "looks": null
+ },
+ {
+  "name": "unidades",
+  "kind": "table",
+  "total": 4,
+  "done": 1,
+  "stage": "building",
+  "spec": false,
+  "assumed": 0,
+  "statuses": {
+   "verified": 1,
+   "excluded": 0,
+   "implemented": 0,
+   "specified": 0,
+   "unmapped": 3
+  },
+  "looks": null
+ },
+ {
+  "name": "utilizadores",
+  "kind": "table",
+  "total": 4,
+  "done": 1,
+  "stage": "building",
+  "spec": false,
+  "assumed": 0,
+  "statuses": {
+   "verified": 1,
+   "excluded": 0,
+   "implemented": 0,
+   "specified": 0,
+   "unmapped": 3
+  },
+  "looks": null
+ },
+ {
+  "name": "Viaturas",
+  "kind": "table",
+  "total": 4,
+  "done": 1,
+  "stage": "building",
+  "spec": false,
+  "assumed": 0,
+  "statuses": {
+   "verified": 1,
+   "excluded": 0,
+   "implemented": 0,
+   "specified": 0,
+   "unmapped": 3
+  },
+  "looks": null
+ },
+ {
   "name": "MediaPlayer_0_D",
   "kind": "other",
   "total": 1,
@@ -2138,295 +2427,6 @@
    "implemented": 0,
    "specified": 14,
    "unmapped": 25
-  },
-  "looks": null
- },
- {
-  "name": "artigos",
-  "kind": "table",
-  "total": 4,
-  "done": 0,
-  "stage": "mapped",
-  "spec": false,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 1,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
-  "name": "cab_stocks",
-  "kind": "table",
-  "total": 4,
-  "done": 0,
-  "stage": "mapped",
-  "spec": false,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 1,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
-  "name": "Clientes",
-  "kind": "table",
-  "total": 4,
-  "done": 0,
-  "stage": "mapped",
-  "spec": false,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 1,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
-  "name": "documentos",
-  "kind": "table",
-  "total": 4,
-  "done": 0,
-  "stage": "mapped",
-  "spec": false,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 1,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
-  "name": "estados_descritivos",
-  "kind": "table",
-  "total": 4,
-  "done": 0,
-  "stage": "mapped",
-  "spec": false,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 1,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
-  "name": "estados_reparacao",
-  "kind": "table",
-  "total": 4,
-  "done": 0,
-  "stage": "mapped",
-  "spec": false,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 1,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
-  "name": "lin_stocks",
-  "kind": "table",
-  "total": 4,
-  "done": 0,
-  "stage": "mapped",
-  "spec": false,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 1,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
-  "name": "material_reparacao",
-  "kind": "table",
-  "total": 4,
-  "done": 0,
-  "stage": "mapped",
-  "spec": false,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 1,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
-  "name": "mecanicos",
-  "kind": "table",
-  "total": 4,
-  "done": 0,
-  "stage": "mapped",
-  "spec": false,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 1,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
-  "name": "ordem_reparacao",
-  "kind": "table",
-  "total": 4,
-  "done": 0,
-  "stage": "mapped",
-  "spec": false,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 1,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
-  "name": "postos",
-  "kind": "table",
-  "total": 4,
-  "done": 0,
-  "stage": "mapped",
-  "spec": false,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 1,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
-  "name": "sistema",
-  "kind": "table",
-  "total": 4,
-  "done": 0,
-  "stage": "mapped",
-  "spec": false,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 1,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
-  "name": "tempos_reparacao",
-  "kind": "table",
-  "total": 4,
-  "done": 0,
-  "stage": "mapped",
-  "spec": false,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 1,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
-  "name": "Terminais",
-  "kind": "table",
-  "total": 4,
-  "done": 0,
-  "stage": "mapped",
-  "spec": false,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 1,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
-  "name": "unidades",
-  "kind": "table",
-  "total": 4,
-  "done": 0,
-  "stage": "mapped",
-  "spec": false,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 1,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
-  "name": "utilizadores",
-  "kind": "table",
-  "total": 4,
-  "done": 0,
-  "stage": "mapped",
-  "spec": false,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 1,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
-  "name": "Viaturas",
-  "kind": "table",
-  "total": 4,
-  "done": 0,
-  "stage": "mapped",
-  "spec": false,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 1,
-   "unmapped": 3
   },
   "looks": null
  }

@@ -1,11 +1,13 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import process from "node:process";
+import { resolve } from "node:path";
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vite.dev/config/
 export default defineConfig(() => ({
   plugins: [react()],
+  optimizeDeps: { entries: ["index.html"] },
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //
@@ -24,8 +26,9 @@ export default defineConfig(() => ({
         }
       : undefined,
     watch: {
-      // 3. tell Vite to ignore watching `src-tauri`
-      ignored: ["**/src-tauri/**"],
+      // Copied evidence and test clusters are not application inputs.
+      ignored: ["src-tauri", "legacy", "analysis-local", "GestaoOficinas_TesteIA", "migrate-windev-javascript", ".venv"]
+        .map(folder => `${resolve(folder).replaceAll("\\", "/")}/**`),
     },
   },
 }));

@@ -20,7 +20,8 @@
     "parity": "node scripts/py.mjs scripts/parity_check.py docs/parity/parity.csv --seed docs/parity/parity-seed.csv",
     "ui:check": "playwright test -c ui-check/playwright.config.ts",
     "verify": "npm run typecheck && npm run lint && npm test && npm run rust:fmt && npm run rust:clippy && npm run rust:test && npm run bindings:check && npm run parity && npm run ui:check",
-    "native:check": "npm run tauri -- build --debug --no-bundle && node scripts/native-smoke.mjs"
+    "native:check": "npm run tauri -- build --debug --no-bundle && node scripts/native-smoke.mjs",
+    "db:dry-run": "tsx apps/server/src/db/dry-run.ts"
   },
   "dependencies": {
     "@fastify/cors": "11.3.1",
@@ -33,6 +34,7 @@
     "zod": "4.6.7"
   },
   "devDependencies": {
+    "@embedded-postgres/windows-x64": "18.4.0-beta.17",
     "@eslint/js": "10.0.1",
     "@playwright/test": "1.64.1",
     "@tauri-apps/cli": "2.12.4",
@@ -60,6 +62,7 @@
     "apps/server"
   ],
   "allowScripts": {
-    "esbuild@0.28.2": true
+    "esbuild@0.28.2": true,
+    "@embedded-postgres/windows-x64@18.4.0-beta.17": true
   }
 }

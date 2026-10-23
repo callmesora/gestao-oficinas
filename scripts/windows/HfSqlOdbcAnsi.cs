@@ -54,6 +54,18 @@ public sealed class HfSqlOdbcAnsi : IDisposable {
         try { Check(SQLExecDirectA(statement,sql,-3),3,statement,"execute SELECT"); return statement; }
         catch { SQLFreeHandle(3,statement); throw; }
     }
+    public static int CharacterCount(byte[] buffer, int reported, short rc) {
+        int capacity=buffer.Length-1;
+        int terminator=Array.IndexOf(buffer,(byte)0);
+        if(terminator<0 || terminator>capacity) throw new InvalidOperationException("Missing ANSI terminator.");
+        if(rc==1 && terminator!=capacity) throw new InvalidOperationException("Early terminator in truncated ANSI data.");
+        if(rc==0 && (reported<0 || reported<terminator)) throw new InvalidOperationException("Inconsistent ANSI data length.");
+        if(rc==0 && reported!=terminator && !(reported==1 && terminator==0))
+            throw new InvalidOperationException("Unexpected embedded ANSI terminator; refusing data loss.");
+        // HFSQL 28 reports length 1 for an empty SQL_C_CHAR result. The byte is
+        // the C terminator, not a character. Nonempty results exclude it normally.
+        return terminator;
+    }
     static object Value(IntPtr s, ushort col, short sqlType) {
         int indicator;
         if (sqlType == 6 || sqlType == 8 || sqlType == 7) {
@@ -75,6 +87,7 @@ public sealed class HfSqlOdbcAnsi : IDisposable {
                 if(rc==1 && indicator>=0 && indicator<=capacity) throw new InvalidOperationException("Inconsistent truncation length.");
                 int take = rc == 1 ? capacity : Math.Min(Math.Max(indicator,0),capacity);
                 if (indicator == -4 && rc == 0) throw new InvalidOperationException("Unknown final column length.");
+                if (!binary) take=CharacterCount(buffer,indicator,rc);
                 stream.Write(buffer,0,take);
                 if (rc == 0) break;
             }

@@ -4,7 +4,7 @@ Historical Step 0 mapping baseline. The owner now authorizes the complete migrat
 
 143 mapped source/table/template units; 877 source-seed rows retained exactly; 2273 total behavior rows.
 
-Verified confidence means the legacy fact has evidence. No row is implemented or verified as target behavior.
+Verified confidence means the legacy fact has evidence. Per-unit CSVs retain the Step 0 snapshots; current implementation/verification status lives in docs/parity/parity.csv.
 
 Start with docs/runbooks/step0-report.md, docs/legacy-inventory.md, docs/evidence-report.md and docs/runbooks/handoff.md.
 

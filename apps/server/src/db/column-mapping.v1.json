@@ -1,0 +1,2379 @@
+{
+  "version": 1,
+  "decision": "docs/decisions/002-data-representation.md",
+  "source": "legacy/GestaoOficinas_TesteIA/GestaoOficinas.xdd",
+  "tables": [
+    {
+      "name": "Clientes",
+      "columns": [
+        {
+          "name": "ClientesID",
+          "sourceName": "ClientesID",
+          "sourceCode": "24",
+          "sourceType": "Automatic identifier (8 bytes)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "Codigo",
+          "sourceName": "Codigo",
+          "sourceCode": "27",
+          "sourceType": "Unsigned 8-byte integer",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "Descricao",
+          "sourceName": "Descricao",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "100",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "Morada1",
+          "sourceName": "Morada1",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "100",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "Morada2",
+          "sourceName": "Morada2",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "100",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "codpostal",
+          "sourceName": "codpostal",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "50",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "Telefone1",
+          "sourceName": "Telefone1",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "50",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "Telemovel",
+          "sourceName": "Telemovel",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "50",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "observacao",
+          "sourceName": "observacao",
+          "sourceCode": "29",
+          "sourceType": "Text Memo",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        }
+      ],
+      "keys": [
+        {
+          "name": "ClientesID",
+          "columns": [
+            "ClientesID"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": true,
+          "reason": "retained numeric unique key"
+        },
+        {
+          "name": "Codigo",
+          "columns": [
+            "Codigo"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": true,
+          "reason": "retained numeric unique key"
+        },
+        {
+          "name": "Descricao",
+          "columns": [
+            "Descricao"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        }
+      ]
+    },
+    {
+      "name": "Viaturas",
+      "columns": [
+        {
+          "name": "ViaturasID",
+          "sourceName": "ViaturasID",
+          "sourceCode": "24",
+          "sourceType": "Automatic identifier (8 bytes)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "matricula",
+          "sourceName": "matricula",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "15",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "Cliente",
+          "sourceName": "Cliente",
+          "sourceCode": "27",
+          "sourceType": "Unsigned 8-byte integer",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "marca",
+          "sourceName": "marca",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "50",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "modelo",
+          "sourceName": "modelo",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "50",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "Ano",
+          "sourceName": "Ano",
+          "sourceCode": "9",
+          "sourceType": "Unsigned 2-byte integer",
+          "sourceSize": "2",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "integer",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "mes",
+          "sourceName": "mes",
+          "sourceCode": "36",
+          "sourceType": "Unsigned 1-byte integer",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "smallint",
+          "conversion": "integer",
+          "role": "business"
+        }
+      ],
+      "keys": [
+        {
+          "name": "ViaturasID",
+          "columns": [
+            "ViaturasID"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": true,
+          "reason": "retained numeric unique key"
+        },
+        {
+          "name": "matricula",
+          "columns": [
+            "matricula"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": false,
+          "reason": "text collation unresolved"
+        },
+        {
+          "name": "Cliente",
+          "columns": [
+            "Cliente"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        }
+      ]
+    },
+    {
+      "name": "mecanicos",
+      "columns": [
+        {
+          "name": "mecanicosID",
+          "sourceName": "mecanicosID",
+          "sourceCode": "24",
+          "sourceType": "Automatic identifier (8 bytes)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "Codigo",
+          "sourceName": "Codigo",
+          "sourceCode": "36",
+          "sourceType": "Unsigned 1-byte integer",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "smallint",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "Descricao",
+          "sourceName": "Descricao",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "100",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "palavra_passe",
+          "sourceName": "palavra_passe",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "15",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "credential-provenance"
+        },
+        {
+          "name": "inativo",
+          "sourceName": "inativo",
+          "sourceCode": "37",
+          "sourceType": "Boolean",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "boolean",
+          "conversion": "boolean",
+          "role": "business"
+        }
+      ],
+      "keys": [
+        {
+          "name": "mecanicosID",
+          "columns": [
+            "mecanicosID"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": true,
+          "reason": "retained numeric unique key"
+        },
+        {
+          "name": "Codigo",
+          "columns": [
+            "Codigo"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": true,
+          "reason": "retained numeric unique key"
+        },
+        {
+          "name": "Descricao",
+          "columns": [
+            "Descricao"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "inativo",
+          "columns": [
+            "inativo"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        }
+      ]
+    },
+    {
+      "name": "artigos",
+      "columns": [
+        {
+          "name": "artigosID",
+          "sourceName": "artigosID",
+          "sourceCode": "24",
+          "sourceType": "Automatic identifier (8 bytes)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "Codigo",
+          "sourceName": "Codigo",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "30",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "Descricao",
+          "sourceName": "Descricao",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "100",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "codbarras",
+          "sourceName": "codbarras",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "30",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "unidade",
+          "sourceName": "unidade",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "3",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "preco",
+          "sourceName": "preco",
+          "sourceCode": "7",
+          "sourceType": "8-byte real",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric",
+          "conversion": "decimal",
+          "role": "business"
+        },
+        {
+          "name": "inativo",
+          "sourceName": "inativo",
+          "sourceCode": "37",
+          "sourceType": "Boolean",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "boolean",
+          "conversion": "boolean",
+          "role": "business"
+        },
+        {
+          "name": "stock",
+          "sourceName": "stock",
+          "sourceCode": "41",
+          "sourceType": "Decimal",
+          "sourceSize": "7",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric",
+          "conversion": "decimal",
+          "role": "business"
+        }
+      ],
+      "keys": [
+        {
+          "name": "artigosID",
+          "columns": [
+            "artigosID"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": true,
+          "reason": "retained numeric unique key"
+        },
+        {
+          "name": "Codigo",
+          "columns": [
+            "Codigo"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": false,
+          "reason": "text collation unresolved"
+        },
+        {
+          "name": "Descricao",
+          "columns": [
+            "Descricao"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "unidade",
+          "columns": [
+            "unidade"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        }
+      ]
+    },
+    {
+      "name": "ordem_reparacao",
+      "columns": [
+        {
+          "name": "ordem_reparacaoID",
+          "sourceName": "ordem_reparacaoID",
+          "sourceCode": "24",
+          "sourceType": "Automatic identifier (8 bytes)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "numero",
+          "sourceName": "numero",
+          "sourceCode": "27",
+          "sourceType": "Unsigned 8-byte integer",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "matricula",
+          "sourceName": "matricula",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "15",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "km_viatura",
+          "sourceName": "km_viatura",
+          "sourceCode": "27",
+          "sourceType": "Unsigned 8-byte integer",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "recepcao_util",
+          "sourceName": "recepcao_util",
+          "sourceCode": "36",
+          "sourceType": "Unsigned 1-byte integer",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "smallint",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "recepcao_datahora",
+          "sourceName": "recepcao_datahora",
+          "sourceCode": "34",
+          "sourceType": "Date and Time (yyyymmddhhmmssccc)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "recepcao_cliente",
+          "sourceName": "recepcao_cliente",
+          "sourceCode": "27",
+          "sourceType": "Unsigned 8-byte integer",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "recepcao_terceiro",
+          "sourceName": "recepcao_terceiro",
+          "sourceCode": "27",
+          "sourceType": "Unsigned 8-byte integer",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "recepacao_contatos",
+          "sourceName": "recepacao_contatos",
+          "sourceCode": "29",
+          "sourceType": "Text Memo",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "recepcao_servico",
+          "sourceName": "recepcao_servico",
+          "sourceCode": "29",
+          "sourceType": "Text Memo",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "recepcao_obs",
+          "sourceName": "recepcao_obs",
+          "sourceCode": "29",
+          "sourceType": "Text Memo",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "recepcao_entrega_prevista",
+          "sourceName": "recepcao_entrega_prevista",
+          "sourceCode": "14",
+          "sourceType": "Date (yyyymmdd)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "recepcao_prioridade",
+          "sourceName": "recepcao_prioridade",
+          "sourceCode": "36",
+          "sourceType": "Unsigned 1-byte integer",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "smallint",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "reparacao_mecanico",
+          "sourceName": "reparacao_mecanico",
+          "sourceCode": "36",
+          "sourceType": "Unsigned 1-byte integer",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "smallint",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "reparacao_estado",
+          "sourceName": "reparacao_estado",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "3",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "reparacao_estado_obs",
+          "sourceName": "reparacao_estado_obs",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "100",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "reparacao_servico",
+          "sourceName": "reparacao_servico",
+          "sourceCode": "29",
+          "sourceType": "Text Memo",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "reparacao_estado_data",
+          "sourceName": "reparacao_estado_data",
+          "sourceCode": "34",
+          "sourceType": "Date and Time (yyyymmddhhmmssccc)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "reparacao_estado_historico",
+          "sourceName": "reparacao_estado_historico",
+          "sourceCode": "29",
+          "sourceType": "Text Memo",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "totaL_mao_obra",
+          "sourceName": "totaL_mao_obra",
+          "sourceCode": "7",
+          "sourceType": "8-byte real",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric",
+          "conversion": "decimal",
+          "role": "business"
+        },
+        {
+          "name": "total_pecas",
+          "sourceName": "total_pecas",
+          "sourceCode": "7",
+          "sourceType": "8-byte real",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric",
+          "conversion": "decimal",
+          "role": "business"
+        },
+        {
+          "name": "total_desconto",
+          "sourceName": "total_desconto",
+          "sourceCode": "7",
+          "sourceType": "8-byte real",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric",
+          "conversion": "decimal",
+          "role": "business"
+        },
+        {
+          "name": "total_reparacao",
+          "sourceName": "total_reparacao",
+          "sourceCode": "7",
+          "sourceType": "8-byte real",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric",
+          "conversion": "decimal",
+          "role": "business"
+        },
+        {
+          "name": "faturado",
+          "sourceName": "faturado",
+          "sourceCode": "37",
+          "sourceType": "Boolean",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "boolean",
+          "conversion": "boolean",
+          "role": "business"
+        },
+        {
+          "name": "total_pago",
+          "sourceName": "total_pago",
+          "sourceCode": "7",
+          "sourceType": "8-byte real",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric",
+          "conversion": "decimal",
+          "role": "business"
+        },
+        {
+          "name": "Estados_reparacaoID",
+          "sourceName": "Estados_reparacaoID",
+          "sourceCode": "25",
+          "sourceType": "8-byte integer",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "numero_fatura",
+          "sourceName": "numero_fatura",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "20",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "data_pagamento",
+          "sourceName": "data_pagamento",
+          "sourceCode": "14",
+          "sourceType": "Date (yyyymmdd)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        }
+      ],
+      "keys": [
+        {
+          "name": "ordem_reparacaoID",
+          "columns": [
+            "ordem_reparacaoID"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": true,
+          "reason": "retained numeric unique key"
+        },
+        {
+          "name": "numero",
+          "columns": [
+            "numero"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": true,
+          "reason": "retained numeric unique key"
+        },
+        {
+          "name": "matricula",
+          "columns": [
+            "matricula"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "recepcao_util",
+          "columns": [
+            "recepcao_util"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "recepcao_datahora",
+          "columns": [
+            "recepcao_datahora"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "recepcao_cliente",
+          "columns": [
+            "recepcao_cliente"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "recepcao_terceiro",
+          "columns": [
+            "recepcao_terceiro"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "reparacao_mecanico",
+          "columns": [
+            "reparacao_mecanico"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "reparacao_estado",
+          "columns": [
+            "reparacao_estado"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "Estados_reparacaoID",
+          "columns": [
+            "Estados_reparacaoID"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "data_pagamento",
+          "columns": [
+            "data_pagamento"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        }
+      ]
+    },
+    {
+      "name": "tempos_reparacao",
+      "columns": [
+        {
+          "name": "tempos_reparacaoID",
+          "sourceName": "tempos_reparacaoID",
+          "sourceCode": "24",
+          "sourceType": "Automatic identifier (8 bytes)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "numero",
+          "sourceName": "numero",
+          "sourceCode": "27",
+          "sourceType": "Unsigned 8-byte integer",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "mecanico",
+          "sourceName": "mecanico",
+          "sourceCode": "36",
+          "sourceType": "Unsigned 1-byte integer",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "smallint",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "inicio",
+          "sourceName": "inicio",
+          "sourceCode": "34",
+          "sourceType": "Date and Time (yyyymmddhhmmssccc)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "fim",
+          "sourceName": "fim",
+          "sourceCode": "34",
+          "sourceType": "Date and Time (yyyymmddhhmmssccc)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "Inicio_reparacao_estado",
+          "sourceName": "Inicio_reparacao_estado",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "3",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "fim_reparacao_estado",
+          "sourceName": "fim_reparacao_estado",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "3",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        }
+      ],
+      "keys": [
+        {
+          "name": "tempos_reparacaoID",
+          "columns": [
+            "tempos_reparacaoID"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": false,
+          "reason": "preserve duplicate IDs"
+        },
+        {
+          "name": "numero",
+          "columns": [
+            "numero"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "mecanico",
+          "columns": [
+            "mecanico"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "inicio",
+          "columns": [
+            "inicio"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "fim",
+          "columns": [
+            "fim"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "Inicio_reparacao_estado",
+          "columns": [
+            "Inicio_reparacao_estado"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "fim_reparacao_estado",
+          "columns": [
+            "fim_reparacao_estado"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "numeromecanico",
+          "columns": [
+            "numero",
+            "mecanico"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        }
+      ]
+    },
+    {
+      "name": "material_reparacao",
+      "columns": [
+        {
+          "name": "material_reparacaoID",
+          "sourceName": "material_reparacaoID",
+          "sourceCode": "24",
+          "sourceType": "Automatic identifier (8 bytes)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "numero",
+          "sourceName": "numero",
+          "sourceCode": "27",
+          "sourceType": "Unsigned 8-byte integer",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "mecanico",
+          "sourceName": "mecanico",
+          "sourceCode": "36",
+          "sourceType": "Unsigned 1-byte integer",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "smallint",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "artigo",
+          "sourceName": "artigo",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "30",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "descricao_artigo",
+          "sourceName": "descricao_artigo",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "100",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "quantidade",
+          "sourceName": "quantidade",
+          "sourceCode": "41",
+          "sourceType": "Decimal",
+          "sourceSize": "4",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric",
+          "conversion": "decimal",
+          "role": "business"
+        },
+        {
+          "name": "data_hora",
+          "sourceName": "data_hora",
+          "sourceCode": "34",
+          "sourceType": "Date and Time (yyyymmddhhmmssccc)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "reparacao_estado",
+          "sourceName": "reparacao_estado",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "3",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "preco",
+          "sourceName": "preco",
+          "sourceCode": "7",
+          "sourceType": "8-byte real",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric",
+          "conversion": "decimal",
+          "role": "business"
+        },
+        {
+          "name": "lancado",
+          "sourceName": "lancado",
+          "sourceCode": "37",
+          "sourceType": "Boolean",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "boolean",
+          "conversion": "boolean",
+          "role": "business"
+        },
+        {
+          "name": "extra",
+          "sourceName": "extra",
+          "sourceCode": "37",
+          "sourceType": "Boolean",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "boolean",
+          "conversion": "boolean",
+          "role": "business"
+        }
+      ],
+      "keys": [
+        {
+          "name": "material_reparacaoID",
+          "columns": [
+            "material_reparacaoID"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": true,
+          "reason": "retained numeric unique key"
+        },
+        {
+          "name": "numero",
+          "columns": [
+            "numero"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "mecanico",
+          "columns": [
+            "mecanico"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "artigo",
+          "columns": [
+            "artigo"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        }
+      ]
+    },
+    {
+      "name": "utilizadores",
+      "columns": [
+        {
+          "name": "utilizadoresID",
+          "sourceName": "utilizadoresID",
+          "sourceCode": "24",
+          "sourceType": "Automatic identifier (8 bytes)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "Codigo",
+          "sourceName": "Codigo",
+          "sourceCode": "36",
+          "sourceType": "Unsigned 1-byte integer",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "smallint",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "Descricao",
+          "sourceName": "Descricao",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "100",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "palavra_passe",
+          "sourceName": "palavra_passe",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "15",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "credential-provenance"
+        }
+      ],
+      "keys": [
+        {
+          "name": "utilizadoresID",
+          "columns": [
+            "utilizadoresID"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": true,
+          "reason": "retained numeric unique key"
+        },
+        {
+          "name": "Codigo",
+          "columns": [
+            "Codigo"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": true,
+          "reason": "retained numeric unique key"
+        },
+        {
+          "name": "Descricao",
+          "columns": [
+            "Descricao"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        }
+      ]
+    },
+    {
+      "name": "unidades",
+      "columns": [
+        {
+          "name": "unidadesID",
+          "sourceName": "unidadesID",
+          "sourceCode": "24",
+          "sourceType": "Automatic identifier (8 bytes)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "Codigo",
+          "sourceName": "Codigo",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "3",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "Descricao",
+          "sourceName": "Descricao",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "50",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        }
+      ],
+      "keys": [
+        {
+          "name": "unidadesID",
+          "columns": [
+            "unidadesID"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": true,
+          "reason": "retained numeric unique key"
+        },
+        {
+          "name": "Codigo",
+          "columns": [
+            "Codigo"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": false,
+          "reason": "text collation unresolved"
+        },
+        {
+          "name": "Descricao",
+          "columns": [
+            "Descricao"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        }
+      ]
+    },
+    {
+      "name": "documentos",
+      "columns": [
+        {
+          "name": "documentosID",
+          "sourceName": "documentosID",
+          "sourceCode": "24",
+          "sourceType": "Automatic identifier (8 bytes)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "Codigo",
+          "sourceName": "Codigo",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "3",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "Descricao",
+          "sourceName": "Descricao",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "50",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "stock",
+          "sourceName": "stock",
+          "sourceCode": "36",
+          "sourceType": "Unsigned 1-byte integer",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "smallint",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "obriga_macanico",
+          "sourceName": "obriga_macanico",
+          "sourceCode": "37",
+          "sourceType": "Boolean",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "boolean",
+          "conversion": "boolean",
+          "role": "business"
+        }
+      ],
+      "keys": [
+        {
+          "name": "documentosID",
+          "columns": [
+            "documentosID"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": true,
+          "reason": "retained numeric unique key"
+        },
+        {
+          "name": "Codigo",
+          "columns": [
+            "Codigo"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": false,
+          "reason": "text collation unresolved"
+        },
+        {
+          "name": "Descricao",
+          "columns": [
+            "Descricao"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "stock",
+          "columns": [
+            "stock"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        }
+      ]
+    },
+    {
+      "name": "cab_stocks",
+      "columns": [
+        {
+          "name": "cab_stocksID",
+          "sourceName": "cab_stocksID",
+          "sourceCode": "24",
+          "sourceType": "Automatic identifier (8 bytes)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "documento_codigo",
+          "sourceName": "documento_codigo",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "3",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "documento_numero",
+          "sourceName": "documento_numero",
+          "sourceCode": "27",
+          "sourceType": "Unsigned 8-byte integer",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "Descricao",
+          "sourceName": "Descricao",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "100",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "data",
+          "sourceName": "DATA",
+          "sourceCode": "34",
+          "sourceType": "Date and Time (yyyymmddhhmmssccc)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "mecanico",
+          "sourceName": "mecanico",
+          "sourceCode": "36",
+          "sourceType": "Unsigned 1-byte integer",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "smallint",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "DocumentosID",
+          "sourceName": "DocumentosID",
+          "sourceCode": "25",
+          "sourceType": "8-byte integer",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "MecanicosID",
+          "sourceName": "MecanicosID",
+          "sourceCode": "25",
+          "sourceType": "8-byte integer",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        }
+      ],
+      "keys": [
+        {
+          "name": "cab_stocksID",
+          "columns": [
+            "cab_stocksID"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": true,
+          "reason": "retained numeric unique key"
+        },
+        {
+          "name": "documento_codigo",
+          "columns": [
+            "documento_codigo"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "documento_numero",
+          "columns": [
+            "documento_numero"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "data",
+          "columns": [
+            "data"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "mecanico",
+          "columns": [
+            "mecanico"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "DocumentosID",
+          "columns": [
+            "DocumentosID"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "documento_codigodocumento_numero",
+          "columns": [
+            "documento_codigo",
+            "documento_numero"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": false,
+          "reason": "text collation unresolved"
+        },
+        {
+          "name": "MecanicosID",
+          "columns": [
+            "MecanicosID"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        }
+      ]
+    },
+    {
+      "name": "lin_stocks",
+      "columns": [
+        {
+          "name": "lin_stocksID",
+          "sourceName": "lin_stocksID",
+          "sourceCode": "24",
+          "sourceType": "Automatic identifier (8 bytes)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "documento_codigo",
+          "sourceName": "documento_codigo",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "3",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "documento_numero",
+          "sourceName": "documento_numero",
+          "sourceCode": "27",
+          "sourceType": "Unsigned 8-byte integer",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "linha",
+          "sourceName": "linha",
+          "sourceCode": "26",
+          "sourceType": "Unsigned 4-byte integer",
+          "sourceSize": "4",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "bigint",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "artigo",
+          "sourceName": "artigo",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "30",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "descricao_artigo",
+          "sourceName": "descricao_artigo",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "100",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "quantidade",
+          "sourceName": "quantidade",
+          "sourceCode": "41",
+          "sourceType": "Decimal",
+          "sourceSize": "4",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric",
+          "conversion": "decimal",
+          "role": "business"
+        },
+        {
+          "name": "preco",
+          "sourceName": "preco",
+          "sourceCode": "7",
+          "sourceType": "8-byte real",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric",
+          "conversion": "decimal",
+          "role": "business"
+        },
+        {
+          "name": "Documento_codigodocumento_numero",
+          "sourceName": "Documento_codigodocumento_numero",
+          "sourceCode": "28",
+          "sourceType": null,
+          "sourceSize": "11",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "bytea",
+          "conversion": "binary",
+          "role": "opaque-generated-link"
+        }
+      ],
+      "keys": [
+        {
+          "name": "lin_stocksID",
+          "columns": [
+            "lin_stocksID"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": true,
+          "reason": "retained numeric unique key"
+        },
+        {
+          "name": "documento_codigo",
+          "columns": [
+            "documento_codigo"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "documento_numero",
+          "columns": [
+            "documento_numero"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "artigo",
+          "columns": [
+            "artigo"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "documento_codigodocumento_numerolinha",
+          "columns": [
+            "documento_codigo",
+            "documento_numero",
+            "linha"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": false,
+          "reason": "text collation unresolved"
+        },
+        {
+          "name": "Documento_codigodocumento_numero",
+          "columns": [
+            "Documento_codigodocumento_numero"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        }
+      ]
+    },
+    {
+      "name": "estados_reparacao",
+      "columns": [
+        {
+          "name": "estados_reparacaoID",
+          "sourceName": "estados_reparacaoID",
+          "sourceCode": "24",
+          "sourceType": "Automatic identifier (8 bytes)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "Codigo",
+          "sourceName": "Codigo",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "3",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "Descricao",
+          "sourceName": "Descricao",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "50",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "tipo",
+          "sourceName": "tipo",
+          "sourceCode": "36",
+          "sourceType": "Unsigned 1-byte integer",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "smallint",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "Cor",
+          "sourceName": "Cor",
+          "sourceCode": "26",
+          "sourceType": "Unsigned 4-byte integer",
+          "sourceSize": "4",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "bigint",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "lancar_defa",
+          "sourceName": "lancar_defa",
+          "sourceCode": "37",
+          "sourceType": "Boolean",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "boolean",
+          "conversion": "boolean",
+          "role": "business"
+        },
+        {
+          "name": "lancar_material",
+          "sourceName": "lancar_material",
+          "sourceCode": "37",
+          "sourceType": "Boolean",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "boolean",
+          "conversion": "boolean",
+          "role": "business"
+        },
+        {
+          "name": "confirmacao",
+          "sourceName": "confirmacao",
+          "sourceCode": "37",
+          "sourceType": "Boolean",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "boolean",
+          "conversion": "boolean",
+          "role": "business"
+        },
+        {
+          "name": "pedir_data_entrega",
+          "sourceName": "pedir_data_entrega",
+          "sourceCode": "37",
+          "sourceType": "Boolean",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "boolean",
+          "conversion": "boolean",
+          "role": "business"
+        },
+        {
+          "name": "pedir_data_pag",
+          "sourceName": "pedir_data_pag",
+          "sourceCode": "37",
+          "sourceType": "Boolean",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "boolean",
+          "conversion": "boolean",
+          "role": "business"
+        }
+      ],
+      "keys": [
+        {
+          "name": "estados_reparacaoID",
+          "columns": [
+            "estados_reparacaoID"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": true,
+          "reason": "retained numeric unique key"
+        },
+        {
+          "name": "Codigo",
+          "columns": [
+            "Codigo"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": false,
+          "reason": "text collation unresolved"
+        },
+        {
+          "name": "Descricao",
+          "columns": [
+            "Descricao"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        },
+        {
+          "name": "tipo",
+          "columns": [
+            "tipo"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        }
+      ]
+    },
+    {
+      "name": "estados_descritivos",
+      "columns": [
+        {
+          "name": "estados_descritivosID",
+          "sourceName": "estados_descritivosID",
+          "sourceCode": "24",
+          "sourceType": "Automatic identifier (8 bytes)",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "Codigo",
+          "sourceName": "Codigo",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "3",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "Descricao",
+          "sourceName": "Descricao",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "100",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        }
+      ],
+      "keys": [
+        {
+          "name": "estados_descritivosID",
+          "columns": [
+            "estados_descritivosID"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": true,
+          "reason": "retained numeric unique key"
+        },
+        {
+          "name": "Codigo",
+          "columns": [
+            "Codigo"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": false,
+          "reason": "text collation unresolved"
+        },
+        {
+          "name": "Descricao",
+          "columns": [
+            "Descricao"
+          ],
+          "sourceUnique": false,
+          "postgresUnique": false,
+          "reason": "lookup/component index"
+        }
+      ]
+    },
+    {
+      "name": "Terminais",
+      "columns": [
+        {
+          "name": "Codigo",
+          "sourceName": "Codigo",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "3",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "Descricao",
+          "sourceName": "Descricao",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "30",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "codbarras_inicio",
+          "sourceName": "codbarras_inicio",
+          "sourceCode": "36",
+          "sourceType": "Unsigned 1-byte integer",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "smallint",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "codbarras_fim",
+          "sourceName": "codbarras_fim",
+          "sourceCode": "36",
+          "sourceType": "Unsigned 1-byte integer",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "smallint",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "quant_inicio",
+          "sourceName": "quant_inicio",
+          "sourceCode": "36",
+          "sourceType": "Unsigned 1-byte integer",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "smallint",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "quant_fim",
+          "sourceName": "quant_fim",
+          "sourceCode": "36",
+          "sourceType": "Unsigned 1-byte integer",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "smallint",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "pasta_localizacao",
+          "sourceName": "pasta_localizacao",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "200",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "nome_ficheiro",
+          "sourceName": "nome_ficheiro",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "50",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        }
+      ],
+      "keys": [
+        {
+          "name": "Codigo",
+          "columns": [
+            "Codigo"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": false,
+          "reason": "text collation unresolved"
+        }
+      ]
+    },
+    {
+      "name": "sistema",
+      "columns": [
+        {
+          "name": "Tempo_ordem_reparacao",
+          "sourceName": "Tempo_ordem_reparacao",
+          "sourceCode": "27",
+          "sourceType": "Unsigned 8-byte integer",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "Tempo_materiais",
+          "sourceName": "Tempo_materiais",
+          "sourceCode": "27",
+          "sourceType": "Unsigned 8-byte integer",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "Tempo_tempos",
+          "sourceName": "Tempo_tempos",
+          "sourceCode": "27",
+          "sourceType": "Unsigned 8-byte integer",
+          "sourceSize": "8",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "numeric(20,0)",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "Data_inicio",
+          "sourceName": "Data_inicio",
+          "sourceCode": "9",
+          "sourceType": "Unsigned 2-byte integer",
+          "sourceSize": "2",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "integer",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "encerrar_tempos1",
+          "sourceName": "encerrar_tempos1",
+          "sourceCode": "11",
+          "sourceType": "Time (hhmmss)",
+          "sourceSize": "6",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "encerrar_tempos2",
+          "sourceName": "encerrar_tempos2",
+          "sourceCode": "11",
+          "sourceType": "Time (hhmmss)",
+          "sourceSize": "6",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        }
+      ],
+      "keys": []
+    },
+    {
+      "name": "postos",
+      "columns": [
+        {
+          "name": "Codigo",
+          "sourceName": "Codigo",
+          "sourceCode": "36",
+          "sourceType": "Unsigned 1-byte integer",
+          "sourceSize": "1",
+          "nullable": true,
+          "sourceDefault": "0",
+          "postgresType": "smallint",
+          "conversion": "integer",
+          "role": "business"
+        },
+        {
+          "name": "Descricao",
+          "sourceName": "Descricao",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "50",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "terminal",
+          "sourceName": "terminal",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "3",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        },
+        {
+          "name": "teste",
+          "sourceName": "teste",
+          "sourceCode": "2",
+          "sourceType": "String",
+          "sourceSize": "50",
+          "nullable": true,
+          "sourceDefault": "",
+          "postgresType": "text",
+          "conversion": "text",
+          "role": "business"
+        }
+      ],
+      "keys": [
+        {
+          "name": "Codigo",
+          "columns": [
+            "Codigo"
+          ],
+          "sourceUnique": true,
+          "postgresUnique": true,
+          "reason": "retained numeric unique key"
+        }
+      ]
+    }
+  ]
+}

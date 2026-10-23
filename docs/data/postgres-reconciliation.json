@@ -1,0 +1,186 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-23T23:36:58.595Z",
+  "engine": "PostgreSQL 18.4 on x86_64-windows, compiled by msvc-19.44.35226, 64-bit",
+  "dryRun": true,
+  "sourceSha256": "a7e098e4169d12233ba49f80fe212c0ca2a9076bb718332f7e9b43592d64dde9",
+  "tables": {
+    "Clientes": {
+      "rows": 2165,
+      "imported": 2165,
+      "quarantined": 0,
+      "nulls": 0,
+      "binary": 0,
+      "sourceHash": "5a1e93b1d45807813506d4f12706ea2ed4c5e31cc8a35dd33b89650149ac89bd",
+      "provenanceHash": "5a1e93b1d45807813506d4f12706ea2ed4c5e31cc8a35dd33b89650149ac89bd",
+      "mismatches": 0
+    },
+    "Viaturas": {
+      "rows": 4544,
+      "imported": 4544,
+      "quarantined": 0,
+      "nulls": 0,
+      "binary": 0,
+      "sourceHash": "77460ec3c7a0f89f007b6b8540061d4b15522de45ebae0a1ce400168e1bae0b3",
+      "provenanceHash": "77460ec3c7a0f89f007b6b8540061d4b15522de45ebae0a1ce400168e1bae0b3",
+      "mismatches": 0
+    },
+    "mecanicos": {
+      "rows": 11,
+      "imported": 11,
+      "quarantined": 0,
+      "nulls": 0,
+      "binary": 0,
+      "sourceHash": "77f96cd04cb8bd928ac2eaabaf8c4dddc74541e40097100ee81bc0da3ef25000",
+      "provenanceHash": "77f96cd04cb8bd928ac2eaabaf8c4dddc74541e40097100ee81bc0da3ef25000",
+      "mismatches": 0
+    },
+    "artigos": {
+      "rows": 15558,
+      "imported": 15558,
+      "quarantined": 0,
+      "nulls": 0,
+      "binary": 0,
+      "sourceHash": "8b3da851370b9b283adf36c68d294fd5698aca6b9eddfe4041d11e01c4ddffa1",
+      "provenanceHash": "8b3da851370b9b283adf36c68d294fd5698aca6b9eddfe4041d11e01c4ddffa1",
+      "mismatches": 0
+    },
+    "ordem_reparacao": {
+      "rows": 15719,
+      "imported": 15719,
+      "quarantined": 0,
+      "nulls": 16979,
+      "binary": 0,
+      "sourceHash": "57673b7ee2ee66a9651e56fbb21c01aea7c3e5e4aecd38e524964aad13eabd86",
+      "provenanceHash": "57673b7ee2ee66a9651e56fbb21c01aea7c3e5e4aecd38e524964aad13eabd86",
+      "mismatches": 0
+    },
+    "tempos_reparacao": {
+      "rows": 21045,
+      "imported": 21045,
+      "quarantined": 0,
+      "nulls": 0,
+      "binary": 0,
+      "sourceHash": "6c3c32fb48f5618da337ec6ef09bb525942713edc1c509c7fddaf075d1530649",
+      "provenanceHash": "6c3c32fb48f5618da337ec6ef09bb525942713edc1c509c7fddaf075d1530649",
+      "mismatches": 0
+    },
+    "material_reparacao": {
+      "rows": 72768,
+      "imported": 72768,
+      "quarantined": 0,
+      "nulls": 0,
+      "binary": 0,
+      "sourceHash": "1bb0b50274fcd53454a294da2d9cc6c676977f0d53632e2d64f4ed9d87f3b446",
+      "provenanceHash": "1bb0b50274fcd53454a294da2d9cc6c676977f0d53632e2d64f4ed9d87f3b446",
+      "mismatches": 0
+    },
+    "utilizadores": {
+      "rows": 1,
+      "imported": 1,
+      "quarantined": 0,
+      "nulls": 0,
+      "binary": 0,
+      "sourceHash": "5e6d8f9969455ff05b43ca28a8ed52c94abcc0c021666dd6ca5397af7aaeca5c",
+      "provenanceHash": "5e6d8f9969455ff05b43ca28a8ed52c94abcc0c021666dd6ca5397af7aaeca5c",
+      "mismatches": 0
+    },
+    "unidades": {
+      "rows": 4,
+      "imported": 4,
+      "quarantined": 0,
+      "nulls": 0,
+      "binary": 0,
+      "sourceHash": "8ecf532db9578182f47ed44b6a1ae6dbbe97054fbc521baf1d77a5eda89ab3c7",
+      "provenanceHash": "8ecf532db9578182f47ed44b6a1ae6dbbe97054fbc521baf1d77a5eda89ab3c7",
+      "mismatches": 0
+    },
+    "documentos": {
+      "rows": 4,
+      "imported": 4,
+      "quarantined": 0,
+      "nulls": 0,
+      "binary": 0,
+      "sourceHash": "b0942a1c819dfd171c89235c4d7a3278c272827e5ad98a762dcc236a61e447e0",
+      "provenanceHash": "b0942a1c819dfd171c89235c4d7a3278c272827e5ad98a762dcc236a61e447e0",
+      "mismatches": 0
+    },
+    "cab_stocks": {
+      "rows": 4217,
+      "imported": 4217,
+      "quarantined": 0,
+      "nulls": 0,
+      "binary": 0,
+      "sourceHash": "d6b6744abc16a8da0231d749e5c28f3bb720a2cacb6234398eaa05a26cc5b9b9",
+      "provenanceHash": "d6b6744abc16a8da0231d749e5c28f3bb720a2cacb6234398eaa05a26cc5b9b9",
+      "mismatches": 0
+    },
+    "lin_stocks": {
+      "rows": 23615,
+      "imported": 23615,
+      "quarantined": 0,
+      "nulls": 0,
+      "binary": 23615,
+      "sourceHash": "65778d26bac2d4b20c2c291700109e7fc4110e1cf2df675dcbab4b0757412fbd",
+      "provenanceHash": "65778d26bac2d4b20c2c291700109e7fc4110e1cf2df675dcbab4b0757412fbd",
+      "mismatches": 0
+    },
+    "estados_reparacao": {
+      "rows": 11,
+      "imported": 11,
+      "quarantined": 0,
+      "nulls": 0,
+      "binary": 0,
+      "sourceHash": "d4d7cd40a41504b779bfe9896f9bf80bbe1edc841ab86aaf5b2053ecc89a79ef",
+      "provenanceHash": "d4d7cd40a41504b779bfe9896f9bf80bbe1edc841ab86aaf5b2053ecc89a79ef",
+      "mismatches": 0
+    },
+    "estados_descritivos": {
+      "rows": 5,
+      "imported": 5,
+      "quarantined": 0,
+      "nulls": 0,
+      "binary": 0,
+      "sourceHash": "805a801635abab72c8451aba37b622d059b17675a9a17ffe0917e01fd30b6bc8",
+      "provenanceHash": "805a801635abab72c8451aba37b622d059b17675a9a17ffe0917e01fd30b6bc8",
+      "mismatches": 0
+    },
+    "Terminais": {
+      "rows": 0,
+      "imported": 0,
+      "quarantined": 0,
+      "nulls": 0,
+      "binary": 0,
+      "sourceHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "provenanceHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mismatches": 0
+    },
+    "sistema": {
+      "rows": 1,
+      "imported": 1,
+      "quarantined": 0,
+      "nulls": 0,
+      "binary": 0,
+      "sourceHash": "781d112537d360f9f71b3571f3e7e9b37dec4fc06daf84c43524d67a8d0ac6e2",
+      "provenanceHash": "781d112537d360f9f71b3571f3e7e9b37dec4fc06daf84c43524d67a8d0ac6e2",
+      "mismatches": 0
+    },
+    "postos": {
+      "rows": 0,
+      "imported": 0,
+      "quarantined": 0,
+      "nulls": 0,
+      "binary": 0,
+      "sourceHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "provenanceHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mismatches": 0
+    }
+  },
+  "checks": {
+    "dryRunRolledBack": true,
+    "committedImportReconciled": true,
+    "stoppedClusterBackupRestored": true,
+    "restoredDataReconciled": true,
+    "csvComparatorPassed": true
+  }
+}

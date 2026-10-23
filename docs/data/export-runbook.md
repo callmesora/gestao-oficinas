@@ -33,3 +33,11 @@ The compatibility hash follows the playbook, while sha256_typed_rows adds explic
 Known limits: this is the official driver's view, not proof of undocumented storage encoding. All generated composite/link BLOBs in this copy are empty; do not infer their business meaning or use them as imported relational keys. Large-payload chunking beyond this dataset was not exercised through a synthetic HFSQL table. The scratch source was stable and unchanged; no transactional snapshot of a live server is claimed.
 
 Focused converter tests cover binary/NUL data, NULL vs empty text, accented multiline text, values beyond 2^53, exact decimal strings, count mismatch, empty input rejection, typed hash separation and Windows handle release. Independent review and actual repeated-driver verification are recorded under docs/runbooks/reviews/ and docs/data/export-verification.json.
+
+## Empty ANSI text correction — 24 October 2026
+
+The PostgreSQL rehearsal exposed an exporter defect: HFSQL 28 returns indicator length 1 for an empty SQL_C_CHAR string whose first byte is its C terminator. The reader included that byte as text. CharacterCount now uses the terminator boundary and rejects inconsistent/truncated buffers; binary reads are unchanged. This follows [SQLGetData's character-buffer contract](https://learn.microsoft.com/en-us/sql/odbc/reference/syntax/sqlgetdata-function?view=sql-server-ver17), not an import rule that strips characters.
+
+Two new scratch-driver exports agree for all 17 tables. Comparing all 159,668 rows against the historical export changes only 97,774 NUL-only cells to empty strings; every other cell and all 39 scratch files agree. Counts and hashes: [ansi-text-correction.json](ansi-text-correction.json). The current profile uses the corrected export. Historical Step 0 exports/reports remain retained; use the corrected derivative for PostgreSQL.
+
+Local corrected input: analysis-local/data-20261024-nulfix/data.sqlite. Run `npm run db:dry-run -- analysis-local/data-20261024-nulfix/data.sqlite` for the isolated import/reconciliation/restore rehearsal. Run `scripts/windows/test_ansi_text.ps1` with Windows PowerShell for eleven decoder regression cases (also run by npm test). Unexpected embedded ANSI terminators fail export; embedded NUL text supplied to the PostgreSQL importer is quarantined and retained, never silently stripped.
