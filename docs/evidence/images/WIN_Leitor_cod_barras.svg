@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="392" height="589" viewBox="0 0 392 589" font-family="sans-serif" font-size="10">
+<rect width="392" height="589" fill="#fafafa" stroke="#999"/>
+<g><title>TABLE_Leitura (19,67 350×457)</title><rect x="19" y="67" width="350" height="457" fill="#f3f3f3" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="79" fill="#111">Quantidade</text></g>
+<g><title>STC_Códigos_de_barras_encontrados (19,36 350×25)</title><rect x="19" y="36" width="350" height="25" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="22" y="48" fill="#111">Códigos de barras encontrados no ficheiro</text></g>
+<g><title>RADTitle (9,4 239×18)</title><rect x="9" y="4" width="239" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="12" y="16" fill="#111">Códigos de barras</text></g>
+<g><title>BTN_Cancelar (281,541 88×38)</title><rect x="281" y="541" width="88" height="38" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="284" y="553" fill="#111">Cancelar</text></g>
+<g><title>BTN_Confirmar (187,541 88×38)</title><rect x="187" y="541" width="88" height="38" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="190" y="553" fill="#111">Confirmar</text></g>
+<g><title>SCSystemButtons (254,1 128×18)</title><rect x="254" y="1" width="128" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="257" y="13" fill="#111">SCSystemButtons</text></g>
+<g><title>BTN_SYST_FERMER (338,0 44×19)</title><rect x="338" y="0" width="44" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="341" y="12" fill="#111">BTN_SYST_FERMER</text></g>
+<g><title>BTN_SYST_MINIMIZE (288,0 26×19)</title><rect x="288" y="0" width="26" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="291" y="12" fill="#111">BTN_SYST_MINIMIZE</text></g>
+<g><title>BTN_Syst_Maximize (314,0 25×19)</title><rect x="314" y="0" width="25" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="317" y="12" fill="#111">BTN_Syst_Maximize</text></g>
+<g><title>BTN_UMC (254,0 24×19)</title><rect x="254" y="0" width="24" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="257" y="12" fill="#111">&amp;Bouton</text></g>
+<g><title>BTN_Syst_Restore (158,-19 14×14)</title><rect x="158" y="-19" width="14" height="14" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="161" y="-7" fill="#111">BTN_Syst_Restore</text></g>
+</svg>

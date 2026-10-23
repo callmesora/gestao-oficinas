@@ -1,0 +1,878 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-d2d7530a77,table,Clientes,data mapping and reconciliation,,GestaoOficinas_TesteIA/GestaoOficinas.xdd,unresolved,,,,,,unmapped
+SRC-87d897c3e5,table,Viaturas,data mapping and reconciliation,,GestaoOficinas_TesteIA/GestaoOficinas.xdd,unresolved,,,,,,unmapped
+SRC-d4e3c89519,table,mecanicos,data mapping and reconciliation,,GestaoOficinas_TesteIA/GestaoOficinas.xdd,unresolved,,,,,,unmapped
+SRC-05b851a72f,table,artigos,data mapping and reconciliation,,GestaoOficinas_TesteIA/GestaoOficinas.xdd,unresolved,,,,,,unmapped
+SRC-92c2408628,table,ordem_reparacao,data mapping and reconciliation,,GestaoOficinas_TesteIA/GestaoOficinas.xdd,unresolved,,,,,,unmapped
+SRC-39de2bd256,table,tempos_reparacao,data mapping and reconciliation,,GestaoOficinas_TesteIA/GestaoOficinas.xdd,unresolved,,,,,,unmapped
+SRC-4cadbbeec7,table,material_reparacao,data mapping and reconciliation,,GestaoOficinas_TesteIA/GestaoOficinas.xdd,unresolved,,,,,,unmapped
+SRC-013493cb65,table,utilizadores,data mapping and reconciliation,,GestaoOficinas_TesteIA/GestaoOficinas.xdd,unresolved,,,,,,unmapped
+SRC-0c67f0b1db,table,unidades,data mapping and reconciliation,,GestaoOficinas_TesteIA/GestaoOficinas.xdd,unresolved,,,,,,unmapped
+SRC-4a1e932f39,table,documentos,data mapping and reconciliation,,GestaoOficinas_TesteIA/GestaoOficinas.xdd,unresolved,,,,,,unmapped
+SRC-23228404d6,table,cab_stocks,data mapping and reconciliation,,GestaoOficinas_TesteIA/GestaoOficinas.xdd,unresolved,,,,,,unmapped
+SRC-9c6e50bc65,table,lin_stocks,data mapping and reconciliation,,GestaoOficinas_TesteIA/GestaoOficinas.xdd,unresolved,,,,,,unmapped
+SRC-3fa1af2706,table,estados_reparacao,data mapping and reconciliation,,GestaoOficinas_TesteIA/GestaoOficinas.xdd,unresolved,,,,,,unmapped
+SRC-2ca48063d4,table,estados_descritivos,data mapping and reconciliation,,GestaoOficinas_TesteIA/GestaoOficinas.xdd,unresolved,,,,,,unmapped
+SRC-1f9cb4e091,table,Terminais,data mapping and reconciliation,,GestaoOficinas_TesteIA/GestaoOficinas.xdd,unresolved,,,,,,unmapped
+SRC-0d561ce8a7,table,sistema,data mapping and reconciliation,,GestaoOficinas_TesteIA/GestaoOficinas.xdd,unresolved,,,,,,unmapped
+SRC-591960029c,table,postos,data mapping and reconciliation,,GestaoOficinas_TesteIA/GestaoOficinas.xdd,unresolved,,,,,,unmapped
+SRC-a18ed57430,project,My_GestaoOficinas,,196608,GestaoOficinas_TesteIA/My_GestaoOficinas.wdp:697-773,unresolved,,,,,,unmapped
+SRC-32182eb47b,export-needed,QRY_Union_lin_stocks_material_reparacao,,,GestaoOficinas_TesteIA/QRY_Union_lin_stocks_material_reparacao.WDR,unresolved,,,,,,unmapped
+SRC-df2fcd30d4,export-needed,QRY_insert_material_reparacao,,,GestaoOficinas_TesteIA/QRY_insert_material_reparacao.WDR,unresolved,,,,,,unmapped
+SRC-da197c15fa,export-needed,QRY_insert_ordens_reparacao,,,GestaoOficinas_TesteIA/QRY_insert_ordens_reparacao.WDR,unresolved,,,,,,unmapped
+SRC-20a2298184,export-needed,QRY_noname,,,GestaoOficinas_TesteIA/QRY_noname.WDR,unresolved,,,,,,unmapped
+SRC-820fc864e5,export-needed,QRY_select_cab_lin_stocks,,,GestaoOficinas_TesteIA/QRY_select_cab_lin_stocks.WDR,unresolved,,,,,,unmapped
+SRC-7dc77ff740,export-needed,QRY_select_cab_stocks,,,GestaoOficinas_TesteIA/QRY_select_cab_stocks.WDR,unresolved,,,,,,unmapped
+SRC-8d934a808d,export-needed,QRY_select_cliente_codigo,,,GestaoOficinas_TesteIA/QRY_select_cliente_codigo.WDR,unresolved,,,,,,unmapped
+SRC-abfe333c4e,export-needed,QRY_select_consumo_material_viatura,,,GestaoOficinas_TesteIA/QRY_select_consumo_material_viatura.WDR,unresolved,,,,,,unmapped
+SRC-722f3d3446,export-needed,QRY_select_lin_stocks,,,GestaoOficinas_TesteIA/QRY_select_lin_stocks.WDR,unresolved,,,,,,unmapped
+SRC-c1ded74e29,export-needed,QRY_select_material_ordem_Reparacao,,,GestaoOficinas_TesteIA/QRY_select_material_ordem_Reparacao.WDR,unresolved,,,,,,unmapped
+SRC-ff4668de15,export-needed,QRY_select_material_reparacao,,,GestaoOficinas_TesteIA/QRY_select_material_reparacao.WDR,unresolved,,,,,,unmapped
+SRC-7d9f9dd360,export-needed,QRY_select_mecanicos_codigo,,,GestaoOficinas_TesteIA/QRY_select_mecanicos_codigo.WDR,unresolved,,,,,,unmapped
+SRC-237d10d84e,export-needed,QRY_select_ordens_reparacao,,,GestaoOficinas_TesteIA/QRY_select_ordens_reparacao.WDR,unresolved,,,,,,unmapped
+SRC-c5a7d42c56,export-needed,QRY_select_ordens_reparacao_data_entrega,,,GestaoOficinas_TesteIA/QRY_select_ordens_reparacao_data_entrega.WDR,unresolved,,,,,,unmapped
+SRC-edd6c0f4b1,export-needed,QRY_select_ordens_reparacao_data_pag,,,GestaoOficinas_TesteIA/QRY_select_ordens_reparacao_data_pag.WDR,unresolved,,,,,,unmapped
+SRC-6051b33490,export-needed,QRY_select_ordens_reparacao_matricula,,,GestaoOficinas_TesteIA/QRY_select_ordens_reparacao_matricula.WDR,unresolved,,,,,,unmapped
+SRC-3d8ab890ac,export-needed,QRY_select_ordens_reparacao_numero,,,GestaoOficinas_TesteIA/QRY_select_ordens_reparacao_numero.WDR,unresolved,,,,,,unmapped
+SRC-0b5a2f2730,export-needed,QRY_select_ordens_reparacao_tempos,,,GestaoOficinas_TesteIA/QRY_select_ordens_reparacao_tempos.WDR,unresolved,,,,,,unmapped
+SRC-2d9efea86e,export-needed,QRY_select_tempos_Reparacao_numero_mecanico,,,GestaoOficinas_TesteIA/QRY_select_tempos_Reparacao_numero_mecanico.WDR,unresolved,,,,,,unmapped
+SRC-ea4304a92a,export-needed,QRY_select_tempos_reparacao_ordem,,,GestaoOficinas_TesteIA/QRY_select_tempos_reparacao_ordem.WDR,unresolved,,,,,,unmapped
+SRC-725ba0d1e9,export-needed,QRY_select_viatura_matricula,,,GestaoOficinas_TesteIA/QRY_select_viatura_matricula.WDR,unresolved,,,,,,unmapped
+SRC-1b24326708,export-needed,QRY_select_viaturas,,,GestaoOficinas_TesteIA/QRY_select_viaturas.WDR,unresolved,,,,,,unmapped
+SRC-d68d58253c,export-needed,QRY_tempos_ordem_reparacao,,,GestaoOficinas_TesteIA/QRY_tempos_ordem_reparacao.WDR,unresolved,,,,,,unmapped
+SRC-25c0947429,export-needed,QRY_tempos_ordem_reparacao_matricula,,,GestaoOficinas_TesteIA/QRY_tempos_ordem_reparacao_matricula.WDR,unresolved,,,,,,unmapped
+SRC-0d0df768db,export-needed,QRY_tempos_ordem_reparacao_mecanico,,,GestaoOficinas_TesteIA/QRY_tempos_ordem_reparacao_mecanico.WDR,unresolved,,,,,,unmapped
+SRC-b82acd20d8,export-needed,QRY_union_extrato_artigos,,,GestaoOficinas_TesteIA/QRY_union_extrato_artigos.WDR,unresolved,,,,,,unmapped
+SRC-96ab9ad360,export-needed,QRY_union_extrato_artigos_calcular_total,,,GestaoOficinas_TesteIA/QRY_union_extrato_artigos_calcular_total.WDR,unresolved,,,,,,unmapped
+SRC-1e34bad8d5,export-needed,QRY_union_lin_stocks,,,GestaoOficinas_TesteIA/QRY_union_lin_stocks.WDR,unresolved,,,,,,unmapped
+SRC-f77c185536,export-needed,QRY_union_material_reparacao,,,GestaoOficinas_TesteIA/QRY_union_material_reparacao.WDR,unresolved,,,,,,unmapped
+SRC-c415986d2e,export-needed,QRY_update_ordens_reparacao,,,GestaoOficinas_TesteIA/QRY_update_ordens_reparacao.WDR,unresolved,,,,,,unmapped
+SRC-b546ab4b79,report,RPT_Consumo_Material_Descriminado_Ordens,BODY,327693,GestaoOficinas_TesteIA/RPT_Consumo_Material_Descriminado_Ordens.wde:328-329,unresolved,,,,,,unmapped
+SRC-adeea7dce4,report,RPT_Consumo_Material_Descriminado_Ordens,END_OF_DOCUMENT,327693,GestaoOficinas_TesteIA/RPT_Consumo_Material_Descriminado_Ordens.wde:465-465,unresolved,,,,,,unmapped
+SRC-327c62a413,report,RPT_Consumo_Material_Descriminado_Ordens,,327680,GestaoOficinas_TesteIA/RPT_Consumo_Material_Descriminado_Ordens.wde:476-477,unresolved,,,,,,unmapped
+SRC-e515c30cbf,report,RPT_Consumo_Material_Descriminado_Saidas,BODY,327693,GestaoOficinas_TesteIA/RPT_Consumo_Material_Descriminado_Saidas.wde:328-329,unresolved,,,,,,unmapped
+SRC-48877fe789,report,RPT_Consumo_Material_Descriminado_Saidas,END_OF_DOCUMENT,327693,GestaoOficinas_TesteIA/RPT_Consumo_Material_Descriminado_Saidas.wde:465-465,unresolved,,,,,,unmapped
+SRC-732cf67890,report,RPT_Consumo_Material_Descriminado_Saidas,,327680,GestaoOficinas_TesteIA/RPT_Consumo_Material_Descriminado_Saidas.wde:476-477,unresolved,,,,,,unmapped
+SRC-786df53714,report,RPT_Consumo_Material_Descriminado_ordens_saidas,BODY,327693,GestaoOficinas_TesteIA/RPT_Consumo_Material_Descriminado_ordens_saidas.wde:328-329,unresolved,,,,,,unmapped
+SRC-1d640420b2,report,RPT_Consumo_Material_Descriminado_ordens_saidas,END_OF_DOCUMENT,327693,GestaoOficinas_TesteIA/RPT_Consumo_Material_Descriminado_ordens_saidas.wde:465-465,unresolved,,,,,,unmapped
+SRC-4385f76cf5,report,RPT_Consumo_Material_Descriminado_ordens_saidas,,327680,GestaoOficinas_TesteIA/RPT_Consumo_Material_Descriminado_ordens_saidas.wde:476-477,unresolved,,,,,,unmapped
+SRC-367a7ccbd8,report,RPT_Consumo_Material_Resumo_Saidas,,327680,GestaoOficinas_TesteIA/RPT_Consumo_Material_Resumo_Saidas.wde:321-321,unresolved,,,,,,unmapped
+SRC-e3287796d6,report,RPT_Consumo_Material_Resumo_ordem_saidas,BODY,327693,GestaoOficinas_TesteIA/RPT_Consumo_Material_Resumo_ordem_saidas.wde:240-241,unresolved,,,,,,unmapped
+SRC-daef02bb26,report,RPT_Consumo_Material_Resumo_ordem_saidas,BREAK_FOOTER1,327693,GestaoOficinas_TesteIA/RPT_Consumo_Material_Resumo_ordem_saidas.wde:325-326,unresolved,,,,,,unmapped
+SRC-8aa0542b87,report,RPT_Consumo_Material_Resumo_ordem_saidas,,327680,GestaoOficinas_TesteIA/RPT_Consumo_Material_Resumo_ordem_saidas.wde:433-434,unresolved,,,,,,unmapped
+SRC-277b5b9b55,report,RPT_Consumo_Material_Resumo_ordens,,327680,GestaoOficinas_TesteIA/RPT_Consumo_Material_Resumo_ordens.wde:321-321,unresolved,,,,,,unmapped
+SRC-eb27e8304b,report,RPT_Consumo_Material_Viatura_Descriminado,BREAK_HEADER1,327692,GestaoOficinas_TesteIA/RPT_Consumo_Material_Viatura_Descriminado.wde:208-209,unresolved,,,,,,unmapped
+SRC-3bd91ae368,report,RPT_Consumo_Material_Viatura_Descriminado,,327680,GestaoOficinas_TesteIA/RPT_Consumo_Material_Viatura_Descriminado.wde:424-424,unresolved,,,,,,unmapped
+SRC-1a4f4001bd,report,RPT_Consumo_Material_Viatura_Resumo,BREAK_HEADER1,327692,GestaoOficinas_TesteIA/RPT_Consumo_Material_Viatura_Resumo.wde:194-195,unresolved,,,,,,unmapped
+SRC-d915a89371,report,RPT_Consumo_Material_Viatura_Resumo,,327680,GestaoOficinas_TesteIA/RPT_Consumo_Material_Viatura_Resumo.wde:396-396,unresolved,,,,,,unmapped
+SRC-6d3380d7f5,report,RPT_Extrato_artigos,BREAK_HEADER1,327692,GestaoOficinas_TesteIA/RPT_Extrato_artigos.wde:263-278,unresolved,,,,,,unmapped
+SRC-9a9ad8b7ec,report,RPT_Extrato_artigos,BODY,327692,GestaoOficinas_TesteIA/RPT_Extrato_artigos.wde:419-429,unresolved,,,,,,unmapped
+SRC-bfee0de2e0,report,RPT_Extrato_artigos,BREAK_FOOTER1,327692,GestaoOficinas_TesteIA/RPT_Extrato_artigos.wde:473-473,unresolved,,,,,,unmapped
+SRC-edb61e8442,report,RPT_Extrato_artigos, [RPT_Extrato_artigos],327680,GestaoOficinas_TesteIA/RPT_Extrato_artigos.wde:584-589,unresolved,,,,,,unmapped
+SRC-a9f77fe1bc,report,RPT_List_Clientes,,327680,GestaoOficinas_TesteIA/RPT_List_Clientes.wde:331-331,unresolved,,,,,,unmapped
+SRC-31c6df9530,report,RPT_List_Viaturas,,327680,GestaoOficinas_TesteIA/RPT_List_Viaturas.wde:308-308,unresolved,,,,,,unmapped
+SRC-d13421b0d7,report,RPT_List_artigos,,327680,GestaoOficinas_TesteIA/RPT_List_artigos.wde:302-302,unresolved,,,,,,unmapped
+SRC-e173c612b5,report,RPT_List_documentos,,327680,GestaoOficinas_TesteIA/RPT_List_documentos.wde:214-214,unresolved,,,,,,unmapped
+SRC-e414cd3fd4,report,RPT_List_estados_descritivos,,327680,GestaoOficinas_TesteIA/RPT_List_estados_descritivos.wde:216-216,unresolved,,,,,,unmapped
+SRC-265aa80023,report,RPT_List_estados_reparacao,,327680,GestaoOficinas_TesteIA/RPT_List_estados_reparacao.wde:239-239,unresolved,,,,,,unmapped
+SRC-c8cced93ab,report,RPT_List_mecanicos,,327680,GestaoOficinas_TesteIA/RPT_List_mecanicos.wde:216-216,unresolved,,,,,,unmapped
+SRC-bd8920f56b,report,RPT_List_unidades,,327680,GestaoOficinas_TesteIA/RPT_List_unidades.wde:214-214,unresolved,,,,,,unmapped
+SRC-dad271d74a,report,RPT_List_utilizadores,,327680,GestaoOficinas_TesteIA/RPT_List_utilizadores.wde:214-214,unresolved,,,,,,unmapped
+SRC-0cd14f2b0f,report,RPT_Materiais, [myreport],327680,GestaoOficinas_TesteIA/RPT_Materiais.wde:381-404,unresolved,,,,,,unmapped
+SRC-e93c2c80bc,report,RPT_Ordens_Reparacao,BODY,327692,GestaoOficinas_TesteIA/RPT_Ordens_Reparacao.wde:362-369,unresolved,,,,,,unmapped
+SRC-7a853be78c,report,RPT_Ordens_Reparacao,,327680,GestaoOficinas_TesteIA/RPT_Ordens_Reparacao.wde:480-480,unresolved,,,,,,unmapped
+SRC-36570f9e88,report,RPT_Ordens_Reparacao_DataEntrega,,327680,GestaoOficinas_TesteIA/RPT_Ordens_Reparacao_DataEntrega.wde:371-371,unresolved,,,,,,unmapped
+SRC-8fbefea806,report,RPT_Ordens_Reparacao_DataPag,,327680,GestaoOficinas_TesteIA/RPT_Ordens_Reparacao_DataPag.wde:372-372,unresolved,,,,,,unmapped
+SRC-de2dec99cd,report,RPT_Servico_Avaria, [MyReport],327680,GestaoOficinas_TesteIA/RPT_Servico_Avaria.wde:337-356,unresolved,,,,,,unmapped
+SRC-0df991578b,report,RPT_Tempos_Ordem_Reparacao,BREAK_HEADER3,327692,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao.wde:246-249,unresolved,,,,,,unmapped
+SRC-5b948f9fbe,report,RPT_Tempos_Ordem_Reparacao,BODY/ITEM_tempo,327692,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao.wde:326-332,unresolved,,,,,,unmapped
+SRC-d0a9b3e405,report,RPT_Tempos_Ordem_Reparacao,BODY,327693,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao.wde:358-359,unresolved,,,,,,unmapped
+SRC-8a754b8b85,report,RPT_Tempos_Ordem_Reparacao,BREAK_FOOTER3,327693,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao.wde:417-417,unresolved,,,,,,unmapped
+SRC-20fd7b6437,report,RPT_Tempos_Ordem_Reparacao,,327680,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao.wde:524-525,unresolved,,,,,,unmapped
+SRC-c9bd03253d,report,RPT_Tempos_Ordem_Reparacao, [Intervalo_datas_para_horas],458752,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao.wde:545-562,unresolved,,,,,,unmapped
+SRC-dee6949f09,report,RPT_Tempos_Ordem_Reparacao, [soma_horas],458752,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao.wde:569-596,unresolved,,,,,,unmapped
+SRC-ef9d3825d9,report,RPT_Tempos_Ordem_Reparacao_Mecanico,BREAK_HEADER1,327692,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_Mecanico.wde:252-252,unresolved,,,,,,unmapped
+SRC-6c7fec0a25,report,RPT_Tempos_Ordem_Reparacao_Mecanico,BODY/ITEM_tempo,327692,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_Mecanico.wde:397-403,unresolved,,,,,,unmapped
+SRC-410ef6bcb2,report,RPT_Tempos_Ordem_Reparacao_Mecanico,BODY,327693,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_Mecanico.wde:429-431,unresolved,,,,,,unmapped
+SRC-1020aacf43,report,RPT_Tempos_Ordem_Reparacao_Mecanico,BREAK_FOOTER2,327693,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_Mecanico.wde:503-505,unresolved,,,,,,unmapped
+SRC-aa48b4735b,report,RPT_Tempos_Ordem_Reparacao_Mecanico,BREAK_FOOTER1,327693,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_Mecanico.wde:563-564,unresolved,,,,,,unmapped
+SRC-70c91bfbb0,report,RPT_Tempos_Ordem_Reparacao_Mecanico,,327680,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_Mecanico.wde:671-673,unresolved,,,,,,unmapped
+SRC-eb442f7f8f,report,RPT_Tempos_Ordem_Reparacao_Mecanico, [Intervalo_datas_para_horas],458752,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_Mecanico.wde:693-710,unresolved,,,,,,unmapped
+SRC-4664d66da0,report,RPT_Tempos_Ordem_Reparacao_Mecanico, [soma_horas],458752,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_Mecanico.wde:717-744,unresolved,,,,,,unmapped
+SRC-ac08c7c70b,report,RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo,BREAK_HEADER1,327692,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo.wde:188-188,unresolved,,,,,,unmapped
+SRC-6e239b7530,report,RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo,BODY/ITEM_tempo,327692,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo.wde:263-269,unresolved,,,,,,unmapped
+SRC-81f293ec29,report,RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo,BODY,327693,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo.wde:287-288,unresolved,,,,,,unmapped
+SRC-be3b9e2d2e,report,RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo,BREAK_FOOTER1,327693,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo.wde:338-338,unresolved,,,,,,unmapped
+SRC-faaff1a444,report,RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo,,327680,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo.wde:445-446,unresolved,,,,,,unmapped
+SRC-790eea7010,report,RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo, [soma_horas],458752,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo.wde:466-493,unresolved,,,,,,unmapped
+SRC-791358c5a3,report,RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo, [Intervalo_datas_para_horas],458752,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo.wde:500-517,unresolved,,,,,,unmapped
+SRC-72f2d0ba65,report,RPT_Tempos_Ordem_Reparacao_viatura,BREAK_HEADER1,327692,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_viatura.wde:194-195,unresolved,,,,,,unmapped
+SRC-d52ed0f402,report,RPT_Tempos_Ordem_Reparacao_viatura,BREAK_HEADER2,327692,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_viatura.wde:266-267,unresolved,,,,,,unmapped
+SRC-eb94a06fc1,report,RPT_Tempos_Ordem_Reparacao_viatura,BODY/ITEM_Tempo,327692,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_viatura.wde:342-348,unresolved,,,,,,unmapped
+SRC-cb2a8d1dfb,report,RPT_Tempos_Ordem_Reparacao_viatura,BODY,327693,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_viatura.wde:366-367,unresolved,,,,,,unmapped
+SRC-f6c58321de,report,RPT_Tempos_Ordem_Reparacao_viatura,BREAK_FOOTER2,327693,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_viatura.wde:425-427,unresolved,,,,,,unmapped
+SRC-96d767c3bc,report,RPT_Tempos_Ordem_Reparacao_viatura,BREAK_FOOTER1,327693,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_viatura.wde:477-477,unresolved,,,,,,unmapped
+SRC-b318911264,report,RPT_Tempos_Ordem_Reparacao_viatura,,327680,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_viatura.wde:584-586,unresolved,,,,,,unmapped
+SRC-e094a36761,report,RPT_Tempos_Ordem_Reparacao_viatura, [Intervalo_datas_para_horas],458752,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_viatura.wde:606-623,unresolved,,,,,,unmapped
+SRC-f9517d93ad,report,RPT_Tempos_Ordem_Reparacao_viatura, [soma_horas],458752,GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_viatura.wde:630-657,unresolved,,,,,,unmapped
+SRC-792b1222b7,report,RPT_inventario,,327680,GestaoOficinas_TesteIA/RPT_inventario.wde:287-287,unresolved,,,,,,unmapped
+SRC-c9144a3e08,window,WIN_Acesso,WIN_Acesso/EDT_palavra_passe,66049,GestaoOficinas_TesteIA/WIN_Acesso.wdw:274-276,unresolved,,,,,,unmapped
+SRC-0ca1dfb2e6,window,WIN_Acesso,WIN_Acesso/BTN_NoName1,18,GestaoOficinas_TesteIA/WIN_Acesso.wdw:331-347,unresolved,,,,,,unmapped
+SRC-7891e7fd29,window,WIN_Acesso,WIN_Acesso/BTN_Confirmar,18,GestaoOficinas_TesteIA/WIN_Acesso.wdw:371-395,unresolved,,,,,,unmapped
+SRC-64e6f50f16,window,WIN_Acesso,WIN_Acesso [MyWindow],,GestaoOficinas_TesteIA/WIN_Acesso.wdw:441-445,unresolved,,,,,,unmapped
+SRC-625323b545,encoded-action,WIN_Acesso,WIN_Acesso/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Acesso.wdw:83,unresolved,,,,,,unmapped
+SRC-81427aa063,encoded-action,WIN_Acesso,WIN_Acesso/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Acesso.wdw:108,unresolved,,,,,,unmapped
+SRC-60b4845e16,encoded-action,WIN_Acesso,WIN_Acesso/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Acesso.wdw:133,unresolved,,,,,,unmapped
+SRC-2fa7080070,encoded-action,WIN_Acesso,WIN_Acesso/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Acesso.wdw:158,unresolved,,,,,,unmapped
+SRC-4604a4a437,encoded-action,WIN_Acesso,WIN_Acesso/BTN_Cancelar [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Acesso.wdw:418,unresolved,,,,,,unmapped
+SRC-11e5297e6b,window,WIN_Data,WIN_Data/BTN_Confirmar,18,GestaoOficinas_TesteIA/WIN_Data.wdw:102-102,unresolved,,,,,,unmapped
+SRC-f238b5fac8,window,WIN_Data,WIN_Data [MyWindow],,GestaoOficinas_TesteIA/WIN_Data.wdw:123-126,unresolved,,,,,,unmapped
+SRC-54028abf00,window,WIN_Extrato_Artigos,WIN_Extrato_Artigos/BTN_VISION3,18,GestaoOficinas_TesteIA/WIN_Extrato_Artigos.wdw:197-197,unresolved,,,,,,unmapped
+SRC-7a22c7e2f3,window,WIN_Extrato_Artigos,WIN_Extrato_Artigos/BTN_VISION4,18,GestaoOficinas_TesteIA/WIN_Extrato_Artigos.wdw:303-306,unresolved,,,,,,unmapped
+SRC-c5cc7577c0,window,WIN_Extrato_Artigos,WIN_Extrato_Artigos/BTN_Visualizar_impressão,18,GestaoOficinas_TesteIA/WIN_Extrato_Artigos.wdw:412-422,unresolved,,,,,,unmapped
+SRC-ad1408d544,window,WIN_Extrato_Artigos,WIN_Extrato_Artigos [MyWindow],,GestaoOficinas_TesteIA/WIN_Extrato_Artigos.wdw:443-446,unresolved,,,,,,unmapped
+SRC-52e987aaad,encoded-action,WIN_Extrato_Artigos,WIN_Extrato_Artigos/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Extrato_Artigos.wdw:67,unresolved,,,,,,unmapped
+SRC-31d447ccf8,encoded-action,WIN_Extrato_Artigos,WIN_Extrato_Artigos/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Extrato_Artigos.wdw:90,unresolved,,,,,,unmapped
+SRC-ec73e65381,encoded-action,WIN_Extrato_Artigos,WIN_Extrato_Artigos/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Extrato_Artigos.wdw:115,unresolved,,,,,,unmapped
+SRC-36de48ee31,encoded-action,WIN_Extrato_Artigos,WIN_Extrato_Artigos/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Extrato_Artigos.wdw:140,unresolved,,,,,,unmapped
+SRC-9079af9bc2,window,WIN_Filtro_Mapas_Artigos,WIN_Filtro_Mapas_Artigos/BTN_Visualizar_impressão,18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Artigos.wdw:348-393,unresolved,,,,,,unmapped
+SRC-b160751af6,window,WIN_Filtro_Mapas_Artigos,WIN_Filtro_Mapas_Artigos/BTN_Visualizar_impressão1,18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Artigos.wdw:417-434,unresolved,,,,,,unmapped
+SRC-1c6b73c15d,window,WIN_Filtro_Mapas_Artigos,WIN_Filtro_Mapas_Artigos/BTN_VISION1,18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Artigos.wdw:704-707,unresolved,,,,,,unmapped
+SRC-e3877c0ce1,window,WIN_Filtro_Mapas_Artigos,WIN_Filtro_Mapas_Artigos/BTN_VISION2,18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Artigos.wdw:731-731,unresolved,,,,,,unmapped
+SRC-c32551ad46,window,WIN_Filtro_Mapas_Artigos,WIN_Filtro_Mapas_Artigos/BTN_VISION3,18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Artigos.wdw:755-755,unresolved,,,,,,unmapped
+SRC-95f34a95eb,window,WIN_Filtro_Mapas_Artigos,WIN_Filtro_Mapas_Artigos/BTN_VISION4,18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Artigos.wdw:779-782,unresolved,,,,,,unmapped
+SRC-45b9930bc2,window,WIN_Filtro_Mapas_Artigos,WIN_Filtro_Mapas_Artigos/BTN_VISION5,18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Artigos.wdw:806-806,unresolved,,,,,,unmapped
+SRC-6c92aa7fbd,window,WIN_Filtro_Mapas_Artigos,WIN_Filtro_Mapas_Artigos/BTN_VISION6,18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Artigos.wdw:830-833,unresolved,,,,,,unmapped
+SRC-c3e75d06fb,window,WIN_Filtro_Mapas_Artigos,WIN_Filtro_Mapas_Artigos/BTN_VISION7,18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Artigos.wdw:930-930,unresolved,,,,,,unmapped
+SRC-345ad3647f,window,WIN_Filtro_Mapas_Artigos,WIN_Filtro_Mapas_Artigos/BTN_VISION8,18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Artigos.wdw:995-998,unresolved,,,,,,unmapped
+SRC-c1cbdc2650,window,WIN_Filtro_Mapas_Artigos,WIN_Filtro_Mapas_Artigos [MyWindow],,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Artigos.wdw:1060-1081,unresolved,,,,,,unmapped
+SRC-763e993bf9,encoded-action,WIN_Filtro_Mapas_Artigos,WIN_Filtro_Mapas_Artigos/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Artigos.wdw:54,unresolved,,,,,,unmapped
+SRC-55bedebab2,encoded-action,WIN_Filtro_Mapas_Artigos,WIN_Filtro_Mapas_Artigos/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Artigos.wdw:77,unresolved,,,,,,unmapped
+SRC-9789cac993,encoded-action,WIN_Filtro_Mapas_Artigos,WIN_Filtro_Mapas_Artigos/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Artigos.wdw:102,unresolved,,,,,,unmapped
+SRC-0df1eb75a9,encoded-action,WIN_Filtro_Mapas_Artigos,WIN_Filtro_Mapas_Artigos/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Artigos.wdw:127,unresolved,,,,,,unmapped
+SRC-cee5daa66c,window,WIN_Filtro_Mapas_Tempos,WIN_Filtro_Mapas_Tempos/BTN_Visualizar_impressão,18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Tempos.wdw:266-291,unresolved,,,,,,unmapped
+SRC-f492814bfe,window,WIN_Filtro_Mapas_Tempos,WIN_Filtro_Mapas_Tempos/BTN_VISION2,18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Tempos.wdw:561-561,unresolved,,,,,,unmapped
+SRC-829f3810f6,window,WIN_Filtro_Mapas_Tempos,WIN_Filtro_Mapas_Tempos/BTN_VISION1,18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Tempos.wdw:585-588,unresolved,,,,,,unmapped
+SRC-a6260ec2c6,window,WIN_Filtro_Mapas_Tempos,WIN_Filtro_Mapas_Tempos/BTN_VISION3,18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Tempos.wdw:612-612,unresolved,,,,,,unmapped
+SRC-c77e1c1d8e,window,WIN_Filtro_Mapas_Tempos,WIN_Filtro_Mapas_Tempos/BTN_VISION4,18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Tempos.wdw:636-639,unresolved,,,,,,unmapped
+SRC-45d4570120,window,WIN_Filtro_Mapas_Tempos,WIN_Filtro_Mapas_Tempos [MyWindow],,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Tempos.wdw:673-691,unresolved,,,,,,unmapped
+SRC-c7ec40f70e,encoded-action,WIN_Filtro_Mapas_Tempos,WIN_Filtro_Mapas_Tempos/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Tempos.wdw:54,unresolved,,,,,,unmapped
+SRC-d9c0a7d849,encoded-action,WIN_Filtro_Mapas_Tempos,WIN_Filtro_Mapas_Tempos/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Tempos.wdw:77,unresolved,,,,,,unmapped
+SRC-32357b6a87,encoded-action,WIN_Filtro_Mapas_Tempos,WIN_Filtro_Mapas_Tempos/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Tempos.wdw:102,unresolved,,,,,,unmapped
+SRC-a7239621e0,encoded-action,WIN_Filtro_Mapas_Tempos,WIN_Filtro_Mapas_Tempos/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Tempos.wdw:127,unresolved,,,,,,unmapped
+SRC-51085948c6,window,WIN_Form_Clientes,WIN_Form_Clientes/BTN_Validar,18,GestaoOficinas_TesteIA/WIN_Form_Clientes.wdw:38-71,unresolved,,,,,,unmapped
+SRC-0213ad39dd,window,WIN_Form_Clientes,WIN_Form_Clientes [WIN_Form_Clientes],,GestaoOficinas_TesteIA/WIN_Form_Clientes.wdw:453-467,unresolved,,,,,,unmapped
+SRC-c02f88ba18,window,WIN_Form_Clientes,WIN_Form_Clientes,34,GestaoOficinas_TesteIA/WIN_Form_Clientes.wdw:470-488,unresolved,,,,,,unmapped
+SRC-d5e2618623,encoded-action,WIN_Form_Clientes,WIN_Form_Clientes/BTN_Cancelar [encoded action A-d61aa1],18,GestaoOficinas_TesteIA/WIN_Form_Clientes.wdw:90,unresolved,,,,,,unmapped
+SRC-b0ae95083c,encoded-action,WIN_Form_Clientes,WIN_Form_Clientes/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Form_Clientes.wdw:312,unresolved,,,,,,unmapped
+SRC-325042f818,encoded-action,WIN_Form_Clientes,WIN_Form_Clientes/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Form_Clientes.wdw:335,unresolved,,,,,,unmapped
+SRC-cbe4eb92fc,encoded-action,WIN_Form_Clientes,WIN_Form_Clientes/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Form_Clientes.wdw:360,unresolved,,,,,,unmapped
+SRC-8ba682c04c,encoded-action,WIN_Form_Clientes,WIN_Form_Clientes/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Form_Clientes.wdw:385,unresolved,,,,,,unmapped
+SRC-f62ee211d1,window,WIN_Form_Terminais,WIN_Form_Terminais/BTN_Validar,18,GestaoOficinas_TesteIA/WIN_Form_Terminais.wdw:38-70,unresolved,,,,,,unmapped
+SRC-1589c564c4,window,WIN_Form_Terminais,WIN_Form_Terminais/SC_Form/BTN_procurar_pasta,18,GestaoOficinas_TesteIA/WIN_Form_Terminais.wdw:296-299,unresolved,,,,,,unmapped
+SRC-ba2c10af1c,window,WIN_Form_Terminais,WIN_Form_Terminais [WIN_Form_Terminais],,GestaoOficinas_TesteIA/WIN_Form_Terminais.wdw:503-521,unresolved,,,,,,unmapped
+SRC-882d58d3a5,window,WIN_Form_Terminais,WIN_Form_Terminais,34,GestaoOficinas_TesteIA/WIN_Form_Terminais.wdw:524-527,unresolved,,,,,,unmapped
+SRC-ff71816bc8,encoded-action,WIN_Form_Terminais,WIN_Form_Terminais/BTN_Cancelar [encoded action A-d61aa1],18,GestaoOficinas_TesteIA/WIN_Form_Terminais.wdw:93,unresolved,,,,,,unmapped
+SRC-39fd0d4069,encoded-action,WIN_Form_Terminais,WIN_Form_Terminais/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Form_Terminais.wdw:352,unresolved,,,,,,unmapped
+SRC-b6292b1d0a,encoded-action,WIN_Form_Terminais,WIN_Form_Terminais/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Form_Terminais.wdw:377,unresolved,,,,,,unmapped
+SRC-545a06ccf8,encoded-action,WIN_Form_Terminais,WIN_Form_Terminais/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Form_Terminais.wdw:402,unresolved,,,,,,unmapped
+SRC-5f7f06a331,encoded-action,WIN_Form_Terminais,WIN_Form_Terminais/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Form_Terminais.wdw:427,unresolved,,,,,,unmapped
+SRC-0c045cf25e,window,WIN_Form_Viaturas,WIN_Form_Viaturas/BTN_Validar,18,GestaoOficinas_TesteIA/WIN_Form_Viaturas.wdw:34-70,unresolved,,,,,,unmapped
+SRC-dc10131505,window,WIN_Form_Viaturas,WIN_Form_Viaturas/BTN_Cancelar,18,GestaoOficinas_TesteIA/WIN_Form_Viaturas.wdw:95-95,unresolved,,,,,,unmapped
+SRC-a29b466a64,window,WIN_Form_Viaturas,WIN_Form_Viaturas/SC_Form/BTN_VISION,18,GestaoOficinas_TesteIA/WIN_Form_Viaturas.wdw:251-255,unresolved,,,,,,unmapped
+SRC-cbded69d95,window,WIN_Form_Viaturas,WIN_Form_Viaturas [WIN_Form_Viaturas],,GestaoOficinas_TesteIA/WIN_Form_Viaturas.wdw:441-469,unresolved,,,,,,unmapped
+SRC-519be66175,window,WIN_Form_Viaturas,WIN_Form_Viaturas,34,GestaoOficinas_TesteIA/WIN_Form_Viaturas.wdw:472-472,unresolved,,,,,,unmapped
+SRC-73a2209c9e,encoded-action,WIN_Form_Viaturas,WIN_Form_Viaturas/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Form_Viaturas.wdw:300,unresolved,,,,,,unmapped
+SRC-ce14269e23,encoded-action,WIN_Form_Viaturas,WIN_Form_Viaturas/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Form_Viaturas.wdw:323,unresolved,,,,,,unmapped
+SRC-343b5fd45c,encoded-action,WIN_Form_Viaturas,WIN_Form_Viaturas/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Form_Viaturas.wdw:348,unresolved,,,,,,unmapped
+SRC-c2a58155a0,encoded-action,WIN_Form_Viaturas,WIN_Form_Viaturas/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Form_Viaturas.wdw:373,unresolved,,,,,,unmapped
+SRC-18a96799b6,window,WIN_Form_artigos,WIN_Form_artigos/BTN_Validar,18,GestaoOficinas_TesteIA/WIN_Form_artigos.wdw:38-98,unresolved,,,,,,unmapped
+SRC-d756cefa81,window,WIN_Form_artigos,WIN_Form_artigos [WIN_Form_artigos],,GestaoOficinas_TesteIA/WIN_Form_artigos.wdw:451-470,unresolved,,,,,,unmapped
+SRC-1146401247,window,WIN_Form_artigos,WIN_Form_artigos,34,GestaoOficinas_TesteIA/WIN_Form_artigos.wdw:473-477,unresolved,,,,,,unmapped
+SRC-fa962873be,encoded-action,WIN_Form_artigos,WIN_Form_artigos/BTN_Cancelar [encoded action A-d61aa1],18,GestaoOficinas_TesteIA/WIN_Form_artigos.wdw:117,unresolved,,,,,,unmapped
+SRC-94b0fb2e00,encoded-action,WIN_Form_artigos,WIN_Form_artigos/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Form_artigos.wdw:310,unresolved,,,,,,unmapped
+SRC-1378a213fb,encoded-action,WIN_Form_artigos,WIN_Form_artigos/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Form_artigos.wdw:333,unresolved,,,,,,unmapped
+SRC-7708564e85,encoded-action,WIN_Form_artigos,WIN_Form_artigos/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Form_artigos.wdw:358,unresolved,,,,,,unmapped
+SRC-42420a5835,encoded-action,WIN_Form_artigos,WIN_Form_artigos/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Form_artigos.wdw:383,unresolved,,,,,,unmapped
+SRC-3c9d2e15a6,window,WIN_Form_documentos,WIN_Form_documentos/BTN_Validar,18,GestaoOficinas_TesteIA/WIN_Form_documentos.wdw:38-66,unresolved,,,,,,unmapped
+SRC-5238a7296c,window,WIN_Form_documentos,WIN_Form_documentos [WIN_Form_documentos],,GestaoOficinas_TesteIA/WIN_Form_documentos.wdw:369-388,unresolved,,,,,,unmapped
+SRC-2ce08638c5,window,WIN_Form_documentos,WIN_Form_documentos,34,GestaoOficinas_TesteIA/WIN_Form_documentos.wdw:391-397,unresolved,,,,,,unmapped
+SRC-56a9d6bba5,encoded-action,WIN_Form_documentos,WIN_Form_documentos/BTN_Cancelar [encoded action A-d61aa1],18,GestaoOficinas_TesteIA/WIN_Form_documentos.wdw:85,unresolved,,,,,,unmapped
+SRC-b31fff95e1,encoded-action,WIN_Form_documentos,WIN_Form_documentos/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Form_documentos.wdw:228,unresolved,,,,,,unmapped
+SRC-7b67c0e1c9,encoded-action,WIN_Form_documentos,WIN_Form_documentos/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Form_documentos.wdw:251,unresolved,,,,,,unmapped
+SRC-a2e36327f1,encoded-action,WIN_Form_documentos,WIN_Form_documentos/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Form_documentos.wdw:276,unresolved,,,,,,unmapped
+SRC-9b04d80d11,encoded-action,WIN_Form_documentos,WIN_Form_documentos/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Form_documentos.wdw:301,unresolved,,,,,,unmapped
+SRC-0a8d1af823,window,WIN_Form_estados_descritivos,WIN_Form_estados_descritivos/BTN_Validar,18,GestaoOficinas_TesteIA/WIN_Form_estados_descritivos.wdw:38-66,unresolved,,,,,,unmapped
+SRC-cf5d74ee9a,window,WIN_Form_estados_descritivos,WIN_Form_estados_descritivos [WIN_Form_estados_descritivos],,GestaoOficinas_TesteIA/WIN_Form_estados_descritivos.wdw:322-341,unresolved,,,,,,unmapped
+SRC-e5bb4326db,window,WIN_Form_estados_descritivos,WIN_Form_estados_descritivos,34,GestaoOficinas_TesteIA/WIN_Form_estados_descritivos.wdw:344-348,unresolved,,,,,,unmapped
+SRC-d4c257ca15,encoded-action,WIN_Form_estados_descritivos,WIN_Form_estados_descritivos/BTN_Cancelar [encoded action A-d61aa1],18,GestaoOficinas_TesteIA/WIN_Form_estados_descritivos.wdw:85,unresolved,,,,,,unmapped
+SRC-e5ba559b66,encoded-action,WIN_Form_estados_descritivos,WIN_Form_estados_descritivos/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Form_estados_descritivos.wdw:181,unresolved,,,,,,unmapped
+SRC-449c9dc7d0,encoded-action,WIN_Form_estados_descritivos,WIN_Form_estados_descritivos/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Form_estados_descritivos.wdw:204,unresolved,,,,,,unmapped
+SRC-5024e54a7b,encoded-action,WIN_Form_estados_descritivos,WIN_Form_estados_descritivos/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Form_estados_descritivos.wdw:229,unresolved,,,,,,unmapped
+SRC-edbef1ed6c,encoded-action,WIN_Form_estados_descritivos,WIN_Form_estados_descritivos/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Form_estados_descritivos.wdw:254,unresolved,,,,,,unmapped
+SRC-01a3c75d73,window,WIN_Form_estados_reparacao,WIN_Form_estados_reparacao/BTN_Validar,18,GestaoOficinas_TesteIA/WIN_Form_estados_reparacao.wdw:38-66,unresolved,,,,,,unmapped
+SRC-899177adfa,window,WIN_Form_estados_reparacao,WIN_Form_estados_reparacao/SC_Form/BTN_VISION,18,GestaoOficinas_TesteIA/WIN_Form_estados_reparacao.wdw:237-240,unresolved,,,,,,unmapped
+SRC-d8680fd10d,window,WIN_Form_estados_reparacao,WIN_Form_estados_reparacao [WIN_Form_estados_reparacao],,GestaoOficinas_TesteIA/WIN_Form_estados_reparacao.wdw:506-525,unresolved,,,,,,unmapped
+SRC-a1521d6320,window,WIN_Form_estados_reparacao,WIN_Form_estados_reparacao,34,GestaoOficinas_TesteIA/WIN_Form_estados_reparacao.wdw:528-536,unresolved,,,,,,unmapped
+SRC-a23c7ba2a7,encoded-action,WIN_Form_estados_reparacao,WIN_Form_estados_reparacao/BTN_Cancelar [encoded action A-d61aa1],18,GestaoOficinas_TesteIA/WIN_Form_estados_reparacao.wdw:85,unresolved,,,,,,unmapped
+SRC-ecc8fb9db7,encoded-action,WIN_Form_estados_reparacao,WIN_Form_estados_reparacao/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Form_estados_reparacao.wdw:365,unresolved,,,,,,unmapped
+SRC-56bc41c530,encoded-action,WIN_Form_estados_reparacao,WIN_Form_estados_reparacao/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Form_estados_reparacao.wdw:388,unresolved,,,,,,unmapped
+SRC-d051784cd6,encoded-action,WIN_Form_estados_reparacao,WIN_Form_estados_reparacao/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Form_estados_reparacao.wdw:413,unresolved,,,,,,unmapped
+SRC-78f048ae8f,encoded-action,WIN_Form_estados_reparacao,WIN_Form_estados_reparacao/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Form_estados_reparacao.wdw:438,unresolved,,,,,,unmapped
+SRC-97711eb5f6,window,WIN_Form_mecanicos,WIN_Form_mecanicos/BTN_Validar,18,GestaoOficinas_TesteIA/WIN_Form_mecanicos.wdw:38-74,unresolved,,,,,,unmapped
+SRC-cd44f64817,window,WIN_Form_mecanicos,WIN_Form_mecanicos [WIN_Form_mecanicos],,GestaoOficinas_TesteIA/WIN_Form_mecanicos.wdw:367-386,unresolved,,,,,,unmapped
+SRC-128b5bcd32,window,WIN_Form_mecanicos,WIN_Form_mecanicos,34,GestaoOficinas_TesteIA/WIN_Form_mecanicos.wdw:389-393,unresolved,,,,,,unmapped
+SRC-43eea26507,encoded-action,WIN_Form_mecanicos,WIN_Form_mecanicos/BTN_Cancelar [encoded action A-d61aa1],18,GestaoOficinas_TesteIA/WIN_Form_mecanicos.wdw:93,unresolved,,,,,,unmapped
+SRC-a51f2ef5de,encoded-action,WIN_Form_mecanicos,WIN_Form_mecanicos/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Form_mecanicos.wdw:226,unresolved,,,,,,unmapped
+SRC-64c556cdd6,encoded-action,WIN_Form_mecanicos,WIN_Form_mecanicos/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Form_mecanicos.wdw:249,unresolved,,,,,,unmapped
+SRC-c5211b67bd,encoded-action,WIN_Form_mecanicos,WIN_Form_mecanicos/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Form_mecanicos.wdw:274,unresolved,,,,,,unmapped
+SRC-8a491087a0,encoded-action,WIN_Form_mecanicos,WIN_Form_mecanicos/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Form_mecanicos.wdw:299,unresolved,,,,,,unmapped
+SRC-78dffe2a53,window,WIN_Form_postos,WIN_Form_postos/BTN_Validar,18,GestaoOficinas_TesteIA/WIN_Form_postos.wdw:38-70,unresolved,,,,,,unmapped
+SRC-c312a25e20,window,WIN_Form_postos,WIN_Form_postos/SC_Form/BTN_NoName1,18,GestaoOficinas_TesteIA/WIN_Form_postos.wdw:239-239,unresolved,,,,,,unmapped
+SRC-7bae671f3d,window,WIN_Form_postos,WIN_Form_postos [WIN_Form_postos],,GestaoOficinas_TesteIA/WIN_Form_postos.wdw:453-471,unresolved,,,,,,unmapped
+SRC-9cd9b69917,window,WIN_Form_postos,WIN_Form_postos,34,GestaoOficinas_TesteIA/WIN_Form_postos.wdw:474-477,unresolved,,,,,,unmapped
+SRC-55b57ead1b,encoded-action,WIN_Form_postos,WIN_Form_postos/BTN_Cancelar [encoded action A-d61aa1],18,GestaoOficinas_TesteIA/WIN_Form_postos.wdw:93,unresolved,,,,,,unmapped
+SRC-30e4d58a77,encoded-action,WIN_Form_postos,WIN_Form_postos/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Form_postos.wdw:311,unresolved,,,,,,unmapped
+SRC-3542972ee1,encoded-action,WIN_Form_postos,WIN_Form_postos/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Form_postos.wdw:334,unresolved,,,,,,unmapped
+SRC-881896db41,encoded-action,WIN_Form_postos,WIN_Form_postos/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Form_postos.wdw:359,unresolved,,,,,,unmapped
+SRC-4bebc585ea,encoded-action,WIN_Form_postos,WIN_Form_postos/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Form_postos.wdw:384,unresolved,,,,,,unmapped
+SRC-a5097f5947,window,WIN_Form_unidades,WIN_Form_unidades/BTN_Validar,18,GestaoOficinas_TesteIA/WIN_Form_unidades.wdw:34-62,unresolved,,,,,,unmapped
+SRC-a39e5e93a0,window,WIN_Form_unidades,WIN_Form_unidades [WIN_Form_unidades],,GestaoOficinas_TesteIA/WIN_Form_unidades.wdw:318-337,unresolved,,,,,,unmapped
+SRC-5dffb1bffb,window,WIN_Form_unidades,WIN_Form_unidades,34,GestaoOficinas_TesteIA/WIN_Form_unidades.wdw:340-344,unresolved,,,,,,unmapped
+SRC-72c1ae6254,encoded-action,WIN_Form_unidades,WIN_Form_unidades/BTN_Cancelar [encoded action A-d61aa1],18,GestaoOficinas_TesteIA/WIN_Form_unidades.wdw:81,unresolved,,,,,,unmapped
+SRC-59d9e1dab2,encoded-action,WIN_Form_unidades,WIN_Form_unidades/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Form_unidades.wdw:177,unresolved,,,,,,unmapped
+SRC-3e2670bb68,encoded-action,WIN_Form_unidades,WIN_Form_unidades/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Form_unidades.wdw:200,unresolved,,,,,,unmapped
+SRC-c9e2f06c28,encoded-action,WIN_Form_unidades,WIN_Form_unidades/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Form_unidades.wdw:225,unresolved,,,,,,unmapped
+SRC-6215029524,encoded-action,WIN_Form_unidades,WIN_Form_unidades/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Form_unidades.wdw:250,unresolved,,,,,,unmapped
+SRC-7c866e13ff,window,WIN_Form_utilizadores,WIN_Form_utilizadores/BTN_Validar,18,GestaoOficinas_TesteIA/WIN_Form_utilizadores.wdw:34-71,unresolved,,,,,,unmapped
+SRC-23cc29230a,window,WIN_Form_utilizadores,WIN_Form_utilizadores/BTN_Cancelar,18,GestaoOficinas_TesteIA/WIN_Form_utilizadores.wdw:92-92,unresolved,,,,,,unmapped
+SRC-91e30fc7fd,window,WIN_Form_utilizadores,WIN_Form_utilizadores [WIN_Form_utilizadores],,GestaoOficinas_TesteIA/WIN_Form_utilizadores.wdw:350-369,unresolved,,,,,,unmapped
+SRC-61091b21bb,window,WIN_Form_utilizadores,WIN_Form_utilizadores,34,GestaoOficinas_TesteIA/WIN_Form_utilizadores.wdw:372-376,unresolved,,,,,,unmapped
+SRC-7d31561486,encoded-action,WIN_Form_utilizadores,WIN_Form_utilizadores/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Form_utilizadores.wdw:209,unresolved,,,,,,unmapped
+SRC-265d8d7c6d,encoded-action,WIN_Form_utilizadores,WIN_Form_utilizadores/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Form_utilizadores.wdw:232,unresolved,,,,,,unmapped
+SRC-1d85974282,encoded-action,WIN_Form_utilizadores,WIN_Form_utilizadores/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Form_utilizadores.wdw:257,unresolved,,,,,,unmapped
+SRC-1569b59bff,encoded-action,WIN_Form_utilizadores,WIN_Form_utilizadores/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Form_utilizadores.wdw:282,unresolved,,,,,,unmapped
+SRC-2011a97eec,window,WIN_Inserir_quantidade_password,WIN_Inserir_quantidade_password/EDT_password,66049,GestaoOficinas_TesteIA/WIN_Inserir_quantidade_password.wdw:218-220,unresolved,,,,,,unmapped
+SRC-6bf71f445e,window,WIN_Inserir_quantidade_password,WIN_Inserir_quantidade_password/BTN_Confirmar,18,GestaoOficinas_TesteIA/WIN_Inserir_quantidade_password.wdw:267-274,unresolved,,,,,,unmapped
+SRC-517e7660ea,window,WIN_Inserir_quantidade_password,WIN_Inserir_quantidade_password/EDT_quantidade,66049,GestaoOficinas_TesteIA/WIN_Inserir_quantidade_password.wdw:319-321,unresolved,,,,,,unmapped
+SRC-a5152a0572,window,WIN_Inserir_quantidade_password,WIN_Inserir_quantidade_password/EDT_descricao,66049,GestaoOficinas_TesteIA/WIN_Inserir_quantidade_password.wdw:363-365,unresolved,,,,,,unmapped
+SRC-757d791537,window,WIN_Inserir_quantidade_password,WIN_Inserir_quantidade_password [MyWindow],,GestaoOficinas_TesteIA/WIN_Inserir_quantidade_password.wdw:383-414,unresolved,,,,,,unmapped
+SRC-1d2af8678c,encoded-action,WIN_Inserir_quantidade_password,WIN_Inserir_quantidade_password/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Inserir_quantidade_password.wdw:67,unresolved,,,,,,unmapped
+SRC-a88172bf86,encoded-action,WIN_Inserir_quantidade_password,WIN_Inserir_quantidade_password/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Inserir_quantidade_password.wdw:90,unresolved,,,,,,unmapped
+SRC-ec7c2ff4bf,encoded-action,WIN_Inserir_quantidade_password,WIN_Inserir_quantidade_password/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Inserir_quantidade_password.wdw:115,unresolved,,,,,,unmapped
+SRC-40b69c5782,encoded-action,WIN_Inserir_quantidade_password,WIN_Inserir_quantidade_password/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Inserir_quantidade_password.wdw:140,unresolved,,,,,,unmapped
+SRC-113b96884d,encoded-action,WIN_Inserir_quantidade_password,WIN_Inserir_quantidade_password/BTN_Cancelar [encoded action A-d61aa1],18,GestaoOficinas_TesteIA/WIN_Inserir_quantidade_password.wdw:240,unresolved,,,,,,unmapped
+SRC-c437f42e25,window,WIN_Inventario,WIN_Inventario/BTN_Imprimir,18,GestaoOficinas_TesteIA/WIN_Inventario.wdw:311-312,unresolved,,,,,,unmapped
+SRC-6b39d8b23f,window,WIN_Inventario,WIN_Inventario [MyWindow],,GestaoOficinas_TesteIA/WIN_Inventario.wdw:358-358,unresolved,,,,,,unmapped
+SRC-4485999810,encoded-action,WIN_Inventario,WIN_Inventario/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Inventario.wdw:67,unresolved,,,,,,unmapped
+SRC-7965ee7972,encoded-action,WIN_Inventario,WIN_Inventario/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Inventario.wdw:90,unresolved,,,,,,unmapped
+SRC-0727a93bf2,encoded-action,WIN_Inventario,WIN_Inventario/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Inventario.wdw:115,unresolved,,,,,,unmapped
+SRC-345272503c,encoded-action,WIN_Inventario,WIN_Inventario/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Inventario.wdw:140,unresolved,,,,,,unmapped
+SRC-b107b3b8a1,encoded-action,WIN_Inventario,WIN_Inventario/BTN_Sair [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Inventario.wdw:335,unresolved,,,,,,unmapped
+SRC-10a0a79c42,window,WIN_Leitor_cod_barras,WIN_Leitor_cod_barras/BTN_Cancelar,18,GestaoOficinas_TesteIA/WIN_Leitor_cod_barras.wdw:305-305,unresolved,,,,,,unmapped
+SRC-43303c5e91,window,WIN_Leitor_cod_barras,WIN_Leitor_cod_barras/BTN_Confirmar,18,GestaoOficinas_TesteIA/WIN_Leitor_cod_barras.wdw:329-390,unresolved,,,,,,unmapped
+SRC-cf3590524a,window,WIN_Leitor_cod_barras,WIN_Leitor_cod_barras [MyWindow],,GestaoOficinas_TesteIA/WIN_Leitor_cod_barras.wdw:412-427,unresolved,,,,,,unmapped
+SRC-fe937f11cf,window,WIN_Leitor_cod_barras,WIN_Leitor_cod_barras,34,GestaoOficinas_TesteIA/WIN_Leitor_cod_barras.wdw:430-430,unresolved,,,,,,unmapped
+SRC-aba0b3fc67,encoded-action,WIN_Leitor_cod_barras,WIN_Leitor_cod_barras/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Leitor_cod_barras.wdw:67,unresolved,,,,,,unmapped
+SRC-f7100eda47,encoded-action,WIN_Leitor_cod_barras,WIN_Leitor_cod_barras/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Leitor_cod_barras.wdw:90,unresolved,,,,,,unmapped
+SRC-b5c1104bc0,encoded-action,WIN_Leitor_cod_barras,WIN_Leitor_cod_barras/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Leitor_cod_barras.wdw:115,unresolved,,,,,,unmapped
+SRC-d4ea31773d,encoded-action,WIN_Leitor_cod_barras,WIN_Leitor_cod_barras/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Leitor_cod_barras.wdw:140,unresolved,,,,,,unmapped
+SRC-4bf917d0f9,window,WIN_Leitor_cod_barras_desconhecidos,WIN_Leitor_cod_barras_desconhecidos/BTN_Confirmar,18,GestaoOficinas_TesteIA/WIN_Leitor_cod_barras_desconhecidos.wdw:197-197,unresolved,,,,,,unmapped
+SRC-a8ca5cd474,window,WIN_Leitor_cod_barras_desconhecidos,WIN_Leitor_cod_barras_desconhecidos [MyWindow],,GestaoOficinas_TesteIA/WIN_Leitor_cod_barras_desconhecidos.wdw:326-329,unresolved,,,,,,unmapped
+SRC-92a59d68d7,encoded-action,WIN_Leitor_cod_barras_desconhecidos,WIN_Leitor_cod_barras_desconhecidos/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Leitor_cod_barras_desconhecidos.wdw:67,unresolved,,,,,,unmapped
+SRC-bbdcac82f2,encoded-action,WIN_Leitor_cod_barras_desconhecidos,WIN_Leitor_cod_barras_desconhecidos/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Leitor_cod_barras_desconhecidos.wdw:90,unresolved,,,,,,unmapped
+SRC-df51331452,encoded-action,WIN_Leitor_cod_barras_desconhecidos,WIN_Leitor_cod_barras_desconhecidos/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Leitor_cod_barras_desconhecidos.wdw:115,unresolved,,,,,,unmapped
+SRC-d58cb35cde,encoded-action,WIN_Leitor_cod_barras_desconhecidos,WIN_Leitor_cod_barras_desconhecidos/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Leitor_cod_barras_desconhecidos.wdw:140,unresolved,,,,,,unmapped
+SRC-7d51a650ff,window,WIN_MENU,WIN_MENU/TAB_NoName1/LAYOUT_NoName1/BTN_Clientes,18,GestaoOficinas_TesteIA/WIN_MENU.wdw:223-229,unresolved,,,,,,unmapped
+SRC-927f1ae365,window,WIN_MENU,WIN_MENU/TAB_NoName1/LAYOUT_NoName1/BTN_Viaturas,18,GestaoOficinas_TesteIA/WIN_MENU.wdw:256-262,unresolved,,,,,,unmapped
+SRC-ec175a2444,window,WIN_MENU,WIN_MENU/TAB_NoName1/LAYOUT_NoName1/BTN_Ordens_reparacao,18,GestaoOficinas_TesteIA/WIN_MENU.wdw:289-295,unresolved,,,,,,unmapped
+SRC-e028d70833,window,WIN_MENU,WIN_MENU/TAB_NoName1/LAYOUT_NoName1/BTN_Artigos,18,GestaoOficinas_TesteIA/WIN_MENU.wdw:322-328,unresolved,,,,,,unmapped
+SRC-03607912bd,window,WIN_MENU,WIN_MENU/TAB_NoName1/LAYOUT_NoName1/BTN_movimentos_stock,18,GestaoOficinas_TesteIA/WIN_MENU.wdw:355-361,unresolved,,,,,,unmapped
+SRC-5f76c51321,window,WIN_MENU,WIN_MENU/TAB_NoName1/LAYOUT_NoName1/BTN_tempos,18,GestaoOficinas_TesteIA/WIN_MENU.wdw:388-394,unresolved,,,,,,unmapped
+SRC-59704205b3,window,WIN_MENU,WIN_MENU/TAB_NoName1/LAYOUT_NoName1/BTN_material,18,GestaoOficinas_TesteIA/WIN_MENU.wdw:421-427,unresolved,,,,,,unmapped
+SRC-87763b02d7,window,WIN_MENU,WIN_MENU/MENU__Menu/MENU_OPT_Menu/OPT_Postos,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:486-486,unresolved,,,,,,unmapped
+SRC-f8aecb8a9f,window,WIN_MENU,WIN_MENU/MENU__Menu/MENU_OPT_Menu/OPT_Sistema,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:497-497,unresolved,,,,,,unmapped
+SRC-c5bd61f129,window,WIN_MENU,WIN_MENU/MENU__Menu/MENU_OPT_Menu/MENU_OPT_Exit,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:508-508,unresolved,,,,,,unmapped
+SRC-6448eb3213,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Tabelas/OPT_Viaturas,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:527-533,unresolved,,,,,,unmapped
+SRC-08cc189746,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Tabelas/OPT_Clientes,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:544-550,unresolved,,,,,,unmapped
+SRC-91e8dc14f8,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Tabelas/OPT_Artigos,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:561-567,unresolved,,,,,,unmapped
+SRC-1d83b076e7,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Tabelas/OPT_Estados_descritivos,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:578-584,unresolved,,,,,,unmapped
+SRC-71de633816,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Tabelas/OPT_Estados_de_Reparação,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:595-601,unresolved,,,,,,unmapped
+SRC-242a5b7484,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Tabelas/OPT_Documentos,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:612-618,unresolved,,,,,,unmapped
+SRC-34942ef6f0,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Tabelas/OPT_Terminais,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:629-635,unresolved,,,,,,unmapped
+SRC-84b951a5b2,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Tabelas/OPT_Unidades,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:646-652,unresolved,,,,,,unmapped
+SRC-99826c3ba9,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Tabelas/OPT_Utilizadores,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:663-669,unresolved,,,,,,unmapped
+SRC-f1671747dc,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Tabelas/OPT_Mecânicos,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:680-686,unresolved,,,,,,unmapped
+SRC-6e1630ec80,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Movimentos/OPT_Ordens_de_Reparação,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:705-711,unresolved,,,,,,unmapped
+SRC-db14524700,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Movimentos/OPT_Entradas_e_Saídas_de_Stock,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:722-728,unresolved,,,,,,unmapped
+SRC-82a7a6d6e3,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Mapas/OPT_Consumo_material_resumo,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:747-747,unresolved,,,,,,unmapped
+SRC-65bf3c58a5,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Mapas/OPT_Consumo_material_descriminado,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:758-758,unresolved,,,,,,unmapped
+SRC-d3627f95a7,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Mapas/OPT_Consumo_material_por_viatura_resumo,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:769-769,unresolved,,,,,,unmapped
+SRC-9123ab6123,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Mapas/OPT_Consumo_material_por_viatura_descriminado,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:780-780,unresolved,,,,,,unmapped
+SRC-24eae92ab4,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Mapas/OPT_Extrato_de_artigos,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:791-791,unresolved,,,,,,unmapped
+SRC-beeaf5ae4b,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Mapas/OPT_Inventário1,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:802-803,unresolved,,,,,,unmapped
+SRC-11f364b554,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Mapas/OPT_Tempos_de_reparação_por_ordem,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:814-814,unresolved,,,,,,unmapped
+SRC-87c5b84dce,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Mapas/OPT_Tempos_de_reparação_por_mecânico_resumo,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:825-825,unresolved,,,,,,unmapped
+SRC-e89b460c01,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Mapas/OPT_Tempos_de_reparação_por_mecânico_descriminado,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:836-836,unresolved,,,,,,unmapped
+SRC-47e33b2ab7,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Mapas/OPT_Tempos_de_reparação_por_viatura,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:847-847,unresolved,,,,,,unmapped
+SRC-b66e224ab2,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Mapas/OPT_Vendas,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:858-858,unresolved,,,,,,unmapped
+SRC-8c32f67662,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Mapas/OPT_Recebimentos,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:869-869,unresolved,,,,,,unmapped
+SRC-5aa2f40303,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Utilitários/OPT_Reconstrução_de_Stocks,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:888-888,unresolved,,,,,,unmapped
+SRC-1d228089f7,window,WIN_MENU,WIN_MENU/MENU__Menu/OPT_Utilitários/OPT_Clientes_Reparação,32,GestaoOficinas_TesteIA/WIN_MENU.wdw:899-911,unresolved,,,,,,unmapped
+SRC-e0dfacbe65,window,WIN_MENU,WIN_MENU,,GestaoOficinas_TesteIA/WIN_MENU.wdw:931-949,unresolved,,,,,,unmapped
+SRC-b6a81add98,window,WIN_MENU,WIN_MENU,34,GestaoOficinas_TesteIA/WIN_MENU.wdw:952-975,unresolved,,,,,,unmapped
+SRC-2e4ff82ba8,encoded-action,WIN_MENU,WIN_MENU/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_MENU.wdw:54,unresolved,,,,,,unmapped
+SRC-4661c234d0,encoded-action,WIN_MENU,WIN_MENU/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_MENU.wdw:77,unresolved,,,,,,unmapped
+SRC-0629a65928,encoded-action,WIN_MENU,WIN_MENU/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_MENU.wdw:102,unresolved,,,,,,unmapped
+SRC-67eac2408b,encoded-action,WIN_MENU,WIN_MENU/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_MENU.wdw:127,unresolved,,,,,,unmapped
+SRC-e5d92abdf9,window,WIN_Mapa_Vendas,WIN_Mapa_Vendas/EDT_A_data,14,GestaoOficinas_TesteIA/WIN_Mapa_Vendas.wdw:196-196,unresolved,,,,,,unmapped
+SRC-0e5d3411ed,window,WIN_Mapa_Vendas,WIN_Mapa_Vendas/EDT_Da_data,14,GestaoOficinas_TesteIA/WIN_Mapa_Vendas.wdw:237-237,unresolved,,,,,,unmapped
+SRC-20746c7ede,window,WIN_Mapa_Vendas,WIN_Mapa_Vendas/TABLE_Estados,14,GestaoOficinas_TesteIA/WIN_Mapa_Vendas.wdw:337-348,unresolved,,,,,,unmapped
+SRC-9e2b93ee94,window,WIN_Mapa_Vendas,WIN_Mapa_Vendas/BTN_Visualizar_impressão1,18,GestaoOficinas_TesteIA/WIN_Mapa_Vendas.wdw:429-442,unresolved,,,,,,unmapped
+SRC-04e45acc4d,window,WIN_Mapa_Vendas,WIN_Mapa_Vendas [MyWindow],,GestaoOficinas_TesteIA/WIN_Mapa_Vendas.wdw:476-488,unresolved,,,,,,unmapped
+SRC-76275a7384,encoded-action,WIN_Mapa_Vendas,WIN_Mapa_Vendas/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Mapa_Vendas.wdw:67,unresolved,,,,,,unmapped
+SRC-db6c3537d4,encoded-action,WIN_Mapa_Vendas,WIN_Mapa_Vendas/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Mapa_Vendas.wdw:90,unresolved,,,,,,unmapped
+SRC-5ecb42b5a5,encoded-action,WIN_Mapa_Vendas,WIN_Mapa_Vendas/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Mapa_Vendas.wdw:115,unresolved,,,,,,unmapped
+SRC-dcd3d907a3,encoded-action,WIN_Mapa_Vendas,WIN_Mapa_Vendas/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Mapa_Vendas.wdw:140,unresolved,,,,,,unmapped
+SRC-2a6708ad6f,window,WIN_Material_Reparacao,WIN_Material_Reparacao/BTN_todos,18,GestaoOficinas_TesteIA/WIN_Material_Reparacao.wdw:210-219,unresolved,,,,,,unmapped
+SRC-26d646dccd,window,WIN_Material_Reparacao,WIN_Material_Reparacao/LIST_mecanicos,66050,GestaoOficinas_TesteIA/WIN_Material_Reparacao.wdw:271-280,unresolved,,,,,,unmapped
+SRC-8f547da1b9,window,WIN_Material_Reparacao,WIN_Material_Reparacao/TABLE_ordens_reparacao,14,GestaoOficinas_TesteIA/WIN_Material_Reparacao.wdw:365-370,unresolved,,,,,,unmapped
+SRC-5b7c9d17d1,window,WIN_Material_Reparacao,WIN_Material_Reparacao/BTN_Material,18,GestaoOficinas_TesteIA/WIN_Material_Reparacao.wdw:465-527,unresolved,,,,,,unmapped
+SRC-4aa238c0e1,window,WIN_Material_Reparacao,WIN_Material_Reparacao/BTN_seguinte,18,GestaoOficinas_TesteIA/WIN_Material_Reparacao.wdw:551-553,unresolved,,,,,,unmapped
+SRC-75a5b4aeb3,window,WIN_Material_Reparacao,WIN_Material_Reparacao/BTN_anterior,18,GestaoOficinas_TesteIA/WIN_Material_Reparacao.wdw:577-579,unresolved,,,,,,unmapped
+SRC-ea84e17c9a,window,WIN_Material_Reparacao,WIN_Material_Reparacao/BTN_seguinte1,18,GestaoOficinas_TesteIA/WIN_Material_Reparacao.wdw:603-606,unresolved,,,,,,unmapped
+SRC-f07658692c,window,WIN_Material_Reparacao,WIN_Material_Reparacao/BTN_anterior1,18,GestaoOficinas_TesteIA/WIN_Material_Reparacao.wdw:630-633,unresolved,,,,,,unmapped
+SRC-c975f74b1f,window,WIN_Material_Reparacao,WIN_Material_Reparacao/BTN_Fechar,18,GestaoOficinas_TesteIA/WIN_Material_Reparacao.wdw:657-657,unresolved,,,,,,unmapped
+SRC-9904a0b1fb,window,WIN_Material_Reparacao,WIN_Material_Reparacao [MyWindow],,GestaoOficinas_TesteIA/WIN_Material_Reparacao.wdw:679-683,unresolved,,,,,,unmapped
+SRC-475554680f,window,WIN_Material_Reparacao,WIN_Material_Reparacao,34,GestaoOficinas_TesteIA/WIN_Material_Reparacao.wdw:686-687,unresolved,,,,,,unmapped
+SRC-04858601fc,window,WIN_Material_Reparacao,WIN_Material_Reparacao,2,GestaoOficinas_TesteIA/WIN_Material_Reparacao.wdw:712-713,unresolved,,,,,,unmapped
+SRC-28226e588f,window,WIN_Material_Reparacao,WIN_Material_Reparacao [atualizar],458752,GestaoOficinas_TesteIA/WIN_Material_Reparacao.wdw:721-750,unresolved,,,,,,unmapped
+SRC-57e0b48ab7,encoded-action,WIN_Material_Reparacao,WIN_Material_Reparacao/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Material_Reparacao.wdw:67,unresolved,,,,,,unmapped
+SRC-ef85f8d20d,encoded-action,WIN_Material_Reparacao,WIN_Material_Reparacao/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Material_Reparacao.wdw:90,unresolved,,,,,,unmapped
+SRC-b45a8be17a,encoded-action,WIN_Material_Reparacao,WIN_Material_Reparacao/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Material_Reparacao.wdw:115,unresolved,,,,,,unmapped
+SRC-4319b6927f,encoded-action,WIN_Material_Reparacao,WIN_Material_Reparacao/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Material_Reparacao.wdw:140,unresolved,,,,,,unmapped
+SRC-b4bc3b0b62,window,WIN_Material_reparacao_form,WIN_Material_reparacao_form/SCSystemButtons/BTN_SYST_FERMER,18,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:141-141,unresolved,,,,,,unmapped
+SRC-08f76d0b2c,window,WIN_Material_reparacao_form,WIN_Material_reparacao_form/BTN_NoName1,18,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:284-308,unresolved,,,,,,unmapped
+SRC-da40931006,window,WIN_Material_reparacao_form,WIN_Material_reparacao_form/EDT_quant,66049,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:602-609,unresolved,,,,,,unmapped
+SRC-4703c55bdf,window,WIN_Material_reparacao_form,WIN_Material_reparacao_form/EDT_artigo,16,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:660-660,unresolved,,,,,,unmapped
+SRC-7d83c5a509,window,WIN_Material_reparacao_form,WIN_Material_reparacao_form/EDT_artigo,66049,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:677-684,unresolved,,,,,,unmapped
+SRC-3e86653214,window,WIN_Material_reparacao_form,WIN_Material_reparacao_form/BTN_NoName2,18,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:701-712,unresolved,,,,,,unmapped
+SRC-24e17a93a6,window,WIN_Material_reparacao_form,WIN_Material_reparacao_form/BTN_Adicionar,18,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:758-795,unresolved,,,,,,unmapped
+SRC-f6ac86e246,window,WIN_Material_reparacao_form,WIN_Material_reparacao_form/BTN_Cancelar,18,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:819-821,unresolved,,,,,,unmapped
+SRC-eb5a859599,window,WIN_Material_reparacao_form,WIN_Material_reparacao_form/BTN_Sair,18,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:845-884,unresolved,,,,,,unmapped
+SRC-88600ec880,window,WIN_Material_reparacao_form,WIN_Material_reparacao_form/BTN_Leitor,18,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:908-947,unresolved,,,,,,unmapped
+SRC-f7457e6a1c,window,WIN_Material_reparacao_form,WIN_Material_reparacao_form/BTN_Quantidade,18,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:971-979,unresolved,,,,,,unmapped
+SRC-199720cd56,window,WIN_Material_reparacao_form,WIN_Material_reparacao_form/BTN_Eliminar,18,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:1003-1012,unresolved,,,,,,unmapped
+SRC-89e26eed26,window,WIN_Material_reparacao_form,WIN_Material_reparacao_form/BTN_anterior,18,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:1036-1038,unresolved,,,,,,unmapped
+SRC-d38bb48866,window,WIN_Material_reparacao_form,WIN_Material_reparacao_form/BTN_seguinte,18,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:1062-1064,unresolved,,,,,,unmapped
+SRC-0f727cefd6,window,WIN_Material_reparacao_form,WIN_Material_reparacao_form/BTN_Preço,18,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:1088-1096,unresolved,,,,,,unmapped
+SRC-ca66909c26,window,WIN_Material_reparacao_form,WIN_Material_reparacao_form/BTN_Descricao,18,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:1120-1127,unresolved,,,,,,unmapped
+SRC-ccd6dd9cc2,window,WIN_Material_reparacao_form,WIN_Material_reparacao_form [MyWindow],,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:1149-1208,unresolved,,,,,,unmapped
+SRC-26f61f6bf0,window,WIN_Material_reparacao_form,WIN_Material_reparacao_form,13,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:1240-1266,unresolved,,,,,,unmapped
+SRC-91067de207,window,WIN_Material_reparacao_form,WIN_Material_reparacao_form [verificar_Artigo],458752,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:1274-1313,unresolved,,,,,,unmapped
+SRC-e050711a23,encoded-action,WIN_Material_reparacao_form,WIN_Material_reparacao_form/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:67,unresolved,,,,,,unmapped
+SRC-50c1dd67fd,encoded-action,WIN_Material_reparacao_form,WIN_Material_reparacao_form/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:90,unresolved,,,,,,unmapped
+SRC-9fd424dfce,encoded-action,WIN_Material_reparacao_form,WIN_Material_reparacao_form/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw:115,unresolved,,,,,,unmapped
+SRC-107f49bb66,window,WIN_Mudar_Estado,WIN_Mudar_Estado/BTN_Confirmar,18,GestaoOficinas_TesteIA/WIN_Mudar_Estado.wdw:198-202,unresolved,,,,,,unmapped
+SRC-deff9a0792,window,WIN_Mudar_Estado,WIN_Mudar_Estado [MyWindow],,GestaoOficinas_TesteIA/WIN_Mudar_Estado.wdw:283-284,unresolved,,,,,,unmapped
+SRC-550b8c0090,window,WIN_Mudar_Estado,WIN_Mudar_Estado,34,GestaoOficinas_TesteIA/WIN_Mudar_Estado.wdw:287-287,unresolved,,,,,,unmapped
+SRC-18aed8dc67,encoded-action,WIN_Mudar_Estado,WIN_Mudar_Estado/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Mudar_Estado.wdw:41,unresolved,,,,,,unmapped
+SRC-63a9d89884,encoded-action,WIN_Mudar_Estado,WIN_Mudar_Estado/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Mudar_Estado.wdw:64,unresolved,,,,,,unmapped
+SRC-493ec73822,encoded-action,WIN_Mudar_Estado,WIN_Mudar_Estado/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Mudar_Estado.wdw:89,unresolved,,,,,,unmapped
+SRC-ce43a94882,encoded-action,WIN_Mudar_Estado,WIN_Mudar_Estado/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Mudar_Estado.wdw:114,unresolved,,,,,,unmapped
+SRC-94deeaef1d,encoded-action,WIN_Mudar_Estado,WIN_Mudar_Estado/BTN_Cancelar [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Mudar_Estado.wdw:225,unresolved,,,,,,unmapped
+SRC-390dd6c737,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/TABLE_QRY_select_ordens_reparacao,21,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:499-507,unresolved,,,,,,unmapped
+SRC-98518984e2,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/TABLE_Estados_reparacao,14,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:782-789,unresolved,,,,,,unmapped
+SRC-240e874995,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/TABLE_Estados_reparacao,21,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:812-812,unresolved,,,,,,unmapped
+SRC-535e80e403,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/BTN_VISION,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:1052-1052,unresolved,,,,,,unmapped
+SRC-b1f760ae86,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/BTN_VISION1,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:1076-1076,unresolved,,,,,,unmapped
+SRC-b30336fe4b,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/BTN_Actualizar_Dados,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:1100-1100,unresolved,,,,,,unmapped
+SRC-385d90c6c0,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/BTN_Novo,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:1124-1125,unresolved,,,,,,unmapped
+SRC-21d283fcfc,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/BTN_Alterar,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:1149-1150,unresolved,,,,,,unmapped
+SRC-eb9499fa91,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/BTN_Eliminar,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:1174-1195,unresolved,,,,,,unmapped
+SRC-f28ab396c9,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/BTN_Nenhum,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:1219-1230,unresolved,,,,,,unmapped
+SRC-9d8aee9401,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/BTN_Todos,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:1254-1265,unresolved,,,,,,unmapped
+SRC-4c5e51adc4,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/BTN_VISION2,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:1289-1289,unresolved,,,,,,unmapped
+SRC-5c7ac16dd8,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/BTN_VISION3,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:1313-1313,unresolved,,,,,,unmapped
+SRC-09bc2d45fd,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/BTN_informacao,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:1337-1362,unresolved,,,,,,unmapped
+SRC-837adec308,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/BTN_Imprimir,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:1386-1387,unresolved,,,,,,unmapped
+SRC-6ce4e35c9d,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/BTN_Todos1,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:1411-1414,unresolved,,,,,,unmapped
+SRC-974f184730,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/BTN_Gravar,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:1438-1447,unresolved,,,,,,unmapped
+SRC-3baa432795,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/BTN_VISION4,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:1471-1471,unresolved,,,,,,unmapped
+SRC-ab282c1e8e,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/BTN_VISION5,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:1546-1546,unresolved,,,,,,unmapped
+SRC-9b6239c2c7,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao [MyWindow],,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:1568-1597,unresolved,,,,,,unmapped
+SRC-13810913de,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao,34,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:1600-1603,unresolved,,,,,,unmapped
+SRC-bf1d967f4f,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao,2,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:1628-1628,unresolved,,,,,,unmapped
+SRC-a2f17b1885,window,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao [atualizar],458752,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:1636-1751,unresolved,,,,,,unmapped
+SRC-1fd54f9cbe,encoded-action,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:67,unresolved,,,,,,unmapped
+SRC-0b389badba,encoded-action,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:90,unresolved,,,,,,unmapped
+SRC-a1dedd7274,encoded-action,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:115,unresolved,,,,,,unmapped
+SRC-e86351f85f,encoded-action,WIN_Ordens_Reparacao,WIN_Ordens_Reparacao/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw:140,unresolved,,,,,,unmapped
+SRC-f349dfb841,window,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form/EDT_matricula,16,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:273-336,unresolved,,,,,,unmapped
+SRC-b0064a0577,window,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form/BTN_VISION1,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:370-454,unresolved,,,,,,unmapped
+SRC-26eea8e8cb,window,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form/BTN_VISION,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:522-544,unresolved,,,,,,unmapped
+SRC-902e218846,window,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form/COMBO_estado,14,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:567-573,unresolved,,,,,,unmapped
+SRC-d0b8d7715c,window,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form/COMBO_estado,33,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:588-614,unresolved,,,,,,unmapped
+SRC-255857e0db,window,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form/COMBO_estado,116,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:621-621,unresolved,,,,,,unmapped
+SRC-3b91d48432,window,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form/BTN_VISION2,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:766-766,unresolved,,,,,,unmapped
+SRC-bd007c5650,window,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form/COMBO_Prioridade,14,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:789-791,unresolved,,,,,,unmapped
+SRC-e3d1e3ce67,window,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form/BTN_VISION3,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:849-849,unresolved,,,,,,unmapped
+SRC-3318d47225,window,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form/CBOX_faturado,17,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:873-877,unresolved,,,,,,unmapped
+SRC-55e462b0d2,window,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form/BTN_Gravar,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:943-1125,unresolved,,,,,,unmapped
+SRC-77db2a5b94,window,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form/BTN_Cancelar,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:1150-1157,unresolved,,,,,,unmapped
+SRC-6b343b3c1d,window,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form/BTN_informacao,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:1181-1206,unresolved,,,,,,unmapped
+SRC-8bd3f318a9,window,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form/EDT_Marca_Modelo,16,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:1234-1295,unresolved,,,,,,unmapped
+SRC-11d401c5a4,window,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form/BTN_VISION4,18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:1376-1380,unresolved,,,,,,unmapped
+SRC-b2e6eeadd9,window,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form [MyWindow],,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:1424-1467,unresolved,,,,,,unmapped
+SRC-7bbd4b10b4,window,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form,34,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:1470-1478,unresolved,,,,,,unmapped
+SRC-e8259ab6ea,window,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form,2,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:1503-1503,unresolved,,,,,,unmapped
+SRC-f790894532,encoded-action,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:67,unresolved,,,,,,unmapped
+SRC-932c6ed809,encoded-action,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:90,unresolved,,,,,,unmapped
+SRC-0fa5d7d241,encoded-action,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:115,unresolved,,,,,,unmapped
+SRC-5914e7247e,encoded-action,WIN_Ordens_Reparacao_Form,WIN_Ordens_Reparacao_Form/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw:140,unresolved,,,,,,unmapped
+SRC-a8e5103dd4,window,WIN_Reconstrucao_Stocks,WIN_Reconstrucao_Stocks/BTN_Reconstruir,18,GestaoOficinas_TesteIA/WIN_Reconstrucao_Stocks.wdw:197-260,unresolved,,,,,,unmapped
+SRC-6c5813bc1b,window,WIN_Reconstrucao_Stocks,WIN_Reconstrucao_Stocks [MyWindow],,GestaoOficinas_TesteIA/WIN_Reconstrucao_Stocks.wdw:281-281,unresolved,,,,,,unmapped
+SRC-ee015ff9c2,encoded-action,WIN_Reconstrucao_Stocks,WIN_Reconstrucao_Stocks/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Reconstrucao_Stocks.wdw:67,unresolved,,,,,,unmapped
+SRC-54d40b0b26,encoded-action,WIN_Reconstrucao_Stocks,WIN_Reconstrucao_Stocks/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Reconstrucao_Stocks.wdw:90,unresolved,,,,,,unmapped
+SRC-de48ab4940,encoded-action,WIN_Reconstrucao_Stocks,WIN_Reconstrucao_Stocks/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Reconstrucao_Stocks.wdw:115,unresolved,,,,,,unmapped
+SRC-ef807bd40c,encoded-action,WIN_Reconstrucao_Stocks,WIN_Reconstrucao_Stocks/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Reconstrucao_Stocks.wdw:140,unresolved,,,,,,unmapped
+SRC-e6389056f0,window,WIN_Table_Clientes,WIN_Table_Clientes/TABLE_Clientes,14,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:189-193,unresolved,,,,,,unmapped
+SRC-01600b8bd1,window,WIN_Table_Clientes,WIN_Table_Clientes/TABLE_Clientes,33,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:233-233,unresolved,,,,,,unmapped
+SRC-e0b6683735,window,WIN_Table_Clientes,WIN_Table_Clientes/BTN_Fechar,18,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:276-276,unresolved,,,,,,unmapped
+SRC-8eb540f0e0,window,WIN_Table_Clientes,WIN_Table_Clientes/Btn_New,18,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:300-308,unresolved,,,,,,unmapped
+SRC-b25815b4ba,window,WIN_Table_Clientes,WIN_Table_Clientes/BTN_Modificar,18,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:332-336,unresolved,,,,,,unmapped
+SRC-0bb0e89335,window,WIN_Table_Clientes,WIN_Table_Clientes/BTN_Delete,18,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:361-382,unresolved,,,,,,unmapped
+SRC-284e9feb26,window,WIN_Table_Clientes,WIN_Table_Clientes/EDT_termo_pesquisa,17,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:608-633,unresolved,,,,,,unmapped
+SRC-a9f81012c8,window,WIN_Table_Clientes,WIN_Table_Clientes/BTN_morada,18,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:650-655,unresolved,,,,,,unmapped
+SRC-805dab0bab,window,WIN_Table_Clientes,WIN_Table_Clientes/BTN_descricao,18,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:675-680,unresolved,,,,,,unmapped
+SRC-de62f9f79a,window,WIN_Table_Clientes,WIN_Table_Clientes/BTN_codigo,18,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:700-705,unresolved,,,,,,unmapped
+SRC-f0f63e791d,window,WIN_Table_Clientes,WIN_Table_Clientes/BTN_todos,18,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:725-730,unresolved,,,,,,unmapped
+SRC-1daae88587,window,WIN_Table_Clientes,WIN_Table_Clientes/BTN_codigopostal,18,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:772-777,unresolved,,,,,,unmapped
+SRC-0943b60f6d,window,WIN_Table_Clientes,WIN_Table_Clientes/BTN_telefone,18,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:797-802,unresolved,,,,,,unmapped
+SRC-0e07efbaa4,window,WIN_Table_Clientes,WIN_Table_Clientes/BTN_selecionar,18,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:827-827,unresolved,,,,,,unmapped
+SRC-367cbc10a0,window,WIN_Table_Clientes,WIN_Table_Clientes [WIN_Table_Clientes],,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:849-853,unresolved,,,,,,unmapped
+SRC-2eb4adb3c5,window,WIN_Table_Clientes,WIN_Table_Clientes,2,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:870-870,unresolved,,,,,,unmapped
+SRC-791c1f6c3f,window,WIN_Table_Clientes,WIN_Table_Clientes [Filtrar_Clientes],458752,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:878-899,unresolved,,,,,,unmapped
+SRC-4883adab32,encoded-action,WIN_Table_Clientes,WIN_Table_Clientes/BTN_Imprimir [encoded action A-ce2839],18,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:405,unresolved,,,,,,unmapped
+SRC-48438b95df,encoded-action,WIN_Table_Clientes,WIN_Table_Clientes/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:448,unresolved,,,,,,unmapped
+SRC-445330914b,encoded-action,WIN_Table_Clientes,WIN_Table_Clientes/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:471,unresolved,,,,,,unmapped
+SRC-7cc05be5ba,encoded-action,WIN_Table_Clientes,WIN_Table_Clientes/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:496,unresolved,,,,,,unmapped
+SRC-9a57ee6413,encoded-action,WIN_Table_Clientes,WIN_Table_Clientes/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-d61aa1],18,GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw:521,unresolved,,,,,,unmapped
+SRC-ae1306063e,window,WIN_Table_Lin_Stocks,WIN_Table_Lin_Stocks/COMBO_tipo_doc,33,GestaoOficinas_TesteIA/WIN_Table_Lin_Stocks.wdw:212-233,unresolved,,,,,,unmapped
+SRC-c3149e4e20,window,WIN_Table_Lin_Stocks,WIN_Table_Lin_Stocks/BTN_VISION,18,GestaoOficinas_TesteIA/WIN_Table_Lin_Stocks.wdw:257-258,unresolved,,,,,,unmapped
+SRC-997e942018,window,WIN_Table_Lin_Stocks,WIN_Table_Lin_Stocks/EDT_codigo,16,GestaoOficinas_TesteIA/WIN_Table_Lin_Stocks.wdw:601-635,unresolved,,,,,,unmapped
+SRC-edcb777596,window,WIN_Table_Lin_Stocks,WIN_Table_Lin_Stocks/EDT_quant,16,GestaoOficinas_TesteIA/WIN_Table_Lin_Stocks.wdw:700-700,unresolved,,,,,,unmapped
+SRC-e74bcec065,window,WIN_Table_Lin_Stocks,WIN_Table_Lin_Stocks/BTN_NoName1,18,GestaoOficinas_TesteIA/WIN_Table_Lin_Stocks.wdw:778-788,unresolved,,,,,,unmapped
+SRC-3745a73857,window,WIN_Table_Lin_Stocks,WIN_Table_Lin_Stocks/BTN_Adicionar,18,GestaoOficinas_TesteIA/WIN_Table_Lin_Stocks.wdw:812-828,unresolved,,,,,,unmapped
+SRC-26ff5eb37e,window,WIN_Table_Lin_Stocks,WIN_Table_Lin_Stocks/BTN_Confirmar,18,GestaoOficinas_TesteIA/WIN_Table_Lin_Stocks.wdw:853-931,unresolved,,,,,,unmapped
+SRC-f01324937e,window,WIN_Table_Lin_Stocks,WIN_Table_Lin_Stocks/BTN_Cancelar,18,GestaoOficinas_TesteIA/WIN_Table_Lin_Stocks.wdw:952-961,unresolved,,,,,,unmapped
+SRC-38f1cfe8f9,window,WIN_Table_Lin_Stocks,WIN_Table_Lin_Stocks/BTN_VISION2,18,GestaoOficinas_TesteIA/WIN_Table_Lin_Stocks.wdw:1004-1004,unresolved,,,,,,unmapped
+SRC-5a7e8fa5b0,window,WIN_Table_Lin_Stocks,WIN_Table_Lin_Stocks/BTN_Adicionar1,18,GestaoOficinas_TesteIA/WIN_Table_Lin_Stocks.wdw:1041-1052,unresolved,,,,,,unmapped
+SRC-cf10fa993d,window,WIN_Table_Lin_Stocks,WIN_Table_Lin_Stocks/BTN_Artigos,18,GestaoOficinas_TesteIA/WIN_Table_Lin_Stocks.wdw:1076-1082,unresolved,,,,,,unmapped
+SRC-472cf8335a,window,WIN_Table_Lin_Stocks,WIN_Table_Lin_Stocks [MyWindow],,GestaoOficinas_TesteIA/WIN_Table_Lin_Stocks.wdw:1104-1143,unresolved,,,,,,unmapped
+SRC-bc514468f9,encoded-action,WIN_Table_Lin_Stocks,WIN_Table_Lin_Stocks/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Table_Lin_Stocks.wdw:67,unresolved,,,,,,unmapped
+SRC-d7768590aa,encoded-action,WIN_Table_Lin_Stocks,WIN_Table_Lin_Stocks/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Table_Lin_Stocks.wdw:90,unresolved,,,,,,unmapped
+SRC-31a88e85c7,encoded-action,WIN_Table_Lin_Stocks,WIN_Table_Lin_Stocks/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Table_Lin_Stocks.wdw:115,unresolved,,,,,,unmapped
+SRC-a382943e05,encoded-action,WIN_Table_Lin_Stocks,WIN_Table_Lin_Stocks/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Table_Lin_Stocks.wdw:140,unresolved,,,,,,unmapped
+SRC-336177cc8a,window,WIN_Table_Tempos_materiais_Descricoes,WIN_Table_Tempos_materiais_Descricoes/SCSystemButtons/BTN_SYST_FERMER,18,GestaoOficinas_TesteIA/WIN_Table_Tempos_materiais_Descricoes.wdw:141-141,unresolved,,,,,,unmapped
+SRC-4cb0ad4a02,window,WIN_Table_Tempos_materiais_Descricoes,WIN_Table_Tempos_materiais_Descricoes/TAB_principal/TABLE_materiais/COL_extra,17,GestaoOficinas_TesteIA/WIN_Table_Tempos_materiais_Descricoes.wdw:591-600,unresolved,,,,,,unmapped
+SRC-fea1ec2e20,window,WIN_Table_Tempos_materiais_Descricoes,WIN_Table_Tempos_materiais_Descricoes/TAB_principal/TABLE_materiais,20,GestaoOficinas_TesteIA/WIN_Table_Tempos_materiais_Descricoes.wdw:628-637,unresolved,,,,,,unmapped
+SRC-3afa481720,window,WIN_Table_Tempos_materiais_Descricoes,WIN_Table_Tempos_materiais_Descricoes/TAB_principal/TABLE_materiais,21,GestaoOficinas_TesteIA/WIN_Table_Tempos_materiais_Descricoes.wdw:641-650,unresolved,,,,,,unmapped
+SRC-0f2fcff124,window,WIN_Table_Tempos_materiais_Descricoes,WIN_Table_Tempos_materiais_Descricoes/TAB_principal/BTN_Material,18,GestaoOficinas_TesteIA/WIN_Table_Tempos_materiais_Descricoes.wdw:721-767,unresolved,,,,,,unmapped
+SRC-5f26405f73,window,WIN_Table_Tempos_materiais_Descricoes,WIN_Table_Tempos_materiais_Descricoes/TAB_principal/BTN_Imprimir,18,GestaoOficinas_TesteIA/WIN_Table_Tempos_materiais_Descricoes.wdw:791-792,unresolved,,,,,,unmapped
+SRC-c28dcbf38f,window,WIN_Table_Tempos_materiais_Descricoes,WIN_Table_Tempos_materiais_Descricoes/TAB_principal/BTN_listagem,18,GestaoOficinas_TesteIA/WIN_Table_Tempos_materiais_Descricoes.wdw:889-890,unresolved,,,,,,unmapped
+SRC-307490d383,window,WIN_Table_Tempos_materiais_Descricoes,WIN_Table_Tempos_materiais_Descricoes/BTN_Sair,18,GestaoOficinas_TesteIA/WIN_Table_Tempos_materiais_Descricoes.wdw:963-969,unresolved,,,,,,unmapped
+SRC-02ca01d2a4,window,WIN_Table_Tempos_materiais_Descricoes,WIN_Table_Tempos_materiais_Descricoes [MyWindow],,GestaoOficinas_TesteIA/WIN_Table_Tempos_materiais_Descricoes.wdw:1004-1054,unresolved,,,,,,unmapped
+SRC-2ffa4ede18,window,WIN_Table_Tempos_materiais_Descricoes,WIN_Table_Tempos_materiais_Descricoes [Intervalo_datas_para_horas],458752,GestaoOficinas_TesteIA/WIN_Table_Tempos_materiais_Descricoes.wdw:1090-1107,unresolved,,,,,,unmapped
+SRC-be7f7c9b10,window,WIN_Table_Tempos_materiais_Descricoes,WIN_Table_Tempos_materiais_Descricoes [soma_horas],458752,GestaoOficinas_TesteIA/WIN_Table_Tempos_materiais_Descricoes.wdw:1114-1141,unresolved,,,,,,unmapped
+SRC-979f85ef96,encoded-action,WIN_Table_Tempos_materiais_Descricoes,WIN_Table_Tempos_materiais_Descricoes/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Table_Tempos_materiais_Descricoes.wdw:67,unresolved,,,,,,unmapped
+SRC-7bd9aaab79,encoded-action,WIN_Table_Tempos_materiais_Descricoes,WIN_Table_Tempos_materiais_Descricoes/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Table_Tempos_materiais_Descricoes.wdw:90,unresolved,,,,,,unmapped
+SRC-5bde38ffcf,encoded-action,WIN_Table_Tempos_materiais_Descricoes,WIN_Table_Tempos_materiais_Descricoes/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Table_Tempos_materiais_Descricoes.wdw:115,unresolved,,,,,,unmapped
+SRC-adbe46d83e,window,WIN_Table_Terminais,WIN_Table_Terminais/TABLE_Terminais,14,GestaoOficinas_TesteIA/WIN_Table_Terminais.wdw:79-83,unresolved,,,,,,unmapped
+SRC-114a90da1b,window,WIN_Table_Terminais,WIN_Table_Terminais/Btn_New,18,GestaoOficinas_TesteIA/WIN_Table_Terminais.wdw:180-189,unresolved,,,,,,unmapped
+SRC-03e7cd854a,window,WIN_Table_Terminais,WIN_Table_Terminais/BTN_Modificar,18,GestaoOficinas_TesteIA/WIN_Table_Terminais.wdw:213-220,unresolved,,,,,,unmapped
+SRC-3ee5a8fb54,window,WIN_Table_Terminais,WIN_Table_Terminais/BTN_Delete,18,GestaoOficinas_TesteIA/WIN_Table_Terminais.wdw:245-262,unresolved,,,,,,unmapped
+SRC-958c07be8f,window,WIN_Table_Terminais,WIN_Table_Terminais/BTN_selecionar,18,GestaoOficinas_TesteIA/WIN_Table_Terminais.wdw:447-447,unresolved,,,,,,unmapped
+SRC-12c5339aa8,window,WIN_Table_Terminais,WIN_Table_Terminais [WIN_Table_Terminais],,GestaoOficinas_TesteIA/WIN_Table_Terminais.wdw:469-483,unresolved,,,,,,unmapped
+SRC-6c7a67e5dd,encoded-action,WIN_Table_Terminais,WIN_Table_Terminais/BTN_Fechar [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Table_Terminais.wdw:160,unresolved,,,,,,unmapped
+SRC-25c6a44948,encoded-action,WIN_Table_Terminais,WIN_Table_Terminais/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Table_Terminais.wdw:303,unresolved,,,,,,unmapped
+SRC-930e34e47c,encoded-action,WIN_Table_Terminais,WIN_Table_Terminais/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Table_Terminais.wdw:326,unresolved,,,,,,unmapped
+SRC-e66083b088,encoded-action,WIN_Table_Terminais,WIN_Table_Terminais/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Table_Terminais.wdw:351,unresolved,,,,,,unmapped
+SRC-e691c363a9,encoded-action,WIN_Table_Terminais,WIN_Table_Terminais/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Table_Terminais.wdw:376,unresolved,,,,,,unmapped
+SRC-e835e54c37,window,WIN_Table_Viaturas,WIN_Table_Viaturas/TABLE_Viaturas,14,GestaoOficinas_TesteIA/WIN_Table_Viaturas.wdw:167-171,unresolved,,,,,,unmapped
+SRC-48aefe45e0,window,WIN_Table_Viaturas,WIN_Table_Viaturas/Btn_New,18,GestaoOficinas_TesteIA/WIN_Table_Viaturas.wdw:278-284,unresolved,,,,,,unmapped
+SRC-8523ffdea4,window,WIN_Table_Viaturas,WIN_Table_Viaturas/BTN_Modificar,18,GestaoOficinas_TesteIA/WIN_Table_Viaturas.wdw:308-315,unresolved,,,,,,unmapped
+SRC-626e614259,window,WIN_Table_Viaturas,WIN_Table_Viaturas/BTN_Delete,18,GestaoOficinas_TesteIA/WIN_Table_Viaturas.wdw:340-363,unresolved,,,,,,unmapped
+SRC-a61ff747bb,window,WIN_Table_Viaturas,WIN_Table_Viaturas/BTN_selecionar,18,GestaoOficinas_TesteIA/WIN_Table_Viaturas.wdw:573-573,unresolved,,,,,,unmapped
+SRC-5842b250a1,window,WIN_Table_Viaturas,WIN_Table_Viaturas/BTN_marca_modelo,18,GestaoOficinas_TesteIA/WIN_Table_Viaturas.wdw:597-602,unresolved,,,,,,unmapped
+SRC-19e53dd089,window,WIN_Table_Viaturas,WIN_Table_Viaturas/BTN_cliente,18,GestaoOficinas_TesteIA/WIN_Table_Viaturas.wdw:626-631,unresolved,,,,,,unmapped
+SRC-eb32ba725f,window,WIN_Table_Viaturas,WIN_Table_Viaturas/BTN_matricula,18,GestaoOficinas_TesteIA/WIN_Table_Viaturas.wdw:655-660,unresolved,,,,,,unmapped
+SRC-a3efb0ec8d,window,WIN_Table_Viaturas,WIN_Table_Viaturas/BTN_todos,18,GestaoOficinas_TesteIA/WIN_Table_Viaturas.wdw:684-689,unresolved,,,,,,unmapped
+SRC-9ba7df099d,window,WIN_Table_Viaturas,WIN_Table_Viaturas/EDT_termo_pesquisa,17,GestaoOficinas_TesteIA/WIN_Table_Viaturas.wdw:730-749,unresolved,,,,,,unmapped
+SRC-02f993ad97,window,WIN_Table_Viaturas,WIN_Table_Viaturas [WIN_Table_Viaturas],,GestaoOficinas_TesteIA/WIN_Table_Viaturas.wdw:768-771,unresolved,,,,,,unmapped
+SRC-2ab17a4369,window,WIN_Table_Viaturas,WIN_Table_Viaturas,34,GestaoOficinas_TesteIA/WIN_Table_Viaturas.wdw:774-774,unresolved,,,,,,unmapped
+SRC-b67c02c628,window,WIN_Table_Viaturas,WIN_Table_Viaturas,2,GestaoOficinas_TesteIA/WIN_Table_Viaturas.wdw:788-788,unresolved,,,,,,unmapped
+SRC-65d96751d7,window,WIN_Table_Viaturas,WIN_Table_Viaturas [filtrar_viaturas],458752,GestaoOficinas_TesteIA/WIN_Table_Viaturas.wdw:796-827,unresolved,,,,,,unmapped
+SRC-315c2074cb,encoded-action,WIN_Table_Viaturas,WIN_Table_Viaturas/BTN_Fechar [encoded action A-d61aa1],18,GestaoOficinas_TesteIA/WIN_Table_Viaturas.wdw:252,unresolved,,,,,,unmapped
+SRC-3144b63ca2,encoded-action,WIN_Table_Viaturas,WIN_Table_Viaturas/BTN_Imprimir [encoded action A-e21f3a],18,GestaoOficinas_TesteIA/WIN_Table_Viaturas.wdw:386,unresolved,,,,,,unmapped
+SRC-3ac7788bd6,encoded-action,WIN_Table_Viaturas,WIN_Table_Viaturas/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Table_Viaturas.wdw:429,unresolved,,,,,,unmapped
+SRC-a4b233b240,encoded-action,WIN_Table_Viaturas,WIN_Table_Viaturas/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Table_Viaturas.wdw:452,unresolved,,,,,,unmapped
+SRC-a08ddba206,encoded-action,WIN_Table_Viaturas,WIN_Table_Viaturas/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Table_Viaturas.wdw:477,unresolved,,,,,,unmapped
+SRC-b04c1c75bf,encoded-action,WIN_Table_Viaturas,WIN_Table_Viaturas/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-d61aa1],18,GestaoOficinas_TesteIA/WIN_Table_Viaturas.wdw:502,unresolved,,,,,,unmapped
+SRC-46036e99bf,window,WIN_Table_artigos,WIN_Table_artigos/TABLE_artigos,14,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:158-162,unresolved,,,,,,unmapped
+SRC-e6acbf4040,window,WIN_Table_artigos,WIN_Table_artigos/Btn_New,18,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:259-268,unresolved,,,,,,unmapped
+SRC-361896d316,window,WIN_Table_artigos,WIN_Table_artigos/BTN_Modificar,18,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:292-295,unresolved,,,,,,unmapped
+SRC-1ad16daf34,window,WIN_Table_artigos,WIN_Table_artigos/BTN_Delete,18,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:320-352,unresolved,,,,,,unmapped
+SRC-f0e4117ed4,window,WIN_Table_artigos,WIN_Table_artigos/BTN_todos,18,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:555-560,unresolved,,,,,,unmapped
+SRC-9efbe81830,window,WIN_Table_artigos,WIN_Table_artigos/EDT_termo_pesquisa,17,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:601-680,unresolved,,,,,,unmapped
+SRC-289f90002c,window,WIN_Table_artigos,WIN_Table_artigos/EDT_termo_pesquisa,66049,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:684-687,unresolved,,,,,,unmapped
+SRC-d3715dc936,window,WIN_Table_artigos,WIN_Table_artigos/BTN_codigo,18,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:704-709,unresolved,,,,,,unmapped
+SRC-e092131cca,window,WIN_Table_artigos,WIN_Table_artigos/BTN_descricao,18,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:729-734,unresolved,,,,,,unmapped
+SRC-ac34d0eaea,window,WIN_Table_artigos,WIN_Table_artigos/BTN_codigobarras,18,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:754-759,unresolved,,,,,,unmapped
+SRC-931f8b27a0,window,WIN_Table_artigos,WIN_Table_artigos/BTN_selecionar,18,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:784-784,unresolved,,,,,,unmapped
+SRC-12f9d18128,window,WIN_Table_artigos,WIN_Table_artigos/BTN_anterior,18,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:808-810,unresolved,,,,,,unmapped
+SRC-466dbdec8c,window,WIN_Table_artigos,WIN_Table_artigos/BTN_seguinte,18,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:834-836,unresolved,,,,,,unmapped
+SRC-f7a11f9771,window,WIN_Table_artigos,WIN_Table_artigos/CBOX_ativo,17,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:872-875,unresolved,,,,,,unmapped
+SRC-67a2751cfc,window,WIN_Table_artigos,WIN_Table_artigos/CBOX_inativo,17,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:908-911,unresolved,,,,,,unmapped
+SRC-128327a942,window,WIN_Table_artigos,WIN_Table_artigos [WIN_Table_artigos],,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:930-959,unresolved,,,,,,unmapped
+SRC-11ae5a2924,window,WIN_Table_artigos,WIN_Table_artigos [filtrar_artigos],458752,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:984-1015,unresolved,,,,,,unmapped
+SRC-b35f56c9b6,encoded-action,WIN_Table_artigos,WIN_Table_artigos/BTN_Fechar [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:239,unresolved,,,,,,unmapped
+SRC-1d852bed84,encoded-action,WIN_Table_artigos,WIN_Table_artigos/BTN_Imprimir [encoded action A-17c226],18,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:371,unresolved,,,,,,unmapped
+SRC-20f4815364,encoded-action,WIN_Table_artigos,WIN_Table_artigos/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:412,unresolved,,,,,,unmapped
+SRC-260c7714b7,encoded-action,WIN_Table_artigos,WIN_Table_artigos/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:435,unresolved,,,,,,unmapped
+SRC-9f9d8460d8,encoded-action,WIN_Table_artigos,WIN_Table_artigos/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:460,unresolved,,,,,,unmapped
+SRC-4066c8472b,encoded-action,WIN_Table_artigos,WIN_Table_artigos/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Table_artigos.wdw:485,unresolved,,,,,,unmapped
+SRC-eae374809e,window,WIN_Table_cab_stocks,WIN_Table_cab_stocks/BTN_novo,18,GestaoOficinas_TesteIA/WIN_Table_cab_stocks.wdw:387-388,unresolved,,,,,,unmapped
+SRC-f5e863350e,window,WIN_Table_cab_stocks,WIN_Table_cab_stocks/COMBO_tipo_doc,33,GestaoOficinas_TesteIA/WIN_Table_cab_stocks.wdw:440-459,unresolved,,,,,,unmapped
+SRC-5d9f623fd6,window,WIN_Table_cab_stocks,WIN_Table_cab_stocks/BTN_VISION,18,GestaoOficinas_TesteIA/WIN_Table_cab_stocks.wdw:483-503,unresolved,,,,,,unmapped
+SRC-ad153810b1,window,WIN_Table_cab_stocks,WIN_Table_cab_stocks/EDT_Do_n,17,GestaoOficinas_TesteIA/WIN_Table_cab_stocks.wdw:544-563,unresolved,,,,,,unmapped
+SRC-8f38161f99,window,WIN_Table_cab_stocks,WIN_Table_cab_stocks/EDT_Ao_n,17,GestaoOficinas_TesteIA/WIN_Table_cab_stocks.wdw:601-620,unresolved,,,,,,unmapped
+SRC-912fd4a0a4,window,WIN_Table_cab_stocks,WIN_Table_cab_stocks/EDT_Da_data,17,GestaoOficinas_TesteIA/WIN_Table_cab_stocks.wdw:661-680,unresolved,,,,,,unmapped
+SRC-07fb96c4dc,window,WIN_Table_cab_stocks,WIN_Table_cab_stocks/EDT_a_data,17,GestaoOficinas_TesteIA/WIN_Table_cab_stocks.wdw:721-740,unresolved,,,,,,unmapped
+SRC-7acb5ca222,window,WIN_Table_cab_stocks,WIN_Table_cab_stocks/EDT_descricao,17,GestaoOficinas_TesteIA/WIN_Table_cab_stocks.wdw:795-814,unresolved,,,,,,unmapped
+SRC-3d36069483,window,WIN_Table_cab_stocks,WIN_Table_cab_stocks/BTN_alterar,18,GestaoOficinas_TesteIA/WIN_Table_cab_stocks.wdw:835-836,unresolved,,,,,,unmapped
+SRC-ee97be64de,window,WIN_Table_cab_stocks,WIN_Table_cab_stocks/BTN_Eliminar,18,GestaoOficinas_TesteIA/WIN_Table_cab_stocks.wdw:860-907,unresolved,,,,,,unmapped
+SRC-dbbffadf63,window,WIN_Table_cab_stocks,WIN_Table_cab_stocks [MyWindow],,GestaoOficinas_TesteIA/WIN_Table_cab_stocks.wdw:929-933,unresolved,,,,,,unmapped
+SRC-64b86ba7bb,encoded-action,WIN_Table_cab_stocks,WIN_Table_cab_stocks/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Table_cab_stocks.wdw:67,unresolved,,,,,,unmapped
+SRC-3c7ca76c82,encoded-action,WIN_Table_cab_stocks,WIN_Table_cab_stocks/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Table_cab_stocks.wdw:90,unresolved,,,,,,unmapped
+SRC-bffff177d8,encoded-action,WIN_Table_cab_stocks,WIN_Table_cab_stocks/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Table_cab_stocks.wdw:115,unresolved,,,,,,unmapped
+SRC-47fe9fea35,encoded-action,WIN_Table_cab_stocks,WIN_Table_cab_stocks/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Table_cab_stocks.wdw:140,unresolved,,,,,,unmapped
+SRC-bbb56ad319,window,WIN_Table_documentos,WIN_Table_documentos/TABLE_documentos,14,GestaoOficinas_TesteIA/WIN_Table_documentos.wdw:139-143,unresolved,,,,,,unmapped
+SRC-cb37887d33,window,WIN_Table_documentos,WIN_Table_documentos/TABLE_documentos,21,GestaoOficinas_TesteIA/WIN_Table_documentos.wdw:167-172,unresolved,,,,,,unmapped
+SRC-65bae3d8e8,window,WIN_Table_documentos,WIN_Table_documentos/Btn_New,18,GestaoOficinas_TesteIA/WIN_Table_documentos.wdw:245-254,unresolved,,,,,,unmapped
+SRC-3d9a9e304c,window,WIN_Table_documentos,WIN_Table_documentos/BTN_Modificar,18,GestaoOficinas_TesteIA/WIN_Table_documentos.wdw:274-281,unresolved,,,,,,unmapped
+SRC-76449c8749,window,WIN_Table_documentos,WIN_Table_documentos/BTN_Delete,18,GestaoOficinas_TesteIA/WIN_Table_documentos.wdw:306-327,unresolved,,,,,,unmapped
+SRC-fac9bff440,window,WIN_Table_documentos,WIN_Table_documentos/BTN_selecionar,18,GestaoOficinas_TesteIA/WIN_Table_documentos.wdw:531-531,unresolved,,,,,,unmapped
+SRC-768b206713,window,WIN_Table_documentos,WIN_Table_documentos/BTN_seguinte,18,GestaoOficinas_TesteIA/WIN_Table_documentos.wdw:555-557,unresolved,,,,,,unmapped
+SRC-a88f17c672,window,WIN_Table_documentos,WIN_Table_documentos/BTN_anterior,18,GestaoOficinas_TesteIA/WIN_Table_documentos.wdw:581-583,unresolved,,,,,,unmapped
+SRC-e017fec224,window,WIN_Table_documentos,WIN_Table_documentos [WIN_Table_documentos],,GestaoOficinas_TesteIA/WIN_Table_documentos.wdw:605-632,unresolved,,,,,,unmapped
+SRC-6d1fa5cdc6,encoded-action,WIN_Table_documentos,WIN_Table_documentos/BTN_Fechar [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Table_documentos.wdw:225,unresolved,,,,,,unmapped
+SRC-072f1e7840,encoded-action,WIN_Table_documentos,WIN_Table_documentos/BTN_Imprimir [encoded action A-424f7f],18,GestaoOficinas_TesteIA/WIN_Table_documentos.wdw:346,unresolved,,,,,,unmapped
+SRC-fecab869f4,encoded-action,WIN_Table_documentos,WIN_Table_documentos/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Table_documentos.wdw:387,unresolved,,,,,,unmapped
+SRC-5155c814c4,encoded-action,WIN_Table_documentos,WIN_Table_documentos/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Table_documentos.wdw:410,unresolved,,,,,,unmapped
+SRC-f8b95b3739,encoded-action,WIN_Table_documentos,WIN_Table_documentos/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Table_documentos.wdw:435,unresolved,,,,,,unmapped
+SRC-fdbe715715,encoded-action,WIN_Table_documentos,WIN_Table_documentos/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Table_documentos.wdw:460,unresolved,,,,,,unmapped
+SRC-7810f8745a,window,WIN_Table_estado_reparacao_tipo3,WIN_Table_estado_reparacao_tipo3/TABLE_Estados_reparacao,14,GestaoOficinas_TesteIA/WIN_Table_estado_reparacao_tipo3.wdw:239-245,unresolved,,,,,,unmapped
+SRC-390a40052c,window,WIN_Table_estado_reparacao_tipo3,WIN_Table_estado_reparacao_tipo3/BTN_selecionar,18,GestaoOficinas_TesteIA/WIN_Table_estado_reparacao_tipo3.wdw:327-327,unresolved,,,,,,unmapped
+SRC-cba41fdb9c,window,WIN_Table_estado_reparacao_tipo3,WIN_Table_estado_reparacao_tipo3/BTN_seguinte,18,GestaoOficinas_TesteIA/WIN_Table_estado_reparacao_tipo3.wdw:376-378,unresolved,,,,,,unmapped
+SRC-a30532aca5,window,WIN_Table_estado_reparacao_tipo3,WIN_Table_estado_reparacao_tipo3/BTN_anterior,18,GestaoOficinas_TesteIA/WIN_Table_estado_reparacao_tipo3.wdw:402-404,unresolved,,,,,,unmapped
+SRC-b88d9209e1,window,WIN_Table_estado_reparacao_tipo3,WIN_Table_estado_reparacao_tipo3 [MyWindow],,GestaoOficinas_TesteIA/WIN_Table_estado_reparacao_tipo3.wdw:425-426,unresolved,,,,,,unmapped
+SRC-0f78c877c2,encoded-action,WIN_Table_estado_reparacao_tipo3,WIN_Table_estado_reparacao_tipo3/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Table_estado_reparacao_tipo3.wdw:67,unresolved,,,,,,unmapped
+SRC-c11a616e49,encoded-action,WIN_Table_estado_reparacao_tipo3,WIN_Table_estado_reparacao_tipo3/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Table_estado_reparacao_tipo3.wdw:90,unresolved,,,,,,unmapped
+SRC-6f6cc1891f,encoded-action,WIN_Table_estado_reparacao_tipo3,WIN_Table_estado_reparacao_tipo3/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Table_estado_reparacao_tipo3.wdw:115,unresolved,,,,,,unmapped
+SRC-df548e2a35,encoded-action,WIN_Table_estado_reparacao_tipo3,WIN_Table_estado_reparacao_tipo3/SCSystemButtons/BTN_SYST_FERMER [encoded action A-d61aa1],18,GestaoOficinas_TesteIA/WIN_Table_estado_reparacao_tipo3.wdw:140,unresolved,,,,,,unmapped
+SRC-adf70dfea6,encoded-action,WIN_Table_estado_reparacao_tipo3,WIN_Table_estado_reparacao_tipo3/BTN_Cancelar [encoded action A-d61aa1],18,GestaoOficinas_TesteIA/WIN_Table_estado_reparacao_tipo3.wdw:350,unresolved,,,,,,unmapped
+SRC-b4d4c613b8,window,WIN_Table_estados_descritivos,WIN_Table_estados_descritivos/TABLE_estados_descritivos,14,GestaoOficinas_TesteIA/WIN_Table_estados_descritivos.wdw:101-105,unresolved,,,,,,unmapped
+SRC-46ddae1d70,window,WIN_Table_estados_descritivos,WIN_Table_estados_descritivos/Btn_New,18,GestaoOficinas_TesteIA/WIN_Table_estados_descritivos.wdw:202-211,unresolved,,,,,,unmapped
+SRC-15f5980a65,window,WIN_Table_estados_descritivos,WIN_Table_estados_descritivos/BTN_Modificar,18,GestaoOficinas_TesteIA/WIN_Table_estados_descritivos.wdw:231-238,unresolved,,,,,,unmapped
+SRC-ed234689af,window,WIN_Table_estados_descritivos,WIN_Table_estados_descritivos/BTN_Delete,18,GestaoOficinas_TesteIA/WIN_Table_estados_descritivos.wdw:263-280,unresolved,,,,,,unmapped
+SRC-7a13a2b8cf,window,WIN_Table_estados_descritivos,WIN_Table_estados_descritivos/BTN_selecionar,18,GestaoOficinas_TesteIA/WIN_Table_estados_descritivos.wdw:484-484,unresolved,,,,,,unmapped
+SRC-b4f27ecae7,window,WIN_Table_estados_descritivos,WIN_Table_estados_descritivos/BTN_seguinte,18,GestaoOficinas_TesteIA/WIN_Table_estados_descritivos.wdw:508-510,unresolved,,,,,,unmapped
+SRC-c6c8dfb543,window,WIN_Table_estados_descritivos,WIN_Table_estados_descritivos/BTN_anterior,18,GestaoOficinas_TesteIA/WIN_Table_estados_descritivos.wdw:534-536,unresolved,,,,,,unmapped
+SRC-31858cfb4d,window,WIN_Table_estados_descritivos,WIN_Table_estados_descritivos [WIN_Table_estados_descritivos],,GestaoOficinas_TesteIA/WIN_Table_estados_descritivos.wdw:558-585,unresolved,,,,,,unmapped
+SRC-7feb6f9229,encoded-action,WIN_Table_estados_descritivos,WIN_Table_estados_descritivos/BTN_Fechar [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Table_estados_descritivos.wdw:182,unresolved,,,,,,unmapped
+SRC-43fbbef763,encoded-action,WIN_Table_estados_descritivos,WIN_Table_estados_descritivos/BTN_Imprimir [encoded action A-d2d708],18,GestaoOficinas_TesteIA/WIN_Table_estados_descritivos.wdw:299,unresolved,,,,,,unmapped
+SRC-c62ef6cd70,encoded-action,WIN_Table_estados_descritivos,WIN_Table_estados_descritivos/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Table_estados_descritivos.wdw:340,unresolved,,,,,,unmapped
+SRC-3364540bc3,encoded-action,WIN_Table_estados_descritivos,WIN_Table_estados_descritivos/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Table_estados_descritivos.wdw:363,unresolved,,,,,,unmapped
+SRC-6de1639e15,encoded-action,WIN_Table_estados_descritivos,WIN_Table_estados_descritivos/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Table_estados_descritivos.wdw:388,unresolved,,,,,,unmapped
+SRC-d5763c9584,encoded-action,WIN_Table_estados_descritivos,WIN_Table_estados_descritivos/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Table_estados_descritivos.wdw:413,unresolved,,,,,,unmapped
+SRC-06e8a24789,window,WIN_Table_estados_reparacao,WIN_Table_estados_reparacao/TABLE_estados_reparacao,14,GestaoOficinas_TesteIA/WIN_Table_estados_reparacao.wdw:101-105,unresolved,,,,,,unmapped
+SRC-3d2d856e80,window,WIN_Table_estados_reparacao,WIN_Table_estados_reparacao/TABLE_estados_reparacao,21,GestaoOficinas_TesteIA/WIN_Table_estados_reparacao.wdw:129-146,unresolved,,,,,,unmapped
+SRC-6d3f854610,window,WIN_Table_estados_reparacao,WIN_Table_estados_reparacao/Btn_New,18,GestaoOficinas_TesteIA/WIN_Table_estados_reparacao.wdw:225-234,unresolved,,,,,,unmapped
+SRC-c662b89f30,window,WIN_Table_estados_reparacao,WIN_Table_estados_reparacao/BTN_Modificar,18,GestaoOficinas_TesteIA/WIN_Table_estados_reparacao.wdw:258-265,unresolved,,,,,,unmapped
+SRC-0981321613,window,WIN_Table_estados_reparacao,WIN_Table_estados_reparacao/BTN_Delete,18,GestaoOficinas_TesteIA/WIN_Table_estados_reparacao.wdw:290-311,unresolved,,,,,,unmapped
+SRC-d7c408a29d,window,WIN_Table_estados_reparacao,WIN_Table_estados_reparacao/BTN_selecionar,18,GestaoOficinas_TesteIA/WIN_Table_estados_reparacao.wdw:515-515,unresolved,,,,,,unmapped
+SRC-dee1d17856,window,WIN_Table_estados_reparacao,WIN_Table_estados_reparacao [WIN_Table_estados_reparacao],,GestaoOficinas_TesteIA/WIN_Table_estados_reparacao.wdw:537-550,unresolved,,,,,,unmapped
+SRC-2344f79a3c,encoded-action,WIN_Table_estados_reparacao,WIN_Table_estados_reparacao/BTN_Fechar [encoded action A-d61aa1],18,GestaoOficinas_TesteIA/WIN_Table_estados_reparacao.wdw:203,unresolved,,,,,,unmapped
+SRC-c1b478f03f,encoded-action,WIN_Table_estados_reparacao,WIN_Table_estados_reparacao/BTN_Imprimir [encoded action A-2a7375],18,GestaoOficinas_TesteIA/WIN_Table_estados_reparacao.wdw:330,unresolved,,,,,,unmapped
+SRC-4a0927f730,encoded-action,WIN_Table_estados_reparacao,WIN_Table_estados_reparacao/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Table_estados_reparacao.wdw:371,unresolved,,,,,,unmapped
+SRC-f8ec0e38ec,encoded-action,WIN_Table_estados_reparacao,WIN_Table_estados_reparacao/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Table_estados_reparacao.wdw:394,unresolved,,,,,,unmapped
+SRC-dc446c2ab3,encoded-action,WIN_Table_estados_reparacao,WIN_Table_estados_reparacao/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Table_estados_reparacao.wdw:419,unresolved,,,,,,unmapped
+SRC-02a5b0e962,encoded-action,WIN_Table_estados_reparacao,WIN_Table_estados_reparacao/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Table_estados_reparacao.wdw:444,unresolved,,,,,,unmapped
+SRC-9e884ac4c9,window,WIN_Table_mecanicos,WIN_Table_mecanicos/TABLE_mecanicos,14,GestaoOficinas_TesteIA/WIN_Table_mecanicos.wdw:117-121,unresolved,,,,,,unmapped
+SRC-92127e38c1,window,WIN_Table_mecanicos,WIN_Table_mecanicos/BTN_Fechar,18,GestaoOficinas_TesteIA/WIN_Table_mecanicos.wdw:200-200,unresolved,,,,,,unmapped
+SRC-55fe294a78,window,WIN_Table_mecanicos,WIN_Table_mecanicos/Btn_New,18,GestaoOficinas_TesteIA/WIN_Table_mecanicos.wdw:224-233,unresolved,,,,,,unmapped
+SRC-934dda9b58,window,WIN_Table_mecanicos,WIN_Table_mecanicos/BTN_Modificar,18,GestaoOficinas_TesteIA/WIN_Table_mecanicos.wdw:253-261,unresolved,,,,,,unmapped
+SRC-c47339c9bf,window,WIN_Table_mecanicos,WIN_Table_mecanicos/BTN_Delete,18,GestaoOficinas_TesteIA/WIN_Table_mecanicos.wdw:286-297,unresolved,,,,,,unmapped
+SRC-df9e51fef3,window,WIN_Table_mecanicos,WIN_Table_mecanicos/BTN_selecionar,18,GestaoOficinas_TesteIA/WIN_Table_mecanicos.wdw:507-507,unresolved,,,,,,unmapped
+SRC-8f0a1d3e8c,window,WIN_Table_mecanicos,WIN_Table_mecanicos/BTN_seguinte,18,GestaoOficinas_TesteIA/WIN_Table_mecanicos.wdw:531-533,unresolved,,,,,,unmapped
+SRC-94c2ee8cff,window,WIN_Table_mecanicos,WIN_Table_mecanicos/BTN_anterior,18,GestaoOficinas_TesteIA/WIN_Table_mecanicos.wdw:557-559,unresolved,,,,,,unmapped
+SRC-5551fef826,window,WIN_Table_mecanicos,WIN_Table_mecanicos [WIN_Table_mecanicos],,GestaoOficinas_TesteIA/WIN_Table_mecanicos.wdw:580-605,unresolved,,,,,,unmapped
+SRC-c69cc5e553,window,WIN_Table_mecanicos,WIN_Table_mecanicos,34,GestaoOficinas_TesteIA/WIN_Table_mecanicos.wdw:608-608,unresolved,,,,,,unmapped
+SRC-e32df8bbab,encoded-action,WIN_Table_mecanicos,WIN_Table_mecanicos/BTN_Imprimir [encoded action A-897b90],18,GestaoOficinas_TesteIA/WIN_Table_mecanicos.wdw:320,unresolved,,,,,,unmapped
+SRC-4645ad70f5,encoded-action,WIN_Table_mecanicos,WIN_Table_mecanicos/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Table_mecanicos.wdw:363,unresolved,,,,,,unmapped
+SRC-80934d9c85,encoded-action,WIN_Table_mecanicos,WIN_Table_mecanicos/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Table_mecanicos.wdw:386,unresolved,,,,,,unmapped
+SRC-f78b5fdfe7,encoded-action,WIN_Table_mecanicos,WIN_Table_mecanicos/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Table_mecanicos.wdw:411,unresolved,,,,,,unmapped
+SRC-665ddee6a6,encoded-action,WIN_Table_mecanicos,WIN_Table_mecanicos/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Table_mecanicos.wdw:436,unresolved,,,,,,unmapped
+SRC-be16b934e1,window,WIN_Table_postos,WIN_Table_postos/TABLE_postos,19,GestaoOficinas_TesteIA/WIN_Table_postos.wdw:79-84,unresolved,,,,,,unmapped
+SRC-32595401cd,window,WIN_Table_postos,WIN_Table_postos/TABLE_postos,20,GestaoOficinas_TesteIA/WIN_Table_postos.wdw:88-89,unresolved,,,,,,unmapped
+SRC-76102f9a3b,window,WIN_Table_postos,WIN_Table_postos/Btn_New,18,GestaoOficinas_TesteIA/WIN_Table_postos.wdw:158-167,unresolved,,,,,,unmapped
+SRC-f5f266e00c,window,WIN_Table_postos,WIN_Table_postos/BTN_Modificar,18,GestaoOficinas_TesteIA/WIN_Table_postos.wdw:191-194,unresolved,,,,,,unmapped
+SRC-55285e57c4,window,WIN_Table_postos,WIN_Table_postos/BTN_Delete,18,GestaoOficinas_TesteIA/WIN_Table_postos.wdw:219-236,unresolved,,,,,,unmapped
+SRC-a1a6ec9188,window,WIN_Table_postos,WIN_Table_postos [WIN_Table_postos],,GestaoOficinas_TesteIA/WIN_Table_postos.wdw:418-429,unresolved,,,,,,unmapped
+SRC-71e5f77889,encoded-action,WIN_Table_postos,WIN_Table_postos/BTN_Fechar [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Table_postos.wdw:138,unresolved,,,,,,unmapped
+SRC-d30b8b3ef1,encoded-action,WIN_Table_postos,WIN_Table_postos/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Table_postos.wdw:277,unresolved,,,,,,unmapped
+SRC-96d4f149e8,encoded-action,WIN_Table_postos,WIN_Table_postos/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Table_postos.wdw:300,unresolved,,,,,,unmapped
+SRC-0d92ef6f86,encoded-action,WIN_Table_postos,WIN_Table_postos/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Table_postos.wdw:325,unresolved,,,,,,unmapped
+SRC-2e02193084,encoded-action,WIN_Table_postos,WIN_Table_postos/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Table_postos.wdw:350,unresolved,,,,,,unmapped
+SRC-6b7432e5a8,window,WIN_Table_unidades,WIN_Table_unidades/TABLE_unidades,19,GestaoOficinas_TesteIA/WIN_Table_unidades.wdw:101-106,unresolved,,,,,,unmapped
+SRC-bf7f508276,window,WIN_Table_unidades,WIN_Table_unidades/TABLE_unidades,20,GestaoOficinas_TesteIA/WIN_Table_unidades.wdw:110-111,unresolved,,,,,,unmapped
+SRC-a4f72efa83,window,WIN_Table_unidades,WIN_Table_unidades/Btn_New,18,GestaoOficinas_TesteIA/WIN_Table_unidades.wdw:180-189,unresolved,,,,,,unmapped
+SRC-1d9610dd46,window,WIN_Table_unidades,WIN_Table_unidades/BTN_Modificar,18,GestaoOficinas_TesteIA/WIN_Table_unidades.wdw:209-216,unresolved,,,,,,unmapped
+SRC-226f5f62f3,window,WIN_Table_unidades,WIN_Table_unidades/BTN_Delete,18,GestaoOficinas_TesteIA/WIN_Table_unidades.wdw:241-262,unresolved,,,,,,unmapped
+SRC-82453a401c,window,WIN_Table_unidades,WIN_Table_unidades [WIN_Table_unidades],,GestaoOficinas_TesteIA/WIN_Table_unidades.wdw:462-475,unresolved,,,,,,unmapped
+SRC-b11b08f416,encoded-action,WIN_Table_unidades,WIN_Table_unidades/BTN_Fechar [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Table_unidades.wdw:160,unresolved,,,,,,unmapped
+SRC-d16ff88544,encoded-action,WIN_Table_unidades,WIN_Table_unidades/BTN_Imprimir [encoded action A-69d0df],18,GestaoOficinas_TesteIA/WIN_Table_unidades.wdw:281,unresolved,,,,,,unmapped
+SRC-95cfc13a40,encoded-action,WIN_Table_unidades,WIN_Table_unidades/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Table_unidades.wdw:322,unresolved,,,,,,unmapped
+SRC-f4537bdc76,encoded-action,WIN_Table_unidades,WIN_Table_unidades/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Table_unidades.wdw:345,unresolved,,,,,,unmapped
+SRC-ed6b7a84fe,encoded-action,WIN_Table_unidades,WIN_Table_unidades/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Table_unidades.wdw:370,unresolved,,,,,,unmapped
+SRC-f471cbe5a8,encoded-action,WIN_Table_unidades,WIN_Table_unidades/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Table_unidades.wdw:395,unresolved,,,,,,unmapped
+SRC-96f2f64b6a,window,WIN_Table_utilizadores,WIN_Table_utilizadores/TABLE_utilizadores,14,GestaoOficinas_TesteIA/WIN_Table_utilizadores.wdw:79-83,unresolved,,,,,,unmapped
+SRC-eacf94726d,window,WIN_Table_utilizadores,WIN_Table_utilizadores/Btn_New,18,GestaoOficinas_TesteIA/WIN_Table_utilizadores.wdw:186-195,unresolved,,,,,,unmapped
+SRC-de66ef2034,window,WIN_Table_utilizadores,WIN_Table_utilizadores/BTN_Modificar,18,GestaoOficinas_TesteIA/WIN_Table_utilizadores.wdw:215-222,unresolved,,,,,,unmapped
+SRC-68776c0653,window,WIN_Table_utilizadores,WIN_Table_utilizadores/BTN_Delete,18,GestaoOficinas_TesteIA/WIN_Table_utilizadores.wdw:247-257,unresolved,,,,,,unmapped
+SRC-c8c753cd4f,window,WIN_Table_utilizadores,WIN_Table_utilizadores/BTN_selecionar,18,GestaoOficinas_TesteIA/WIN_Table_utilizadores.wdw:461-461,unresolved,,,,,,unmapped
+SRC-351eb00915,window,WIN_Table_utilizadores,WIN_Table_utilizadores/BTN_seguinte,18,GestaoOficinas_TesteIA/WIN_Table_utilizadores.wdw:485-487,unresolved,,,,,,unmapped
+SRC-8b47fc18b4,window,WIN_Table_utilizadores,WIN_Table_utilizadores/BTN_anterior,18,GestaoOficinas_TesteIA/WIN_Table_utilizadores.wdw:511-513,unresolved,,,,,,unmapped
+SRC-427f3ed2cc,window,WIN_Table_utilizadores,WIN_Table_utilizadores [WIN_Table_utilizadores],,GestaoOficinas_TesteIA/WIN_Table_utilizadores.wdw:535-560,unresolved,,,,,,unmapped
+SRC-7a5b16af37,encoded-action,WIN_Table_utilizadores,WIN_Table_utilizadores/BTN_Fechar [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Table_utilizadores.wdw:164,unresolved,,,,,,unmapped
+SRC-ed16a3eb0e,encoded-action,WIN_Table_utilizadores,WIN_Table_utilizadores/BTN_Imprimir [encoded action A-057f73],18,GestaoOficinas_TesteIA/WIN_Table_utilizadores.wdw:276,unresolved,,,,,,unmapped
+SRC-372a4b4cb2,encoded-action,WIN_Table_utilizadores,WIN_Table_utilizadores/SC_SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Table_utilizadores.wdw:317,unresolved,,,,,,unmapped
+SRC-9f8db33bab,encoded-action,WIN_Table_utilizadores,WIN_Table_utilizadores/SC_SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Table_utilizadores.wdw:340,unresolved,,,,,,unmapped
+SRC-25cf8d6092,encoded-action,WIN_Table_utilizadores,WIN_Table_utilizadores/SC_SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Table_utilizadores.wdw:365,unresolved,,,,,,unmapped
+SRC-87354143a0,encoded-action,WIN_Table_utilizadores,WIN_Table_utilizadores/SC_SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Table_utilizadores.wdw:390,unresolved,,,,,,unmapped
+SRC-4ea020b78f,window,WIN_Teclado_numerico,WIN_Teclado_numerico/BTN_um,18,GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw:35-36,unresolved,,,,,,unmapped
+SRC-3e31b12910,window,WIN_Teclado_numerico,WIN_Teclado_numerico/EDT_Texto,15,GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw:56-62,unresolved,,,,,,unmapped
+SRC-ba5ef7d179,window,WIN_Teclado_numerico,WIN_Teclado_numerico/BTN_dois,18,GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw:88-89,unresolved,,,,,,unmapped
+SRC-5d4c3598f5,window,WIN_Teclado_numerico,WIN_Teclado_numerico/BTN_tres,18,GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw:109-110,unresolved,,,,,,unmapped
+SRC-710b94b5e7,window,WIN_Teclado_numerico,WIN_Teclado_numerico/BTN_quatro,18,GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw:130-131,unresolved,,,,,,unmapped
+SRC-d3cbd5974c,window,WIN_Teclado_numerico,WIN_Teclado_numerico/BTN_cinco,18,GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw:151-152,unresolved,,,,,,unmapped
+SRC-7066ec8057,window,WIN_Teclado_numerico,WIN_Teclado_numerico/BTN_seis,18,GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw:172-173,unresolved,,,,,,unmapped
+SRC-c0a7483726,window,WIN_Teclado_numerico,WIN_Teclado_numerico/BTN_sete,18,GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw:193-194,unresolved,,,,,,unmapped
+SRC-4141216a3b,window,WIN_Teclado_numerico,WIN_Teclado_numerico/BTN_oito,18,GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw:214-215,unresolved,,,,,,unmapped
+SRC-372c2d3faa,window,WIN_Teclado_numerico,WIN_Teclado_numerico/BTN_nove,18,GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw:235-236,unresolved,,,,,,unmapped
+SRC-ea65cb18bd,window,WIN_Teclado_numerico,WIN_Teclado_numerico/BTN_zero,18,GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw:256-257,unresolved,,,,,,unmapped
+SRC-0c715c00ca,window,WIN_Teclado_numerico,WIN_Teclado_numerico/BTN_confirmar,18,GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw:281-287,unresolved,,,,,,unmapped
+SRC-7fd4b80de9,window,WIN_Teclado_numerico,WIN_Teclado_numerico/BTN_cancelar,18,GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw:311-311,unresolved,,,,,,unmapped
+SRC-8cb68c182c,window,WIN_Teclado_numerico,WIN_Teclado_numerico/BTN_Caption,18,GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw:331-331,unresolved,,,,,,unmapped
+SRC-7d837aacde,window,WIN_Teclado_numerico,WIN_Teclado_numerico/BTN_ponto,18,GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw:351-352,unresolved,,,,,,unmapped
+SRC-868fab935f,window,WIN_Teclado_numerico,WIN_Teclado_numerico/BTN_menos,18,GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw:372-373,unresolved,,,,,,unmapped
+SRC-45d344dcc8,window,WIN_Teclado_numerico,WIN_Teclado_numerico/BTN_limpar,18,GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw:393-395,unresolved,,,,,,unmapped
+SRC-49ee2912c4,window,WIN_Teclado_numerico,WIN_Teclado_numerico/EDT_input_manual,65794,GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw:424-463,unresolved,,,,,,unmapped
+SRC-cbb939b412,window,WIN_Teclado_numerico,WIN_Teclado_numerico [WIN_Teclado_numerico],,GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw:481-500,unresolved,,,,,,unmapped
+SRC-d4c076708a,window,WIN_Teclado_numerico,WIN_Teclado_numerico [Escreve],458752,GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw:525-593,unresolved,,,,,,unmapped
+SRC-2dea19d0f7,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/BTN_seguinte,18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:210-214,unresolved,,,,,,unmapped
+SRC-5eaf0ce88e,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/BTN_anterior,18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:238-242,unresolved,,,,,,unmapped
+SRC-f21eabb3c2,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/LIST_mecanicos,66050,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:294-331,unresolved,,,,,,unmapped
+SRC-47b82f261a,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/BTN_seguinte1,18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:352-354,unresolved,,,,,,unmapped
+SRC-222ba9d736,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/BTN_anterior1,18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:378-380,unresolved,,,,,,unmapped
+SRC-5c0c820a2e,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/BTN_Tempos,18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:404-420,unresolved,,,,,,unmapped
+SRC-25a7d24c72,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/BTN_todos,18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:444-467,unresolved,,,,,,unmapped
+SRC-fafcfa6be8,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/BTN_Estado,18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:504-517,unresolved,,,,,,unmapped
+SRC-ebb17cacbd,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/TABLE_Estados_reparacao,14,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:682-689,unresolved,,,,,,unmapped
+SRC-7ccc88abfb,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/TABLE_Estados_reparacao,21,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:712-712,unresolved,,,,,,unmapped
+SRC-97dd4aa47f,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/TABLE_Estados_reparacao,66050,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:753-792,unresolved,,,,,,unmapped
+SRC-ef8b3f1bbd,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/BTN_seguinte2,18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:813-815,unresolved,,,,,,unmapped
+SRC-94cfe8d461,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/BTN_anterior2,18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:839-841,unresolved,,,,,,unmapped
+SRC-642796088c,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/TABLE_tempos_reparacao_ordem,21,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:931-938,unresolved,,,,,,unmapped
+SRC-af35a2fb04,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/BTN_Informacao,18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:996-996,unresolved,,,,,,unmapped
+SRC-c5ec2288d4,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/TABLE_tempos_reparacao,21,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:1279-1287,unresolved,,,,,,unmapped
+SRC-891ff6fbd3,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/TABLE_tempos_reparacao,33,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:1303-1304,unresolved,,,,,,unmapped
+SRC-9dc5a50262,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/BTN_Fechar,18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:1346-1346,unresolved,,,,,,unmapped
+SRC-d11bf8c9be,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao [MyWindow],,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:1368-1389,unresolved,,,,,,unmapped
+SRC-c2c56c6161,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao,34,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:1392-1396,unresolved,,,,,,unmapped
+SRC-7a8ab06c73,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao,2,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:1421-1421,unresolved,,,,,,unmapped
+SRC-de53acf761,window,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao [atualizar],458752,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:1429-1487,unresolved,,,,,,unmapped
+SRC-2db843cdce,encoded-action,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:67,unresolved,,,,,,unmapped
+SRC-54d4dfc592,encoded-action,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:90,unresolved,,,,,,unmapped
+SRC-4be2ddd986,encoded-action,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:115,unresolved,,,,,,unmapped
+SRC-029ac00f71,encoded-action,WIN_Tempos_Reparacao,WIN_Tempos_Reparacao/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:140,unresolved,,,,,,unmapped
+SRC-f19f71c51e,window,WIN_Tempos_Reparacao_Estado,WIN_Tempos_Reparacao_Estado/EDT_descricao,66049,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Estado.wdw:237-239,unresolved,,,,,,unmapped
+SRC-877b8436df,window,WIN_Tempos_Reparacao_Estado,WIN_Tempos_Reparacao_Estado/EDT_obs_servico,66049,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Estado.wdw:316-318,unresolved,,,,,,unmapped
+SRC-4dab88c740,window,WIN_Tempos_Reparacao_Estado,WIN_Tempos_Reparacao_Estado/BTN_Confirmar,18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Estado.wdw:353-371,unresolved,,,,,,unmapped
+SRC-20dcc20f20,window,WIN_Tempos_Reparacao_Estado,WIN_Tempos_Reparacao_Estado/BTN_NoName1,18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Estado.wdw:416-416,unresolved,,,,,,unmapped
+SRC-3adea49651,window,WIN_Tempos_Reparacao_Estado,WIN_Tempos_Reparacao_Estado/BTN_seguinte,18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Estado.wdw:440-442,unresolved,,,,,,unmapped
+SRC-4ef08b9f1c,window,WIN_Tempos_Reparacao_Estado,WIN_Tempos_Reparacao_Estado/BTN_anterior,18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Estado.wdw:466-468,unresolved,,,,,,unmapped
+SRC-31943e73cd,window,WIN_Tempos_Reparacao_Estado,WIN_Tempos_Reparacao_Estado/TABLE_Estados_reparacao,14,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Estado.wdw:639-645,unresolved,,,,,,unmapped
+SRC-797fe1c6d5,window,WIN_Tempos_Reparacao_Estado,WIN_Tempos_Reparacao_Estado/TABLE_Estados_reparacao,21,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Estado.wdw:668-668,unresolved,,,,,,unmapped
+SRC-ed637cd256,window,WIN_Tempos_Reparacao_Estado,WIN_Tempos_Reparacao_Estado [MyWindow],,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Estado.wdw:723-735,unresolved,,,,,,unmapped
+SRC-6403344a20,window,WIN_Tempos_Reparacao_Estado,WIN_Tempos_Reparacao_Estado,34,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Estado.wdw:738-739,unresolved,,,,,,unmapped
+SRC-11cad0b2e6,window,WIN_Tempos_Reparacao_Estado,WIN_Tempos_Reparacao_Estado,2,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Estado.wdw:764-764,unresolved,,,,,,unmapped
+SRC-f225fc6234,encoded-action,WIN_Tempos_Reparacao_Estado,WIN_Tempos_Reparacao_Estado/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Estado.wdw:67,unresolved,,,,,,unmapped
+SRC-20928c0adb,encoded-action,WIN_Tempos_Reparacao_Estado,WIN_Tempos_Reparacao_Estado/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Estado.wdw:90,unresolved,,,,,,unmapped
+SRC-5c85a88492,encoded-action,WIN_Tempos_Reparacao_Estado,WIN_Tempos_Reparacao_Estado/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Estado.wdw:115,unresolved,,,,,,unmapped
+SRC-859b708789,encoded-action,WIN_Tempos_Reparacao_Estado,WIN_Tempos_Reparacao_Estado/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Estado.wdw:140,unresolved,,,,,,unmapped
+SRC-e52d04d440,encoded-action,WIN_Tempos_Reparacao_Estado,WIN_Tempos_Reparacao_Estado/BTN_Cancelar [encoded action A-d61aa1],18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Estado.wdw:394,unresolved,,,,,,unmapped
+SRC-7dd8d8bce5,window,WIN_Tempos_Reparacao_Informacao,WIN_Tempos_Reparacao_Informacao/SCSystemButtons/BTN_SYST_FERMER,18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Informacao.wdw:141-141,unresolved,,,,,,unmapped
+SRC-afe079e245,window,WIN_Tempos_Reparacao_Informacao,WIN_Tempos_Reparacao_Informacao/BTN_Fechar,18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Informacao.wdw:266-266,unresolved,,,,,,unmapped
+SRC-5b5a9f170c,window,WIN_Tempos_Reparacao_Informacao,WIN_Tempos_Reparacao_Informacao/BTN_Imprimir1,18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Informacao.wdw:360-360,unresolved,,,,,,unmapped
+SRC-7ee7886777,window,WIN_Tempos_Reparacao_Informacao,WIN_Tempos_Reparacao_Informacao [MyWindow],,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Informacao.wdw:381-393,unresolved,,,,,,unmapped
+SRC-f8a0560e47,encoded-action,WIN_Tempos_Reparacao_Informacao,WIN_Tempos_Reparacao_Informacao/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Informacao.wdw:67,unresolved,,,,,,unmapped
+SRC-33a7e5d88d,encoded-action,WIN_Tempos_Reparacao_Informacao,WIN_Tempos_Reparacao_Informacao/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Informacao.wdw:90,unresolved,,,,,,unmapped
+SRC-70af4e92ab,encoded-action,WIN_Tempos_Reparacao_Informacao,WIN_Tempos_Reparacao_Informacao/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Informacao.wdw:115,unresolved,,,,,,unmapped
+SRC-c0cc54232e,window,WIN_Tempos_Reparacao_Tempo,WIN_Tempos_Reparacao_Tempo/BTN_NoName1,18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Tempo.wdw:241-279,unresolved,,,,,,unmapped
+SRC-39eeaad136,window,WIN_Tempos_Reparacao_Tempo,WIN_Tempos_Reparacao_Tempo/BTN_Iniciar,18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Tempo.wdw:304-432,unresolved,,,,,,unmapped
+SRC-a6d0145e4a,window,WIN_Tempos_Reparacao_Tempo,WIN_Tempos_Reparacao_Tempo [MyWindow],,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Tempo.wdw:479-500,unresolved,,,,,,unmapped
+SRC-0bd33ecec2,encoded-action,WIN_Tempos_Reparacao_Tempo,WIN_Tempos_Reparacao_Tempo/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Tempo.wdw:67,unresolved,,,,,,unmapped
+SRC-014ede4c1a,encoded-action,WIN_Tempos_Reparacao_Tempo,WIN_Tempos_Reparacao_Tempo/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Tempo.wdw:90,unresolved,,,,,,unmapped
+SRC-d8becf9e7d,encoded-action,WIN_Tempos_Reparacao_Tempo,WIN_Tempos_Reparacao_Tempo/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Tempo.wdw:115,unresolved,,,,,,unmapped
+SRC-06b2aa933b,encoded-action,WIN_Tempos_Reparacao_Tempo,WIN_Tempos_Reparacao_Tempo/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Tempo.wdw:140,unresolved,,,,,,unmapped
+SRC-3674328653,encoded-action,WIN_Tempos_Reparacao_Tempo,WIN_Tempos_Reparacao_Tempo/BTN_Cancelar [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Tempo.wdw:455,unresolved,,,,,,unmapped
+SRC-46647faa88,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_1,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:35-36,unresolved,,,,,,unmapped
+SRC-251b6fea58,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_CapsLock,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:56-67,unresolved,,,,,,unmapped
+SRC-0d75702e3f,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_2,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:87-88,unresolved,,,,,,unmapped
+SRC-ec8689fbdb,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_3,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:108-109,unresolved,,,,,,unmapped
+SRC-d642fd7794,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_4,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:129-130,unresolved,,,,,,unmapped
+SRC-fa831a48fd,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_5,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:150-151,unresolved,,,,,,unmapped
+SRC-c0259ce687,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_6,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:171-172,unresolved,,,,,,unmapped
+SRC-f334040d6e,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_7,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:192-193,unresolved,,,,,,unmapped
+SRC-4f980137d2,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_8,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:213-214,unresolved,,,,,,unmapped
+SRC-62fcd8076b,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_9,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:234-235,unresolved,,,,,,unmapped
+SRC-3d41161428,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_0,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:255-256,unresolved,,,,,,unmapped
+SRC-2db5680c5c,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_q,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:276-277,unresolved,,,,,,unmapped
+SRC-ceeda6ca47,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_w,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:297-298,unresolved,,,,,,unmapped
+SRC-b2493cee2c,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_e,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:318-319,unresolved,,,,,,unmapped
+SRC-b994c07412,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_r,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:339-340,unresolved,,,,,,unmapped
+SRC-b9f3d7fe17,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_t,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:360-361,unresolved,,,,,,unmapped
+SRC-396131c111,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_y,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:381-382,unresolved,,,,,,unmapped
+SRC-59332b5b81,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_u,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:402-403,unresolved,,,,,,unmapped
+SRC-872ad8f24f,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_i,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:423-424,unresolved,,,,,,unmapped
+SRC-a181d115da,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_o,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:444-445,unresolved,,,,,,unmapped
+SRC-d20b969266,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_p,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:465-466,unresolved,,,,,,unmapped
+SRC-188fd6c6be,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_a,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:486-487,unresolved,,,,,,unmapped
+SRC-2781ad0eaf,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_s,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:507-508,unresolved,,,,,,unmapped
+SRC-1ed7008355,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_d,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:528-529,unresolved,,,,,,unmapped
+SRC-90fbc1c6b8,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_f,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:549-550,unresolved,,,,,,unmapped
+SRC-1d7c4de8df,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_g,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:570-571,unresolved,,,,,,unmapped
+SRC-6bb2ba69db,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_h,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:591-592,unresolved,,,,,,unmapped
+SRC-d684a7974e,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_j,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:612-613,unresolved,,,,,,unmapped
+SRC-798a5463a0,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_k,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:633-634,unresolved,,,,,,unmapped
+SRC-ddac94d57f,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_l,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:654-655,unresolved,,,,,,unmapped
+SRC-9b6b72894b,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_c_cedilha,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:675-676,unresolved,,,,,,unmapped
+SRC-02c4f1c45f,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_z,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:696-697,unresolved,,,,,,unmapped
+SRC-81fa574a64,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_x,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:717-718,unresolved,,,,,,unmapped
+SRC-d48618530e,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_c,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:738-739,unresolved,,,,,,unmapped
+SRC-bfedfd004a,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_v,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:759-760,unresolved,,,,,,unmapped
+SRC-23d028db30,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_b,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:780-781,unresolved,,,,,,unmapped
+SRC-6ae4f209c8,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_n,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:801-802,unresolved,,,,,,unmapped
+SRC-b2ad00098f,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_m,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:822-823,unresolved,,,,,,unmapped
+SRC-dd0c14c5dd,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_espaco,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:843-844,unresolved,,,,,,unmapped
+SRC-812342c346,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_acento_grave,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:864-865,unresolved,,,,,,unmapped
+SRC-deb3586790,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_acento_agudo,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:885-886,unresolved,,,,,,unmapped
+SRC-dc608b34a3,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_acento_til,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:906-907,unresolved,,,,,,unmapped
+SRC-e437ee95d0,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_acento_circunflexo,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:927-928,unresolved,,,,,,unmapped
+SRC-106e0a816a,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_apagar_ultimo,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:948-949,unresolved,,,,,,unmapped
+SRC-b36615d7d6,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_apagar_tudo,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:969-970,unresolved,,,,,,unmapped
+SRC-6a5d43d37f,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_confirmar,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:994-994,unresolved,,,,,,unmapped
+SRC-86700c4499,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_cancelar,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1014-1014,unresolved,,,,,,unmapped
+SRC-229e3f79de,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_Caption,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1034-1034,unresolved,,,,,,unmapped
+SRC-60fcdd5d0a,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_asterisco,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1054-1055,unresolved,,,,,,unmapped
+SRC-a49582b053,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_mais,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1075-1076,unresolved,,,,,,unmapped
+SRC-c1d5975d5e,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_menos,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1096-1097,unresolved,,,,,,unmapped
+SRC-874f46976c,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_under_score,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1117-1118,unresolved,,,,,,unmapped
+SRC-06647c282f,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_barra_esquerda,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1138-1139,unresolved,,,,,,unmapped
+SRC-719ec660dd,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_barra_direita,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1159-1160,unresolved,,,,,,unmapped
+SRC-d6df57a4f3,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_ponto,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1180-1181,unresolved,,,,,,unmapped
+SRC-06ba9d515c,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_virgula,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1201-1202,unresolved,,,,,,unmapped
+SRC-ea304c884b,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_dois_pontos,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1222-1223,unresolved,,,,,,unmapped
+SRC-d6f8d293c0,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_ponto_virgula,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1243-1244,unresolved,,,,,,unmapped
+SRC-7125e4f803,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_parentesis_esquerda,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1264-1265,unresolved,,,,,,unmapped
+SRC-b3c39ec455,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_parentesis_direita,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1285-1286,unresolved,,,,,,unmapped
+SRC-bafb058763,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_arroba,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1306-1307,unresolved,,,,,,unmapped
+SRC-02313c03f5,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_euro,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1327-1328,unresolved,,,,,,unmapped
+SRC-6212bd1fe3,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_percentagem,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1348-1349,unresolved,,,,,,unmapped
+SRC-1cc6b12b6c,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_ponto_interrogacao,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1369-1370,unresolved,,,,,,unmapped
+SRC-a825222e20,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_a_cima,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1390-1391,unresolved,,,,,,unmapped
+SRC-8cb3aa8e5e,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_o_cima,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1411-1412,unresolved,,,,,,unmapped
+SRC-9ae1535948,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_i_comercial,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1432-1433,unresolved,,,,,,unmapped
+SRC-42b336def5,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_aspas,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1453-1454,unresolved,,,,,,unmapped
+SRC-a7f27e18cf,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_igual,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1474-1475,unresolved,,,,,,unmapped
+SRC-6ea68d15fc,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/BTN_cardinal,18,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1495-1496,unresolved,,,,,,unmapped
+SRC-d7b1caf69a,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa/EDT_input_manual,65794,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1541-1731,unresolved,,,,,,unmapped
+SRC-9efdb82f68,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa [WIN_Teclado_Alfa],,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1771-1794,unresolved,,,,,,unmapped
+SRC-ca4828ceb2,window,WIN_Teclado_Alfa,WIN_Teclado_Alfa [Escreve],458752,GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw:1819-1979,unresolved,,,,,,unmapped
+SRC-a1328f1bb2,window,WIN_Inventario_Reconstrucao,WIN_Inventario_Reconstrucao/BTN_Reconstruir,18,GestaoOficinas_TesteIA/WIN_inventario_Reconstrucao.wdw:197-260,unresolved,,,,,,unmapped
+SRC-99805cb492,window,WIN_Inventario_Reconstrucao,WIN_Inventario_Reconstrucao [MyWindow],,GestaoOficinas_TesteIA/WIN_inventario_Reconstrucao.wdw:319-319,unresolved,,,,,,unmapped
+SRC-99982ec38e,encoded-action,WIN_Inventario_Reconstrucao,WIN_Inventario_Reconstrucao/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_inventario_Reconstrucao.wdw:67,unresolved,,,,,,unmapped
+SRC-3efb57adb1,encoded-action,WIN_Inventario_Reconstrucao,WIN_Inventario_Reconstrucao/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_inventario_Reconstrucao.wdw:90,unresolved,,,,,,unmapped
+SRC-4b6c8c6208,encoded-action,WIN_Inventario_Reconstrucao,WIN_Inventario_Reconstrucao/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_inventario_Reconstrucao.wdw:115,unresolved,,,,,,unmapped
+SRC-992d42e29b,encoded-action,WIN_Inventario_Reconstrucao,WIN_Inventario_Reconstrucao/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_inventario_Reconstrucao.wdw:140,unresolved,,,,,,unmapped
+SRC-217d193335,encoded-action,WIN_Inventario_Reconstrucao,WIN_Inventario_Reconstrucao/BTN_Reconstruir1 [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_inventario_Reconstrucao.wdw:283,unresolved,,,,,,unmapped
+SRC-d9a33f8b29,window,WIN_sistema,WIN_sistema/BTN_Guardar,18,GestaoOficinas_TesteIA/WIN_sistema.wdw:198-214,unresolved,,,,,,unmapped
+SRC-9890c46def,window,WIN_sistema,WIN_sistema [MyWindow],,GestaoOficinas_TesteIA/WIN_sistema.wdw:418-426,unresolved,,,,,,unmapped
+SRC-0fc470751c,encoded-action,WIN_sistema,WIN_sistema/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WIN_sistema.wdw:67,unresolved,,,,,,unmapped
+SRC-45eacef786,encoded-action,WIN_sistema,WIN_sistema/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WIN_sistema.wdw:90,unresolved,,,,,,unmapped
+SRC-46870aa3b1,encoded-action,WIN_sistema,WIN_sistema/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WIN_sistema.wdw:115,unresolved,,,,,,unmapped
+SRC-adaae93e0b,encoded-action,WIN_sistema,WIN_sistema/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_sistema.wdw:140,unresolved,,,,,,unmapped
+SRC-70b6561cc6,encoded-action,WIN_sistema,WIN_sistema/BTN_Cancelar [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WIN_sistema.wdw:237,unresolved,,,,,,unmapped
+SRC-44c37a31ed,export-needed,MediaPlayer_0_D,,,GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_0_D.wdw,unresolved,,,,,,unmapped
+SRC-76b076ee54,export-needed,MediaPlayer_1,,,GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_1.wdw,unresolved,,,,,,unmapped
+SRC-3dadf11ce4,export-needed,MediaPlayer_13,,,GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_13.WDW,unresolved,,,,,,unmapped
+SRC-d2ca409e45,export-needed,MediaPlayer_22,,,GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_22.wdw,unresolved,,,,,,unmapped
+SRC-a10d61199c,export-needed,MediaPlayer_23,,,GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_23.wdw,unresolved,,,,,,unmapped
+SRC-60de1ab8b7,export-needed,MediaPlayer_24,,,GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_24.wdw,unresolved,,,,,,unmapped
+SRC-a34cf9feeb,export-needed,MediaPlayer_Etiquette,,,GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_Etiquette.wde,unresolved,,,,,,unmapped
+SRC-b84270dd01,export-needed,MediaPlayer_Fiche,,,GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_Fiche.wde,unresolved,,,,,,unmapped
+SRC-03db9443e6,export-needed,MediaPlayer_Form,,,GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_Form.wde,unresolved,,,,,,unmapped
+SRC-38f18f8fb2,export-needed,MediaPlayer_Label,,,GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_Label.wde,unresolved,,,,,,unmapped
+SRC-db7be56394,export-needed,MediaPlayer_Mailing,,,GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_Mailing.wde,unresolved,,,,,,unmapped
+SRC-dd58eac057,export-needed,MediaPlayer_MailingUS,,,GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_MailingUS.wde,unresolved,,,,,,unmapped
+SRC-08d712b5c0,export-needed,MediaPlayer_Table,,,GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_Table.wde,unresolved,,,,,,unmapped
+SRC-b3f101d3ac,export-needed,MediaPlayer_TableUS,,,GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_TableUS.wde,unresolved,,,,,,unmapped
+SRC-926dc834f3,window,WINDEVDIALOGBOX,WINDEVDIALOGBOX/BTN_ESC,18,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:96-96,unresolved,,,,,,unmapped
+SRC-d1e0d97a2b,window,WINDEVDIALOGBOX,WINDEVDIALOGBOX/SAI_1,14,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:156-159,unresolved,,,,,,unmapped
+SRC-156565898f,window,WINDEVDIALOGBOX,WINDEVDIALOGBOX/BTN_1,18,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:213-213,unresolved,,,,,,unmapped
+SRC-77dc6d45c8,window,WINDEVDIALOGBOX,WINDEVDIALOGBOX/BTN_MOBILE_1,18,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:240-240,unresolved,,,,,,unmapped
+SRC-fffc1491f7,window,WINDEVDIALOGBOX,WINDEVDIALOGBOX [WINDEVDIALOGBOX],,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:439-467,unresolved,,,,,,unmapped
+SRC-945909dc14,window,WINDEVDIALOGBOX,WINDEVDIALOGBOX [__bBitPresent],458752,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:536-543,unresolved,,,,,,unmapped
+SRC-318c693490,window,WINDEVDIALOGBOX,WINDEVDIALOGBOX [AfficherBoutons],458752,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:550-656,unresolved,,,,,,unmapped
+SRC-dd80105690,window,WINDEVDIALOGBOX,WINDEVDIALOGBOX [AfficherImage],458752,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:663-697,unresolved,,,,,,unmapped
+SRC-68b3592e69,window,WINDEVDIALOGBOX,WINDEVDIALOGBOX [EmpileBoutons],458752,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:704-727,unresolved,,,,,,unmapped
+SRC-054ccb378d,window,WINDEVDIALOGBOX,WINDEVDIALOGBOX [CentrerBoutons],458752,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:734-760,unresolved,,,,,,unmapped
+SRC-2e0e702cf2,window,WINDEVDIALOGBOX,WINDEVDIALOGBOX [RedimensionnerFenêtre],458752,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:767-890,unresolved,,,,,,unmapped
+SRC-2c90b06247,window,WINDEVDIALOGBOX,WINDEVDIALOGBOX [CalculeMeilleureDimensionTexte],458752,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:897-947,unresolved,,,,,,unmapped
+SRC-2ddc0d2054,window,WINDEVDIALOGBOX,WINDEVDIALOGBOX [FermeDialogue],458752,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:954-966,unresolved,,,,,,unmapped
+SRC-ecee91c52c,window,WINDEVDIALOGBOX,WINDEVDIALOGBOX [InitDialogue],458752,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:973-1020,unresolved,,,,,,unmapped
+SRC-68a9e0c43f,window,WINDEVDIALOGBOX,WINDEVDIALOGBOX [InitChampSaisieOuInterrupteur],458752,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:1027-1114,unresolved,,,,,,unmapped
+SRC-542811c19e,window,WINDEVDIALOGBOX,WINDEVDIALOGBOX [AdapteLargeurSaisie],458752,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:1121-1162,unresolved,,,,,,unmapped
+SRC-bf610621ed,window,WINDEVDIALOGBOX,WINDEVDIALOGBOX [_bEstNumriqueOuDateOuHeure],458752,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:1169-1183,unresolved,,,,,,unmapped
+SRC-cb774e37cc,window,WINDEVDIALOGBOX,WINDEVDIALOGBOX [InitLargeurMaxFen],458752,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:1190-1210,unresolved,,,,,,unmapped
+SRC-4550a4dc45,window,WINDEVDIALOGBOX,WINDEVDIALOGBOX [InitSiMobile],458752,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:1217-1233,unresolved,,,,,,unmapped
+SRC-0fded8bfe1,window,WINDEVDIALOGBOX,WINDEVDIALOGBOX [_bModeMobile],458752,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:1240-1254,unresolved,,,,,,unmapped
+SRC-6d9acccbda,encoded-action,WINDEVDIALOGBOX,WINDEVDIALOGBOX/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:283,unresolved,,,,,,unmapped
+SRC-a9e498fb99,encoded-action,WINDEVDIALOGBOX,WINDEVDIALOGBOX/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:307,unresolved,,,,,,unmapped
+SRC-39f86893de,encoded-action,WINDEVDIALOGBOX,WINDEVDIALOGBOX/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:333,unresolved,,,,,,unmapped
+SRC-9592dd4f26,encoded-action,WINDEVDIALOGBOX,WINDEVDIALOGBOX/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:359,unresolved,,,,,,unmapped
+SRC-3de5fd35ff,window,WINDEVMESSAGEBOX,WINDEVMESSAGEBOX/BTN_OK,18,GestaoOficinas_TesteIA/WDFAA/WINDEVMESSAGEBOX.wdw:33-35,unresolved,,,,,,unmapped
+SRC-6baeb84790,window,WINDEVMESSAGEBOX,WINDEVMESSAGEBOX/BTN_OUI,18,GestaoOficinas_TesteIA/WDFAA/WINDEVMESSAGEBOX.wdw:68-75,unresolved,,,,,,unmapped
+SRC-a24996f102,window,WINDEVMESSAGEBOX,WINDEVMESSAGEBOX/BTN_NON,18,GestaoOficinas_TesteIA/WDFAA/WINDEVMESSAGEBOX.wdw:95-96,unresolved,,,,,,unmapped
+SRC-864e1ee8bf,window,WINDEVMESSAGEBOX,WINDEVMESSAGEBOX/BTN_ANNULER,18,GestaoOficinas_TesteIA/WDFAA/WINDEVMESSAGEBOX.wdw:116-120,unresolved,,,,,,unmapped
+SRC-31b3e7b956,window,WINDEVMESSAGEBOX,WINDEVMESSAGEBOX/BTN_Copier_caché,18,GestaoOficinas_TesteIA/WDFAA/WINDEVMESSAGEBOX.wdw:179-181,unresolved,,,,,,unmapped
+SRC-bd5274ab50,window,WINDEVMESSAGEBOX,WINDEVMESSAGEBOX [WINDEVMESSAGEBOX],,GestaoOficinas_TesteIA/WDFAA/WINDEVMESSAGEBOX.wdw:372-491,unresolved,,,,,,unmapped
+SRC-74bfd4bb3b,window,WINDEVMESSAGEBOX,WINDEVMESSAGEBOX [RedimensionneDialogue],458752,GestaoOficinas_TesteIA/WDFAA/WINDEVMESSAGEBOX.wdw:511-558,unresolved,,,,,,unmapped
+SRC-1e105b63a7,window,WINDEVMESSAGEBOX,WINDEVMESSAGEBOX [CentreLesBoutons],458752,GestaoOficinas_TesteIA/WDFAA/WINDEVMESSAGEBOX.wdw:565-587,unresolved,,,,,,unmapped
+SRC-80c92cd813,window,WINDEVMESSAGEBOX,WINDEVMESSAGEBOX [AvertissementSonore],458752,GestaoOficinas_TesteIA/WDFAA/WINDEVMESSAGEBOX.wdw:594-621,unresolved,,,,,,unmapped
+SRC-63760bb08b,encoded-action,WINDEVMESSAGEBOX,WINDEVMESSAGEBOX/SCSystemButtons/BTN_UMC [encoded action A-2fd8eb],18,GestaoOficinas_TesteIA/WDFAA/WINDEVMESSAGEBOX.wdw:224,unresolved,,,,,,unmapped
+SRC-74ead9e736,encoded-action,WINDEVMESSAGEBOX,WINDEVMESSAGEBOX/SCSystemButtons/BTN_SYST_MINIMIZE [encoded action A-48d568],18,GestaoOficinas_TesteIA/WDFAA/WINDEVMESSAGEBOX.wdw:248,unresolved,,,,,,unmapped
+SRC-c9ff64b882,encoded-action,WINDEVMESSAGEBOX,WINDEVMESSAGEBOX/SCSystemButtons/BTN_Syst_Maximize [encoded action A-ff0b05],18,GestaoOficinas_TesteIA/WDFAA/WINDEVMESSAGEBOX.wdw:274,unresolved,,,,,,unmapped
+SRC-0469b4e4d0,encoded-action,WINDEVMESSAGEBOX,WINDEVMESSAGEBOX/SCSystemButtons/BTN_SYST_FERMER [encoded action A-2b6ca2],18,GestaoOficinas_TesteIA/WDFAA/WINDEVMESSAGEBOX.wdw:300,unresolved,,,,,,unmapped

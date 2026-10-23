@@ -1,0 +1,2 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-a10d61199c,export-needed,MediaPlayer_23,,,docs/source-manifest.json; docs/mapping/MediaPlayer_23.md,unresolved,U-TPL05-01: Binary MediaPlayer template source requires design-only/inherited-behavior classification.,,,,,unmapped

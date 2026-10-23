@@ -1,0 +1,5 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-87d897c3e5,table,Viaturas,data mapping and reconciliation,,legacy/GestaoOficinas_TesteIA/GestaoOficinas.xdd; docs/schema/schema-draft.md; export: docs/data/profile.md#Viaturas,verified,Vehicle master keyed for workflows by matricula; Cliente references customer Codigo. Export counts 4544/4544.,Preserve table values and evidenced business keys; import decisions deferred,,,,specified
+RULE-T02-001,rule,Viaturas,Viaturas,,docs/schema/schema-draft.md; export: docs/data/profile.md#Viaturas,unresolved,U-T02-01: Runtime integrity/collation enforcement,,,,,unmapped
+RULE-T02-002,rule,Viaturas,Viaturas,,docs/schema/schema-draft.md; export: docs/data/profile.md#Viaturas,unresolved,U-T02-02: Import representation and existing anomalies,,,,,unmapped
+RULE-T02-003,rule,Viaturas,Viaturas,,docs/schema/schema-draft.md; export: docs/data/profile.md#Viaturas,unresolved,U-T02-03: Driver-generated key fidelity,,,,,unmapped

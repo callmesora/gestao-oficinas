@@ -1,0 +1,1611 @@
+{
+  "format_version": 2,
+  "files": [
+    {
+      "path": "GestaoOficinas_TesteIA/GestaoOficinas.xdd",
+      "kind": "schema",
+      "bytes": 34258,
+      "sha256": "c019f4bb55ccbc025c3699920f4f8604b2bb0d754eccaa0a0fd093216593c252",
+      "status": "schema",
+      "tables": 17
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/My_GestaoOficinas.wdp",
+      "kind": "project",
+      "bytes": 44363,
+      "sha256": "d54a3aab73ea927f9239e870a819a0f388f72fa1ab17b8c1c9b5d74673292c27",
+      "status": "text",
+      "name": "My_GestaoOficinas",
+      "code_blocks": 1,
+      "controls": 0,
+      "literal_keys": {
+        "code": 9
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_Union_lin_stocks_material_reparacao.WDR",
+      "kind": "query",
+      "bytes": 16658,
+      "sha256": "f0bedf2ab6d07a3aa1c1407ffb398055b3d236aed6fdd7df1c081ec506dd5013",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_insert_material_reparacao.WDR",
+      "kind": "query",
+      "bytes": 16377,
+      "sha256": "222ba57d38059af806b808d5070a40b51c51652f5113b5bece23c5590bcb0746",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_insert_ordens_reparacao.WDR",
+      "kind": "query",
+      "bytes": 20689,
+      "sha256": "423ae6eb788c805431535795b7e6c48269f12c35c502ef209ea4b689880cecc7",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_noname.WDR",
+      "kind": "query",
+      "bytes": 8575,
+      "sha256": "f4638f9a1ef37b0d1187ae514a1c35134baa91af84d5c56f639964f87b3e59cf",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_select_cab_lin_stocks.WDR",
+      "kind": "query",
+      "bytes": 12632,
+      "sha256": "466f15da2d2bd266854bcb9ad7c2e8fb851386e28cf6d5b8a7a5254e8cf8070f",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_select_cab_stocks.WDR",
+      "kind": "query",
+      "bytes": 12024,
+      "sha256": "cf1a01e3b10fa9eb3e21c2a8cc98005201303b13fca51293f14a34c4be5568f5",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_select_cliente_codigo.WDR",
+      "kind": "query",
+      "bytes": 11274,
+      "sha256": "7fcdb3772b7c8b3b9418636e11dfc80c1698042b6bc8f74a4ab059e3bfec43fb",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_select_consumo_material_viatura.WDR",
+      "kind": "query",
+      "bytes": 11850,
+      "sha256": "ac68ee3af72ac6020591dbb4d6ab4b5c8bfdb9ee6ea05cbb6dc59ed5bb7b1996",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_select_lin_stocks.WDR",
+      "kind": "query",
+      "bytes": 11927,
+      "sha256": "5df29abc70298e6ad3cf92c43a6f6aa42ca6db4a7263841312f4c53924810c80",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_select_material_ordem_Reparacao.WDR",
+      "kind": "query",
+      "bytes": 14807,
+      "sha256": "ec68ed03cc588d43e0806a9032417a52454f6e4799815bd1a35767b66632e302",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_select_material_reparacao.WDR",
+      "kind": "query",
+      "bytes": 12323,
+      "sha256": "25d74e033ac3fca09e16bd390c1639db43d83c73d04c9493d5ccc83c51a651bf",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_select_mecanicos_codigo.WDR",
+      "kind": "query",
+      "bytes": 10921,
+      "sha256": "07614bfe1a363fa7060bbdcdddc8060bf6859865201f344dba6b2967c8e8c6f1",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_select_ordens_reparacao.WDR",
+      "kind": "query",
+      "bytes": 15365,
+      "sha256": "1359385d7a538c1b150986ef34aeb8f2852e565607f5483d627c0da0af4fcff3",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_select_ordens_reparacao_data_entrega.WDR",
+      "kind": "query",
+      "bytes": 13794,
+      "sha256": "68252f4229993145b6863648fd89c20c3129c57efd9f1bb8dd8449357baf09b7",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_select_ordens_reparacao_data_pag.WDR",
+      "kind": "query",
+      "bytes": 13078,
+      "sha256": "a9b897e8bf01dac27148efd4c9af462770855c258f2013cbde6e10094e2f3220",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_select_ordens_reparacao_matricula.WDR",
+      "kind": "query",
+      "bytes": 13314,
+      "sha256": "4e72996736791123957d55770e2e9ba15a411c567360785578f8162b19087e79",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_select_ordens_reparacao_numero.WDR",
+      "kind": "query",
+      "bytes": 16227,
+      "sha256": "5d3c34e6d23b7ffeafcab36938266379a0ad4e6e8fe0157ed11aa4a6541e4bbc",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_select_ordens_reparacao_tempos.WDR",
+      "kind": "query",
+      "bytes": 15649,
+      "sha256": "437c59aab124fe053bb0c6a0738fe5d07a4ab96bc7be03653b1e754dc2dd6f51",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_select_tempos_Reparacao_numero_mecanico.WDR",
+      "kind": "query",
+      "bytes": 11706,
+      "sha256": "18f5bd655d4868ab5509305adcd7ef18c6d95f28ed26061a1be0e5464d52c0aa",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_select_tempos_reparacao_ordem.WDR",
+      "kind": "query",
+      "bytes": 15300,
+      "sha256": "5b90ee818e6f672ab73804e174ca3b8255c72016bd665d1771ca5cfd57ac5d40",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_select_viatura_matricula.WDR",
+      "kind": "query",
+      "bytes": 11158,
+      "sha256": "158b57c21fc1e867a4980241855391f0474e24d1eb0d37524d67b5a476e18837",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_select_viaturas.WDR",
+      "kind": "query",
+      "bytes": 11274,
+      "sha256": "272ffd9cdc45054cee9d2624ab5d180bfdad288b89ddd6af0235f11d37019d50",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_tempos_ordem_reparacao.WDR",
+      "kind": "query",
+      "bytes": 11411,
+      "sha256": "aa6a3e153458b36d0120628308b7acd96e055a0b5b8cefd5e8abf913df3b5a63",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_tempos_ordem_reparacao_matricula.WDR",
+      "kind": "query",
+      "bytes": 10250,
+      "sha256": "4b8102864e817bee90fd4d45ca60e9170cfe5135919371793b74a352e079095b",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_tempos_ordem_reparacao_mecanico.WDR",
+      "kind": "query",
+      "bytes": 10317,
+      "sha256": "7494604a80b734abdf42b06e35f9a22dacc4313fd6ce1e11f0e02f26d6aa1c88",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_union_extrato_artigos.WDR",
+      "kind": "query",
+      "bytes": 14293,
+      "sha256": "7d508cd4d6002fe383b95aa05975a100f4d04dcf80bdf00dab97f26af890d7ef",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_union_extrato_artigos_calcular_total.WDR",
+      "kind": "query",
+      "bytes": 14436,
+      "sha256": "53bdba4da009a53cba3bd4431358e8b2f8b60d188fda379d5946ccb0ea82e132",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_union_lin_stocks.WDR",
+      "kind": "query",
+      "bytes": 14904,
+      "sha256": "b0a935a50b32066ce326caf33aea55f42e0c4ca7a9be106dd0be57f49cb9131f",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_union_material_reparacao.WDR",
+      "kind": "query",
+      "bytes": 20420,
+      "sha256": "5df8fd60db2e8a836f0b905f02d11ca02327b101da14b0fd9f70d48cf53736d5",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/QRY_update_ordens_reparacao.WDR",
+      "kind": "query",
+      "bytes": 18235,
+      "sha256": "847775f88e7f5a571912321ba7ad9a57659b58371e84adcd3e69fd342cd05c99",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_Consumo_Material_Descriminado_Ordens.wde",
+      "kind": "report",
+      "bytes": 36707,
+      "sha256": "8197704828f7c48175e453f4aafc11de6a0c9661ed3ba6cffb7e9315f53fc583",
+      "status": "text",
+      "name": "RPT_Consumo_Material_Descriminado_Ordens",
+      "code_blocks": 3,
+      "controls": 24,
+      "literal_keys": {
+        "code": 10
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_Consumo_Material_Descriminado_Saidas.wde",
+      "kind": "report",
+      "bytes": 36544,
+      "sha256": "bb64a8ea48a2508909904f9855e322a9ec5013a11247620d2dc6b56b5c6f3f9a",
+      "status": "text",
+      "name": "RPT_Consumo_Material_Descriminado_Saidas",
+      "code_blocks": 3,
+      "controls": 24,
+      "literal_keys": {
+        "code": 10
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_Consumo_Material_Descriminado_ordens_saidas.wde",
+      "kind": "report",
+      "bytes": 36972,
+      "sha256": "92fb668cbca47f05e92af8c43a8808567e2d9b3a7363ed1a456beac047ba9a18",
+      "status": "text",
+      "name": "RPT_Consumo_Material_Descriminado_ordens_saidas",
+      "code_blocks": 3,
+      "controls": 24,
+      "literal_keys": {
+        "code": 10
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_Consumo_Material_Resumo_Saidas.wde",
+      "kind": "report",
+      "bytes": 23669,
+      "sha256": "5d92e7b753badb2d05bea369477b08c3a031ea6fc85afcfa13a01dd59d0c15e4",
+      "status": "text",
+      "name": "RPT_Consumo_Material_Resumo_Saidas",
+      "code_blocks": 1,
+      "controls": 15,
+      "literal_keys": {
+        "code": 4
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_Consumo_Material_Resumo_ordem_saidas.wde",
+      "kind": "report",
+      "bytes": 30706,
+      "sha256": "4667629ac8e56df44b063d16cbd1cb61149fe393734efda3467b485a88ceed2d",
+      "status": "text",
+      "name": "RPT_Consumo_Material_Resumo_ordem_saidas",
+      "code_blocks": 3,
+      "controls": 19,
+      "literal_keys": {
+        "code": 10
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_Consumo_Material_Resumo_ordens.wde",
+      "kind": "report",
+      "bytes": 23805,
+      "sha256": "45091717a029d905102733f41d6c0c8fe3cf5701d48b188c2000f5be5a1ef82b",
+      "status": "text",
+      "name": "RPT_Consumo_Material_Resumo_ordens",
+      "code_blocks": 1,
+      "controls": 15,
+      "literal_keys": {
+        "code": 4
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_Consumo_Material_Viatura_Descriminado.wde",
+      "kind": "report",
+      "bytes": 31930,
+      "sha256": "a991c8f7869460f4b1fd8f0dd02ed6ce67d2b0bbf0fb334c759336cfb691f725",
+      "status": "text",
+      "name": "RPT_Consumo_Material_Viatura_Descriminado",
+      "code_blocks": 2,
+      "controls": 19,
+      "literal_keys": {
+        "code": 8
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_Consumo_Material_Viatura_Resumo.wde",
+      "kind": "report",
+      "bytes": 29057,
+      "sha256": "c76bcf3dd83fe11ce7e83a11e9b93af71d48933c8766a81eebca3e2fa4048c2e",
+      "status": "text",
+      "name": "RPT_Consumo_Material_Viatura_Resumo",
+      "code_blocks": 2,
+      "controls": 17,
+      "literal_keys": {
+        "code": 8
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_Extrato_artigos.wde",
+      "kind": "report",
+      "bytes": 39452,
+      "sha256": "7bea54cb2c14f992d8baa0c903b258bc5a5c6f98d19886af01d258f8de0507eb",
+      "status": "text",
+      "name": "RPT_Extrato_artigos",
+      "code_blocks": 4,
+      "controls": 26,
+      "literal_keys": {
+        "code": 17
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_List_Clientes.wde",
+      "kind": "report",
+      "bytes": 25547,
+      "sha256": "da53e1c8cd322c981d80330f872b6554d22a7b59866d1e692fe125542573d71f",
+      "status": "text",
+      "name": "RPT_List_Clientes",
+      "code_blocks": 1,
+      "controls": 21,
+      "literal_keys": {
+        "code": 4
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_List_Viaturas.wde",
+      "kind": "report",
+      "bytes": 23271,
+      "sha256": "50b504565e1a58adfaa7bb4af4d0f2e67419c98787a28210723f9bce574c564c",
+      "status": "text",
+      "name": "RPT_List_Viaturas",
+      "code_blocks": 1,
+      "controls": 19,
+      "literal_keys": {
+        "code": 4
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_List_artigos.wde",
+      "kind": "report",
+      "bytes": 23313,
+      "sha256": "d4381d9558a945f29cfa803cc9cd46eeb50d3ccadf1bed3adb3d39c970519fa6",
+      "status": "text",
+      "name": "RPT_List_artigos",
+      "code_blocks": 1,
+      "controls": 19,
+      "literal_keys": {
+        "code": 4
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_List_documentos.wde",
+      "kind": "report",
+      "bytes": 16397,
+      "sha256": "8e737ec5cdbb4bc4ec172a153cd6fa8ae74eca5ea3c28ccb11d10af3f3ae6d24",
+      "status": "text",
+      "name": "RPT_List_documentos",
+      "code_blocks": 1,
+      "controls": 11,
+      "literal_keys": {
+        "code": 4
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_List_estados_descritivos.wde",
+      "kind": "report",
+      "bytes": 16243,
+      "sha256": "6ad1c4df5f783776d0b3fc12cbd0534af4978aecd166ff3d4db0fcb9df2c65bd",
+      "status": "text",
+      "name": "RPT_List_estados_descritivos",
+      "code_blocks": 1,
+      "controls": 11,
+      "literal_keys": {
+        "code": 4
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_List_estados_reparacao.wde",
+      "kind": "report",
+      "bytes": 18073,
+      "sha256": "02b9708ef169c9e9e38060819636511a8ada439add6cf1486de34e3a15ef2f33",
+      "status": "text",
+      "name": "RPT_List_estados_reparacao",
+      "code_blocks": 1,
+      "controls": 13,
+      "literal_keys": {
+        "code": 4
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_List_mecanicos.wde",
+      "kind": "report",
+      "bytes": 16255,
+      "sha256": "7b2a04237904a16ddbb7b6cda9118c445c4ff5ae05aeaa897b0476b1f818e76b",
+      "status": "text",
+      "name": "RPT_List_mecanicos",
+      "code_blocks": 1,
+      "controls": 11,
+      "literal_keys": {
+        "code": 4
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_List_unidades.wde",
+      "kind": "report",
+      "bytes": 15925,
+      "sha256": "aad3ea55bc5159369e6744f05261ee8f8ff93fb4fc37b8297b79018a663c3b31",
+      "status": "text",
+      "name": "RPT_List_unidades",
+      "code_blocks": 1,
+      "controls": 11,
+      "literal_keys": {
+        "code": 4
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_List_utilizadores.wde",
+      "kind": "report",
+      "bytes": 16291,
+      "sha256": "2dc921c7d7580fbd763f65f189667d01ef9290def5aba8e1f245cac35e25269b",
+      "status": "text",
+      "name": "RPT_List_utilizadores",
+      "code_blocks": 1,
+      "controls": 11,
+      "literal_keys": {
+        "code": 4
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_Materiais.wde",
+      "kind": "report",
+      "bytes": 31118,
+      "sha256": "4da862b8229bfce38445f2f13efd086655d3de1e08a0f0970c3bc7493da64dfa",
+      "status": "text",
+      "name": "RPT_Materiais",
+      "code_blocks": 1,
+      "controls": 19,
+      "literal_keys": {
+        "code": 4
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_Ordens_Reparacao.wde",
+      "kind": "report",
+      "bytes": 39913,
+      "sha256": "022d6df4ec149439b95b06f4526856fc99b47e5900978633cce9c68700200840",
+      "status": "text",
+      "name": "RPT_Ordens_Reparacao",
+      "code_blocks": 2,
+      "controls": 25,
+      "literal_keys": {
+        "code": 7
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_Ordens_Reparacao_DataEntrega.wde",
+      "kind": "report",
+      "bytes": 26569,
+      "sha256": "290f0ae5bdc50f27cfc5da718a477419941b051cb164f36b8116a798fe2b7646",
+      "status": "text",
+      "name": "RPT_Ordens_Reparacao_DataEntrega",
+      "code_blocks": 1,
+      "controls": 25,
+      "literal_keys": {
+        "code": 4
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_Ordens_Reparacao_DataPag.wde",
+      "kind": "report",
+      "bytes": 26692,
+      "sha256": "b45b823a9486821dd4c3c08d5e306140cf35ca82ae1062c6a7bd9d1b4de25e58",
+      "status": "text",
+      "name": "RPT_Ordens_Reparacao_DataPag",
+      "code_blocks": 1,
+      "controls": 25,
+      "literal_keys": {
+        "code": 4
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_Servico_Avaria.wde",
+      "kind": "report",
+      "bytes": 24544,
+      "sha256": "b3724f0842771a325e3dd485a57778128bd140a9a80244c436eb300d01c5cf20",
+      "status": "text",
+      "name": "RPT_Servico_Avaria",
+      "code_blocks": 1,
+      "controls": 16,
+      "literal_keys": {
+        "code": 4
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao.wde",
+      "kind": "report",
+      "bytes": 36717,
+      "sha256": "6cd9a2019b34f5743fa14ea3c58c6c7033c45007a24609e3ba0dcc7031113d5e",
+      "status": "text",
+      "name": "RPT_Tempos_Ordem_Reparacao",
+      "code_blocks": 7,
+      "controls": 22,
+      "literal_keys": {
+        "code": 19
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_Mecanico.wde",
+      "kind": "report",
+      "bytes": 47090,
+      "sha256": "93567bb147b6fc3bb8aaa8da92bdee6b1fa13807bdb3f3781eb5e747dd0dbfee",
+      "status": "text",
+      "name": "RPT_Tempos_Ordem_Reparacao_Mecanico",
+      "code_blocks": 8,
+      "controls": 29,
+      "literal_keys": {
+        "code": 22
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo.wde",
+      "kind": "report",
+      "bytes": 32441,
+      "sha256": "ef72f4011829206b28b32814f5f6da7f27100c95f9bf88ec75d748a132a1e20a",
+      "status": "text",
+      "name": "RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo",
+      "code_blocks": 7,
+      "controls": 18,
+      "literal_keys": {
+        "code": 15
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_Tempos_Ordem_Reparacao_viatura.wde",
+      "kind": "report",
+      "bytes": 40767,
+      "sha256": "d2ff4a2d0cf7bd676f32260ce84816daea3b92f2d870da15756a7f642498a8d4",
+      "status": "text",
+      "name": "RPT_Tempos_Ordem_Reparacao_viatura",
+      "code_blocks": 9,
+      "controls": 24,
+      "literal_keys": {
+        "code": 22
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/RPT_inventario.wde",
+      "kind": "report",
+      "bytes": 21057,
+      "sha256": "95cf6827e07e337147849d82db528e824e99eb263e64a2d606ea5bc12a5b3e90",
+      "status": "text",
+      "name": "RPT_inventario",
+      "code_blocks": 1,
+      "controls": 13,
+      "literal_keys": {
+        "code": 4
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Acesso.wdw",
+      "kind": "window",
+      "bytes": 23535,
+      "sha256": "73d40d5b226ea8cc9498f05a9a55baba9bd4f751d7f8ead41bd4d28adadc69de",
+      "status": "text",
+      "name": "WIN_Acesso",
+      "code_blocks": 4,
+      "controls": 14,
+      "literal_keys": {
+        "code": 41
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Data.wdw",
+      "kind": "window",
+      "bytes": 10040,
+      "sha256": "fb314e002e987adb6056662d4b4702f13e8d7355fbab44578ad7a3e9b6f10585",
+      "status": "text",
+      "name": "WIN_Data",
+      "code_blocks": 2,
+      "controls": 5,
+      "literal_keys": {
+        "code": 8
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Extrato_Artigos.wdw",
+      "kind": "window",
+      "bytes": 29901,
+      "sha256": "7887dc694baa3069e3d6bea0071beea92e55bdf9f7122409810c5f27f74c45b8",
+      "status": "text",
+      "name": "WIN_Extrato_Artigos",
+      "code_blocks": 4,
+      "controls": 14,
+      "literal_keys": {
+        "code": 41
+      },
+      "encoded_properties": true,
+      "encoded_actions": 4
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Artigos.wdw",
+      "kind": "window",
+      "bytes": 74408,
+      "sha256": "00a10a43c8477aba639c1063bf729e792f2ad2a29f41655671a980c41a165d6d",
+      "status": "text",
+      "name": "WIN_Filtro_Mapas_Artigos",
+      "code_blocks": 11,
+      "controls": 31,
+      "literal_keys": {
+        "code": 91
+      },
+      "encoded_properties": true,
+      "encoded_actions": 4
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Tempos.wdw",
+      "kind": "window",
+      "bytes": 47246,
+      "sha256": "90cbf2542f78a1f04ab5bf576df03357b3fe12e7a2192c60ae32ea903feaee7c",
+      "status": "text",
+      "name": "WIN_Filtro_Mapas_Tempos",
+      "code_blocks": 6,
+      "controls": 20,
+      "literal_keys": {
+        "code": 61
+      },
+      "encoded_properties": true,
+      "encoded_actions": 4
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Form_Clientes.wdw",
+      "kind": "window",
+      "bytes": 31220,
+      "sha256": "462effe562558ff05ffd436b7002f03d43f7ab530183782d387e362804250df8",
+      "status": "text",
+      "name": "WIN_Form_Clientes",
+      "code_blocks": 3,
+      "controls": 18,
+      "literal_keys": {
+        "code": 19
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Form_Terminais.wdw",
+      "kind": "window",
+      "bytes": 33401,
+      "sha256": "dbea6cf8c26a5b227bd11f2753651f452b575e3d78f5cae317b974773bff22c3",
+      "status": "text",
+      "name": "WIN_Form_Terminais",
+      "code_blocks": 4,
+      "controls": 19,
+      "literal_keys": {
+        "code": 28
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Form_Viaturas.wdw",
+      "kind": "window",
+      "bytes": 31860,
+      "sha256": "da91219f25afa02f5bf765106ab10d440dad909296d97f8e40e43d2e117de8a4",
+      "status": "text",
+      "name": "WIN_Form_Viaturas",
+      "code_blocks": 5,
+      "controls": 17,
+      "literal_keys": {
+        "code": 22
+      },
+      "encoded_properties": true,
+      "encoded_actions": 4
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Form_artigos.wdw",
+      "kind": "window",
+      "bytes": 32089,
+      "sha256": "c7881b2f8cd4656e18043095b3580a1c9e1c88b144330ba092d74ea2f7c27a08",
+      "status": "text",
+      "name": "WIN_Form_artigos",
+      "code_blocks": 3,
+      "controls": 17,
+      "literal_keys": {
+        "code": 17
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Form_documentos.wdw",
+      "kind": "window",
+      "bytes": 25931,
+      "sha256": "8899e0d057d661b0ac3305c46ee39fd8c3531223d5a9a8fe730fdad9d8dc3a54",
+      "status": "text",
+      "name": "WIN_Form_documentos",
+      "code_blocks": 3,
+      "controls": 15,
+      "literal_keys": {
+        "code": 19
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Form_estados_descritivos.wdw",
+      "kind": "window",
+      "bytes": 21900,
+      "sha256": "493b95b2b58eecdb9082928306ca09c5db0a39a1320b826f04a850aa82544ca3",
+      "status": "text",
+      "name": "WIN_Form_estados_descritivos",
+      "code_blocks": 3,
+      "controls": 12,
+      "literal_keys": {
+        "code": 17
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Form_estados_reparacao.wdw",
+      "kind": "window",
+      "bytes": 37706,
+      "sha256": "19fe64d5f4c0ebc720732f73ed8f44c2c7cc3ecace9e64b0b4d5438e082d4890",
+      "status": "text",
+      "name": "WIN_Form_estados_reparacao",
+      "code_blocks": 4,
+      "controls": 22,
+      "literal_keys": {
+        "code": 21
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Form_mecanicos.wdw",
+      "kind": "window",
+      "bytes": 24970,
+      "sha256": "486e01a1574aeaa192cf2ca43f8456df01f97c4c399e29bce96dcbf8a3b7ffac",
+      "status": "text",
+      "name": "WIN_Form_mecanicos",
+      "code_blocks": 3,
+      "controls": 14,
+      "literal_keys": {
+        "code": 17
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Form_postos.wdw",
+      "kind": "window",
+      "bytes": 26185,
+      "sha256": "90a39867f146a8546ba8946f12275192e9640f8633b5904e7d1a32c2fc0b3e9b",
+      "status": "text",
+      "name": "WIN_Form_postos",
+      "code_blocks": 4,
+      "controls": 14,
+      "literal_keys": {
+        "code": 42
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Form_unidades.wdw",
+      "kind": "window",
+      "bytes": 21585,
+      "sha256": "534ed03b1ef8b406ac7bfc2b0cefec68c855c57c06e7a0c02530a48b27b831eb",
+      "status": "text",
+      "name": "WIN_Form_unidades",
+      "code_blocks": 3,
+      "controls": 12,
+      "literal_keys": {
+        "code": 16
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Form_utilizadores.wdw",
+      "kind": "window",
+      "bytes": 23633,
+      "sha256": "ddaea5b244bb4638858712093e3138a7e0eec764691c92a1c71732682ddbe248",
+      "status": "text",
+      "name": "WIN_Form_utilizadores",
+      "code_blocks": 4,
+      "controls": 13,
+      "literal_keys": {
+        "code": 17
+      },
+      "encoded_properties": true,
+      "encoded_actions": 4
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Inserir_quantidade_password.wdw",
+      "kind": "window",
+      "bytes": 22067,
+      "sha256": "daf4fc825c78c57db1ffaa51232a70a7c154b8c0facf4da28a8d6ab39f906e77",
+      "status": "text",
+      "name": "WIN_Inserir_quantidade_password",
+      "code_blocks": 5,
+      "controls": 12,
+      "literal_keys": {
+        "code": 38
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Inventario.wdw",
+      "kind": "window",
+      "bytes": 26930,
+      "sha256": "3be046dd60c8ad061b734f3d8dd3ab175a6682d2504eb0aa413dbc3c117cb0e1",
+      "status": "text",
+      "name": "WIN_Inventario",
+      "code_blocks": 2,
+      "controls": 13,
+      "literal_keys": {
+        "code": 23
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Leitor_cod_barras.wdw",
+      "kind": "window",
+      "bytes": 28969,
+      "sha256": "fefd2485ac368d62d7cb75a1de214e048af11e5a0f642612a0587aaf76721463",
+      "status": "text",
+      "name": "WIN_Leitor_cod_barras",
+      "code_blocks": 4,
+      "controls": 13,
+      "literal_keys": {
+        "code": 23
+      },
+      "encoded_properties": true,
+      "encoded_actions": 4
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Leitor_cod_barras_desconhecidos.wdw",
+      "kind": "window",
+      "bytes": 24528,
+      "sha256": "11bbe96e1931f4acb837ea27680acc7068fcd2785d32012c2df204bbd5dbe87a",
+      "status": "text",
+      "name": "WIN_Leitor_cod_barras_desconhecidos",
+      "code_blocks": 2,
+      "controls": 12,
+      "literal_keys": {
+        "code": 21
+      },
+      "encoded_properties": true,
+      "encoded_actions": 4
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_MENU.wdw",
+      "kind": "window",
+      "bytes": 60273,
+      "sha256": "ff4a173160a00899db89a3eaa50755d16afbf2593884021264784aa6ccf4a084",
+      "status": "text",
+      "name": "WIN_MENU",
+      "code_blocks": 38,
+      "controls": 16,
+      "literal_keys": {
+        "code": 64
+      },
+      "encoded_properties": true,
+      "encoded_actions": 4
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Mapa_Vendas.wdw",
+      "kind": "window",
+      "bytes": 34317,
+      "sha256": "724542eb9579291a3ff617507b381c2a39cb40c3d8313e5488fec6cc5c93934d",
+      "status": "text",
+      "name": "WIN_Mapa_Vendas",
+      "code_blocks": 5,
+      "controls": 15,
+      "literal_keys": {
+        "code": 36
+      },
+      "encoded_properties": true,
+      "encoded_actions": 4
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Material_Reparacao.wdw",
+      "kind": "window",
+      "bytes": 44053,
+      "sha256": "9766a940506c5f716c432b247408e3da27e6fcb2d0174c04c6139be5ed7e409d",
+      "status": "text",
+      "name": "WIN_Material_Reparacao",
+      "code_blocks": 13,
+      "controls": 21,
+      "literal_keys": {
+        "code": 48
+      },
+      "encoded_properties": true,
+      "encoded_actions": 4
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Material_reparacao_form.wdw",
+      "kind": "window",
+      "bytes": 78849,
+      "sha256": "d34c0e43e7deb9b2b1ba626094ca244b9c459ff772992dabad0c5f57bf866c78",
+      "status": "text",
+      "name": "WIN_Material_reparacao_form",
+      "code_blocks": 19,
+      "controls": 38,
+      "literal_keys": {
+        "code": 60
+      },
+      "encoded_properties": true,
+      "encoded_actions": 3
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Mudar_Estado.wdw",
+      "kind": "window",
+      "bytes": 17404,
+      "sha256": "ab4599b467658e6f7ac4dab5325bb5bf542d5f1d2bd03e112e855d8d123fab24",
+      "status": "text",
+      "name": "WIN_Mudar_Estado",
+      "code_blocks": 3,
+      "controls": 11,
+      "literal_keys": {
+        "code": 23
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Ordens_Reparacao.wdw",
+      "kind": "window",
+      "bytes": 120689,
+      "sha256": "87408f3cb684c001bef435da09873bc41e7109068ce42ba0be825b40aec0d844",
+      "status": "text",
+      "name": "WIN_Ordens_Reparacao",
+      "code_blocks": 23,
+      "controls": 60,
+      "literal_keys": {
+        "code": 75
+      },
+      "encoded_properties": true,
+      "encoded_actions": 4
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw",
+      "kind": "window",
+      "bytes": 94194,
+      "sha256": "8f0c60718136089e25cc9b0c6febb9bd0e424e692d003afdb45d5202b48caadd",
+      "status": "text",
+      "name": "WIN_Ordens_Reparacao_Form",
+      "code_blocks": 18,
+      "controls": 38,
+      "literal_keys": {
+        "code": 53
+      },
+      "encoded_properties": true,
+      "encoded_actions": 4
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Reconstrucao_Stocks.wdw",
+      "kind": "window",
+      "bytes": 16107,
+      "sha256": "88d3bf8a8f083798c888711f7264a541684a89b36d7c2427442e0704afb61c92",
+      "status": "text",
+      "name": "WIN_Reconstrucao_Stocks",
+      "code_blocks": 2,
+      "controls": 8,
+      "literal_keys": {
+        "code": 21
+      },
+      "encoded_properties": true,
+      "encoded_actions": 4
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw",
+      "kind": "window",
+      "bytes": 57394,
+      "sha256": "2cc50bcef5338fdca2605b12a4b36c1f5c602c2dd001bf9893b7466c6ff3d8e9",
+      "status": "text",
+      "name": "WIN_Table_Clientes",
+      "code_blocks": 17,
+      "controls": 29,
+      "literal_keys": {
+        "code": 48
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Table_Lin_Stocks.wdw",
+      "kind": "window",
+      "bytes": 75178,
+      "sha256": "ea3dc860c5f9732edcf3d7003f16470f7be1a1dca45a2e997a76ba503e2bcddc",
+      "status": "text",
+      "name": "WIN_Table_Lin_Stocks",
+      "code_blocks": 12,
+      "controls": 39,
+      "literal_keys": {
+        "code": 49
+      },
+      "encoded_properties": true,
+      "encoded_actions": 4
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Table_Tempos_materiais_Descricoes.wdw",
+      "kind": "window",
+      "bytes": 79451,
+      "sha256": "548a66ab65c27517d08cbf35f3db656d6c735fb540d485cfcd57a2f7f3a42371",
+      "status": "text",
+      "name": "WIN_Table_Tempos_materiais_Descricoes",
+      "code_blocks": 11,
+      "controls": 34,
+      "literal_keys": {
+        "code": 60
+      },
+      "encoded_properties": true,
+      "encoded_actions": 3
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Table_Terminais.wdw",
+      "kind": "window",
+      "bytes": 33314,
+      "sha256": "8c0d69502dc1f28646ac9f0441d4409a5f4ae1955eed9dddd05fb9eebd2d9288",
+      "status": "text",
+      "name": "WIN_Table_Terminais",
+      "code_blocks": 6,
+      "controls": 15,
+      "literal_keys": {
+        "code": 32
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Table_Viaturas.wdw",
+      "kind": "window",
+      "bytes": 52137,
+      "sha256": "de951b722ff5f57daf8e805a3def332ca75baf639120d89fd2fb8c57967a265d",
+      "status": "text",
+      "name": "WIN_Table_Viaturas",
+      "code_blocks": 14,
+      "controls": 25,
+      "literal_keys": {
+        "code": 50
+      },
+      "encoded_properties": true,
+      "encoded_actions": 6
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Table_artigos.wdw",
+      "kind": "window",
+      "bytes": 62214,
+      "sha256": "a4314f4ebc366543b921eac9d10a12bb1572679c8f4234bd8e6022e9c6af21df",
+      "status": "text",
+      "name": "WIN_Table_artigos",
+      "code_blocks": 17,
+      "controls": 29,
+      "literal_keys": {
+        "code": 55
+      },
+      "encoded_properties": true,
+      "encoded_actions": 6
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Table_cab_stocks.wdw",
+      "kind": "window",
+      "bytes": 57838,
+      "sha256": "63fe9ed7c2bedcffc9e81157ff0c7e892ead4b952e0fa456334619e2d059450c",
+      "status": "text",
+      "name": "WIN_Table_cab_stocks",
+      "code_blocks": 11,
+      "controls": 25,
+      "literal_keys": {
+        "code": 61
+      },
+      "encoded_properties": true,
+      "encoded_actions": 4
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Table_documentos.wdw",
+      "kind": "window",
+      "bytes": 43527,
+      "sha256": "012050e60dc8aa23aec4a26dd2105e93d142efd507372a21045a53dd747f9160",
+      "status": "text",
+      "name": "WIN_Table_documentos",
+      "code_blocks": 9,
+      "controls": 21,
+      "literal_keys": {
+        "code": 35
+      },
+      "encoded_properties": true,
+      "encoded_actions": 6
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Table_estado_reparacao_tipo3.wdw",
+      "kind": "window",
+      "bytes": 29468,
+      "sha256": "75625ead1b2d771da097a92f36206bbce81b3de1bcd682acf66c6496228be005",
+      "status": "text",
+      "name": "WIN_Table_estado_reparacao_tipo3",
+      "code_blocks": 5,
+      "controls": 14,
+      "literal_keys": {
+        "code": 34
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Table_estados_descritivos.wdw",
+      "kind": "window",
+      "bytes": 40021,
+      "sha256": "1d2928afa9addb0f94fa65704b71a3718b6cf70a5a826ef6c0016860329adbaa",
+      "status": "text",
+      "name": "WIN_Table_estados_descritivos",
+      "code_blocks": 8,
+      "controls": 19,
+      "literal_keys": {
+        "code": 32
+      },
+      "encoded_properties": true,
+      "encoded_actions": 6
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Table_estados_reparacao.wdw",
+      "kind": "window",
+      "bytes": 38083,
+      "sha256": "38175c4c807f5d0af5c220325d77b437c01ffabc435b6f2f342692d026a1a07f",
+      "status": "text",
+      "name": "WIN_Table_estados_reparacao",
+      "code_blocks": 7,
+      "controls": 17,
+      "literal_keys": {
+        "code": 34
+      },
+      "encoded_properties": true,
+      "encoded_actions": 6
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Table_mecanicos.wdw",
+      "kind": "window",
+      "bytes": 41079,
+      "sha256": "356fdd8643da5341edb4eea7dfc217a5415b26a92c503df6c97718d5dd107201",
+      "status": "text",
+      "name": "WIN_Table_mecanicos",
+      "code_blocks": 10,
+      "controls": 20,
+      "literal_keys": {
+        "code": 39
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Table_postos.wdw",
+      "kind": "window",
+      "bytes": 31072,
+      "sha256": "8a8f559ad8f23cbe890449072f437c77f0b8bcf23a39765156e264932c3a6707",
+      "status": "text",
+      "name": "WIN_Table_postos",
+      "code_blocks": 6,
+      "controls": 14,
+      "literal_keys": {
+        "code": 24
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Table_unidades.wdw",
+      "kind": "window",
+      "bytes": 34574,
+      "sha256": "3bf15cc6659dd73e772b4d6486c256f5a0e99d30138673b41c0517f121d8a61c",
+      "status": "text",
+      "name": "WIN_Table_unidades",
+      "code_blocks": 6,
+      "controls": 16,
+      "literal_keys": {
+        "code": 20
+      },
+      "encoded_properties": true,
+      "encoded_actions": 6
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Table_utilizadores.wdw",
+      "kind": "window",
+      "bytes": 37904,
+      "sha256": "b98a8f435883a6341446ced543ed2bed38d41fbb88ca38ed9ae49bd5387ed8e9",
+      "status": "text",
+      "name": "WIN_Table_utilizadores",
+      "code_blocks": 8,
+      "controls": 18,
+      "literal_keys": {
+        "code": 37
+      },
+      "encoded_properties": true,
+      "encoded_actions": 6
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw",
+      "kind": "window",
+      "bytes": 30220,
+      "sha256": "8a0e4c4411e5c848d3b73fefc8c59d6c091fc1df0845376456777133742050f9",
+      "status": "text",
+      "name": "WIN_Teclado_numerico",
+      "code_blocks": 20,
+      "controls": 18,
+      "literal_keys": {
+        "code": 25
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw",
+      "kind": "window",
+      "bytes": 98220,
+      "sha256": "d929fe004eab35785b40b2360d63b26294ba4cbdfc3ba25b14d5ce5edfaf7e58",
+      "status": "text",
+      "name": "WIN_Tempos_Reparacao",
+      "code_blocks": 22,
+      "controls": 44,
+      "literal_keys": {
+        "code": 72
+      },
+      "encoded_properties": true,
+      "encoded_actions": 4
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Estado.wdw",
+      "kind": "window",
+      "bytes": 49238,
+      "sha256": "9fbe01bb8d802719e3e43555616240d3f492de6b5cecc1f6f964be24cfd2868a",
+      "status": "text",
+      "name": "WIN_Tempos_Reparacao_Estado",
+      "code_blocks": 11,
+      "controls": 27,
+      "literal_keys": {
+        "code": 41
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Informacao.wdw",
+      "kind": "window",
+      "bytes": 23983,
+      "sha256": "58ed0be7eb43a7b7197fa8e3f768e6cc3d104db26219714df1d22517ff2424c0",
+      "status": "text",
+      "name": "WIN_Tempos_Reparacao_Informacao",
+      "code_blocks": 4,
+      "controls": 17,
+      "literal_keys": {
+        "code": 23
+      },
+      "encoded_properties": true,
+      "encoded_actions": 3
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Tempo.wdw",
+      "kind": "window",
+      "bytes": 30817,
+      "sha256": "4d28d18ac6ed624b4753e9da63cadf2c6c32a2750c50b8c3a198028eeacf75da",
+      "status": "text",
+      "name": "WIN_Tempos_Reparacao_Tempo",
+      "code_blocks": 3,
+      "controls": 12,
+      "literal_keys": {
+        "code": 25
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw",
+      "kind": "window",
+      "bytes": 100085,
+      "sha256": "8fac8790f3c99ac84e473ec7638f2b4188baaec5bc7f746520c75f79afeec2ce",
+      "status": "text",
+      "name": "WIN_Teclado_Alfa",
+      "code_blocks": 73,
+      "controls": 72,
+      "literal_keys": {
+        "code": 81
+      },
+      "encoded_properties": true,
+      "encoded_actions": 0
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_inventario_Reconstrucao.wdw",
+      "kind": "window",
+      "bytes": 18496,
+      "sha256": "97fe6855242ed2e69ecb0c8bfe48c1e1f94f6427c3b4f12b9344b1f0366ae367",
+      "status": "text",
+      "name": "WIN_Inventario_Reconstrucao",
+      "code_blocks": 2,
+      "controls": 10,
+      "literal_keys": {
+        "code": 23
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WIN_sistema.wdw",
+      "kind": "window",
+      "bytes": 26517,
+      "sha256": "26aac4eb22c8c78b509e74276a8111b5d1324d6e09b7d89b9f0247a4a0ce1d1d",
+      "status": "text",
+      "name": "WIN_sistema",
+      "code_blocks": 2,
+      "controls": 17,
+      "literal_keys": {
+        "code": 23
+      },
+      "encoded_properties": true,
+      "encoded_actions": 5
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/GestaoOficinas.ana/GestaoOficinas.xdd",
+      "kind": "schema",
+      "bytes": 34258,
+      "sha256": "c019f4bb55ccbc025c3699920f4f8604b2bb0d754eccaa0a0fd093216593c252",
+      "status": "duplicate",
+      "duplicate_of": "GestaoOficinas_TesteIA/GestaoOficinas.xdd"
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_0_D.wdw",
+      "kind": "window",
+      "bytes": 14490,
+      "sha256": "6be334c635c46c2a35f0d36777ed8a171a9634e307a0f8e5ad6a8868d151f1a5",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_1.wdw",
+      "kind": "window",
+      "bytes": 23365,
+      "sha256": "446fbe09d1d702f45c19054bec0b4c2ef053f04229bd8b8d94fa06977ae45535",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_13.WDW",
+      "kind": "window",
+      "bytes": 65347,
+      "sha256": "3d52f81d7252639c087b1245ce107f3740c4332f9cd9a5a1e4b27c759391294e",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_22.wdw",
+      "kind": "window",
+      "bytes": 25038,
+      "sha256": "92c3f06a374d08e49a025ee15f0e05f791d9be106a340be943b632747f596219",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_23.wdw",
+      "kind": "window",
+      "bytes": 69431,
+      "sha256": "b2195803296d39d48e48c6fd1a983535aa376b7976ceca05b1c08305fb5cc5c7",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_24.wdw",
+      "kind": "window",
+      "bytes": 22712,
+      "sha256": "e7aa38713bfeb31c43c972ae345785bd188374de004aad4c49d13ae1e887a595",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_Etiquette.wde",
+      "kind": "report",
+      "bytes": 5562,
+      "sha256": "881d55f9bcbea10c5ceb6853124baf750fd32260be02e434d60456ce2dfd0987",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_Fiche.wde",
+      "kind": "report",
+      "bytes": 12282,
+      "sha256": "344249c10a2f07ba3eec384b237b5ced0997071fb813f710d83bf6b3e4017750",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_Form.wde",
+      "kind": "report",
+      "bytes": 12569,
+      "sha256": "e3879b2a363cabfbc3d437f50f7d10ea73468d62edd82da69fe160fca9711ee2",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_Label.wde",
+      "kind": "report",
+      "bytes": 5693,
+      "sha256": "088799b9cf60d3b129b5e648aaf3167fe76be48a1a8915684f0e78b85ccec272",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_Mailing.wde",
+      "kind": "report",
+      "bytes": 10643,
+      "sha256": "c4d4e9840692eb8111d3d73e47f777c1a365100346b8995d665d052e81d46e95",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_MailingUS.wde",
+      "kind": "report",
+      "bytes": 11302,
+      "sha256": "99cc5668be28211b7bae124ea8c0c03e7dd9a6eb36912937b0cd9a5cf30ce820",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_Table.wde",
+      "kind": "report",
+      "bytes": 11906,
+      "sha256": "cf635e9f22bea755c9fa69030a2aed45a09c018938dd2e783372742fdffb5088",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/Templates/WD/120 MediaPlayer/MediaPlayer_TableUS.wde",
+      "kind": "report",
+      "bytes": 12109,
+      "sha256": "a798312a9c8955caef550906b9dd524d45691e604198b4d6eedd0d94ff053bca",
+      "status": "binary-or-unsupported",
+      "reason": "Requires WINDEV export; no decoding or behavior inferred."
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw",
+      "kind": "window",
+      "bytes": 84783,
+      "sha256": "3a2c6f568b94d054d034b7806ff3a2db4b237d35f82b7f843b08c42fdf0e2595",
+      "status": "text",
+      "name": "WINDEVDIALOGBOX",
+      "code_blocks": 20,
+      "controls": 18,
+      "literal_keys": {
+        "code": 43
+      },
+      "encoded_properties": true,
+      "encoded_actions": 4
+    },
+    {
+      "path": "GestaoOficinas_TesteIA/WDFAA/WINDEVMESSAGEBOX.wdw",
+      "kind": "window",
+      "bytes": 57904,
+      "sha256": "03abe6441cf9434affe95a13c4053ad7c6d7798ccdd166e1ee2fb933bb223b4c",
+      "status": "text",
+      "name": "WINDEVMESSAGEBOX",
+      "code_blocks": 9,
+      "controls": 16,
+      "literal_keys": {
+        "code": 22
+      },
+      "encoded_properties": true,
+      "encoded_actions": 4
+    }
+  ],
+  "seed_rows": 877,
+  "limitations": [
+    "Literal blocks only; not a complete WINDEV parser or transpiler.",
+    "Binary queries and encoded designer metadata require exports.",
+    "Context names/event codes are raw; event codes are not interpreted.",
+    "Menus, Groupware rights and runtime-only behavior need manual seed rows.",
+    "Data files are not read. Source and outputs may contain secrets."
+  ]
+}

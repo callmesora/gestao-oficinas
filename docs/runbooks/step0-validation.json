@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "units_checked": 143,
+  "parity": {
+    "rows": 2273,
+    "statuses": {
+      "unmapped": 481,
+      "specified": 1792,
+      "implemented": 0,
+      "verified": 0,
+      "excluded": 0
+    },
+    "verified_on_assumptions": 0,
+    "complete_percent": 0.0
+  },
+  "export_tables": 17,
+  "export_rows": 159668,
+  "fingerprinted_source_files": 128,
+  "mapping_notes": 151,
+  "screen_specs": 53,
+  "report_specs": 28,
+  "valid_dossier_images": 106,
+  "valid_source_layouts": 53,
+  "draft_sql_loads_in_memory": true,
+  "errors": []
+}

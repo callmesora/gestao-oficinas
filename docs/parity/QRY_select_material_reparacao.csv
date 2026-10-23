@@ -1,0 +1,4 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-ff4668de15,export-needed,QRY_select_material_reparacao,,,legacy/GestaoOficinas_TesteIA/QRY_select_material_reparacao.WDR; dossier: QRY_select_material_reparacao/sql,verified,"Filters material rows by order number and sorts material timestamp ascending. Includes per-line mechanic, state, price and lancado.",Preserve legacy SQL semantics,,,,specified
+RULE-Q11-003,rule,QRY_select_material_reparacao,QRY_select_material_reparacao,,legacy/GestaoOficinas_TesteIA/QRY_select_material_reparacao.WDR,unresolved,U-Q11-03: Query runtime omission/null/collation and PDF literal validation,,,,,unmapped
+RULE-Q11-004,rule,QRY_select_material_reparacao,QRY_select_material_reparacao,,legacy/GestaoOficinas_TesteIA/QRY_select_material_reparacao.WDR,unresolved,U-Q11-04: Caller error/empty-result contract,,,,,unmapped

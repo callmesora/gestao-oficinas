@@ -1,0 +1,5 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-23228404d6,table,cab_stocks,data mapping and reconciliation,,legacy/GestaoOficinas_TesteIA/GestaoOficinas.xdd; docs/schema/schema-draft.md; export: docs/data/profile.md#cab_stocks,verified,Stock document header. Its business identity includes document code and number; generated ID/link fields are not interchangeable with those keys. Export counts 4217/4217.,Preserve table values and evidenced business keys; import decisions deferred,,,,specified
+RULE-T11-001,rule,cab_stocks,cab_stocks,,docs/schema/schema-draft.md; export: docs/data/profile.md#cab_stocks,unresolved,U-T11-01: Runtime integrity/collation enforcement,,,,,unmapped
+RULE-T11-002,rule,cab_stocks,cab_stocks,,docs/schema/schema-draft.md; export: docs/data/profile.md#cab_stocks,unresolved,U-T11-02: Import representation and existing anomalies,,,,,unmapped
+RULE-T11-003,rule,cab_stocks,cab_stocks,,docs/schema/schema-draft.md; export: docs/data/profile.md#cab_stocks,unresolved,U-T11-03: Driver-generated key fidelity,,,,,unmapped

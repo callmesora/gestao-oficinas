@@ -1,0 +1,99 @@
+# Report spec — RPT_List_unidades
+
+Evidence: `legacy/GestaoOficinas_TesteIA/RPT_List_unidades.wde`, `dossier: RPT_List_unidades`, `docs/mapping/RPT_List_unidades.md`, image `docs/evidence/images/RPT_List_unidades.jpg`.
+
+Stage 0 specification; independent review pending. No report implementation or accepted renderer decision.
+
+Printed by: WIN_Table_unidades (named in its compiled code: predefined action or dynamic call)
+
+Destination: Assumed preview then print from the compiled caller association; proposed: A-69d0df. No text-source iPrintReport caller was found.
+
+Parameters and preparation: see the complete caller handlers in the mapping note. Report Open signature and all calculated assignments are reproduced below.
+
+## Page
+
+| Format | Orientation | Margins T/B/L/R mm | Nominal portrait printable width mm | Widest band / visible control / all designer right edge mm | Fits? |
+|---|---|---|---|---|---|
+| A4 (210 x 297 mm) | U-R17-01: orientation absent from extracted fields | 20.0/20.0/20.0/20.0 | 170.000 | 175.900 / 175.900 / 175.900 | Visible geometry exceeds nominal printable width; orientation/scale/clipping behavior remains U-R17-01 |
+
+The comparison uses the dossier paper width and margins; it does not infer orientation from a cropped designer strip. Bands have source coordinates in millimetres; control y is relative to its band. Printed-width assessment uses the band and Visible=True control extent. The separate all-designer extent includes hidden/off-band controls and is not evidence of printed overflow.
+
+## Data source
+
+Type: **Embedded query**. Named source absent; U-R17-03 applies to embedded SQL.
+
+Compiled selected items: `Codigo` (caption Código), `Descricao` (caption Descrição). These are selected items, not a SQL query or proof every item is printed.
+
+SQL, filters and order are encoded and absent from text evidence: U-R17-03. No proposed SQL is presented as a verified fact.
+
+## Bands
+
+| Band | Repetition / trigger | x,y,width,height mm | Controls |
+|---|---|---|---|
+| START_OF_DOCUMENT | once at document start | 0.000,0.000,175.900,20.000 | DOCTITLE, STC_Empresa, CONTROL58 |
+| PAGE_HEADER | each page | 0.000,20.000,175.900,6.090 | STC_Codigo, STC_Descricao |
+| BODY | per source record (visibility U-R17-03) | 0.000,26.090,175.900,6.200 | ITEM_Codigo, ITEM_Descricao |
+| PAGE_FOOTER | each page | 0.000,32.290,175.900,6.614 | NUMNBPAGES |
+| END_OF_DOCUMENT | once at document end | 0.000,38.904,175.900,6.088 | COUNTERSTATIC, COUNTER, PoweredWx |
+
+Break key/order, automatic hidden-body/group aggregates and counter reset scope are U-R17-03 / U-R17-02. Manual resets are listed verbatim under calculations.
+
+## Columns and controls
+
+| Control | Band | Type | Text / bound item | Text source | x,y,width,height mm | Alignment | Mask / format | Borders | Overflow |
+|---|---|---|---|---|---|---|---|---|---|
+| DOCTITLE | START_OF_DOCUMENT | Caption | "Unidades" | image | 66.994,6.615,41.912,9.789 | U-R17-01 | U-R17-01 | 0.10 Solid TBLR | Table=False, Visible=True, Divisible=False, Auto.Resiz=True |
+| STC_Empresa | START_OF_DOCUMENT | Caption | gsNome_empresa_reports | code | 0.000,0.000,60.000,6.615 | U-R17-01 | U-R17-01 | no border row text; U-R17-01 | Table=False, Visible=True, Divisible=False, Auto.Resiz=False |
+| CONTROL58 | START_OF_DOCUMENT | Preset | preset `Date` | dossier | 144.180,0.000,31.720,6.760 | U-R17-01 | U-R17-01 | no border row text; U-R17-01 | Table=False, Visible=True, Divisible=False, Auto.Resiz=True |
+| STC_Codigo | PAGE_HEADER | Caption | "Código" | image | 0.000,0.000,13.073,6.085 | U-R17-01 | U-R17-01 | 0.10 Solid TBL- | Table=False, Visible=True, Divisible=False, Auto.Resiz=False |
+| STC_Descricao | PAGE_HEADER | Caption | "Descrição" | image | 12.965,0.000,162.827,6.085 | U-R17-01 | U-R17-01 | 0.10 Solid TBLR | Table=False, Visible=True, Divisible=False, Auto.Resiz=False |
+| ITEM_Codigo | BODY | Caption | bound `Codigo` | dossier | 0.000,0.000,13.073,6.200 | U-R17-01 | U-R17-01 | 0.10 Solid -BL- | Table=False, Visible=True, Divisible=False, Auto.Resiz=False |
+| ITEM_Descricao | BODY | Caption | bound `Descricao` | dossier | 12.965,0.000,162.827,6.200 | U-R17-01 | U-R17-01 | 0.10 Solid -BLR | Table=False, Visible=True, Divisible=False, Auto.Resiz=False |
+| NUMNBPAGES | PAGE_FOOTER | Preset | preset `[PAGENUM]/[NBPAGES]` | dossier | 143.900,0.000,32.000,6.615 | U-R17-01 | U-R17-01 | no border row text; U-R17-01 | Table=False, Visible=True, Divisible=False, Auto.Resiz=False |
+| COUNTERSTATIC | END_OF_DOCUMENT | Caption | "Número de linhas:" | image-observed; inferred control association | 0.000,0.000,30.271,6.085 | U-R17-01 | U-R17-01 | no border row text; U-R17-01 | Table=False, Visible=True, Divisible=False, Auto.Resiz=True |
+| COUNTER | END_OF_DOCUMENT | Calculation | calculation `Counter Numeric` | dossier | 30.271,0.000,16.338,6.088 | U-R17-01 | U-R17-01 | no border row text; U-R17-01 | Table=False, Visible=True, Divisible=False, Auto.Resiz=True |
+| PoweredWx | END_OF_DOCUMENT | Caption | "Golfinho Software, Lda" | image-observed; inferred control association | 134.998,0.000,40.902,5.556 | U-R17-01 | U-R17-01 | no border row text; U-R17-01 | Table=False, Visible=True, Divisible=False, Auto.Resiz=False |
+
+Image inspected: `docs/evidence/images/RPT_List_unidades.jpg`. It is a designer strip, not a runtime golden. Blue header cells and pale-blue body cells with white grid edges and grey-gradient title/footer are visible. The full right edge and literal captions outside the strip remain U-R17-01. Placeholder text such as `Static`, `Title`, `DD/MM/YYYY`, sample numerals and `[PAGENUM]/[NBPAGES]` must not be mistaken for runtime data.
+
+## Calculations and presets
+
+| Control | Kind | Formula / preset | Reset on | Mask | Parity ID |
+|---|---|---|---|---|---|
+| CONTROL58 | Preset | Date; item none | U-R17-02: automatic scope; manual source below | U-R17-01 | RULE-R17-012 |
+| NUMNBPAGES | Preset | [PAGENUM]/[NBPAGES]; item none | U-R17-02: automatic scope; manual source below | U-R17-01 | RULE-R17-012 |
+| COUNTER | Calculation | Counter Numeric; item none | U-R17-02: automatic scope; manual source below | U-R17-01 | RULE-R17-012 |
+
+Manual computations, input signatures and explicit reset timing (verified source; no rounding has been added):
+
+`legacy/GestaoOficinas_TesteIA/RPT_List_unidades.wde:214-214`, event `327680` on `report/local procedure`. Read the project company-name global into STC_Empresa on report open; declarations and any cutoff initialization execute in the exact order below.
+
+```wlanguage
+STC_Empresa=gsNome_empresa_reports
+```
+
+## Data edge cases
+
+| Case | Legacy behavior | Evidence or U-id |
+|---|---|---|
+| No rows | No custom empty-result handler; report engine/bands need a golden sample | U-R17-02 |
+| Empty / NULL | No report-wide NULL normalizer; preserve conditional assignments and source SQL | U-R17-02 / U-R17-03 |
+| Long text | Per-control Divisible/Auto.Resiz flags above; actual wrapping/ellipsis/page split | U-R17-01 |
+| Cancellation/error or concurrent table change | No explicit report-wide failure/concurrency handler | U-R17-02 |
+
+## Acceptance checks
+
+- Produce a legacy PDF with known rows; compare headers, values, grouping, totals, date text, page count and final page.
+- Produce no-row, long-description, multi-page and repeated-preview samples. Exercise every caller branch, preserving caller argument order.
+- Verify source geometry against the complete designer and compare visual layout to the dossier image. Human visual approval remains pending; see U-R17-01.
+- Do not execute dossier SQL verbatim as a target migration. Framing and implementation are outside Step 0.
+
+## Open points
+
+- U-R17-01: Designer fidelity: orientation, fonts, alignment, exact display masks, clipped/unprinted captions and control-level overflow beyond supplied flags need WINDEV properties or a complete golden PDF. Blocks visual implementation. Interim default: preserve listed geometry, bindings and flags; no inferred typography.
+- U-R17-02: Runtime/engine contract: no-row output, NULL formatting, first/last page behavior, counter/sum automatic reset scope, report cancellation, printer errors/default dialogs, snapshot versus live-table iteration and concurrent changes require controlled legacy print samples. Blocks engine edge-case implementation. Interim default: none; must be answered.
+- U-R17-03: Data contract: embedded SELECT, WHERE, ORDER BY, deduplication and inherited filters are encoded; compiled selected-item lists are not complete SQL. Export the report embedded query from WINDEV. Blocks faithful row selection; interim default: none; must be answered.
+
+## Footer caption evidence
+
+Image-observed footer strings above have inferred control association, recorded in docs/mapping/RPT_List_unidades.md and separate RULE rows. U-R17-01 is narrowed to remaining designer/runtime properties rather than these legible strings.

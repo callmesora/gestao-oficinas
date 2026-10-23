@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="370" height="339" viewBox="0 0 370 339" font-family="sans-serif" font-size="10">
+<rect width="370" height="339" fill="#fafafa" stroke="#999"/>
+<g><title>EDT_Atualizacao_ordens_reparacao (32,48 300×25)</title><rect x="32" y="48" width="300" height="25" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="35" y="60" fill="#111">Atualizaçªo ordens de reparaçªo (segundos)</text></g>
+<g><title>EDT_Atualizacao_materiais (32,90 300×25)</title><rect x="32" y="90" width="300" height="25" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="35" y="102" fill="#111">Atualizaçªo materiais (segundos)</text></g>
+<g><title>EDT_Atualizacao_tempos (32,132 300×25)</title><rect x="32" y="132" width="300" height="25" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="35" y="144" fill="#111">Atualizaçªo tempos (segundos)</text></g>
+<g><title>EDT_Data_inicio (32,174 300×25)</title><rect x="32" y="174" width="300" height="25" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="35" y="186" fill="#111">Mostrar movimentos atØ dias anteriores</text></g>
+<g><title>STC_Encerrar_tempos_automaticamente_a (32,214 249×25)</title><rect x="32" y="214" width="249" height="25" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="35" y="226" fill="#111">Encerrar tempos automaticamente a partir das:</text></g>
+<g><title>BTN_Guardar (83,284 96×45)</title><rect x="83" y="284" width="96" height="45" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="86" y="296" fill="#111">Guardar</text></g>
+<g><title>BTN_Cancelar (185,284 96×45)</title><rect x="185" y="284" width="96" height="45" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="188" y="296" fill="#111">Cancelar</text></g>
+<g><title>RADTitle (9,4 217×18)</title><rect x="9" y="4" width="217" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="12" y="16" fill="#111">Sistema</text></g>
+<g><title>SCSystemButtons (232,1 128×18)</title><rect x="232" y="1" width="128" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="235" y="13" fill="#111">SCSystemButtons</text></g>
+<g><title>EDT_encerrar_tempos_1 (32,242 63×25)</title><rect x="32" y="242" width="63" height="25" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="35" y="254" fill="#111">EDT_encerrar_tempos_1</text></g>
+<g><title>EDT_encerrar_tempos_2 (120,242 63×25)</title><rect x="120" y="242" width="63" height="25" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="123" y="254" fill="#111">EDT_encerrar_tempos_2</text></g>
+<g><title>BTN_SYST_FERMER (316,0 44×19)</title><rect x="316" y="0" width="44" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="319" y="12" fill="#111">BTN_SYST_FERMER</text></g>
+<g><title>BTN_SYST_MINIMIZE (266,0 26×19)</title><rect x="266" y="0" width="26" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="269" y="12" fill="#111">BTN_SYST_MINIMIZE</text></g>
+<g><title>BTN_Syst_Maximize (292,0 25×19)</title><rect x="292" y="0" width="25" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="295" y="12" fill="#111">BTN_Syst_Maximize</text></g>
+<g><title>BTN_UMC (232,0 24×19)</title><rect x="232" y="0" width="24" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="235" y="12" fill="#111">&amp;Bouton</text></g>
+<g><title>STC_E (102,242 13×25)</title><rect x="102" y="242" width="13" height="25" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="105" y="254" fill="#111">e</text></g>
+<g><title>BTN_Syst_Restore (136,-19 14×14)</title><rect x="136" y="-19" width="14" height="14" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="139" y="-7" fill="#111">BTN_Syst_Restore</text></g>
+</svg>

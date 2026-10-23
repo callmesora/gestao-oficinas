@@ -1,0 +1,4 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-20a2298184,export-needed,QRY_noname,,,legacy/GestaoOficinas_TesteIA/QRY_noname.WDR,unresolved,U-Q04-01: Binary query has no dossier SQL; behavior cannot be established. No exclusion is assumed.,,,,,unmapped
+RULE-Q04-003,rule,QRY_noname,QRY_noname,,legacy/GestaoOficinas_TesteIA/QRY_noname.WDR,unresolved,U-Q04-03: Query runtime omission/null/collation and PDF literal validation,,,,,unmapped
+RULE-Q04-004,rule,QRY_noname,QRY_noname,,legacy/GestaoOficinas_TesteIA/QRY_noname.WDR,unresolved,U-Q04-04: Caller error/empty-result contract,,,,,unmapped

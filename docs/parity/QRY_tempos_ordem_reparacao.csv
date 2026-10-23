@@ -1,0 +1,4 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-d68d58253c,export-needed,QRY_tempos_ordem_reparacao,,,legacy/GestaoOficinas_TesteIA/QRY_tempos_ordem_reparacao.WDR; dossier: QRY_tempos_ordem_reparacao/sql,verified,"Joins orders, vehicles, labor and mechanics. Filters order number and labor-start timestamp inclusive ranges, sorts order number ascending.",Preserve legacy SQL semantics,,,,specified
+RULE-Q23-003,rule,QRY_tempos_ordem_reparacao,QRY_tempos_ordem_reparacao,,legacy/GestaoOficinas_TesteIA/QRY_tempos_ordem_reparacao.WDR,unresolved,U-Q23-03: Query runtime omission/null/collation and PDF literal validation,,,,,unmapped
+RULE-Q23-004,rule,QRY_tempos_ordem_reparacao,QRY_tempos_ordem_reparacao,,legacy/GestaoOficinas_TesteIA/QRY_tempos_ordem_reparacao.WDR,unresolved,U-Q23-04: Caller error/empty-result contract,,,,,unmapped

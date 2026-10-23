@@ -1,0 +1,5 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-d2d7530a77,table,Clientes,data mapping and reconciliation,,legacy/GestaoOficinas_TesteIA/GestaoOficinas.xdd; docs/schema/schema-draft.md; export: docs/data/profile.md#Clientes,verified,Customer master and contacts. Business links use Codigo; ClientesID is a distinct automatic identifier. Export counts 2165/2165.,Preserve table values and evidenced business keys; import decisions deferred,,,,specified
+RULE-T01-001,rule,Clientes,Clientes,,docs/schema/schema-draft.md; export: docs/data/profile.md#Clientes,unresolved,U-T01-01: Runtime integrity/collation enforcement,,,,,unmapped
+RULE-T01-002,rule,Clientes,Clientes,,docs/schema/schema-draft.md; export: docs/data/profile.md#Clientes,unresolved,U-T01-02: Import representation and existing anomalies,,,,,unmapped
+RULE-T01-003,rule,Clientes,Clientes,,docs/schema/schema-draft.md; export: docs/data/profile.md#Clientes,unresolved,U-T01-03: Driver-generated key fidelity,,,,,unmapped

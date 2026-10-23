@@ -1,0 +1,3034 @@
+{
+ "tables": {
+  "artigos": {
+   "rows": 15558,
+   "columns": {
+    "artigosID": {
+     "type": "Automatic identifier (8 bytes)",
+     "rows": 15558,
+     "null": 0,
+     "empty": 0,
+     "distinct": 15558,
+     "invalid": 0,
+     "max_length": 5,
+     "shapes": [
+      [
+       "9999",
+       8902
+      ],
+      [
+       "99999",
+       5723
+      ],
+      [
+       "999",
+       859
+      ]
+     ],
+     "zero": 0,
+     "min": 17.0,
+     "max": 15757.0,
+     "p99": 15596.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "Codigo": {
+     "type": "String",
+     "rows": 15558,
+     "null": 0,
+     "empty": 0,
+     "distinct": 15558,
+     "invalid": 0,
+     "max_length": 20,
+     "padded": 4,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": [
+      "4 values with leading or trailing spaces: keep, or trim in the import?"
+     ]
+    },
+    "Descricao": {
+     "type": "String",
+     "rows": 15558,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2969,
+     "invalid": 0,
+     "max_length": 55,
+     "padded": 2008,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": [
+      "2008 values with leading or trailing spaces: keep, or trim in the import?"
+     ]
+    },
+    "codbarras": {
+     "type": "String",
+     "rows": 15558,
+     "null": 0,
+     "empty": 0,
+     "distinct": 252,
+     "invalid": 0,
+     "max_length": 16,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 15307,
+     "findings": []
+    },
+    "unidade": {
+     "type": "String",
+     "rows": 15558,
+     "null": 0,
+     "empty": 0,
+     "distinct": 4,
+     "invalid": 0,
+     "max_length": 2,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    },
+    "preco": {
+     "type": "8-byte real",
+     "rows": 15558,
+     "null": 0,
+     "empty": 0,
+     "distinct": 6071,
+     "invalid": 0,
+     "max_length": 7,
+     "shapes": [
+      [
+       "99.99",
+       6998
+      ],
+      [
+       "99.9",
+       2567
+      ],
+      [
+       "9.99",
+       1644
+      ]
+     ],
+     "zero": 47,
+     "min": 0.0,
+     "max": 8126.06,
+     "p99": 505.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "inativo": {
+     "type": "Boolean",
+     "rows": 15558,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       15558
+      ]
+     ],
+     "findings": []
+    },
+    "stock": {
+     "type": "Decimal",
+     "rows": 15558,
+     "null": 0,
+     "empty": 0,
+     "distinct": 147,
+     "invalid": 0,
+     "max_length": 9,
+     "shapes": [
+      [
+       "9",
+       8641
+      ],
+      [
+       "-9",
+       6531
+      ],
+      [
+       "-99",
+       296
+      ]
+     ],
+     "zero": 7885,
+     "min": -20694.55,
+     "max": 713609.0,
+     "p99": 2.0,
+     "above_2_53": 0,
+     "findings": [
+      "7885 zeros of 15558: does 0 mean empty here (dossier 'Blank if zero')?",
+      "maximum 713609 is over 20 × the 99th percentile (2): typo or real?"
+     ]
+    }
+   }
+  },
+  "cab_stocks": {
+   "rows": 4217,
+   "columns": {
+    "cab_stocksID": {
+     "type": "Automatic identifier (8 bytes)",
+     "rows": 4217,
+     "null": 0,
+     "empty": 0,
+     "distinct": 4217,
+     "invalid": 0,
+     "max_length": 4,
+     "shapes": [
+      [
+       "9999",
+       3224
+      ],
+      [
+       "999",
+       897
+      ],
+      [
+       "99",
+       89
+      ]
+     ],
+     "zero": 0,
+     "min": 3.0,
+     "max": 4227.0,
+     "p99": 4184.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "documento_codigo": {
+     "type": "String",
+     "rows": 4217,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2,
+     "invalid": 0,
+     "max_length": 2,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    },
+    "documento_numero": {
+     "type": "Unsigned 8-byte integer",
+     "rows": 4217,
+     "null": 0,
+     "empty": 0,
+     "distinct": 4174,
+     "invalid": 0,
+     "max_length": 4,
+     "shapes": [
+      [
+       "9999",
+       3179
+      ],
+      [
+       "999",
+       896
+      ],
+      [
+       "99",
+       125
+      ]
+     ],
+     "zero": 0,
+     "min": 1.0,
+     "max": 4181.0,
+     "p99": 4138.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "DATA": {
+     "type": "Date and Time (yyyymmddhhmmssccc)",
+     "rows": 4217,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1519,
+     "invalid": 0,
+     "max_length": 23,
+     "shapes": [
+      [
+       "9999-99-99 99:99:99.999",
+       4217
+      ]
+     ],
+     "zero_date": 0,
+     "min": "2016-03-28 00:00:00.000",
+     "max": "2024-09-11 00:00:00.000",
+     "findings": []
+    },
+    "mecanico": {
+     "type": "Unsigned 1-byte integer",
+     "rows": 4217,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       4217
+      ]
+     ],
+     "zero": 4217,
+     "min": 0.0,
+     "max": 0.0,
+     "p99": 0.0,
+     "above_2_53": 0,
+     "findings": [
+      "one value in every row: unused or always defaulted — check the code before mapping it"
+     ]
+    },
+    "DocumentosID": {
+     "type": "8-byte integer",
+     "rows": 4217,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       4217
+      ]
+     ],
+     "zero": 4217,
+     "min": 0.0,
+     "max": 0.0,
+     "p99": 0.0,
+     "above_2_53": 0,
+     "findings": [
+      "one value in every row: unused or always defaulted — check the code before mapping it"
+     ]
+    },
+    "MecanicosID": {
+     "type": "8-byte integer",
+     "rows": 4217,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       4217
+      ]
+     ],
+     "zero": 4217,
+     "min": 0.0,
+     "max": 0.0,
+     "p99": 0.0,
+     "above_2_53": 0,
+     "findings": [
+      "one value in every row: unused or always defaulted — check the code before mapping it"
+     ]
+    },
+    "Descricao": {
+     "type": "String",
+     "rows": 4217,
+     "null": 0,
+     "empty": 0,
+     "distinct": 29,
+     "invalid": 0,
+     "max_length": 47,
+     "padded": 4,
+     "line_breaks": 0,
+     "control": 4143,
+     "findings": [
+      "4 values with leading or trailing spaces: keep, or trim in the import?"
+     ]
+    }
+   }
+  },
+  "Clientes": {
+   "rows": 2165,
+   "columns": {
+    "ClientesID": {
+     "type": "Automatic identifier (8 bytes)",
+     "rows": 2165,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2165,
+     "invalid": 0,
+     "max_length": 4,
+     "shapes": [
+      [
+       "9999",
+       1171
+      ],
+      [
+       "999",
+       900
+      ],
+      [
+       "99",
+       89
+      ]
+     ],
+     "zero": 0,
+     "min": 5.0,
+     "max": 2176.0,
+     "p99": 2152.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "Codigo": {
+     "type": "Unsigned 8-byte integer",
+     "rows": 2165,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2165,
+     "invalid": 0,
+     "max_length": 4,
+     "shapes": [
+      [
+       "9999",
+       1166
+      ],
+      [
+       "999",
+       900
+      ],
+      [
+       "99",
+       90
+      ]
+     ],
+     "zero": 0,
+     "min": 1.0,
+     "max": 2165.0,
+     "p99": 2143.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "Descricao": {
+     "type": "String",
+     "rows": 2165,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2129,
+     "invalid": 0,
+     "max_length": 52,
+     "padded": 42,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": [
+      "42 values with leading or trailing spaces: keep, or trim in the import?"
+     ]
+    },
+    "Morada1": {
+     "type": "String",
+     "rows": 2165,
+     "null": 0,
+     "empty": 0,
+     "distinct": 208,
+     "invalid": 0,
+     "max_length": 30,
+     "padded": 5,
+     "line_breaks": 0,
+     "control": 179,
+     "findings": [
+      "5 values with leading or trailing spaces: keep, or trim in the import?"
+     ]
+    },
+    "Morada2": {
+     "type": "String",
+     "rows": 2165,
+     "null": 0,
+     "empty": 0,
+     "distinct": 9,
+     "invalid": 0,
+     "max_length": 30,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 2157,
+     "findings": []
+    },
+    "codpostal": {
+     "type": "String",
+     "rows": 2165,
+     "null": 0,
+     "empty": 0,
+     "distinct": 6,
+     "invalid": 0,
+     "max_length": 24,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 2160,
+     "findings": []
+    },
+    "Telefone1": {
+     "type": "String",
+     "rows": 2165,
+     "null": 0,
+     "empty": 0,
+     "distinct": 103,
+     "invalid": 0,
+     "max_length": 36,
+     "padded": 3,
+     "line_breaks": 0,
+     "control": 2062,
+     "findings": [
+      "3 values with leading or trailing spaces: keep, or trim in the import?"
+     ]
+    },
+    "Telemovel": {
+     "type": "String",
+     "rows": 2165,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1991,
+     "invalid": 0,
+     "max_length": 34,
+     "padded": 2,
+     "line_breaks": 0,
+     "control": 84,
+     "findings": [
+      "2 values with leading or trailing spaces: keep, or trim in the import?"
+     ]
+    },
+    "observacao": {
+     "type": "Text Memo",
+     "rows": 2165,
+     "null": 0,
+     "empty": 0,
+     "distinct": 6,
+     "invalid": 0,
+     "max_length": 42,
+     "padded": 1,
+     "line_breaks": 0,
+     "control": 2160,
+     "findings": [
+      "1 values with leading or trailing spaces: keep, or trim in the import?"
+     ]
+    }
+   }
+  },
+  "documentos": {
+   "rows": 4,
+   "columns": {
+    "documentosID": {
+     "type": "Automatic identifier (8 bytes)",
+     "rows": 4,
+     "null": 0,
+     "empty": 0,
+     "distinct": 4,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       4
+      ]
+     ],
+     "zero": 0,
+     "min": 1.0,
+     "max": 4.0,
+     "p99": 3.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "Codigo": {
+     "type": "String",
+     "rows": 4,
+     "null": 0,
+     "empty": 0,
+     "distinct": 4,
+     "invalid": 0,
+     "max_length": 3,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    },
+    "Descricao": {
+     "type": "String",
+     "rows": 4,
+     "null": 0,
+     "empty": 0,
+     "distinct": 4,
+     "invalid": 0,
+     "max_length": 22,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    },
+    "stock": {
+     "type": "Unsigned 1-byte integer",
+     "rows": 4,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       4
+      ]
+     ],
+     "zero": 0,
+     "min": 1.0,
+     "max": 2.0,
+     "p99": 2.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "obriga_macanico": {
+     "type": "Boolean",
+     "rows": 4,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       4
+      ]
+     ],
+     "findings": []
+    }
+   }
+  },
+  "estados_descritivos": {
+   "rows": 5,
+   "columns": {
+    "estados_descritivosID": {
+     "type": "Automatic identifier (8 bytes)",
+     "rows": 5,
+     "null": 0,
+     "empty": 0,
+     "distinct": 5,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       5
+      ]
+     ],
+     "zero": 0,
+     "min": 1.0,
+     "max": 5.0,
+     "p99": 4.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "Codigo": {
+     "type": "String",
+     "rows": 5,
+     "null": 0,
+     "empty": 0,
+     "distinct": 5,
+     "invalid": 0,
+     "max_length": 1,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    },
+    "Descricao": {
+     "type": "String",
+     "rows": 5,
+     "null": 0,
+     "empty": 0,
+     "distinct": 5,
+     "invalid": 0,
+     "max_length": 43,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    }
+   }
+  },
+  "estados_reparacao": {
+   "rows": 11,
+   "columns": {
+    "estados_reparacaoID": {
+     "type": "Automatic identifier (8 bytes)",
+     "rows": 11,
+     "null": 0,
+     "empty": 0,
+     "distinct": 11,
+     "invalid": 0,
+     "max_length": 2,
+     "shapes": [
+      [
+       "9",
+       8
+      ],
+      [
+       "99",
+       3
+      ]
+     ],
+     "zero": 0,
+     "min": 1.0,
+     "max": 12.0,
+     "p99": 11.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "Codigo": {
+     "type": "String",
+     "rows": 11,
+     "null": 0,
+     "empty": 0,
+     "distinct": 11,
+     "invalid": 0,
+     "max_length": 2,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    },
+    "Descricao": {
+     "type": "String",
+     "rows": 11,
+     "null": 0,
+     "empty": 0,
+     "distinct": 11,
+     "invalid": 0,
+     "max_length": 28,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    },
+    "tipo": {
+     "type": "Unsigned 1-byte integer",
+     "rows": 11,
+     "null": 0,
+     "empty": 0,
+     "distinct": 8,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       11
+      ]
+     ],
+     "zero": 0,
+     "min": 1.0,
+     "max": 8.0,
+     "p99": 7.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "Cor": {
+     "type": "Unsigned 4-byte integer",
+     "rows": 11,
+     "null": 0,
+     "empty": 0,
+     "distinct": 11,
+     "invalid": 0,
+     "max_length": 8,
+     "shapes": [
+      [
+       "99999",
+       5
+      ],
+      [
+       "9999999",
+       3
+      ],
+      [
+       "99999999",
+       2
+      ]
+     ],
+     "zero": 0,
+     "min": 13158.0,
+     "max": 16711884.0,
+     "p99": 13434624.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "lancar_defa": {
+     "type": "Boolean",
+     "rows": 11,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       11
+      ]
+     ],
+     "findings": []
+    },
+    "lancar_material": {
+     "type": "Boolean",
+     "rows": 11,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       11
+      ]
+     ],
+     "findings": []
+    },
+    "confirmacao": {
+     "type": "Boolean",
+     "rows": 11,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       11
+      ]
+     ],
+     "findings": []
+    },
+    "pedir_data_entrega": {
+     "type": "Boolean",
+     "rows": 11,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       11
+      ]
+     ],
+     "findings": [
+      "one value in every row: unused or always defaulted — check the code before mapping it"
+     ]
+    },
+    "pedir_data_pag": {
+     "type": "Boolean",
+     "rows": 11,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       11
+      ]
+     ],
+     "findings": [
+      "one value in every row: unused or always defaulted — check the code before mapping it"
+     ]
+    }
+   }
+  },
+  "lin_stocks": {
+   "rows": 23615,
+   "columns": {
+    "lin_stocksID": {
+     "type": "Automatic identifier (8 bytes)",
+     "rows": 23615,
+     "null": 0,
+     "empty": 0,
+     "distinct": 23615,
+     "invalid": 0,
+     "max_length": 5,
+     "shapes": [
+      [
+       "99999",
+       15939
+      ],
+      [
+       "9999",
+       6967
+      ],
+      [
+       "999",
+       684
+      ]
+     ],
+     "zero": 0,
+     "min": 45.0,
+     "max": 30011.0,
+     "p99": 29728.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "documento_codigo": {
+     "type": "String",
+     "rows": 23615,
+     "null": 0,
+     "empty": 0,
+     "distinct": 3,
+     "invalid": 0,
+     "max_length": 2,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 1,
+     "findings": []
+    },
+    "documento_numero": {
+     "type": "Unsigned 8-byte integer",
+     "rows": 23615,
+     "null": 0,
+     "empty": 0,
+     "distinct": 4174,
+     "invalid": 0,
+     "max_length": 4,
+     "shapes": [
+      [
+       "9999",
+       18567
+      ],
+      [
+       "999",
+       4400
+      ],
+      [
+       "99",
+       505
+      ]
+     ],
+     "zero": 0,
+     "min": 1.0,
+     "max": 4181.0,
+     "p99": 4106.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "linha": {
+     "type": "Unsigned 4-byte integer",
+     "rows": 23615,
+     "null": 0,
+     "empty": 0,
+     "distinct": 46,
+     "invalid": 0,
+     "max_length": 2,
+     "shapes": [
+      [
+       "9",
+       21037
+      ],
+      [
+       "99",
+       2578
+      ]
+     ],
+     "zero": 0,
+     "min": 1.0,
+     "max": 47.0,
+     "p99": 17.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "artigo": {
+     "type": "String",
+     "rows": 23615,
+     "null": 0,
+     "empty": 0,
+     "distinct": 10284,
+     "invalid": 0,
+     "max_length": 20,
+     "padded": 3,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": [
+      "3 values with leading or trailing spaces: keep, or trim in the import?"
+     ]
+    },
+    "descricao_artigo": {
+     "type": "String",
+     "rows": 23615,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2123,
+     "invalid": 0,
+     "max_length": 44,
+     "padded": 2040,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": [
+      "2040 values with leading or trailing spaces: keep, or trim in the import?"
+     ]
+    },
+    "quantidade": {
+     "type": "Decimal",
+     "rows": 23615,
+     "null": 0,
+     "empty": 0,
+     "distinct": 73,
+     "invalid": 0,
+     "max_length": 8,
+     "shapes": [
+      [
+       "9",
+       23024
+      ],
+      [
+       "99",
+       444
+      ],
+      [
+       "999",
+       134
+      ]
+     ],
+     "zero": 3,
+     "min": 0.0,
+     "max": 713610.0,
+     "p99": 20.0,
+     "above_2_53": 0,
+     "findings": [
+      "maximum 713610 is over 20 × the 99th percentile (20): typo or real?"
+     ]
+    },
+    "preco": {
+     "type": "8-byte real",
+     "rows": 23615,
+     "null": 0,
+     "empty": 0,
+     "distinct": 5232,
+     "invalid": 0,
+     "max_length": 9,
+     "shapes": [
+      [
+       "99.99",
+       11030
+      ],
+      [
+       "99.9",
+       3882
+      ],
+      [
+       "9.99",
+       3038
+      ]
+     ],
+     "zero": 24,
+     "min": 0.0,
+     "max": 401155829.0,
+     "p99": 376.55,
+     "above_2_53": 0,
+     "findings": [
+      "maximum 4.01156e+08 is over 20 × the 99th percentile (376.55): typo or real?"
+     ]
+    },
+    "Documento_codigodocumento_numero": {
+     "type": "code 28",
+     "rows": 23615,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 7,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 23615,
+     "findings": [
+      "one value in every row: unused or always defaulted — check the code before mapping it"
+     ]
+    }
+   }
+  },
+  "material_reparacao": {
+   "rows": 72768,
+   "columns": {
+    "material_reparacaoID": {
+     "type": "Automatic identifier (8 bytes)",
+     "rows": 72768,
+     "null": 0,
+     "empty": 0,
+     "distinct": 72768,
+     "invalid": 0,
+     "max_length": 6,
+     "shapes": [
+      [
+       "999999",
+       40503
+      ],
+      [
+       "99999",
+       29844
+      ],
+      [
+       "9999",
+       2243
+      ]
+     ],
+     "zero": 0,
+     "min": 44.0,
+     "max": 232376.0,
+     "p99": 229714.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "numero": {
+     "type": "Unsigned 8-byte integer",
+     "rows": 72768,
+     "null": 0,
+     "empty": 0,
+     "distinct": 14924,
+     "invalid": 0,
+     "max_length": 5,
+     "shapes": [
+      [
+       "9999",
+       40363
+      ],
+      [
+       "99999",
+       27997
+      ],
+      [
+       "999",
+       4023
+      ]
+     ],
+     "zero": 0,
+     "min": 1.0,
+     "max": 15719.0,
+     "p99": 15548.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "mecanico": {
+     "type": "Unsigned 1-byte integer",
+     "rows": 72768,
+     "null": 0,
+     "empty": 0,
+     "distinct": 11,
+     "invalid": 0,
+     "max_length": 2,
+     "shapes": [
+      [
+       "9",
+       71805
+      ],
+      [
+       "99",
+       963
+      ]
+     ],
+     "zero": 0,
+     "min": 1.0,
+     "max": 11.0,
+     "p99": 10.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "artigo": {
+     "type": "String",
+     "rows": 72768,
+     "null": 0,
+     "empty": 0,
+     "distinct": 14707,
+     "invalid": 0,
+     "max_length": 20,
+     "padded": 5,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": [
+      "5 values with leading or trailing spaces: keep, or trim in the import?"
+     ]
+    },
+    "reparacao_estado": {
+     "type": "String",
+     "rows": 72768,
+     "null": 0,
+     "empty": 0,
+     "distinct": 7,
+     "invalid": 0,
+     "max_length": 1,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    },
+    "descricao_artigo": {
+     "type": "String",
+     "rows": 72768,
+     "null": 0,
+     "empty": 0,
+     "distinct": 5114,
+     "invalid": 0,
+     "max_length": 68,
+     "padded": 3240,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": [
+      "3240 values with leading or trailing spaces: keep, or trim in the import?"
+     ]
+    },
+    "quantidade": {
+     "type": "Decimal",
+     "rows": 72768,
+     "null": 0,
+     "empty": 0,
+     "distinct": 105,
+     "invalid": 0,
+     "max_length": 4,
+     "shapes": [
+      [
+       "9",
+       61707
+      ],
+      [
+       "9.9",
+       9732
+      ],
+      [
+       "99",
+       830
+      ]
+     ],
+     "zero": 2,
+     "min": 0.0,
+     "max": 40.0,
+     "p99": 10.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "data_hora": {
+     "type": "Date and Time (yyyymmddhhmmssccc)",
+     "rows": 72768,
+     "null": 0,
+     "empty": 0,
+     "distinct": 72768,
+     "invalid": 0,
+     "max_length": 23,
+     "shapes": [
+      [
+       "9999-99-99 99:99:99.999",
+       72768
+      ]
+     ],
+     "zero_date": 0,
+     "min": "2016-03-29 19:12:35.290",
+     "max": "2024-09-16 18:21:35.248",
+     "findings": []
+    },
+    "preco": {
+     "type": "8-byte real",
+     "rows": 72768,
+     "null": 0,
+     "empty": 0,
+     "distinct": 7312,
+     "invalid": 0,
+     "max_length": 7,
+     "shapes": [
+      [
+       "99",
+       24318
+      ],
+      [
+       "99.99",
+       18659
+      ],
+      [
+       "99.9",
+       7614
+      ]
+     ],
+     "zero": 227,
+     "min": 0.0,
+     "max": 4681.69,
+     "p99": 290.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "lancado": {
+     "type": "Boolean",
+     "rows": 72768,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       72768
+      ]
+     ],
+     "findings": []
+    },
+    "extra": {
+     "type": "Boolean",
+     "rows": 72768,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       72768
+      ]
+     ],
+     "findings": []
+    }
+   }
+  },
+  "mecanicos": {
+   "rows": 11,
+   "columns": {
+    "mecanicosID": {
+     "type": "Automatic identifier (8 bytes)",
+     "rows": 11,
+     "null": 0,
+     "empty": 0,
+     "distinct": 11,
+     "invalid": 0,
+     "max_length": 2,
+     "shapes": [
+      [
+       "9",
+       8
+      ],
+      [
+       "99",
+       3
+      ]
+     ],
+     "zero": 0,
+     "min": 1.0,
+     "max": 12.0,
+     "p99": 11.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "Codigo": {
+     "type": "Unsigned 1-byte integer",
+     "rows": 11,
+     "null": 0,
+     "empty": 0,
+     "distinct": 11,
+     "invalid": 0,
+     "max_length": 2,
+     "shapes": [
+      [
+       "9",
+       9
+      ],
+      [
+       "99",
+       2
+      ]
+     ],
+     "zero": 0,
+     "min": 1.0,
+     "max": 11.0,
+     "p99": 10.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "Descricao": {
+     "type": "String",
+     "rows": 11,
+     "null": 0,
+     "empty": 0,
+     "distinct": 11,
+     "invalid": 0,
+     "max_length": 14,
+     "padded": 1,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": [
+      "1 values with leading or trailing spaces: keep, or trim in the import?"
+     ]
+    },
+    "palavra_passe": {
+     "type": "String",
+     "rows": 11,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 3,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": [
+      "one value in every row: unused or always defaulted — check the code before mapping it"
+     ]
+    },
+    "inativo": {
+     "type": "Boolean",
+     "rows": 11,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       11
+      ]
+     ],
+     "findings": []
+    }
+   }
+  },
+  "ordem_reparacao": {
+   "rows": 15719,
+   "columns": {
+    "ordem_reparacaoID": {
+     "type": "Automatic identifier (8 bytes)",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 15719,
+     "invalid": 0,
+     "max_length": 5,
+     "shapes": [
+      [
+       "9999",
+       8998
+      ],
+      [
+       "99999",
+       5736
+      ],
+      [
+       "999",
+       900
+      ]
+     ],
+     "zero": 0,
+     "min": 11.0,
+     "max": 15738.0,
+     "p99": 15579.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "matricula": {
+     "type": "String",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 4462,
+     "invalid": 0,
+     "max_length": 12,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    },
+    "numero": {
+     "type": "Unsigned 8-byte integer",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 15719,
+     "invalid": 0,
+     "max_length": 5,
+     "shapes": [
+      [
+       "9999",
+       8998
+      ],
+      [
+       "99999",
+       5723
+      ],
+      [
+       "999",
+       900
+      ]
+     ],
+     "zero": 0,
+     "min": 1.0,
+     "max": 15724.0,
+     "p99": 15565.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "recepcao_datahora": {
+     "type": "Date and Time (yyyymmddhhmmssccc)",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 15627,
+     "invalid": 0,
+     "max_length": 23,
+     "shapes": [
+      [
+       "9999-99-99 99:99:99.999",
+       15719
+      ]
+     ],
+     "zero_date": 0,
+     "min": "1990-02-05 00:00:00.000",
+     "max": "2024-09-16 18:26:00.000",
+     "findings": []
+    },
+    "reparacao_estado": {
+     "type": "String",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 7,
+     "invalid": 0,
+     "max_length": 2,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    },
+    "reparacao_estado_obs": {
+     "type": "String",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2,
+     "invalid": 0,
+     "max_length": 43,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 15718,
+     "findings": []
+    },
+    "recepcao_entrega_prevista": {
+     "type": "Date (yyyymmdd)",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2216,
+     "invalid": 0,
+     "max_length": 8,
+     "shapes": [
+      [
+       "99999999",
+       15719
+      ]
+     ],
+     "zero_date": 0,
+     "min": "20160328",
+     "max": "20240916",
+     "findings": []
+    },
+    "reparacao_mecanico": {
+     "type": "Unsigned 1-byte integer",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 11,
+     "invalid": 0,
+     "max_length": 2,
+     "shapes": [
+      [
+       "9",
+       14965
+      ],
+      [
+       "99",
+       754
+      ]
+     ],
+     "zero": 0,
+     "min": 1.0,
+     "max": 11.0,
+     "p99": 11.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "km_viatura": {
+     "type": "Unsigned 8-byte integer",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 12449,
+     "invalid": 0,
+     "max_length": 9,
+     "shapes": [
+      [
+       "999999",
+       11083
+      ],
+      [
+       "99",
+       2871
+      ],
+      [
+       "99999",
+       1715
+      ]
+     ],
+     "zero": 0,
+     "min": 5.0,
+     "max": 964084854.0,
+     "p99": 594326.0,
+     "above_2_53": 0,
+     "findings": [
+      "maximum 9.64085e+08 is over 20 × the 99th percentile (594326): typo or real?"
+     ]
+    },
+    "recepcao_util": {
+     "type": "Unsigned 1-byte integer",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       15719
+      ]
+     ],
+     "zero": 0,
+     "min": 1.0,
+     "max": 1.0,
+     "p99": 1.0,
+     "above_2_53": 0,
+     "findings": [
+      "one value in every row: unused or always defaulted — check the code before mapping it"
+     ]
+    },
+    "recepcao_servico": {
+     "type": "Text Memo",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 8551,
+     "invalid": 0,
+     "max_length": 608,
+     "padded": 2154,
+     "line_breaks": 7333,
+     "control": 4506,
+     "findings": [
+      "2154 values with leading or trailing spaces: keep, or trim in the import?",
+      "7333 values with line breaks (WINDEV writes CR LF)"
+     ]
+    },
+    "recepcao_obs": {
+     "type": "Text Memo",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2657,
+     "invalid": 0,
+     "max_length": 316,
+     "padded": 286,
+     "line_breaks": 1046,
+     "control": 12233,
+     "findings": [
+      "286 values with leading or trailing spaces: keep, or trim in the import?",
+      "1046 values with line breaks (WINDEV writes CR LF)"
+     ]
+    },
+    "recepcao_prioridade": {
+     "type": "Unsigned 1-byte integer",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 3,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       15719
+      ]
+     ],
+     "zero": 0,
+     "min": 1.0,
+     "max": 3.0,
+     "p99": 1.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "reparacao_servico": {
+     "type": "Text Memo",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 6,
+     "invalid": 0,
+     "max_length": 52,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 15714,
+     "findings": []
+    },
+    "reparacao_estado_data": {
+     "type": "Date and Time (yyyymmddhhmmssccc)",
+     "rows": 15719,
+     "null": 15005,
+     "empty": 0,
+     "distinct": 675,
+     "invalid": 0,
+     "max_length": 23,
+     "shapes": [
+      [
+       "9999-99-99 99:99:99.999",
+       714
+      ]
+     ],
+     "zero_date": 0,
+     "min": "2016-03-29 18:38:00.000",
+     "max": "2024-05-06 17:02:00.000",
+     "findings": []
+    },
+    "reparacao_estado_historico": {
+     "type": "Text Memo",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 700,
+     "invalid": 0,
+     "max_length": 340,
+     "padded": 713,
+     "line_breaks": 714,
+     "control": 15005,
+     "findings": [
+      "713 values with leading or trailing spaces: keep, or trim in the import?",
+      "714 values with line breaks (WINDEV writes CR LF)"
+     ]
+    },
+    "recepacao_contatos": {
+     "type": "Text Memo",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2454,
+     "invalid": 0,
+     "max_length": 67,
+     "padded": 58,
+     "line_breaks": 1378,
+     "control": 982,
+     "findings": [
+      "58 values with leading or trailing spaces: keep, or trim in the import?",
+      "1378 values with line breaks (WINDEV writes CR LF)"
+     ]
+    },
+    "totaL_mao_obra": {
+     "type": "8-byte real",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       15719
+      ]
+     ],
+     "zero": 15719,
+     "min": 0.0,
+     "max": 0.0,
+     "p99": 0.0,
+     "above_2_53": 0,
+     "findings": [
+      "one value in every row: unused or always defaulted — check the code before mapping it"
+     ]
+    },
+    "total_pecas": {
+     "type": "8-byte real",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       15719
+      ]
+     ],
+     "zero": 15719,
+     "min": 0.0,
+     "max": 0.0,
+     "p99": 0.0,
+     "above_2_53": 0,
+     "findings": [
+      "one value in every row: unused or always defaulted — check the code before mapping it"
+     ]
+    },
+    "total_desconto": {
+     "type": "8-byte real",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       15719
+      ]
+     ],
+     "zero": 15719,
+     "min": 0.0,
+     "max": 0.0,
+     "p99": 0.0,
+     "above_2_53": 0,
+     "findings": [
+      "one value in every row: unused or always defaulted — check the code before mapping it"
+     ]
+    },
+    "total_reparacao": {
+     "type": "8-byte real",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       15719
+      ]
+     ],
+     "zero": 15719,
+     "min": 0.0,
+     "max": 0.0,
+     "p99": 0.0,
+     "above_2_53": 0,
+     "findings": [
+      "one value in every row: unused or always defaulted — check the code before mapping it"
+     ]
+    },
+    "faturado": {
+     "type": "Boolean",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       15719
+      ]
+     ],
+     "findings": []
+    },
+    "total_pago": {
+     "type": "8-byte real",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 8471,
+     "invalid": 0,
+     "max_length": 8,
+     "shapes": [
+      [
+       "999.99",
+       6925
+      ],
+      [
+       "999",
+       2758
+      ],
+      [
+       "99.99",
+       1552
+      ]
+     ],
+     "zero": 1309,
+     "min": 0.0,
+     "max": 525920.0,
+     "p99": 1658.7,
+     "above_2_53": 0,
+     "findings": [
+      "maximum 525920 is over 20 × the 99th percentile (1658.7): typo or real?"
+     ]
+    },
+    "Estados_reparacaoID": {
+     "type": "8-byte integer",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       15719
+      ]
+     ],
+     "zero": 15719,
+     "min": 0.0,
+     "max": 0.0,
+     "p99": 0.0,
+     "above_2_53": 0,
+     "findings": [
+      "one value in every row: unused or always defaulted — check the code before mapping it"
+     ]
+    },
+    "numero_fatura": {
+     "type": "String",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 9773,
+     "invalid": 0,
+     "max_length": 20,
+     "padded": 1,
+     "line_breaks": 0,
+     "control": 5363,
+     "findings": [
+      "1 values with leading or trailing spaces: keep, or trim in the import?"
+     ]
+    },
+    "recepcao_cliente": {
+     "type": "Unsigned 8-byte integer",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2109,
+     "invalid": 0,
+     "max_length": 4,
+     "shapes": [
+      [
+       "999",
+       8787
+      ],
+      [
+       "9999",
+       4021
+      ],
+      [
+       "99",
+       2775
+      ]
+     ],
+     "zero": 0,
+     "min": 2.0,
+     "max": 2165.0,
+     "p99": 2056.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "data_pagamento": {
+     "type": "Date (yyyymmdd)",
+     "rows": 15719,
+     "null": 1974,
+     "empty": 0,
+     "distinct": 2164,
+     "invalid": 0,
+     "max_length": 8,
+     "shapes": [
+      [
+       "99999999",
+       13745
+      ]
+     ],
+     "zero_date": 0,
+     "min": "20160707",
+     "max": "20240916",
+     "findings": []
+    },
+    "recepcao_terceiro": {
+     "type": "Unsigned 8-byte integer",
+     "rows": 15719,
+     "null": 0,
+     "empty": 0,
+     "distinct": 26,
+     "invalid": 0,
+     "max_length": 4,
+     "shapes": [
+      [
+       "9",
+       15648
+      ],
+      [
+       "99",
+       39
+      ],
+      [
+       "999",
+       26
+      ]
+     ],
+     "zero": 15648,
+     "min": 0.0,
+     "max": 1599.0,
+     "p99": 0.0,
+     "above_2_53": 0,
+     "findings": [
+      "15648 zeros of 15719: does 0 mean empty here (dossier 'Blank if zero')?"
+     ]
+    }
+   }
+  },
+  "postos": {
+   "rows": 0,
+   "columns": {
+    "Codigo": {
+     "type": "Unsigned 1-byte integer",
+     "rows": 0,
+     "null": 0,
+     "empty": 0,
+     "distinct": 0,
+     "invalid": 0,
+     "max_length": 0,
+     "shapes": [],
+     "findings": []
+    },
+    "Descricao": {
+     "type": "String",
+     "rows": 0,
+     "null": 0,
+     "empty": 0,
+     "distinct": 0,
+     "invalid": 0,
+     "max_length": 0,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    },
+    "terminal": {
+     "type": "String",
+     "rows": 0,
+     "null": 0,
+     "empty": 0,
+     "distinct": 0,
+     "invalid": 0,
+     "max_length": 0,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    },
+    "teste": {
+     "type": "String",
+     "rows": 0,
+     "null": 0,
+     "empty": 0,
+     "distinct": 0,
+     "invalid": 0,
+     "max_length": 0,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    }
+   }
+  },
+  "sistema": {
+   "rows": 1,
+   "columns": {
+    "Tempo_ordem_reparacao": {
+     "type": "Unsigned 8-byte integer",
+     "rows": 1,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 3,
+     "shapes": [
+      [
+       "999",
+       1
+      ]
+     ],
+     "zero": 0,
+     "min": 120.0,
+     "max": 120.0,
+     "p99": 120.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "Tempo_materiais": {
+     "type": "Unsigned 8-byte integer",
+     "rows": 1,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 3,
+     "shapes": [
+      [
+       "999",
+       1
+      ]
+     ],
+     "zero": 0,
+     "min": 120.0,
+     "max": 120.0,
+     "p99": 120.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "Tempo_tempos": {
+     "type": "Unsigned 8-byte integer",
+     "rows": 1,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 3,
+     "shapes": [
+      [
+       "999",
+       1
+      ]
+     ],
+     "zero": 0,
+     "min": 120.0,
+     "max": 120.0,
+     "p99": 120.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "Data_inicio": {
+     "type": "Unsigned 2-byte integer",
+     "rows": 1,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 3,
+     "shapes": [
+      [
+       "999",
+       1
+      ]
+     ],
+     "zero": 0,
+     "min": 300.0,
+     "max": 300.0,
+     "p99": 300.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "encerrar_tempos1": {
+     "type": "Time (hhmmss)",
+     "rows": 1,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 12,
+     "shapes": [
+      [
+       "99:99:99.999",
+       1
+      ]
+     ],
+     "zero_date": 0,
+     "min": "12:40:00.000",
+     "max": "12:40:00.000",
+     "findings": []
+    },
+    "encerrar_tempos2": {
+     "type": "Time (hhmmss)",
+     "rows": 1,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 12,
+     "shapes": [
+      [
+       "99:99:99.999",
+       1
+      ]
+     ],
+     "zero_date": 0,
+     "min": "19:30:00.000",
+     "max": "19:30:00.000",
+     "findings": []
+    }
+   }
+  },
+  "tempos_reparacao": {
+   "rows": 21045,
+   "columns": {
+    "tempos_reparacaoID": {
+     "type": "Automatic identifier (8 bytes)",
+     "rows": 21045,
+     "null": 0,
+     "empty": 0,
+     "distinct": 21043,
+     "invalid": 0,
+     "max_length": 5,
+     "shapes": [
+      [
+       "99999",
+       11065
+      ],
+      [
+       "9999",
+       9000
+      ],
+      [
+       "999",
+       900
+      ]
+     ],
+     "zero": 0,
+     "min": 20.0,
+     "max": 21065.0,
+     "p99": 20854.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "numero": {
+     "type": "Unsigned 8-byte integer",
+     "rows": 21045,
+     "null": 0,
+     "empty": 0,
+     "distinct": 10195,
+     "invalid": 0,
+     "max_length": 5,
+     "shapes": [
+      [
+       "9999",
+       12748
+      ],
+      [
+       "99999",
+       7068
+      ],
+      [
+       "999",
+       1084
+      ]
+     ],
+     "zero": 5,
+     "min": 0.0,
+     "max": 15719.0,
+     "p99": 15477.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "mecanico": {
+     "type": "Unsigned 1-byte integer",
+     "rows": 21045,
+     "null": 0,
+     "empty": 0,
+     "distinct": 11,
+     "invalid": 0,
+     "max_length": 2,
+     "shapes": [
+      [
+       "9",
+       19512
+      ],
+      [
+       "99",
+       1533
+      ]
+     ],
+     "zero": 0,
+     "min": 1.0,
+     "max": 11.0,
+     "p99": 11.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "inicio": {
+     "type": "Date and Time (yyyymmddhhmmssccc)",
+     "rows": 21045,
+     "null": 0,
+     "empty": 0,
+     "distinct": 21045,
+     "invalid": 0,
+     "max_length": 23,
+     "shapes": [
+      [
+       "9999-99-99 99:99:99.999",
+       21045
+      ]
+     ],
+     "zero_date": 0,
+     "min": "2016-03-29 17:51:09.009",
+     "max": "2024-09-16 16:07:49.128",
+     "findings": []
+    },
+    "fim": {
+     "type": "Date and Time (yyyymmddhhmmssccc)",
+     "rows": 21045,
+     "null": 0,
+     "empty": 0,
+     "distinct": 21006,
+     "invalid": 0,
+     "max_length": 23,
+     "shapes": [
+      [
+       "9999-99-99 99:99:99.999",
+       21045
+      ]
+     ],
+     "zero_date": 0,
+     "min": "2016-03-29 18:38:21.166",
+     "max": "2024-09-16 18:02:46.132",
+     "findings": []
+    },
+    "Inicio_reparacao_estado": {
+     "type": "String",
+     "rows": 21045,
+     "null": 0,
+     "empty": 0,
+     "distinct": 7,
+     "invalid": 0,
+     "max_length": 2,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    },
+    "fim_reparacao_estado": {
+     "type": "String",
+     "rows": 21045,
+     "null": 0,
+     "empty": 0,
+     "distinct": 9,
+     "invalid": 0,
+     "max_length": 1,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    }
+   }
+  },
+  "Terminais": {
+   "rows": 0,
+   "columns": {
+    "Codigo": {
+     "type": "String",
+     "rows": 0,
+     "null": 0,
+     "empty": 0,
+     "distinct": 0,
+     "invalid": 0,
+     "max_length": 0,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    },
+    "Descricao": {
+     "type": "String",
+     "rows": 0,
+     "null": 0,
+     "empty": 0,
+     "distinct": 0,
+     "invalid": 0,
+     "max_length": 0,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    },
+    "codbarras_inicio": {
+     "type": "Unsigned 1-byte integer",
+     "rows": 0,
+     "null": 0,
+     "empty": 0,
+     "distinct": 0,
+     "invalid": 0,
+     "max_length": 0,
+     "shapes": [],
+     "findings": []
+    },
+    "codbarras_fim": {
+     "type": "Unsigned 1-byte integer",
+     "rows": 0,
+     "null": 0,
+     "empty": 0,
+     "distinct": 0,
+     "invalid": 0,
+     "max_length": 0,
+     "shapes": [],
+     "findings": []
+    },
+    "quant_inicio": {
+     "type": "Unsigned 1-byte integer",
+     "rows": 0,
+     "null": 0,
+     "empty": 0,
+     "distinct": 0,
+     "invalid": 0,
+     "max_length": 0,
+     "shapes": [],
+     "findings": []
+    },
+    "quant_fim": {
+     "type": "Unsigned 1-byte integer",
+     "rows": 0,
+     "null": 0,
+     "empty": 0,
+     "distinct": 0,
+     "invalid": 0,
+     "max_length": 0,
+     "shapes": [],
+     "findings": []
+    },
+    "pasta_localizacao": {
+     "type": "String",
+     "rows": 0,
+     "null": 0,
+     "empty": 0,
+     "distinct": 0,
+     "invalid": 0,
+     "max_length": 0,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    },
+    "nome_ficheiro": {
+     "type": "String",
+     "rows": 0,
+     "null": 0,
+     "empty": 0,
+     "distinct": 0,
+     "invalid": 0,
+     "max_length": 0,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    }
+   }
+  },
+  "unidades": {
+   "rows": 4,
+   "columns": {
+    "unidadesID": {
+     "type": "Automatic identifier (8 bytes)",
+     "rows": 4,
+     "null": 0,
+     "empty": 0,
+     "distinct": 4,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       4
+      ]
+     ],
+     "zero": 0,
+     "min": 1.0,
+     "max": 4.0,
+     "p99": 3.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "Codigo": {
+     "type": "String",
+     "rows": 4,
+     "null": 0,
+     "empty": 0,
+     "distinct": 4,
+     "invalid": 0,
+     "max_length": 2,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    },
+    "Descricao": {
+     "type": "String",
+     "rows": 4,
+     "null": 0,
+     "empty": 0,
+     "distinct": 4,
+     "invalid": 0,
+     "max_length": 9,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    }
+   }
+  },
+  "utilizadores": {
+   "rows": 1,
+   "columns": {
+    "utilizadoresID": {
+     "type": "Automatic identifier (8 bytes)",
+     "rows": 1,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       1
+      ]
+     ],
+     "zero": 0,
+     "min": 1.0,
+     "max": 1.0,
+     "p99": 1.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "Codigo": {
+     "type": "Unsigned 1-byte integer",
+     "rows": 1,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 1,
+     "shapes": [
+      [
+       "9",
+       1
+      ]
+     ],
+     "zero": 0,
+     "min": 1.0,
+     "max": 1.0,
+     "p99": 1.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "Descricao": {
+     "type": "String",
+     "rows": 1,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 13,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    },
+    "palavra_passe": {
+     "type": "String",
+     "rows": 1,
+     "null": 0,
+     "empty": 0,
+     "distinct": 1,
+     "invalid": 0,
+     "max_length": 3,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    }
+   }
+  },
+  "Viaturas": {
+   "rows": 4544,
+   "columns": {
+    "ViaturasID": {
+     "type": "Automatic identifier (8 bytes)",
+     "rows": 4544,
+     "null": 0,
+     "empty": 0,
+     "distinct": 4544,
+     "invalid": 0,
+     "max_length": 4,
+     "shapes": [
+      [
+       "9999",
+       3573
+      ],
+      [
+       "999",
+       883
+      ],
+      [
+       "99",
+       88
+      ]
+     ],
+     "zero": 0,
+     "min": 10.0,
+     "max": 4642.0,
+     "p99": 4594.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "matricula": {
+     "type": "String",
+     "rows": 4544,
+     "null": 0,
+     "empty": 0,
+     "distinct": 4544,
+     "invalid": 0,
+     "max_length": 12,
+     "padded": 0,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": []
+    },
+    "Cliente": {
+     "type": "Unsigned 8-byte integer",
+     "rows": 4544,
+     "null": 0,
+     "empty": 0,
+     "distinct": 2116,
+     "invalid": 0,
+     "max_length": 4,
+     "shapes": [
+      [
+       "999",
+       2218
+      ],
+      [
+       "9999",
+       1580
+      ],
+      [
+       "99",
+       718
+      ]
+     ],
+     "zero": 0,
+     "min": 2.0,
+     "max": 2165.0,
+     "p99": 2122.0,
+     "above_2_53": 0,
+     "findings": []
+    },
+    "marca": {
+     "type": "String",
+     "rows": 4544,
+     "null": 0,
+     "empty": 0,
+     "distinct": 154,
+     "invalid": 0,
+     "max_length": 12,
+     "padded": 365,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": [
+      "365 values with leading or trailing spaces: keep, or trim in the import?"
+     ]
+    },
+    "modelo": {
+     "type": "String",
+     "rows": 4544,
+     "null": 0,
+     "empty": 0,
+     "distinct": 689,
+     "invalid": 0,
+     "max_length": 27,
+     "padded": 13,
+     "line_breaks": 0,
+     "control": 0,
+     "findings": [
+      "13 values with leading or trailing spaces: keep, or trim in the import?"
+     ]
+    },
+    "Ano": {
+     "type": "Unsigned 2-byte integer",
+     "rows": 4544,
+     "null": 0,
+     "empty": 0,
+     "distinct": 13,
+     "invalid": 0,
+     "max_length": 4,
+     "shapes": [
+      [
+       "9",
+       4526
+      ],
+      [
+       "9999",
+       18
+      ]
+     ],
+     "zero": 4526,
+     "min": 0.0,
+     "max": 2014.0,
+     "p99": 0.0,
+     "above_2_53": 0,
+     "findings": [
+      "4526 zeros of 4544: does 0 mean empty here (dossier 'Blank if zero')?"
+     ]
+    },
+    "mes": {
+     "type": "Unsigned 1-byte integer",
+     "rows": 4544,
+     "null": 0,
+     "empty": 0,
+     "distinct": 11,
+     "invalid": 0,
+     "max_length": 2,
+     "shapes": [
+      [
+       "9",
+       4541
+      ],
+      [
+       "99",
+       3
+      ]
+     ],
+     "zero": 4528,
+     "min": 0.0,
+     "max": 12.0,
+     "p99": 0.0,
+     "above_2_53": 0,
+     "findings": [
+      "4528 zeros of 4544: does 0 mean empty here (dossier 'Blank if zero')?"
+     ]
+    }
+   }
+  }
+ },
+ "keys": [
+  {
+   "table": "Clientes",
+   "key": "ClientesID",
+   "columns": [
+    "ClientesID"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "Clientes",
+   "key": "Codigo",
+   "columns": [
+    "Codigo"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "Viaturas",
+   "key": "ViaturasID",
+   "columns": [
+    "ViaturasID"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "Viaturas",
+   "key": "matricula",
+   "columns": [
+    "matricula"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "mecanicos",
+   "key": "mecanicosID",
+   "columns": [
+    "mecanicosID"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "mecanicos",
+   "key": "Codigo",
+   "columns": [
+    "Codigo"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "artigos",
+   "key": "artigosID",
+   "columns": [
+    "artigosID"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "artigos",
+   "key": "Codigo",
+   "columns": [
+    "Codigo"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "ordem_reparacao",
+   "key": "ordem_reparacaoID",
+   "columns": [
+    "ordem_reparacaoID"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "ordem_reparacao",
+   "key": "numero",
+   "columns": [
+    "numero"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "tempos_reparacao",
+   "key": "tempos_reparacaoID",
+   "columns": [
+    "tempos_reparacaoID"
+   ],
+   "duplicates": 2
+  },
+  {
+   "table": "material_reparacao",
+   "key": "material_reparacaoID",
+   "columns": [
+    "material_reparacaoID"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "utilizadores",
+   "key": "utilizadoresID",
+   "columns": [
+    "utilizadoresID"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "utilizadores",
+   "key": "Codigo",
+   "columns": [
+    "Codigo"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "unidades",
+   "key": "unidadesID",
+   "columns": [
+    "unidadesID"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "unidades",
+   "key": "Codigo",
+   "columns": [
+    "Codigo"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "documentos",
+   "key": "documentosID",
+   "columns": [
+    "documentosID"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "documentos",
+   "key": "Codigo",
+   "columns": [
+    "Codigo"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "cab_stocks",
+   "key": "cab_stocksID",
+   "columns": [
+    "cab_stocksID"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "cab_stocks",
+   "key": "documento_codigodocumento_numero",
+   "columns": [
+    "documento_codigo",
+    "documento_numero"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "lin_stocks",
+   "key": "lin_stocksID",
+   "columns": [
+    "lin_stocksID"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "lin_stocks",
+   "key": "documento_codigodocumento_numerolinha",
+   "columns": [
+    "documento_codigo",
+    "documento_numero",
+    "linha"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "estados_reparacao",
+   "key": "estados_reparacaoID",
+   "columns": [
+    "estados_reparacaoID"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "estados_reparacao",
+   "key": "Codigo",
+   "columns": [
+    "Codigo"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "estados_descritivos",
+   "key": "estados_descritivosID",
+   "columns": [
+    "estados_descritivosID"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "estados_descritivos",
+   "key": "Codigo",
+   "columns": [
+    "Codigo"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "Terminais",
+   "key": "Codigo",
+   "columns": [
+    "Codigo"
+   ],
+   "duplicates": 0
+  },
+  {
+   "table": "postos",
+   "key": "Codigo",
+   "columns": [
+    "Codigo"
+   ],
+   "duplicates": 0
+  }
+ ],
+ "links": [
+  {
+   "from": "artigos.unidade",
+   "to": "unidades.Codigo",
+   "orphans": 0,
+   "orphan_values": 0,
+   "zero": 0,
+   "rows": 15558
+  },
+  {
+   "from": "cab_stocks.mecanico",
+   "to": "mecanicos.mecanicosID",
+   "orphans": 0,
+   "orphan_values": 0,
+   "zero": 4217,
+   "rows": 4217
+  },
+  {
+   "from": "cab_stocks.DocumentosID",
+   "to": "documentos.documentosID",
+   "orphans": 0,
+   "orphan_values": 0,
+   "zero": 4217,
+   "rows": 4217
+  },
+  {
+   "from": "cab_stocks.MecanicosID",
+   "to": "mecanicos.mecanicosID",
+   "orphans": 0,
+   "orphan_values": 0,
+   "zero": 4217,
+   "rows": 4217
+  },
+  {
+   "from": "lin_stocks.artigo",
+   "to": "artigos.Codigo",
+   "orphans": 8,
+   "orphan_values": 2,
+   "zero": 0,
+   "rows": 23615
+  },
+  {
+   "from": "material_reparacao.mecanico",
+   "to": "mecanicos.Codigo",
+   "orphans": 0,
+   "orphan_values": 0,
+   "zero": 0,
+   "rows": 72768
+  },
+  {
+   "from": "material_reparacao.artigo",
+   "to": "artigos.Codigo",
+   "orphans": 54,
+   "orphan_values": 12,
+   "zero": 0,
+   "rows": 72768
+  },
+  {
+   "from": "ordem_reparacao.Estados_reparacaoID",
+   "to": "estados_reparacao.estados_reparacaoID",
+   "orphans": 0,
+   "orphan_values": 0,
+   "zero": 15719,
+   "rows": 15719
+  },
+  {
+   "from": "tempos_reparacao.mecanico",
+   "to": "mecanicos.Codigo",
+   "orphans": 0,
+   "orphan_values": 0,
+   "zero": 0,
+   "rows": 21045
+  },
+  {
+   "from": "Viaturas.Cliente",
+   "to": "Clientes.Codigo",
+   "orphans": 0,
+   "orphan_values": 0,
+   "zero": 0,
+   "rows": 4544
+  },
+  {
+   "from": "ordem_reparacao.matricula",
+   "to": "Viaturas.matricula",
+   "orphans": 52,
+   "orphan_values": 36,
+   "zero": 0,
+   "rows": 15719
+  },
+  {
+   "from": "material_reparacao.numero",
+   "to": "ordem_reparacao.numero",
+   "orphans": 0,
+   "orphan_values": 0,
+   "zero": 0,
+   "rows": 72768
+  }
+ ],
+ "missing_columns": []
+}

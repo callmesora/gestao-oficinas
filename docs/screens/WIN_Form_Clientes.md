@@ -1,0 +1,118 @@
+# Screen spec — WIN_Form_Clientes
+
+Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Form_Clientes.wdw`, `dossier: WIN_Form_Clientes`, `docs/mapping/WIN_Form_Clientes.md`. Step 0 specification only.
+
+## Contract
+
+| Direction | Contract | Evidence |
+|---|---|---|
+| in | Source procedure parameters and current HFSQL buffer, cursor and filters; exact signature and caller context in mapping note | docs/mapping/WIN_Form_Clientes.md |
+| out | Source ReturnedValue and file mutations; no output normalization | docs/mapping/WIN_Form_Clientes.md |
+
+Window properties: {"title": {"PT": "Clientes"}, "window_type": "Free window", "opening_mode": "Centered in the parent window", "size": {"x": 0, "y": 0, "width": 500, "height": 435}, "close_icon": "Yes", "flags": {"Visible": true, "Title bar": true, "System menu": true, "Minimize icon": true, "Maximize icon": true, "Icon for ctx.-sensitive help": false, "Status Bar": false, "Clip background": true, "9-slice scaling": true, "Resizable": true, "With grip": true, "Grip in image": false, "Move/Background": true, "Save position": true, "Automatic Scrollbar": false, "Large font management": true, "XP Theme": false, "Indep. HFSQL ctx.": false}, "image_file": "images\\WIN_Form_Clientes.jpg"}.
+
+Missing fields throughout this spec mean unresolved (encoded), tracked by U-C286277B-01; they never mean false or zero. Defaults and all runtime overrides are transcribed in the mapping event ledger. Original captions retain extracted encoding artifacts until image approval.
+
+## Layout
+
+| Name | x | y | width | height | Anchoring | Images |
+|---|---|---|---|---|---|---|
+| BTN_Validar | 406 | 31 | 80 | 24 | Right | {"image": {"PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"}, "background_image": {"PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"}} |
+| BTN_Cancelar | 406 | 63 | 80 | 24 | Right | {"image": {"PT": "C:\\My Projects\\GestaoOficinas\\Btn_Cancel.gif"}, "background_image": {"PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"}} |
+| SC_Form | 14 | 31 | 386 | 390 | U-C286277B-01 | {} |
+| EDT_Codigo | 14 | 31 | 158 | 25 | Width | {} |
+| EDT_Descricao | 14 | 62 | 380 | 25 | Width | {} |
+| EDT_Morada1 | 14 | 93 | 380 | 25 | Width | {} |
+| EDT_Morada2 | 14 | 124 | 380 | 25 | Width | {} |
+| EDT_Codpostal | 14 | 155 | 316 | 25 | Width | {} |
+| EDT_Telefone1 | 14 | 186 | 316 | 25 | Width | {} |
+| EDT_Telemovel | 14 | 217 | 316 | 25 | Width | {} |
+| EDT_Observacao | 14 | 248 | 380 | 170 | Width | {} |
+| RADTitle | 9 | 4 | 351 | 18 | Width | {} |
+| SC_SCSystemButtons | 366 | 1 | 128 | 18 | U-C286277B-01 | {} |
+| BTN_UMC | 366 | 0 | 24 | 19 | <None> | {"image": {"PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"}, "background_image": {"PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"}} |
+| BTN_SYST_MINIMIZE | 400 | 0 | 26 | 19 | <None> | {"image": {"PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"}, "background_image": {"PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"}} |
+| BTN_Syst_Maximize | 426 | 0 | 25 | 19 | <None> | {"image": {"PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"}, "background_image": {"PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"}} |
+| BTN_SYST_FERMER | 450 | 0 | 44 | 19 | <None> | {"image": {"PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"}, "background_image": {"PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"}} |
+| IMG_BTN_Syst_Restore | 570 | -19 | 14 | 14 | Right | {} |
+
+## Controls (tab order within each container)
+
+| Tab | Name/path | Type | Caption/title | Linked item | Input / display mask | Max len | State / button type | Flags | Parity |
+|---|---|---|---|---|---|---|---|---|---|
+| 3 | BTN_Validar | Button | {"PT": "Validar"} | — | U-C286277B-01 / U-C286277B-01 | U-C286277B-01 | Active / Validate | {"Visible": true, "TAB Key": true} | RULE-C286277B-011 |
+| 4 | BTN_Cancelar | Button | {"PT": "Cancelar"} | — | U-C286277B-01 / U-C286277B-01 | U-C286277B-01 | Active / Abort | {"Visible": true, "TAB Key": true} | RULE-C286277B-011 |
+| U-C286277B-01 | IMG_BTN_Syst_Restore | Image | U-C286277B-01 | — | U-C286277B-01 / U-C286277B-01 | U-C286277B-01 | Active / — | {"Visible": true, "With click": true, "Priority for click": false, "Default animation": false, "With focus": false} | RULE-C286277B-011 |
+| U-C286277B-01 | RADTitle | Caption | {"PT": "Clientes"} | — | {'PT': '0'} / U-C286277B-01 | U-C286277B-01 | Active / — | {"Visible": true, "RTF format": false, "Default animation": false} | RULE-C286277B-011 |
+| U-C286277B-01 | SC_Form | None | U-C286277B-01 | — | U-C286277B-01 / U-C286277B-01 | U-C286277B-01 | Active / — | {"Visible": true, "TAB Key": true} | RULE-C286277B-011 |
+| U-C286277B-01 | SC_SCSystemButtons | None | U-C286277B-01 | — | U-C286277B-01 / U-C286277B-01 | U-C286277B-01 | Active / — | {"Visible": true, "TAB Key": true} | RULE-C286277B-011 |
+| 1 | SC_Form.EDT_Codigo | Edit control | {"PT": "Código"} | Clientes.Codigo | {'PT': '9 999 999 999'} / U-C286277B-01 | 0 | Active / — | {"Visible": true, "TAB Key": true, "Multiline": false, "RTF format": false, "Password": false, "Required input": false, "Blank if zero": false, "NULL if empty": false, "File assisted input": true, "Automatic erase": true, "End of automatic input": false, "Horizontal scroll": true, "Vertical scroll": false, "Horz. scrollbar": false, "Vert. scrollbar": false} | RULE-C286277B-011 |
+| 2 | SC_Form.EDT_Descricao | Edit control | {"PT": "Descriçªo"} | Clientes.Descricao | {'PT': '0'} / U-C286277B-01 | 100 | Active / — | {"Visible": true, "TAB Key": true, "Multiline": false, "RTF format": false, "Password": false, "Required input": false, "Blank if zero": false, "NULL if empty": false, "File assisted input": true, "Automatic erase": true, "End of automatic input": false, "Horizontal scroll": true, "Vertical scroll": false, "Horz. scrollbar": false, "Vert. scrollbar": false} | RULE-C286277B-011 |
+| 3 | SC_Form.EDT_Morada1 | Edit control | {"PT": "Morada 1"} | Clientes.Morada1 | {'PT': '0'} / U-C286277B-01 | 100 | Active / — | {"Visible": true, "TAB Key": true, "Multiline": false, "RTF format": false, "Password": false, "Required input": false, "Blank if zero": false, "NULL if empty": false, "File assisted input": true, "Automatic erase": true, "End of automatic input": false, "Horizontal scroll": true, "Vertical scroll": false, "Horz. scrollbar": false, "Vert. scrollbar": false} | RULE-C286277B-011 |
+| 4 | SC_Form.EDT_Morada2 | Edit control | {"PT": "Morada2"} | Clientes.Morada2 | {'PT': '0'} / U-C286277B-01 | 100 | Active / — | {"Visible": true, "TAB Key": true, "Multiline": false, "RTF format": false, "Password": false, "Required input": false, "Blank if zero": false, "NULL if empty": false, "File assisted input": true, "Automatic erase": true, "End of automatic input": false, "Horizontal scroll": true, "Vertical scroll": false, "Horz. scrollbar": false, "Vert. scrollbar": false} | RULE-C286277B-011 |
+| 5 | SC_Form.EDT_Codpostal | Edit control | {"PT": "Código Postal"} | Clientes.codpostal | {'PT': '0'} / U-C286277B-01 | 50 | Active / — | {"Visible": true, "TAB Key": true, "Multiline": false, "RTF format": false, "Password": false, "Required input": false, "Blank if zero": false, "NULL if empty": false, "File assisted input": true, "Automatic erase": true, "End of automatic input": false, "Horizontal scroll": true, "Vertical scroll": false, "Horz. scrollbar": false, "Vert. scrollbar": false} | RULE-C286277B-011 |
+| 6 | SC_Form.EDT_Telefone1 | Edit control | {"PT": "Telefone"} | Clientes.Telefone1 | {'PT': '0'} / U-C286277B-01 | 50 | Active / — | {"Visible": true, "TAB Key": true, "Multiline": false, "RTF format": false, "Password": false, "Required input": false, "Blank if zero": false, "NULL if empty": false, "File assisted input": true, "Automatic erase": true, "End of automatic input": false, "Horizontal scroll": true, "Vertical scroll": false, "Horz. scrollbar": false, "Vert. scrollbar": false} | RULE-C286277B-011 |
+| 7 | SC_Form.EDT_Telemovel | Edit control | {"PT": "Telemóvel"} | Clientes.Telemovel | {'PT': '0'} / U-C286277B-01 | 50 | Active / — | {"Visible": true, "TAB Key": true, "Multiline": false, "RTF format": false, "Password": false, "Required input": false, "Blank if zero": false, "NULL if empty": false, "File assisted input": true, "Automatic erase": true, "End of automatic input": false, "Horizontal scroll": true, "Vertical scroll": false, "Horz. scrollbar": false, "Vert. scrollbar": false} | RULE-C286277B-011 |
+| 8 | SC_Form.EDT_Observacao | Edit control | {"PT": "Observaçıes"} | Clientes.observacao | {'PT': '0'} / U-C286277B-01 | 0 | Active / — | {"Visible": true, "TAB Key": true, "Multiline": true, "RTF format": false, "Password": false, "Required input": false, "Blank if zero": false, "NULL if empty": false, "File assisted input": false, "Automatic erase": true, "End of automatic input": false, "Horizontal scroll": false, "Vertical scroll": true, "Horz. scrollbar": false, "Vert. scrollbar": true} | RULE-C286277B-011 |
+| -1 | SC_SCSystemButtons.BTN_SYST_FERMER | Button | U-C286277B-01 | — | U-C286277B-01 / U-C286277B-01 | U-C286277B-01 | Active / Normal | {"Visible": true, "TAB Key": false} | RULE-C286277B-011 |
+| -1 | SC_SCSystemButtons.BTN_SYST_MINIMIZE | Button | U-C286277B-01 | — | U-C286277B-01 / U-C286277B-01 | U-C286277B-01 | Active / Normal | {"Visible": true, "TAB Key": false} | RULE-C286277B-011 |
+| -1 | SC_SCSystemButtons.BTN_Syst_Maximize | Button | U-C286277B-01 | — | U-C286277B-01 / U-C286277B-01 | U-C286277B-01 | Active / Normal | {"Visible": true, "TAB Key": false} | RULE-C286277B-011 |
+| 1 | SC_SCSystemButtons.BTN_UMC | Button | {"PT": "&Bouton"} | — | U-C286277B-01 / U-C286277B-01 | U-C286277B-01 | Active / Normal | {"Visible": false, "TAB Key": true} | RULE-C286277B-011 |
+
+## Complete parsed designer metadata
+
+| Control | All extracted properties |
+|---|---|
+| BTN_Cancelar | {"kind": "Button", "caption": {"PT": "Cancelar"}, "tab_order": 4, "image": {"PT": "C:\\My Projects\\GestaoOficinas\\Btn_Cancel.gif"}, "background_image": {"PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"}, "anchoring": "Right", "x": 406, "y": 63, "width": 80, "height": 24, "row": "Active Abort", "state": "Active", "button_type": "Abort", "flags": {"Visible": true, "TAB Key": true}} |
+| BTN_Validar | {"kind": "Button", "caption": {"PT": "Validar"}, "tab_order": 3, "image": {"PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"}, "background_image": {"PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"}, "anchoring": "Right", "x": 406, "y": 31, "width": 80, "height": 24, "row": "Active Validate", "state": "Active", "button_type": "Validate", "flags": {"Visible": true, "TAB Key": true}} |
+| IMG_BTN_Syst_Restore | {"kind": "Image", "initial_value": {"PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Restore.gif"}, "anchoring": "Right", "x": 570, "y": -19, "width": 14, "height": 14, "row": "Active", "state": "Active", "flags": {"Visible": true, "With click": true, "Priority for click": false, "Default animation": false, "With focus": false}} |
+| RADTitle | {"kind": "Caption", "caption": {"PT": "Clientes"}, "input_type": "Text", "input_mask": {"PT": "0"}, "anchoring": "Width", "x": 9, "y": 4, "width": 351, "height": 18, "row": "Active Left Center", "state": "Active", "flags": {"Visible": true, "RTF format": false, "Default animation": false}} |
+| EDT_Codigo | {"kind": "Edit control", "path": "SC_Form.EDT_Codigo", "caption": {"PT": "Código"}, "tab_order": 1, "input_size": 0, "input_mask": {"PT": "9 999 999 999"}, "linked_item": "Clientes.Codigo", "anchoring": "Width", "x": 14, "y": 31, "width": 158, "height": 25, "row": "Active Numeric", "state": "Active", "input_type": "Numeric", "flags": {"Visible": true, "TAB Key": true, "Multiline": false, "RTF format": false, "Password": false, "Required input": false, "Blank if zero": false, "NULL if empty": false, "File assisted input": true, "Automatic erase": true, "End of automatic input": false, "Horizontal scroll": true, "Vertical scroll": false, "Horz. scrollbar": false, "Vert. scrollbar": false}} |
+| EDT_Codpostal | {"kind": "Edit control", "path": "SC_Form.EDT_Codpostal", "caption": {"PT": "Código Postal"}, "tab_order": 5, "input_size": 50, "input_mask": {"PT": "0"}, "linked_item": "Clientes.codpostal", "anchoring": "Width", "x": 14, "y": 155, "width": 316, "height": 25, "row": "Active Text", "state": "Active", "input_type": "Text", "flags": {"Visible": true, "TAB Key": true, "Multiline": false, "RTF format": false, "Password": false, "Required input": false, "Blank if zero": false, "NULL if empty": false, "File assisted input": true, "Automatic erase": true, "End of automatic input": false, "Horizontal scroll": true, "Vertical scroll": false, "Horz. scrollbar": false, "Vert. scrollbar": false}} |
+| EDT_Descricao | {"kind": "Edit control", "path": "SC_Form.EDT_Descricao", "caption": {"PT": "Descriçªo"}, "tab_order": 2, "input_size": 100, "input_mask": {"PT": "0"}, "linked_item": "Clientes.Descricao", "anchoring": "Width", "x": 14, "y": 62, "width": 380, "height": 25, "row": "Active Text", "state": "Active", "input_type": "Text", "flags": {"Visible": true, "TAB Key": true, "Multiline": false, "RTF format": false, "Password": false, "Required input": false, "Blank if zero": false, "NULL if empty": false, "File assisted input": true, "Automatic erase": true, "End of automatic input": false, "Horizontal scroll": true, "Vertical scroll": false, "Horz. scrollbar": false, "Vert. scrollbar": false}} |
+| EDT_Morada1 | {"kind": "Edit control", "path": "SC_Form.EDT_Morada1", "caption": {"PT": "Morada 1"}, "tab_order": 3, "input_size": 100, "input_mask": {"PT": "0"}, "linked_item": "Clientes.Morada1", "anchoring": "Width", "x": 14, "y": 93, "width": 380, "height": 25, "row": "Active Text", "state": "Active", "input_type": "Text", "flags": {"Visible": true, "TAB Key": true, "Multiline": false, "RTF format": false, "Password": false, "Required input": false, "Blank if zero": false, "NULL if empty": false, "File assisted input": true, "Automatic erase": true, "End of automatic input": false, "Horizontal scroll": true, "Vertical scroll": false, "Horz. scrollbar": false, "Vert. scrollbar": false}} |
+| EDT_Morada2 | {"kind": "Edit control", "path": "SC_Form.EDT_Morada2", "caption": {"PT": "Morada2"}, "tab_order": 4, "input_size": 100, "input_mask": {"PT": "0"}, "linked_item": "Clientes.Morada2", "anchoring": "Width", "x": 14, "y": 124, "width": 380, "height": 25, "row": "Active Text", "state": "Active", "input_type": "Text", "flags": {"Visible": true, "TAB Key": true, "Multiline": false, "RTF format": false, "Password": false, "Required input": false, "Blank if zero": false, "NULL if empty": false, "File assisted input": true, "Automatic erase": true, "End of automatic input": false, "Horizontal scroll": true, "Vertical scroll": false, "Horz. scrollbar": false, "Vert. scrollbar": false}} |
+| EDT_Observacao | {"kind": "Edit control", "path": "SC_Form.EDT_Observacao", "caption": {"PT": "Observaçıes"}, "tab_order": 8, "input_size": 0, "input_mask": {"PT": "0"}, "linked_item": "Clientes.observacao", "anchoring": "Width", "x": 14, "y": 248, "width": 380, "height": 170, "row": "Active Text", "state": "Active", "input_type": "Text", "flags": {"Visible": true, "TAB Key": true, "Multiline": true, "RTF format": false, "Password": false, "Required input": false, "Blank if zero": false, "NULL if empty": false, "File assisted input": false, "Automatic erase": true, "End of automatic input": false, "Horizontal scroll": false, "Vertical scroll": true, "Horz. scrollbar": false, "Vert. scrollbar": true}} |
+| EDT_Telefone1 | {"kind": "Edit control", "path": "SC_Form.EDT_Telefone1", "caption": {"PT": "Telefone"}, "tab_order": 6, "input_size": 50, "input_mask": {"PT": "0"}, "linked_item": "Clientes.Telefone1", "anchoring": "Width", "x": 14, "y": 186, "width": 316, "height": 25, "row": "Active Text", "state": "Active", "input_type": "Text", "flags": {"Visible": true, "TAB Key": true, "Multiline": false, "RTF format": false, "Password": false, "Required input": false, "Blank if zero": false, "NULL if empty": false, "File assisted input": true, "Automatic erase": true, "End of automatic input": false, "Horizontal scroll": true, "Vertical scroll": false, "Horz. scrollbar": false, "Vert. scrollbar": false}} |
+| EDT_Telemovel | {"kind": "Edit control", "path": "SC_Form.EDT_Telemovel", "caption": {"PT": "Telemóvel"}, "tab_order": 7, "input_size": 50, "input_mask": {"PT": "0"}, "linked_item": "Clientes.Telemovel", "anchoring": "Width", "x": 14, "y": 217, "width": 316, "height": 25, "row": "Active Text", "state": "Active", "input_type": "Text", "flags": {"Visible": true, "TAB Key": true, "Multiline": false, "RTF format": false, "Password": false, "Required input": false, "Blank if zero": false, "NULL if empty": false, "File assisted input": true, "Automatic erase": true, "End of automatic input": false, "Horizontal scroll": true, "Vertical scroll": false, "Horz. scrollbar": false, "Vert. scrollbar": false}} |
+| BTN_SYST_FERMER | {"kind": "Button", "path": "SC_SCSystemButtons.BTN_SYST_FERMER", "tab_order": "-1", "image": {"PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"}, "background_image": {"PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"}, "anchoring": "<None>", "x": 450, "y": 0, "width": 44, "height": 19, "row": "Active Normal", "state": "Active", "button_type": "Normal", "flags": {"Visible": true, "TAB Key": false}} |
+| BTN_SYST_MINIMIZE | {"kind": "Button", "path": "SC_SCSystemButtons.BTN_SYST_MINIMIZE", "tab_order": "-1", "image": {"PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"}, "background_image": {"PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"}, "anchoring": "<None>", "x": 400, "y": 0, "width": 26, "height": 19, "row": "Active Normal", "state": "Active", "button_type": "Normal", "flags": {"Visible": true, "TAB Key": false}} |
+| BTN_Syst_Maximize | {"kind": "Button", "path": "SC_SCSystemButtons.BTN_Syst_Maximize", "tab_order": "-1", "image": {"PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"}, "background_image": {"PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"}, "anchoring": "<None>", "x": 426, "y": 0, "width": 25, "height": 19, "row": "Active Normal", "state": "Active", "button_type": "Normal", "flags": {"Visible": true, "TAB Key": false}} |
+| BTN_UMC | {"kind": "Button", "path": "SC_SCSystemButtons.BTN_UMC", "caption": {"PT": "&Bouton"}, "tab_order": 1, "image": {"PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"}, "background_image": {"PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"}, "anchoring": "<None>", "x": 366, "y": 0, "width": 24, "height": 19, "row": "Active Normal", "state": "Active", "button_type": "Normal", "flags": {"Visible": false, "TAB Key": true}} |
+| SC_Form | {"kind": null, "x": 14, "y": 31, "width": 386, "height": 390, "row": "Active", "state": "Active", "flags": {"Visible": true, "TAB Key": true}} |
+| SC_SCSystemButtons | {"kind": null, "x": 366, "y": 1, "width": 128, "height": 18, "row": "Active", "state": "Active", "flags": {"Visible": true, "TAB Key": true}} |
+
+## Tables and built-in features
+
+| Control | Source / browse key / stored item | Feature | Enabled | Interaction |
+|---|---|---|---|---|
+
+## Selection and display state
+
+| Moment | Contract |
+|---|---|
+| Open | Exact globals/control/end-init sequence in mapping; implicit initial selection U-C286277B-02 |
+| Search/mode change | Exact filters, focus and TableDisplay in mapping; empty result selection U-C286277B-02 |
+| Add/modify/delete | Exact TableDisplay/seek mode in mapping; vanished row U-C286277B-02 |
+| Empty result | No invented fallback or selection; U-C286277B-02 |
+| Keyboard row move | 1-based source bounds and table flags; dependent event order U-C286277B-02 |
+| Other window/user change | No automatic refresh beyond source calls; U-C286277B-02 |
+| Second instance | Shared buffer/filter behavior requires runtime capture; U-C286277B-02 |
+
+## Messages
+
+| Source | Exact message expression | Dialog shell |
+|---|---|---|
+| legacy/GestaoOficinas_TesteIA/WIN_Form_Clientes.wdw:39 | Info("Falta indicar o código") | Info/Error is blocking; proposed: Q-12 (assumed). No field values copied. |
+| legacy/GestaoOficinas_TesteIA/WIN_Form_Clientes.wdw:43 | Info("Falta indicar a descrição") | Info/Error is blocking; proposed: Q-12 (assumed). No field values copied. |
+| legacy/GestaoOficinas_TesteIA/WIN_Form_Clientes.wdw:54 | Error("Duplicação:  Este registo não pode ser gravado.","Campo associado ao erro: " + sItemName, "Valor do campo duplicado: " + {"clientes." + sItemName}) | Info/Error is blocking; proposed: Q-12 (assumed). No field values copied. |
+| legacy/GestaoOficinas_TesteIA/WIN_Form_Clientes.wdw:64 | Error("Duplicação:  Este registo não pode ser gravado.","Campo associado ao erro: " + sItemName, "Valor do campo duplicado: " + {"clientes." + sItemName}) | Info/Error is blocking; proposed: Q-12 (assumed). No field values copied. |
+
+| Dialog resource | Extracted properties |
+|---|---|
+
+Delete resource CASE 1 deletes and CASE 2 makes no change when present. Default/Esc outcome is assumed from `proposed: Q-01` when listed in the mapping; exact untranslated resource labels above take precedence over source comments.
+
+## Data edge cases and acceptance checks
+
+Blank strings are compared exactly by source, with no trimming; absent NULL coercion rules and number/text locale boundaries belong to U-C286277B-03. Required controls are those guarded explicitly in mapping, never inferred from a caption. Observe mask/size above and compare schema types. Keyboard-only test: open, traverse by container tab order, trigger mandatory validation, select/change/cancel, then repeat with an empty filter result and first/last row. Visual approval is outstanding under U-C286277B-01. Runtime writes must be performed only against a preserved scratch data copy.

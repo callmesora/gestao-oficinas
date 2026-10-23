@@ -1,0 +1,5 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-3fa1af2706,table,estados_reparacao,data mapping and reconciliation,,legacy/GestaoOficinas_TesteIA/GestaoOficinas.xdd; docs/schema/schema-draft.md; export: docs/data/profile.md#estados_reparacao,verified,"Repair state master with type, colors and flags controlling material launch and delivery/payment prompts. Export counts 11/11.",Preserve table values and evidenced business keys; import decisions deferred,,,,specified
+RULE-T13-001,rule,estados_reparacao,estados_reparacao,,docs/schema/schema-draft.md; export: docs/data/profile.md#estados_reparacao,unresolved,U-T13-01: Runtime integrity/collation enforcement,,,,,unmapped
+RULE-T13-002,rule,estados_reparacao,estados_reparacao,,docs/schema/schema-draft.md; export: docs/data/profile.md#estados_reparacao,unresolved,U-T13-02: Import representation and existing anomalies,,,,,unmapped
+RULE-T13-003,rule,estados_reparacao,estados_reparacao,,docs/schema/schema-draft.md; export: docs/data/profile.md#estados_reparacao,unresolved,U-T13-03: Driver-generated key fidelity,,,,,unmapped

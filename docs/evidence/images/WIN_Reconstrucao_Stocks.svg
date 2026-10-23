@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="289" height="138" viewBox="0 0 289 138" font-family="sans-serif" font-size="10">
+<rect width="289" height="138" fill="#fafafa" stroke="#999"/>
+<g><title>BTN_Reconstruir (69,64 149×64)</title><rect x="69" y="64" width="149" height="64" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="72" y="76" fill="#111">Reconstruir</text></g>
+<g><title>RADTitle (9,4 169×18)</title><rect x="9" y="4" width="169" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="12" y="16" fill="#111">Reconstruçªo de Stocks</text></g>
+<g><title>SCSystemButtons (151,1 128×18)</title><rect x="151" y="1" width="128" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="154" y="13" fill="#111">SCSystemButtons</text></g>
+<g><title>BTN_SYST_FERMER (235,0 44×19)</title><rect x="235" y="0" width="44" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="238" y="12" fill="#111">BTN_SYST_FERMER</text></g>
+<g><title>BTN_SYST_MINIMIZE (185,0 26×19)</title><rect x="185" y="0" width="26" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="188" y="12" fill="#111">BTN_SYST_MINIMIZE</text></g>
+<g><title>BTN_Syst_Maximize (211,0 25×19)</title><rect x="211" y="0" width="25" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="214" y="12" fill="#111">BTN_Syst_Maximize</text></g>
+<g><title>BTN_UMC (151,0 24×19)</title><rect x="151" y="0" width="24" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="154" y="12" fill="#111">&amp;Bouton</text></g>
+<g><title>BTN_Syst_Restore (55,-19 14×14)</title><rect x="55" y="-19" width="14" height="14" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="58" y="-7" fill="#111">BTN_Syst_Restore</text></g>
+</svg>

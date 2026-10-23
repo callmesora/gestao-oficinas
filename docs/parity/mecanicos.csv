@@ -1,0 +1,5 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-d4e3c89519,table,mecanicos,data mapping and reconciliation,,legacy/GestaoOficinas_TesteIA/GestaoOficinas.xdd; docs/schema/schema-draft.md; export: docs/data/profile.md#mecanicos,verified,"Mechanic code/name, inactive flag and legacy password field. Used for labor/material authorizations and reporting. Export counts 11/11.",Preserve table values and evidenced business keys; import decisions deferred,,,,specified
+RULE-T03-001,rule,mecanicos,mecanicos,,docs/schema/schema-draft.md; export: docs/data/profile.md#mecanicos,unresolved,U-T03-01: Runtime integrity/collation enforcement,,,,,unmapped
+RULE-T03-002,rule,mecanicos,mecanicos,,docs/schema/schema-draft.md; export: docs/data/profile.md#mecanicos,unresolved,U-T03-02: Import representation and existing anomalies,,,,,unmapped
+RULE-T03-003,rule,mecanicos,mecanicos,,docs/schema/schema-draft.md; export: docs/data/profile.md#mecanicos,unresolved,U-T03-03: Driver-generated key fidelity,,,,,unmapped

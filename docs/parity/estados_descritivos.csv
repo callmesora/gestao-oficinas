@@ -1,0 +1,5 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-2ca48063d4,table,estados_descritivos,data mapping and reconciliation,,legacy/GestaoOficinas_TesteIA/GestaoOficinas.xdd; docs/schema/schema-draft.md; export: docs/data/profile.md#estados_descritivos,verified,Descriptive repair state lookup. Export counts 5/5.,Preserve table values and evidenced business keys; import decisions deferred,,,,specified
+RULE-T14-001,rule,estados_descritivos,estados_descritivos,,docs/schema/schema-draft.md; export: docs/data/profile.md#estados_descritivos,unresolved,U-T14-01: Runtime integrity/collation enforcement,,,,,unmapped
+RULE-T14-002,rule,estados_descritivos,estados_descritivos,,docs/schema/schema-draft.md; export: docs/data/profile.md#estados_descritivos,unresolved,U-T14-02: Import representation and existing anomalies,,,,,unmapped
+RULE-T14-003,rule,estados_descritivos,estados_descritivos,,docs/schema/schema-draft.md; export: docs/data/profile.md#estados_descritivos,unresolved,U-T14-03: Driver-generated key fidelity,,,,,unmapped

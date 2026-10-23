@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="804" height="595" viewBox="0 0 804 595" font-family="sans-serif" font-size="10">
+<rect width="804" height="595" fill="#fafafa" stroke="#999"/>
+<g><title>TABLE_lin_Stocks (19,171 762×277)</title><rect x="19" y="171" width="762" height="277" fill="#f3f3f3" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="183" fill="#111">Tabela</text></g>
+<g><title>RADTitle (9,4 651×18)</title><rect x="9" y="4" width="651" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="12" y="16" fill="#111">Movimentos de Stocks</text></g>
+<g><title>COMBO_tipo_doc (19,59 319×36)</title><rect x="19" y="59" width="319" height="36" fill="#fff7d6" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="71" fill="#111">COMBO_tipo_doc</text></g>
+<g><title>EDT_descricao_Artigo (208,498 318×36)</title><rect x="208" y="498" width="318" height="36" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="211" y="510" fill="#111">EDT_descricao_Artigo</text></g>
+<g><title>EDT_descricao (19,127 460×24)</title><rect x="19" y="127" width="460" height="24" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="139" fill="#111">EDT_descricao</text></g>
+<g><title>COMBO_mecanico (503,120 206×36)</title><rect x="503" y="120" width="206" height="36" fill="#fff7d6" stroke="#6b7280" stroke-dasharray="0"/><text x="506" y="132" fill="#111">COMBO_mecanico</text></g>
+<g><title>BTN_Confirmar (542,547 143×38)</title><rect x="542" y="547" width="143" height="38" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="545" y="559" fill="#111">Gravar documento</text></g>
+<g><title>EDT_codigo (19,498 130×36)</title><rect x="19" y="498" width="130" height="36" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="510" fill="#111">EDT_codigo</text></g>
+<g><title>STC_Descrição_do_Artigo (208,483 183×20)</title><rect x="208" y="483" width="183" height="20" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="211" y="495" fill="#111">STC_Descrição_do_Artigo</text></g>
+<g><title>BTN_Artigos (19,541 91×38)</title><rect x="19" y="541" width="91" height="38" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="553" fill="#111">Criar Artigo...</text></g>
+<g><title>BTN_Cancelar (691,547 90×38)</title><rect x="691" y="547" width="90" height="38" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="694" y="559" fill="#111">Cancelar</text></g>
+<g><title>EDT_Numero (421,64 140×24)</title><rect x="421" y="64" width="140" height="24" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="424" y="76" fill="#111">EDT_Numero</text></g>
+<g><title>EDT_Data (613,64 139×24)</title><rect x="613" y="64" width="139" height="24" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="616" y="76" fill="#111">EDT_Data</text></g>
+<g><title>EDT_preco (614,498 81×36)</title><rect x="614" y="498" width="81" height="36" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="617" y="510" fill="#111">EDT_preco</text></g>
+<g><title>BTN_Adicionar (701,498 80×36)</title><rect x="701" y="498" width="80" height="36" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="704" y="510" fill="#111">Adicionar</text></g>
+<g><title>EDT_quant (532,498 76×36)</title><rect x="532" y="498" width="76" height="36" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="535" y="510" fill="#111">EDT_quant</text></g>
+<g><title>SCSystemButtons (666,1 128×18)</title><rect x="666" y="1" width="128" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="669" y="13" fill="#111">SCSystemButtons</text></g>
+<g><title>STC_Tipo_de_Documento (19,36 100×20)</title><rect x="19" y="36" width="100" height="20" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="22" y="48" fill="#111">Tipo de Documento</text></g>
+<g><title>STC_Descricao (19,104 100×20)</title><rect x="19" y="104" width="100" height="20" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="22" y="116" fill="#111">Descriçªo</text></g>
+<g><title>STC_Número (421,36 100×20)</title><rect x="421" y="36" width="100" height="20" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="424" y="48" fill="#111">STC_Número</text></g>
+<g><title>STC_Data (613,36 100×20)</title><rect x="613" y="36" width="100" height="20" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="616" y="48" fill="#111">Data</text></g>
+<g><title>STC_Código (19,483 100×20)</title><rect x="19" y="483" width="100" height="20" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="22" y="495" fill="#111">Código</text></g>
+<g><title>STC_Mecanico (503,101 100×20)</title><rect x="503" y="101" width="100" height="20" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="506" y="113" fill="#111">Mecânico</text></g>
+<g><title>BTN_Adicionar1 (19,450 100×20)</title><rect x="19" y="450" width="100" height="20" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="462" fill="#111">Eliminar linha</text></g>
+<g><title>BTN_NoName1 (155,498 47×36)</title><rect x="155" y="498" width="47" height="36" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="158" y="510" fill="#111">...</text></g>
+<g><title>STC_Quantidade (532,483 65×20)</title><rect x="532" y="483" width="65" height="20" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="535" y="495" fill="#111">Quantidade</text></g>
+<g><title>BTN_VISION (339,65 42×24)</title><rect x="339" y="65" width="42" height="24" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="342" y="77" fill="#111">BTN_VISION</text></g>
+<g><title>BTN_VISION2 (710,126 42×24)</title><rect x="710" y="126" width="42" height="24" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="713" y="138" fill="#111">BTN_VISION2</text></g>
+<g><title>STC_Preço (614,483 42×20)</title><rect x="614" y="483" width="42" height="20" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="617" y="495" fill="#111">Preço</text></g>
+<g><title>BTN_SYST_FERMER (750,0 44×19)</title><rect x="750" y="0" width="44" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="753" y="12" fill="#111">BTN_SYST_FERMER</text></g>
+<g><title>BTN_SYST_MINIMIZE (700,0 26×19)</title><rect x="700" y="0" width="26" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="703" y="12" fill="#111">BTN_SYST_MINIMIZE</text></g>
+<g><title>BTN_Syst_Maximize (726,0 25×19)</title><rect x="726" y="0" width="25" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="729" y="12" fill="#111">BTN_Syst_Maximize</text></g>
+<g><title>BTN_UMC (666,0 24×19)</title><rect x="666" y="0" width="24" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="669" y="12" fill="#111">&amp;Bouton</text></g>
+<g><title>BTN_Syst_Restore (570,-19 14×14)</title><rect x="570" y="-19" width="14" height="14" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="573" y="-7" fill="#111">BTN_Syst_Restore</text></g>
+</svg>

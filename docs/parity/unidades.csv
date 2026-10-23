@@ -1,0 +1,5 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-0c67f0b1db,table,unidades,data mapping and reconciliation,,legacy/GestaoOficinas_TesteIA/GestaoOficinas.xdd; docs/schema/schema-draft.md; export: docs/data/profile.md#unidades,verified,Unit-code lookup used by article master. Export counts 4/4.,Preserve table values and evidenced business keys; import decisions deferred,,,,specified
+RULE-T09-001,rule,unidades,unidades,,docs/schema/schema-draft.md; export: docs/data/profile.md#unidades,unresolved,U-T09-01: Runtime integrity/collation enforcement,,,,,unmapped
+RULE-T09-002,rule,unidades,unidades,,docs/schema/schema-draft.md; export: docs/data/profile.md#unidades,unresolved,U-T09-02: Import representation and existing anomalies,,,,,unmapped
+RULE-T09-003,rule,unidades,unidades,,docs/schema/schema-draft.md; export: docs/data/profile.md#unidades,unresolved,U-T09-03: Driver-generated key fidelity,,,,,unmapped

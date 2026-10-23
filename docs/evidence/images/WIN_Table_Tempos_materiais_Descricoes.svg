@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="670" height="519" viewBox="0 0 670 519" font-family="sans-serif" font-size="10">
+<rect width="670" height="519" fill="#fafafa" stroke="#999"/>
+<g><title>TAB_principal (19,36 596×435)</title><rect x="19" y="36" width="596" height="435" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="22" y="48" fill="#111">&amp;Pasta</text></g>
+<g><title>EDT_historico_estado (25,68 584×373)</title><rect x="25" y="68" width="584" height="373" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="28" y="80" fill="#111">EDT_historico_estado</text></g>
+<g><title>TABLE_Tempos (25,42 584×367)</title><rect x="25" y="42" width="584" height="367" fill="#f3f3f3" stroke="#6b7280" stroke-dasharray="0"/><text x="28" y="54" fill="#111">Tabela</text></g>
+<g><title>TABLE_materiais (25,42 584×356)</title><rect x="25" y="42" width="584" height="356" fill="#f3f3f3" stroke="#6b7280" stroke-dasharray="0"/><text x="28" y="54" fill="#111">Tabela</text></g>
+<g><title>EDT_servico_avaria (25,68 584×154)</title><rect x="25" y="68" width="584" height="154" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="28" y="80" fill="#111">EDT_servico_avaria</text></g>
+<g><title>EDT_observacao (25,254 584×151)</title><rect x="25" y="254" width="584" height="151" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="28" y="266" fill="#111">EDT_observacao</text></g>
+<g><title>STC_total_material (199,404 410×37)</title><rect x="199" y="404" width="410" height="37" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="202" y="416" fill="#111">STC_total_material</text></g>
+<g><title>RADTitle (9,4 651×18)</title><rect x="9" y="4" width="651" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="12" y="16" fill="#111">Tempos, materiais e observaçıes da ordem de reparaçªo</text></g>
+<g><title>STC_Histórico_dos_estados (25,42 187×20)</title><rect x="25" y="42" width="187" height="20" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="28" y="54" fill="#111">Histórico dos estados</text></g>
+<g><title>STC_total (453,415 137×26)</title><rect x="453" y="415" width="137" height="26" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="456" y="427" fill="#111">STC_total</text></g>
+<g><title>BTN_listagem (25,411 100×30)</title><rect x="25" y="411" width="100" height="30" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="28" y="423" fill="#111">Imprimir</text></g>
+<g><title>BTN_Material (25,405 81×36)</title><rect x="25" y="405" width="81" height="36" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="28" y="417" fill="#111">Material</text></g>
+<g><title>BTN_Imprimir (112,405 81×36)</title><rect x="112" y="405" width="81" height="36" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="115" y="417" fill="#111">Imprimir</text></g>
+<g><title>BTN_Sair (527,477 88×32)</title><rect x="527" y="477" width="88" height="32" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="530" y="489" fill="#111">Sair</text></g>
+<g><title>STC_matricula (491,34 118×22)</title><rect x="491" y="34" width="118" height="22" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="494" y="46" fill="#111">STC_matricula</text></g>
+<g><title>SCSystemButtons (500,1 128×18)</title><rect x="500" y="1" width="128" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="503" y="13" fill="#111">SCSystemButtons</text></g>
+<g><title>STC_Serviço_Avaria (25,42 100×20)</title><rect x="25" y="42" width="100" height="20" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="28" y="54" fill="#111">Serviço / Avaria</text></g>
+<g><title>STC_Observação (25,228 100×20)</title><rect x="25" y="228" width="100" height="20" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="28" y="240" fill="#111">STC_Observação</text></g>
+<g><title>BTN_SYST_FERMER (584,0 44×19)</title><rect x="584" y="0" width="44" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="587" y="12" fill="#111">BTN_SYST_FERMER</text></g>
+<g><title>BTN_SYST_MINIMIZE (534,0 26×19)</title><rect x="534" y="0" width="26" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="537" y="12" fill="#111">BTN_SYST_MINIMIZE</text></g>
+<g><title>BTN_Syst_Maximize (560,0 25×19)</title><rect x="560" y="0" width="25" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="563" y="12" fill="#111">BTN_Syst_Maximize</text></g>
+<g><title>BTN_UMC (500,0 24×19)</title><rect x="500" y="0" width="24" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="503" y="12" fill="#111">&amp;Bouton</text></g>
+<g><title>BTN_Syst_Restore (570,-19 14×14)</title><rect x="570" y="-19" width="14" height="14" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="573" y="-7" fill="#111">BTN_Syst_Restore</text></g>
+</svg>

@@ -1,0 +1,4 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-c415986d2e,export-needed,QRY_update_ordens_reparacao,,,legacy/GestaoOficinas_TesteIA/QRY_update_ordens_reparacao.WDR; dossier: QRY_update_ordens_reparacao/sql,verified,Updates 26 repair-order fields selected by the old order number ParamNumero_antigo. The new numero can differ. The SQL does not cascade that rename into material/time rows.,Preserve legacy SQL semantics,,,,specified
+RULE-Q30-003,rule,QRY_update_ordens_reparacao,QRY_update_ordens_reparacao,,legacy/GestaoOficinas_TesteIA/QRY_update_ordens_reparacao.WDR,unresolved,U-Q30-03: Query runtime omission/null/collation and PDF literal validation,,,,,unmapped
+RULE-Q30-004,rule,QRY_update_ordens_reparacao,QRY_update_ordens_reparacao,,legacy/GestaoOficinas_TesteIA/QRY_update_ordens_reparacao.WDR,unresolved,U-Q30-04: Caller error/empty-result contract,,,,,unmapped

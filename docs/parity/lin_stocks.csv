@@ -1,0 +1,5 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-9c6e50bc65,table,lin_stocks,data mapping and reconciliation,,legacy/GestaoOficinas_TesteIA/GestaoOficinas.xdd; docs/schema/schema-draft.md; export: docs/data/profile.md#lin_stocks,verified,"Stock document lines. Composite business identity involves document code, document number and line number; the driver also exposes a generated composite/link column. Export counts 23615/23615.",Preserve table values and evidenced business keys; import decisions deferred,,,,specified
+RULE-T12-001,rule,lin_stocks,lin_stocks,,docs/schema/schema-draft.md; export: docs/data/profile.md#lin_stocks,unresolved,U-T12-01: Runtime integrity/collation enforcement,,,,,unmapped
+RULE-T12-002,rule,lin_stocks,lin_stocks,,docs/schema/schema-draft.md; export: docs/data/profile.md#lin_stocks,unresolved,U-T12-02: Import representation and existing anomalies,,,,,unmapped
+RULE-T12-003,rule,lin_stocks,lin_stocks,,docs/schema/schema-draft.md; export: docs/data/profile.md#lin_stocks,unresolved,U-T12-03: Driver-generated key fidelity,,,,,unmapped

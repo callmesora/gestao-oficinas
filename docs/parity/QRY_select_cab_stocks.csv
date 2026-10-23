@@ -1,0 +1,4 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-7dc77ff740,export-needed,QRY_select_cab_stocks,,,legacy/GestaoOficinas_TesteIA/QRY_select_cab_stocks.WDR; dossier: QRY_select_cab_stocks/sql,verified,Inner joins stock headers with document codes and returns document stock direction and mechanic requirement. No explicit ORDER BY in dossier SQL.,Preserve legacy SQL semantics,,,,specified
+RULE-Q06-003,rule,QRY_select_cab_stocks,QRY_select_cab_stocks,,legacy/GestaoOficinas_TesteIA/QRY_select_cab_stocks.WDR,unresolved,U-Q06-03: Query runtime omission/null/collation and PDF literal validation,,,,,unmapped
+RULE-Q06-004,rule,QRY_select_cab_stocks,QRY_select_cab_stocks,,legacy/GestaoOficinas_TesteIA/QRY_select_cab_stocks.WDR,unresolved,U-Q06-04: Caller error/empty-result contract,,,,,unmapped

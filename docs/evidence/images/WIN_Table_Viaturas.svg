@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="804" height="595" viewBox="0 0 804 595" font-family="sans-serif" font-size="10">
+<rect width="804" height="595" fill="#fafafa" stroke="#999"/>
+<g><title>TABLE_Viaturas (14,117 678×468)</title><rect x="14" y="117" width="678" height="468" fill="#f3f3f3" stroke="#6b7280" stroke-dasharray="0"/><text x="17" y="129" fill="#111">RADFileB Table</text></g>
+<g><title>EDT_termo_pesquisa (14,87 678×24)</title><rect x="14" y="87" width="678" height="24" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="17" y="99" fill="#111">EDT_termo_pesquisa</text></g>
+<g><title>RADTitle (9,4 565×18)</title><rect x="9" y="4" width="565" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="12" y="16" fill="#111">Tabela de Viaturas</text></g>
+<g><title>BTN_marca_modelo (277,28 81×53)</title><rect x="277" y="28" width="81" height="53" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="280" y="40" fill="#111">Pesquisar por marca/modelo</text></g>
+<g><title>BTN_cliente (189,28 81×53)</title><rect x="189" y="28" width="81" height="53" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="192" y="40" fill="#111">Pesquisar por cliente</text></g>
+<g><title>BTN_matricula (102,28 81×53)</title><rect x="102" y="28" width="81" height="53" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="105" y="40" fill="#111">Pesquisar por matrícula</text></g>
+<g><title>BTN_todos (14,28 81×53)</title><rect x="14" y="28" width="81" height="53" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="17" y="40" fill="#111">Ver Todos</text></g>
+<g><title>SC_SCSystemButtons (666,1 128×18)</title><rect x="666" y="1" width="128" height="18" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="669" y="13" fill="#111">SC_SCSystemButtons</text></g>
+<g><title>BTN_Fechar (698,236 90×24)</title><rect x="698" y="236" width="90" height="24" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="701" y="248" fill="#111">Fechar</text></g>
+<g><title>Btn_New (698,117 90×24)</title><rect x="698" y="117" width="90" height="24" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="701" y="129" fill="#111">Novo</text></g>
+<g><title>BTN_Modificar (698,147 90×24)</title><rect x="698" y="147" width="90" height="24" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="701" y="159" fill="#111">Modificar</text></g>
+<g><title>BTN_Delete (698,176 90×24)</title><rect x="698" y="176" width="90" height="24" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="701" y="188" fill="#111">Apagar</text></g>
+<g><title>BTN_Imprimir (698,206 90×24)</title><rect x="698" y="206" width="90" height="24" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="701" y="218" fill="#111">Imprimir</text></g>
+<g><title>BTN_selecionar (698,561 90×24)</title><rect x="698" y="561" width="90" height="24" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="701" y="573" fill="#111">Selecionar</text></g>
+<g><title>BTN_SYST_FERMER (750,0 44×19)</title><rect x="750" y="0" width="44" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="753" y="12" fill="#111">BTN_SYST_FERMER</text></g>
+<g><title>BTN_SYST_MINIMIZE (700,0 26×19)</title><rect x="700" y="0" width="26" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="703" y="12" fill="#111">BTN_SYST_MINIMIZE</text></g>
+<g><title>BTN_Syst_Maximize (726,0 25×19)</title><rect x="726" y="0" width="25" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="729" y="12" fill="#111">BTN_Syst_Maximize</text></g>
+<g><title>BTN_UMC (666,0 24×19)</title><rect x="666" y="0" width="24" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="669" y="12" fill="#111">&amp;Bouton</text></g>
+<g><title>IMG_BTN_Syst_Restore (567,-19 14×14)</title><rect x="567" y="-19" width="14" height="14" fill="#f3e5f5" stroke="#6b7280" stroke-dasharray="0"/><text x="570" y="-7" fill="#111">IMG_BTN_Syst_Restore</text></g>
+</svg>

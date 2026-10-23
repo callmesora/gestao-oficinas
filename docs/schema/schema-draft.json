@@ -1,0 +1,2253 @@
+{
+ "tables": [
+  {
+   "table": "Clientes",
+   "columns": [
+    {
+     "name": "ClientesID",
+     "code": "24",
+     "size": "8",
+     "key": "unique",
+     "caption": "Identifier of Clientes",
+     "type": "Automatic identifier (8 bytes)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "Codigo",
+     "code": "27",
+     "size": "8",
+     "key": "unique",
+     "caption": "Código",
+     "type": "Unsigned 8-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": "unsigned 64-bit: SQLite INTEGER is signed (max 2^63-1); values above 2^53 must cross IPC/JSON as strings"
+    },
+    {
+     "name": "Descricao",
+     "code": "2",
+     "size": "100",
+     "key": "duplicates",
+     "caption": "Descriçªo",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "Morada1",
+     "code": "2",
+     "size": "100",
+     "key": null,
+     "caption": "Morada 1",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "Morada2",
+     "code": "2",
+     "size": "100",
+     "key": null,
+     "caption": "Morada2",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "codpostal",
+     "code": "2",
+     "size": "50",
+     "key": null,
+     "caption": "Código Postal",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "Telefone1",
+     "code": "2",
+     "size": "50",
+     "key": null,
+     "caption": "Telefone 1",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "Telemovel",
+     "code": "2",
+     "size": "50",
+     "key": null,
+     "caption": "Telemóvel",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "observacao",
+     "code": "29",
+     "size": "8",
+     "key": null,
+     "caption": "Observaçªo",
+     "type": "Text Memo",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    }
+   ],
+   "keys": [
+    {
+     "name": "ClientesID",
+     "columns": [
+      "ClientesID"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "Codigo",
+     "columns": [
+      "Codigo"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "Descricao",
+     "columns": [
+      "Descricao"
+     ],
+     "key": "duplicates"
+    }
+   ]
+  },
+  {
+   "table": "Viaturas",
+   "columns": [
+    {
+     "name": "ViaturasID",
+     "code": "24",
+     "size": "8",
+     "key": "unique",
+     "caption": "Identifier of Viaturas",
+     "type": "Automatic identifier (8 bytes)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "matricula",
+     "code": "2",
+     "size": "15",
+     "key": "unique",
+     "caption": "Matricula",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "Cliente",
+     "code": "27",
+     "size": "8",
+     "key": "duplicates",
+     "caption": "Cliente",
+     "type": "Unsigned 8-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": "unsigned 64-bit: SQLite INTEGER is signed (max 2^63-1); values above 2^53 must cross IPC/JSON as strings"
+    },
+    {
+     "name": "marca",
+     "code": "2",
+     "size": "50",
+     "key": null,
+     "caption": "Marca",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "modelo",
+     "code": "2",
+     "size": "50",
+     "key": null,
+     "caption": "Modelo",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "Ano",
+     "code": "9",
+     "size": "2",
+     "key": null,
+     "caption": "Ano",
+     "type": "Unsigned 2-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "mes",
+     "code": "36",
+     "size": "1",
+     "key": null,
+     "caption": "mes",
+     "type": "Unsigned 1-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    }
+   ],
+   "keys": [
+    {
+     "name": "ViaturasID",
+     "columns": [
+      "ViaturasID"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "matricula",
+     "columns": [
+      "matricula"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "Cliente",
+     "columns": [
+      "Cliente"
+     ],
+     "key": "duplicates"
+    }
+   ]
+  },
+  {
+   "table": "mecanicos",
+   "columns": [
+    {
+     "name": "mecanicosID",
+     "code": "24",
+     "size": "8",
+     "key": "unique",
+     "caption": "Identifier of mecanicos",
+     "type": "Automatic identifier (8 bytes)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "Codigo",
+     "code": "36",
+     "size": "1",
+     "key": "unique",
+     "caption": "Código",
+     "type": "Unsigned 1-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "Descricao",
+     "code": "2",
+     "size": "100",
+     "key": "duplicates",
+     "caption": "Descriçªo",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "palavra_passe",
+     "code": "2",
+     "size": "15",
+     "key": null,
+     "caption": "palavra-passe",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "inativo",
+     "code": "37",
+     "size": "1",
+     "key": "duplicates",
+     "caption": "inativo",
+     "type": "Boolean",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    }
+   ],
+   "keys": [
+    {
+     "name": "mecanicosID",
+     "columns": [
+      "mecanicosID"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "Codigo",
+     "columns": [
+      "Codigo"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "Descricao",
+     "columns": [
+      "Descricao"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "inativo",
+     "columns": [
+      "inativo"
+     ],
+     "key": "duplicates"
+    }
+   ]
+  },
+  {
+   "table": "artigos",
+   "columns": [
+    {
+     "name": "artigosID",
+     "code": "24",
+     "size": "8",
+     "key": "unique",
+     "caption": "Identifier of artigos",
+     "type": "Automatic identifier (8 bytes)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "Codigo",
+     "code": "2",
+     "size": "30",
+     "key": "unique",
+     "caption": "Código",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "Descricao",
+     "code": "2",
+     "size": "100",
+     "key": "duplicates",
+     "caption": "Descriçªo",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "codbarras",
+     "code": "2",
+     "size": "30",
+     "key": null,
+     "caption": "Código de barras",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "unidade",
+     "code": "2",
+     "size": "3",
+     "key": "duplicates",
+     "caption": "unidade",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "preco",
+     "code": "7",
+     "size": "8",
+     "key": null,
+     "caption": "Preço",
+     "type": "8-byte real",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "REAL",
+     "decision": "binary floating point: if this holds money or quantities, use integer minor units or TEXT decimals"
+    },
+    {
+     "name": "inativo",
+     "code": "37",
+     "size": "1",
+     "key": null,
+     "caption": "inativo",
+     "type": "Boolean",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "stock",
+     "code": "41",
+     "size": "7",
+     "key": null,
+     "caption": "stock",
+     "type": "Decimal",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": "exact decimal: SQLite has none; choose integer minor units (scale?) or TEXT decimals"
+    }
+   ],
+   "keys": [
+    {
+     "name": "artigosID",
+     "columns": [
+      "artigosID"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "Codigo",
+     "columns": [
+      "Codigo"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "Descricao",
+     "columns": [
+      "Descricao"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "unidade",
+     "columns": [
+      "unidade"
+     ],
+     "key": "duplicates"
+    }
+   ]
+  },
+  {
+   "table": "ordem_reparacao",
+   "columns": [
+    {
+     "name": "ordem_reparacaoID",
+     "code": "24",
+     "size": "8",
+     "key": "unique",
+     "caption": "Identifier of ordem_reparacao",
+     "type": "Automatic identifier (8 bytes)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "numero",
+     "code": "27",
+     "size": "8",
+     "key": "unique",
+     "caption": "Nœmero",
+     "type": "Unsigned 8-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": "unsigned 64-bit: SQLite INTEGER is signed (max 2^63-1); values above 2^53 must cross IPC/JSON as strings"
+    },
+    {
+     "name": "matricula",
+     "code": "2",
+     "size": "15",
+     "key": "duplicates",
+     "caption": "Matricula",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "km_viatura",
+     "code": "27",
+     "size": "8",
+     "key": null,
+     "caption": "Km",
+     "type": "Unsigned 8-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": "unsigned 64-bit: SQLite INTEGER is signed (max 2^63-1); values above 2^53 must cross IPC/JSON as strings"
+    },
+    {
+     "name": "recepcao_util",
+     "code": "36",
+     "size": "1",
+     "key": "duplicates",
+     "caption": "Recepcionado por",
+     "type": "Unsigned 1-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "recepcao_datahora",
+     "code": "34",
+     "size": "8",
+     "key": "duplicates",
+     "caption": "Data/Hora recepçªo",
+     "type": "Date and Time (yyyymmddhhmmssccc)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": "kept as WINDEV yyyymmddhhmmssccc text, or ISO 8601? Empty/sentinel values keep their meaning"
+    },
+    {
+     "name": "recepcao_cliente",
+     "code": "27",
+     "size": "8",
+     "key": "duplicates",
+     "caption": "recepcao_cliente",
+     "type": "Unsigned 8-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": "unsigned 64-bit: SQLite INTEGER is signed (max 2^63-1); values above 2^53 must cross IPC/JSON as strings"
+    },
+    {
+     "name": "recepcao_terceiro",
+     "code": "27",
+     "size": "8",
+     "key": "duplicates",
+     "caption": "recepcao_terceiro",
+     "type": "Unsigned 8-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": "unsigned 64-bit: SQLite INTEGER is signed (max 2^63-1); values above 2^53 must cross IPC/JSON as strings"
+    },
+    {
+     "name": "recepacao_contatos",
+     "code": "29",
+     "size": "8",
+     "key": null,
+     "caption": "Contatos",
+     "type": "Text Memo",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "recepcao_servico",
+     "code": "29",
+     "size": "8",
+     "key": null,
+     "caption": "Serviço a efetuar",
+     "type": "Text Memo",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "recepcao_obs",
+     "code": "29",
+     "size": "8",
+     "key": null,
+     "caption": "Observacao recepçªo",
+     "type": "Text Memo",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "recepcao_entrega_prevista",
+     "code": "14",
+     "size": "8",
+     "key": null,
+     "caption": "Data prevista para entrega",
+     "type": "Date (yyyymmdd)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": "kept as WINDEV yyyymmdd text, or ISO 8601? Empty date (\"\" / 00000000) is not NULL by default"
+    },
+    {
+     "name": "recepcao_prioridade",
+     "code": "36",
+     "size": "1",
+     "key": null,
+     "caption": "Prioridade",
+     "type": "Unsigned 1-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "reparacao_mecanico",
+     "code": "36",
+     "size": "1",
+     "key": "duplicates",
+     "caption": "MecÆnico reparaçªo",
+     "type": "Unsigned 1-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "reparacao_estado",
+     "code": "2",
+     "size": "3",
+     "key": "duplicates",
+     "caption": "Estado",
+     "type": "String",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "reparacao_estado_obs",
+     "code": "2",
+     "size": "100",
+     "key": null,
+     "caption": "Descriçªo estado",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "reparacao_servico",
+     "code": "29",
+     "size": "8",
+     "key": null,
+     "caption": "Serviço efetuado",
+     "type": "Text Memo",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "reparacao_estado_data",
+     "code": "34",
+     "size": "8",
+     "key": null,
+     "caption": "Estado(Data/hora)",
+     "type": "Date and Time (yyyymmddhhmmssccc)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": "kept as WINDEV yyyymmddhhmmssccc text, or ISO 8601? Empty/sentinel values keep their meaning"
+    },
+    {
+     "name": "reparacao_estado_historico",
+     "code": "29",
+     "size": "8",
+     "key": null,
+     "caption": "Estado(Histórico)",
+     "type": "Text Memo",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "totaL_mao_obra",
+     "code": "7",
+     "size": "8",
+     "key": null,
+     "caption": "Total mªo obra",
+     "type": "8-byte real",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "REAL",
+     "decision": "binary floating point: if this holds money or quantities, use integer minor units or TEXT decimals"
+    },
+    {
+     "name": "total_pecas",
+     "code": "7",
+     "size": "8",
+     "key": null,
+     "caption": "Total peças",
+     "type": "8-byte real",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "REAL",
+     "decision": "binary floating point: if this holds money or quantities, use integer minor units or TEXT decimals"
+    },
+    {
+     "name": "total_desconto",
+     "code": "7",
+     "size": "8",
+     "key": null,
+     "caption": "Total descontos",
+     "type": "8-byte real",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "REAL",
+     "decision": "binary floating point: if this holds money or quantities, use integer minor units or TEXT decimals"
+    },
+    {
+     "name": "total_reparacao",
+     "code": "7",
+     "size": "8",
+     "key": null,
+     "caption": "Total reparaçªo",
+     "type": "8-byte real",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "REAL",
+     "decision": "binary floating point: if this holds money or quantities, use integer minor units or TEXT decimals"
+    },
+    {
+     "name": "faturado",
+     "code": "37",
+     "size": "1",
+     "key": null,
+     "caption": "Faturado",
+     "type": "Boolean",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "total_pago",
+     "code": "7",
+     "size": "8",
+     "key": null,
+     "caption": "Total pago",
+     "type": "8-byte real",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "REAL",
+     "decision": "binary floating point: if this holds money or quantities, use integer minor units or TEXT decimals"
+    },
+    {
+     "name": "Estados_reparacaoID",
+     "code": "25",
+     "size": "8",
+     "key": "duplicates",
+     "caption": "Estados_reparacaoID",
+     "type": "8-byte integer",
+     "default": "",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "numero_fatura",
+     "code": "2",
+     "size": "20",
+     "key": null,
+     "caption": "numero_fatura",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "data_pagamento",
+     "code": "14",
+     "size": "8",
+     "key": "duplicates",
+     "caption": "data_pagamento",
+     "type": "Date (yyyymmdd)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": "kept as WINDEV yyyymmdd text, or ISO 8601? Empty date (\"\" / 00000000) is not NULL by default"
+    }
+   ],
+   "keys": [
+    {
+     "name": "ordem_reparacaoID",
+     "columns": [
+      "ordem_reparacaoID"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "numero",
+     "columns": [
+      "numero"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "matricula",
+     "columns": [
+      "matricula"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "recepcao_util",
+     "columns": [
+      "recepcao_util"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "recepcao_datahora",
+     "columns": [
+      "recepcao_datahora"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "recepcao_cliente",
+     "columns": [
+      "recepcao_cliente"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "recepcao_terceiro",
+     "columns": [
+      "recepcao_terceiro"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "reparacao_mecanico",
+     "columns": [
+      "reparacao_mecanico"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "reparacao_estado",
+     "columns": [
+      "reparacao_estado"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "Estados_reparacaoID",
+     "columns": [
+      "Estados_reparacaoID"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "data_pagamento",
+     "columns": [
+      "data_pagamento"
+     ],
+     "key": "duplicates"
+    }
+   ]
+  },
+  {
+   "table": "tempos_reparacao",
+   "columns": [
+    {
+     "name": "tempos_reparacaoID",
+     "code": "24",
+     "size": "8",
+     "key": "unique",
+     "caption": "Identifier of tempos_reparacao",
+     "type": "Automatic identifier (8 bytes)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "numero",
+     "code": "27",
+     "size": "8",
+     "key": "duplicates",
+     "caption": "Nœmero",
+     "type": "Unsigned 8-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": "unsigned 64-bit: SQLite INTEGER is signed (max 2^63-1); values above 2^53 must cross IPC/JSON as strings"
+    },
+    {
+     "name": "mecanico",
+     "code": "36",
+     "size": "1",
+     "key": "duplicates",
+     "caption": "mecanico",
+     "type": "Unsigned 1-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "inicio",
+     "code": "34",
+     "size": "8",
+     "key": "duplicates",
+     "caption": "Data/hora inico",
+     "type": "Date and Time (yyyymmddhhmmssccc)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": "kept as WINDEV yyyymmddhhmmssccc text, or ISO 8601? Empty/sentinel values keep their meaning"
+    },
+    {
+     "name": "fim",
+     "code": "34",
+     "size": "8",
+     "key": "duplicates",
+     "caption": "Data/hora fim",
+     "type": "Date and Time (yyyymmddhhmmssccc)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": "kept as WINDEV yyyymmddhhmmssccc text, or ISO 8601? Empty/sentinel values keep their meaning"
+    },
+    {
+     "name": "Inicio_reparacao_estado",
+     "code": "2",
+     "size": "3",
+     "key": "duplicates",
+     "caption": "Estado reparaçªo(Início)",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "fim_reparacao_estado",
+     "code": "2",
+     "size": "3",
+     "key": "duplicates",
+     "caption": "Estado reparaçªo(Fim)",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    }
+   ],
+   "keys": [
+    {
+     "name": "tempos_reparacaoID",
+     "columns": [
+      "tempos_reparacaoID"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "numero",
+     "columns": [
+      "numero"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "mecanico",
+     "columns": [
+      "mecanico"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "inicio",
+     "columns": [
+      "inicio"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "fim",
+     "columns": [
+      "fim"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "Inicio_reparacao_estado",
+     "columns": [
+      "Inicio_reparacao_estado"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "fim_reparacao_estado",
+     "columns": [
+      "fim_reparacao_estado"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "numeromecanico",
+     "columns": [
+      "numero",
+      "mecanico"
+     ],
+     "key": "duplicates"
+    }
+   ]
+  },
+  {
+   "table": "material_reparacao",
+   "columns": [
+    {
+     "name": "material_reparacaoID",
+     "code": "24",
+     "size": "8",
+     "key": "unique",
+     "caption": "Identifier of material_reparacao",
+     "type": "Automatic identifier (8 bytes)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "numero",
+     "code": "27",
+     "size": "8",
+     "key": "duplicates",
+     "caption": "Nœmero",
+     "type": "Unsigned 8-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": "unsigned 64-bit: SQLite INTEGER is signed (max 2^63-1); values above 2^53 must cross IPC/JSON as strings"
+    },
+    {
+     "name": "mecanico",
+     "code": "36",
+     "size": "1",
+     "key": "duplicates",
+     "caption": "mecanico",
+     "type": "Unsigned 1-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "artigo",
+     "code": "2",
+     "size": "30",
+     "key": "duplicates",
+     "caption": "artigo",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "descricao_artigo",
+     "code": "2",
+     "size": "100",
+     "key": null,
+     "caption": "descricao_artigo",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "quantidade",
+     "code": "41",
+     "size": "4",
+     "key": null,
+     "caption": "quantidade",
+     "type": "Decimal",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": "exact decimal: SQLite has none; choose integer minor units (scale?) or TEXT decimals"
+    },
+    {
+     "name": "data_hora",
+     "code": "34",
+     "size": "8",
+     "key": null,
+     "caption": "data_hora",
+     "type": "Date and Time (yyyymmddhhmmssccc)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": "kept as WINDEV yyyymmddhhmmssccc text, or ISO 8601? Empty/sentinel values keep their meaning"
+    },
+    {
+     "name": "reparacao_estado",
+     "code": "2",
+     "size": "3",
+     "key": null,
+     "caption": "Estado",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "preco",
+     "code": "7",
+     "size": "8",
+     "key": null,
+     "caption": "Preço",
+     "type": "8-byte real",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "REAL",
+     "decision": "binary floating point: if this holds money or quantities, use integer minor units or TEXT decimals"
+    },
+    {
+     "name": "lancado",
+     "code": "37",
+     "size": "1",
+     "key": null,
+     "caption": "lancado",
+     "type": "Boolean",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "extra",
+     "code": "37",
+     "size": "1",
+     "key": null,
+     "caption": "extra",
+     "type": "Boolean",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    }
+   ],
+   "keys": [
+    {
+     "name": "material_reparacaoID",
+     "columns": [
+      "material_reparacaoID"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "numero",
+     "columns": [
+      "numero"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "mecanico",
+     "columns": [
+      "mecanico"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "artigo",
+     "columns": [
+      "artigo"
+     ],
+     "key": "duplicates"
+    }
+   ]
+  },
+  {
+   "table": "utilizadores",
+   "columns": [
+    {
+     "name": "utilizadoresID",
+     "code": "24",
+     "size": "8",
+     "key": "unique",
+     "caption": "Identifier of utilizadores",
+     "type": "Automatic identifier (8 bytes)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "Codigo",
+     "code": "36",
+     "size": "1",
+     "key": "unique",
+     "caption": "Código",
+     "type": "Unsigned 1-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "Descricao",
+     "code": "2",
+     "size": "100",
+     "key": "duplicates",
+     "caption": "Nome",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "palavra_passe",
+     "code": "2",
+     "size": "15",
+     "key": null,
+     "caption": "palavra-passe",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    }
+   ],
+   "keys": [
+    {
+     "name": "utilizadoresID",
+     "columns": [
+      "utilizadoresID"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "Codigo",
+     "columns": [
+      "Codigo"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "Descricao",
+     "columns": [
+      "Descricao"
+     ],
+     "key": "duplicates"
+    }
+   ]
+  },
+  {
+   "table": "unidades",
+   "columns": [
+    {
+     "name": "unidadesID",
+     "code": "24",
+     "size": "8",
+     "key": "unique",
+     "caption": "Identifier of unidades",
+     "type": "Automatic identifier (8 bytes)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "Codigo",
+     "code": "2",
+     "size": "3",
+     "key": "unique",
+     "caption": "Código",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "Descricao",
+     "code": "2",
+     "size": "50",
+     "key": "duplicates",
+     "caption": "Descriçªo",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    }
+   ],
+   "keys": [
+    {
+     "name": "unidadesID",
+     "columns": [
+      "unidadesID"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "Codigo",
+     "columns": [
+      "Codigo"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "Descricao",
+     "columns": [
+      "Descricao"
+     ],
+     "key": "duplicates"
+    }
+   ]
+  },
+  {
+   "table": "documentos",
+   "columns": [
+    {
+     "name": "documentosID",
+     "code": "24",
+     "size": "8",
+     "key": "unique",
+     "caption": "Identifier of documentos",
+     "type": "Automatic identifier (8 bytes)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "Codigo",
+     "code": "2",
+     "size": "3",
+     "key": "unique",
+     "caption": "Codigo",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "Descricao",
+     "code": "2",
+     "size": "50",
+     "key": "duplicates",
+     "caption": "Descriçªo",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "stock",
+     "code": "36",
+     "size": "1",
+     "key": "duplicates",
+     "caption": "stock",
+     "type": "Unsigned 1-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "obriga_macanico",
+     "code": "37",
+     "size": "1",
+     "key": null,
+     "caption": "obriga_macanico",
+     "type": "Boolean",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    }
+   ],
+   "keys": [
+    {
+     "name": "documentosID",
+     "columns": [
+      "documentosID"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "Codigo",
+     "columns": [
+      "Codigo"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "Descricao",
+     "columns": [
+      "Descricao"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "stock",
+     "columns": [
+      "stock"
+     ],
+     "key": "duplicates"
+    }
+   ]
+  },
+  {
+   "table": "cab_stocks",
+   "columns": [
+    {
+     "name": "cab_stocksID",
+     "code": "24",
+     "size": "8",
+     "key": "unique",
+     "caption": "Identifier of cab_stocks",
+     "type": "Automatic identifier (8 bytes)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "documento_codigo",
+     "code": "2",
+     "size": "3",
+     "key": "duplicates",
+     "caption": "Codigo documento",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "documento_numero",
+     "code": "27",
+     "size": "8",
+     "key": "duplicates",
+     "caption": "Numero do documento",
+     "type": "Unsigned 8-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": "unsigned 64-bit: SQLite INTEGER is signed (max 2^63-1); values above 2^53 must cross IPC/JSON as strings"
+    },
+    {
+     "name": "Descricao",
+     "code": "2",
+     "size": "100",
+     "key": null,
+     "caption": "Descriçªo",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "data",
+     "code": "34",
+     "size": "8",
+     "key": "duplicates",
+     "caption": "data",
+     "type": "Date and Time (yyyymmddhhmmssccc)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": "kept as WINDEV yyyymmddhhmmssccc text, or ISO 8601? Empty/sentinel values keep their meaning"
+    },
+    {
+     "name": "mecanico",
+     "code": "36",
+     "size": "1",
+     "key": "duplicates",
+     "caption": "mecanico",
+     "type": "Unsigned 1-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "DocumentosID",
+     "code": "25",
+     "size": "8",
+     "key": "duplicates",
+     "caption": "DocumentosID",
+     "type": "8-byte integer",
+     "default": "",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "MecanicosID",
+     "code": "25",
+     "size": "8",
+     "key": "duplicates",
+     "caption": "MecanicosID",
+     "type": "8-byte integer",
+     "default": "",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    }
+   ],
+   "keys": [
+    {
+     "name": "cab_stocksID",
+     "columns": [
+      "cab_stocksID"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "documento_codigo",
+     "columns": [
+      "documento_codigo"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "documento_numero",
+     "columns": [
+      "documento_numero"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "data",
+     "columns": [
+      "data"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "mecanico",
+     "columns": [
+      "mecanico"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "DocumentosID",
+     "columns": [
+      "DocumentosID"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "documento_codigodocumento_numero",
+     "columns": [
+      "documento_codigo",
+      "documento_numero"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "MecanicosID",
+     "columns": [
+      "MecanicosID"
+     ],
+     "key": "duplicates"
+    }
+   ]
+  },
+  {
+   "table": "lin_stocks",
+   "columns": [
+    {
+     "name": "lin_stocksID",
+     "code": "24",
+     "size": "8",
+     "key": "unique",
+     "caption": "Identifier of lin_stocks",
+     "type": "Automatic identifier (8 bytes)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "documento_codigo",
+     "code": "2",
+     "size": "3",
+     "key": "duplicates",
+     "caption": "Codigo documento",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "documento_numero",
+     "code": "27",
+     "size": "8",
+     "key": "duplicates",
+     "caption": "Numero do documento",
+     "type": "Unsigned 8-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": "unsigned 64-bit: SQLite INTEGER is signed (max 2^63-1); values above 2^53 must cross IPC/JSON as strings"
+    },
+    {
+     "name": "linha",
+     "code": "26",
+     "size": "4",
+     "key": null,
+     "caption": "linha",
+     "type": "Unsigned 4-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "artigo",
+     "code": "2",
+     "size": "30",
+     "key": "duplicates",
+     "caption": "artigo",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "descricao_artigo",
+     "code": "2",
+     "size": "100",
+     "key": null,
+     "caption": "descricao_artigo",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "quantidade",
+     "code": "41",
+     "size": "4",
+     "key": null,
+     "caption": "quantidade",
+     "type": "Decimal",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": "exact decimal: SQLite has none; choose integer minor units (scale?) or TEXT decimals"
+    },
+    {
+     "name": "preco",
+     "code": "7",
+     "size": "8",
+     "key": null,
+     "caption": "Preço",
+     "type": "8-byte real",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "REAL",
+     "decision": "binary floating point: if this holds money or quantities, use integer minor units or TEXT decimals"
+    },
+    {
+     "name": "Documento_codigodocumento_numero",
+     "code": "28",
+     "size": "11",
+     "key": "duplicates",
+     "caption": null,
+     "type": null,
+     "default": "",
+     "nullable": true,
+     "sqlite": null,
+     "decision": null
+    }
+   ],
+   "keys": [
+    {
+     "name": "lin_stocksID",
+     "columns": [
+      "lin_stocksID"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "documento_codigo",
+     "columns": [
+      "documento_codigo"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "documento_numero",
+     "columns": [
+      "documento_numero"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "artigo",
+     "columns": [
+      "artigo"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "documento_codigodocumento_numerolinha",
+     "columns": [
+      "documento_codigo",
+      "documento_numero",
+      "linha"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "Documento_codigodocumento_numero",
+     "columns": [
+      "Documento_codigodocumento_numero"
+     ],
+     "key": "duplicates"
+    }
+   ]
+  },
+  {
+   "table": "estados_reparacao",
+   "columns": [
+    {
+     "name": "estados_reparacaoID",
+     "code": "24",
+     "size": "8",
+     "key": "unique",
+     "caption": "Identifier of estados_reparacao",
+     "type": "Automatic identifier (8 bytes)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "Codigo",
+     "code": "2",
+     "size": "3",
+     "key": "unique",
+     "caption": "Código",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "Descricao",
+     "code": "2",
+     "size": "50",
+     "key": "duplicates",
+     "caption": "Descriçªo",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "tipo",
+     "code": "36",
+     "size": "1",
+     "key": "duplicates",
+     "caption": "tipo",
+     "type": "Unsigned 1-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "Cor",
+     "code": "26",
+     "size": "4",
+     "key": null,
+     "caption": "Cor",
+     "type": "Unsigned 4-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "lancar_defa",
+     "code": "37",
+     "size": "1",
+     "key": null,
+     "caption": "lancar_defa",
+     "type": "Boolean",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "lancar_material",
+     "code": "37",
+     "size": "1",
+     "key": null,
+     "caption": "lancar_material",
+     "type": "Boolean",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "confirmacao",
+     "code": "37",
+     "size": "1",
+     "key": null,
+     "caption": "confirmacao",
+     "type": "Boolean",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "pedir_data_entrega",
+     "code": "37",
+     "size": "1",
+     "key": null,
+     "caption": "pedir_data_entrega",
+     "type": "Boolean",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "pedir_data_pag",
+     "code": "37",
+     "size": "1",
+     "key": null,
+     "caption": "pedir_data_pag",
+     "type": "Boolean",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    }
+   ],
+   "keys": [
+    {
+     "name": "estados_reparacaoID",
+     "columns": [
+      "estados_reparacaoID"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "Codigo",
+     "columns": [
+      "Codigo"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "Descricao",
+     "columns": [
+      "Descricao"
+     ],
+     "key": "duplicates"
+    },
+    {
+     "name": "tipo",
+     "columns": [
+      "tipo"
+     ],
+     "key": "duplicates"
+    }
+   ]
+  },
+  {
+   "table": "estados_descritivos",
+   "columns": [
+    {
+     "name": "estados_descritivosID",
+     "code": "24",
+     "size": "8",
+     "key": "unique",
+     "caption": "Identifier of estados_descritivos",
+     "type": "Automatic identifier (8 bytes)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "Codigo",
+     "code": "2",
+     "size": "3",
+     "key": "unique",
+     "caption": "Código",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "Descricao",
+     "code": "2",
+     "size": "100",
+     "key": "duplicates",
+     "caption": "Descriçªo",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    }
+   ],
+   "keys": [
+    {
+     "name": "estados_descritivosID",
+     "columns": [
+      "estados_descritivosID"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "Codigo",
+     "columns": [
+      "Codigo"
+     ],
+     "key": "unique"
+    },
+    {
+     "name": "Descricao",
+     "columns": [
+      "Descricao"
+     ],
+     "key": "duplicates"
+    }
+   ]
+  },
+  {
+   "table": "Terminais",
+   "columns": [
+    {
+     "name": "Codigo",
+     "code": "2",
+     "size": "3",
+     "key": "unique",
+     "caption": "Codigo",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "Descricao",
+     "code": "2",
+     "size": "30",
+     "key": null,
+     "caption": "Descricao",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "codbarras_inicio",
+     "code": "36",
+     "size": "1",
+     "key": null,
+     "caption": "codbarras_inicio",
+     "type": "Unsigned 1-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "codbarras_fim",
+     "code": "36",
+     "size": "1",
+     "key": null,
+     "caption": "codbarras_fim",
+     "type": "Unsigned 1-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "quant_inicio",
+     "code": "36",
+     "size": "1",
+     "key": null,
+     "caption": "quant_inicio",
+     "type": "Unsigned 1-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "quant_fim",
+     "code": "36",
+     "size": "1",
+     "key": null,
+     "caption": "quant_fim",
+     "type": "Unsigned 1-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "pasta_localizacao",
+     "code": "2",
+     "size": "200",
+     "key": null,
+     "caption": "pasta_localizacao",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "nome_ficheiro",
+     "code": "2",
+     "size": "50",
+     "key": null,
+     "caption": "nome_ficheiro",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    }
+   ],
+   "keys": [
+    {
+     "name": "Codigo",
+     "columns": [
+      "Codigo"
+     ],
+     "key": "unique"
+    }
+   ]
+  },
+  {
+   "table": "sistema",
+   "columns": [
+    {
+     "name": "Tempo_ordem_reparacao",
+     "code": "27",
+     "size": "8",
+     "key": null,
+     "caption": "Tempo_ordem_reparacao",
+     "type": "Unsigned 8-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": "unsigned 64-bit: SQLite INTEGER is signed (max 2^63-1); values above 2^53 must cross IPC/JSON as strings"
+    },
+    {
+     "name": "Tempo_materiais",
+     "code": "27",
+     "size": "8",
+     "key": null,
+     "caption": "Tempo_materiais",
+     "type": "Unsigned 8-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": "unsigned 64-bit: SQLite INTEGER is signed (max 2^63-1); values above 2^53 must cross IPC/JSON as strings"
+    },
+    {
+     "name": "Tempo_tempos",
+     "code": "27",
+     "size": "8",
+     "key": null,
+     "caption": "Tempo_tempos",
+     "type": "Unsigned 8-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": "unsigned 64-bit: SQLite INTEGER is signed (max 2^63-1); values above 2^53 must cross IPC/JSON as strings"
+    },
+    {
+     "name": "Data_inicio",
+     "code": "9",
+     "size": "2",
+     "key": null,
+     "caption": "Data_inicio",
+     "type": "Unsigned 2-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "encerrar_tempos1",
+     "code": "11",
+     "size": "6",
+     "key": null,
+     "caption": "encerrar_tempos1",
+     "type": "Time (hhmmss)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": "kept as WINDEV hhmmss[cc] text, or seconds?"
+    },
+    {
+     "name": "encerrar_tempos2",
+     "code": "11",
+     "size": "6",
+     "key": null,
+     "caption": "encerrar_tempos2",
+     "type": "Time (hhmmss)",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": "kept as WINDEV hhmmss[cc] text, or seconds?"
+    }
+   ],
+   "keys": []
+  },
+  {
+   "table": "postos",
+   "columns": [
+    {
+     "name": "Codigo",
+     "code": "36",
+     "size": "1",
+     "key": "unique",
+     "caption": "Codigo",
+     "type": "Unsigned 1-byte integer",
+     "default": "0",
+     "nullable": true,
+     "sqlite": "INTEGER",
+     "decision": null
+    },
+    {
+     "name": "Descricao",
+     "code": "2",
+     "size": "50",
+     "key": null,
+     "caption": "Descricao",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "terminal",
+     "code": "2",
+     "size": "3",
+     "key": null,
+     "caption": "terminal",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    },
+    {
+     "name": "teste",
+     "code": "2",
+     "size": "50",
+     "key": null,
+     "caption": "teste",
+     "type": "String",
+     "default": "",
+     "nullable": true,
+     "sqlite": "TEXT",
+     "decision": null
+    }
+   ],
+   "keys": [
+    {
+     "name": "Codigo",
+     "columns": [
+      "Codigo"
+     ],
+     "key": "unique"
+    }
+   ]
+  }
+ ],
+ "type_legend": {
+  "24": "Automatic identifier (8 bytes)",
+  "27": "Unsigned 8-byte integer",
+  "2": "String",
+  "29": "Text Memo",
+  "9": "Unsigned 2-byte integer",
+  "36": "Unsigned 1-byte integer",
+  "37": "Boolean",
+  "7": "8-byte real",
+  "41": "Decimal",
+  "34": "Date and Time (yyyymmddhhmmssccc)",
+  "14": "Date (yyyymmdd)",
+  "25": "8-byte integer",
+  "26": "Unsigned 4-byte integer",
+  "11": "Time (hhmmss)"
+ },
+ "conflicts": {}
+}

@@ -1,0 +1,4 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-0b5a2f2730,export-needed,QRY_select_ordens_reparacao_tempos,,,legacy/GestaoOficinas_TesteIA/QRY_select_ordens_reparacao_tempos.WDR; dossier: QRY_select_ordens_reparacao_tempos/sql,verified,"Selects order state types 3,2,6,4,5 through OR predicates, with vehicle/state joins and optional mechanic. Orders numero ascending.",Preserve legacy SQL semantics,,,,specified
+RULE-Q18-003,rule,QRY_select_ordens_reparacao_tempos,QRY_select_ordens_reparacao_tempos,,legacy/GestaoOficinas_TesteIA/QRY_select_ordens_reparacao_tempos.WDR,unresolved,U-Q18-03: Query runtime omission/null/collation and PDF literal validation,,,,,unmapped
+RULE-Q18-004,rule,QRY_select_ordens_reparacao_tempos,QRY_select_ordens_reparacao_tempos,,legacy/GestaoOficinas_TesteIA/QRY_select_ordens_reparacao_tempos.WDR,unresolved,U-Q18-04: Caller error/empty-result contract,,,,,unmapped

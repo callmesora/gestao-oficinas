@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="804" height="589" viewBox="0 0 804 589" font-family="sans-serif" font-size="10">
+<rect width="804" height="589" fill="#fafafa" stroke="#999"/>
+<g><title>TABLE_cab_stocks (19,104 648×475)</title><rect x="19" y="104" width="648" height="475" fill="#f3f3f3" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="116" fill="#111">TABLE_cab_stocks</text></g>
+<g><title>RADTitle (9,4 651×18)</title><rect x="9" y="4" width="651" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="12" y="16" fill="#111">Movimentos de Stocks</text></g>
+<g><title>COMBO_tipo_doc (19,62 214×31)</title><rect x="19" y="62" width="214" height="31" fill="#fff7d6" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="74" fill="#111">COMBO_tipo_doc</text></g>
+<g><title>EDT_descricao (556,66 225×24)</title><rect x="556" y="66" width="225" height="24" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="559" y="78" fill="#111">EDT_descricao</text></g>
+<g><title>BTN_novo (675,104 106×46)</title><rect x="675" y="104" width="106" height="46" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="678" y="116" fill="#111">Novo</text></g>
+<g><title>BTN_alterar (675,156 106×46)</title><rect x="675" y="156" width="106" height="46" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="678" y="168" fill="#111">Alterar</text></g>
+<g><title>BTN_Eliminar (675,208 106×46)</title><rect x="675" y="208" width="106" height="46" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="678" y="220" fill="#111">Eliminar</text></g>
+<g><title>EDT_Da_data (388,36 144×24)</title><rect x="388" y="36" width="144" height="24" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="391" y="48" fill="#111">Da data</text></g>
+<g><title>EDT_a_data (388,66 144×24)</title><rect x="388" y="66" width="144" height="24" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="391" y="78" fill="#111">À data</text></g>
+<g><title>EDT_Do_n (250,36 117×24)</title><rect x="250" y="36" width="117" height="24" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="253" y="48" fill="#111">Do n”</text></g>
+<g><title>EDT_Ao_n (250,66 117×24)</title><rect x="250" y="66" width="117" height="24" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="253" y="78" fill="#111">Ao n”</text></g>
+<g><title>SCSystemButtons (666,1 128×18)</title><rect x="666" y="1" width="128" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="669" y="13" fill="#111">SCSystemButtons</text></g>
+<g><title>STC_Tipo_de_Documento (19,36 100×20)</title><rect x="19" y="36" width="100" height="20" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="22" y="48" fill="#111">Tipo de Documento</text></g>
+<g><title>STC_Descricao (556,36 100×20)</title><rect x="556" y="36" width="100" height="20" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="559" y="48" fill="#111">Descriçªo</text></g>
+<g><title>BTN_VISION (187,36 42×24)</title><rect x="187" y="36" width="42" height="24" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="190" y="48" fill="#111">BTN_VISION</text></g>
+<g><title>BTN_SYST_FERMER (750,0 44×19)</title><rect x="750" y="0" width="44" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="753" y="12" fill="#111">BTN_SYST_FERMER</text></g>
+<g><title>BTN_SYST_MINIMIZE (700,0 26×19)</title><rect x="700" y="0" width="26" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="703" y="12" fill="#111">BTN_SYST_MINIMIZE</text></g>
+<g><title>BTN_Syst_Maximize (726,0 25×19)</title><rect x="726" y="0" width="25" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="729" y="12" fill="#111">BTN_Syst_Maximize</text></g>
+<g><title>BTN_UMC (666,0 24×19)</title><rect x="666" y="0" width="24" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="669" y="12" fill="#111">&amp;Bouton</text></g>
+<g><title>BTN_Syst_Restore (570,-19 14×14)</title><rect x="570" y="-19" width="14" height="14" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="573" y="-7" fill="#111">BTN_Syst_Restore</text></g>
+</svg>

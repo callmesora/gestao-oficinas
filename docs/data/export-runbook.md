@@ -1,0 +1,35 @@
+# HFSQL export runbook and limits
+
+The playbook Python exporter fails on this machine with the HFSQL 28 x64 driver. An x86 .NET ODBC connection opens, but Unicode query entry points fail. scripts/windows/HfSqlOdbcAnsi.cs instead calls the installed official x86 driver's ANSI ODBC functions. This is a supported-driver read, not FIC decoding.
+
+## Prerequisites and isolation
+
+Use the built-in 32-bit Windows PowerShell host. The wrapper enforces a local DSN whose data and WDD paths resolve under this workspace's analysis-local/hfsql-scratch-* prefix and rejects server DSNs. Raw JSONL output must remain under analysis-local/. No DSN named MigrationCopy was altered. The dedicated Step 0 DSNs point only at the generated scratch copy.
+
+The PowerShell process uses RemoteSigned for this invocation only so locally authored scripts can run; machine/user execution policies were not changed. No extra Python was installed. Automatic approval review rejected a proposed 32-bit Python installer twice; the successful export uses existing Windows facilities instead.
+
+## Reproduction
+
+1. Copy the intended local Exe data and matching WDD to a new analysis-local/hfsql-scratch-TIMESTAMP folder. Never run the legacy application against it during export.
+2. Configure a new user x86 HFSQL DSN. On this driver Add-OdbcDsn created blank path fields despite supplied SetPropertyValue; explicitly verify RepFic and Analyse. Set only the new dedicated DSN's values; never reuse a production server or credentials.
+3. Derive the exact expected table names from the XDD into a local JSON list. All 17 names must be present in the final manifest, including zero-row tables.
+4. Run the wrapper in a 32-bit host with a fresh output directory:
+
+```powershell
+& C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File scripts/windows/export_hfsql_ansi.ps1 -Dsn GestaoOficinasStep0x86 -TablesFile analysis-local/export-tables.json -Out analysis-local/hfsql-ansi-NEWSTAMP
+. .\setup\Enter-Prerequisites.ps1
+python scripts/windows/convert_hfsql_ansi.py analysis-local/hfsql-ansi-NEWSTAMP --out analysis-local/data-NEWSTAMP
+```
+
+5. Check the expected table inventory, row counts, typed hashes, parsed CSV counts, null/binary counts and unchanged scratch file hashes before making this the canonical legacy/data derivative.
+6. Run scripts/data_profile.py against the SQLite copy and schema draft. Keep raw data private and local.
+
+## Fidelity
+
+SQLGetData reads binary values as bytes and NULL separately from empty text. Decimal/integer text is not coerced through floating point. Native float/double values use round-trip strings. ANSI text uses strict Windows-1252 decoding to UTF-8. Large values use chunking; only explicit 01004 truncation warnings permit continuation, and other conversion warnings fail. The converter refuses an empty input folder, verifies every table count and closes its database handle deterministically.
+
+The compatibility hash follows the playbook, while sha256_typed_rows adds explicit row/cell type and length frames. The latter distinguishes NULL from empty strings, text from binary, and ambiguous row concatenations.
+
+Known limits: this is the official driver's view, not proof of undocumented storage encoding. All generated composite/link BLOBs in this copy are empty; do not infer their business meaning or use them as imported relational keys. Large-payload chunking beyond this dataset was not exercised through a synthetic HFSQL table. The scratch source was stable and unchanged; no transactional snapshot of a live server is claimed.
+
+Focused converter tests cover binary/NUL data, NULL vs empty text, accented multiline text, values beyond 2^53, exact decimal strings, count mismatch, empty input rejection, typed hash separation and Windows handle release. Independent review and actual repeated-driver verification are recorded under docs/runbooks/reviews/ and docs/data/export-verification.json.

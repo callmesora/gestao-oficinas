@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="804" height="589" viewBox="0 0 804 589" font-family="sans-serif" font-size="10">
+<rect width="804" height="589" fill="#fafafa" stroke="#999"/>
+<g><title>EDT_servico_avaria (19,216 649×95)</title><rect x="19" y="216" width="649" height="95" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="228" fill="#111">EDT_servico_avaria</text></g>
+<g><title>EDT_observacao (19,350 649×95)</title><rect x="19" y="350" width="649" height="95" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="362" fill="#111">EDT_observacao</text></g>
+<g><title>EDT_Contactos (318,135 350×72)</title><rect x="318" y="135" width="350" height="72" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="321" y="147" fill="#111">Contactos</text></g>
+<g><title>RADTitle (9,4 651×18)</title><rect x="9" y="4" width="651" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="12" y="16" fill="#111">Ordem de reparaçªo</text></g>
+<g><title>EDT_Cliente (271,73 397×24)</title><rect x="271" y="73" width="397" height="24" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="274" y="85" fill="#111">Cliente</text></g>
+<g><title>COMBO_Recepcionado (340,459 279×31)</title><rect x="340" y="459" width="279" height="31" fill="#fff7d6" stroke="#6b7280" stroke-dasharray="0"/><text x="343" y="471" fill="#111">Recepcionado</text></g>
+<g><title>COMBO_mecanico (19,459 262×31)</title><rect x="19" y="459" width="262" height="31" fill="#fff7d6" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="471" fill="#111">Mecânico</text></g>
+<g><title>COMBO_estado (19,148 229×31)</title><rect x="19" y="148" width="229" height="31" fill="#fff7d6" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="160" fill="#111">COMBO_estado</text></g>
+<g><title>EDT_Marca_Modelo (19,105 288×24)</title><rect x="19" y="105" width="288" height="24" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="117" fill="#111">Marca / Modelo</text></g>
+<g><title>COMBO_Prioridade (19,502 181×31)</title><rect x="19" y="502" width="181" height="31" fill="#fff7d6" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="514" fill="#111">Prioridade</text></g>
+<g><title>EDT_Nr_Fatura (98,547 230×24)</title><rect x="98" y="547" width="230" height="24" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="101" y="559" fill="#111">Nr” Fatura</text></g>
+<g><title>EDT_data_hora_entrada (165,36 185×25)</title><rect x="165" y="36" width="185" height="25" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="168" y="48" fill="#111">Data entrada</text></g>
+<g><title>EDT_matricula (19,73 181×24)</title><rect x="19" y="73" width="181" height="24" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="85" fill="#111">Matrícula</text></g>
+<g><title>BTN_Gravar (685,36 96×45)</title><rect x="685" y="36" width="96" height="45" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="688" y="48" fill="#111">Gravar</text></g>
+<g><title>BTN_Cancelar (685,91 96×45)</title><rect x="685" y="91" width="96" height="45" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="688" y="103" fill="#111">Cancelar</text></g>
+<g><title>EDT_Terceiro_Descricao (493,105 175×24)</title><rect x="493" y="105" width="175" height="24" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="496" y="117" fill="#111">EDT_Terceiro_Descricao</text></g>
+<g><title>EDT_Data_pagamento (493,547 172×24)</title><rect x="493" y="547" width="172" height="24" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="496" y="559" fill="#111">Data pagamento</text></g>
+<g><title>BTN_informacao (687,536 94×43)</title><rect x="687" y="536" width="94" height="43" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="690" y="548" fill="#111">Informaçªo</text></g>
+<g><title>EDT_data_entrega (369,36 159×25)</title><rect x="369" y="36" width="159" height="25" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="372" y="48" fill="#111">Data entrega</text></g>
+<g><title>EDT_Total_Pago (337,547 144×24)</title><rect x="337" y="547" width="144" height="24" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="340" y="559" fill="#111">Total Pago</text></g>
+<g><title>EDT_Ordem_n (19,36 126×24)</title><rect x="19" y="36" width="126" height="24" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="48" fill="#111">Ordem n”</text></g>
+<g><title>EDT_Terceiro (318,105 121×24)</title><rect x="318" y="105" width="121" height="24" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="321" y="117" fill="#111">Terceiro</text></g>
+<g><title>EDT_KM (552,36 116×24)</title><rect x="552" y="36" width="116" height="24" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="555" y="48" fill="#111">KM</text></g>
+<g><title>SCSystemButtons (666,1 128×18)</title><rect x="666" y="1" width="128" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="669" y="13" fill="#111">SCSystemButtons</text></g>
+<g><title>STC_Estado (19,133 100×20)</title><rect x="19" y="133" width="100" height="20" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="22" y="145" fill="#111">Estado</text></g>
+<g><title>STC_Serviço_Avaria (19,190 100×20)</title><rect x="19" y="190" width="100" height="20" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="22" y="202" fill="#111">Serviço / Avaria</text></g>
+<g><title>STC_Observação (19,324 100×20)</title><rect x="19" y="324" width="100" height="20" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="22" y="336" fill="#111">STC_Observação</text></g>
+<g><title>CBOX_faturado (19,547 74×25)</title><rect x="19" y="547" width="74" height="25" fill="#e8f5e9" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="559" fill="#111">I&amp;nterruptor</text></g>
+<g><title>BTN_VISION1 (206,72 42×24)</title><rect x="206" y="72" width="42" height="24" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="209" y="84" fill="#111">BTN_VISION1</text></g>
+<g><title>BTN_VISION (254,152 42×24)</title><rect x="254" y="152" width="42" height="24" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="257" y="164" fill="#111">BTN_VISION</text></g>
+<g><title>BTN_VISION2 (287,462 42×24)</title><rect x="287" y="462" width="42" height="24" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="290" y="474" fill="#111">BTN_VISION2</text></g>
+<g><title>BTN_VISION3 (625,462 42×24)</title><rect x="625" y="462" width="42" height="24" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="628" y="474" fill="#111">BTN_VISION3</text></g>
+<g><title>BTN_VISION4 (445,105 42×24)</title><rect x="445" y="105" width="42" height="24" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="448" y="117" fill="#111">BTN_VISION4</text></g>
+<g><title>BTN_SYST_FERMER (750,0 44×19)</title><rect x="750" y="0" width="44" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="753" y="12" fill="#111">BTN_SYST_FERMER</text></g>
+<g><title>BTN_SYST_MINIMIZE (700,0 26×19)</title><rect x="700" y="0" width="26" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="703" y="12" fill="#111">BTN_SYST_MINIMIZE</text></g>
+<g><title>BTN_Syst_Maximize (726,0 25×19)</title><rect x="726" y="0" width="25" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="729" y="12" fill="#111">BTN_Syst_Maximize</text></g>
+<g><title>BTN_UMC (666,0 24×19)</title><rect x="666" y="0" width="24" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="669" y="12" fill="#111">&amp;Bouton</text></g>
+<g><title>BTN_Syst_Restore (570,-19 14×14)</title><rect x="570" y="-19" width="14" height="14" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="573" y="-7" fill="#111">BTN_Syst_Restore</text></g>
+</svg>

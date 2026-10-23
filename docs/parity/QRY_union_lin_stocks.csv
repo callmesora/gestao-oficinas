@@ -1,0 +1,4 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-1e34bad8d5,export-needed,QRY_union_lin_stocks,,,legacy/GestaoOficinas_TesteIA/QRY_union_lin_stocks.WDR; dossier: QRY_union_lin_stocks/sql,verified,"Selects stock document exits (documentos.stock=2), article and header timestamp ranges plus description LIKE. Header-to-line join uses document number without document code, unlike the ledger query, so same-number documents can duplicate/mix results.",Preserve legacy SQL semantics,,,,specified
+RULE-Q28-003,rule,QRY_union_lin_stocks,QRY_union_lin_stocks,,legacy/GestaoOficinas_TesteIA/QRY_union_lin_stocks.WDR,unresolved,U-Q28-03: Query runtime omission/null/collation and PDF literal validation,,,,,unmapped
+RULE-Q28-004,rule,QRY_union_lin_stocks,QRY_union_lin_stocks,,legacy/GestaoOficinas_TesteIA/QRY_union_lin_stocks.WDR,unresolved,U-Q28-04: Caller error/empty-result contract,,,,,unmapped

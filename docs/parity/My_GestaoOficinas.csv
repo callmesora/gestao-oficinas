@@ -1,0 +1,5 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-a18ed57430,project,My_GestaoOficinas,,196608,legacy/GestaoOficinas_TesteIA/My_GestaoOficinas.wdp:697-773,verified,"Project globals, act.txt schema-update branches, servidor.ini keys, optional HOpenConnection/HChangeConnection server startup and failure termination.",Preserve evidenced startup sequence; replacements require framing decisions,,,,specified
+RULE-PRJ-001,rule,My_GestaoOficinas,My_GestaoOficinas,,legacy/GestaoOficinas_TesteIA/My_GestaoOficinas.wdp:697-773,unresolved,U-PRJ-01: Actual deployed topology,,,,,unmapped
+RULE-PRJ-002,rule,My_GestaoOficinas,My_GestaoOficinas,,legacy/GestaoOficinas_TesteIA/My_GestaoOficinas.wdp:697-773,unresolved,U-PRJ-02: First-window/update failure runtime sequence,,,,,unmapped
+RULE-PRJ-003,rule,My_GestaoOficinas,My_GestaoOficinas,,legacy/GestaoOficinas_TesteIA/My_GestaoOficinas.wdp:697-773,unresolved,U-PRJ-03: Credential-bearing diagnostics replacement,,,,,unmapped

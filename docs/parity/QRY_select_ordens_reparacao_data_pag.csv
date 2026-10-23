@@ -1,0 +1,4 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-edd6c0f4b1,export-needed,QRY_select_ordens_reparacao_data_pag,,,legacy/GestaoOficinas_TesteIA/QRY_select_ordens_reparacao_data_pag.WDR; dossier: QRY_select_ordens_reparacao_data_pag/sql,verified,"Filters payment date inclusively and state IN list, joins vehicle owner customer. Dossier SQL has no explicit ORDER BY.",Preserve legacy SQL semantics,,,,specified
+RULE-Q15-003,rule,QRY_select_ordens_reparacao_data_pag,QRY_select_ordens_reparacao_data_pag,,legacy/GestaoOficinas_TesteIA/QRY_select_ordens_reparacao_data_pag.WDR,unresolved,U-Q15-03: Query runtime omission/null/collation and PDF literal validation,,,,,unmapped
+RULE-Q15-004,rule,QRY_select_ordens_reparacao_data_pag,QRY_select_ordens_reparacao_data_pag,,legacy/GestaoOficinas_TesteIA/QRY_select_ordens_reparacao_data_pag.WDR,unresolved,U-Q15-04: Caller error/empty-result contract,,,,,unmapped

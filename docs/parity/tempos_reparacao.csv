@@ -1,0 +1,5 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-39de2bd256,table,tempos_reparacao,data mapping and reconciliation,,legacy/GestaoOficinas_TesteIA/GestaoOficinas.xdd; docs/schema/schema-draft.md; export: docs/data/profile.md#tempos_reparacao,verified,Labor time rows linked by repair numero and mechanic Codigo; empty/open finish sentinel and duration rounding matter. Export counts 21045/21045.,Preserve table values and evidenced business keys; import decisions deferred,,,,specified
+RULE-T06-001,rule,tempos_reparacao,tempos_reparacao,,docs/schema/schema-draft.md; export: docs/data/profile.md#tempos_reparacao,unresolved,U-T06-01: Runtime integrity/collation enforcement,,,,,unmapped
+RULE-T06-002,rule,tempos_reparacao,tempos_reparacao,,docs/schema/schema-draft.md; export: docs/data/profile.md#tempos_reparacao,unresolved,U-T06-02: Import representation and existing anomalies,,,,,unmapped
+RULE-T06-003,rule,tempos_reparacao,tempos_reparacao,,docs/schema/schema-draft.md; export: docs/data/profile.md#tempos_reparacao,unresolved,U-T06-03: Driver-generated key fidelity,,,,,unmapped

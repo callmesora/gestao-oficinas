@@ -1,0 +1,15 @@
+{
+  "units": 143,
+  "rows": 2273,
+  "source_seed_rows": 877,
+  "status": {
+    "specified": 1792,
+    "unmapped": 481
+  },
+  "confidence": {
+    "verified": 1396,
+    "unresolved": 481,
+    "inferred": 70,
+    "assumed": 326
+  }
+}

@@ -1,0 +1,5 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-591960029c,table,postos,data mapping and reconciliation,,legacy/GestaoOficinas_TesteIA/GestaoOficinas.xdd; docs/schema/schema-draft.md; export: docs/data/profile.md#postos,verified,Workstation/terminal association lookup; source form new-record check references Terminais instead of postos. Export counts 0/0.,Preserve table values and evidenced business keys; import decisions deferred,,,,specified
+RULE-T17-001,rule,postos,postos,,docs/schema/schema-draft.md; export: docs/data/profile.md#postos,unresolved,U-T17-01: Runtime integrity/collation enforcement,,,,,unmapped
+RULE-T17-002,rule,postos,postos,,docs/schema/schema-draft.md; export: docs/data/profile.md#postos,unresolved,U-T17-02: Import representation and existing anomalies,,,,,unmapped
+RULE-T17-003,rule,postos,postos,,docs/schema/schema-draft.md; export: docs/data/profile.md#postos,unresolved,U-T17-03: Driver-generated key fidelity,,,,,unmapped

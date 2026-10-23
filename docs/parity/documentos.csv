@@ -1,0 +1,5 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-4a1e932f39,table,documentos,data mapping and reconciliation,,legacy/GestaoOficinas_TesteIA/GestaoOficinas.xdd; docs/schema/schema-draft.md; export: docs/data/profile.md#documentos,verified,Document-code master; stock direction and obriga_macanico control stock-entry workflows. Export counts 4/4.,Preserve table values and evidenced business keys; import decisions deferred,,,,specified
+RULE-T10-001,rule,documentos,documentos,,docs/schema/schema-draft.md; export: docs/data/profile.md#documentos,unresolved,U-T10-01: Runtime integrity/collation enforcement,,,,,unmapped
+RULE-T10-002,rule,documentos,documentos,,docs/schema/schema-draft.md; export: docs/data/profile.md#documentos,unresolved,U-T10-02: Import representation and existing anomalies,,,,,unmapped
+RULE-T10-003,rule,documentos,documentos,,docs/schema/schema-draft.md; export: docs/data/profile.md#documentos,unresolved,U-T10-03: Driver-generated key fidelity,,,,,unmapped

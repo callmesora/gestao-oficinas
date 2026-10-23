@@ -1,0 +1,4 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-820fc864e5,export-needed,QRY_select_cab_lin_stocks,,,legacy/GestaoOficinas_TesteIA/QRY_select_cab_lin_stocks.WDR; dossier: QRY_select_cab_lin_stocks/sql,verified,"Joins header and lines on BOTH document number and code, adds document stock direction, restricts timestamp and article inclusive ranges, sorts article then date ascending.",Preserve legacy SQL semantics,,,,specified
+RULE-Q05-003,rule,QRY_select_cab_lin_stocks,QRY_select_cab_lin_stocks,,legacy/GestaoOficinas_TesteIA/QRY_select_cab_lin_stocks.WDR,unresolved,U-Q05-03: Query runtime omission/null/collation and PDF literal validation,,,,,unmapped
+RULE-Q05-004,rule,QRY_select_cab_lin_stocks,QRY_select_cab_lin_stocks,,legacy/GestaoOficinas_TesteIA/QRY_select_cab_lin_stocks.WDR,unresolved,U-Q05-04: Caller error/empty-result contract,,,,,unmapped

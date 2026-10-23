@@ -1,0 +1,5 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-0d561ce8a7,table,sistema,data mapping and reconciliation,,legacy/GestaoOficinas_TesteIA/GestaoOficinas.xdd; docs/schema/schema-draft.md; export: docs/data/profile.md#sistema,verified,"Application system thresholds/time configuration and start date, distinct from per-user runtime state. Export counts 1/1.",Preserve table values and evidenced business keys; import decisions deferred,,,,specified
+RULE-T16-001,rule,sistema,sistema,,docs/schema/schema-draft.md; export: docs/data/profile.md#sistema,unresolved,U-T16-01: Runtime integrity/collation enforcement,,,,,unmapped
+RULE-T16-002,rule,sistema,sistema,,docs/schema/schema-draft.md; export: docs/data/profile.md#sistema,unresolved,U-T16-02: Import representation and existing anomalies,,,,,unmapped
+RULE-T16-003,rule,sistema,sistema,,docs/schema/schema-draft.md; export: docs/data/profile.md#sistema,unresolved,U-T16-03: Driver-generated key fidelity,,,,,unmapped

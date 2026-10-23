@@ -1,0 +1,5 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-1f9cb4e091,table,Terminais,data mapping and reconciliation,,legacy/GestaoOficinas_TesteIA/GestaoOficinas.xdd; docs/schema/schema-draft.md; export: docs/data/profile.md#Terminais,verified,"Barcode terminal configuration, including barcode start/finish positions and input filenames/directories. Export counts 0/0.",Preserve table values and evidenced business keys; import decisions deferred,,,,specified
+RULE-T15-001,rule,Terminais,Terminais,,docs/schema/schema-draft.md; export: docs/data/profile.md#Terminais,unresolved,U-T15-01: Runtime integrity/collation enforcement,,,,,unmapped
+RULE-T15-002,rule,Terminais,Terminais,,docs/schema/schema-draft.md; export: docs/data/profile.md#Terminais,unresolved,U-T15-02: Import representation and existing anomalies,,,,,unmapped
+RULE-T15-003,rule,Terminais,Terminais,,docs/schema/schema-draft.md; export: docs/data/profile.md#Terminais,unresolved,U-T15-03: Driver-generated key fidelity,,,,,unmapped

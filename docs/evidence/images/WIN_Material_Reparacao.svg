@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="804" height="589" viewBox="0 0 804 589" font-family="sans-serif" font-size="10">
+<rect width="804" height="589" fill="#fafafa" stroke="#999"/>
+<g><title>TABLE_ordens_reparacao (195,72 474×507)</title><rect x="195" y="72" width="474" height="507" fill="#f3f3f3" stroke="#6b7280" stroke-dasharray="0"/><text x="198" y="84" fill="#111">TABLE_ordens_reparacao</text></g>
+<g><title>LIST_mecanicos (19,106 170×422)</title><rect x="19" y="106" width="170" height="422" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="118" fill="#111">LIST_mecanicos</text></g>
+<g><title>RADTitle (9,4 651×18)</title><rect x="9" y="4" width="651" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="12" y="16" fill="#111">Materiais de Reparaçªo</text></g>
+<g><title>STC_Ordens_de_Reparacao (19,36 170×30)</title><rect x="19" y="36" width="170" height="30" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="22" y="48" fill="#111">Ordens de Reparaçªo</text></g>
+<g><title>STC_filtro_atual (195,36 170×30)</title><rect x="195" y="36" width="170" height="30" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="198" y="48" fill="#111">Todos</text></g>
+<g><title>BTN_Material (675,72 106×46)</title><rect x="675" y="72" width="106" height="46" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="678" y="84" fill="#111">Material</text></g>
+<g><title>BTN_todos (19,72 170×28)</title><rect x="19" y="72" width="170" height="28" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="84" fill="#111">Todos</text></g>
+<g><title>BTN_seguinte (675,541 106×38)</title><rect x="675" y="541" width="106" height="38" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="678" y="553" fill="#111">Seguinte</text></g>
+<g><title>BTN_anterior (675,497 106×38)</title><rect x="675" y="497" width="106" height="38" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="678" y="509" fill="#111">Anterior</text></g>
+<g><title>BTN_seguinte1 (107,534 82×45)</title><rect x="107" y="534" width="82" height="45" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="110" y="546" fill="#111">Seguinte</text></g>
+<g><title>BTN_anterior1 (19,534 82×45)</title><rect x="19" y="534" width="82" height="45" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="546" fill="#111">Anterior</text></g>
+<g><title>BTN_Fechar (675,36 106×30)</title><rect x="675" y="36" width="106" height="30" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="678" y="48" fill="#111">Fechar</text></g>
+<g><title>SCSystemButtons (666,1 128×18)</title><rect x="666" y="1" width="128" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="669" y="13" fill="#111">SCSystemButtons</text></g>
+<g><title>BTN_SYST_FERMER (750,0 44×19)</title><rect x="750" y="0" width="44" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="753" y="12" fill="#111">BTN_SYST_FERMER</text></g>
+<g><title>BTN_SYST_MINIMIZE (700,0 26×19)</title><rect x="700" y="0" width="26" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="703" y="12" fill="#111">BTN_SYST_MINIMIZE</text></g>
+<g><title>BTN_Syst_Maximize (726,0 25×19)</title><rect x="726" y="0" width="25" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="729" y="12" fill="#111">BTN_Syst_Maximize</text></g>
+<g><title>BTN_UMC (666,0 24×19)</title><rect x="666" y="0" width="24" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="669" y="12" fill="#111">&amp;Bouton</text></g>
+<g><title>BTN_Syst_Restore (570,-19 14×14)</title><rect x="570" y="-19" width="14" height="14" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="573" y="-7" fill="#111">BTN_Syst_Restore</text></g>
+</svg>

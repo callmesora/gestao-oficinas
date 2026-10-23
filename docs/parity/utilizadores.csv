@@ -1,0 +1,5 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-013493cb65,table,utilizadores,data mapping and reconciliation,,legacy/GestaoOficinas_TesteIA/GestaoOficinas.xdd; docs/schema/schema-draft.md; export: docs/data/profile.md#utilizadores,verified,Legacy application users and password field; no new permission model is chosen during Step 0. Export counts 1/1.,Preserve table values and evidenced business keys; import decisions deferred,,,,specified
+RULE-T08-001,rule,utilizadores,utilizadores,,docs/schema/schema-draft.md; export: docs/data/profile.md#utilizadores,unresolved,U-T08-01: Runtime integrity/collation enforcement,,,,,unmapped
+RULE-T08-002,rule,utilizadores,utilizadores,,docs/schema/schema-draft.md; export: docs/data/profile.md#utilizadores,unresolved,U-T08-02: Import representation and existing anomalies,,,,,unmapped
+RULE-T08-003,rule,utilizadores,utilizadores,,docs/schema/schema-draft.md; export: docs/data/profile.md#utilizadores,unresolved,U-T08-03: Driver-generated key fidelity,,,,,unmapped

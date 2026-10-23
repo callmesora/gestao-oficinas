@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="306" height="175" viewBox="0 0 306 175" font-family="sans-serif" font-size="10">
+<rect width="306" height="175" fill="#fafafa" stroke="#999"/>
+<g><title>STC_Titulo (31,39 240×37)</title><rect x="31" y="39" width="240" height="37" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="34" y="51" fill="#111">STC_Titulo</text></g>
+<g><title>BTN_Confirmar (19,120 129×45)</title><rect x="19" y="120" width="129" height="45" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="132" fill="#111">Confirmar</text></g>
+<g><title>BTN_Cancelar (154,120 129×45)</title><rect x="154" y="120" width="129" height="45" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="157" y="132" fill="#111">Cancelar</text></g>
+<g><title>RADTitle (9,4 153×18)</title><rect x="9" y="4" width="153" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="12" y="16" fill="#111">RADTitle</text></g>
+<g><title>SCSystemButtons (168,1 128×18)</title><rect x="168" y="1" width="128" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="171" y="13" fill="#111">SCSystemButtons</text></g>
+<g><title>BTN_SYST_FERMER (252,0 44×19)</title><rect x="252" y="0" width="44" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="255" y="12" fill="#111">BTN_SYST_FERMER</text></g>
+<g><title>EDT_Letra (140,85 23×27)</title><rect x="140" y="85" width="23" height="27" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="143" y="97" fill="#111">EDT_Letra</text></g>
+<g><title>BTN_SYST_MINIMIZE (202,0 26×19)</title><rect x="202" y="0" width="26" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="205" y="12" fill="#111">BTN_SYST_MINIMIZE</text></g>
+<g><title>BTN_Syst_Maximize (228,0 25×19)</title><rect x="228" y="0" width="25" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="231" y="12" fill="#111">BTN_Syst_Maximize</text></g>
+<g><title>BTN_UMC (168,0 24×19)</title><rect x="168" y="0" width="24" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="171" y="12" fill="#111">&amp;Bouton</text></g>
+<g><title>BTN_Syst_Restore (72,-19 14×14)</title><rect x="72" y="-19" width="14" height="14" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="75" y="-7" fill="#111">BTN_Syst_Restore</text></g>
+</svg>

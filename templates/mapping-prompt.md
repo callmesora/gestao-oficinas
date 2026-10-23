@@ -1,0 +1,24 @@
+# Mapping prompt (journey step 2 — inspect and map, before any code)
+
+Run once the legacy material is collected, and again for any source added later (its first step regenerates the evidence; seed IDs stay stable). The goal is a complete, reviewed description of the legacy application **before** any code is written.
+
+```text
+Read AGENTS.md and docs/wlanguage-traps.md (both installed at repository setup, chapter 06 §2).
+
+Goal: map the whole legacy application into docs/mapping/ and docs/parity/parity.csv. Do not write application code.
+
+0. Evidence first: run `python3 scripts/prepare_evidence.py` (inspector, dossier extract, event legend, evidence report, navigation map, schema draft, layouts; the paths it used are in analysis-local/latest.json — use those everywhere below). Resolve every gap in docs/evidence-report.md or record it in docs/legacy-inventory.md (the report is regenerated); add the platform-usage findings (INI files, external programs, command-line modes, printing) as parity rows; hand the runtime questions and the encoded-action groups to the human (answers go to docs/evidence/encoded-actions.md) and go on with their `Proposed` answers meanwhile.
+1. Event codes: docs/mapping/event-codes.md is generated from WINDEV's compiled event labels and counts as verified. For codes it does not cover, infer from evidence across many windows (control type, code content) into docs/mapping/event-codes-inferred.md, each labelled inferred, so every mapper uses the same meanings and regenerating the verified legend never erases them.
+1b. Porting patterns, before any unit is mapped: docs/porting.md is this project's concrete layer over chapters 09 (WLanguage traps) and 07 (platform services) — it does not repeat their explanations. For every function and recurring construct the app uses (docs/evidence-report.md §2 platform usage; RAD list/form pairs, file-browsed tables, Info/YesNo/Dialog, Open with ..ReturnedValue, HFilter, ScreenToFile/FileToScreen, iPrintReport…), one line: the construct, the link to its 09/07 entry, and where and how this code base does it (the Rust command or domain function shape, the skin-kit component or hook, the file that shows it). Constructs 09 does not cover get a short entry there too. A reviewer checks it; one fixer applies. Mappers cite it; implementers follow it; a slice that needs a pattern not in it adds the line first, and the first slices fill in the "where" as the code appears.
+2. Plan the split: one unit per window, report, query, procedure set, class and table group (≈5–10 tables). List units in docs/mapping/README.md with their parity-seed row counts.
+3. Fan out: one unit per sub-agent in parallel (or per parallel session, or sequentially if your agent has no sub-agents). Each follows skills/map-element/SKILL.md and writes docs/mapping/<unit>.md, its spec (docs/screens/<unit>.md for a window, docs/reports/<unit>.md for a report) and docs/parity/<unit>.csv, validated with parity_check.py --element <unit>. Sub-agents never write to legacy/ or analysis-local/.
+4. Cross-review: for each unit, a different sub-agent or session (ideally a different model) follows skills/review-mapping/SKILL.md, adversarially, and reports findings in its six categories; a unit touching money, stock or totals, the data import, deleting or overwriting data, or a multi-window workflow gets a second, independent reviewer. One fixer applies the corrections, then re-runs parity_check.py for the unit.
+5. Consolidate (for a subset of units, only what those units cover):
+   - docs/legacy-inventory.md: sources, coverage, binary or missing exports to request (queries, encoded properties, reports), nested projects, external dependencies, hardcoded secrets to revoke (location only, never the value).
+   - docs/mapping/entities.md, screens.md (navigation map: start from the generated docs/navigation.md — proven call sites — and add what it cannot see: encoded actions once answered, dynamic targets, modal or not, parameters, returned values), workflows.md, permissions.md, reports.md, jobs-and-integrations.md.
+   - docs/parity/parity.csv: merge the per-unit CSVs, then import every remaining parity-seed.csv row unchanged (keep IDs), and add rows for menus, shortcuts, rights, reports, jobs and integrations not covered by code blocks.
+6. Run python3 scripts/parity_check.py docs/parity/parity.csv --seed docs/parity/parity-seed.csv --check-files and fix every error.
+7. Write the handoff: coverage numbers, unresolved items, exports needed from WINDEV, questions for the human.
+
+Never execute legacy code. Numeric event and type codes stay raw in the notes; their meanings live only in docs/mapping/event-codes.md (verified) and event-codes-inferred.md (inferred until documentation, a screenshot or the running app confirms them).
+```

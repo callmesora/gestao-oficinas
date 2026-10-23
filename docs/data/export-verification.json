@@ -1,0 +1,107 @@
+{
+  "tables": 17,
+  "rows": 159668,
+  "null_values": 16979,
+  "binary_values": 23615,
+  "checks": [
+    "17 XDD tables all present",
+    "source COUNT(*) before and after equals rows fetched",
+    "second hardened driver read matches first export hashes",
+    "SQLite counts and typed hashes match manifest",
+    "parsed CSV record counts match manifest",
+    "35/35 scratch data files unchanged after queries"
+  ],
+  "per_table": {
+    "artigos": {
+      "rows": 15558,
+      "source_count": 15558,
+      "sha256_typed_rows": "2f1aa3dd197620df5ca601579d879792d9c8c1a8f58bf928ca0e9dcd32349e48"
+    },
+    "cab_stocks": {
+      "rows": 4217,
+      "source_count": 4217,
+      "sha256_typed_rows": "3b6c92cd2c4e256d128c225001aaccfe8ebe50819986af121e47e8649f4ae09b"
+    },
+    "Clientes": {
+      "rows": 2165,
+      "source_count": 2165,
+      "sha256_typed_rows": "00c8293b2512b99442f7243fa4a10cef76b3768ca82c0e4457438e7fc7096658"
+    },
+    "documentos": {
+      "rows": 4,
+      "source_count": 4,
+      "sha256_typed_rows": "b0942a1c819dfd171c89235c4d7a3278c272827e5ad98a762dcc236a61e447e0"
+    },
+    "estados_descritivos": {
+      "rows": 5,
+      "source_count": 5,
+      "sha256_typed_rows": "805a801635abab72c8451aba37b622d059b17675a9a17ffe0917e01fd30b6bc8"
+    },
+    "estados_reparacao": {
+      "rows": 11,
+      "source_count": 11,
+      "sha256_typed_rows": "d4d7cd40a41504b779bfe9896f9bf80bbe1edc841ab86aaf5b2053ecc89a79ef"
+    },
+    "lin_stocks": {
+      "rows": 23615,
+      "source_count": 23615,
+      "sha256_typed_rows": "851f7a4ddf6d18dbf3f461e63983dd70689c615b8d6626d62f79e015e9fb5943"
+    },
+    "material_reparacao": {
+      "rows": 72768,
+      "source_count": 72768,
+      "sha256_typed_rows": "1bb0b50274fcd53454a294da2d9cc6c676977f0d53632e2d64f4ed9d87f3b446"
+    },
+    "mecanicos": {
+      "rows": 11,
+      "source_count": 11,
+      "sha256_typed_rows": "77f96cd04cb8bd928ac2eaabaf8c4dddc74541e40097100ee81bc0da3ef25000"
+    },
+    "ordem_reparacao": {
+      "rows": 15719,
+      "source_count": 15719,
+      "sha256_typed_rows": "d93dde53cf040975536a99e05f8939526987bf236f65c6aa768e1f50dd120b4c"
+    },
+    "postos": {
+      "rows": 0,
+      "source_count": 0,
+      "sha256_typed_rows": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sistema": {
+      "rows": 1,
+      "source_count": 1,
+      "sha256_typed_rows": "781d112537d360f9f71b3571f3e7e9b37dec4fc06daf84c43524d67a8d0ac6e2"
+    },
+    "tempos_reparacao": {
+      "rows": 21045,
+      "source_count": 21045,
+      "sha256_typed_rows": "6c3c32fb48f5618da337ec6ef09bb525942713edc1c509c7fddaf075d1530649"
+    },
+    "Terminais": {
+      "rows": 0,
+      "source_count": 0,
+      "sha256_typed_rows": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "unidades": {
+      "rows": 4,
+      "source_count": 4,
+      "sha256_typed_rows": "8ecf532db9578182f47ed44b6a1ae6dbbe97054fbc521baf1d77a5eda89ab3c7"
+    },
+    "utilizadores": {
+      "rows": 1,
+      "source_count": 1,
+      "sha256_typed_rows": "5e6d8f9969455ff05b43ca28a8ed52c94abcc0c021666dd6ca5397af7aaeca5c"
+    },
+    "Viaturas": {
+      "rows": 4544,
+      "source_count": 4544,
+      "sha256_typed_rows": "77460ec3c7a0f89f007b6b8540061d4b15522de45ebae0a1ce400168e1bae0b3"
+    }
+  },
+  "limitations": [
+    "ANSI text is the official driver-reported Windows-1252 view; storage-level Unicode fidelity not independently proven",
+    "23615 generated composite/link BLOB values are empty at driver level; rebuild semantic keys from component columns",
+    "No production/source database modified; scratch-only SELECTs; no target import performed"
+  ],
+  "scratch_files_unchanged": 35
+}

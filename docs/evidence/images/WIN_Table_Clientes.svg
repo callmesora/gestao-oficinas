@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="804" height="600" viewBox="0 0 804 600" font-family="sans-serif" font-size="10">
+<rect width="804" height="600" fill="#fafafa" stroke="#999"/>
+<g><title>TABLE_Clientes (14,119 678×386)</title><rect x="14" y="119" width="678" height="386" fill="#f3f3f3" stroke="#6b7280" stroke-dasharray="0"/><text x="17" y="131" fill="#111">RADFileB Table</text></g>
+<g><title>EDT_Observacao (14,511 677×79)</title><rect x="14" y="511" width="677" height="79" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="17" y="523" fill="#111">Observaçªo</text></g>
+<g><title>EDT_termo_pesquisa (14,89 678×24)</title><rect x="14" y="89" width="678" height="24" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="17" y="101" fill="#111">EDT_termo_pesquisa</text></g>
+<g><title>RADTitle (9,4 569×18)</title><rect x="9" y="4" width="569" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="12" y="16" fill="#111">Tabela de Clientes</text></g>
+<g><title>BTN_morada (277,30 81×53)</title><rect x="277" y="30" width="81" height="53" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="280" y="42" fill="#111">Pesquisar por morada</text></g>
+<g><title>BTN_descricao (189,30 81×53)</title><rect x="189" y="30" width="81" height="53" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="192" y="42" fill="#111">Pesquisar por descriçªo</text></g>
+<g><title>BTN_codigo (102,30 81×53)</title><rect x="102" y="30" width="81" height="53" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="105" y="42" fill="#111">Pesquisar por código</text></g>
+<g><title>BTN_todos (14,30 81×53)</title><rect x="14" y="30" width="81" height="53" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="17" y="42" fill="#111">Ver Todos</text></g>
+<g><title>BTN_codigopostal (364,30 81×53)</title><rect x="364" y="30" width="81" height="53" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="367" y="42" fill="#111">Pesquisar por código postal</text></g>
+<g><title>BTN_telefone (451,30 81×53)</title><rect x="451" y="30" width="81" height="53" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="454" y="42" fill="#111">Pesquisar por telefone</text></g>
+<g><title>BTN_selecionar (698,467 90×38)</title><rect x="698" y="467" width="90" height="38" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="701" y="479" fill="#111">Selecionar</text></g>
+<g><title>SC_SCSystemButtons (666,1 128×18)</title><rect x="666" y="1" width="128" height="18" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="669" y="13" fill="#111">SC_SCSystemButtons</text></g>
+<g><title>BTN_Fechar (698,238 90×24)</title><rect x="698" y="238" width="90" height="24" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="701" y="250" fill="#111">Fechar</text></g>
+<g><title>Btn_New (698,119 90×24)</title><rect x="698" y="119" width="90" height="24" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="701" y="131" fill="#111">Novo</text></g>
+<g><title>BTN_Modificar (698,149 90×24)</title><rect x="698" y="149" width="90" height="24" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="701" y="161" fill="#111">Modificar</text></g>
+<g><title>BTN_Delete (698,178 90×24)</title><rect x="698" y="178" width="90" height="24" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="701" y="190" fill="#111">Apagar</text></g>
+<g><title>BTN_Imprimir (698,208 90×24)</title><rect x="698" y="208" width="90" height="24" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="701" y="220" fill="#111">Imprimir</text></g>
+<g><title>BTN_SYST_FERMER (750,0 44×19)</title><rect x="750" y="0" width="44" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="753" y="12" fill="#111">BTN_SYST_FERMER</text></g>
+<g><title>BTN_SYST_MINIMIZE (700,0 26×19)</title><rect x="700" y="0" width="26" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="703" y="12" fill="#111">BTN_SYST_MINIMIZE</text></g>
+<g><title>BTN_Syst_Maximize (726,0 25×19)</title><rect x="726" y="0" width="25" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="729" y="12" fill="#111">BTN_Syst_Maximize</text></g>
+<g><title>BTN_UMC (666,0 24×19)</title><rect x="666" y="0" width="24" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="669" y="12" fill="#111">&amp;Bouton</text></g>
+<g><title>IMG_BTN_Syst_Restore (571,-19 14×14)</title><rect x="571" y="-19" width="14" height="14" fill="#f3e5f5" stroke="#6b7280" stroke-dasharray="0"/><text x="574" y="-7" fill="#111">IMG_BTN_Syst_Restore</text></g>
+</svg>

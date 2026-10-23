@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="384" height="281" viewBox="0 0 384 281" font-family="sans-serif" font-size="10">
+<rect width="384" height="281" fill="#fafafa" stroke="#999"/>
+<g><title>EDT_palavra_passe (28,167 322×40)</title><rect x="28" y="167" width="322" height="40" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="31" y="179" fill="#111">EDT_palavra_passe</text></g>
+<g><title>EDT_utilizador (28,75 256×40)</title><rect x="28" y="75" width="256" height="40" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="31" y="87" fill="#111">EDT_utilizador</text></g>
+<g><title>BTN_Confirmar (28,229 158×42)</title><rect x="28" y="229" width="158" height="42" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="31" y="241" fill="#111">Confirmar</text></g>
+<g><title>BTN_Cancelar (192,229 158×42)</title><rect x="192" y="229" width="158" height="42" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="195" y="241" fill="#111">Cancelar</text></g>
+<g><title>STC_NoName1 (28,43 192×26)</title><rect x="28" y="43" width="192" height="26" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="31" y="55" fill="#111">Utilizador</text></g>
+<g><title>STC_NoName2 (28,135 192×26)</title><rect x="28" y="135" width="192" height="26" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="31" y="147" fill="#111">Palavra-passe</text></g>
+<g><title>RADTitle (9,4 231×18)</title><rect x="9" y="4" width="231" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="12" y="16" fill="#111">Acesso</text></g>
+<g><title>BTN_NoName1 (290,74 60×40)</title><rect x="290" y="74" width="60" height="40" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="293" y="86" fill="#111">...</text></g>
+<g><title>SCSystemButtons (246,1 128×18)</title><rect x="246" y="1" width="128" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="249" y="13" fill="#111">SCSystemButtons</text></g>
+<g><title>BTN_SYST_FERMER (330,0 44×19)</title><rect x="330" y="0" width="44" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="333" y="12" fill="#111">BTN_SYST_FERMER</text></g>
+<g><title>BTN_SYST_MINIMIZE (280,0 26×19)</title><rect x="280" y="0" width="26" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="283" y="12" fill="#111">BTN_SYST_MINIMIZE</text></g>
+<g><title>BTN_Syst_Maximize (306,0 25×19)</title><rect x="306" y="0" width="25" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="309" y="12" fill="#111">BTN_Syst_Maximize</text></g>
+<g><title>BTN_UMC (246,0 24×19)</title><rect x="246" y="0" width="24" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="249" y="12" fill="#111">&amp;Bouton</text></g>
+<g><title>BTN_Syst_Restore (150,-19 14×14)</title><rect x="150" y="-19" width="14" height="14" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="153" y="-7" fill="#111">BTN_Syst_Restore</text></g>
+</svg>

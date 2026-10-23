@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="778" height="594" viewBox="0 0 778 594" font-family="sans-serif" font-size="10">
+<rect width="778" height="594" fill="#fafafa" stroke="#999"/>
+<g><title>EDT_Texto (13,60 750×60)</title><rect x="13" y="60" width="750" height="60" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="16" y="72" fill="#111">EDT_Texto</text></g>
+<g><title>BTN_Caption (8,2 760×55)</title><rect x="8" y="2" width="760" height="55" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="11" y="14" fill="#111">Nome do cliente</text></g>
+<g><title>BTN_espaco (240,523 216×61)</title><rect x="240" y="523" width="216" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="243" y="535" fill="#111">Espaço</text></g>
+<g><title>BTN_confirmar (462,523 142×61)</title><rect x="462" y="523" width="142" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="465" y="535" fill="#111">BTN_confirmar</text></g>
+<g><title>BTN_cancelar (610,523 142×61)</title><rect x="610" y="523" width="142" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="613" y="535" fill="#111">BTN_cancelar</text></g>
+<g><title>EDT_input_manual (547,-33 221×24)</title><rect x="547" y="-33" width="221" height="24" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="550" y="-21" fill="#111">Imput Manual (nªo visivel em runtime)</text></g>
+<g><title>BTN_1 (18,245 68×61)</title><rect x="18" y="245" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="21" y="257" fill="#111">1</text></g>
+<g><title>BTN_CapsLock (18,523 68×61)</title><rect x="18" y="523" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="21" y="535" fill="#111">Caps Lock</text></g>
+<g><title>BTN_2 (92,245 68×61)</title><rect x="92" y="245" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="95" y="257" fill="#111">2</text></g>
+<g><title>BTN_3 (166,245 68×61)</title><rect x="166" y="245" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="169" y="257" fill="#111">3</text></g>
+<g><title>BTN_4 (240,245 68×61)</title><rect x="240" y="245" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="243" y="257" fill="#111">4</text></g>
+<g><title>BTN_5 (314,245 68×61)</title><rect x="314" y="245" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="317" y="257" fill="#111">5</text></g>
+<g><title>BTN_6 (388,245 68×61)</title><rect x="388" y="245" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="391" y="257" fill="#111">6</text></g>
+<g><title>BTN_7 (462,245 68×61)</title><rect x="462" y="245" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="465" y="257" fill="#111">7</text></g>
+<g><title>BTN_8 (536,245 68×61)</title><rect x="536" y="245" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="539" y="257" fill="#111">8</text></g>
+<g><title>BTN_9 (610,245 68×61)</title><rect x="610" y="245" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="613" y="257" fill="#111">9</text></g>
+<g><title>BTN_0 (684,245 68×61)</title><rect x="684" y="245" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="687" y="257" fill="#111">0</text></g>
+<g><title>BTN_q (18,323 68×61)</title><rect x="18" y="323" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="21" y="335" fill="#111">Q</text></g>
+<g><title>BTN_w (92,322 68×61)</title><rect x="92" y="322" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="95" y="334" fill="#111">W</text></g>
+<g><title>BTN_e (166,322 68×61)</title><rect x="166" y="322" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="169" y="334" fill="#111">E</text></g>
+<g><title>BTN_r (240,322 68×61)</title><rect x="240" y="322" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="243" y="334" fill="#111">R</text></g>
+<g><title>BTN_t (314,322 68×61)</title><rect x="314" y="322" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="317" y="334" fill="#111">T</text></g>
+<g><title>BTN_y (388,322 68×61)</title><rect x="388" y="322" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="391" y="334" fill="#111">Y</text></g>
+<g><title>BTN_u (462,323 68×61)</title><rect x="462" y="323" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="465" y="335" fill="#111">U</text></g>
+<g><title>BTN_i (536,322 68×61)</title><rect x="536" y="322" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="539" y="334" fill="#111">I</text></g>
+<g><title>BTN_o (610,322 68×61)</title><rect x="610" y="322" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="613" y="334" fill="#111">O</text></g>
+<g><title>BTN_p (684,322 68×61)</title><rect x="684" y="322" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="687" y="334" fill="#111">P</text></g>
+<g><title>BTN_a (18,390 68×61)</title><rect x="18" y="390" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="21" y="402" fill="#111">A</text></g>
+<g><title>BTN_s (92,389 68×61)</title><rect x="92" y="389" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="95" y="401" fill="#111">S</text></g>
+<g><title>BTN_d (166,389 68×61)</title><rect x="166" y="389" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="169" y="401" fill="#111">D</text></g>
+<g><title>BTN_f (240,389 68×61)</title><rect x="240" y="389" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="243" y="401" fill="#111">F</text></g>
+<g><title>BTN_g (314,389 68×61)</title><rect x="314" y="389" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="317" y="401" fill="#111">G</text></g>
+<g><title>BTN_h (388,389 68×61)</title><rect x="388" y="389" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="391" y="401" fill="#111">H</text></g>
+<g><title>BTN_j (462,389 68×61)</title><rect x="462" y="389" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="465" y="401" fill="#111">J</text></g>
+<g><title>BTN_k (536,389 68×61)</title><rect x="536" y="389" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="539" y="401" fill="#111">K</text></g>
+<g><title>BTN_l (610,389 68×61)</title><rect x="610" y="389" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="613" y="401" fill="#111">L</text></g>
+<g><title>BTN_c_cedilha (684,389 68×61)</title><rect x="684" y="389" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="687" y="401" fill="#111">˙</text></g>
+<g><title>BTN_z (18,457 68×61)</title><rect x="18" y="457" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="21" y="469" fill="#111">Z</text></g>
+<g><title>BTN_x (92,456 68×61)</title><rect x="92" y="456" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="95" y="468" fill="#111">X</text></g>
+<g><title>BTN_c (166,456 68×61)</title><rect x="166" y="456" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="169" y="468" fill="#111">C</text></g>
+<g><title>BTN_v (240,456 68×61)</title><rect x="240" y="456" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="243" y="468" fill="#111">V</text></g>
+<g><title>BTN_b (314,456 68×61)</title><rect x="314" y="456" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="317" y="468" fill="#111">B</text></g>
+<g><title>BTN_n (388,456 68×61)</title><rect x="388" y="456" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="391" y="468" fill="#111">N</text></g>
+<g><title>BTN_m (462,456 68×61)</title><rect x="462" y="456" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="465" y="468" fill="#111">M</text></g>
+<g><title>BTN_apagar_ultimo (92,523 68×61)</title><rect x="92" y="523" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="95" y="535" fill="#111">Apagar Ultimo</text></g>
+<g><title>BTN_apagar_tudo (166,523 68×61)</title><rect x="166" y="523" width="68" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="169" y="535" fill="#111">Apagar Tudo</text></g>
+<g><title>BTN_acento_grave (536,456 50×61)</title><rect x="536" y="456" width="50" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="539" y="468" fill="#111">‘</text></g>
+<g><title>BTN_acento_agudo (591,456 50×61)</title><rect x="591" y="456" width="50" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="594" y="468" fill="#111">·</text></g>
+<g><title>BTN_acento_til (646,456 50×61)</title><rect x="646" y="456" width="50" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="649" y="468" fill="#111">~</text></g>
+<g><title>BTN_acento_circunflexo (702,456 50×61)</title><rect x="702" y="456" width="50" height="61" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="705" y="468" fill="#111">/\</text></g>
+<g><title>BTN_asterisco (18,126 62×49)</title><rect x="18" y="126" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="21" y="138" fill="#111">*</text></g>
+<g><title>BTN_mais (85,126 62×49)</title><rect x="85" y="126" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="88" y="138" fill="#111">+</text></g>
+<g><title>BTN_menos (152,126 62×49)</title><rect x="152" y="126" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="155" y="138" fill="#111">-</text></g>
+<g><title>BTN_under_score (18,180 62×49)</title><rect x="18" y="180" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="21" y="192" fill="#111">_</text></g>
+<g><title>BTN_barra_esquerda (219,125 62×49)</title><rect x="219" y="125" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="222" y="137" fill="#111">\</text></g>
+<g><title>BTN_barra_direita (286,125 62×49)</title><rect x="286" y="125" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="289" y="137" fill="#111">/</text></g>
+<g><title>BTN_ponto (353,125 62×49)</title><rect x="353" y="125" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="356" y="137" fill="#111">.</text></g>
+<g><title>BTN_virgula (420,125 62×49)</title><rect x="420" y="125" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="423" y="137" fill="#111">,</text></g>
+<g><title>BTN_dois_pontos (487,125 62×49)</title><rect x="487" y="125" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="490" y="137" fill="#111">:</text></g>
+<g><title>BTN_ponto_virgula (554,125 62×49)</title><rect x="554" y="125" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="557" y="137" fill="#111">;</text></g>
+<g><title>BTN_parentesis_esquerda (621,125 62×49)</title><rect x="621" y="125" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="624" y="137" fill="#111">(</text></g>
+<g><title>BTN_parentesis_direita (688,125 62×49)</title><rect x="688" y="125" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="691" y="137" fill="#111">)</text></g>
+<g><title>BTN_arroba (85,180 62×49)</title><rect x="85" y="180" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="88" y="192" fill="#111">@</text></g>
+<g><title>BTN_euro (152,180 62×49)</title><rect x="152" y="180" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="155" y="192" fill="#111"></text></g>
+<g><title>BTN_percentagem (219,180 62×49)</title><rect x="219" y="180" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="222" y="192" fill="#111">%</text></g>
+<g><title>BTN_ponto_interrogacao (286,180 62×49)</title><rect x="286" y="180" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="289" y="192" fill="#111">?</text></g>
+<g><title>BTN_a_cima (353,180 62×49)</title><rect x="353" y="180" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="356" y="192" fill="#111">“</text></g>
+<g><title>BTN_o_cima (420,180 62×49)</title><rect x="420" y="180" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="423" y="192" fill="#111">”</text></g>
+<g><title>BTN_i_comercial (487,180 62×49)</title><rect x="487" y="180" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="490" y="192" fill="#111">&amp;&amp;</text></g>
+<g><title>BTN_aspas (554,180 62×49)</title><rect x="554" y="180" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="557" y="192" fill="#111">&quot;</text></g>
+<g><title>BTN_igual (621,180 62×49)</title><rect x="621" y="180" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="624" y="192" fill="#111">=</text></g>
+<g><title>BTN_cardinal (688,180 62×49)</title><rect x="688" y="180" width="62" height="49" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="691" y="192" fill="#111">#</text></g>
+</svg>

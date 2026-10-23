@@ -1,0 +1,511 @@
+{
+  "windows": 79,
+  "codes": {
+    "18": {
+      "event": "Click",
+      "evidence": 293,
+      "conflicts": {}
+    },
+    "none": {
+      "event": "Global declarations",
+      "evidence": 51,
+      "conflicts": {}
+    },
+    "327680": {
+      "event": "Open",
+      "evidence": 28,
+      "conflicts": {}
+    },
+    "458752": {
+      "event": "Local procedure",
+      "evidence": 19,
+      "conflicts": {}
+    },
+    "327693": {
+      "event": "After printing",
+      "evidence": 18,
+      "conflicts": {}
+    },
+    "34": {
+      "event": "End of initialization",
+      "evidence": 15,
+      "conflicts": {}
+    },
+    "327692": {
+      "event": "Before printing",
+      "evidence": 15,
+      "conflicts": {}
+    },
+    "14": {
+      "event": "Initialization",
+      "evidence": 12,
+      "conflicts": {}
+    },
+    "17": {
+      "event": "Whenever modifying",
+      "evidence": 11,
+      "conflicts": {}
+    },
+    "66049": {
+      "event": "Left button down",
+      "evidence": 7,
+      "conflicts": {}
+    },
+    "2": {
+      "event": "Close",
+      "evidence": 7,
+      "conflicts": {}
+    },
+    "21": {
+      "event": "Display a row",
+      "evidence": 6,
+      "conflicts": {}
+    },
+    "16": {
+      "event": "Exit",
+      "evidence": 4,
+      "conflicts": {}
+    },
+    "33": {
+      "event": "Select a row",
+      "evidence": 3,
+      "conflicts": {}
+    },
+    "66050": {
+      "event": "Left button up",
+      "evidence": 2,
+      "conflicts": {}
+    },
+    "65794": {
+      "event": "Key pressed",
+      "evidence": 2,
+      "conflicts": {}
+    },
+    "19": {
+      "event": "Enter input mode in a row",
+      "evidence": 2,
+      "conflicts": {}
+    },
+    "15": {
+      "event": "Entry",
+      "evidence": 1,
+      "conflicts": {}
+    },
+    "13": {
+      "event": "Resize",
+      "evidence": 1,
+      "conflicts": {}
+    },
+    "116": {
+      "event": "Open the drop-down list",
+      "evidence": 1,
+      "conflicts": {}
+    },
+    "20": {
+      "event": "Exit from a row",
+      "evidence": 1,
+      "conflicts": {}
+    }
+  },
+  "report_queries": {
+    "RPT_List_artigos": [
+      {
+        "item": "Codigo",
+        "caption": "Código"
+      },
+      {
+        "item": "Descricao",
+        "caption": "Descrição"
+      },
+      {
+        "item": "codbarras",
+        "caption": "Código de barras"
+      },
+      {
+        "item": "unidade",
+        "caption": "unidade"
+      },
+      {
+        "item": "preco",
+        "caption": "Preço"
+      },
+      {
+        "item": "inativo",
+        "caption": "inativo"
+      }
+    ],
+    "RPT_List_Clientes": [
+      {
+        "item": "Codigo",
+        "caption": "Código"
+      },
+      {
+        "item": "Descricao",
+        "caption": "Descrição"
+      },
+      {
+        "item": "Morada1",
+        "caption": "Morada 1"
+      },
+      {
+        "item": "Morada2",
+        "caption": "Morada2"
+      },
+      {
+        "item": "codpostal",
+        "caption": "Código Postal"
+      },
+      {
+        "item": "Telefone1",
+        "caption": "Telefone 1"
+      },
+      {
+        "item": "Telemovel",
+        "caption": "Telemóvel"
+      },
+      {
+        "item": "observacao",
+        "caption": "Observação"
+      }
+    ],
+    "RPT_List_documentos": [
+      {
+        "item": "Codigo",
+        "caption": "Codigo"
+      },
+      {
+        "item": "Descricao",
+        "caption": "Descrição"
+      },
+      {
+        "item": "stock",
+        "caption": "stock"
+      },
+      {
+        "item": "obriga_macanico",
+        "caption": "obriga_macanico"
+      }
+    ],
+    "RPT_List_estados_descritivos": [
+      {
+        "item": "Codigo",
+        "caption": "Código"
+      },
+      {
+        "item": "Descricao",
+        "caption": "Descrição"
+      }
+    ],
+    "RPT_List_estados_reparacao": [
+      {
+        "item": "Codigo",
+        "caption": "Código"
+      },
+      {
+        "item": "Descricao",
+        "caption": "Descrição"
+      },
+      {
+        "item": "tipo",
+        "caption": "tipo"
+      }
+    ],
+    "RPT_List_mecanicos": [
+      {
+        "item": "Codigo",
+        "caption": "Código"
+      },
+      {
+        "item": "Descricao",
+        "caption": "Descrição"
+      },
+      {
+        "item": "palavra_passe",
+        "caption": "palavra-passe"
+      }
+    ],
+    "RPT_List_unidades": [
+      {
+        "item": "Codigo",
+        "caption": "Código"
+      },
+      {
+        "item": "Descricao",
+        "caption": "Descrição"
+      }
+    ],
+    "RPT_List_utilizadores": [
+      {
+        "item": "Codigo",
+        "caption": "Código"
+      },
+      {
+        "item": "Descricao",
+        "caption": "Nome"
+      },
+      {
+        "item": "palavra_passe",
+        "caption": "palavra-passe"
+      }
+    ],
+    "RPT_List_Viaturas": [
+      {
+        "item": "matricula",
+        "caption": "Matricula"
+      },
+      {
+        "item": "Cliente",
+        "caption": "Cliente"
+      },
+      {
+        "item": "marca",
+        "caption": "Marca"
+      },
+      {
+        "item": "modelo",
+        "caption": "Modelo"
+      },
+      {
+        "item": "Ano",
+        "caption": "Ano"
+      },
+      {
+        "item": "mes",
+        "caption": "mes"
+      }
+    ]
+  },
+  "compiled_references": {
+    "RPT_Consumo_Material_Viatura_Descriminado": [
+      "QRY_select_consumo_material_viatura"
+    ],
+    "RPT_Consumo_Material_Viatura_Resumo": [
+      "QRY_select_consumo_material_viatura"
+    ],
+    "RPT_Extrato_artigos": [
+      "QRY_union_extrato_artigos",
+      "QRY_union_extrato_artigos_calcular_total"
+    ],
+    "RPT_Ordens_Reparacao": [
+      "WIN_Ordens_Reparacao"
+    ],
+    "RPT_Servico_Avaria": [
+      "QRY_select_cliente_codigo",
+      "QRY_select_ordens_reparacao_numero",
+      "QRY_select_viatura_matricula"
+    ],
+    "RPT_Tempos_Ordem_Reparacao": [
+      "QRY_tempos_ordem_reparacao"
+    ],
+    "RPT_Tempos_Ordem_Reparacao_Mecanico": [
+      "QRY_tempos_ordem_reparacao_mecanico"
+    ],
+    "RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo": [
+      "QRY_tempos_ordem_reparacao_mecanico"
+    ],
+    "RPT_Tempos_Ordem_Reparacao_viatura": [
+      "QRY_tempos_ordem_reparacao_matricula"
+    ],
+    "WIN_Acesso": [
+      "WIN_Table_utilizadores"
+    ],
+    "WIN_Extrato_Artigos": [
+      "RPT_Extrato_artigos",
+      "WIN_Table_artigos"
+    ],
+    "WIN_Filtro_Mapas_Artigos": [
+      "RPT_Consumo_Material_Descriminado_Ordens",
+      "RPT_Consumo_Material_Descriminado_Saidas",
+      "RPT_Consumo_Material_Descriminado_ordens_saidas",
+      "RPT_Consumo_Material_Resumo_Saidas",
+      "RPT_Consumo_Material_Resumo_ordem_saidas",
+      "RPT_Consumo_Material_Resumo_ordens",
+      "RPT_Consumo_Material_Viatura_Descriminado",
+      "RPT_Consumo_Material_Viatura_Resumo",
+      "WIN_Table_Viaturas",
+      "WIN_Table_artigos"
+    ],
+    "WIN_Filtro_Mapas_Tempos": [
+      "RPT_Tempos_Ordem_Reparacao",
+      "RPT_Tempos_Ordem_Reparacao_Mecanico",
+      "RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo",
+      "RPT_Tempos_Ordem_Reparacao_viatura",
+      "WIN_Table_Viaturas",
+      "WIN_Table_mecanicos"
+    ],
+    "WIN_Form_Viaturas": [
+      "QRY_select_viatura_matricula",
+      "WIN_Table_Clientes"
+    ],
+    "WIN_Form_postos": [
+      "WIN_Table_Terminais"
+    ],
+    "WIN_Inserir_quantidade_password": [
+      "WIN_Teclado_numerico"
+    ],
+    "WIN_Inventario": [
+      "RPT_inventario"
+    ],
+    "WIN_MENU": [
+      "QRY_select_ordens_reparacao",
+      "QRY_select_viatura_matricula",
+      "WIN_Acesso",
+      "WIN_Extrato_Artigos",
+      "WIN_Filtro_Mapas_Artigos",
+      "WIN_Filtro_Mapas_Tempos",
+      "WIN_Inventario",
+      "WIN_Mapa_Vendas",
+      "WIN_Material_Reparacao",
+      "WIN_Ordens_Reparacao",
+      "WIN_Reconstrucao_Stocks",
+      "WIN_Table_Clientes",
+      "WIN_Table_Terminais",
+      "WIN_Table_Viaturas",
+      "WIN_Table_artigos",
+      "WIN_Table_cab_stocks",
+      "WIN_Table_documentos",
+      "WIN_Table_estados_descritivos",
+      "WIN_Table_estados_reparacao",
+      "WIN_Table_mecanicos",
+      "WIN_Table_postos",
+      "WIN_Table_unidades",
+      "WIN_Table_utilizadores",
+      "WIN_Tempos_Reparacao",
+      "WIN_sistema"
+    ],
+    "WIN_Mapa_Vendas": [
+      "RPT_Ordens_Reparacao_DataEntrega",
+      "RPT_Ordens_Reparacao_DataPag"
+    ],
+    "WIN_Material_Reparacao": [
+      "QRY_select_ordens_reparacao_matricula",
+      "WIN_Material_reparacao_form",
+      "WIN_Table_Tempos_materiais_Descricoes"
+    ],
+    "WIN_Material_reparacao_form": [
+      "QRY_insert_material_reparacao",
+      "QRY_select_material_reparacao",
+      "QRY_select_mecanicos_codigo",
+      "QRY_select_ordens_reparacao_numero",
+      "WIN_Inserir_quantidade_password",
+      "WIN_Leitor_cod_barras",
+      "WIN_Leitor_cod_barras_desconhecidos",
+      "WIN_Table_artigos",
+      "WIN_Table_mecanicos"
+    ],
+    "WIN_Ordens_Reparacao": [
+      "RPT_Ordens_Reparacao",
+      "WIN_Material_reparacao_form",
+      "WIN_Ordens_Reparacao_Form",
+      "WIN_Table_Clientes",
+      "WIN_Table_Tempos_materiais_Descricoes",
+      "WIN_Table_Viaturas",
+      "WIN_Table_mecanicos"
+    ],
+    "WIN_Ordens_Reparacao_Form": [
+      "QRY_insert_ordens_reparacao",
+      "QRY_select_cliente_codigo",
+      "QRY_select_ordens_reparacao_numero",
+      "QRY_select_viatura_matricula",
+      "QRY_update_ordens_reparacao",
+      "WIN_Data",
+      "WIN_Form_Viaturas",
+      "WIN_Material_reparacao_form",
+      "WIN_Mudar_Estado",
+      "WIN_Table_Clientes",
+      "WIN_Table_Tempos_materiais_Descricoes",
+      "WIN_Table_Viaturas",
+      "WIN_Table_mecanicos",
+      "WIN_Table_utilizadores"
+    ],
+    "WIN_Table_Clientes": [
+      "RPT_List_Clientes",
+      "WIN_Form_Clientes"
+    ],
+    "WIN_Table_Lin_Stocks": [
+      "QRY_select_lin_stocks",
+      "WIN_Table_artigos",
+      "WIN_Table_documentos",
+      "WIN_Table_mecanicos"
+    ],
+    "WIN_Table_Tempos_materiais_Descricoes": [
+      "RPT_Materiais",
+      "RPT_Servico_Avaria",
+      "WIN_Material_reparacao_form"
+    ],
+    "WIN_Table_Terminais": [
+      "WIN_Form_Terminais"
+    ],
+    "WIN_Table_Viaturas": [
+      "QRY_select_viaturas",
+      "RPT_List_Viaturas",
+      "WIN_Form_Viaturas"
+    ],
+    "WIN_Table_artigos": [
+      "RPT_List_artigos",
+      "WIN_Form_artigos"
+    ],
+    "WIN_Table_cab_stocks": [
+      "QRY_select_cab_stocks",
+      "WIN_Table_Lin_Stocks",
+      "WIN_Table_documentos"
+    ],
+    "WIN_Table_documentos": [
+      "RPT_List_documentos",
+      "WIN_Form_documentos"
+    ],
+    "WIN_Table_estados_descritivos": [
+      "RPT_List_estados_descritivos",
+      "WIN_Form_estados_descritivos"
+    ],
+    "WIN_Table_estados_reparacao": [
+      "RPT_List_estados_reparacao",
+      "WIN_Form_estados_reparacao"
+    ],
+    "WIN_Table_mecanicos": [
+      "RPT_List_mecanicos",
+      "WIN_Form_mecanicos"
+    ],
+    "WIN_Table_postos": [
+      "WIN_Form_postos"
+    ],
+    "WIN_Table_unidades": [
+      "RPT_List_unidades",
+      "WIN_Form_unidades"
+    ],
+    "WIN_Table_utilizadores": [
+      "RPT_List_utilizadores",
+      "WIN_Form_utilizadores"
+    ],
+    "WIN_Tempos_Reparacao": [
+      "QRY_select_ordens_reparacao_tempos",
+      "QRY_select_tempos_reparacao_ordem",
+      "WIN_Tempos_Reparacao_Estado",
+      "WIN_Tempos_Reparacao_Informacao",
+      "WIN_Tempos_Reparacao_Tempo"
+    ],
+    "WIN_Tempos_Reparacao_Estado": [
+      "QRY_select_ordens_reparacao_numero",
+      "QRY_select_viatura_matricula",
+      "WIN_Table_estados_descritivos"
+    ],
+    "WIN_Tempos_Reparacao_Informacao": [
+      "QRY_select_cliente_codigo",
+      "QRY_select_ordens_reparacao_numero",
+      "RPT_Servico_Avaria"
+    ],
+    "WIN_Tempos_Reparacao_Tempo": [
+      "QRY_select_mecanicos_codigo",
+      "QRY_select_ordens_reparacao_numero",
+      "QRY_select_tempos_Reparacao_numero_mecanico",
+      "QRY_select_viatura_matricula",
+      "WIN_Inserir_quantidade_password",
+      "WIN_Table_estado_reparacao_tipo3",
+      "WIN_Table_mecanicos"
+    ]
+  },
+  "skinned_dialogs": [
+    "WINDEVDIALOGBOX",
+    "WINDEVMESSAGEBOX"
+  ]
+}

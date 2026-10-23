@@ -1,0 +1,9 @@
+{
+  "report": "ui-report",
+  "windows": {
+    "WIN_Table_Clientes": {
+      "open": [],
+      "ignore": {}
+    }
+  }
+}

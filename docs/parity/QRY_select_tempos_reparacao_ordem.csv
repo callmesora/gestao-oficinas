@@ -1,0 +1,4 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-ea4304a92a,export-needed,QRY_select_tempos_reparacao_ordem,,,legacy/GestaoOficinas_TesteIA/QRY_select_tempos_reparacao_ordem.WDR; dossier: QRY_select_tempos_reparacao_ordem/sql,verified,Finds open labor rows for an order using exact all-zero 17-character fim sentinel and a mechanic join. SQL does not compare NULL or empty string.,Preserve legacy SQL semantics,,,,specified
+RULE-Q20-003,rule,QRY_select_tempos_reparacao_ordem,QRY_select_tempos_reparacao_ordem,,legacy/GestaoOficinas_TesteIA/QRY_select_tempos_reparacao_ordem.WDR,unresolved,U-Q20-03: Query runtime omission/null/collation and PDF literal validation,,,,,unmapped
+RULE-Q20-004,rule,QRY_select_tempos_reparacao_ordem,QRY_select_tempos_reparacao_ordem,,legacy/GestaoOficinas_TesteIA/QRY_select_tempos_reparacao_ordem.WDR,unresolved,U-Q20-04: Caller error/empty-result contract,,,,,unmapped

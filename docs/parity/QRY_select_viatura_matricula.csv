@@ -1,0 +1,4 @@
+id,kind,element,context,event,evidence,confidence,legacy_behavior,target_behavior,implemented_in,test,decision,status
+SRC-725ba0d1e9,export-needed,QRY_select_viatura_matricula,,,legacy/GestaoOficinas_TesteIA/QRY_select_viatura_matricula.WDR; dossier: QRY_select_viatura_matricula/sql,verified,Exact registration lookup returning vehicle ownership and descriptive fields. No customer join here.,Preserve legacy SQL semantics,,,,specified
+RULE-Q21-003,rule,QRY_select_viatura_matricula,QRY_select_viatura_matricula,,legacy/GestaoOficinas_TesteIA/QRY_select_viatura_matricula.WDR,unresolved,U-Q21-03: Query runtime omission/null/collation and PDF literal validation,,,,,unmapped
+RULE-Q21-004,rule,QRY_select_viatura_matricula,QRY_select_viatura_matricula,,legacy/GestaoOficinas_TesteIA/QRY_select_viatura_matricula.WDR,unresolved,U-Q21-04: Caller error/empty-result contract,,,,,unmapped

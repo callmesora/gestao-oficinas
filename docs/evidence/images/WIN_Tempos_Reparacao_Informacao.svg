@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="626" height="481" viewBox="0 0 626 481" font-family="sans-serif" font-size="10">
+<rect width="626" height="481" fill="#fafafa" stroke="#999"/>
+<g><title>EDT_servico_avaria (19,62 584×90)</title><rect x="19" y="62" width="584" height="90" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="74" fill="#111">EDT_servico_avaria</text></g>
+<g><title>EDT_observacao (19,184 584×90)</title><rect x="19" y="184" width="584" height="90" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="196" fill="#111">EDT_observacao</text></g>
+<g><title>EDT_contactos (19,365 584×70)</title><rect x="19" y="365" width="584" height="70" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="377" fill="#111">EDT_contactos</text></g>
+<g><title>EDT_cliente (19,306 584×27)</title><rect x="19" y="306" width="584" height="27" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="318" fill="#111">EDT_cliente</text></g>
+<g><title>RADTitle (9,4 473×18)</title><rect x="9" y="4" width="473" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="12" y="16" fill="#111">Informaçıes</text></g>
+<g><title>BTN_Fechar (497,441 106×30)</title><rect x="497" y="441" width="106" height="30" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="500" y="453" fill="#111">Fechar</text></g>
+<g><title>BTN_Imprimir1 (19,441 106×30)</title><rect x="19" y="441" width="106" height="30" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="22" y="453" fill="#111">Imprimir</text></g>
+<g><title>STC_Contactos_do_cliente (19,339 156×20)</title><rect x="19" y="339" width="156" height="20" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="22" y="351" fill="#111">Contactos do cliente</text></g>
+<g><title>SCSystemButtons (488,1 128×18)</title><rect x="488" y="1" width="128" height="18" fill="#ffffff" stroke="#6b7280" stroke-dasharray="0"/><text x="491" y="13" fill="#111">SCSystemButtons</text></g>
+<g><title>STC_Serviço_Avaria (19,36 100×20)</title><rect x="19" y="36" width="100" height="20" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="22" y="48" fill="#111">Serviço / Avaria</text></g>
+<g><title>STC_Observação (19,158 100×20)</title><rect x="19" y="158" width="100" height="20" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="22" y="170" fill="#111">STC_Observação</text></g>
+<g><title>STC_Cliente (19,280 100×20)</title><rect x="19" y="280" width="100" height="20" fill="none" stroke="#6b7280" stroke-dasharray="3,2"/><text x="22" y="292" fill="#111">Cliente</text></g>
+<g><title>BTN_SYST_FERMER (572,0 44×19)</title><rect x="572" y="0" width="44" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="575" y="12" fill="#111">BTN_SYST_FERMER</text></g>
+<g><title>BTN_SYST_MINIMIZE (522,0 26×19)</title><rect x="522" y="0" width="26" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="525" y="12" fill="#111">BTN_SYST_MINIMIZE</text></g>
+<g><title>BTN_Syst_Maximize (548,0 25×19)</title><rect x="548" y="0" width="25" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="551" y="12" fill="#111">BTN_Syst_Maximize</text></g>
+<g><title>BTN_UMC (488,0 24×19)</title><rect x="488" y="0" width="24" height="19" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="491" y="12" fill="#111">&amp;Bouton</text></g>
+<g><title>BTN_Syst_Restore (488,-19 14×14)</title><rect x="488" y="-19" width="14" height="14" fill="#d6e4ff" stroke="#6b7280" stroke-dasharray="0"/><text x="491" y="-7" fill="#111">BTN_Syst_Restore</text></g>
+</svg>

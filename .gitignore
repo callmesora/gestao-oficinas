@@ -5,3 +5,13 @@
 /.venv/
 /migrate-windev-javascript/
 __pycache__/
+.env
+.env.*
+!.env.example
+*.fic
+*.FIC
+*.ndx
+*.NDX
+*.mmo
+*.MMO
+*.bak
