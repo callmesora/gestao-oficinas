@@ -37,7 +37,9 @@ Windows 11 Home 10.0.22000, setup/Enter-Prerequisites.ps1 loaded:
 
 Initial full Rust test failed with loader code 0xc0000139. Imports identified TaskDialogIndirect/comctl32; Tauri's app manifest covered the application but not the test harness. The integration target now receives its own Common Controls v6 manifest. Full verify rerun passed; the failed attempt is not hidden.
 
-Not run: hosted CI (await first workflow push), installer packaging/install/upgrade/uninstall, PostgreSQL schema/import/reconciliation, business golden scenarios, legacy runtime, printer/scanner checks, visual parity against legacy screens. Browser tests do not substitute for these.
+Hosted CI first attempt (run 40005606973): FAILED at UI harness discovery after Rust/bindings/parity passed. The copied harness demanded private inspector input before any legacy window was configured. Fixed by requiring it inside legacyControls; no comparison/threshold or configured-window check was relaxed. A clean clone with npm ci and no private inputs passes both foundation flows; a deliberately configured window without evidence fails the expected inspector guard. CI rerun is pending this fix push.
+
+Not run: hosted CI success, installer packaging/install/upgrade/uninstall, PostgreSQL schema/import/reconciliation, business golden scenarios, legacy runtime, printer/scanner checks, visual parity against legacy screens. Browser tests do not substitute for these.
 
 ### 4. Remaining work
 
@@ -51,6 +53,9 @@ Not run: hosted CI (await first workflow push), installer packaging/install/upgr
 No blocking decision for foundation. Previously recorded deployment, behavior-change, devices, exclusions and go-live questions remain defaults/open evidence; answer sheet retains 12 runtime questions and 17 action groups. Do not infer those answers from tests of the new application. Native hardware/legacy observations require access when the relevant stages reach acceptance.
 
 ## Playbook issues
+
+- The UI template validates inspector presence at module load even with zero legacy windows. Foundation CI has no private legacy inputs. The application copy now checks evidence at actual legacy-window use; a clean-clone positive and missing-evidence negative probe verify the scope. The read-only guide/template checkout was not modified.
+- Updated workflow actions to current official versions and added lock-keyed Rust dependency/build caching. No verification command is skipped on a cache hit.
 
 - Windows Rust integration tests need Common Controls v6 manifest when Tauri dispatch is linked; normal tauri_build application resources only cover binaries. Added a narrowly scoped test manifest.
 - Auto-discovery selects a backup compile folder; use the actual My_GestaoOficinas.cpl path from existing evidence runbooks. Official x86 ANSI export compatibility route remains documented; no legacy application or server was executed/connected.

@@ -14,3 +14,10 @@
 Full npm run verify passes locally: TypeScript/lint, 4 Vitest tests, Rust unit/integration tests, bindings, parity and 2 Playwright browser flows. Tauri debug build and Playwright against actual WebView2/Rust IPC pass, including reload. No residual blocking/parity/convention finding in this foundation scope. CI result still needs the first push. No installer, database, business rules, skin or printer/device parity is claimed.
 
 Sources for the test-harness fix: installed official tauri 2.12.5 build.rs test manifest pattern; Cargo build-script link-argument documentation. Native automation follows https://playwright.dev/docs/webview2 and uses no computer-use UI control.
+
+
+## Fresh-checkout CI follow-up
+
+The first hosted run (40005606973) failed at the UI harness's unconditional private-inspector prerequisite. The initial local review did not test without local extraction files; the correction now adds that condition to the method. Moved the requirement into legacyControls so every configured legacy window still requires evidence, while the foundation-only flows have no irrelevant private dependency. Verified with npm ci and both UI flows in a clean local clone lacking private data, then deliberately configured a visible diagnostic element as a negative fixture and proved the named missing-inspector error remains a failing gate. Main npm run verify rerun passes. No tests were skipped, assertions relaxed or visual floors changed.
+
+CI actions were updated from deprecated Node-20-based versions to current official checkout/setup v7 and cache v6. Rust registry/git/build cache is lock-keyed and does not skip verification. Await the rerun result before closing MIG-3.

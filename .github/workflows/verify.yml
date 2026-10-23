@@ -6,16 +6,24 @@ jobs:
   verify:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: '24.22.1'
           cache: npm
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - name: Rust toolchain
         run: rustup show
+      - name: Cache Rust dependencies and build output
+        uses: actions/cache@v6
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            src-tauri/target
+          key: ${{ runner.os }}-rust-1.99.1-${{ hashFiles('src-tauri/Cargo.lock') }}
       - run: npm install --global npm@11.19.1
       - run: npm ci
       - run: npm run verify

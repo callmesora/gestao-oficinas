@@ -64,11 +64,11 @@ function visualScore(window: string, screenshot: string): [Score | null, Score |
   if (run.status !== 0) throw new Error(`visual_compare.py failed for ${window}: ${run.stderr}`);
   return [JSON.parse(run.stdout), previous];
 }
-if (!config.inspectDir) throw new Error("no inspector output: run python3 scripts/prepare_evidence.py first");
 
 /** Legacy control names per window, from inspect_windev.py output (code/<file>.wdw.json). */
 function legacyControls(window: string): string[] {
-  const stack = [resolve(root, config.inspectDir!, "code")];
+  if (!config.inspectDir) throw new Error(`no inspector output for ${window}: run scripts/prepare_evidence.py first`);
+  const stack = [resolve(root, config.inspectDir, "code")];
   while (stack.length) {
     const dir = stack.pop()!;
     for (const entry of readdirSync(dir, { withFileTypes: true })) {
