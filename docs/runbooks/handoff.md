@@ -1,36 +1,33 @@
 # Handoff — Gestao Oficinas
 
-## Stage — MIG-4 database foundation complete
+## Stage — MIG-5a UI inputs complete; MIG-5 remains open
 
-24 October 2026. Branch main; this report accompanies the MIG-4 stage commit. Commit/push authorized. Full migration remains the goal; continue sequentially from ROADMAP.md, without expanding documentation or tooling beyond the current stage.
+Branch main; this report accompanies the MIG-5a commit. Full migration, commits and pushes remain authorized. Follow ROADMAP.md sequentially; keep documentation limited to the current stage.
 
 ### 1. Delivered
 
-- All 17 tables/135 fields mapped in apps/server/src/db/column-mapping.v1.json; schema v1 in apps/server/migrations/. Transactional, checksum-checked migration runner.
-- Fresh local PostgreSQL 18.4 test engine; opt-in atomic import, typed provenance, quarantine and refusal to overwrite. Source data/credentials stay ignored and private.
-- Fixed an ANSI export reader defect: empty HFSQL strings reported length 1 including the C terminator. Two corrected driver exports agree; comparing every historical/new cell changes only 97,774 single-NUL cells to empty strings. All other cells and 39 scratch files agree. Details: docs/data/ansi-text-correction.json and export-runbook.md.
-- Full copied dataset imported, reconciled, backed up cold, restored and reconciled again; CSV comparator passes all 17 tables. Reports: docs/data/postgres-reconciliation.json and postgres-csv-comparison.json.
+- Generated 53 src/ui/legacy/*.layout.json files and 154 public/skin/ PNGs from 45 referenced source images. Hashes, state files and unknowns: docs/evidence/ui-inputs.json.
+- scripts/ui_inputs.py --write regenerates; --check-source compares private evidence; default verification needs committed inputs only and is included in npm run verify.
+- Fixed repeated-name column loss in two windows; qualified parent paths preserve all source controls/columns. Ambiguous dossier metadata remains unknown, not copied between columns. Original sources unchanged.
 
 ### 2. Assumptions and differences
 
-ADRs 001–007 unchanged. Exact numeric values plus original notation/provenance; dates/text/NULL/empty/binary preserved. Existing duplicate IDs, negative stock and orphans retained. Text-key collation, runtime integrity and new-record ID/default behavior remain workflow work; no invented constraints or credential scheme.
-
-Parity: 2,273 rows — 17 table-import rows verified, 1,775 specified, 481 unmapped; all 877 SRC IDs retained. No screen or business workflow is verified. Per-unit CSVs are historical Step 0 snapshots; the consolidated matrix is current.
+ADR-003/007 unchanged. These are UI inputs, not implemented screens. Two WDFAA windows have no dossier entries; their missing metadata, duplicate-name fields and font/color gaps remain associated with existing unit U items. No parity status changes: 17/2,273 verified import rows, 481 unmapped; all 877 SRC IDs retained.
 
 ### 3. Checks actually executed
 
-- npm run verify: PASS — 13 Vitest tests (real PostgreSQL), Rust format/clippy/unit/integration, generated bindings, parity and 2 Playwright flows.
-- Python extraction/path tests: 4 PASS. ANSI buffer regression cases: 11 PASS. Independent XDD audit: all 135 fields match.
-- `npm run db:dry-run -- analysis-local/data-20261024-nulfix/data.sqlite`: PASS — 159,668 rows, zero quarantine/mismatches; rollback, committed rehearsal, cold backup/restore and all-table CSV comparison. Original/historical exports retained.
-- Two separate self-review passes, same agent/context as requested; findings/fixes in reviews/database.md. Initial UI navigation timeouts were fixed by restricting Vite's entry scan/watcher to application inputs; no timeout/assertion was relaxed.
+- Full npm run verify: PASS — 13 Vitest tests, Rust checks, bindings, parity, UI-input integrity and 2 Playwright flows.
+- Python tests: 6 PASS, including repeated columns/parents and code-literal shielding.
+- Source regeneration: all 53 layouts/154 PNGs reproduce. CI probe with private-source access denied passes; corrupt hash/dimensions/inventory probes are rejected. Sample frame image inspected.
+- Separate self-review, same agent/context: reviews/skin.md.
 
-Not run: business golden scenarios, native installer/device/printing acceptance, production cutover. Hosted native CDP check still fails; its test is unchanged (roadmap 2b). Hosted core verify/build previously passed; no claim that the overall hosted workflow is green.
+Not run: new screen rendering, visual scores, child-window/dialog behavior or native acceptance. Hosted native CI debugging remains deferred as roadmap 2b; test unchanged.
 
 ### 4. Remaining work
 
-1. MIG-5: shared MediaPlayer skin, all generated layouts/assets, temporary launcher and visual/control checks. Then MIG-6 queries/helpers and bounded leaf workflows in roadmap order.
-2. Runtime evidence/U items and business/native acceptance remain open. Do not regenerate the current matrix from Step 0 snapshots or use the historical zero-target-status validator as an implementation gate.
+1. MIG-5b: adapt the shared primitives to ADR-003's in-app workspace, then temporary launcher and control/caption/keyboard/visual checks. Do not copy the template's native-window actions onto child windows or hardcoded message geometry as legacy facts.
+2. After MIG-5 closes, continue MIG-6 queries/helpers and bounded workflows. MIG-4 database foundation is complete (db441ba); corrected source/import commands remain in docs/data/export-runbook.md. Current parity is the consolidated matrix, not historical Step 0 CSV snapshots.
 
 ### 5. Decisions needed
 
-No blocking owner decision for the next stage. Keep existing proposals/ADRs and outstanding runtime/device acceptance questions visible; do not infer legacy answers from target tests.
+No blocking owner decision. Preserve the existing proposals/U items; human visual/runtime/device acceptance remains later work.

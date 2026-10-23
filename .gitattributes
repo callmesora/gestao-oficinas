@@ -1,2 +1,3 @@
 src/bindings/*.ts text eol=lf
 apps/server/migrations/*.sql text eol=lf
+src/ui/legacy/*.layout.json text eol=lf

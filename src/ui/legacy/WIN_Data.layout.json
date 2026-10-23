@@ -1,0 +1,120 @@
+{
+ "window": {
+  "name": "WIN_Data",
+  "title": null,
+  "size": {
+   "x": 0,
+   "y": 0,
+   "width": 199,
+   "height": 173
+  },
+  "opening_mode": "Centered in the parent window",
+  "window_type": "Free window",
+  "background_image": "MediaPlayer_Bg_Base.gif",
+  "flags": {
+   "Visible": true,
+   "Title bar": false,
+   "System menu": false,
+   "Minimize icon": false,
+   "Maximize icon": false,
+   "Icon for ctx.-sensitive help": false,
+   "Status Bar": false,
+   "Clip background": true,
+   "9-slice scaling": true,
+   "Resizable": false,
+   "With grip": true,
+   "Grip in image": false,
+   "Move/Background": false,
+   "Save position": false,
+   "Automatic Scrollbar": false,
+   "Large font management": false,
+   "XP Theme": false,
+   "Indep. HFSQL ctx.": false
+  }
+ },
+ "controls": [
+  {
+   "name": "RADTitle",
+   "path": "RADTitle",
+   "kind": "Caption",
+   "x": 9,
+   "y": 4,
+   "width": 50,
+   "height": 18,
+   "visible": true,
+   "state": "Active",
+   "anchoring": "Width",
+   "input_mask": "0"
+  },
+  {
+   "name": "BTN_Syst_Restore",
+   "path": "BTN_Syst_Restore",
+   "kind": "Image",
+   "x": -31,
+   "y": -19,
+   "width": 14,
+   "height": 14,
+   "visible": true,
+   "state": "Active",
+   "anchoring": "Right",
+   "h_align": "Left"
+  },
+  {
+   "name": "STC_Data",
+   "path": "STC_Data",
+   "kind": "Caption",
+   "x": 19,
+   "y": 36,
+   "width": 161,
+   "height": 28,
+   "visible": true,
+   "state": "Active",
+   "anchoring": "<None>",
+   "input_mask": "0"
+  },
+  {
+   "name": "EDT_Data",
+   "path": "EDT_Data",
+   "kind": "Edit control",
+   "x": 49,
+   "y": 74,
+   "width": 100,
+   "height": 27,
+   "visible": true,
+   "state": "Active",
+   "anchoring": "<None>",
+   "tab_order": 1,
+   "h_align": "Right",
+   "input_mask": "UseSystemMask"
+  },
+  {
+   "name": "BTN_Confirmar",
+   "path": "BTN_Confirmar",
+   "kind": "Button",
+   "x": 42,
+   "y": 114,
+   "width": 114,
+   "height": 38,
+   "caption": "Confirmar",
+   "visible": true,
+   "state": "Active",
+   "anchoring": "Right, height and width",
+   "tab_order": 2,
+   "button_type": "Normal",
+   "image": "Btn_OK.gif",
+   "image_states": "5",
+   "background_image": "MediaPlayer_Btn_anim.gif",
+   "background_states": "5",
+   "background_stretch": "Width and height"
+  }
+ ],
+ "assets": [
+  "Btn_OK.gif",
+  "MediaPlayer_Bg_Base.gif",
+  "MediaPlayer_Btn_anim.gif"
+ ],
+ "unknown": [
+  "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+ ],
+ "image": "docs/evidence/images/WIN_Data.jpg"
+}

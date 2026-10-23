@@ -1,0 +1,181 @@
+{
+ "window": {
+  "name": "WINDEVDIALOGBOX",
+  "title": null,
+  "size": null,
+  "opening_mode": null,
+  "window_type": null,
+  "background_image": null,
+  "flags": {}
+ },
+ "controls": [
+  {
+   "name": "ICON_Question",
+   "path": "ICON_Question",
+   "kind": "control",
+   "x": -168,
+   "y": 6,
+   "width": 48,
+   "height": 48
+  },
+  {
+   "name": "ICON_INFORMATION",
+   "path": "ICON_INFORMATION",
+   "kind": "control",
+   "x": -227,
+   "y": 6,
+   "width": 48,
+   "height": 48
+  },
+  {
+   "name": "ICON_ERREUR",
+   "path": "ICON_ERREUR",
+   "kind": "control",
+   "x": -108,
+   "y": 6,
+   "width": 48,
+   "height": 48
+  },
+  {
+   "name": "LIB_INFO",
+   "path": "LIB_INFO",
+   "kind": "control",
+   "x": 68,
+   "y": 31,
+   "width": 165,
+   "height": 44
+  },
+  {
+   "name": "BTN_ESC",
+   "path": "BTN_ESC",
+   "kind": "control",
+   "x": -5,
+   "y": -99,
+   "width": 44,
+   "height": 48
+  },
+  {
+   "name": "ICONE",
+   "path": "ICONE",
+   "kind": "control",
+   "x": 14,
+   "y": 31,
+   "width": 48,
+   "height": 48
+  },
+  {
+   "name": "LIB_TITRE",
+   "path": "LIB_TITRE",
+   "kind": "control",
+   "x": 54,
+   "y": -82,
+   "width": 349,
+   "height": 48
+  },
+  {
+   "name": "SAI_1",
+   "path": "SAI_1",
+   "kind": "control",
+   "x": 51,
+   "y": -107,
+   "width": 181,
+   "height": 22
+  },
+  {
+   "name": "INT_1",
+   "path": "INT_1",
+   "kind": "control",
+   "x": 51,
+   "y": -152,
+   "width": 181,
+   "height": 36
+  },
+  {
+   "name": "BTN_1",
+   "path": "BTN_1",
+   "kind": "control",
+   "x": 94,
+   "y": 82,
+   "width": 80,
+   "height": 24
+  },
+  {
+   "name": "BTN_MOBILE_1",
+   "path": "BTN_MOBILE_1",
+   "kind": "control",
+   "x": -199,
+   "y": 58,
+   "width": 142,
+   "height": 36
+  },
+  {
+   "name": "RADTitle",
+   "path": "RADTitle",
+   "kind": "control",
+   "x": 9,
+   "y": 4,
+   "width": 112,
+   "height": 18
+  },
+  {
+   "name": "SCSystemButtons",
+   "path": "SCSystemButtons",
+   "kind": "control",
+   "x": 127,
+   "y": 1,
+   "width": 128,
+   "height": 18
+  },
+  {
+   "name": "BTN_UMC",
+   "path": "SCSystemButtons.BTN_UMC",
+   "kind": "control",
+   "x": 127,
+   "y": 0,
+   "width": 24,
+   "height": 19
+  },
+  {
+   "name": "BTN_SYST_MINIMIZE",
+   "path": "SCSystemButtons.BTN_SYST_MINIMIZE",
+   "kind": "control",
+   "x": 161,
+   "y": 0,
+   "width": 26,
+   "height": 19
+  },
+  {
+   "name": "BTN_Syst_Maximize",
+   "path": "SCSystemButtons.BTN_Syst_Maximize",
+   "kind": "control",
+   "x": 187,
+   "y": 0,
+   "width": 25,
+   "height": 19
+  },
+  {
+   "name": "BTN_SYST_FERMER",
+   "path": "SCSystemButtons.BTN_SYST_FERMER",
+   "kind": "control",
+   "x": 211,
+   "y": 0,
+   "width": 44,
+   "height": 19
+  },
+  {
+   "name": "BTN_Syst_Restore",
+   "path": "BTN_Syst_Restore",
+   "kind": "control",
+   "x": 570,
+   "y": -19,
+   "width": 14,
+   "height": 14
+  }
+ ],
+ "assets": [],
+ "unknown": [
+  "no dossier entry: captions, images and skin unknown",
+  "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+ ],
+ "image": "docs/evidence/images/WINDEVDIALOGBOX.jpg"
+}

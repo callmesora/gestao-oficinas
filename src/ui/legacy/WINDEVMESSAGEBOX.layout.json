@@ -1,0 +1,163 @@
+{
+ "window": {
+  "name": "WINDEVMESSAGEBOX",
+  "title": null,
+  "size": null,
+  "opening_mode": null,
+  "window_type": null,
+  "background_image": null,
+  "flags": {}
+ },
+ "controls": [
+  {
+   "name": "BTN_OK",
+   "path": "BTN_OK",
+   "kind": "control",
+   "x": 14,
+   "y": 179,
+   "width": 80,
+   "height": 24
+  },
+  {
+   "name": "LIB_INFO",
+   "path": "LIB_INFO",
+   "kind": "control",
+   "x": 82,
+   "y": 31,
+   "width": 271,
+   "height": 142
+  },
+  {
+   "name": "BTN_OUI",
+   "path": "BTN_OUI",
+   "kind": "control",
+   "x": 100,
+   "y": 179,
+   "width": 80,
+   "height": 24
+  },
+  {
+   "name": "BTN_NON",
+   "path": "BTN_NON",
+   "kind": "control",
+   "x": 186,
+   "y": 179,
+   "width": 80,
+   "height": 24
+  },
+  {
+   "name": "BTN_ANNULER",
+   "path": "BTN_ANNULER",
+   "kind": "control",
+   "x": 275,
+   "y": 179,
+   "width": 80,
+   "height": 24
+  },
+  {
+   "name": "ICON_INFORMATION",
+   "path": "ICON_INFORMATION",
+   "kind": "control",
+   "x": 14,
+   "y": 31,
+   "width": 48,
+   "height": 48
+  },
+  {
+   "name": "ICON_QUESTION",
+   "path": "ICON_QUESTION",
+   "kind": "control",
+   "x": 14,
+   "y": 81,
+   "width": 48,
+   "height": 48
+  },
+  {
+   "name": "ICON_ERREUR",
+   "path": "ICON_ERREUR",
+   "kind": "control",
+   "x": 14,
+   "y": 131,
+   "width": 48,
+   "height": 48
+  },
+  {
+   "name": "BTN_Copier_caché",
+   "path": "BTN_Copier_caché",
+   "kind": "control",
+   "x": 6,
+   "y": -63,
+   "width": 127,
+   "height": 24
+  },
+  {
+   "name": "RADTitle",
+   "path": "RADTitle",
+   "kind": "control",
+   "x": 9,
+   "y": 4,
+   "width": 220,
+   "height": 18
+  },
+  {
+   "name": "SCSystemButtons",
+   "path": "SCSystemButtons",
+   "kind": "control",
+   "x": 235,
+   "y": 1,
+   "width": 128,
+   "height": 18
+  },
+  {
+   "name": "BTN_UMC",
+   "path": "SCSystemButtons.BTN_UMC",
+   "kind": "control",
+   "x": 235,
+   "y": 0,
+   "width": 24,
+   "height": 19
+  },
+  {
+   "name": "BTN_SYST_MINIMIZE",
+   "path": "SCSystemButtons.BTN_SYST_MINIMIZE",
+   "kind": "control",
+   "x": 269,
+   "y": 0,
+   "width": 26,
+   "height": 19
+  },
+  {
+   "name": "BTN_Syst_Maximize",
+   "path": "SCSystemButtons.BTN_Syst_Maximize",
+   "kind": "control",
+   "x": 295,
+   "y": 0,
+   "width": 25,
+   "height": 19
+  },
+  {
+   "name": "BTN_SYST_FERMER",
+   "path": "SCSystemButtons.BTN_SYST_FERMER",
+   "kind": "control",
+   "x": 319,
+   "y": 0,
+   "width": 44,
+   "height": 19
+  },
+  {
+   "name": "BTN_Syst_Restore",
+   "path": "BTN_Syst_Restore",
+   "kind": "control",
+   "x": 570,
+   "y": -19,
+   "width": 14,
+   "height": 14
+  }
+ ],
+ "assets": [],
+ "unknown": [
+  "no dossier entry: captions, images and skin unknown",
+  "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+ ],
+ "image": "docs/evidence/images/WINDEVMESSAGEBOX.jpg"
+}

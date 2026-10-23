@@ -1,0 +1,2002 @@
+{
+  "language": "PT",
+  "layouts": 53,
+  "source_assets": {
+    "Btn_Cancel.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/Btn_Cancel.gif",
+      "sha256": "9845f7daf505986ef1401f4536283cd048c04be297f3619eaf838e97b5fb1c7d",
+      "states": 5,
+      "outputs": [
+        "Btn_Cancel.png",
+        "Btn_Cancel.0.png",
+        "Btn_Cancel.1.png",
+        "Btn_Cancel.2.png",
+        "Btn_Cancel.3.png",
+        "Btn_Cancel.4.png"
+      ]
+    },
+    "Btn_Close.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/Btn_Close.gif",
+      "sha256": "58328e0858136aa562bde765f859ea3fed624976ac51040bb8bc18030af553a0",
+      "states": 5,
+      "outputs": [
+        "Btn_Close.png",
+        "Btn_Close.0.png",
+        "Btn_Close.1.png",
+        "Btn_Close.2.png",
+        "Btn_Close.3.png",
+        "Btn_Close.4.png"
+      ]
+    },
+    "Btn_Delete.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/Btn_Delete.gif",
+      "sha256": "98dee00c9d128d42f7bfec701f2282228c86228bd9343b848475b2158886fe22",
+      "states": 5,
+      "outputs": [
+        "Btn_Delete.png",
+        "Btn_Delete.0.png",
+        "Btn_Delete.1.png",
+        "Btn_Delete.2.png",
+        "Btn_Delete.3.png",
+        "Btn_Delete.4.png"
+      ]
+    },
+    "Btn_Modif.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/Btn_Modif.gif",
+      "sha256": "8acd193c4ae18fbafdac01c1de3283b1de80682be967e9fc9db88d11fbe3a419",
+      "states": 5,
+      "outputs": [
+        "Btn_Modif.png",
+        "Btn_Modif.0.png",
+        "Btn_Modif.1.png",
+        "Btn_Modif.2.png",
+        "Btn_Modif.3.png",
+        "Btn_Modif.4.png"
+      ]
+    },
+    "Btn_New.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/Btn_New.gif",
+      "sha256": "80230acc4f6795883a61a7452ce212abf5a774464201cbb542a19ffdffa37df7",
+      "states": 5,
+      "outputs": [
+        "Btn_New.png",
+        "Btn_New.0.png",
+        "Btn_New.1.png",
+        "Btn_New.2.png",
+        "Btn_New.3.png",
+        "Btn_New.4.png"
+      ]
+    },
+    "Btn_OK.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/Btn_OK.gif",
+      "sha256": "a7ec5b675276df5ce3acf9bf46a7402de263730c7f86cee4dcca3cc719e1ea31",
+      "states": 5,
+      "outputs": [
+        "Btn_OK.png",
+        "Btn_OK.0.png",
+        "Btn_OK.1.png",
+        "Btn_OK.2.png",
+        "Btn_OK.3.png",
+        "Btn_OK.4.png"
+      ]
+    },
+    "Btn_Print.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/Btn_Print.gif",
+      "sha256": "2fed5d918d5fd859aa25a8489f030e3db9c5fdbd9dd1b4dfa7eb137b55b9e423",
+      "states": 5,
+      "outputs": [
+        "Btn_Print.png",
+        "Btn_Print.0.png",
+        "Btn_Print.1.png",
+        "Btn_Print.2.png",
+        "Btn_Print.3.png",
+        "Btn_Print.4.png"
+      ]
+    },
+    "Btn_VisionPlus.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/Btn_VisionPlus.gif",
+      "sha256": "b748ef916898f5842aca3eeca9cf0b1518c81856613a8482c8dc5b221dd24adb",
+      "states": 5,
+      "outputs": [
+        "Btn_VisionPlus.png",
+        "Btn_VisionPlus.0.png",
+        "Btn_VisionPlus.1.png",
+        "Btn_VisionPlus.2.png",
+        "Btn_VisionPlus.3.png",
+        "Btn_VisionPlus.4.png"
+      ]
+    },
+    "CA_Andy_Frame.png": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/CA_Andy_Frame.png",
+      "sha256": "3c43aea5327579b28c5f8c5fba00e99c575d6cdb6bed3c8d071cbaa3409077bd",
+      "states": 2,
+      "outputs": [
+        "CA_Andy_Frame.png",
+        "CA_Andy_Frame.0.png",
+        "CA_Andy_Frame.1.png"
+      ]
+    },
+    "CA_WidgetVista.png": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/CA_WidgetVista.png",
+      "sha256": "ab0c4a81bd97c1a5da8fe5497ef92e35e84ffb58ecef026a2d65903c304c2939",
+      "states": 2,
+      "outputs": [
+        "CA_WidgetVista.png",
+        "CA_WidgetVista.0.png",
+        "CA_WidgetVista.1.png"
+      ]
+    },
+    "MediaPlayer_Bg_Base.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Bg_Base.gif",
+      "sha256": "f4f6d6826b182c7734afc1a201839baa4ef37ef0f6dc4a056f6d55d32806c4bc",
+      "states": 1,
+      "outputs": [
+        "MediaPlayer_Bg_Base.png"
+      ]
+    },
+    "MediaPlayer_Btn_Close.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Btn_Close.gif",
+      "sha256": "790aec74bbf75d6c1bda180f306c8ea6bb7fa7664492f5170c5b71eae1df5a1d",
+      "states": 1,
+      "outputs": [
+        "MediaPlayer_Btn_Close.png"
+      ]
+    },
+    "MediaPlayer_Btn_Close_Anim.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Btn_Close_Anim.gif",
+      "sha256": "51bd7144f30baa479c806ea208c82dd3bdcdc827de7e23d38db6a2f4897d0636",
+      "states": 5,
+      "outputs": [
+        "MediaPlayer_Btn_Close_Anim.png",
+        "MediaPlayer_Btn_Close_Anim.0.png",
+        "MediaPlayer_Btn_Close_Anim.1.png",
+        "MediaPlayer_Btn_Close_Anim.2.png",
+        "MediaPlayer_Btn_Close_Anim.3.png",
+        "MediaPlayer_Btn_Close_Anim.4.png"
+      ]
+    },
+    "MediaPlayer_Btn_Maximise.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Btn_Maximise.gif",
+      "sha256": "30e1eecb0e04c76b61d228f2a8ac6df5e697670c4c6993be8c475817e9576203",
+      "states": 1,
+      "outputs": [
+        "MediaPlayer_Btn_Maximise.png"
+      ]
+    },
+    "MediaPlayer_Btn_Maximize_Anim.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Btn_Maximize_Anim.gif",
+      "sha256": "ae121f11e45baf359d9b5a9eebb93e931f677dd08934f5a9e90fbec711a4bb92",
+      "states": 5,
+      "outputs": [
+        "MediaPlayer_Btn_Maximize_Anim.png",
+        "MediaPlayer_Btn_Maximize_Anim.0.png",
+        "MediaPlayer_Btn_Maximize_Anim.1.png",
+        "MediaPlayer_Btn_Maximize_Anim.2.png",
+        "MediaPlayer_Btn_Maximize_Anim.3.png",
+        "MediaPlayer_Btn_Maximize_Anim.4.png"
+      ]
+    },
+    "MediaPlayer_Btn_Minimize.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Btn_Minimize.gif",
+      "sha256": "880653af52340ee4c968224a77fe8ee05ffc462cce41faae30b171faafec87db",
+      "states": 1,
+      "outputs": [
+        "MediaPlayer_Btn_Minimize.png"
+      ]
+    },
+    "MediaPlayer_Btn_Minimize_Anim.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Btn_Minimize_Anim.gif",
+      "sha256": "4b99324c71507a0d727a31b55fca1b2d6659d55968ff6b2d797a84e51ffe7e26",
+      "states": 5,
+      "outputs": [
+        "MediaPlayer_Btn_Minimize_Anim.png",
+        "MediaPlayer_Btn_Minimize_Anim.0.png",
+        "MediaPlayer_Btn_Minimize_Anim.1.png",
+        "MediaPlayer_Btn_Minimize_Anim.2.png",
+        "MediaPlayer_Btn_Minimize_Anim.3.png",
+        "MediaPlayer_Btn_Minimize_Anim.4.png"
+      ]
+    },
+    "MediaPlayer_Btn_UMC.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Btn_UMC.gif",
+      "sha256": "3d40a37867f949dcc13ec086806d8b5d30bcc50b5b28d0ed3d652e9b2ab10116",
+      "states": 1,
+      "outputs": [
+        "MediaPlayer_Btn_UMC.png"
+      ]
+    },
+    "MediaPlayer_Btn_UMC_Anim.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Btn_UMC_Anim.gif",
+      "sha256": "233399a70a5f3d4f90287e7270b494223c83b943c7bb5d67ae1c308cf0748abf",
+      "states": 5,
+      "outputs": [
+        "MediaPlayer_Btn_UMC_Anim.png",
+        "MediaPlayer_Btn_UMC_Anim.0.png",
+        "MediaPlayer_Btn_UMC_Anim.1.png",
+        "MediaPlayer_Btn_UMC_Anim.2.png",
+        "MediaPlayer_Btn_UMC_Anim.3.png",
+        "MediaPlayer_Btn_UMC_Anim.4.png"
+      ]
+    },
+    "MediaPlayer_Btn_anim.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Btn_anim.gif",
+      "sha256": "7f151e9a9f0438fc79a03d6036662450f5bdf4649612765a59f9e68eb4513463",
+      "states": 5,
+      "outputs": [
+        "MediaPlayer_Btn_anim.png",
+        "MediaPlayer_Btn_anim.0.png",
+        "MediaPlayer_Btn_anim.1.png",
+        "MediaPlayer_Btn_anim.2.png",
+        "MediaPlayer_Btn_anim.3.png",
+        "MediaPlayer_Btn_anim.4.png"
+      ]
+    },
+    "MediaPlayer_Cbox_Anim.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Cbox_Anim.gif",
+      "sha256": "b6c5bb70a873df0d9acd0164763acc9deb9f72f84e4911066fa4c9b13abfb435",
+      "states": 1,
+      "outputs": [
+        "MediaPlayer_Cbox_Anim.png"
+      ]
+    },
+    "MediaPlayer_Radio_Anim.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Radio_Anim.gif",
+      "sha256": "3648359c2c6d5f0f58d7ef833dc6a0afeff3b52d8997b8cb2ca63a293503299c",
+      "states": 1,
+      "outputs": [
+        "MediaPlayer_Radio_Anim.png"
+      ]
+    },
+    "VST01050.png": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/VST01050.png",
+      "sha256": "019495012dd7d7f5d83dad7c982a70f25c203fe85216a9f489068c89093e8a77",
+      "states": 5,
+      "outputs": [
+        "VST01050.png",
+        "VST01050.0.png",
+        "VST01050.1.png",
+        "VST01050.2.png",
+        "VST01050.3.png",
+        "VST01050.4.png"
+      ]
+    },
+    "VST010501.png": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/VST010501.png",
+      "sha256": "2ac651e5c5a308fa33fc11fbebe9a9988cde840c1b84617b095be7047791884f",
+      "states": 5,
+      "outputs": [
+        "VST010501.png",
+        "VST010501.0.png",
+        "VST010501.1.png",
+        "VST010501.2.png",
+        "VST010501.3.png",
+        "VST010501.4.png"
+      ]
+    },
+    "VST01370.png": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/VST01370.png",
+      "sha256": "636547e06491e2eac40cd1917fff8e455413cfd0fa60b9ba487e9c955508f85d",
+      "states": 5,
+      "outputs": [
+        "VST01370.png",
+        "VST01370.0.png",
+        "VST01370.1.png",
+        "VST01370.2.png",
+        "VST01370.3.png",
+        "VST01370.4.png"
+      ]
+    },
+    "VST01372.png": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/VST01372.png",
+      "sha256": "84e2f6e9ce2e0af58f157eb4e04b30d3f684672c2daa0f2691a855ffb933d6c7",
+      "states": 5,
+      "outputs": [
+        "VST01372.png",
+        "VST01372.0.png",
+        "VST01372.1.png",
+        "VST01372.2.png",
+        "VST01372.3.png",
+        "VST01372.4.png"
+      ]
+    },
+    "VST01605.png": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/VST01605.png",
+      "sha256": "494dc74520393c381273ccba32fa6a411b17e84192a1f4eb1ca97800e4d3ae1d",
+      "states": 5,
+      "outputs": [
+        "VST01605.png",
+        "VST01605.0.png",
+        "VST01605.1.png",
+        "VST01605.2.png",
+        "VST01605.3.png",
+        "VST01605.4.png"
+      ]
+    },
+    "VST01610.png": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/VST01610.png",
+      "sha256": "6182477185654df8115ed30c9410fd2e7374ee330d0e467ce0bf0bdf4d608029",
+      "states": 5,
+      "outputs": [
+        "VST01610.png",
+        "VST01610.0.png",
+        "VST01610.1.png",
+        "VST01610.2.png",
+        "VST01610.3.png",
+        "VST01610.4.png"
+      ]
+    },
+    "VST01620.png": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/VST01620.png",
+      "sha256": "355dc50a8a47bffc3d31a1421b3ee6a1a021e7d40f08297076ee809c70a6940c",
+      "states": 5,
+      "outputs": [
+        "VST01620.png",
+        "VST01620.0.png",
+        "VST01620.1.png",
+        "VST01620.2.png",
+        "VST01620.3.png",
+        "VST01620.4.png"
+      ]
+    },
+    "VST016202.png": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/VST016202.png",
+      "sha256": "efff3554ea6aad11dc42129960b72a80931fa34cac4384b77fbe613ce060a0da",
+      "states": 5,
+      "outputs": [
+        "VST016202.png",
+        "VST016202.0.png",
+        "VST016202.1.png",
+        "VST016202.2.png",
+        "VST016202.3.png",
+        "VST016202.4.png"
+      ]
+    },
+    "VST02110.png": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/VST02110.png",
+      "sha256": "523677b46d5c9578f9556a30188deb04a04be0a5db73e7ff601be8473cb932a3",
+      "states": 1,
+      "outputs": [
+        "VST02110.png"
+      ]
+    },
+    "barcode_48.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/barcode_48.gif",
+      "sha256": "894009bb2f6b9f6b462e0bd3af7240a697e904ba6a3bbf93eccf42286b0eb406",
+      "states": 1,
+      "outputs": [
+        "barcode_48.png"
+      ]
+    },
+    "calculator_16.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/calculator_16.gif",
+      "sha256": "decb1dbfa2ed6a11697ba08da7af557d0069b8e423b2a92e3527598051d45db2",
+      "states": 1,
+      "outputs": [
+        "calculator_16.png"
+      ]
+    },
+    "clients_32.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/clients_32.gif",
+      "sha256": "4fb1d3f469e3702c583c505a866d8fdabf233102066591eb3b73d5dc44d30bdf",
+      "states": 1,
+      "outputs": [
+        "clients_32.png"
+      ]
+    },
+    "inventory_categories_16.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/inventory_categories_16.gif",
+      "sha256": "04d60f3ad54a9d7d1c74307af906bf001180dbe27f0c93bc8eef6c9cf75b3cd1",
+      "states": 1,
+      "outputs": [
+        "inventory_categories_16.png"
+      ]
+    },
+    "inventory_categories_32.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/inventory_categories_32.gif",
+      "sha256": "606168bfd157b1a8f8a5c10f10d93111cd3e097e6a752350e70ca77b6b222568",
+      "states": 1,
+      "outputs": [
+        "inventory_categories_32.png"
+      ]
+    },
+    "modem_32.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/modem_32.gif",
+      "sha256": "18f808840bd77d2daba1237560493b327ea9e1a17e5c8a8336a0c599cf7378bb",
+      "states": 1,
+      "outputs": [
+        "modem_32.png"
+      ]
+    },
+    "note.png": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/note.png",
+      "sha256": "a9e7d72186832f8b6297796affca552890992a1f6efa3957d3ccdbd3a08805a6",
+      "states": 1,
+      "outputs": [
+        "note.png"
+      ]
+    },
+    "plan_3_a_48.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/plan_3_a_48.gif",
+      "sha256": "a69cfca60a40b8d8c4a3c35042ce7b1226c696eed5c12df1b34ee6baa958da1a",
+      "states": 1,
+      "outputs": [
+        "plan_3_a_48.png"
+      ]
+    },
+    "raw_material_24.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/raw_material_24.gif",
+      "sha256": "72bea51e05cbbdcbdd0650ea78291f73297ed0c279ef354beaf6d3190d402135",
+      "states": 1,
+      "outputs": [
+        "raw_material_24.png"
+      ]
+    },
+    "raw_material_32.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/raw_material_32.gif",
+      "sha256": "6cb3204233d6450fde9fa1073914e0875b6df5cc3cf1be2af2d65d59f157927b",
+      "states": 1,
+      "outputs": [
+        "raw_material_32.png"
+      ]
+    },
+    "refresh_32.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/refresh_32.gif",
+      "sha256": "6caf0b8c0cd10f8893e52f3d54100562c2a4bf644fa137926346cf38a9851321",
+      "states": 1,
+      "outputs": [
+        "refresh_32.png"
+      ]
+    },
+    "time_frame_32.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/time_frame_32.gif",
+      "sha256": "00409c405429209ab5011390e5a77a1b0ae66e5c102aa8f8081bcb3afab34ef3",
+      "states": 1,
+      "outputs": [
+        "time_frame_32.png"
+      ]
+    },
+    "tool_32.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/tool_32.gif",
+      "sha256": "8ca1f4ab12fb0a5364460dde7a5bfb1c8ebde14a9bf47463a6956ecc2b822a2f",
+      "states": 1,
+      "outputs": [
+        "tool_32.png"
+      ]
+    },
+    "traffic_lights_32.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/traffic_lights_32.gif",
+      "sha256": "ede9b9d3b3280feb051a6f680b141b576a7ce65446898be628a0ecfbd66d9fe5",
+      "states": 1,
+      "outputs": [
+        "traffic_lights_32.png"
+      ]
+    }
+  },
+  "outputs": {
+    "public/skin/barcode_48.png": {
+      "sha256": "b7b08a8a0ed9a1e4f0d70272c31472901f0f0be00f3070421e52d91110fb6a05",
+      "width": 48,
+      "height": 48
+    },
+    "public/skin/Btn_Cancel.0.png": {
+      "sha256": "0057691afeed14aa1e1a08067079beabcacbb3381d89bd819c02c8867c466276",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Cancel.1.png": {
+      "sha256": "3983717ff29c89bf1d05225e41299f8a8cf2a553cb1e2c9ade029f12345e4a73",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Cancel.2.png": {
+      "sha256": "d61430743786a4d3c4868333f5c068017808b6570f1b95f98f17d07f901c1246",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Cancel.3.png": {
+      "sha256": "0057691afeed14aa1e1a08067079beabcacbb3381d89bd819c02c8867c466276",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Cancel.4.png": {
+      "sha256": "8d0d63eddb00918d22045d1db4e8d0a7eef7d51b229e56bc7478528bdf259d39",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Cancel.png": {
+      "sha256": "e181dfb01b7b2e4eb2973ae04fce224dc2ce818fb02b1ae20257a8b9652dacc3",
+      "width": 80,
+      "height": 16
+    },
+    "public/skin/Btn_Close.0.png": {
+      "sha256": "f50fbef387998c1c94d3f475202e5419729fe36c9642dccbc695005339f8c5d7",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Close.1.png": {
+      "sha256": "324053983594aa374c6e0f69e8f5fa03acb80536504fafb6ca1b7ec0ad2db1b8",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Close.2.png": {
+      "sha256": "78da3b097d97dbe2699d2bc33c7ecdf8cce2c89defd571a2be69d122897962ec",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Close.3.png": {
+      "sha256": "b51d2724d070b1ee41542b78063deb4045786435c7fbc2ddefea84b872a358fc",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Close.4.png": {
+      "sha256": "8f63bb7a91d83844bf03358077e1a511f7578f5f8cb728c735af3855684c4664",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Close.png": {
+      "sha256": "3a63991dcf82d65ba676217a3e078a8c21c102af5b2c1152d4d8cdc94b906b41",
+      "width": 80,
+      "height": 16
+    },
+    "public/skin/Btn_Delete.0.png": {
+      "sha256": "0ded5feab3eb491ba7c1d80d117451fa2a0c57b567b40edcd612f5e50de31b1e",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Delete.1.png": {
+      "sha256": "9f0fc2b9dea38cb23d36dbb8c364705b2f1d831ac44e9261d743a3ac1a44b84b",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Delete.2.png": {
+      "sha256": "733fd6c2c5e6406924fe58f672f611e8953a9ee2341ce7cb612d5efd448c7435",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Delete.3.png": {
+      "sha256": "0ded5feab3eb491ba7c1d80d117451fa2a0c57b567b40edcd612f5e50de31b1e",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Delete.4.png": {
+      "sha256": "88d7bf213dc060101c0fb38767df71a513d3ce60cc94264ed53b4fb80f014247",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Delete.png": {
+      "sha256": "27c1d95c179a0469dfb53a70a8572c45f1d7417882505801e8cdd1246e572457",
+      "width": 80,
+      "height": 16
+    },
+    "public/skin/Btn_Modif.0.png": {
+      "sha256": "9bb9cf9b556d8920a928a243178e0eb87fe0e44a7824191efe9ce0f84049b06f",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Modif.1.png": {
+      "sha256": "716f16d4c2f14bbca9d74341c9a9bbed1cba4cdac52f142e7bb5351b9dea7094",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Modif.2.png": {
+      "sha256": "8e621a40781343a055396920bc928fadef3a4322d72385faf04d55385a3ca46d",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Modif.3.png": {
+      "sha256": "9bb9cf9b556d8920a928a243178e0eb87fe0e44a7824191efe9ce0f84049b06f",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Modif.4.png": {
+      "sha256": "132abc73af951c23f7f033e2cdeae91c654ec1f5a10ffe12ae6805f37cd4a87a",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Modif.png": {
+      "sha256": "81b57bacfbab671706b823e17f0160f6208e09ba12cb5d39334cb13c65667a35",
+      "width": 80,
+      "height": 16
+    },
+    "public/skin/Btn_New.0.png": {
+      "sha256": "2b742de3e9a3bab570204f69db7d63217f82fbd767e770a28b74b76307c2f6de",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_New.1.png": {
+      "sha256": "1bd6f7ba22b8dee0620e47907567618617aa2a0d401e7160ae060bcb80faca29",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_New.2.png": {
+      "sha256": "b0b97318e48b7b295857fa85fc4c5ae0870903ef7181ca8f5798c6d45a3dcb02",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_New.3.png": {
+      "sha256": "2b742de3e9a3bab570204f69db7d63217f82fbd767e770a28b74b76307c2f6de",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_New.4.png": {
+      "sha256": "705d307410cc3555be0359895c4790780a94b3a56c0709c93e9ce960449fbf5b",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_New.png": {
+      "sha256": "a4aeecfecc457d9be2204359de684bb71268c309dbd92e67861bab96af9d9072",
+      "width": 80,
+      "height": 16
+    },
+    "public/skin/Btn_OK.0.png": {
+      "sha256": "d1e7558c0c7c049dd026cdfcb76e9358a640e1fb1331fbfeb253ff35cdd834e2",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_OK.1.png": {
+      "sha256": "1ad4bceb8530aa91fc28b607e988f8bad1aef4a138758098e8521c5723046f09",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_OK.2.png": {
+      "sha256": "56d2688ff206ddefd9c7eea68a871efeca0399f2c9975ead82b72bfcd1dec15d",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_OK.3.png": {
+      "sha256": "d1e7558c0c7c049dd026cdfcb76e9358a640e1fb1331fbfeb253ff35cdd834e2",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_OK.4.png": {
+      "sha256": "df610d231c9d3407e7572e12544847e078121bc07645e99d699ac5ee1f83fdea",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_OK.png": {
+      "sha256": "d5918798c1661eba371d6683b872e8cb7bda762ddaec0a3e2c37032241d62bd1",
+      "width": 80,
+      "height": 16
+    },
+    "public/skin/Btn_Print.0.png": {
+      "sha256": "c9cc24da62078b85ef8dd7fc2d852446e1160818195ffa24101be34efba82149",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Print.1.png": {
+      "sha256": "0004f46b87ae8ef00eab42543817c43df54f313329cf56c2e67772350affe3b5",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Print.2.png": {
+      "sha256": "98f6994efa8a2d498d4c04e3355d21177969a36b6f42c9f278d2775ee7d40188",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Print.3.png": {
+      "sha256": "c9cc24da62078b85ef8dd7fc2d852446e1160818195ffa24101be34efba82149",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Print.4.png": {
+      "sha256": "1099c374409fd1324764e5f958a8fefc8c036270cb64ff701cfea33f5fe4ee72",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_Print.png": {
+      "sha256": "bd237f3ff3b5d7e1894ca599a57d507d2d93002f555f0cedf9f5ec51568269c9",
+      "width": 80,
+      "height": 16
+    },
+    "public/skin/Btn_VisionPlus.0.png": {
+      "sha256": "2a9fd99c10d13f01092e26abe755dfc293a0df403d14961017f3065d619e9372",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_VisionPlus.1.png": {
+      "sha256": "42a8cd91f3545fe6431b3411b513b6816fa4bb7482351bd983c3c3953914ee07",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_VisionPlus.2.png": {
+      "sha256": "d2377a013b2e84e808b88370c560b2c13eb914639ec1a285e7c1d4520abdc802",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_VisionPlus.3.png": {
+      "sha256": "2a9fd99c10d13f01092e26abe755dfc293a0df403d14961017f3065d619e9372",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_VisionPlus.4.png": {
+      "sha256": "480c62caeb43fb7daf11f021d395530d977de907aa50332939d9ab3eeb440681",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/Btn_VisionPlus.png": {
+      "sha256": "fb46cff8a478b191ee50c82406eca4f38b2bace39a2c94910fea92cc00620e8e",
+      "width": 80,
+      "height": 16
+    },
+    "public/skin/CA_Andy_Frame.0.png": {
+      "sha256": "9d17216214f7ee0c8191a2851fdd847f7de68dc2875ed986f922c2ababe42ab4",
+      "width": 86,
+      "height": 86
+    },
+    "public/skin/CA_Andy_Frame.1.png": {
+      "sha256": "0a2c5a65edf51242bddbae85db2ee8ef912d1b2c378e1d4aa3cfd684dc2a8895",
+      "width": 86,
+      "height": 86
+    },
+    "public/skin/CA_Andy_Frame.png": {
+      "sha256": "65e0edb05e9f806cecc8a1163a87bf25601e78bff145cb73a709cbfe1ee2942d",
+      "width": 172,
+      "height": 86
+    },
+    "public/skin/CA_WidgetVista.0.png": {
+      "sha256": "9b00312d11907e35b48f6ba01238ac4ace8310c5a579989feafb1902571bcbab",
+      "width": 130,
+      "height": 92
+    },
+    "public/skin/CA_WidgetVista.1.png": {
+      "sha256": "cd3dcfe3abfa3fd385b4335ae6d4155994ec3decb0bee8bedb8a77fae4744f96",
+      "width": 130,
+      "height": 92
+    },
+    "public/skin/CA_WidgetVista.png": {
+      "sha256": "9d0b5a6d74c7952f1a3a360ae39e6f7520b0d9b394fe54a3791ad44078ae3b53",
+      "width": 260,
+      "height": 92
+    },
+    "public/skin/calculator_16.png": {
+      "sha256": "8b52431759a2e6678bb95ad4cedae4c0e8209a5c4d075d16fa311c6173f3b6f1",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/clients_32.png": {
+      "sha256": "5359ad0f60e941da24ecd7e8096ea7612b76916cdae1d93582474c9ee2f64bf4",
+      "width": 32,
+      "height": 32
+    },
+    "public/skin/inventory_categories_16.png": {
+      "sha256": "19b4fa1e53e8036317956eed66021f445bfc71f297b627a3f718694afc5656a5",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/inventory_categories_32.png": {
+      "sha256": "ec1a98b303b781eb1b2479e534cde574053f72c9580b279b34bb04759066b25a",
+      "width": 32,
+      "height": 32
+    },
+    "public/skin/MediaPlayer_Bg_Base.png": {
+      "sha256": "fc1d15a1f7c19bbff699a689c05370bad90987717acfc5706d856168f9bc252e",
+      "width": 198,
+      "height": 143
+    },
+    "public/skin/MediaPlayer_Btn_anim.0.png": {
+      "sha256": "4877bcc814ae3ff5ce754828a07813a4f7c24cec085ed72459496204cece89ed",
+      "width": 34,
+      "height": 24
+    },
+    "public/skin/MediaPlayer_Btn_anim.1.png": {
+      "sha256": "c3347ed6f4b1b30907b478a785ce38de8db9e9029dfe37c7169cc4c1d5a14215",
+      "width": 34,
+      "height": 24
+    },
+    "public/skin/MediaPlayer_Btn_anim.2.png": {
+      "sha256": "6da4088ed1187680763224acd60a630b8866613cc532cb4963711ddca22fe4c5",
+      "width": 34,
+      "height": 24
+    },
+    "public/skin/MediaPlayer_Btn_anim.3.png": {
+      "sha256": "b03a26ef30c6d1a407ace6075670a5b265a0ff8794cdc45b3d34709a969ff564",
+      "width": 34,
+      "height": 24
+    },
+    "public/skin/MediaPlayer_Btn_anim.4.png": {
+      "sha256": "8f1d0f1b9cc2d64a7b4018e5b914021f78b8852cfbc43d2bcd5790fbe7ffeef8",
+      "width": 34,
+      "height": 24
+    },
+    "public/skin/MediaPlayer_Btn_anim.png": {
+      "sha256": "1e87cdef930ed222815bbda91525a5bd3f4b3def693d801a83fc7f0bd7f7ca7a",
+      "width": 170,
+      "height": 24
+    },
+    "public/skin/MediaPlayer_Btn_Close.png": {
+      "sha256": "0f59518a95c3abd5ca6ba0dc2ca6790b5ce802a83a7dcafbaf584b9d2238e039",
+      "width": 11,
+      "height": 10
+    },
+    "public/skin/MediaPlayer_Btn_Close_Anim.0.png": {
+      "sha256": "00163df1653e188db0bf034352201c5229f19395aa22bb082c72feda1ca95322",
+      "width": 44,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_Close_Anim.1.png": {
+      "sha256": "f085082ffbd01e85cb04eda0541f873333494aba04de3ed8f17a9ba50b95e6f6",
+      "width": 44,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_Close_Anim.2.png": {
+      "sha256": "6bb7c3f21cf7d90a5d21cdabd4e41fd93e341316c4bbd482fb6583b1bcf0dd67",
+      "width": 44,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_Close_Anim.3.png": {
+      "sha256": "6725a28cf96c536c8cb81c3a35ef030bd5a7319ebaa90f19cf39374609de4d47",
+      "width": 44,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_Close_Anim.4.png": {
+      "sha256": "3fe9422c52513dafd24d52ecb5b691a7d467a39acbb84a746b1ae4514ffa685d",
+      "width": 44,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_Close_Anim.png": {
+      "sha256": "e6fa74ad34b0854535eefbfba72b9d64a93d352bb7d088eb7aef8ca6ea81df83",
+      "width": 220,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_Maximise.png": {
+      "sha256": "c55d8522459a2a4191956394d37d2f341c22266b66c679bb1fc62950b1d9ef08",
+      "width": 12,
+      "height": 12
+    },
+    "public/skin/MediaPlayer_Btn_Maximize_Anim.0.png": {
+      "sha256": "8ae9d99528e61650893fbf208627e62f462c41189c99b59d307e6d8a38bcd96e",
+      "width": 24,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_Maximize_Anim.1.png": {
+      "sha256": "939f208bfb152984293ae350a8bb16bce9e6b649cf1450bbe26512146e7af8eb",
+      "width": 24,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_Maximize_Anim.2.png": {
+      "sha256": "4994aa0a8759206bae713b23fae73213bd19fbf18df32bda6a875816a49c8bfb",
+      "width": 24,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_Maximize_Anim.3.png": {
+      "sha256": "83fc0e35d5037f6ddcd58f7bbf1eb687c26a9783a1bd272d8c03aed17ed64d97",
+      "width": 24,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_Maximize_Anim.4.png": {
+      "sha256": "4f3ea7a5c85535aef556a430f9ab178a3ecaf9d49bfe583b35075db7245e4dbf",
+      "width": 24,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_Maximize_Anim.png": {
+      "sha256": "6c88741cb9da24cfa6d48b5fc7eeebd135eb9263135def655bbf941dbd6c4786",
+      "width": 120,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_Minimize.png": {
+      "sha256": "0c46eb6966ae2c484e05e1c2ef29d9ae98812cc70a32f62f3a0864413f8ea968",
+      "width": 12,
+      "height": 12
+    },
+    "public/skin/MediaPlayer_Btn_Minimize_Anim.0.png": {
+      "sha256": "61307c38da100553c14b43cb79ef2070e212859e46a11d0537f97042b0d00d57",
+      "width": 27,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_Minimize_Anim.1.png": {
+      "sha256": "d6c7fc664cd6325aec86ab4ac608a858aef2cb6fcd58b04f0eb26244ca94ee35",
+      "width": 27,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_Minimize_Anim.2.png": {
+      "sha256": "2ef9e37e675d25fac843fc5c3923f7b07f1dcd013cb61f6c522ca46ece3f64e3",
+      "width": 27,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_Minimize_Anim.3.png": {
+      "sha256": "61307c38da100553c14b43cb79ef2070e212859e46a11d0537f97042b0d00d57",
+      "width": 27,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_Minimize_Anim.4.png": {
+      "sha256": "bdd1c44d46aca974a656ee961f530f19a568a2b093432c84ba6a9d55cc0cf5b7",
+      "width": 27,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_Minimize_Anim.png": {
+      "sha256": "66bd81bf69c2f9bd52ec581d7d935314305802afac63a983463f790d14f03c0d",
+      "width": 135,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_UMC.png": {
+      "sha256": "5eaec3bee816f25adbffa5b080d58e77ffa6dccbab4d2334b7e7c4ae4c94b5ec",
+      "width": 24,
+      "height": 24
+    },
+    "public/skin/MediaPlayer_Btn_UMC_Anim.0.png": {
+      "sha256": "8378f18ae851acda5e5278c918cb4153915d361d99b21753f5286f6fba0dbe7a",
+      "width": 27,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_UMC_Anim.1.png": {
+      "sha256": "5191ba63d95c26ea635ea1b5f1b17a214eeeec421c53665ab3ab4be55cfbf85e",
+      "width": 27,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_UMC_Anim.2.png": {
+      "sha256": "6e8bb819a8dcf5026cc662e47510ee8526e23898180e09a7aea5bd8ddc484919",
+      "width": 27,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_UMC_Anim.3.png": {
+      "sha256": "8378f18ae851acda5e5278c918cb4153915d361d99b21753f5286f6fba0dbe7a",
+      "width": 27,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_UMC_Anim.4.png": {
+      "sha256": "945562f7d63d808e9a74004d1825f3cf68bcbad5aceab58d9f2b932dd7ee7ec2",
+      "width": 27,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Btn_UMC_Anim.png": {
+      "sha256": "86bc094481bc9f6364c11830610903aea8567418a7c716736a2ca177bcc6e11d",
+      "width": 135,
+      "height": 19
+    },
+    "public/skin/MediaPlayer_Cbox_Anim.png": {
+      "sha256": "99f7fa291f1215401a2ac16100292e97c1b4f6480d199c4aaa06560560ae806f",
+      "width": 156,
+      "height": 13
+    },
+    "public/skin/MediaPlayer_Radio_Anim.png": {
+      "sha256": "dd03150db29417ebeda59428b697d65ccac727b027be4096064a9e3f579b1f31",
+      "width": 144,
+      "height": 12
+    },
+    "public/skin/modem_32.png": {
+      "sha256": "b98e2ac7c50fac4155990e0553e3d2623f1f73dfcb6bfdc6c7f137f69bf94241",
+      "width": 32,
+      "height": 32
+    },
+    "public/skin/note.png": {
+      "sha256": "d12fc3b2008728ea4e0a83be6eea8a4996eba71101841800c5411b8aa475f898",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/plan_3_a_48.png": {
+      "sha256": "0561e6f2b2ac4d81e4520d9958fc93b5f86a6936957fa045877a1dc06637009c",
+      "width": 48,
+      "height": 48
+    },
+    "public/skin/raw_material_24.png": {
+      "sha256": "c84a055ad02bc9c5e71d5bbf38149893738ab9bc91ccfb1dfe1cde659699854b",
+      "width": 24,
+      "height": 24
+    },
+    "public/skin/raw_material_32.png": {
+      "sha256": "13a47fbad3a6b6e06f5d87c11db0ccf35c5de22f96d838b295e07237ddc41264",
+      "width": 32,
+      "height": 32
+    },
+    "public/skin/refresh_32.png": {
+      "sha256": "ccb9edd6036a63ccd146068ca8c8681537f2d9ca3fd116a9b18c697b279b6778",
+      "width": 32,
+      "height": 32
+    },
+    "public/skin/time_frame_32.png": {
+      "sha256": "c72a72e08442befdcdc5a11ce5d08f47b5cbf16e24ccf3afaa9fa637588a8132",
+      "width": 32,
+      "height": 32
+    },
+    "public/skin/tool_32.png": {
+      "sha256": "bc661deb9be230b6f99bc14dbde4271853c73fa7fde86ad30a086038aac73339",
+      "width": 32,
+      "height": 32
+    },
+    "public/skin/traffic_lights_32.png": {
+      "sha256": "fcb80ff4376b1e4a34e696c14811e893d608fd34451145f56f9ebf07d1956cd0",
+      "width": 32,
+      "height": 32
+    },
+    "public/skin/VST01050.0.png": {
+      "sha256": "505ea10c198e1448f0252fb623459d6c23f2133ae4a572e400cd909560f44f92",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/VST01050.1.png": {
+      "sha256": "f234194b7b04618176ad9a40207c585726570c458e933ac494ba04d222444c5f",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/VST01050.2.png": {
+      "sha256": "039567e18486e15493f2b85748da1524d208c2126743a569f6be74339063120d",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/VST01050.3.png": {
+      "sha256": "4b1bc253fbc62503ddce54514dd1b0b20a93aca83b9d9b068294e0aa655f9d90",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/VST01050.4.png": {
+      "sha256": "96d1d534e17c021302502db7012e92eed0ad7b447a83e79c50dd98fc24fae3f4",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/VST01050.png": {
+      "sha256": "f084c9b4863382058fc08e77fd907c6ed1bd3ad2ba88c7c0201685cfb8e12073",
+      "width": 80,
+      "height": 16
+    },
+    "public/skin/VST010501.0.png": {
+      "sha256": "e2d098f941ab27d175fe6e27de98c5dc1a4b54cf60db30551b6add8cefab3410",
+      "width": 24,
+      "height": 24
+    },
+    "public/skin/VST010501.1.png": {
+      "sha256": "b1f30d65f3669520fa239cfa1f2f4c231ac9fa515620549caad630e729a951a4",
+      "width": 24,
+      "height": 24
+    },
+    "public/skin/VST010501.2.png": {
+      "sha256": "9fda3a02e22cf0a4f9085fbb6fa474957bab3008d1dab718ccdcde72dead1300",
+      "width": 24,
+      "height": 24
+    },
+    "public/skin/VST010501.3.png": {
+      "sha256": "a85aa123f6feb4b0c9c143ae9e2f633bc0d99eb1380481e8f135c4619ffb81cb",
+      "width": 24,
+      "height": 24
+    },
+    "public/skin/VST010501.4.png": {
+      "sha256": "0b15f276b9809ec76f968a4dadb95467f48e7b8a2720c0246f41f34432a88a52",
+      "width": 24,
+      "height": 24
+    },
+    "public/skin/VST010501.png": {
+      "sha256": "c004e5a4f3bc8a5202caf920cbac63941965061b08bef57c880312937969d18a",
+      "width": 120,
+      "height": 24
+    },
+    "public/skin/VST01370.0.png": {
+      "sha256": "f106edaddede11f74d1d48680560b6af888e3848d55e9c8a606a5b24e7e89fd0",
+      "width": 24,
+      "height": 24
+    },
+    "public/skin/VST01370.1.png": {
+      "sha256": "05b9b32c5e4c52e93ba276ec360832d8ddf0d00e7e1f0f22131be4e1f59874c1",
+      "width": 24,
+      "height": 24
+    },
+    "public/skin/VST01370.2.png": {
+      "sha256": "97d84e7675dbb4ef54a7fbeeaadc5acb04e2202cb73b51056cceeed5044b4c44",
+      "width": 24,
+      "height": 24
+    },
+    "public/skin/VST01370.3.png": {
+      "sha256": "e5f46ef94611de48ffdf4dba2a1933850e59b5955e67173aaac9b23e4a5b2616",
+      "width": 24,
+      "height": 24
+    },
+    "public/skin/VST01370.4.png": {
+      "sha256": "35bd941e286aa36f10ab084e2cfe50b892e9567e64a52b4bb9eade0870a0c036",
+      "width": 24,
+      "height": 24
+    },
+    "public/skin/VST01370.png": {
+      "sha256": "2abdfa96698db55d990229b9fe981dca2a8b3ee33d1010f18857482c02c8312f",
+      "width": 120,
+      "height": 24
+    },
+    "public/skin/VST01372.0.png": {
+      "sha256": "467765acffabb1436fdbdf65a8e6e057ebdd8dcd0d356443b10736e29fc6b2ba",
+      "width": 24,
+      "height": 24
+    },
+    "public/skin/VST01372.1.png": {
+      "sha256": "ed0069750d7a57b51975232a25dda296cebeaa0a5bf19025772383ebd9f60b9c",
+      "width": 24,
+      "height": 24
+    },
+    "public/skin/VST01372.2.png": {
+      "sha256": "6d5c39605d60549e1da256c2cd7457812f5bc210ef430942974fe32ad3dd71fc",
+      "width": 24,
+      "height": 24
+    },
+    "public/skin/VST01372.3.png": {
+      "sha256": "ee77f18c3872b9690f54e68757448c7bf9752a96c6d48ff416e90601813be9a3",
+      "width": 24,
+      "height": 24
+    },
+    "public/skin/VST01372.4.png": {
+      "sha256": "a1965a6590fbda98db15fe76531075e909c84e419dd99a09813f382c1207862f",
+      "width": 24,
+      "height": 24
+    },
+    "public/skin/VST01372.png": {
+      "sha256": "f2859c8365adccc790a9fd8d220d415a3abb87d0f74cf1e882f0a201acb60bc5",
+      "width": 120,
+      "height": 24
+    },
+    "public/skin/VST01605.0.png": {
+      "sha256": "0d60edb25069bf719d4a634bd79805f0ccfe614a86c8850b1c270d8d0f3add21",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/VST01605.1.png": {
+      "sha256": "9aa00a941831de1ffca17e2ddb2ba6b26b6e9b4d6afa2f5eb870e4a0360fbd71",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/VST01605.2.png": {
+      "sha256": "f860b03871eedd6cc65dc881d7f80b51d7c6edc2c5a620725b39e869a3fa0828",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/VST01605.3.png": {
+      "sha256": "edf5fd4aaf616667883e3a0f78f245b753af411dc820ee9619fb5c1064e55682",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/VST01605.4.png": {
+      "sha256": "380141caedab51340ae786c40163c168b675f5a2b20904646bbbee285061e237",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/VST01605.png": {
+      "sha256": "fa722e1db848cc08acc25c2f8b09c09de41b1ed5d5ce319674061d8897843820",
+      "width": 80,
+      "height": 16
+    },
+    "public/skin/VST01610.0.png": {
+      "sha256": "0be01756ab56ba76db9ed5620f6dc68531d30b3c47c955cb5424f187b730e5e8",
+      "width": 48,
+      "height": 48
+    },
+    "public/skin/VST01610.1.png": {
+      "sha256": "6fdab65ec7a51d6dbe6b28f3a5ed8c65a5786c9bb2d51ffb1abffc34798824fb",
+      "width": 48,
+      "height": 48
+    },
+    "public/skin/VST01610.2.png": {
+      "sha256": "67fd4cc7b542cfc78c1287aa4eefe7854a1a13e6f10c8e14a7b340e8d63a7c23",
+      "width": 48,
+      "height": 48
+    },
+    "public/skin/VST01610.3.png": {
+      "sha256": "3aa352c009386ade95a7db0b0a5c48634b044f4752b84b1c846f0c8f3183e162",
+      "width": 48,
+      "height": 48
+    },
+    "public/skin/VST01610.4.png": {
+      "sha256": "ea103dd8f1d4d624855a90fcc6f7405f08a148e26ca3a6543c9d0b6ac17e3378",
+      "width": 48,
+      "height": 48
+    },
+    "public/skin/VST01610.png": {
+      "sha256": "187e080bc20292c1bd6f0bef49ed9a203495dd23c2b3a4330060d8a4340cbb80",
+      "width": 240,
+      "height": 48
+    },
+    "public/skin/VST01620.0.png": {
+      "sha256": "29ff05fb96d79cd66e98ddb082c4e893caac0d356c7910b51013d1e985dc72a4",
+      "width": 48,
+      "height": 48
+    },
+    "public/skin/VST01620.1.png": {
+      "sha256": "4aa9ca2e323bb137ab4730fbbc907af91fc8bac29fb2a7adec1ee6c540de040d",
+      "width": 48,
+      "height": 48
+    },
+    "public/skin/VST01620.2.png": {
+      "sha256": "f1ce3da24eb47cef3087b7b4cad3bade4415c28c1c040a77650a1debd28774b7",
+      "width": 48,
+      "height": 48
+    },
+    "public/skin/VST01620.3.png": {
+      "sha256": "6694203eb2e477faf3a67fc7d317ebb5ba0f8566cac6103eb3ec8a088c8e533d",
+      "width": 48,
+      "height": 48
+    },
+    "public/skin/VST01620.4.png": {
+      "sha256": "63b86ff044e0d5116341429e03db1344e09543bde4c37a7b6c01c5fb4ddddc29",
+      "width": 48,
+      "height": 48
+    },
+    "public/skin/VST01620.png": {
+      "sha256": "3f9ccac1925bf19c5668bf87b0834d8785e8e9159d6fc86da5198f8e0f7eaef3",
+      "width": 240,
+      "height": 48
+    },
+    "public/skin/VST016202.0.png": {
+      "sha256": "e14beef991e5d24693c9a2ef403352ba92947334b94285c72094c117ae2b87c4",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/VST016202.1.png": {
+      "sha256": "e334348d45fa696f80352cf7726591a8e72ded2e32ca01a40cba366289964311",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/VST016202.2.png": {
+      "sha256": "708211ca695a7e1c99db7f5af4d1e83345c2beeac98ede243d71e7461ef57f1b",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/VST016202.3.png": {
+      "sha256": "4b43a79be89e987038bedecfa8363ccb276bca3dd43b37b800a00046ddde0ab4",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/VST016202.4.png": {
+      "sha256": "d9a104498236b15aa5f2a718f99fecabf1e72e27af4c044d7f8afee039c541a6",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/VST016202.png": {
+      "sha256": "35ba0ea7241e0e6bef7c9e13e264c28a4eb5fde8d1be003cbfab5380491c9339",
+      "width": 80,
+      "height": 16
+    },
+    "public/skin/VST02110.png": {
+      "sha256": "87c7749c1af494ee035c5aeca2dc013fb2b53fe15dbabb933e8cf39741687fd7",
+      "width": 16,
+      "height": 16
+    },
+    "src/ui/legacy/WIN_Acesso.layout.json": {
+      "sha256": "26597140e5f4998ce1d4575809cf0a37f3508f842d3ee2bdce02e8d2519d78f7"
+    },
+    "src/ui/legacy/WIN_Data.layout.json": {
+      "sha256": "0f0550db06c818a32b9f389ac957f84df77a0839f8c9e5038227a6c5232d9ec5"
+    },
+    "src/ui/legacy/WIN_Extrato_Artigos.layout.json": {
+      "sha256": "5e3dd98291c5b9308f28658a65ecc45531ccbbdca0a016c026241d4b44f947c0"
+    },
+    "src/ui/legacy/WIN_Filtro_Mapas_Artigos.layout.json": {
+      "sha256": "af75997f10f2823f22533de4ba770ca727b0c3a4dfcc1e3cc47cd4ee2d040ded"
+    },
+    "src/ui/legacy/WIN_Filtro_Mapas_Tempos.layout.json": {
+      "sha256": "7fddc38ee8290d35cad3b75a769d89cf2c5d10c3246479319768a4630f9a193b"
+    },
+    "src/ui/legacy/WIN_Form_artigos.layout.json": {
+      "sha256": "ba17856d49c03b54ae5c11f964c4a59ad907026d07fd958544ed91c23c832f19"
+    },
+    "src/ui/legacy/WIN_Form_Clientes.layout.json": {
+      "sha256": "78f86778178f1d2868fdd1c24155da81f6a63325aaa6285f5c12ba33c62ee89b"
+    },
+    "src/ui/legacy/WIN_Form_documentos.layout.json": {
+      "sha256": "f1e6d9250b9e414426960a0f0bd1ede3d30b0d456a93da9d8f7461b2ef605e67"
+    },
+    "src/ui/legacy/WIN_Form_estados_descritivos.layout.json": {
+      "sha256": "1107bb292e67644014b36bceb75a0412a68e604350dd092f2334536f2735b3a4"
+    },
+    "src/ui/legacy/WIN_Form_estados_reparacao.layout.json": {
+      "sha256": "fff88ec4e86eac3183ff1ec3860403f1f9df141f18f33f7bd4e6f965f6237155"
+    },
+    "src/ui/legacy/WIN_Form_mecanicos.layout.json": {
+      "sha256": "5d07d52470fe649c6e35b7dd62d8246f75e326782d51e417dd8149d120cc624f"
+    },
+    "src/ui/legacy/WIN_Form_postos.layout.json": {
+      "sha256": "6b49c75a179b5f0b6eaa17ce97a0abc6acecbd8161c32c49b938610cace9de78"
+    },
+    "src/ui/legacy/WIN_Form_Terminais.layout.json": {
+      "sha256": "8ad9acc3156ce0f354fd9c758a6405ace8fd86760f545042d9d1fade94b8d331"
+    },
+    "src/ui/legacy/WIN_Form_unidades.layout.json": {
+      "sha256": "b338324aefa8d79a907061859bbcec01f782cf19eb6a570958e14315c932049b"
+    },
+    "src/ui/legacy/WIN_Form_utilizadores.layout.json": {
+      "sha256": "6bebe87b67d7d8c71c953a5ef402eaa13e249deac583e544812bf2797f57b5ea"
+    },
+    "src/ui/legacy/WIN_Form_Viaturas.layout.json": {
+      "sha256": "4d95fb102074ca1e58bdc339edff7be01474c0cc56a39d2ec1dc98257f76190f"
+    },
+    "src/ui/legacy/WIN_Inserir_quantidade_password.layout.json": {
+      "sha256": "6c202b23f4deff5f04b583e1b089498cffee7d2e62ffa0a4878b28d2671583d4"
+    },
+    "src/ui/legacy/WIN_Inventario.layout.json": {
+      "sha256": "293abeb3c504d43d9ac7481168c072d22cf774c7d65dc98f75a545c19e595f29"
+    },
+    "src/ui/legacy/WIN_Inventario_Reconstrucao.layout.json": {
+      "sha256": "e1dc5b745289e8d75dc6d17aa1bab827c124f6ca15f3dd90ba3c2d5dea3cbc94"
+    },
+    "src/ui/legacy/WIN_Leitor_cod_barras.layout.json": {
+      "sha256": "080f3dfd671a8f7faf0dd2e5ad2817415ae19c92efdf7419c0380c34623443d7"
+    },
+    "src/ui/legacy/WIN_Leitor_cod_barras_desconhecidos.layout.json": {
+      "sha256": "f1edee30facfa5f33bb1e039dec901f46b008464c8b15e6c4de313c1140b6d3a"
+    },
+    "src/ui/legacy/WIN_Mapa_Vendas.layout.json": {
+      "sha256": "7ca317625eca5a29cd9e6ab3b11e9d66fe677634da5917f76314593553394889"
+    },
+    "src/ui/legacy/WIN_Material_Reparacao.layout.json": {
+      "sha256": "e419c42a2cb01cc56efbb4d37e1ba6511359bac493cce08a96679d416a24bca2"
+    },
+    "src/ui/legacy/WIN_Material_reparacao_form.layout.json": {
+      "sha256": "d4620c1b0081b732764b35683f6007dc49eb55cff46bc9ea2346a012ff5e8c13"
+    },
+    "src/ui/legacy/WIN_MENU.layout.json": {
+      "sha256": "6440a039601328880e6753ffc9d39ec68ab10498dc9b2f20a6a462bf5b62844f"
+    },
+    "src/ui/legacy/WIN_Mudar_Estado.layout.json": {
+      "sha256": "9f3b3b83a209144eca4f892d3ed4c714fde82fb9afae7de126de27577d9fd9a0"
+    },
+    "src/ui/legacy/WIN_Ordens_Reparacao.layout.json": {
+      "sha256": "79402e67e3e5d05cb7c466a340c23db6df1090513034655fc4f14401dce6bf55"
+    },
+    "src/ui/legacy/WIN_Ordens_Reparacao_Form.layout.json": {
+      "sha256": "80c5e78db0bc45e87462edb913ca3f4076802e072f5df7e12215ed23839945bb"
+    },
+    "src/ui/legacy/WIN_Reconstrucao_Stocks.layout.json": {
+      "sha256": "f86adec67e79a6557552faf38fe563c5baae97801d4ef6d76fcbd2a1e46e511c"
+    },
+    "src/ui/legacy/WIN_sistema.layout.json": {
+      "sha256": "bb85a6de5603944b3440fc88dbf1f73c74fbbcb7a604dde9ef360c20e00a6e59"
+    },
+    "src/ui/legacy/WIN_Table_artigos.layout.json": {
+      "sha256": "96c7825580b152cc77ea73684b4a752c65f77952edb47fc8ff7203b5d22e82bf"
+    },
+    "src/ui/legacy/WIN_Table_cab_stocks.layout.json": {
+      "sha256": "382f4a00be8a788a4c6be9fe2e1c6906eccb75d8291a4ac8a8b8b086f2fbedac"
+    },
+    "src/ui/legacy/WIN_Table_Clientes.layout.json": {
+      "sha256": "b80d454c5f2830ac63d4924aeae7e042928387b474d2384bc4e87e731805adbf"
+    },
+    "src/ui/legacy/WIN_Table_documentos.layout.json": {
+      "sha256": "cf2b217e8631380677a8299de1b5612e5d44e8e1373a933d2df29a0ac554adbd"
+    },
+    "src/ui/legacy/WIN_Table_estado_reparacao_tipo3.layout.json": {
+      "sha256": "d4f1b3f0674c4eb51788087e468fba02cc53ca61549fbafe9e90a060070f1ce1"
+    },
+    "src/ui/legacy/WIN_Table_estados_descritivos.layout.json": {
+      "sha256": "61e2a3e2cb477a3f0bfcf78ec4cf09b1732a77d0c01ee35e862af71bfbfc0596"
+    },
+    "src/ui/legacy/WIN_Table_estados_reparacao.layout.json": {
+      "sha256": "924f886f78b903262507888c24218aa2eaa4f47796b565f35efb0cdbe2418b87"
+    },
+    "src/ui/legacy/WIN_Table_Lin_Stocks.layout.json": {
+      "sha256": "91f5ea7f1902df8b309d0e9aa606a74a73f7b3cc7f3c1641edd755d8c09222d6"
+    },
+    "src/ui/legacy/WIN_Table_mecanicos.layout.json": {
+      "sha256": "e2c5844817489f307dbbeb302f4dc461b73242264881a7db82d98eed802c898d"
+    },
+    "src/ui/legacy/WIN_Table_postos.layout.json": {
+      "sha256": "3b0ebca7a6ae7e8dbf64ba0ab4bce331fe45662fca10590a14723576c575a6d0"
+    },
+    "src/ui/legacy/WIN_Table_Tempos_materiais_Descricoes.layout.json": {
+      "sha256": "b12c923f69baaadb3ec9e27d6d264fc003466aa5d9d02826a83bc5ec96dd2781"
+    },
+    "src/ui/legacy/WIN_Table_Terminais.layout.json": {
+      "sha256": "1c10044488f017a00ce7a099334a8772733578415c4e0a436656de0b50fe676e"
+    },
+    "src/ui/legacy/WIN_Table_unidades.layout.json": {
+      "sha256": "268b2dc05f03a046989d0de2a718029662316df357fe5020d2a41d61b35e5bd3"
+    },
+    "src/ui/legacy/WIN_Table_utilizadores.layout.json": {
+      "sha256": "db25507f308c8dbb8cc0fe71c7ea73eb0cb697d510866f24cee9c44fb7181d1e"
+    },
+    "src/ui/legacy/WIN_Table_Viaturas.layout.json": {
+      "sha256": "04752894d5c8982c6a72b8b66c1a4e6df02270ece2b6960c2f6a854fe99eefc7"
+    },
+    "src/ui/legacy/WIN_Teclado_Alfa.layout.json": {
+      "sha256": "5b2af768582f10640d46debf571945a6acb500858c8af720afc1fbfb4b16040a"
+    },
+    "src/ui/legacy/WIN_Teclado_numerico.layout.json": {
+      "sha256": "7368e3c7ab4c014a0871dced1f5ec066da333808772451e291ec4f4461c1caa9"
+    },
+    "src/ui/legacy/WIN_Tempos_Reparacao.layout.json": {
+      "sha256": "a76a24e389facca9dd6c5523671a6b5a51f0828e31fe165ea227d264c455f757"
+    },
+    "src/ui/legacy/WIN_Tempos_Reparacao_Estado.layout.json": {
+      "sha256": "73422fa35bd1e2887a628f39199e38c530d16cd6be4003a8cbc0f0b21139e07a"
+    },
+    "src/ui/legacy/WIN_Tempos_Reparacao_Informacao.layout.json": {
+      "sha256": "b50c74510a9ece0d2e9c5f6e9376e8075339845b72f2d8cf05183df82eb039f6"
+    },
+    "src/ui/legacy/WIN_Tempos_Reparacao_Tempo.layout.json": {
+      "sha256": "7bdec0b1fd333bbab01c2be26cc4c17a4a09f313a1356bb7b07ff1340df37789"
+    },
+    "src/ui/legacy/WINDEVDIALOGBOX.layout.json": {
+      "sha256": "19f49e7da65f0a752e42d8a2d7caeb3e6af6bc2a510d4e96cacd9ef2f73e2c57"
+    },
+    "src/ui/legacy/WINDEVMESSAGEBOX.layout.json": {
+      "sha256": "451fd41b7feb8897749d4793a2e19fc15529c947556f0855312173d9f3275cba"
+    }
+  },
+  "unknown": {
+    "WINDEVDIALOGBOX": {
+      "details": [
+        "no dossier entry: captions, images and skin unknown",
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W0075A5-01",
+        "U-W0075A5-02",
+        "U-W0075A5-03",
+        "U-W0075A5-04",
+        "U-W0075A5-05"
+      ]
+    },
+    "WINDEVMESSAGEBOX": {
+      "details": [
+        "no dossier entry: captions, images and skin unknown",
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W36869F-01",
+        "U-W36869F-02",
+        "U-W36869F-03",
+        "U-W36869F-04",
+        "U-W36869F-05"
+      ]
+    },
+    "WIN_Acesso": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W9D7053-01",
+        "U-W9D7053-02",
+        "U-W9D7053-03",
+        "U-W9D7053-04",
+        "U-W9D7053-05"
+      ]
+    },
+    "WIN_Data": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W16C5A7-01",
+        "U-W16C5A7-02",
+        "U-W16C5A7-03",
+        "U-W16C5A7-04",
+        "U-W16C5A7-05"
+      ]
+    },
+    "WIN_Extrato_Artigos": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W13F458-01",
+        "U-W13F458-02",
+        "U-W13F458-03",
+        "U-W13F458-04",
+        "U-W13F458-05"
+      ]
+    },
+    "WIN_Filtro_Mapas_Artigos": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-WCD4890-01",
+        "U-WCD4890-02",
+        "U-WCD4890-03",
+        "U-WCD4890-04",
+        "U-WCD4890-05"
+      ]
+    },
+    "WIN_Filtro_Mapas_Tempos": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-WA6D3FA-01",
+        "U-WA6D3FA-02",
+        "U-WA6D3FA-03",
+        "U-WA6D3FA-04",
+        "U-WA6D3FA-05"
+      ]
+    },
+    "WIN_Form_Clientes": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-C286277B-01",
+        "U-C286277B-02",
+        "U-C286277B-03"
+      ]
+    },
+    "WIN_Form_Terminais": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-CDF1C34F-01",
+        "U-CDF1C34F-02",
+        "U-CDF1C34F-03"
+      ]
+    },
+    "WIN_Form_Viaturas": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-C9675195-01",
+        "U-C9675195-02",
+        "U-C9675195-03"
+      ]
+    },
+    "WIN_Form_artigos": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-CAA44622-01",
+        "U-CAA44622-02",
+        "U-CAA44622-03"
+      ]
+    },
+    "WIN_Form_documentos": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-C5CA4D83-01",
+        "U-C5CA4D83-02",
+        "U-C5CA4D83-03"
+      ]
+    },
+    "WIN_Form_estados_descritivos": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-CB7C31CC-01",
+        "U-CB7C31CC-02",
+        "U-CB7C31CC-03"
+      ]
+    },
+    "WIN_Form_estados_reparacao": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-CE554DEA-01",
+        "U-CE554DEA-02",
+        "U-CE554DEA-03"
+      ]
+    },
+    "WIN_Form_mecanicos": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-C17FCA03-01",
+        "U-C17FCA03-02",
+        "U-C17FCA03-03"
+      ]
+    },
+    "WIN_Form_postos": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-CD4F0FE3-01",
+        "U-CD4F0FE3-02",
+        "U-CD4F0FE3-03"
+      ]
+    },
+    "WIN_Form_unidades": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-C77806F9-01",
+        "U-C77806F9-02",
+        "U-C77806F9-03"
+      ]
+    },
+    "WIN_Form_utilizadores": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-CE3323C9-01",
+        "U-CE3323C9-02",
+        "U-CE3323C9-03"
+      ]
+    },
+    "WIN_Inserir_quantidade_password": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W7DB208-01",
+        "U-W7DB208-02",
+        "U-W7DB208-03",
+        "U-W7DB208-04",
+        "U-W7DB208-05"
+      ]
+    },
+    "WIN_Inventario": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W450C10-01",
+        "U-W450C10-02",
+        "U-W450C10-03",
+        "U-W450C10-04",
+        "U-W450C10-05"
+      ]
+    },
+    "WIN_Inventario_Reconstrucao": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-WB2F707-01",
+        "U-WB2F707-02",
+        "U-WB2F707-03",
+        "U-WB2F707-04",
+        "U-WB2F707-05"
+      ]
+    },
+    "WIN_Leitor_cod_barras": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-WAFCFDF-01",
+        "U-WAFCFDF-02",
+        "U-WAFCFDF-03",
+        "U-WAFCFDF-04",
+        "U-WAFCFDF-05"
+      ]
+    },
+    "WIN_Leitor_cod_barras_desconhecidos": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-WB2879B-01",
+        "U-WB2879B-02",
+        "U-WB2879B-03",
+        "U-WB2879B-04",
+        "U-WB2879B-05"
+      ]
+    },
+    "WIN_MENU": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-WCB13D1-01",
+        "U-WCB13D1-02",
+        "U-WCB13D1-03",
+        "U-WCB13D1-04",
+        "U-WCB13D1-05"
+      ]
+    },
+    "WIN_Mapa_Vendas": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W7DB489-01",
+        "U-W7DB489-02",
+        "U-W7DB489-03",
+        "U-W7DB489-04",
+        "U-W7DB489-05"
+      ]
+    },
+    "WIN_Material_Reparacao": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-WE6E1AD-01",
+        "U-WE6E1AD-02",
+        "U-WE6E1AD-03",
+        "U-WE6E1AD-04",
+        "U-WE6E1AD-05"
+      ]
+    },
+    "WIN_Material_reparacao_form": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W27273E-01",
+        "U-W27273E-02",
+        "U-W27273E-03",
+        "U-W27273E-04",
+        "U-W27273E-05"
+      ]
+    },
+    "WIN_Mudar_Estado": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W20AB1F-01",
+        "U-W20AB1F-02",
+        "U-W20AB1F-03",
+        "U-W20AB1F-04",
+        "U-W20AB1F-05"
+      ]
+    },
+    "WIN_Ordens_Reparacao": {
+      "details": [
+        "duplicate names have ambiguous dossier metadata; only source geometry/path retained: COL_imagem, SHA_cor",
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W53605A-01",
+        "U-W53605A-02",
+        "U-W53605A-03",
+        "U-W53605A-04",
+        "U-W53605A-05"
+      ]
+    },
+    "WIN_Ordens_Reparacao_Form": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W61831D-01",
+        "U-W61831D-02",
+        "U-W61831D-03",
+        "U-W61831D-04",
+        "U-W61831D-05"
+      ]
+    },
+    "WIN_Reconstrucao_Stocks": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W541EAA-01",
+        "U-W541EAA-02",
+        "U-W541EAA-03",
+        "U-W541EAA-04",
+        "U-W541EAA-05"
+      ]
+    },
+    "WIN_Table_Clientes": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-CC16AB27-01",
+        "U-CC16AB27-02",
+        "U-CC16AB27-03"
+      ]
+    },
+    "WIN_Table_Lin_Stocks": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W7E91C1-01",
+        "U-W7E91C1-02",
+        "U-W7E91C1-03",
+        "U-W7E91C1-04",
+        "U-W7E91C1-05"
+      ]
+    },
+    "WIN_Table_Tempos_materiais_Descricoes": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-WBBC9D9-01",
+        "U-WBBC9D9-02",
+        "U-WBBC9D9-03",
+        "U-WBBC9D9-04",
+        "U-WBBC9D9-05"
+      ]
+    },
+    "WIN_Table_Terminais": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-C33B299B-01",
+        "U-C33B299B-02",
+        "U-C33B299B-03"
+      ]
+    },
+    "WIN_Table_Viaturas": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-C039C545-01",
+        "U-C039C545-02",
+        "U-C039C545-03"
+      ]
+    },
+    "WIN_Table_artigos": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-C7738076-01",
+        "U-C7738076-02",
+        "U-C7738076-03"
+      ]
+    },
+    "WIN_Table_cab_stocks": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W7C9411-01",
+        "U-W7C9411-02",
+        "U-W7C9411-03",
+        "U-W7C9411-04",
+        "U-W7C9411-05"
+      ]
+    },
+    "WIN_Table_documentos": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-CFEE768B-01",
+        "U-CFEE768B-02",
+        "U-CFEE768B-03"
+      ]
+    },
+    "WIN_Table_estado_reparacao_tipo3": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-C52946E4-01",
+        "U-C52946E4-02",
+        "U-C52946E4-03"
+      ]
+    },
+    "WIN_Table_estados_descritivos": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-CC5618D6-01",
+        "U-CC5618D6-02",
+        "U-CC5618D6-03"
+      ]
+    },
+    "WIN_Table_estados_reparacao": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-CEBED898-01",
+        "U-CEBED898-02",
+        "U-CEBED898-03"
+      ]
+    },
+    "WIN_Table_mecanicos": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-C44F7892-01",
+        "U-C44F7892-02",
+        "U-C44F7892-03"
+      ]
+    },
+    "WIN_Table_postos": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-CF0B8FA5-01",
+        "U-CF0B8FA5-02",
+        "U-CF0B8FA5-03"
+      ]
+    },
+    "WIN_Table_unidades": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-CCB16084-01",
+        "U-CCB16084-02",
+        "U-CCB16084-03"
+      ]
+    },
+    "WIN_Table_utilizadores": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-CD9683DC-01",
+        "U-CD9683DC-02",
+        "U-CD9683DC-03"
+      ]
+    },
+    "WIN_Teclado_Alfa": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W55826C-01",
+        "U-W55826C-02",
+        "U-W55826C-03",
+        "U-W55826C-04",
+        "U-W55826C-05"
+      ]
+    },
+    "WIN_Teclado_numerico": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W291790-01",
+        "U-W291790-02",
+        "U-W291790-03",
+        "U-W291790-04",
+        "U-W291790-05"
+      ]
+    },
+    "WIN_Tempos_Reparacao": {
+      "details": [
+        "duplicate names have ambiguous dossier metadata; only source geometry/path retained: COL_Tipo, COL_imagem, SHA_cor",
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W9DD275-01",
+        "U-W9DD275-02",
+        "U-W9DD275-03",
+        "U-W9DD275-04",
+        "U-W9DD275-05"
+      ]
+    },
+    "WIN_Tempos_Reparacao_Estado": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W6946F0-01",
+        "U-W6946F0-02",
+        "U-W6946F0-03",
+        "U-W6946F0-04",
+        "U-W6946F0-05"
+      ]
+    },
+    "WIN_Tempos_Reparacao_Informacao": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W24748E-01",
+        "U-W24748E-02",
+        "U-W24748E-03",
+        "U-W24748E-04",
+        "U-W24748E-05"
+      ]
+    },
+    "WIN_Tempos_Reparacao_Tempo": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W6D3B26-01",
+        "U-W6D3B26-02",
+        "U-W6D3B26-03",
+        "U-W6D3B26-04",
+        "U-W6D3B26-05"
+      ]
+    },
+    "WIN_sistema": {
+      "details": [
+        "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
+      ],
+      "issues": [
+        "U-W3BC89B-01",
+        "U-W3BC89B-02",
+        "U-W3BC89B-03",
+        "U-W3BC89B-04",
+        "U-W3BC89B-05"
+      ]
+    }
+  }
+}
