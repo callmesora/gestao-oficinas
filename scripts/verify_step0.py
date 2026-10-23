@@ -71,6 +71,21 @@ def main():
         source = Path('legacy', item['path'])
         if hashlib.sha256(source.read_bytes()).hexdigest() != item['sha256']:
             errors.append('Source fingerprint changed: ' + item['path'])
+    latest = json.loads(Path('analysis-local/latest.json').read_text(encoding='utf-8'))
+    legend = json.loads(Path('docs/mapping/event-codes.json').read_text(encoding='utf-8'))['codes']
+    inferred = Path('docs/mapping/event-codes-inferred.md')
+    inferred_text = inferred.read_text(encoding='utf-8') if inferred.exists() else ''
+    missing_codes = set()
+    for source in (Path(latest['inspect']) / 'code').rglob('*.json'):
+        for block in json.loads(source.read_text(encoding='utf-8'))['blocks']:
+            code = block['context']['siblings'].get('type') or 'none'
+            if code not in legend:
+                missing_codes.add(code)
+    for code in missing_codes:
+        if f'| {code} |' not in inferred_text:
+            errors.append('No separate inferred-event entry for raw code ' + code)
+    if inferred.exists():
+        errors += lint_note(inferred)
     draft = sqlite3.connect(':memory:')
     try:
         draft.executescript(Path('docs/schema/schema-draft.sql').read_text(encoding='utf-8'))

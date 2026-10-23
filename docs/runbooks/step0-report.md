@@ -27,6 +27,8 @@ The 481 unresolved rows are recorded questions about runtime, designer, import a
 
 ## Important remaining evidence
 
+Exact question counts and their overlap: [question summary](../evidence/question-summary.md). Step 0 deliverables being complete does not mean that all legacy behavior is already confirmed.
+
 1. Nine list reports use embedded query SQL that the dossier does not print. Compiler data establishes selected items; conditions/sort proposals remain assumed.
 2. QRY_noname has no dossier SQL or established caller. Fourteen binary MediaPlayer template files remain unmapped pending design-only/inherited-behavior classification.
 3. One report lacks a dossier image. The two WDFAA dialog/message skin windows lack dossier entries. Some captions/flags need image or runtime evidence.

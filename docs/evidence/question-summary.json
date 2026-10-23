@@ -1,0 +1,8 @@
+{
+  "runtime_questions": 12,
+  "encoded_action_groups_for_confirmation": 17,
+  "unmapped_parity_rows": 481,
+  "unique_unresolved_ids_referenced_by_unmapped_rows": 425,
+  "assumed_parity_rows": 326,
+  "warning": "These counts overlap and must not be summed; unresolved parity rows are technical evidence items, not all questions for the business owner."
+}

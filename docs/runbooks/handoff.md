@@ -4,6 +4,8 @@
 
 ## Delivered
 
+Completeness recheck after the owner's question: added the previously missing docs/mapping/event-codes-inferred.md for raw codes 32 and 196608 and added a validator check that every non-compiler-backed raw code has an entry. The menu source rows already had inferred confidence; their evidence now also cites the separate note. Counts and their overlap are documented in docs/evidence/question-summary.md/.json: 12 runtime questions, 17 action groups, 481 unmapped rows referencing 425 distinct U IDs, and 326 assumed rows. These are not additive counts or a claim that runtime answers were confirmed.
+
 - Entry point: docs/runbooks/step0-report.md; all unit links: docs/mapping/README.md.
 - Complete evidence pipeline outputs; canonical local paths are recorded in ignored analysis-local/latest.json. Durable coverage/navigation/schema/visual evidence, hashed source inventory, per-unit mappings/specs and consolidated parity are under docs/.
 - 143 units, 877 source seeds, 2,273 parity rows (1,792 specified/481 unmapped); 53 screen specs and 28 report specs. No target behavior marked implemented, verified or excluded.
