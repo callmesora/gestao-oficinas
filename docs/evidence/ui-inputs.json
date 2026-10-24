@@ -1397,10 +1397,10 @@
       "sha256": "7bdec0b1fd333bbab01c2be26cc4c17a4a09f313a1356bb7b07ff1340df37789"
     },
     "src/ui/legacy/WINDEVDIALOGBOX.layout.json": {
-      "sha256": "19f49e7da65f0a752e42d8a2d7caeb3e6af6bc2a510d4e96cacd9ef2f73e2c57"
+      "sha256": "31663ca9542a5de8c9759c8f7a1c5a842f3c95d008b7342b1ba95c7c1b793efa"
     },
     "src/ui/legacy/WINDEVMESSAGEBOX.layout.json": {
-      "sha256": "451fd41b7feb8897749d4793a2e19fc15529c947556f0855312173d9f3275cba"
+      "sha256": "5a9e43ac21efbf9e47843f6e11189ace949dffb9b657b77aaa0fdb3152c11884"
     }
   },
   "unknown": {

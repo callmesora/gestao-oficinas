@@ -8,6 +8,8 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 
 import { join, resolve } from "node:path";
 
 type WindowConfig = {
+  /** Missing evidence stays explicit; this does not establish visual parity. */
+  visualUnavailableReason?: string;
   /** data-testids to click, in order, from the start page (usually the legacy route). */
   open: string[];
   /** Legacy controls deliberately absent, each with the reason (ADR, deferred slice, skin chrome…). */
@@ -67,6 +69,11 @@ function visualScore(window: string, screenshot: string): [Score | null, Score |
 
 /** Legacy control names per window, from inspect_windev.py output (code/<file>.wdw.json). */
 function legacyControls(window: string): string[] {
+  const generated = resolve(root, "src/ui/legacy", `${window}.layout.json`);
+  if (existsSync(generated)) {
+    const controls = JSON.parse(readFileSync(generated, "utf-8")).controls as { name: string; columns?: { name: string }[] }[];
+    return controls.flatMap(control => [control.name, ...(control.columns ?? []).map(column => column.name)]);
+  }
   if (!config.inspectDir) throw new Error(`no inspector output for ${window}: run scripts/prepare_evidence.py first`);
   const stack = [resolve(root, config.inspectDir, "code")];
   while (stack.length) {
@@ -84,6 +91,11 @@ function legacyControls(window: string): string[] {
 
 /** {legacy control name: caption} from the dossier extract. */
 function legacyCaptions(window: string): Record<string, string> {
+  const generated = resolve(root, "src/ui/legacy", `${window}.layout.json`);
+  if (existsSync(generated)) {
+    const controls = JSON.parse(readFileSync(generated, "utf-8")).controls as { name: string; caption?: string; kind: string }[];
+    return Object.fromEntries(controls.filter(control => control.caption && !["Table", "Supercontrol", "Looper"].includes(control.kind)).map(control => [control.name, control.caption!]));
+  }
   if (!config.dossierDir) return {};
   const path = resolve(root, config.dossierDir, "windev-window", `${window}.json`);
   if (!existsSync(path)) return {};
@@ -117,13 +129,13 @@ for (const [window, settings] of Object.entries(config.windows)) {
     const expected = legacyControls(window).filter((name) => !(name in settings.ignore));
     const missing: string[] = [];
     for (const name of expected) {
-      if ((await page.getByTestId(name).count()) === 0) missing.push(name);
+      if ((await view.getByTestId(name).count()) === 0) missing.push(name);
     }
     const captions: Mismatch[] = [];
     for (const [name, legacy] of Object.entries(legacyCaptions(window))) {
       if (name in settings.ignore || name in (settings.captionIgnore ?? {})) continue;
-      if ((await page.getByTestId(name).count()) === 0) continue;
-      const element = page.getByTestId(name).first();
+      if ((await view.getByTestId(name).count()) === 0) continue;
+      const element = view.getByTestId(name).first();
       // An edit's caption is its associated <label> (or aria-label); a button's or static's is its own text.
       const actual = await element.evaluate((el) => {
         const labels = (el as HTMLInputElement).labels;
@@ -136,6 +148,7 @@ for (const [window, settings] of Object.entries(config.windows)) {
     const screenshot = resolve(root, config.report, `${window}.png`);
     await view.screenshot({ path: screenshot });
     const [score, previous] = visualScore(window, screenshot);
+    if (!score) expect(settings.visualUnavailableReason, `${window}: missing visual reference requires an explicit evidence gap`).toBeTruthy();
     results.push({ window, missing, ignored: Object.keys(settings.ignore).length, total: expected.length, captions, score });
     expect(missing, `legacy controls with no data-testid in ${window}`).toEqual([]);
     expect(captions, `captions differing from the legacy dossier in ${window}`).toEqual([]);
@@ -144,9 +157,11 @@ for (const [window, settings] of Object.entries(config.windows)) {
       const urls = new Set<string>();
       for (const el of [root, ...Array.from(root.querySelectorAll("*"))]) {
         if (el instanceof HTMLImageElement && el.src) urls.add(el.src);
-        const style = getComputedStyle(el);
-        for (const value of [style.backgroundImage, style.borderImageSource]) {
-          for (const match of value.matchAll(/url\("?([^")]+)"?\)/g)) urls.add(new URL(match[1], location.href).href);
+        for (const pseudo of [null, "::before", "::after"]) {
+          const style = getComputedStyle(el, pseudo);
+          for (const value of [style.backgroundImage, style.borderImageSource]) {
+            for (const match of value.matchAll(/url\("?([^")]+)"?\)/g)) urls.add(new URL(match[1], location.href).href);
+          }
         }
       }
       return [...urls];

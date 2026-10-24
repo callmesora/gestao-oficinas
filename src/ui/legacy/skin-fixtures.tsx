@@ -4,6 +4,27 @@ import list from "./WIN_Table_Clientes.layout.json";
 import { controlOf } from "./layout";
 import { WdButton, WdEdit, WdFrame, WdMemo } from "./wd";
 import { WdTable } from "./table";
+import { DialogProvider, useDialogs } from "./dialogs";
+
+function MessageFixture() {
+  const { message } = useDialogs();
+  const [result, setResult] = useState("");
+  return <div data-testid="skin-message-fixture">
+    <p>Mensagens — retorno de teste, sem operação de negócio.</p>
+    <button data-testid="skin-message-open" onClick={async () => {
+      setResult("a aguardar");
+      const value = await message({ title: "Teste", text: "  Açores\nSegunda linha  ", type: 5, defaultButton: 2 });
+      setResult(String(value));
+    }}>Testar OK/Cancelar</button>
+    <button data-testid="skin-message-queue" onClick={() => {
+      setResult("a aguardar");
+      const first = message({ title: "Primeiro", text: "Primeiro", type: 0 });
+      const second = message({ title: "Segundo", text: "Segundo", type: 3, defaultButton: 3 });
+      void Promise.all([first, second]).then(values => setResult(values.join(",")));
+    }}>Testar sequência</button>
+    <output data-testid="skin-message-result">{result}</output>
+  </div>;
+}
 
 const fixtureRows = [
   { id: "9007199254740993", code: "9007199254740993", description: "  Açores  " },
@@ -54,10 +75,10 @@ function FrameFixture({ instance }: { instance: string }) {
 }
 
 export default function SkinFixtures() {
-  return <main className="skin-fixtures">
+  return <DialogProvider><main className="skin-fixtures">
     <aside>Teste de componentes — não é o formulário de clientes nem verifica os seus comportamentos.</aside>
     <h1>Pele MediaPlayer</h1>
     <a href="/">Voltar à verificação do ambiente</a>
-    <FrameFixture instance="A" /><FrameFixture instance="B" /><TableFixture />
-  </main>;
+    <FrameFixture instance="A" /><FrameFixture instance="B" /><TableFixture /><MessageFixture />
+  </main></DialogProvider>;
 }

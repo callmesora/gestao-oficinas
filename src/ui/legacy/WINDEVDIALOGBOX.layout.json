@@ -2,7 +2,10 @@
  "window": {
   "name": "WINDEVDIALOGBOX",
   "title": null,
-  "size": null,
+  "size": {
+   "width": 261,
+   "height": 121
+  },
   "opening_mode": null,
   "window_type": null,
   "background_image": null,

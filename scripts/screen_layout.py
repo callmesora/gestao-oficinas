@@ -56,6 +56,24 @@ def control_paths(text):
     return result
 
 
+def source_window_size(text):
+    """Read only the root window's properties, excluding controls and code literals."""
+    lines = text.splitlines()
+    parsed = [entry for entry in inspect_windev.structure(lines, inspect_windev.literal_mask(lines)) if entry]
+    start = next((index for index, entry in enumerate(parsed) if entry[0] == 0 and entry[1] == 'window'), None)
+    if start is None:
+        return None
+    properties, values = False, {}
+    for indent, key, value, *_ in parsed[start + 1:]:
+        if indent == 0:
+            break
+        if indent == 1:
+            properties = key == 'properties'
+        elif properties and indent == 2 and key in ('width', 'height') and str(value).isdigit():
+            values[key] = int(value)
+    return values if all(values.get(key, 0) > 0 for key in ('width', 'height')) else None
+
+
 def layout(unit, latest, language=None):
     inspect, dossier = Path(latest['inspect']), latest.get('dossier')
     source = next((s for s in (load(p) for p in (inspect / 'code').rglob('*.json'))
@@ -104,7 +122,7 @@ def layout(unit, latest, language=None):
     for control in controls:
         if control['kind'] == 'Table':
             control['columns'] = sorted((column for column in columns if column['parent'] == control['path']), key=lambda c: c['index'] or 0)
-    window = {'name': unit, 'title': pick(element.get('title'), language), 'size': element.get('size'),
+    window = {'name': unit, 'title': pick(element.get('title'), language), 'size': element.get('size') or source_window_size(text),
               'opening_mode': element.get('opening_mode'), 'window_type': element.get('window_type'),
               'background_image': basename((raw_value(element.get('lines', []), 'Background image') or '').split(': ', 1)[-1]) or None,
               'flags': element.get('flags', {})}

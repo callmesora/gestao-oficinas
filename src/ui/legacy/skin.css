@@ -44,3 +44,10 @@
 .wd-table-grid { position: absolute; top: 23px; bottom: 0; display: flex; pointer-events: none; }
 .wd-table-grid span { box-sizing: border-box; flex: none; border-right: 1px solid #e3e6ea; }
 .wd-component-canvas { position: relative; font: 10.67px "Trebuchet MS", Tahoma, sans-serif; color: #000; background: #edf3fa; }
+.wd-dialog-host { border: 0; padding: 0; background: transparent; max-width: calc(100vw - 16px); max-height: calc(100vh - 16px); }
+.wd-dialog-host::backdrop { background: transparent; }
+.wd-message-text { position: absolute; display: flex; align-items: center; white-space: pre-wrap; overflow: auto; overflow-wrap: anywhere; }
+/* proposed: Q-12, standard symbols; no legacy icon image available. */
+.wd-message-icon { position: absolute; border-radius: 50%; background: #2f6fcf; color: white; display: flex;
+  align-items: center; justify-content: center; font: bold 30px "Trebuchet MS", Tahoma, sans-serif; }
+.wd-message-icon.error { background: #c62f2f; }

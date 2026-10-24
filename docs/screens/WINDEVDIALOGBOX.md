@@ -17,7 +17,7 @@ Caller arguments/results and native buffer changes: mapping entry/event ledger.
 | title | unresolved (encoded); U-W0075A5-01 |
 | window_type | unresolved (encoded); U-W0075A5-01 |
 | opening_mode | unresolved (encoded); U-W0075A5-01 |
-| size | unresolved (encoded); U-W0075A5-01 |
+| size | width 261, height 121 — legacy/GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:15-16; base designer size, before source runtime resizing |
 | close_icon | unresolved (encoded); U-W0075A5-01 |
 | flags | unresolved (encoded); U-W0075A5-01 |
 

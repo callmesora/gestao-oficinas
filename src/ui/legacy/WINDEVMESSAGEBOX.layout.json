@@ -2,7 +2,10 @@
  "window": {
   "name": "WINDEVMESSAGEBOX",
   "title": null,
-  "size": null,
+  "size": {
+   "width": 369,
+   "height": 217
+  },
   "opening_mode": null,
   "window_type": null,
   "background_image": null,

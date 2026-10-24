@@ -17,11 +17,13 @@ Caller arguments/results and native buffer changes: mapping entry/event ledger.
 | title | unresolved (encoded); U-W36869F-01 |
 | window_type | unresolved (encoded); U-W36869F-01 |
 | opening_mode | unresolved (encoded); U-W36869F-01 |
-| size | unresolved (encoded); U-W36869F-01 |
+| size | width 369, height 217 — legacy/GestaoOficinas_TesteIA/WDFAA/WINDEVMESSAGEBOX.wdw:15-16; base designer size, before source text resizing |
 | close_icon | unresolved (encoded); U-W36869F-01 |
 | flags | unresolved (encoded); U-W36869F-01 |
 
 Default/Abort button types below; actual native routing and first focus U-W36869F-02. Saved position versus opening-mode precedence U-W36869F-02.
+
+MIG-5 checkpoint: dialogs.tsx implements the awaited message return/queue path with source geometry; appearance/captions use the labeled Q-12 defaults in docs/evidence/message-proposals.json. Non-legacy DEV controls: skin-launcher, skin-message-fixture, skin-message-open, skin-message-queue, skin-message-result. Remaining controls and the missing visual reference are explicit in ui-check.config.json; no visual/native/framework routing parity is established. Dynamic text resizing, clipboard and sound remain pending.
 
 ## Controls
 

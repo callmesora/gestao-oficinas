@@ -1,4 +1,21 @@
 {
   "report": "ui-report",
-  "windows": {}
+  "windows": {
+    "WINDEVMESSAGEBOX": {
+      "open": ["skin-launcher", "skin-message-open"],
+      "visualUnavailableReason": "U-W36869F-01: no dossier entry/image for WDFAA message box; screenshot captured, visual/native parity remains pending.",
+      "ignore": {
+        "BTN_OK": "Type 5 uses BTN_OUI relabeled OK; type 0/1/4 button checked by separate flows.",
+        "BTN_ANNULER": "Type 5 uses BTN_NON relabeled Cancelar; type 3 cancellation checked separately.",
+        "ICON_INFORMATION": "Only ICON_QUESTION is visible in the type 5 fixture; type 0 icon checked separately.",
+        "ICON_ERREUR": "Not visible in type 5; error appearance and native sound remain pending U-W36869F-01/04.",
+        "BTN_Copier_caché": "Off-canvas clipboard shortcut not ported yet; MIG-5 remains open.",
+        "SCSystemButtons": "Source supercontrol container; close control rendered directly. Minimize/maximize/UMC remain pending.",
+        "BTN_UMC": "Unresolved UMC feature, no exclusion approved; pending, not verified.",
+        "BTN_SYST_MINIMIZE": "Modal minimize not ported yet; pending U-W36869F-02.",
+        "BTN_Syst_Maximize": "Modal maximize/restore not ported yet; pending U-W36869F-02.",
+        "BTN_Syst_Restore": "Off-canvas source image; runtime restore wiring pending U-W36869F-02."
+      }
+    }
+  }
 }
