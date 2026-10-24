@@ -13,8 +13,10 @@ const WorkspaceContext = createContext<OpenWindow | null>(null);
 const WorkspaceCloseContext = createContext<(() => void) | null>(null);
 
 // SRC-e0b6683735: a real list's Fechar action closes its own workspace instance.
-export function useWorkspaceClose() {
+export function useWorkspaceClose(override?: () => void) {
+  // SRC-a29b466a64: the real vehicle caller owns its awaited customer picker lifetime.
   const close = useContext(WorkspaceCloseContext);
+  if (override) return override;
   if (!close) throw new Error("Workspace instance is required");
   return close;
 }

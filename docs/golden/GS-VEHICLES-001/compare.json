@@ -1,0 +1,14 @@
+{
+  "legacy": { "delimiter": ",", "encoding": "utf-8" },
+  "target": { "delimiter": ",", "encoding": "utf-8" },
+  "tables": {
+    "Viaturas": {
+      "key": ["matricula"],
+      "columns": {
+        "matricula": { "trim": false }, "Cliente": { "trim": false },
+        "marca": { "trim": false }, "modelo": { "trim": false },
+        "Ano": { "trim": false }, "mes": { "trim": false }
+      }
+    }
+  }
+}

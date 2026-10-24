@@ -52,7 +52,7 @@ function CustomerForm({ repository, customer, nextCode, finish }: { repository: 
     finally { pending.current = false; setBusy(false); }
   };
   return <dialog ref={dialog} className="wd-dialog-host" data-testid="WIN_Form_Clientes" aria-label={formLayout.window.title!}
-    onCancel={event => { event.preventDefault(); close(); }} onKeyDown={event => {
+    onCancel={event => { event.preventDefault(); event.stopPropagation(); close(); }} onKeyDown={event => {
       trapDialogTab(event);
       if (event.key === "Enter" && !(event.target instanceof HTMLTextAreaElement) && !(event.target instanceof HTMLButtonElement)) { event.preventDefault(); void save(); }
     }}>
@@ -71,15 +71,15 @@ function CustomerForm({ repository, customer, nextCode, finish }: { repository: 
   </dialog>;
 }
 
-function CustomerList({ repository, selecting = false, origin = "", selected }: { repository: CustomerRepository; selecting?: boolean; origin?: string; selected?: (code: string) => void }) {
-  const closeWindow = useWorkspaceClose(), { resource, message } = useDialogs();
+function CustomerList({ repository, selecting = false, origin = "", selected, closeOverride }: { repository: CustomerRepository; selecting?: boolean; origin?: string; selected?: (code: string) => void; closeOverride?: (code: string) => void }) {
+  const returned = useRef(origin);
+  const closeWindow = useWorkspaceClose(closeOverride ? () => closeOverride(returned.current) : undefined), { resource, message } = useDialogs();
   const [filter, setFilter] = useState<CustomerFilter>({ mode: "todos", term: "" });
   const [rows, setRows] = useState<Customer[]>([]), [selection, setSelection] = useState<string | null>(null), [nextCode, setNextCode] = useState("1");
   const [form, setForm] = useState<{ customer: Customer | null } | null>(null), [diagnostic, setDiagnostic] = useState("");
   const search = useRef<HTMLInputElement | null>(null), request = useRef(0), mutation = useRef(false);
   const [refresh, setRefresh] = useState(0);
   const [loaded, setLoaded] = useState<{ filter: CustomerFilter; refresh: number } | null>(null);
-  const returned = useRef(origin);
   // Source ReturnedValue starts as origem, including closure through the system chrome.
   useEffect(() => () => { selected?.(returned.current); }, [selected]);
   const tableControl = controlOf(listLayout, "TABLE_Clientes"), tableSettings = useTableLayout(tableControl, "WIN_Table_Clientes/TABLE_Clientes");
@@ -138,6 +138,26 @@ function CustomerList({ repository, selecting = false, origin = "", selected }: 
     {form && <CustomerForm repository={repository} customer={form.customer} nextCode={nextCode} finish={saved => { const editing = form.customer !== null; setForm(null); if (saved || editing) setRefresh(value => value + 1); }} />}
     {diagnostic && <output data-testid="customer-list-diagnostic">{diagnostic}</output>}
   </div></div>;
+}
+
+// SRC-a29b466a64: Open(WIN_Table_Clientes,true,COMBO_Codigo) blocks its real vehicle caller.
+export function CustomerPicker({ repository, origin, finish }: { repository: CustomerRepository; origin: string; finish: (code: string) => void }) {
+  const dialog = useRef<HTMLDialogElement>(null);
+  const [maximized, setMaximized] = useState(false), [minimized, setMinimized] = useState(false);
+  useEffect(() => { const element = dialog.current!; element.showModal(); return () => element.close(); }, []);
+  const close = (code = origin) => { dialog.current?.close(); finish(code); };
+  return <dialog ref={dialog} className="wd-dialog-host" data-testid="customer-picker" aria-label={listLayout.window.title!}
+    onCancel={event => { event.preventDefault(); event.stopPropagation(); close(); }} onKeyDown={event => {
+      if (event.target instanceof Element && event.target.closest("dialog") !== dialog.current) return;
+      trapDialogTab(event);
+    }}>
+    {minimized && <button data-testid="customer-picker-restore" onClick={() => setMinimized(false)}>{listLayout.window.title}</button>}
+    <div hidden={minimized}>
+      <WdFrame layout={listLayout} instance="customer-picker-frame" width={maximized ? Math.max(800, innerWidth - 40) : undefined} height={maximized ? Math.max(600, innerHeight - 40) : undefined}
+        onClose={() => close()} onMinimize={() => setMinimized(true)} onToggleMaximize={() => setMaximized(value => !value)}>
+        <CustomerList repository={repository} selecting origin={origin} closeOverride={close} />
+      </WdFrame></div>
+  </dialog>;
 }
 
 function CustomerLauncher({ repository }: { repository: CustomerRepository }) {

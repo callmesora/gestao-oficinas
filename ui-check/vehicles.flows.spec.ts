@@ -1,0 +1,107 @@
+import { expect, test, type APIRequestContext } from "@playwright/test";
+
+async function customer(request: APIRequestContext) {
+  const session = await request.post("/api/development/session", { headers: { Origin: "http://localhost:1431", "X-Isolated-Development": "1" } });
+  const { token } = await session.json(), headers = { Authorization: `Bearer ${token}` };
+  const Codigo = String(Date.now()), Descricao = `Cliente viaturas ${Codigo}`;
+  const saved = await request.post("/api/customers/save", { headers, data: { mode: "create", values: { Codigo, Descricao, Morada1: "", Morada2: "", codpostal: "", Telefone1: "", Telemovel: "", observacao: "" } } });
+  expect((await saved.json()).kind).toBe("saved");
+  return { Codigo, Descricao, headers };
+}
+
+test("SRC-0c045cf25e actual vehicle form validates in order, awaits real customer picker, saves and edits", async ({ page, request }) => {
+  const client = await customer(request), registration = `T${Date.now()}`;
+  await page.goto("/?workflow=vehicles"); await page.getByTestId("vehicles-open").click();
+  await page.getByTestId("Btn_New").click();
+  const form = page.getByTestId("WIN_Form_Viaturas"), list = page.getByTestId("WIN_Table_Viaturas");
+  const validate = form.getByTestId("BTN_Validar");
+  await validate.click(); await expect(page.getByTestId("LIB_INFO")).toHaveText("Falta indicar a matrícula");
+  await page.getByTestId("WINDEVMESSAGEBOX").getByTestId("BTN_OK").click();
+  await form.getByTestId("EDT_Matricula").fill(registration.toLowerCase());
+  await validate.click(); await expect(page.getByTestId("LIB_INFO")).toHaveText("Falta indicar o cliente");
+  await page.getByTestId("WINDEVMESSAGEBOX").getByTestId("BTN_OK").click();
+  await form.getByTestId("BTN_VISION").click();
+  const picker = page.getByTestId("customer-picker");
+  await picker.getByTestId("Btn_New").click();
+  await expect(page.getByTestId("WIN_Form_Clientes")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.getByTestId("WIN_Form_Clientes")).toHaveCount(0);
+  await expect(picker).toBeVisible(); await expect(form).toBeVisible();
+  await page.keyboard.press("Escape"); await expect(picker).toHaveCount(0);
+  await expect(form).toBeVisible(); await expect(form.getByTestId("COMBO_Codigo")).toHaveValue("");
+  await form.getByTestId("BTN_VISION").click();
+  await picker.getByTestId("BTN_descricao").click();
+  await picker.getByTestId("EDT_termo_pesquisa").fill(client.Descricao);
+  await picker.getByTestId("TABLE_Clientes").getByRole("row").filter({ hasText: client.Descricao }).dblclick();
+  await expect(picker).toHaveCount(0);
+  await expect(form.getByTestId("COMBO_Codigo")).toHaveValue(client.Codigo);
+  await validate.click(); await expect(page.getByTestId("LIB_INFO")).toHaveText("Falta indicar a marca");
+  await page.getByTestId("WINDEVMESSAGEBOX").getByTestId("BTN_OK").click();
+  await form.getByTestId("EDT_Marca").fill("Marca  ");
+  await validate.click(); await expect(page.getByTestId("LIB_INFO")).toHaveText("Falta indicar o modelo");
+  await page.getByTestId("WINDEVMESSAGEBOX").getByTestId("BTN_OK").click();
+  await form.getByTestId("EDT_Modelo").fill("Modelo");
+  await form.getByTestId("EDT_Ano").fill("0"); await form.getByTestId("EDT_Mes").fill("0");
+  await validate.click(); await expect(form).toHaveCount(0);
+  await list.getByTestId("BTN_matricula").click(); await list.getByTestId("EDT_termo_pesquisa").fill(registration);
+  const row = list.getByTestId("TABLE_Viaturas").getByRole("row").filter({ hasText: registration });
+  await row.dblclick(); await expect(form.getByTestId("EDT_Matricula")).toHaveAttribute("readonly", "");
+  await form.getByTestId("EDT_Modelo").fill("Cancelado"); await form.getByTestId("BTN_Cancelar").click();
+  await expect(row).not.toContainText("Cancelado");
+  await expect(list.getByTestId("BTN_Modificar")).toBeEnabled();
+  await row.dblclick(); await form.getByTestId("EDT_Modelo").fill("Final"); await validate.click();
+  await expect(form).toHaveCount(0); await expect(row).toContainText("Final");
+  let releaseLookup!: () => void;
+  const lookupGate = new Promise<void>(resolve => { releaseLookup = resolve; });
+  await page.route("**/api/vehicles/lookup", async route => { const response = await route.fetch(); await lookupGate; await route.fulfill({ response }); });
+  await row.dblclick();
+  await expect(list.getByTestId("Btn_New")).toBeDisabled();
+  await expect(list.getByTestId("BTN_Delete")).toBeDisabled();
+  await expect(list.getByTestId("EDT_termo_pesquisa")).toBeDisabled();
+  releaseLookup();
+  await expect(form).toBeVisible(); await form.getByTestId("BTN_Cancelar").click();
+  await page.unroute("**/api/vehicles/lookup");
+  const persisted = await request.post("/api/vehicles/lookup", { headers: client.headers, data: { registration } });
+  expect((await persisted.json()).vehicle).toMatchObject({ matricula: registration, Cliente: client.Codigo, marca: "Marca  ", modelo: "Final", Ano: 0, mes: 0 });
+  await page.reload(); await page.getByTestId("vehicles-open").click();
+  await expect(row).toBeVisible();
+});
+
+test("SRC-9ba7df099d query filter survives non-todos mode changes; duplicate and explicit delete use real data", async ({ page, request }) => {
+  const client = await customer(request), registration = `S${Date.now()}`;
+  const values = { matricula: registration, Cliente: client.Codigo, marca: "FILTER_MAKE", modelo: "FILTER_MODEL", Ano: 0, mes: 0 };
+  expect((await (await request.post("/api/vehicles/save", { headers: client.headers, data: { mode: "create", values } })).json()).kind).toBe("saved");
+  await page.goto("/?workflow=vehicles"); await page.getByTestId("vehicles-open").click();
+  const list = page.getByTestId("WIN_Table_Viaturas"), search = list.getByTestId("EDT_termo_pesquisa"), table = list.getByTestId("TABLE_Viaturas");
+  await list.getByTestId("BTN_matricula").click(); await search.fill(registration);
+  await expect(table.getByRole("row")).toHaveCount(2);
+  await list.getByTestId("BTN_cliente").click(); await expect(search).toHaveValue("");
+  await expect(table.getByRole("row")).toHaveCount(2);
+  await search.fill(client.Descricao); await expect(table.getByRole("row")).toHaveCount(2);
+  await list.getByTestId("BTN_marca_modelo").click(); await search.fill("FILTER_MODEL");
+  await expect(table.getByRole("row").filter({ hasText: registration })).toBeVisible();
+  await list.getByTestId("Btn_New").click();
+  const form = page.getByTestId("WIN_Form_Viaturas");
+  await form.getByTestId("EDT_Matricula").fill(registration); await form.getByTestId("COMBO_Codigo").selectOption(client.Codigo);
+  await form.getByTestId("EDT_Marca").fill("Duplicate"); await form.getByTestId("EDT_Modelo").fill("Duplicate");
+  await form.getByTestId("BTN_Validar").click();
+  await expect(page.getByTestId("LIB_INFO")).toHaveText(`Duplicação:  Este registo não pode ser gravado.\nCampo associado ao erro: matricula\nValor do campo duplicado: ${registration}`);
+  await page.getByTestId("WINDEVMESSAGEBOX").getByTestId("BTN_OK").click(); await form.getByTestId("BTN_Cancelar").click();
+  const row = table.getByRole("row").filter({ hasText: registration });
+  await row.click(); await list.getByTestId("BTN_Delete").click();
+  const confirm = page.getByTestId("WINDEVDIALOGBOX");
+  await confirm.getByRole("button", { name: "Não", exact: true }).click(); await expect(row).toBeVisible();
+  await list.getByTestId("BTN_Delete").click(); await confirm.getByRole("button", { name: "Sim", exact: true }).click(); await expect(row).toHaveCount(0);
+  expect((await (await request.post("/api/vehicles/lookup", { headers: client.headers, data: { registration } })).json()).kind).toBe("missing");
+});
+
+test("SRC-a61ff747bb picker returns actual registration and both close routes retain origin", async ({ page, request }) => {
+  const client = await customer(request), registration = `P${Date.now()}`;
+  expect((await (await request.post("/api/vehicles/save", { headers: client.headers, data: { mode: "create", values: { matricula: registration, Cliente: client.Codigo, marca: "Pick", modelo: "Pick", Ano: 0, mes: 0 } } })).json()).kind).toBe("saved");
+  await page.goto("/?workflow=vehicles&origin=ORIGINAL"); await page.getByTestId("vehicles-select-open").click();
+  await page.getByTestId("BTN_matricula").click(); await page.getByTestId("EDT_termo_pesquisa").fill(registration);
+  await page.getByTestId("TABLE_Viaturas").getByRole("row").filter({ hasText: registration }).dblclick();
+  await expect(page.getByTestId("vehicle-return")).toHaveText(registration);
+  await page.getByTestId("vehicles-select-open").click(); await page.getByTestId("BTN_Fechar").click(); await expect(page.getByTestId("vehicle-return")).toHaveText("ORIGINAL");
+  await page.getByTestId("vehicles-select-open").click(); await page.getByTestId("BTN_SYST_FERMER").click(); await expect(page.getByTestId("vehicle-return")).toHaveText("ORIGINAL");
+});

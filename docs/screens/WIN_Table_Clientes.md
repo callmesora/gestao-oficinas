@@ -246,4 +246,6 @@ Delete resource CASE 1 deletes and CASE 2 makes no change when present. Default/
 
 ## Data edge cases and acceptance checks
 
+MIG-7B actual consumer: VehicleForm opens this same real list through CustomerPicker, with an explicit caller-owned close callback and exact Codigo/origin return. New synthetic identifiers customer-picker, customer-picker-frame and customer-picker-restore are non-legacy. Nested cancel/key events remain scoped to their owning dialog; minimizing the picker keeps its list mounted. Actual browser coverage is in ui-check/vehicles.flows.spec.ts. Cross-window HFSQL filter/buffer coupling remains U-CC16AB27-02 and the retained designer follow-up.
+
 Blank strings are compared exactly by source, with no trimming; absent NULL coercion rules and number/text locale boundaries belong to U-CC16AB27-03. Required controls are those guarded explicitly in mapping, never inferred from a caption. Observe mask/size above and compare schema types. Keyboard-only test: open, traverse by container tab order, trigger mandatory validation, select/change/cancel, then repeat with an empty filter result and first/last row. Visual approval is outstanding under U-CC16AB27-01. Runtime writes must be performed only against a preserved scratch data copy.

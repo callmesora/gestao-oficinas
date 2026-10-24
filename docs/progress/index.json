@@ -1,5 +1,39 @@
 [
  {
+  "name": "QRY_select_viatura_matricula",
+  "kind": "query",
+  "total": 3,
+  "done": 0,
+  "stage": "building",
+  "spec": false,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 0,
+   "unmapped": 2
+  },
+  "looks": null
+ },
+ {
+  "name": "QRY_select_viaturas",
+  "kind": "query",
+  "total": 3,
+  "done": 0,
+  "stage": "building",
+  "spec": false,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 0,
+   "unmapped": 2
+  },
+  "looks": null
+ },
+ {
   "name": "WIN_Form_Clientes",
   "kind": "screen",
   "total": 15,
@@ -20,6 +54,26 @@
   }
  },
  {
+  "name": "WIN_Form_Viaturas",
+  "kind": "screen",
+  "total": 17,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 13,
+   "specified": 1,
+   "unmapped": 3
+  },
+  "looks": {
+   "pixel": 98.4,
+   "layout": 94.0
+  }
+ },
+ {
   "name": "WIN_Table_Clientes",
   "kind": "screen",
   "total": 32,
@@ -37,6 +91,26 @@
   "looks": {
    "pixel": 98.6,
    "layout": 94.0
+  }
+ },
+ {
+  "name": "WIN_Table_Viaturas",
+  "kind": "screen",
+  "total": 30,
+  "done": 2,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 2,
+   "excluded": 0,
+   "implemented": 22,
+   "specified": 3,
+   "unmapped": 3
+  },
+  "looks": {
+   "pixel": 98.6,
+   "layout": 94.3
   }
  },
  {
@@ -891,40 +965,6 @@
  },
  {
   "name": "QRY_select_tempos_reparacao_ordem",
-  "kind": "query",
-  "total": 3,
-  "done": 0,
-  "stage": "mapped",
-  "spec": false,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 1,
-   "unmapped": 2
-  },
-  "looks": null
- },
- {
-  "name": "QRY_select_viatura_matricula",
-  "kind": "query",
-  "total": 3,
-  "done": 0,
-  "stage": "mapped",
-  "spec": false,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 1,
-   "unmapped": 2
-  },
-  "looks": null
- },
- {
-  "name": "QRY_select_viaturas",
   "kind": "query",
   "total": 3,
   "done": 0,
@@ -1808,23 +1848,6 @@
   "looks": null
  },
  {
-  "name": "WIN_Form_Viaturas",
-  "kind": "screen",
-  "total": 17,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 14,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
   "name": "WIN_Inserir_quantidade_password",
   "kind": "screen",
   "total": 29,
@@ -2279,23 +2302,6 @@
    "excluded": 0,
    "implemented": 0,
    "specified": 18,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
-  "name": "WIN_Table_Viaturas",
-  "kind": "screen",
-  "total": 30,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 27,
    "unmapped": 3
   },
   "looks": null

@@ -1,0 +1,12 @@
+{
+ "pixel_similarity": 98.6,
+ "edge_overlap": 94.3,
+ "size": [
+  800,
+  600
+ ],
+ "legacy": "docs\\evidence\\images\\WIN_Table_Viaturas.jpg",
+ "new": "ui-report\\WIN_Table_Viaturas.png",
+ "side_by_side": "ui-report\\WIN_Table_Viaturas.compare.png",
+ "date": "2026-10-25"
+}

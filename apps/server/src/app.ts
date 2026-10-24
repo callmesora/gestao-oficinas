@@ -2,8 +2,9 @@ import Fastify from "fastify";
 import type { FastifyRequest } from "fastify";
 import { checkCustomerDelete, deleteCustomer, listCustomers, saveCustomer, type CustomerConnection } from "./operations/customers";
 import type { developmentSessions } from "./development-sessions";
+import { checkVehicleDelete, deleteVehicle, listVehicles, lookupVehicle, saveVehicle } from "./operations/vehicles";
 
-export function createApp(options: { customerConnect?: CustomerConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
+export function createApp(options: { customerConnect?: CustomerConnection; vehicleConnect?: CustomerConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
   const app = Fastify({ logger: false });
   app.get("/health/live", async () => ({ service: "gestao-oficinas-api", status: "alive" }));
   const authenticate = options.authenticate ?? options.development?.authenticate;
@@ -34,5 +35,12 @@ export function createApp(options: { customerConnect?: CustomerConnection; authe
     if (!options.customerConnect) return reply.code(503).send({ kind: "unavailable" });
     return checkCustomerDelete(options.customerConnect, request.body);
   });
+  for (const [action, operation] of Object.entries({ list: listVehicles, lookup: lookupVehicle, save: saveVehicle, delete: deleteVehicle, "check-delete": checkVehicleDelete })) {
+    app.post(`/api/vehicles/${action}`, async (request, reply) => {
+      if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
+      if (!options.vehicleConnect) return reply.code(503).send({ kind: "unavailable" });
+      return operation(options.vehicleConnect, request.body);
+    });
+  }
   return app;
 }

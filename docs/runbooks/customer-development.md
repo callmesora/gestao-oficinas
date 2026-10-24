@@ -10,6 +10,8 @@ npm run dev:workflows
 
 Open http://localhost:1431/?workflow=customers and click the customer-list title. The runner creates a fresh isolated loopback PostgreSQL database under analysis-local, applies the existing migrations and starts the real API plus Vite proxy. The empty database is intentional: create customers through Novo/Validar. Browser refresh keeps committed data for that running instance; subsequent runner invocations create separate databases and preserve the old scratch directories.
 
+The same runner now serves http://localhost:1431/?workflow=vehicles (Viaturas). Open its list title, use Novo, choose a real customer from COMBO_Codigo or BTN_VISION, fill registration/make/model and validate. BTN_VISION awaits the same actual customer list/form and returns Codigo; cancel leaves the vehicle form alive. The vehicle selector development button exercises registration/origin return; the production repair-order caller remains MIG-8. Both workflows use actual authenticated HTTP operations and PostgreSQL, not mocks. ADR-010 governs vehicle writes/text-key defaults; reports, complete designer/native parity and U items remain open.
+
 To exercise the imported demo copy instead of an empty database:
 
 ```powershell

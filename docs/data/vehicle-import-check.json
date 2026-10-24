@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-24T23:37:02.248Z",
+  "evidence": "Read-only official-driver export compared with actual authenticated API over isolated imported PostgreSQL",
+  "sourceVehicles": 4544,
+  "matchedOriginalVehicles": 4544,
+  "comparedFields": [
+    "matricula",
+    "Cliente",
+    "marca",
+    "modelo",
+    "Ano",
+    "mes",
+    "Descricao"
+  ],
+  "linkedRepairOrderCheck": true,
+  "originalMutations": false
+}
