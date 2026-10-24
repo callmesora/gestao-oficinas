@@ -87,3 +87,69 @@ test("table and memo consume the frame delta while retaining rows and controlled
   await expect(table).toHaveCSS("height", `${base.height}px`);
   await expect(table.locator("tbody tr")).toHaveCount(2);
 });
+
+test("source-enabled column resizing updates controlled widths without sorting or selecting another row", async ({ page }) => {
+  await page.goto("/?skin=controls");
+  const fixture = page.getByTestId("skin-table-fixture"), table = fixture.getByTestId("TABLE_Clientes"), code = table.getByTestId("COL_Codigo");
+  await table.locator("tbody tr").first().click();
+  const handle = code.getByTestId("COL_Codigo__resize"), box = (await handle.boundingBox())!;
+  await page.mouse.move(box.x + 2, box.y + 10); await page.mouse.down();
+  await page.mouse.move(box.x + 42, box.y + 10, { steps: 4 }); await page.mouse.up();
+  await expect(code).toHaveCSS("width", "120px");
+  await expect(fixture.getByTestId("skin-column-widths")).toContainText('"TABLE_Clientes.COL_Codigo":120');
+  await expect(fixture.getByTestId("skin-sort")).toBeEmpty();
+  await expect(table.locator('tbody tr[aria-selected="true"]')).toContainText("9007199254740993");
+  await handle.focus(); await page.keyboard.press("ArrowRight"); await page.keyboard.press("Shift+ArrowLeft");
+  await expect(code).toHaveCSS("width", "127px");
+  await expect(table.getByTestId("COL_Descricao")).toHaveCSS("width", "116px");
+  await fixture.getByTestId("skin-column-lock").check();
+  await expect(handle).toHaveCount(0);
+  await expect(code).toHaveCSS("width", "127px");
+  await fixture.getByTestId("skin-column-reset").click();
+  await expect(code).toHaveCSS("width", "80px");
+  await fixture.getByTestId("skin-column-lock").uncheck();
+  const reset = (await handle.boundingBox())!;
+  await page.mouse.move(reset.x + 2, reset.y + 10); await page.mouse.down();
+  await page.mouse.move(reset.x - 98, reset.y + 10, { steps: 4 }); await page.mouse.up();
+  await expect(code).toHaveCSS("width", "24px");
+  await expect(fixture.getByTestId("skin-sort")).toBeEmpty();
+  await fixture.getByTestId("skin-column-reset").click();
+  await expect(code).toHaveCSS("width", "80px");
+});
+
+test("movable headers reorder real cells and controlled state without losing widths or crossing source barriers", async ({ page }) => {
+  await page.goto("/?skin=controls");
+  const fixture = page.getByTestId("skin-table-fixture"), table = fixture.getByTestId("TABLE_Clientes");
+  const code = table.getByTestId("COL_Codigo"), description = table.getByTestId("COL_Descricao");
+  await table.locator("tbody tr").first().click();
+  await code.getByTestId("COL_Codigo__resize").focus(); await page.keyboard.press("ArrowRight");
+  await code.getByRole("button").dragTo(description.getByRole("button"));
+  await expect(table.locator("thead th").nth(0)).toHaveAttribute("data-testid", "COL_Descricao");
+  await expect(table.locator("tbody tr").first().locator("td").nth(0)).toHaveText("  Açores  ");
+  await expect(table.locator("tbody tr").first().locator("td").nth(1)).toHaveText("9007199254740993");
+  await expect(code).toHaveCSS("width", "88px");
+  await expect(fixture.getByTestId("skin-column-order")).toContainText('"TABLE_Clientes.COL_Descricao","TABLE_Clientes.COL_Codigo"');
+  await expect(fixture.getByTestId("skin-sort")).toBeEmpty();
+  await expect(table.locator('tbody tr[aria-selected="true"]')).toContainText("9007199254740993");
+  await code.getByRole("button").focus(); await page.keyboard.press("Control+Shift+ArrowLeft");
+  await expect(table.locator("thead th").nth(0)).toHaveAttribute("data-testid", "COL_Codigo");
+  await expect(code.getByRole("button")).toBeFocused();
+  for (const barrier of ["fixed", "locked"]) {
+    await fixture.getByTestId("skin-column-movement").selectOption(barrier);
+    await description.getByRole("button").dragTo(code.getByRole("button"));
+    await expect(table.locator("thead th").nth(0)).toHaveAttribute("data-testid", "COL_Codigo");
+    await description.getByRole("button").focus(); await page.keyboard.press("Control+Shift+ArrowLeft");
+    await expect(table.locator("thead th").nth(0)).toHaveAttribute("data-testid", "COL_Codigo");
+  }
+  await fixture.getByTestId("skin-column-movement").selectOption("free");
+  await code.getByRole("button").dragTo(table.getByTestId("COL_Morada1").getByRole("button"));
+  await expect(description.getByRole("button")).not.toBeFocused();
+  await fixture.getByTestId("skin-column-order-reset").click();
+  await description.getByRole("button").focus(); await page.keyboard.press("Control+Shift+ArrowRight");
+  await expect(table.locator("thead th").nth(2)).toHaveAttribute("data-testid", "COL_Descricao");
+  await expect(description.getByRole("button")).toBeFocused();
+  await fixture.getByTestId("skin-column-order-reset").click();
+  await expect(table.locator("thead th").nth(1)).toHaveAttribute("data-testid", "COL_Descricao");
+  await expect(code).toHaveCSS("width", "88px");
+  await expect(fixture.getByTestId("skin-selection")).toHaveText("9007199254740993");
+});

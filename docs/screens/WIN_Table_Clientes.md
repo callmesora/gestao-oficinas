@@ -1,8 +1,10 @@
 # Screen spec — WIN_Table_Clientes
 
-DEV component fixture only: skin-table-fixture and skin-table-canvas borrow the source table/memo. Synthetic rows and non-legacy skin-empty, skin-reverse, skin-selection, skin-activation, skin-sort and skin-table-resize controls test component callbacks; no customer query, refresh, saved-column behavior or business action is implemented by this fixture.
+DEV component fixture only: skin-table-fixture and skin-table-canvas borrow the source table/memo. Synthetic rows and non-legacy skin-empty, skin-reverse, skin-selection, skin-activation, skin-sort, skin-table-resize, skin-column-reset/widths/lock/order/order-reset/movement controls test component callbacks; no customer query, refresh or saved-column behavior or business action is implemented by this fixture.
 
 The non-legacy shared helpers anchoredControl/useAnchoredControl and FrameDeltaContext resize the table and move the memo using source labels with ADR-003 rate defaults; U-SKIN-01 remains open.
+
+Non-legacy columnWidths/onColumnWidthsChange and columnOrder/onColumnOrderChange expose qualified-path layout state. moveColumn and COL_*__resize handles implement source Adjustable width/Movable flags with ADR-003/U-SKIN-04 target defaults. Synthetic lock/movement variants test capability gates; persistence and fixed-left scrolling remain pending.
 
 Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw`, `dossier: WIN_Table_Clientes`, `docs/mapping/WIN_Table_Clientes.md`. Step 0 specification only.
 
