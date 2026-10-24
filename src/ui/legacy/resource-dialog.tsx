@@ -14,6 +14,7 @@ export function ResourceBox({ current, controller }: { current: PendingResource;
   const body = controlOf(layout, "LIB_INFO"), title = controlOf(layout, "RADTitle"), button = controlOf(layout, "BTN_1");
   const field = controlOf(layout, request.input?.kind === "checkbox" ? "INT_1" : "SAI_1");
   const close = controlOf(layout, "BTN_SYST_FERMER");
+  const icon = controlOf(layout, "ICONE");
   const multiline = request.input?.kind === "text" && !request.input.password && request.input.value.includes("\r\n");
   // Source RedimensionnerFenêtre: desktop minimum 400 and extra height for input.
   const [fit, setFit] = useState<ReturnType<typeof resourceGeometry> | null>(null);
@@ -57,6 +58,13 @@ export function ResourceBox({ current, controller }: { current: PendingResource;
         <div className="wd-title" data-testid={title.name} style={{ ...controlBox(title), width: title.width! + width - size.width }}>{request.title}</div>
         <WdButton chrome aria-label="Fechar" control={{ ...close, image: proposals.closeIcon, background_image: proposals.closeBackground }}
           style={{ left: undefined, right: size.width - close.x - close.width! }} onClick={() => finish()} />
+        <span data-testid="ICONE" data-control-path={icon.path} data-icon={model.icon?.kind === "standard" ? model.icon.name : model.icon?.kind ?? ""}
+          aria-hidden="true" className="wd-resource-icon" style={{ ...controlBox(icon), left: fit?.iconX ?? icon.x, top: fit?.iconY ?? icon.y }}>
+          {model.icon?.kind === "custom" ? <img src={model.icon.url} alt="" /> : model.icon?.kind === "standard" &&
+            <span className={`wd-message-icon ${model.icon.name === "ICON_ERREUR" ? "error" : "info"}`}>
+              {model.icon.name === "ICON_ERREUR" ? "×" : model.icon.name === "ICON_Question" ? "?" : "i"}
+            </span>}
+        </span>
         <div id={textId} className="wd-message-text" data-testid={body.name} style={{ ...controlBox(body), left: fit?.bodyX ?? body.x,
           width: fit?.bodyWidth ?? body.width! + width - size.width, height: fit?.textHeight ?? body.height! }}>{request.text}</div>
         {request.input && <div className="wd-resource-input" style={{ left: fit?.bodyX ?? body.x, top: fit?.inputY ?? body.y + body.height! - 6,

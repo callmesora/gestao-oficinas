@@ -33,6 +33,11 @@ export function controlBox(control: LegacyControl): CSSProperties {
 }
 
 const assets = new Map(Object.entries(inputs.source_assets).map(([name, asset]) => [name.toLowerCase(), asset]));
+export function skinSourceImage(name: string): string {
+  const asset = assets.get(name.toLowerCase());
+  if (!asset) throw new Error(`Skin image absent from checked inventory: ${name}`);
+  return `/skin/${encodeURIComponent(asset.outputs[0])}`;
+}
 export function skinImage(name: string, state = 0): string {
   if (!Number.isInteger(state) || state < 0) throw new Error("Invalid skin state index");
   const asset = assets.get(name.toLowerCase());

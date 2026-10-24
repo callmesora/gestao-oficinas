@@ -37,3 +37,7 @@ Separate sequential self-review and screenshot pass, same agent/context. Ported 
 ## MIG-5b — message copy action
 
 Separate sequential self-review, same agent/context. Exact source separator/CRLF payload is shared by the hidden copy action and browser copy event. Platform writes were moved to src/infrastructure/clipboard.ts to preserve the accepted boundary; failure remains a false result, as the source ignores it. ADR-003 labels the shortcut/tab defaults as assumed. Full verify passes: 25 unit, 2 Rust, 18 browser checks; affected unit tests pass after the boundary correction. The event test uses DataTransfer and leaves the desktop clipboard untouched; physical/native clipboard acceptance is still pending. No parity row moved.
+
+## MIG-5b — resource icons
+
+Separate sequential self-review, same agent/context, against source :663–697 and sizing formulas. Preserved the unusual 0x30 error branch. Fixed external paths silently aliasing project basenames and custom images selecting cropped button states; checked custom images now use the complete export. Browser checks exercise all three source branches and a decoded PNG. Full verify passes (26 unit, 2 Rust, 19 browser checks); affected unit tests, production build and lint pass after the complete-image correction (one existing TanStack warning). Symbols/stretching and unknown initial images remain Q-12/U-W0075A5-01; no native visual claim or parity move.

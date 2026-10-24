@@ -56,7 +56,7 @@ export function resourceGeometry(layout: LegacyLayout, text: string, title: stri
   const bodyWidth = body.width! + width - size.width;
   const space = (width - icon.width! - bodyWidth) / 3;
   const bodyX = 2 * space + icon.width!;
-  return { ...buttons, width, height, textHeight, bodyWidth, bodyX, passes,
+  return { ...buttons, width, height, textHeight, bodyWidth, bodyX, passes, iconX: space, iconY: icon.y + Math.max(0, (textHeight - icon.height!) / 2),
     inputY: body.y + textHeight - 6, inputHeight, inputWidth: width - bodyX - 16,
     buttonY: button.y + height - size.height };
 }

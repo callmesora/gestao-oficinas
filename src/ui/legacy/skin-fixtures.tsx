@@ -9,6 +9,7 @@ import { DialogProvider, useDialogs } from "./dialogs";
 function MessageFixture() {
   const { message, resource } = useDialogs();
   const [result, setResult] = useState("");
+  const [resourceIcon, setResourceIcon] = useState("32");
   return <div data-testid="skin-message-fixture">
     <p>Mensagens — retorno de teste, sem operação de negócio.</p>
     <button data-testid="skin-message-open" onClick={async () => {
@@ -38,9 +39,12 @@ function MessageFixture() {
     }}>Testar recurso longo</button>
     <button data-testid="skin-resource-open" onClick={async () => {
       const value = await resource({ title: "Recurso", text: "Valor de teste", buttons: [{ label: "Aceitar", value: 11 }, { label: "Cancelar", value: 27 }],
-        defaultIndex: 1, cancelIndex: 2, input: { kind: "text", value: "  original  " } });
+        defaultIndex: 1, cancelIndex: 2, input: { kind: "text", value: "  original  " }, icon: { flags: Number(resourceIcon), image: resourceIcon === "0" ? "note.png" : undefined } });
       setResult(JSON.stringify(value));
     }}>Testar recurso</button>
+    <label>Ícone de teste <select data-testid="skin-resource-icon" value={resourceIcon} onChange={event => setResourceIcon(event.target.value)}>
+      <option value="32">Pergunta</option><option value="48">Erro da origem</option><option value="64">Informação</option><option value="0">Imagem do projeto</option>
+    </select></label>
     <button data-testid="skin-resource-checkbox" onClick={async () => {
       const value = await resource({ title: "Opção", text: "Opção de teste", buttons: [{ label: "Aceitar" }, { label: "Cancelar" }],
         defaultIndex: 1, cancelIndex: 2, input: { kind: "checkbox", value: false, label: "Opção" } });

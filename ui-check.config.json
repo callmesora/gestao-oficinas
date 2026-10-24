@@ -8,7 +8,6 @@
         "ICON_Question": "Off-canvas icon source; resource icon selection/rendering pending.",
         "ICON_INFORMATION": "Off-canvas icon source; resource icon selection/rendering pending.",
         "ICON_ERREUR": "Off-canvas icon source; resource icon selection/rendering pending.",
-        "ICONE": "Resource image flags/custom images not ported yet; U-W0075A5-01/04.",
         "BTN_ESC": "Off-canvas event proxy; Escape invokes its source cancel-button result path directly.",
         "LIB_TITRE": "Off-canvas alternate layout title; Windows frame uses RADTitle.",
         "INT_1": "Checkbox absent in text fixture; covered in resource input flow.",

@@ -1,5 +1,25 @@
 import { expect, test } from "@playwright/test";
 
+test("resource icon flags use the source branches and custom images load from the checked inventory", async ({ page }) => {
+  await page.goto("/?skin=controls");
+  for (const [flags, expected] of [["32", "ICON_Question"], ["48", "ICON_ERREUR"], ["64", "ICON_INFORMATION"], ["0", "custom"]]) {
+    await page.getByTestId("skin-resource-icon").selectOption(flags);
+    await page.getByTestId("skin-resource-open").click();
+    const dialog = page.getByTestId("WINDEVDIALOGBOX"), icon = dialog.getByTestId("ICONE");
+    await expect(icon).toBeVisible();
+    await expect(icon).toHaveAttribute("data-icon", expected);
+    if (expected === "custom") {
+      const img = icon.locator("img");
+      await expect(img).toHaveAttribute("src", "/skin/note.png");
+      await expect.poll(async () => img.evaluate(element => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+      const response = await page.request.get("/skin/note.png");
+      expect(response.ok()).toBe(true);
+      expect(response.headers()["content-type"]).toContain("image/png");
+    } else await expect(icon).toHaveText(expected === "ICON_ERREUR" ? "×" : expected === "ICON_Question" ? "?" : "i");
+    await dialog.getByTestId("BTN_2").click();
+  }
+});
+
 test("resource text and multiline input expand without covering the source buttons", async ({ page }) => {
   await page.goto("/?skin=controls");
   await page.getByTestId("skin-resource-long-text").click();

@@ -37,7 +37,7 @@ export class MessageController {
     return new Promise(resolve => { this.queue.push({ kind: "message", value: { kind: "message", id: ++this.sequence, request: copy, model }, resolve }); this.emit(); });
   };
   resource = (request: ResourceRequest): Promise<ResourceResult> => {
-    const copy = { ...request, buttons: request.buttons.map(button => ({ ...button })), ...(request.input ? { input: { ...request.input } } : {}) };
+    const copy = { ...request, buttons: request.buttons.map(button => ({ ...button })), ...(request.input ? { input: { ...request.input } } : {}), ...(request.icon ? { icon: { ...request.icon } } : {}) };
     const model = resourceModel(copy);
     return new Promise(resolve => { this.queue.push({ kind: "resource", value: { kind: "resource", id: ++this.sequence, request: copy, model }, resolve }); this.emit(); });
   };

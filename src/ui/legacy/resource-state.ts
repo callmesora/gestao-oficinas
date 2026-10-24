@@ -1,11 +1,28 @@
+import { skinSourceImage } from "./layout";
+
 export type ResourceInput = { kind: "text"; value: string; maxLength?: number; password?: boolean }
   | { kind: "checkbox"; value: boolean; label: string };
 export interface ResourceRequest {
   title: string; text: string; buttons: { label: string; value?: number }[];
   defaultIndex: number; cancelIndex: number; input?: ResourceInput;
   destructive?: boolean; safeIndex?: number;
+  icon?: { flags: number; image?: string };
 }
 export interface ResourceResult { result: number; input?: string | boolean }
+
+// legacy/GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:663-697 (Windows).
+export function resourceIcon(flags = 0, image = "") {
+  if (!Number.isInteger(flags) || flags < -2147483648 || flags > 4294967295) throw new Error("Resource icon flags require a 32-bit integer");
+  if (flags !== 0) {
+    if ((flags & 0x20) && (flags & 0x10)) return { kind: "standard" as const, name: "ICON_ERREUR" };
+    if (flags & 0x20) return { kind: "standard" as const, name: "ICON_Question" };
+    if (flags & 0x40) return { kind: "standard" as const, name: "ICON_INFORMATION" };
+    // UNRESOLVED U-W0075A5-01: encoded initial image for other flag combinations is unavailable.
+    return null;
+  }
+  if (/[\\/]/.test(image)) throw new Error("Resource custom image requires a checked project asset name");
+  return image ? { kind: "custom" as const, url: skinSourceImage(image) } : null;
+}
 
 // legacy/GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:550-656,954-966: indexes and explicit Note values are distinct.
 export function resourceModel(request: ResourceRequest) {
@@ -18,7 +35,7 @@ export function resourceModel(request: ResourceRequest) {
   });
   // ADR-006: unresolved destructive dismissal uses the caller's explicit non-mutating choice.
   const cancel = request.destructive ? request.safeIndex! : request.cancelIndex;
-  return { buttons, focus: request.destructive ? cancel - 1 : request.defaultIndex - 1,
+  return { buttons, icon: resourceIcon(request.icon?.flags, request.icon?.image), focus: request.destructive ? cancel - 1 : request.defaultIndex - 1,
     escapeResult: buttons[cancel - 1].result,
     closeResult: request.destructive ? buttons[cancel - 1].result : request.cancelIndex };
 }
