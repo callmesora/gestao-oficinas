@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { WdFrame } from "./wd";
 import type { LegacyLayout } from "./layout";
+import type { WindowGeometryStore } from "../../application/window-geometry";
+import { windowGeometryStore } from "../../infrastructure/window-geometry";
 
 interface WindowSpec { layout: LegacyLayout; content: ReactNode }
 interface WindowEntry extends WindowSpec { id: string; x: number; y: number; width: number; height: number; z: number; minimized: boolean; maximized: boolean }
@@ -9,6 +11,11 @@ const resizeEdges: ResizeEdge[] = ["n", "e", "s", "w", "ne", "nw", "se", "sw"];
 type OpenWindow = (spec: WindowSpec) => void;
 const WorkspaceContext = createContext<OpenWindow | null>(null);
 
+function saveGeometry(store: WindowGeometryStore, entry: WindowEntry) {
+  if (entry.layout.window.flags?.["Save position"] !== true) return;
+  store.save(entry.layout.window.name, { x: entry.x, y: entry.y, width: entry.width, height: entry.height, maximized: entry.maximized });
+}
+
 export function useWorkspace() {
   const open = useContext(WorkspaceContext);
   if (!open) throw new Error("WdWorkspace is required");
@@ -16,7 +23,7 @@ export function useWorkspace() {
 }
 
 /** Independent in-app windows; geometry/focus defaults are explicit in ADR-003. */
-export function WdWorkspace({ children }: { children: ReactNode }) {
+export function WdWorkspace({ children, geometryStore = windowGeometryStore }: { children: ReactNode; geometryStore?: WindowGeometryStore }) {
   const [windows, setWindows] = useState<WindowEntry[]>([]);
   const [extent, setExtent] = useState({ width: 0, height: 0 });
   const [focusRequest, requestFocus] = useState(0);
@@ -25,6 +32,11 @@ export function WdWorkspace({ children }: { children: ReactNode }) {
   const drag = useRef<{ id: string; pointer: number; mode: "move" | "resize"; edge?: ResizeEdge; startX: number; startY: number; x: number; y: number; width: number; height: number } | null>(null);
   const active = windows.filter(entry => !entry.minimized).reduce<WindowEntry | null>((top, entry) => !top || entry.z > top.z ? entry : top, null);
   const activeId = active?.id;
+  useEffect(() => {
+    const saveOpen = () => [...windows].sort((a, b) => a.z - b.z).forEach(entry => saveGeometry(geometryStore, entry));
+    window.addEventListener("pagehide", saveOpen);
+    return () => window.removeEventListener("pagehide", saveOpen);
+  }, [windows, geometryStore]);
   useEffect(() => {
     const element = canvas.current!;
     const update = () => {
@@ -55,11 +67,18 @@ export function WdWorkspace({ children }: { children: ReactNode }) {
     const size = spec.layout.window.size, area = canvas.current!;
     const id = `workspace-window-${++sequence.current}`, z = ++stack.current;
     const offset = windows.length % 4 * 24;
-    const x = Math.max(0, Math.min((area.clientWidth - size.width) / 2 + offset, area.clientWidth - 80));
-    const y = Math.max(0, Math.min((area.clientHeight - size.height) / 2 + offset, area.clientHeight - 25));
-    setWindows(previous => [...previous, { ...spec, id, z, x, y, width: size.width, height: size.height, minimized: false, maximized: false }]);
+    const saved = spec.layout.window.flags?.["Save position"] === true ? geometryStore.load(spec.layout.window.name) : null;
+    const resizable = spec.layout.window.flags?.Resizable === true;
+    const width = saved && resizable ? Math.max(size.width, Math.min(saved.width, area.clientWidth)) : size.width;
+    const height = saved && resizable ? Math.max(size.height, Math.min(saved.height, area.clientHeight)) : size.height;
+    const x = Math.max(0, Math.min((saved?.x ?? (area.clientWidth - size.width) / 2) + offset, saved ? area.clientWidth - width : area.clientWidth - 80));
+    const y = Math.max(0, Math.min((saved?.y ?? (area.clientHeight - size.height) / 2) + offset, saved ? area.clientHeight - height : area.clientHeight - 25));
+    const maximized = saved?.maximized === true && spec.layout.window.flags?.["Maximize icon"] === true;
+    setWindows(previous => [...previous, { ...spec, id, z, x, y, width, height, minimized: false, maximized }]);
   };
   const close = (id: string) => {
+    const entry = windows.find(item => item.id === id);
+    if (entry) saveGeometry(geometryStore, entry);
     focused.current.delete(id);
     setWindows(previous => previous.filter(entry => entry.id !== id));
     requestFocus(value => value + 1);

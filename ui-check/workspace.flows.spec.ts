@@ -170,3 +170,104 @@ test("workspace resize capability follows Resizable independently of the optiona
   await page.mouse.move(handle.x + 42, handle.y + 20, { steps: 4 }); await page.mouse.up();
   await expect(window.getByTestId("workspace-window-2-frame")).toHaveCSS("width", "540px");
 });
+
+test("saved geometry reopens normal bounds and maximized state without persisting control data", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 1000 });
+  await page.goto("/?skin=workspace");
+  await page.getByTestId("workspace-open").click();
+  const first = page.getByTestId("workspace-window-1"), canvas = page.getByTestId("workspace-canvas");
+  await first.getByTestId("EDT_Descricao").fill("control data must not survive");
+  await page.getByTestId("workspace-window-1-resize").focus();
+  await page.keyboard.press("ArrowRight"); await page.keyboard.press("Shift+ArrowDown");
+  const title = (await first.getByTestId("RADTitle").boundingBox())!;
+  await page.mouse.move(title.x + 20, title.y + 8); await page.mouse.down();
+  await page.mouse.move(title.x - 20, title.y - 2, { steps: 4 }); await page.mouse.up();
+  const before = (await first.boundingBox())!, area = (await canvas.boundingBox())!;
+  await first.getByTestId("BTN_SYST_FERMER").click();
+  const saved = await page.evaluate(() => JSON.parse(localStorage.getItem("gestao-oficinas:window-geometry:v1:WIN_Form_Clientes")!) as Record<string, unknown>);
+  expect(saved).toEqual({ version: 1, x: before.x - area.x, y: before.y - area.y, width: 508, height: 436, maximized: false });
+  await page.getByTestId("workspace-open").click();
+  const second = page.getByTestId("workspace-window-2");
+  expect(await second.boundingBox()).toEqual(before);
+  await expect(second.getByTestId("EDT_Descricao")).toHaveValue("");
+  await second.getByTestId("BTN_Syst_Maximize").click();
+  await second.getByTestId("BTN_SYST_FERMER").click();
+  await page.getByTestId("workspace-open").click();
+  const third = page.getByTestId("workspace-window-3");
+  await expect(third.getByTestId("workspace-window-3-frame")).toHaveCSS("width", `${await canvas.evaluate(element => element.clientWidth)}px`);
+  await third.getByTestId("BTN_Syst_Maximize").click();
+  expect(await third.boundingBox()).toEqual(before);
+});
+
+test("real page reload saves open geometry and never reopens minimized or input state", async ({ page }) => {
+  await page.goto("/?skin=workspace");
+  await page.getByTestId("workspace-open").click();
+  const first = page.getByTestId("workspace-window-1");
+  await first.getByTestId("EDT_Descricao").fill("discard on reload");
+  await page.getByTestId("workspace-window-1-resize").focus(); await page.keyboard.press("ArrowRight");
+  await first.getByTestId("BTN_SYST_MINIMIZE").click();
+  await page.reload();
+  await page.getByTestId("workspace-open").click();
+  await expect(first).toBeVisible();
+  await expect(first.getByTestId("workspace-window-1-frame")).toHaveCSS("width", "508px");
+  await expect(first.getByTestId("EDT_Descricao")).toHaveValue("");
+});
+
+test("saved geometry recovers offscreen settings and disabled persistence neither reads nor overwrites them", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 1000 });
+  await page.goto("/?skin=workspace");
+  await page.evaluate(() => localStorage.setItem("gestao-oficinas:window-geometry:v1:WIN_Form_Clientes", JSON.stringify({ version: 1, x: 99999, y: 99999, width: 99999, height: 99999, maximized: false })));
+  await page.getByTestId("workspace-open").click();
+  const first = page.getByTestId("workspace-window-1"), canvas = page.getByTestId("workspace-canvas");
+  const area = (await canvas.boundingBox())!, recovered = (await first.boundingBox())!;
+  expect(recovered.x).toBe(area.x); expect(recovered.y).toBe(area.y);
+  expect(recovered.width).toBe(await canvas.evaluate(element => element.clientWidth));
+  expect(recovered.height).toBe(await canvas.evaluate(element => element.clientHeight));
+  await first.getByTestId("BTN_SYST_FERMER").click();
+  await page.evaluate(() => localStorage.setItem("gestao-oficinas:window-geometry:v1:WIN_Form_Clientes", "{"));
+  await page.getByTestId("workspace-open").click();
+  const second = page.getByTestId("workspace-window-2");
+  await expect(second.getByTestId("workspace-window-2-frame")).toHaveCSS("width", "500px");
+  await second.getByTestId("BTN_SYST_FERMER").click();
+  const stored = JSON.stringify({ version: 1, x: 33, y: 21, width: 700, height: 500, maximized: false });
+  await page.evaluate(value => localStorage.setItem("gestao-oficinas:window-geometry:v1:WIN_Form_Clientes", value), stored);
+  await page.getByTestId("workspace-open-unsaved").click();
+  const third = page.getByTestId("workspace-window-3");
+  await expect(third.getByTestId("workspace-window-3-frame")).toHaveCSS("width", "500px");
+  await third.getByTestId("BTN_SYST_FERMER").click();
+  expect(await page.evaluate(() => localStorage.getItem("gestao-oficinas:window-geometry:v1:WIN_Form_Clientes"))).toBe(stored);
+});
+
+test("unavailable geometry storage never blocks window close and subsequent opening", async ({ page }) => {
+  await page.goto("/?skin=workspace");
+  await page.evaluate(() => {
+    Object.defineProperty(Storage.prototype, "getItem", { value: () => { throw new DOMException("Blocked", "SecurityError"); } });
+    Object.defineProperty(Storage.prototype, "setItem", { value: () => { throw new DOMException("Blocked", "SecurityError"); } });
+  });
+  const errors: string[] = [];
+  page.on("pageerror", error => errors.push(error.message));
+  await page.getByTestId("workspace-open").click();
+  await page.getByTestId("workspace-window-1").getByTestId("BTN_SYST_FERMER").click();
+  await expect(page.getByTestId("workspace-window-1")).toHaveCount(0);
+  await page.getByTestId("workspace-open").click();
+  await expect(page.getByTestId("workspace-window-2")).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+test("pagehide saves the top instance per layout and fixed-size windows ignore stored dimensions", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 1000 });
+  await page.goto("/?skin=workspace");
+  await page.getByTestId("workspace-open").click();
+  await page.getByTestId("workspace-window-1-resize").focus(); await page.keyboard.press("ArrowRight");
+  await page.getByTestId("workspace-open").click();
+  await page.getByTestId("workspace-window-2-resize").focus();
+  await page.keyboard.press("ArrowRight"); await page.keyboard.press("ArrowRight");
+  await page.getByTestId("workspace-window-1-task").click();
+  await expect(page.getByTestId("workspace-window-1")).toHaveAttribute("data-active", "true");
+  await page.reload();
+  await page.getByTestId("workspace-open").click();
+  await expect(page.getByTestId("workspace-window-1-frame")).toHaveCSS("width", "508px");
+  await page.getByTestId("workspace-window-1").getByTestId("BTN_SYST_FERMER").click();
+  await page.getByTestId("workspace-open-fixed").click();
+  await expect(page.getByTestId("workspace-window-2-frame")).toHaveCSS("width", "500px");
+});
