@@ -14,7 +14,7 @@ MIG-5b in progress on main; full migration, commits and pushes authorized. Conti
 
 ## Next
 
-Finish MIG-5b: remaining table features and native column-layout acceptance (foundation-controls.md, U-SKIN-04/05); masks/coercion, remaining optional input flags/automatic-close behavior, calculator, external/file images, encoded custom shortcuts, sounds/chrome; native resize limits/appearance (U-SKIN-02), geometry precedence/storage lifetime (U-SKIN-03), unresolved anchor rates/containers and full-window gates. Physical clipboard and dialog font/wrapping/DPI, anchoring, insets and minimum-title geometry need acceptance; missing source images prevent visual scores. Then MIG-6 queries/helpers and bounded workflows. Import instructions: docs/data/export-runbook.md.
+Finish MIG-5b within its current brief. Keep its remaining foundation gaps visible; do not add generic launcher/workspace/skin features without evidence that a customer parity row needs them. After MIG-5b, the next business deliverable is the real `WIN_Table_Clientes` + `WIN_Form_Clientes` workflow in `docs/runbooks/stage-5.md`. Do not wait for all MIG-6 queries/helpers: implement only the patterns this workflow consumes, then add other query/helper units with their first real consumers. The customer print action remains open for MIG-13 unless separately scoped with its report evidence. Import instructions: docs/data/export-runbook.md.
 
 ## Decisions needed
 

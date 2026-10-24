@@ -1,6 +1,14 @@
 # ROADMAP — Gestao Oficinas
 
-Order follows templates/ROADMAP.template.md and accepted ADR-007. Step 0 commits: 7d3a5c7 and 637fc6b. Framing must close before foundation. No business functionality is implemented.
+Order follows templates/ROADMAP.template.md and accepted ADR-007. Step 0 commits: 7d3a5c7 and 637fc6b. Framing must close before foundation. The database/import and shared UI foundations exist, but no customer or other business workflow is implemented yet.
+
+## Trajectory guardrails
+
+- The next business deliverable after MIG-5b is the first real workflow: `WIN_Table_Clientes` + `WIN_Form_Clientes`, backed by the real application/API/database path. The brief is `docs/runbooks/stage-5.md`.
+- MIG-6 is a query/helper backlog, not a gate to the first screen. Implement only the specific query/helper behavior a workflow needs, at its first consuming workflow, and record the concrete pattern in `docs/porting.md`. Do not port all 30 query units before a screen just to complete a foundation stage.
+- After MIG-5b closes, do not add more generic launcher/workspace/skin capabilities unless a cited customer parity row proves they block the customer workflow. Log other foundation gaps and handle them when a later screen needs them or at native acceptance.
+- Every workflow stage must end with a user-visible route to the real screen, real data/actions for its stated scope, and parity rows/tests that prove those actions. Synthetic fixtures and rendered layouts are not screen implementation.
+- Keep one workflow per brief. Do not build speculative shared abstractions; extract a pattern at the cleanup checkpoint only after at least two real workflows use it. Keep print/report behavior assigned to MIG-13 unless a brief explicitly includes its report and evidence.
 
 Each group below must be split into bounded stage briefs for individual workflows before coding; a group is Done only when every owned unit meets the guide gates. No feature is excluded. Review/fix is part of each slice.
 
@@ -15,10 +23,12 @@ Each group below must be split into bounded stage briefs for individual workflow
 | 3b | Foundation | Skin primitives, every generated layout and skin assets | MIG-5 | template/dialog rows | implementer/reviewer | docs/runbooks/stage-4.md | skin kit; scored windows; asset inventory; temporary launcher | 2a | In progress |
 | 3b.1 | Foundation | Generated layouts and referenced skin images | MIG-5a | no behavior status moves | implementer/reviewer | docs/runbooks/stage-4.md | 53 reproducible layouts; checked image/state inventory | 2a | Done |
 | 3b.2 | Foundation | Shared primitives, temporary launcher and visual/keyboard checks | MIG-5b | template/dialog rows | implementer/reviewer | docs/runbooks/stage-4.md | shared controls, table base, awaited dialogs and text/input sizing including optional character-limit width checked; scoped caption shortcuts and temporary workspace launcher checked; shared anchor defaults checked; column width/order persistence and manual resize/saved geometry defaults checked; remaining table/dialog features, native limits/lifetime and full-window gates pending | 3b.1 | In progress |
-| 4 | Slice | Query semantics and shared WLanguage helpers | MIG-6 | QRY rows; named helper rules | implementer/reviewer | templates/prompt-stage.md | real parameter/filter tests against complete schema | 3 | To do |
-| 5 | Slice | Leaf lookups and list/form workflows | MIG-7 | assigned units below | implementer/reviewer | templates/prompt-stage.md | bounded sub-slice per list/form pair; end-to-end saves and failures | 3, 3b, 4 | To do |
-| 6 | Cleanup | Cleanup checkpoint after first 2–3 leaf workflows, then resume remaining leaves | MIG-7C | unchanged behavior | implementer/reviewer | templates/prompt-stage.md | shared components and concrete docs/porting patterns; checkpoint gates the next leaf workflow | 5 | To do |
-| 7 | Slice | Repair order list/form and caller contracts | MIG-8 | assigned units below | implementer + 2 reviews | templates/prompt-stage.md | complete workflow; persistence; concurrent/failure paths | 5, 6 | To do |
+| 4 | Slice backlog | Query semantics and shared WLanguage helpers, implemented with their first consuming workflow | MIG-6 | QRY rows; named helper rules | implementer/reviewer | templates/prompt-stage.md | bounded query/helper behavior with real consumer-path evidence; this group is not a prerequisite for the first customer screen | 3 | To do — incremental, not a screen gate |
+| 5 | Slice | First real workflow: customer list and form | MIG-7A | `docs/parity/WIN_Table_Clientes.csv`; `docs/parity/WIN_Form_Clientes.csv` | implementer/reviewer | docs/runbooks/stage-5.md | real customer list/form, customer data path, add/edit/search/select/delete behavior in scope, visible app route and parity evidence | 3, 3b | To do |
+| 5a | Slice | Next 1–2 leaf lookup/list/form workflows | MIG-7 | exact units in each bounded brief | implementer/reviewer | templates/prompt-stage.md | one real workflow per brief; pull only its required query/helper units | 3, 3b, 5 | To do |
+| 6 | Cleanup | Cleanup checkpoint after the first 2–3 real workflows | MIG-7C | unchanged behavior | implementer/reviewer | templates/prompt-stage.md | patterns used by completed workflows, concrete docs/porting entries and focused checks; checkpoint gates further leaf work | 5, 5a | To do |
+| 6a | Slice | Remaining leaf lookups and list/form workflows | MIG-7 | assigned units below, excluding completed pairs | implementer/reviewer | templates/prompt-stage.md | one bounded workflow brief per pair; pull only its required query/helper units | 6 | To do |
+| 7 | Slice | Repair order list/form and caller contracts | MIG-8 | assigned units below | implementer + 2 reviews | templates/prompt-stage.md | complete workflow; persistence; concurrent/failure paths | 6, 6a | To do |
 | 8 | Slice | Repair materials and quantity/password workflows | MIG-9 | assigned units below | implementer + 2 reviews | templates/prompt-stage.md | material writes, stock effects and caller results | 7 | To do |
 | 9 | Slice | Labor timers, state transitions and descriptions | MIG-10 | assigned units below | implementer + 2 reviews | templates/prompt-stage.md | clock/state/locking workflows and duration checks | 7, 8 | To do |
 | 10 | Slice | Stock documents, scanners, inventory and reconstruction | MIG-11 | assigned units below | implementer + 2 reviews | templates/prompt-stage.md | stock saves/deletes/rebuilds and native input checks | 8, 9 | To do |
@@ -30,7 +40,7 @@ Each group below must be split into bounded stage briefs for individual workflow
 
 ## Complete unit ownership
 
-All 143 per-unit CSVs retain their seed IDs. This assignment is a scheduling index, not a claim of implementation. Shared dialogs/helpers remain dependencies of their callers; authentication/authorization must guard protected server operations before exposure even though full access-screen parity comes later. The first leaf slices are customer, vehicle and simple lookup list/form pairs; later briefs state exact IDs from their CSVs.
+All 143 per-unit CSVs retain their seed IDs. This assignment is a scheduling index, not a claim of implementation or a blanket dependency. MIG-6 rows stay assigned to MIG-6, but each is implemented alongside its first real consumer; the first customer brief may cover only the behaviors it needs. Shared dialogs/helpers remain dependencies of their callers; authentication/authorization must guard protected server operations before exposure even though full access-screen parity comes later. The first leaf slices are customer, vehicle and simple lookup list/form pairs; later briefs state exact IDs from their CSVs.
 
 | Unit | Ticket |
 |---|---|
@@ -185,6 +195,6 @@ Follow templates/prompt-stage.md: read handoff/instructions/ADRs; synchronize sa
 
 ## Recurring cleanup checkpoints
 
-Within MIG-7, close the first 2–3 bounded list/form stages, run MIG-7C, then continue the remaining leaf stages. Its dependency is those completed sub-stages rather than the entire group; group completion includes this checkpoint. The group-level table is a summary, not permission to postpone cleanup.
+Within MIG-7, close the customer pair and the next 1–2 bounded list/form stages, run MIG-7C, then continue the remaining leaf stages. Its dependency is those completed sub-stages rather than the entire group; group completion includes this checkpoint. The group-level table is a summary, not permission to postpone cleanup.
 
 After every next 2–3 bounded workflows across MIG-8 through MIG-13, insert a numbered cleanup brief owned by that group's ticket (suffix C1, C2…). Extract only patterns repeated by completed workflows, keep behavior unchanged, update docs/porting.md and run the existing relevant tests. The next dependent workflow waits for that cleanup/review checkpoint. Record each checkpoint in this roadmap as its concrete sub-slices are scheduled.
