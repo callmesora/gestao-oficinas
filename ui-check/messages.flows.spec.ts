@@ -1,5 +1,21 @@
 import { expect, test } from "@playwright/test";
 
+test("message copy event uses the exact source envelope and leaves the dialog/result pending", async ({ page }) => {
+  await page.goto("/?skin=controls");
+  await page.getByTestId("skin-message-open").click();
+  const dialog = page.getByTestId("WINDEVMESSAGEBOX");
+  const copy = await dialog.evaluate(element => {
+    const data = new DataTransfer();
+    const event = new ClipboardEvent("copy", { clipboardData: data, bubbles: true, cancelable: true });
+    element.dispatchEvent(event);
+    return { prevented: event.defaultPrevented, text: data.getData("text/plain") };
+  });
+  expect(copy).toEqual({ prevented: true, text: "---------------------------\r\nTeste\r\n---------------------------\r\n  Açores\nSegunda linha  " });
+  await expect(dialog).toBeVisible();
+  await expect(page.getByTestId("skin-message-result")).toHaveText("a aguardar");
+  await expect(dialog.getByTestId("BTN_Copier_caché")).toHaveCount(1);
+});
+
 test("long message expands from source geometry, wraps at the source cap and keeps its button inside", async ({ page }) => {
   await page.goto("/?skin=controls");
   await page.getByTestId("skin-message-long").click();

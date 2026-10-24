@@ -7,5 +7,5 @@
   "button": "MediaPlayer_Btn_anim.gif",
   "closeBackground": "MediaPlayer_Btn_Close_Anim.gif",
   "closeIcon": "MediaPlayer_Btn_Close.gif",
-  "appearance": "Project MediaPlayer assets and standard information/error/question symbols; not a recovered dialog image. Source controls supply coordinates; native sounds, clipboard and dynamic text measurement remain pending."
+  "appearance": "Project MediaPlayer assets and standard information/error/question symbols; not a recovered dialog image. Native sounds, physical clipboard, font/DPI and missing designer metadata remain pending."
 }

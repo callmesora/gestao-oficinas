@@ -6,6 +6,7 @@ import { MessageController, type PendingMessage } from "./message-state";
 import { WdButton } from "./wd";
 import { ResourceBox } from "./resource-dialog";
 import { browserMeasure, messageGeometry } from "./dialog-metrics";
+import { messageClipboardText, writeMessageClipboard } from "./message-clipboard";
 
 type DialogService = Pick<MessageController, "open" | "resource">;
 const MessageContext = createContext<DialogService | null>(null);
@@ -62,9 +63,14 @@ function MessageBox({ current, controller }: { current: PendingMessage; controll
   const frameSkin = { "--wd-frame": `url("${skinImage(proposals.frame)}")` } as CSSProperties;
   // UNRESOLVED U-W36869F-01: minimum title geometry is unavailable; keep its width nonnegative.
   return <dialog ref={ref} className="wd-dialog-host" data-testid="WINDEVMESSAGEBOX" aria-label={request.title} aria-describedby={textId}
+    onCopy={event => {
+      // ADR-003 default; native shortcut metadata remains U-W36869F-02.
+      event.preventDefault(); event.clipboardData.setData("text/plain", messageClipboardText(request));
+    }}
     onCancel={event => { event.preventDefault(); finish(); }}>
     <section className="wd-frame" style={{ ...frameSkin, width: frameWidth, height: frameHeight }}>
       <div className="wd-client">
+        <WdButton control={controlOf(layout, "BTN_Copier_caché")} tabIndex={-1} aria-hidden="true" onClick={() => { void writeMessageClipboard(request); }} />
         <div className="wd-title" data-testid={title.name} style={{ ...controlBox(title), width: Math.max(0, title.width! + frameWidth - size.width) }}>{request.title}</div>
         <WdButton chrome aria-label="Fechar" control={{ ...controlOf(layout, "BTN_SYST_FERMER"), background_image: proposals.closeBackground, image: proposals.closeIcon }}
           style={{ left: undefined, right: size.width - controlOf(layout, "BTN_SYST_FERMER").x - controlOf(layout, "BTN_SYST_FERMER").width! }} onClick={() => finish()} />

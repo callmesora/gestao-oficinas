@@ -33,3 +33,7 @@ Separate sequential self-review, same agent/context. Checked source caps, minimu
 ## MIG-5b — resource text/input fitting
 
 Separate sequential self-review and screenshot pass, same agent/context. Ported the ten-pass ratio loop, frame bounds and input reservation. Screenshot review found the last input line clipped by target edit padding/border; measured insets now reserve that space and textarea resizing is disabled like the kit memo. Native insets and label anchoring remain marked U-W0075A5-05/01 fallbacks. Actual browser checks assert no input overflow, buttons below the input and exact unchanged CRLF output. Full verify passes: 23 unit, 2 Rust, 17 browser checks. No visual/native claim or parity move.
+
+## MIG-5b — message copy action
+
+Separate sequential self-review, same agent/context. Exact source separator/CRLF payload is shared by the hidden copy action and browser copy event. Platform writes were moved to src/infrastructure/clipboard.ts to preserve the accepted boundary; failure remains a false result, as the source ignores it. ADR-003 labels the shortcut/tab defaults as assumed. Full verify passes: 25 unit, 2 Rust, 18 browser checks; affected unit tests pass after the boundary correction. The event test uses DataTransfer and leaves the desktop clipboard untouched; physical/native clipboard acceptance is still pending. No parity row moved.

@@ -28,7 +28,6 @@
         "BTN_ANNULER": "Type 5 uses BTN_NON relabeled Cancelar; type 3 cancellation checked separately.",
         "ICON_INFORMATION": "Only ICON_QUESTION is visible in the type 5 fixture; type 0 icon checked separately.",
         "ICON_ERREUR": "Not visible in type 5; error appearance and native sound remain pending U-W36869F-01/04.",
-        "BTN_Copier_caché": "Off-canvas clipboard shortcut not ported yet; MIG-5 remains open.",
         "SCSystemButtons": "Source supercontrol container; close control rendered directly. Minimize/maximize/UMC remain pending.",
         "BTN_UMC": "Unresolved UMC feature, no exclusion approved; pending, not verified.",
         "BTN_SYST_MINIMIZE": "Modal minimize not ported yet; pending U-W36869F-02.",

@@ -7,14 +7,14 @@ MIG-5b in progress on main; full migration, commits and pushes authorized. Conti
 ## Delivered and checked
 
 - MIG-4 schema/import complete (db441ba); MIG-5a generated inputs complete (6f0be86).
-- Shared controls and awaited dialogs are exercised at /?skin=controls. Message/resource sizing follows source formulas; resource multiline input reserves its measured height. Return/input semantics remain intact. Skin/font appearance and missing anchoring/insets remain assumed or unresolved. No customer workflow/save is implemented.
-- Full npm run verify PASS: 23 unit tests, 2 Rust tests, bindings, parity, 53 layouts/154 PNGs and 17 browser checks. Lint retains one TanStack v8 compatibility warning; React Compiler is not enabled.
+- Shared controls and awaited dialogs are exercised at /?skin=controls. Dialog sizing and return/input semantics remain intact. Message copy events now produce the exact source payload; the keyboard route is an ADR-003 default. Native clipboard, skin/font appearance and missing designer metadata remain unverified. No customer workflow/save is implemented.
+- Full npm run verify PASS: 25 unit tests, 2 Rust tests, bindings, parity, 53 layouts/154 PNGs and 18 browser checks. Clipboard tests also pass after the infrastructure-boundary correction. Lint retains one TanStack v8 compatibility warning; React Compiler is not enabled.
 - Component-region visual floors 90/60 pass; missing-component probe fails without replacing baseline. Screenshot inspected. Separate sequential self-review, same agent/context: reviews/skin.md.
 - No parity moves: 17/2,273 verified import rows; 481 unmapped; all 877 SRC IDs retained. Component checks do not prove full-window or native parity.
 
 ## Next
 
-Finish MIG-5b: remaining table features (foundation-controls.md); masks/coercion, optional input sizing/automatic-close flags, calculator, icons, accelerators, clipboard/sounds/chrome; launcher and full-window gates. Dialog font/wrapping/DPI, anchoring, insets and minimum-title geometry need acceptance; missing source images prevent visual scores. Then MIG-6 queries/helpers and bounded workflows. Import instructions: docs/data/export-runbook.md.
+Finish MIG-5b: remaining table features (foundation-controls.md); masks/coercion, optional input sizing/automatic-close flags, calculator, icons, accelerators, sounds/chrome; launcher and full-window gates. Physical clipboard and dialog font/wrapping/DPI, anchoring, insets and minimum-title geometry need acceptance; missing source images prevent visual scores. Then MIG-6 queries/helpers and bounded workflows. Import instructions: docs/data/export-runbook.md.
 
 ## Decisions needed
 
