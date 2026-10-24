@@ -7,14 +7,14 @@ MIG-5b in progress on main; full migration, commits and pushes authorized. Conti
 ## Delivered and checked
 
 - MIG-4 schema/import complete (db441ba); MIG-5a generated inputs complete (6f0be86).
-- Shared controls/dialogs at /?skin=controls and the temporary workspace launcher at /?skin=workspace. Workspace instances stack, drag, minimize/restore and maximize locally while retaining input; close affects only its instance. Both dialogs have explicit Tab loops. Shared controls apply source anchor flags and explicit rates; encoded-rate defaults remain ADR-003/U-SKIN-01 assumptions. ADR-003 records workspace/caption defaults. No customer workflow/save is implemented; native clipboard, appearance and missing designer metadata remain unverified.
-- Full npm run verify PASS: 32 unit tests, 2 Rust tests, bindings, parity, 53 layouts/154 PNGs and 26 browser checks. Production build and parity file checks also pass after the anchor change; affected unit tests pass after review fixes. Lint retains one TanStack v8 compatibility warning; React Compiler is not enabled.
+- Shared controls/dialogs at /?skin=controls and the temporary workspace launcher at /?skin=workspace. Workspace instances stack, drag, resize via edges/corners/keyboard, minimize/restore and maximize locally while retaining input; close affects only its instance. Both dialogs have explicit Tab loops. Shared controls apply source anchor flags and explicit rates; encoded-rate defaults remain ADR-003/U-SKIN-01 assumptions. ADR-003 records workspace/caption defaults. No customer workflow/save is implemented; native clipboard, appearance and missing designer metadata remain unverified.
+- Full npm run verify PASS: 32 unit tests, 2 Rust tests, bindings, parity, 53 layouts/154 PNGs and 29 browser checks. Production build and parity file checks also pass after the resize change; the manual sizing flow also passes after final review. Lint retains one TanStack v8 compatibility warning; React Compiler is not enabled.
 - Component-region visual floors 90/60 pass; missing-component probe fails without replacing baseline. Screenshot inspected. Separate sequential self-review, same agent/context: reviews/skin.md.
 - No parity moves: 17/2,273 verified import rows; 481 unmapped; all 877 SRC IDs retained. Component checks do not prove full-window or native parity.
 
 ## Next
 
-Finish MIG-5b: remaining table features (foundation-controls.md); masks/coercion, remaining optional input flags/automatic-close behavior, calculator, external/file images, encoded custom shortcuts, sounds/chrome; manual resizing, saved geometry, unresolved anchor rates/containers and full-window gates. Physical clipboard and dialog font/wrapping/DPI, anchoring, insets and minimum-title geometry need acceptance; missing source images prevent visual scores. Then MIG-6 queries/helpers and bounded workflows. Import instructions: docs/data/export-runbook.md.
+Finish MIG-5b: remaining table features (foundation-controls.md); masks/coercion, remaining optional input flags/automatic-close behavior, calculator, external/file images, encoded custom shortcuts, sounds/chrome; saved geometry, native resize limits/appearance (U-SKIN-02), unresolved anchor rates/containers and full-window gates. Physical clipboard and dialog font/wrapping/DPI, anchoring, insets and minimum-title geometry need acceptance; missing source images prevent visual scores. Then MIG-6 queries/helpers and bounded workflows. Import instructions: docs/data/export-runbook.md.
 
 ## Decisions needed
 

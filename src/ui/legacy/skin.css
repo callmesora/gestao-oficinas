@@ -63,3 +63,15 @@ textarea.wd-resource-edit { resize: none; }
 .wd-workspace-window .wd-title { touch-action: none; cursor: move; user-select: none; }
 .wd-workspace-window .wd-frame:focus { outline: none; }
 .wd-workspace-launcher, .wd-workspace-tasks { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 0; }
+
+.wd-workspace-edge { position: absolute; z-index: 1; padding: 0; border: 0; background: transparent; touch-action: none; }
+.wd-workspace-edge-n, .wd-workspace-edge-s { left: 8px; right: 8px; height: 4px; cursor: ns-resize; }
+.wd-workspace-edge-n { top: 0; } .wd-workspace-edge-s { bottom: 0; }
+.wd-workspace-edge-w, .wd-workspace-edge-e { top: 8px; bottom: 8px; width: 4px; cursor: ew-resize; }
+.wd-workspace-edge-w { left: 0; } .wd-workspace-edge-e { right: 0; }
+.wd-workspace-edge-nw, .wd-workspace-edge-ne, .wd-workspace-edge-sw, .wd-workspace-edge-se { width: 8px; height: 8px; }
+.wd-workspace-edge-nw { top: 0; left: 0; cursor: nwse-resize; } .wd-workspace-edge-ne { top: 0; right: 0; cursor: nesw-resize; }
+.wd-workspace-edge-sw { bottom: 0; left: 0; cursor: nesw-resize; } .wd-workspace-edge-se { bottom: 0; right: 0; cursor: nwse-resize; }
+.wd-workspace-grip { position: absolute; box-sizing: border-box; right: 2px; bottom: 2px; width: 14px; height: 14px; padding: 0;
+  border: 0; background: repeating-linear-gradient(135deg, transparent 0 3px, #7d8899 3px 4px, transparent 4px 6px);
+  clip-path: polygon(100% 0, 100% 100%, 0 100%); cursor: nwse-resize; touch-action: none; }

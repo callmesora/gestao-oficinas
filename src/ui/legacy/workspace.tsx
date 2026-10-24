@@ -3,7 +3,9 @@ import { WdFrame } from "./wd";
 import type { LegacyLayout } from "./layout";
 
 interface WindowSpec { layout: LegacyLayout; content: ReactNode }
-interface WindowEntry extends WindowSpec { id: string; x: number; y: number; z: number; minimized: boolean; maximized: boolean }
+interface WindowEntry extends WindowSpec { id: string; x: number; y: number; width: number; height: number; z: number; minimized: boolean; maximized: boolean }
+type ResizeEdge = "n" | "e" | "s" | "w" | "ne" | "nw" | "se" | "sw";
+const resizeEdges: ResizeEdge[] = ["n", "e", "s", "w", "ne", "nw", "se", "sw"];
 type OpenWindow = (spec: WindowSpec) => void;
 const WorkspaceContext = createContext<OpenWindow | null>(null);
 
@@ -20,7 +22,7 @@ export function WdWorkspace({ children }: { children: ReactNode }) {
   const [focusRequest, requestFocus] = useState(0);
   const canvas = useRef<HTMLDivElement>(null), launcher = useRef<HTMLDivElement>(null), sequence = useRef(0), stack = useRef(0);
   const roots = useRef(new Map<string, HTMLDivElement>()), focused = useRef(new Map<string, HTMLElement>());
-  const drag = useRef<{ id: string; pointer: number; startX: number; startY: number; x: number; y: number } | null>(null);
+  const drag = useRef<{ id: string; pointer: number; mode: "move" | "resize"; edge?: ResizeEdge; startX: number; startY: number; x: number; y: number; width: number; height: number } | null>(null);
   const active = windows.filter(entry => !entry.minimized).reduce<WindowEntry | null>((top, entry) => !top || entry.z > top.z ? entry : top, null);
   const activeId = active?.id;
   useEffect(() => {
@@ -55,7 +57,7 @@ export function WdWorkspace({ children }: { children: ReactNode }) {
     const offset = windows.length % 4 * 24;
     const x = Math.max(0, Math.min((area.clientWidth - size.width) / 2 + offset, area.clientWidth - 80));
     const y = Math.max(0, Math.min((area.clientHeight - size.height) / 2 + offset, area.clientHeight - 25));
-    setWindows(previous => [...previous, { ...spec, id, z, x, y, minimized: false, maximized: false }]);
+    setWindows(previous => [...previous, { ...spec, id, z, x, y, width: size.width, height: size.height, minimized: false, maximized: false }]);
   };
   const close = (id: string) => {
     focused.current.delete(id);
@@ -87,23 +89,54 @@ export function WdWorkspace({ children }: { children: ReactNode }) {
           onPointerDown={event => {
             if (entry.maximized || event.button !== 0 || !(event.target instanceof Element) || !event.target.closest(".wd-title")) return;
             event.preventDefault(); event.currentTarget.setPointerCapture(event.pointerId);
-            drag.current = { id: entry.id, pointer: event.pointerId, startX: event.clientX, startY: event.clientY, x: entry.x, y: entry.y };
+            drag.current = { id: entry.id, mode: "move", width: entry.width, height: entry.height, pointer: event.pointerId, startX: event.clientX, startY: event.clientY, x: entry.x, y: entry.y };
           }}
           onPointerMove={event => {
             const start = drag.current;
             if (!start || start.id !== entry.id || start.pointer !== event.pointerId) return;
+            if (start.mode === "resize") {
+              const edge = start.edge!, dx = event.clientX - start.startX, dy = event.clientY - start.startY;
+              let width = start.width, height = start.height, x = start.x, y = start.y;
+              if (edge.includes("e")) width = Math.max(size.width, start.width + dx);
+              if (edge.includes("s")) height = Math.max(size.height, start.height + dy);
+              if (edge.includes("w")) { width = Math.min(start.x + start.width, Math.max(size.width, start.width - dx)); x = start.x + start.width - width; }
+              if (edge.includes("n")) { height = Math.min(start.y + start.height, Math.max(size.height, start.height - dy)); y = start.y + start.height - height; }
+              setWindows(previous => previous.map(item => item.id === entry.id ? { ...item, x, y, width, height } : item));
+              return;
+            }
             const area = canvas.current!;
             const x = Math.max(0, Math.min(start.x + event.clientX - start.startX, area.clientWidth - 80));
             const y = Math.max(0, Math.min(start.y + event.clientY - start.startY, area.clientHeight - 25));
             setWindows(previous => previous.map(item => item.id === entry.id ? { ...item, x, y } : item));
           }}
-          onPointerUp={() => { drag.current = null; }} onLostPointerCapture={() => { drag.current = null; }}>
+          onPointerUp={event => { if (drag.current?.pointer === event.pointerId) drag.current = null; }}
+          onPointerCancel={event => { if (drag.current?.pointer === event.pointerId) drag.current = null; }}
+          onLostPointerCapture={event => { if (drag.current?.pointer === event.pointerId) drag.current = null; }}>
           <WdFrame layout={entry.layout} instance={`${entry.id}-frame`}
-            width={entry.maximized ? Math.max(size.width, extent.width) : undefined}
-            height={entry.maximized ? Math.max(size.height, extent.height) : undefined}
+            width={entry.maximized ? Math.max(size.width, extent.width) : entry.width}
+            height={entry.maximized ? Math.max(size.height, extent.height) : entry.height}
             onClose={() => close(entry.id)} onMinimize={() => minimize(entry.id)}
             onToggleMaximize={() => setWindows(previous => previous.map(item => item.id === entry.id ? { ...item, maximized: !item.maximized } : item))}>
             {entry.content}
+            {entry.layout.window.flags?.Resizable === true && !entry.maximized && resizeEdges.map(edge =>
+              <button key={edge} type="button" tabIndex={edge === "se" ? 0 : -1}
+                className={`wd-workspace-edge wd-workspace-edge-${edge}${edge === "se" && entry.layout.window.flags?.["With grip"] === true ? " wd-workspace-grip" : ""}`}
+                data-testid={edge === "se" ? `${entry.id}-resize` : `${entry.id}-resize-${edge}`} aria-label={`Redimensionar janela (${edge})`}
+                onPointerDown={event => {
+                  if (event.button !== 0) return;
+                  event.preventDefault(); event.currentTarget.setPointerCapture(event.pointerId);
+                  drag.current = { id: entry.id, mode: "resize", edge, pointer: event.pointerId, startX: event.clientX, startY: event.clientY,
+                    x: entry.x, y: entry.y, width: entry.width, height: entry.height };
+                }}
+                onKeyDown={event => {
+                  if (edge !== "se" || !["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key) || event.altKey || event.ctrlKey || event.metaKey) return;
+                  event.preventDefault();
+                  const step = event.shiftKey ? 1 : 8;
+                  const dx = event.key === "ArrowRight" ? step : event.key === "ArrowLeft" ? -step : 0;
+                  const dy = event.key === "ArrowDown" ? step : event.key === "ArrowUp" ? -step : 0;
+                  setWindows(previous => previous.map(item => item.id === entry.id ? { ...item,
+                    width: Math.max(size.width, item.width + dx), height: Math.max(size.height, item.height + dy) } : item));
+                }} />)}
           </WdFrame>
         </div>;
       })}

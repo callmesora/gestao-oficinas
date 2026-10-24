@@ -104,3 +104,69 @@ test("workspace modal blocks background input and resumes only its owning instan
   await expect(b.getByTestId("BTN_Validar")).toBeFocused();
   await expect(b).toHaveAttribute("data-active", "true");
 });
+
+test("workspace manual resizing updates anchored controls and survives maximize/restore without losing input", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 1000 });
+  await page.goto("/?skin=workspace");
+  await page.getByTestId("workspace-open").click();
+  const window = page.getByTestId("workspace-window-1"), grip = page.getByTestId("workspace-window-1-resize");
+  await window.getByTestId("EDT_Descricao").fill("  Preservar  ");
+  const before = (await window.boundingBox())!, handle = (await grip.boundingBox())!;
+  await page.mouse.move(handle.x + handle.width - 3, handle.y + handle.height - 3);
+  await page.mouse.down();
+  await page.mouse.move(handle.x + handle.width + 93, handle.y + handle.height + 37, { steps: 4 });
+  await page.mouse.up();
+  await expect(window.getByTestId("workspace-window-1-frame")).toHaveCSS("width", "596px");
+  await expect(window.getByTestId("workspace-window-1-frame")).toHaveCSS("height", "475px");
+  const resized = (await window.boundingBox())!, button = (await window.getByTestId("BTN_Validar").boundingBox())!;
+  expect(resized.x).toBe(before.x); expect(resized.y).toBe(before.y);
+  expect(button.x - resized.x).toBe(502);
+  expect(await window.getByTestId("EDT_Descricao").evaluate(element => element.parentElement!.getBoundingClientRect().width)).toBe(476);
+  await grip.focus();
+  await page.keyboard.press("ArrowRight");
+  await page.keyboard.press("Shift+ArrowDown");
+  await expect(window.getByTestId("workspace-window-1-frame")).toHaveCSS("width", "604px");
+  await expect(window.getByTestId("workspace-window-1-frame")).toHaveCSS("height", "476px");
+  await window.getByTestId("BTN_Syst_Maximize").click();
+  await expect(grip).toHaveCount(0);
+  await window.getByTestId("BTN_Syst_Maximize").click();
+  await expect(window.getByTestId("workspace-window-1-frame")).toHaveCSS("width", "604px");
+  await expect(window.getByTestId("workspace-window-1-frame")).toHaveCSS("height", "476px");
+  await expect(window.getByTestId("EDT_Descricao")).toHaveValue("  Preservar  ");
+  await window.screenshot({ path: "ui-report/workspace-resized.png" });
+});
+
+test("workspace north-west sizing preserves the opposite corner and enforces the source-base minimum", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 1000 });
+  await page.goto("/?skin=workspace");
+  await page.getByTestId("workspace-open").click();
+  const window = page.getByTestId("workspace-window-1"), corner = page.getByTestId("workspace-window-1-resize-nw");
+  const original = (await window.boundingBox())!;
+  let handle = (await corner.boundingBox())!;
+  await page.mouse.move(handle.x + 2, handle.y + 2); await page.mouse.down();
+  await page.mouse.move(handle.x - 38, handle.y - 18, { steps: 4 }); await page.mouse.up();
+  const expanded = (await window.boundingBox())!;
+  expect(expanded.width).toBe(540); expect(expanded.height).toBe(455);
+  expect(expanded.x + expanded.width).toBe(original.x + original.width);
+  expect(expanded.y + expanded.height).toBe(original.y + original.height);
+  handle = (await corner.boundingBox())!;
+  await page.mouse.move(handle.x + 2, handle.y + 2); await page.mouse.down();
+  await page.mouse.move(handle.x + 102, handle.y + 102, { steps: 4 }); await page.mouse.up();
+  const minimum = (await window.boundingBox())!;
+  expect(minimum).toEqual(original);
+});
+
+test("workspace resize capability follows Resizable independently of the optional grip drawing", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 1000 });
+  await page.goto("/?skin=workspace");
+  await page.getByTestId("workspace-open-fixed").click();
+  await expect(page.getByTestId("workspace-window-1").locator(".wd-workspace-edge")).toHaveCount(0);
+  await page.getByTestId("workspace-open-no-grip").click();
+  const window = page.getByTestId("workspace-window-2"), edge = page.getByTestId("workspace-window-2-resize-e");
+  await expect(window.locator(".wd-workspace-edge")).toHaveCount(8);
+  await expect(page.getByTestId("workspace-window-2-resize")).not.toHaveClass(/wd-workspace-grip/);
+  const handle = (await edge.boundingBox())!;
+  await page.mouse.move(handle.x + 2, handle.y + 20); await page.mouse.down();
+  await page.mouse.move(handle.x + 42, handle.y + 20, { steps: 4 }); await page.mouse.up();
+  await expect(window.getByTestId("workspace-window-2-frame")).toHaveCSS("width", "540px");
+});

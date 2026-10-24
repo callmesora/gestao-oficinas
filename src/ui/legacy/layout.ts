@@ -17,7 +17,7 @@ export interface LegacyControl {
   columns?: LegacyColumn[];
 }
 export interface LegacyLayout {
-  window: { name: string; title: string | null; size: { width: number; height: number } | null; background_image: string | null };
+  window: { name: string; title: string | null; size: { width: number; height: number } | null; background_image: string | null; flags?: Record<string, boolean> };
   controls: LegacyControl[];
 }
 

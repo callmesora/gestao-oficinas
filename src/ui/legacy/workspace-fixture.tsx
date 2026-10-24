@@ -22,9 +22,12 @@ function FixtureFields() {
 
 function Launcher() {
   const { open } = useWorkspace();
-  return <button data-testid="workspace-open" onClick={() => open({ layout: form, content: <FixtureFields /> })}>
+  return <><button data-testid="workspace-open" onClick={() => open({ layout: form, content: <FixtureFields /> })}>
     Abrir instância de teste
-  </button>;
+  </button>
+    <button data-testid="workspace-open-fixed" onClick={() => open({ layout: { ...form, window: { ...form.window, flags: { ...form.window.flags, Resizable: false } } }, content: <FixtureFields /> })}>Testar tamanho fixo</button>
+    <button data-testid="workspace-open-no-grip" onClick={() => open({ layout: { ...form, window: { ...form.window, flags: { ...form.window.flags, "With grip": false } } }, content: <FixtureFields /> })}>Testar sem pega</button>
+  </>;
 }
 
 export default function WorkspaceFixture() {

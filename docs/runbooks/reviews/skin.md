@@ -57,3 +57,7 @@ Two separate sequential self-review passes, same agent/context. Fixed repeated T
 ## MIG-5b — control anchors
 
 Two separate sequential self-review passes, same agent/context. Generated source labels drive shared button/edit/memo/table geometry from immutable base coordinates; explicit percentages override ADR-003 encoded-rate defaults. Fixed rate overrides activating disabled anchor axes. Browser tests assert restored margins/edit widths, table width/height and bottom memo movement while preserving state; base component visual floors still pass. Full verify: 32 unit, 2 Rust, 26 browser checks. Affected tests, build and lint pass after the fix (existing TanStack warning only); parity file checks pass. U-SKIN-01 retains rate/container/native uncertainties; no parity rows moved.
+
+## MIG-5b — manual window sizing
+
+Two separate sequential self-review passes, same agent/context. Source Resizable/With grip flags are independent: fixed-size windows have no handles; hidden grip drawing does not remove edge sizing. Kept handles inside their frame keyboard scope and matched pointer cancellation to its gesture. Real browser flows cover opposite-corner preservation, source-base minimum defaults, keyboard sizing, anchored controls and manual dimensions/input through maximize/restore. Full verify passes: 32 unit, 2 Rust, 29 browser checks; final build, sizing flow and parity file checks pass. Resized screenshot inspected; no full/native visual score claimed. ADR-003/U-SKIN-02 retain native limits, drawing and key uncertainties. No parity rows moved.
