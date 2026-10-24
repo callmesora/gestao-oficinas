@@ -57,3 +57,9 @@ textarea.wd-resource-edit { resize: none; }
 .wd-resource-icon { position: absolute; }
 .wd-resource-icon > .wd-message-icon { inset: 0; width: 100%; height: 100%; }
 .wd-resource-icon > img { width: 100%; height: 100%; object-fit: contain; } /* Q-12; native stretching metadata unavailable */
+.wd-workspace-canvas { position: relative; height: 560px; overflow: auto; isolation: isolate; background: #dce1e8; }
+.wd-workspace-window { position: absolute; }
+.wd-workspace-window[hidden] { display: none; }
+.wd-workspace-window .wd-title { touch-action: none; cursor: move; user-select: none; }
+.wd-workspace-window .wd-frame:focus { outline: none; }
+.wd-workspace-launcher, .wd-workspace-tasks { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 0; }

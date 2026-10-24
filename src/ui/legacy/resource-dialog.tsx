@@ -6,6 +6,7 @@ import type { MessageController, PendingResource } from "./message-state";
 import { WdButton } from "./wd";
 import { browserMeasure, resourceGeometry, resourceTextInputGeometry } from "./dialog-metrics";
 import { activateMnemonic } from "./mnemonics";
+import { trapDialogTab } from "./dialog-keyboard";
 
 export function ResourceBox({ current, controller }: { current: PendingResource; controller: MessageController }) {
   const { id, request, model } = current;
@@ -52,6 +53,7 @@ export function ResourceBox({ current, controller }: { current: PendingResource;
   return <dialog ref={ref} className="wd-dialog-host" data-testid="WINDEVDIALOGBOX" data-wd-keyboard-scope="" aria-label={request.title} aria-describedby={textId}
     onCancel={event => { event.preventDefault(); finish(undefined, "escape"); }}
     onKeyDown={event => {
+      trapDialogTab(event);
       activateMnemonic(event);
       if (event.defaultPrevented) return;
       if (event.key === "Enter" && !multiline && event.target === inputRef.current && model.buttons[model.focus]) {

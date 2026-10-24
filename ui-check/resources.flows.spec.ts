@@ -129,6 +129,10 @@ test("resource mnemonic uses its real button result and input without triggering
   await page.getByTestId("skin-resource-mnemonic").click();
   const dialog = page.getByTestId("WINDEVDIALOGBOX");
   await expect(dialog.getByTestId("BTN_1")).toHaveText("Validar");
+  for (let i = 0; i < 12; i++) {
+    await page.keyboard.press(i < 6 ? "Tab" : "Shift+Tab");
+    expect(await dialog.evaluate(element => element.contains(document.activeElement))).toBe(true);
+  }
   await dialog.getByTestId("SAI_1").fill("  Açores  ");
   await page.keyboard.press("Alt+v");
   await expect(dialog).toHaveCount(0);

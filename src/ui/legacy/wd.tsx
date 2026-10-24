@@ -32,7 +32,7 @@ export function WdFrame({ layout, instance, children, width, height, onClose, on
   const frameWidth = width ?? size.width;
   const skin = { "--wd-frame": `url("${skinImage(layout.window.background_image)}")` } as CSSProperties;
   return <section data-testid={instance} data-layout={layout.window.name} aria-label={title.caption ?? layout.window.title ?? undefined}
-    data-wd-keyboard-scope="" onKeyDown={activateMnemonic}
+    data-wd-keyboard-scope="" tabIndex={-1} onKeyDown={activateMnemonic}
     className="wd-frame" style={{ ...skin, width: frameWidth, height: height ?? size.height }}>
     <div className="wd-client">
       <div className="wd-title" data-testid={title.name} style={{ ...controlBox(title), width: (title.width ?? 0) + frameWidth - size.width }}>{title.caption}</div>
