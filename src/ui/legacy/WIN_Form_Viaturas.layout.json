@@ -128,6 +128,8 @@
    "tab_order": 1,
    "h_align": "Left",
    "input_mask": "0",
+   "input_size": 15,
+   "input_type": "Text",
    "caption_width": 109
   },
   {
@@ -162,6 +164,8 @@
    "tab_order": 2,
    "h_align": "Left",
    "input_mask": "0",
+   "input_size": 50,
+   "input_type": "Text",
    "caption_width": 109
   },
   {
@@ -196,6 +200,8 @@
    "tab_order": 3,
    "h_align": "Left",
    "input_mask": "0",
+   "input_size": 50,
+   "input_type": "Text",
    "caption_width": 109
   },
   {
@@ -224,6 +230,8 @@
    "anchoring": "Width",
    "tab_order": 4,
    "h_align": "Left",
+   "input_size": 0,
+   "input_type": "Text",
    "caption_width": 105,
    "displayed_item": "Descricao"
   },
@@ -259,6 +267,8 @@
    "tab_order": 6,
    "h_align": "Right",
    "input_mask": "9999",
+   "input_size": 0,
+   "input_type": "Numeric",
    "caption_width": 109
   },
   {
@@ -293,6 +303,8 @@
    "tab_order": 7,
    "h_align": "Right",
    "input_mask": "99",
+   "input_size": 0,
+   "input_type": "Numeric",
    "caption_width": 109
   },
   {
@@ -335,7 +347,8 @@
     "Default animation": false
    },
    "anchoring": "Width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "SC_SCSystemButtons",

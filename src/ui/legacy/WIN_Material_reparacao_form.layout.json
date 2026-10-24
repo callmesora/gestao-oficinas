@@ -50,7 +50,8 @@
     "Default animation": false
    },
    "anchoring": "Width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_Syst_Restore",
@@ -197,7 +198,8 @@
     "Default animation": false
    },
    "anchoring": "Width and height",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "EDT_matricula",
@@ -229,7 +231,9 @@
    "anchoring": "Bottom, height and width",
    "tab_order": 2,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text"
   },
   {
    "name": "EDT_marca_modelo",
@@ -261,7 +265,9 @@
    "anchoring": "Right and bottom, height and width",
    "tab_order": 3,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text"
   },
   {
    "name": "EDT_mecanico",
@@ -293,7 +299,9 @@
    "anchoring": "Bottom, height and width",
    "tab_order": 5,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text"
   },
   {
    "name": "STC_Mecanico",
@@ -312,7 +320,8 @@
     "Default animation": false
    },
    "anchoring": "Bottom, height and width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_NoName1",
@@ -599,7 +608,9 @@
    "anchoring": "Bottom, height and width",
    "tab_order": 15,
    "h_align": "Right",
-   "input_mask": "999 999,999"
+   "input_mask": "999 999,999",
+   "input_size": 0,
+   "input_type": "Numeric"
   },
   {
    "name": "STC_Quant",
@@ -618,7 +629,8 @@
     "Default animation": false
    },
    "anchoring": "Bottom, height and width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "STC_Artigo",
@@ -637,7 +649,8 @@
     "Default animation": false
    },
    "anchoring": "Right and bottom, height and width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "EDT_artigo",
@@ -669,7 +682,9 @@
    "anchoring": "Right and bottom, height and width",
    "tab_order": 16,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 30,
+   "input_type": "Text"
   },
   {
    "name": "BTN_NoName2",
@@ -724,7 +739,9 @@
    "anchoring": "Right and bottom, height and width",
    "tab_order": 18,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 100,
+   "input_type": "Text"
   },
   {
    "name": "BTN_Adicionar",

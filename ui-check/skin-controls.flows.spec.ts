@@ -114,3 +114,40 @@ test("caption mnemonics stay inside the focused frame and ignore hidden, disable
   await page.keyboard.press("Alt+v");
   await expect(b.getByTestId("skin-clicks")).toHaveText("1");
 });
+
+test("source edit flags mask passwords, enforce entry length and exclude non-tab controls without truncating bound values", async ({ page }) => {
+  await page.goto("/?skin=controls");
+  const fixture = page.getByTestId("skin-input-fixture"), input = fixture.getByTestId("EDT_Palavra_passe");
+  await expect(input).toHaveAttribute("type", "password");
+  await expect(input).toHaveAttribute("maxlength", "15");
+  await fixture.getByTestId("skin-input-before").focus(); await page.keyboard.press("Tab");
+  await expect(input).toBeFocused();
+  await page.keyboard.press("Tab"); await expect(fixture.getByTestId("skin-input-after")).toBeFocused();
+  await expect(fixture.getByTestId("skin-input-no-tab")).toHaveAttribute("tabindex", "-1");
+  await input.fill("A".repeat(15)); await input.press("End"); await input.press("B");
+  await expect(input).toHaveValue("A".repeat(15));
+  await fixture.getByTestId("skin-input-oversized").click();
+  await expect(input).toHaveValue("X".repeat(20));
+  await expect(page.getByTestId("skin-fixture-A").getByTestId("EDT_Codigo")).not.toHaveAttribute("maxlength");
+});
+
+test("automatic erase selects on entry without clearing value and caller focus selection remains authoritative", async ({ page }) => {
+  await page.goto("/?skin=controls");
+  const fixture = page.getByTestId("skin-input-fixture"), input = fixture.getByTestId("EDT_Palavra_passe");
+  await fixture.getByTestId("skin-input-before").focus();
+  await input.click();
+  expect(await input.evaluate(element => [(element as HTMLInputElement).selectionStart, (element as HTMLInputElement).selectionEnd])).toEqual([0, 5]);
+  await expect(input).toHaveValue("teste");
+  await input.press("Z"); await expect(input).toHaveValue("Z");
+  await fixture.getByTestId("skin-input-oversized").click();
+  await fixture.getByTestId("skin-input-selection-override").check();
+  await input.click();
+  expect(await input.evaluate(element => [(element as HTMLInputElement).selectionStart, (element as HTMLInputElement).selectionEnd])).toEqual([1, 3]);
+  await expect(fixture.getByTestId("skin-input-focus-callback")).not.toHaveText("0");
+  await fixture.getByTestId("skin-input-selection-override").uncheck();
+  await fixture.getByTestId("skin-input-auto-erase").uncheck();
+  await input.click();
+  const range = await input.evaluate(element => [(element as HTMLInputElement).selectionStart, (element as HTMLInputElement).selectionEnd]);
+  expect(range[0]).toBe(range[1]);
+  await expect(input).toHaveValue("X".repeat(20));
+});

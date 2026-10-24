@@ -50,7 +50,8 @@
     "Default animation": false
    },
    "anchoring": "Width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_Syst_Restore",
@@ -541,6 +542,8 @@
    "tab_order": 8,
    "h_align": "Right",
    "input_mask": "DD/MM/YYYY HH:mm",
+   "input_size": 0,
+   "input_type": "Date",
    "caption_width": 38
   },
   {
@@ -560,7 +563,8 @@
     "Default animation": false
    },
    "anchoring": "<None>",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "EDT_data_entrada_fim",
@@ -594,6 +598,8 @@
    "tab_order": 14,
    "h_align": "Right",
    "input_mask": "DD/MM/YYYY HH:mm",
+   "input_size": 0,
+   "input_type": "Date",
    "caption_width": 38
   },
   {
@@ -823,6 +829,8 @@
    "tab_order": 13,
    "h_align": "Right",
    "input_mask": "UseSystemMask",
+   "input_size": 0,
+   "input_type": "Date",
    "caption_width": 45
   },
   {
@@ -857,6 +865,8 @@
    "tab_order": 6,
    "h_align": "Right",
    "input_mask": "UseSystemMask",
+   "input_size": 0,
+   "input_type": "Date",
    "caption_width": 45
   },
   {
@@ -876,7 +886,8 @@
     "Default animation": false
    },
    "anchoring": "Right",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "STC_Prioridade",
@@ -895,7 +906,8 @@
     "Default animation": false
    },
    "anchoring": "Right",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "RADIO_prioridade",
@@ -950,7 +962,9 @@
    "anchoring": "Right and bottom, height and width",
    "tab_order": 12,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 15,
+   "input_type": "Text"
   },
   {
    "name": "STC_Matrícula_Marca",
@@ -968,7 +982,8 @@
     "RTF format": false,
     "Default animation": false
    },
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "STC_Mecânico",
@@ -987,7 +1002,8 @@
     "Default animation": false
    },
    "anchoring": "Right and bottom, height",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "COMBO_mecanico",
@@ -1014,6 +1030,8 @@
    "anchoring": "Right and bottom, height and width",
    "tab_order": 17,
    "h_align": "Left",
+   "input_size": 0,
+   "input_type": "Text",
    "displayed_item": "Descricao"
   },
   {
@@ -1397,7 +1415,9 @@
    "anchoring": "Right and bottom, height and width",
    "tab_order": 20,
    "h_align": "Right",
-   "input_mask": "9999999999"
+   "input_mask": "9999999999",
+   "input_size": 0,
+   "input_type": "Numeric"
   },
   {
    "name": "STC_Cliente_Terceiro",
@@ -1416,7 +1436,8 @@
     "Default animation": false
    },
    "anchoring": "Right and bottom, height and width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_VISION5",

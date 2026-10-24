@@ -50,7 +50,8 @@
     "Default animation": false
    },
    "anchoring": "Width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_Syst_Restore",
@@ -235,6 +236,8 @@
    "tab_order": 6,
    "h_align": "Left",
    "input_mask": "0",
+   "input_size": 30,
+   "input_type": "Text",
    "caption_width": 57
   },
   {
@@ -269,6 +272,8 @@
    "tab_order": 4,
    "h_align": "Left",
    "input_mask": "0",
+   "input_size": 30,
+   "input_type": "Text",
    "caption_width": 57
   },
   {
@@ -326,6 +331,8 @@
    "tab_order": 3,
    "h_align": "Right",
    "input_mask": "UseSystemMask",
+   "input_size": 0,
+   "input_type": "Date",
    "caption_width": 57
   },
   {
@@ -360,6 +367,8 @@
    "tab_order": 2,
    "h_align": "Right",
    "input_mask": "UseSystemMask",
+   "input_size": 0,
+   "input_type": "Date",
    "caption_width": 57
   },
   {

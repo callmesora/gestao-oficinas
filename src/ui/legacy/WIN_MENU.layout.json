@@ -50,7 +50,8 @@
     "Default animation": false
    },
    "anchoring": "Width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "SC_SCSystemButtons",

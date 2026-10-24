@@ -193,6 +193,8 @@
    "tab_order": 6,
    "h_align": "Right",
    "input_mask": "9999999999",
+   "input_size": 0,
+   "input_type": "Numeric",
    "caption_width": 57
   },
   {
@@ -227,6 +229,8 @@
    "tab_order": 5,
    "h_align": "Right",
    "input_mask": "9999999999",
+   "input_size": 0,
+   "input_type": "Numeric",
    "caption_width": 57
   },
   {
@@ -275,6 +279,8 @@
    "tab_order": 3,
    "h_align": "Right",
    "input_mask": "UseSystemMask",
+   "input_size": 0,
+   "input_type": "Date",
    "caption_width": 57
   },
   {
@@ -309,6 +315,8 @@
    "tab_order": 2,
    "h_align": "Right",
    "input_mask": "UseSystemMask",
+   "input_size": 0,
+   "input_type": "Date",
    "caption_width": 57
   },
   {
@@ -343,6 +351,8 @@
    "tab_order": 9,
    "h_align": "Right",
    "input_mask": "99",
+   "input_size": 0,
+   "input_type": "Numeric",
    "caption_width": 70
   },
   {
@@ -377,6 +387,8 @@
    "tab_order": 7,
    "h_align": "Right",
    "input_mask": "99",
+   "input_size": 0,
+   "input_type": "Numeric",
    "caption_width": 70
   },
   {
@@ -411,6 +423,8 @@
    "tab_order": 11,
    "h_align": "Left",
    "input_mask": "0",
+   "input_size": 15,
+   "input_type": "Text",
    "caption_width": 57
   },
   {
@@ -445,6 +459,8 @@
    "tab_order": 13,
    "h_align": "Left",
    "input_mask": "0",
+   "input_size": 15,
+   "input_type": "Text",
    "caption_width": 57
   },
   {
@@ -555,7 +571,8 @@
     "Default animation": false
    },
    "anchoring": "<None>",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   }
  ],
  "assets": [

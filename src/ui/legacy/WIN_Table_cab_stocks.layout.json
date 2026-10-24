@@ -50,7 +50,8 @@
     "Default animation": false
    },
    "anchoring": "Width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_Syst_Restore",
@@ -378,7 +379,8 @@
     "Default animation": false
    },
    "anchoring": "<None>",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "COMBO_tipo_doc",
@@ -405,6 +407,8 @@
    "anchoring": "Right",
    "tab_order": 5,
    "h_align": "Left",
+   "input_size": 0,
+   "input_type": "Text",
    "displayed_item": "Descricao"
   },
   {
@@ -462,6 +466,8 @@
    "tab_order": 3,
    "h_align": "Right",
    "input_mask": "9999999999",
+   "input_size": 0,
+   "input_type": "Numeric",
    "caption_width": 41
   },
   {
@@ -496,6 +502,8 @@
    "tab_order": 6,
    "h_align": "Right",
    "input_mask": "9999999999",
+   "input_size": 0,
+   "input_type": "Numeric",
    "caption_width": 41
   },
   {
@@ -530,6 +538,8 @@
    "tab_order": 4,
    "h_align": "Right",
    "input_mask": "UseSystemMask",
+   "input_size": 0,
+   "input_type": "Date",
    "caption_width": 57
   },
   {
@@ -564,6 +574,8 @@
    "tab_order": 7,
    "h_align": "Right",
    "input_mask": "UseSystemMask",
+   "input_size": 0,
+   "input_type": "Date",
    "caption_width": 57
   },
   {
@@ -583,7 +595,8 @@
     "Default animation": false
    },
    "anchoring": "Right",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "EDT_descricao",
@@ -615,7 +628,9 @@
    "anchoring": "Right",
    "tab_order": 8,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 100,
+   "input_type": "Text"
   },
   {
    "name": "BTN_alterar",

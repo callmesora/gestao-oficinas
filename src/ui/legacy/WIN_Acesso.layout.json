@@ -50,7 +50,8 @@
     "Default animation": false
    },
    "anchoring": "Width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_Syst_Restore",
@@ -210,7 +211,9 @@
    "anchoring": "<None>",
    "tab_order": 3,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text"
   },
   {
    "name": "EDT_palavra_passe",
@@ -242,7 +245,9 @@
    "anchoring": "<None>",
    "tab_order": 4,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 15,
+   "input_type": "Text"
   },
   {
    "name": "STC_NoName1",
@@ -261,7 +266,8 @@
     "Default animation": false
    },
    "anchoring": "<None>",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "STC_NoName2",
@@ -280,7 +286,8 @@
     "Default animation": false
    },
    "anchoring": "<None>",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_NoName1",

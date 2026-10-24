@@ -1,6 +1,7 @@
 import { useState } from "react";
 import form from "./WIN_Form_Clientes.layout.json";
 import list from "./WIN_Table_Clientes.layout.json";
+import mechanics from "./WIN_Form_mecanicos.layout.json";
 import { controlOf } from "./layout";
 import { FrameDeltaContext } from "./anchors";
 import { useTableLayout } from "./table-layout";
@@ -52,6 +53,11 @@ function MessageFixture() {
         defaultIndex: 1, cancelIndex: 2, input: { kind: "text", value: "original" } });
       setResult(JSON.stringify(value));
     }}>Testar letras no diálogo</button>
+    <button data-testid="skin-resource-input-flags" onClick={async () => {
+      const value = await resource({ title: "Entrada de teste", text: "Texto de teste", buttons: [{ label: "Aceitar" }, { label: "Cancelar" }],
+        defaultIndex: 1, cancelIndex: 2, input: { kind: "text", value: "  original  ", maxLength: 15, password: true, automaticErase: true } });
+      setResult(JSON.stringify(value));
+    }}>Testar propriedades de entrada</button>
     <button data-testid="skin-resource-sized" onClick={async () => {
       const value = await resource({ title: "Entrada limitada", text: "Texto de teste", buttons: [{ label: "Aceitar" }, { label: "Cancelar" }],
         defaultIndex: 1, cancelIndex: 2, input: { kind: "text", value: "ABC", maxLength: 5, adaptWidth: true } });
@@ -118,6 +124,26 @@ function TableFixture() {
   </div>;
 }
 
+function InputFixture() {
+  const [value, setValue] = useState("teste"), [automatic, setAutomatic] = useState(true), [override, setOverride] = useState(false);
+  const [focusCount, focused] = useState(0);
+  return <div data-testid="skin-input-fixture">
+    <p>Propriedades de entrada — valores sintéticos, sem autenticação.</p>
+    <label><input data-testid="skin-input-auto-erase" type="checkbox" checked={automatic} onChange={event => setAutomatic(event.target.checked)} />Seleção de entrada de teste</label>
+    <label><input data-testid="skin-input-selection-override" type="checkbox" checked={override} onChange={event => setOverride(event.target.checked)} />Seleção explícita de teste</label>
+    <button data-testid="skin-input-oversized" onClick={() => setValue("X".repeat(20))}>Carregar valor longo de teste</button>
+    <output data-testid="skin-input-focus-callback">{focusCount}</output>
+    <button data-testid="skin-input-before">Antes da entrada</button>
+    <div className="wd-component-canvas" style={{ width: 500, height: 150 }}>
+      <WdEdit control={{ ...controlOf(form, "EDT_Codigo"), name: "skin-input-no-tab", path: "skin-input-no-tab", tab_order: -1,
+        flags: { ...controlOf(form, "EDT_Codigo").flags, "TAB Key": false } }} value="9007199254740993" readOnly />
+      <WdEdit control={controlOf(mechanics, "EDT_Palavra_passe")} value={value} automaticErase={automatic} onChange={event => setValue(event.target.value)}
+        onFocus={event => { focused(count => count + 1); if (override) event.currentTarget.setSelectionRange(1, 3); }} />
+    </div>
+    <button data-testid="skin-input-after">Depois da entrada</button>
+  </div>;
+}
+
 function FrameFixture({ instance }: { instance: string }) {
   const [closed, close] = useState(false), [minimized, minimize] = useState(false), [maximized, maximize] = useState(false);
   const [text, setText] = useState("");
@@ -151,6 +177,6 @@ export default function SkinFixtures() {
     <aside>Teste de componentes — não é o formulário de clientes nem verifica os seus comportamentos.</aside>
     <h1>Pele MediaPlayer</h1>
     <a href="/">Voltar à verificação do ambiente</a>
-    <FrameFixture instance="A" /><FrameFixture instance="B" /><TableFixture /><MessageFixture />
+    <FrameFixture instance="A" /><FrameFixture instance="B" /><TableFixture /><MessageFixture /><InputFixture />
   </main></DialogProvider>;
 }

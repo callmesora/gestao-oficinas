@@ -13,6 +13,8 @@ Window properties: {"opening_mode": "Centered in the parent window", "size": {"x
 
 Missing fields throughout this spec mean unresolved (encoded), tracked by U-C17FCA03-01; they never mean false or zero. Defaults and all runtime overrides are transcribed in the mapping event ledger. Original captions retain extracted encoding artifacts until image approval.
 
+The DEV input fixture borrows EDT_Palavra_passe only, with synthetic values and no authentication/save. Its non-legacy skin-input-* controls and useInputSelection helper are documented in foundation-controls.md. Source Password/Text size flags are preserved; mouse/character boundaries remain ADR-003/U-SKIN-06 assumptions.
+
 ## Layout
 
 | Name | x | y | width | height | Anchoring | Images |

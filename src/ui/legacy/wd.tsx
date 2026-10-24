@@ -3,6 +3,7 @@ import { buttonSkin, controlBox, controlOf, skinImage, type LegacyControl, type 
 import "./skin.css";
 import { activateMnemonic, mnemonicCaption } from "./mnemonics";
 import { FrameDeltaContext, useAnchoredControl } from "./anchors";
+import { useInputSelection } from "./input-selection";
 
 type ButtonProps = { control: LegacyControl; chrome?: boolean; interpretAmpersand?: boolean; style?: CSSProperties } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "type">;
 export function WdButton({ control: source, chrome = false, interpretAmpersand = true, style, className = "", tabIndex, ...props }: ButtonProps) {
@@ -49,26 +50,32 @@ export function WdFrame({ layout, instance, children, width, height, onClose, on
   </section>;
 }
 
-export function WdEdit({ control: source, ...props }: { control: LegacyControl } & Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "style" | "className" | "id">) {
+export function WdEdit({ control: source, automaticErase, ...props }: { control: LegacyControl; automaticErase?: boolean } & Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "style" | "className" | "id">) {
   const control = useAnchoredControl(source);
+  const selection = useInputSelection(automaticErase ?? control.flags?.["Automatic erase"], props);
   const id = useId();
   const captionWidth = control.caption_width ?? 0;
   return <div className="wd-field" hidden={props.hidden ?? control.visible === false} data-control-path={control.path} style={controlBox(control)}>
     {captionWidth > 0 && <label htmlFor={id} style={{ width: captionWidth - 2 }}>{control.caption}</label>}
-    <input {...props} id={id} type="text" data-testid={control.name} className="wd-edit"
+    <input {...props} {...selection} id={id} type={control.flags?.Password === true ? "password" : "text"}
+      maxLength={props.maxLength ?? (control.input_type === "Text" && (control.input_size ?? 0) > 0 ? control.input_size : undefined)}
+      tabIndex={props.tabIndex ?? (control.flags?.["TAB Key"] === false || String(control.tab_order) === "-1" ? -1 : undefined)} data-testid={control.name} className="wd-edit"
       readOnly={props.readOnly ?? control.state === "Read-only"}
       aria-label={captionWidth ? undefined : props["aria-label"] ?? control.caption ?? control.name}
       style={{ left: captionWidth, width: (control.width ?? 0) - captionWidth, textAlign: control.h_align === "Right" ? "right" : "left" } as CSSProperties} />
   </div>;
 }
 
-export function WdMemo({ control: source, ...props }: { control: LegacyControl } & Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "style" | "className" | "id">) {
+export function WdMemo({ control: source, automaticErase, ...props }: { control: LegacyControl; automaticErase?: boolean } & Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "style" | "className" | "id">) {
   const control = useAnchoredControl(source);
+  const selection = useInputSelection(automaticErase ?? control.flags?.["Automatic erase"], props);
   const id = useId();
   const captionWidth = control.caption_width ?? 0;
   return <div className="wd-field wd-memo-field" hidden={props.hidden ?? control.visible === false} data-control-path={control.path} style={controlBox(control)}>
     {captionWidth > 0 && <label htmlFor={id} style={{ width: captionWidth - 2 }}>{control.caption}</label>}
-    <textarea {...props} id={id} data-testid={control.name} className="wd-edit wd-memo"
+    <textarea {...props} {...selection} id={id}
+      maxLength={props.maxLength ?? (control.input_type === "Text" && (control.input_size ?? 0) > 0 ? control.input_size : undefined)}
+      tabIndex={props.tabIndex ?? (control.flags?.["TAB Key"] === false || String(control.tab_order) === "-1" ? -1 : undefined)} data-testid={control.name} className="wd-edit wd-memo"
       readOnly={props.readOnly ?? control.state === "Read-only"}
       aria-label={captionWidth ? undefined : props["aria-label"] ?? control.caption ?? control.name}
       style={{ left: captionWidth, width: (control.width ?? 0) - captionWidth }} />

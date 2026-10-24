@@ -50,7 +50,8 @@
     "Default animation": false
    },
    "anchoring": "Width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_Syst_Restore",
@@ -197,7 +198,8 @@
     "Default animation": false
    },
    "anchoring": "<None>",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "EDT_servico_avaria",
@@ -229,7 +231,9 @@
    "anchoring": "Width",
    "tab_order": 2,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text"
   },
   {
    "name": "STC_Observação",
@@ -276,7 +280,9 @@
    "anchoring": "Width",
    "tab_order": 3,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text"
   },
   {
    "name": "BTN_Fechar",
@@ -332,7 +338,9 @@
    "anchoring": "Width",
    "tab_order": 4,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text"
   },
   {
    "name": "STC_Cliente",
@@ -351,7 +359,8 @@
     "Default animation": false
    },
    "anchoring": "<None>",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "EDT_contactos",
@@ -383,7 +392,9 @@
    "anchoring": "Width",
    "tab_order": 5,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text"
   },
   {
    "name": "STC_Contactos_do_cliente",
@@ -402,7 +413,8 @@
     "Default animation": false
    },
    "anchoring": "<None>",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_Imprimir1",

@@ -50,7 +50,8 @@
     "Default animation": false
    },
    "anchoring": "Width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_Syst_Restore",
@@ -349,7 +350,8 @@
     "Default animation": false
    },
    "anchoring": "Right and bottom",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "TABLE_materiais",
@@ -575,7 +577,8 @@
     "Default animation": false
    },
    "anchoring": "Right and bottom, width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_Material",
@@ -655,7 +658,9 @@
    "anchoring": "Width",
    "tab_order": 1,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text"
   },
   {
    "name": "EDT_observacao",
@@ -687,7 +692,9 @@
    "anchoring": "Width",
    "tab_order": 2,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text"
   },
   {
    "name": "STC_Serviço_Avaria",
@@ -706,7 +713,8 @@
     "Default animation": false
    },
    "anchoring": "<None>",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "STC_Observação",
@@ -777,7 +785,9 @@
    "anchoring": "Width",
    "tab_order": 1,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text"
   },
   {
    "name": "STC_Histórico_dos_estados",
@@ -796,7 +806,8 @@
     "Default animation": false
    },
    "anchoring": "<None>",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_Sair",
@@ -838,7 +849,8 @@
     "Default animation": false
    },
    "anchoring": "<None>",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   }
  ],
  "assets": [

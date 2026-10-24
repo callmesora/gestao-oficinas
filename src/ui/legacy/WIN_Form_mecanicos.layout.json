@@ -128,6 +128,8 @@
    "tab_order": 1,
    "h_align": "Right",
    "input_mask": "99",
+   "input_size": 0,
+   "input_type": "Numeric",
    "caption_width": 77
   },
   {
@@ -162,6 +164,8 @@
    "tab_order": 2,
    "h_align": "Left",
    "input_mask": "0",
+   "input_size": 100,
+   "input_type": "Text",
    "caption_width": 77
   },
   {
@@ -196,6 +200,8 @@
    "tab_order": 3,
    "h_align": "Left",
    "input_mask": "0",
+   "input_size": 15,
+   "input_type": "Text",
    "caption_width": 77
   },
   {
@@ -238,7 +244,8 @@
     "Default animation": false
    },
    "anchoring": "Width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "SC_SCSystemButtons",

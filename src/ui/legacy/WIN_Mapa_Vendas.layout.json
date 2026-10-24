@@ -49,7 +49,8 @@
     "Default animation": false
    },
    "anchoring": "Width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_Syst_Restore",
@@ -209,7 +210,9 @@
    "anchoring": "<None>",
    "tab_order": 3,
    "h_align": "Right",
-   "input_mask": "UseSystemMask"
+   "input_mask": "UseSystemMask",
+   "input_size": 0,
+   "input_type": "Date"
   },
   {
    "name": "EDT_Da_data",
@@ -241,7 +244,9 @@
    "anchoring": "<None>",
    "tab_order": 2,
    "h_align": "Right",
-   "input_mask": "UseSystemMask"
+   "input_mask": "UseSystemMask",
+   "input_size": 0,
+   "input_type": "Date"
   },
   {
    "name": "TABLE_Estados",
@@ -382,7 +387,8 @@
     "Default animation": false
    },
    "anchoring": "<None>",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   }
  ],
  "assets": [

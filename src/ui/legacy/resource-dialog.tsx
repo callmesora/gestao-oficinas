@@ -7,9 +7,11 @@ import { WdButton } from "./wd";
 import { browserMeasure, resourceGeometry, resourceTextInputGeometry } from "./dialog-metrics";
 import { activateMnemonic } from "./mnemonics";
 import { trapDialogTab } from "./dialog-keyboard";
+import { useInputSelection } from "./input-selection";
 
 export function ResourceBox({ current, controller }: { current: PendingResource; controller: MessageController }) {
   const { id, request, model } = current;
+  const selection = useInputSelection(request.input?.kind === "text" ? request.input.automaticErase : undefined);
   const ref = useRef<HTMLDialogElement>(null), inputRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null), textId = useId();
   const [input, setInput] = useState<string | boolean>(request.input?.value ?? "");
   const size = layout.window.size!;
@@ -78,9 +80,9 @@ export function ResourceBox({ current, controller }: { current: PendingResource;
           width: fit?.inputWidth ?? width - body.x - 16, height: fit?.inputHeight ?? field.height! }}>
           {request.input.kind === "checkbox" ? <label>
             <input ref={node => { inputRef.current = node; }} data-testid="INT_1" type="checkbox" checked={Boolean(input)} onChange={event => setInput(event.target.checked)} />{request.input.label}
-          </label> : multiline ? <textarea ref={node => { inputRef.current = node; }} className="wd-resource-edit" data-testid="SAI_1" aria-labelledby={textId}
+          </label> : multiline ? <textarea {...selection} ref={node => { inputRef.current = node; }} className="wd-resource-edit" data-testid="SAI_1" aria-labelledby={textId}
             maxLength={request.input.maxLength || undefined} value={String(input)} onChange={event => setInput(event.target.value.replace(/\r?\n/g, "\r\n"))} />
-          : <input ref={node => { inputRef.current = node; }} className="wd-resource-edit" data-testid="SAI_1" aria-labelledby={textId}
+          : <input {...selection} ref={node => { inputRef.current = node; }} className="wd-resource-edit" data-testid="SAI_1" aria-labelledby={textId}
             type={request.input.password ? "password" : "text"} maxLength={request.input.maxLength || undefined} value={String(input)} onChange={event => setInput(event.target.value)} />}
         </div>}
         <div className="wd-resource-actions">

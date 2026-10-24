@@ -128,6 +128,8 @@
    "tab_order": 1,
    "h_align": "Left",
    "input_mask": "0",
+   "input_size": 30,
+   "input_type": "Text",
    "caption_width": 97
   },
   {
@@ -162,6 +164,8 @@
    "tab_order": 2,
    "h_align": "Left",
    "input_mask": "0",
+   "input_size": 100,
+   "input_type": "Text",
    "caption_width": 97
   },
   {
@@ -196,6 +200,8 @@
    "tab_order": 3,
    "h_align": "Left",
    "input_mask": "0",
+   "input_size": 30,
+   "input_type": "Text",
    "caption_width": 97
   },
   {
@@ -224,6 +230,8 @@
    "anchoring": "Width",
    "tab_order": 4,
    "h_align": "Left",
+   "input_size": 0,
+   "input_type": "Text",
    "caption_width": 93,
    "displayed_item": "Codigo"
   },
@@ -259,6 +267,8 @@
    "tab_order": 5,
    "h_align": "Right",
    "input_mask": "+999 999 999,99",
+   "input_size": 0,
+   "input_type": "Numeric",
    "caption_width": 97
   },
   {
@@ -316,6 +326,8 @@
    "tab_order": 7,
    "h_align": "Right",
    "input_mask": "999 999 999,999",
+   "input_size": 0,
+   "input_type": "Numeric",
    "caption_width": 97
   },
   {
@@ -335,7 +347,8 @@
     "Default animation": false
    },
    "anchoring": "Width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "SC_SCSystemButtons",

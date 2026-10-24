@@ -177,7 +177,8 @@
     "Default animation": false
    },
    "anchoring": "Width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_Confirmar",
@@ -257,7 +258,9 @@
    "anchoring": "<None>",
    "tab_order": 2,
    "h_align": "Center",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 1,
+   "input_type": "Text"
   },
   {
    "name": "STC_Titulo",
@@ -275,7 +278,8 @@
     "Default animation": false
    },
    "anchoring": "<None>",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   }
  ],
  "assets": [

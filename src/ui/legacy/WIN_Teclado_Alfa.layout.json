@@ -1675,6 +1675,8 @@
    "tab_order": "-1",
    "h_align": "Left",
    "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text",
    "caption_width": 182
   },
   {
@@ -1707,7 +1709,9 @@
    "anchoring": "<None>",
    "tab_order": "-1",
    "h_align": "Center",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text"
   }
  ],
  "assets": [

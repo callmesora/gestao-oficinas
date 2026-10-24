@@ -50,7 +50,8 @@
     "Default animation": false
    },
    "anchoring": "Width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_Syst_Restore",
@@ -212,6 +213,8 @@
    "tab_order": 6,
    "h_align": "Right",
    "input_mask": "DD/MM/YYYY HH:mm",
+   "input_size": 0,
+   "input_type": "Date",
    "caption_width": 92
   },
   {
@@ -231,7 +234,8 @@
     "Default animation": false
    },
    "anchoring": "<None>",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "EDT_descricao",
@@ -263,7 +267,9 @@
    "anchoring": "<None>",
    "tab_order": 8,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text"
   },
   {
    "name": "EDT_historico",
@@ -295,7 +301,9 @@
    "anchoring": "<None>",
    "tab_order": 9,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text"
   },
   {
    "name": "STC_historico",
@@ -314,7 +322,8 @@
     "Default animation": false
    },
    "anchoring": "<None>",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "EDT_obs_servico",
@@ -346,7 +355,9 @@
    "anchoring": "<None>",
    "tab_order": 10,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text"
   },
   {
    "name": "STC_obs_servico",
@@ -365,7 +376,8 @@
     "Default animation": false
    },
    "anchoring": "<None>",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_Confirmar",
@@ -516,7 +528,9 @@
    "anchoring": "<None>",
    "tab_order": 2,
    "h_align": "Center",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text"
   },
   {
    "name": "TABLE_Estados_reparacao",

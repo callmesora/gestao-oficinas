@@ -103,7 +103,7 @@ def layout(unit, latest, language=None):
                  'visible': (details.get('flags') or {}).get('Visible'), 'state': details.get('state'), 'flags': details.get('flags'),
                  'anchoring': details.get('anchoring'), 'tab_order': details.get('tab_order'),
                  'button_type': details.get('button_type'), 'h_align': details.get('h_align') or raw_value(raw, 'Horz. alignment'),
-                 'input_mask': pick(details.get('input_mask'), language), 'image': image,
+                 'input_mask': pick(details.get('input_mask'), language), 'input_size': details.get('input_size'), 'input_type': details.get('input_type'), 'image': image,
                  'image_states': raw_value(raw, 'Nb. image states'),
                  'background_image': background, 'background_states': raw_value(raw, 'Nb. background states'),
                  'background_stretch': raw_value(raw, 'Stretch background image')}

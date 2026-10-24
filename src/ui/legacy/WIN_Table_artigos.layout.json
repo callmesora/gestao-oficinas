@@ -353,7 +353,8 @@
     "Default animation": false
    },
    "anchoring": "Width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "SC_SCSystemButtons",
@@ -536,7 +537,9 @@
    "anchoring": "Width",
    "tab_order": 9,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text"
   },
   {
    "name": "BTN_codigo",

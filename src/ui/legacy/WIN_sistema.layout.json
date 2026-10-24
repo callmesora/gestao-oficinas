@@ -50,7 +50,8 @@
     "Default animation": false
    },
    "anchoring": "Width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_Syst_Restore",
@@ -259,6 +260,7 @@
    "tab_order": 2,
    "h_align": "Right",
    "input_mask": "9999999999",
+   "input_size": 0,
    "caption_width": 231
   },
   {
@@ -293,6 +295,8 @@
    "tab_order": 3,
    "h_align": "Right",
    "input_mask": "9999999999",
+   "input_size": 0,
+   "input_type": "Numeric",
    "caption_width": 231
   },
   {
@@ -327,6 +331,8 @@
    "tab_order": 4,
    "h_align": "Right",
    "input_mask": "9999999999",
+   "input_size": 0,
+   "input_type": "Numeric",
    "caption_width": 231
   },
   {
@@ -361,6 +367,8 @@
    "tab_order": 5,
    "h_align": "Right",
    "input_mask": "999",
+   "input_size": 0,
+   "input_type": "Numeric",
    "caption_width": 231
   },
   {
@@ -393,7 +401,9 @@
    "anchoring": "Right",
    "tab_order": 6,
    "h_align": "Right",
-   "input_mask": "HH:MM:SS"
+   "input_mask": "HH:MM:SS",
+   "input_size": 0,
+   "input_type": "Time"
   },
   {
    "name": "STC_Encerrar_tempos_automaticamente_a",
@@ -412,7 +422,8 @@
     "Default animation": false
    },
    "anchoring": "<None>",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "EDT_encerrar_tempos_2",
@@ -444,7 +455,9 @@
    "anchoring": "Right",
    "tab_order": 7,
    "h_align": "Right",
-   "input_mask": "HH:MM:SS"
+   "input_mask": "HH:MM:SS",
+   "input_size": 0,
+   "input_type": "Time"
   },
   {
    "name": "STC_E",
@@ -463,7 +476,8 @@
     "Default animation": false
    },
    "anchoring": "Right",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   }
  ],
  "assets": [

@@ -50,7 +50,8 @@
     "Default animation": false
    },
    "anchoring": "Width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_Syst_Restore",
@@ -205,6 +206,8 @@
    "anchoring": "Right",
    "tab_order": 2,
    "h_align": "Left",
+   "input_size": 0,
+   "input_type": "Text",
    "displayed_item": "Descricao"
   },
   {
@@ -247,7 +250,8 @@
     "Default animation": false
    },
    "anchoring": "<None>",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "STC_Descricao",
@@ -266,7 +270,8 @@
     "Default animation": false
    },
    "anchoring": "Right",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "EDT_descricao",
@@ -298,7 +303,9 @@
    "anchoring": "Right",
    "tab_order": 8,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 100,
+   "input_type": "Text"
   },
   {
    "name": "EDT_Numero",
@@ -330,7 +337,9 @@
    "anchoring": "Right",
    "tab_order": 3,
    "h_align": "Right",
-   "input_mask": "9999999999"
+   "input_mask": "9999999999",
+   "input_size": 0,
+   "input_type": "Numeric"
   },
   {
    "name": "EDT_Data",
@@ -362,7 +371,9 @@
    "anchoring": "Right",
    "tab_order": 4,
    "h_align": "Right",
-   "input_mask": "UseSystemMask"
+   "input_mask": "UseSystemMask",
+   "input_size": 0,
+   "input_type": "Date"
   },
   {
    "name": "STC_Número",
@@ -396,7 +407,8 @@
     "Default animation": false
    },
    "anchoring": "<None>",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "TABLE_lin_Stocks",
@@ -573,7 +585,8 @@
     "Default animation": false
    },
    "anchoring": "Bottom",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "EDT_codigo",
@@ -605,7 +618,9 @@
    "anchoring": "Bottom",
    "tab_order": 11,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 30,
+   "input_type": "Text"
   },
   {
    "name": "EDT_descricao_Artigo",
@@ -637,7 +652,9 @@
    "anchoring": "Bottom",
    "tab_order": 13,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 100,
+   "input_type": "Text"
   },
   {
    "name": "STC_Descrição_do_Artigo",
@@ -684,7 +701,9 @@
    "anchoring": "Bottom",
    "tab_order": 14,
    "h_align": "Right",
-   "input_mask": "999999,999"
+   "input_mask": "999999,999",
+   "input_size": 0,
+   "input_type": "Numeric"
   },
   {
    "name": "STC_Quantidade",
@@ -703,7 +722,8 @@
     "Default animation": false
    },
    "anchoring": "Bottom",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "EDT_preco",
@@ -735,7 +755,9 @@
    "anchoring": "Bottom",
    "tab_order": 15,
    "h_align": "Right",
-   "input_mask": "999999999,99"
+   "input_mask": "999999999,99",
+   "input_size": 0,
+   "input_type": "Numeric"
   },
   {
    "name": "STC_Preço",
@@ -754,7 +776,8 @@
     "Default animation": false
    },
    "anchoring": "Bottom",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_NoName1",
@@ -876,6 +899,8 @@
    "anchoring": "Right",
    "tab_order": 6,
    "h_align": "Left",
+   "input_size": 0,
+   "input_type": "Text",
    "displayed_item": "Descricao"
   },
   {
@@ -918,7 +943,8 @@
     "Default animation": false
    },
    "anchoring": "Right",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_Adicionar1",

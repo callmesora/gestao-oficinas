@@ -50,7 +50,8 @@
     "Default animation": false
    },
    "anchoring": "Width",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "BTN_Syst_Restore",
@@ -212,6 +213,8 @@
    "tab_order": 2,
    "h_align": "Right",
    "input_mask": "9999999999",
+   "input_size": 0,
+   "input_type": "Numeric",
    "caption_width": 55
   },
   {
@@ -245,6 +248,8 @@
    "tab_order": 3,
    "h_align": "Right",
    "input_mask": "DD/MM/YYYY HH:mm",
+   "input_size": 0,
+   "input_type": "Date",
    "caption_width": 76
   },
   {
@@ -278,6 +283,8 @@
    "tab_order": 4,
    "h_align": "Right",
    "input_mask": "UseSystemMask",
+   "input_size": 0,
+   "input_type": "Date",
    "caption_width": 76
   },
   {
@@ -312,6 +319,8 @@
    "tab_order": 8,
    "h_align": "Left",
    "input_mask": "0",
+   "input_size": 15,
+   "input_type": "Text",
    "caption_width": 55
   },
   {
@@ -369,6 +378,8 @@
    "tab_order": 9,
    "h_align": "Left",
    "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text",
    "caption_width": 47
   },
   {
@@ -403,6 +414,8 @@
    "tab_order": 15,
    "h_align": "Left",
    "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text",
    "caption_width": 64
   },
   {
@@ -453,6 +466,8 @@
    "anchoring": "Width and bottom",
    "tab_order": 16,
    "h_align": "Left",
+   "input_size": 0,
+   "input_type": "Text",
    "displayed_item": "Descricao"
   },
   {
@@ -471,7 +486,8 @@
     "RTF format": false,
     "Default animation": false
    },
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "EDT_KM",
@@ -504,6 +520,8 @@
    "tab_order": 5,
    "h_align": "Right",
    "input_mask": "9999999999",
+   "input_size": 0,
+   "input_type": "Numeric",
    "caption_width": 31
   },
   {
@@ -536,7 +554,9 @@
    "anchoring": "Bottom, height and width",
    "tab_order": 18,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text"
   },
   {
    "name": "STC_Serviço_Avaria",
@@ -554,7 +574,8 @@
     "RTF format": false,
     "Default animation": false
    },
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_type": "Text"
   },
   {
    "name": "STC_Observação",
@@ -601,7 +622,9 @@
    "anchoring": "Bottom, height and width",
    "tab_order": 19,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text"
   },
   {
    "name": "COMBO_mecanico",
@@ -629,6 +652,8 @@
    "anchoring": "Bottom",
    "tab_order": 20,
    "h_align": "Left",
+   "input_size": 0,
+   "input_type": "Text",
    "caption_width": 57,
    "displayed_item": "Descricao"
   },
@@ -681,6 +706,8 @@
    "anchoring": "Bottom",
    "tab_order": 24,
    "h_align": "Left",
+   "input_size": 0,
+   "input_type": "Text",
    "caption_width": 57,
    "displayed_item": "Descricao"
   },
@@ -710,6 +737,8 @@
    "anchoring": "Bottom",
    "tab_order": 21,
    "h_align": "Left",
+   "input_size": 0,
+   "input_type": "Text",
    "caption_width": 74,
    "displayed_item": "Descricao"
   },
@@ -791,6 +820,8 @@
    "tab_order": 27,
    "h_align": "Left",
    "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text",
    "caption_width": 70
   },
   {
@@ -825,6 +856,8 @@
    "tab_order": 28,
    "h_align": "Right",
    "input_mask": "999999999,99",
+   "input_size": 0,
+   "input_type": "Numeric",
    "caption_width": 60
   },
   {
@@ -931,6 +964,8 @@
    "tab_order": 11,
    "h_align": "Left",
    "input_mask": "0",
+   "input_size": 0,
+   "input_type": "Text",
    "caption_width": 94
   },
   {
@@ -965,6 +1000,8 @@
    "tab_order": 29,
    "h_align": "Right",
    "input_mask": "UseSystemMask",
+   "input_size": 0,
+   "input_type": "Date",
    "caption_width": 90
   },
   {
@@ -999,6 +1036,8 @@
    "tab_order": 12,
    "h_align": "Left",
    "input_mask": "9999999999",
+   "input_size": 0,
+   "input_type": "Numeric",
    "caption_width": 64
   },
   {
@@ -1054,7 +1093,9 @@
    "anchoring": "Right and bottom, width",
    "tab_order": 14,
    "h_align": "Left",
-   "input_mask": "0"
+   "input_mask": "0",
+   "input_size": 100,
+   "input_type": "Text"
   }
  ],
  "assets": [

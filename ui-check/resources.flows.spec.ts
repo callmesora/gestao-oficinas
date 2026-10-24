@@ -142,3 +142,17 @@ test("resource mnemonic uses its real button result and input without triggering
   await page.keyboard.press("Alt+c");
   await expect(page.getByTestId("skin-message-result")).toHaveText(JSON.stringify({ result: 27, input: "original" }));
 });
+
+test("resource input applies explicit password, length and automatic-selection options through the real result path", async ({ page }) => {
+  await page.goto("/?skin=controls");
+  await page.getByTestId("skin-resource-input-flags").click();
+  const input = page.getByTestId("WINDEVDIALOGBOX").getByTestId("SAI_1");
+  await expect(input).toHaveAttribute("type", "password"); await expect(input).toHaveAttribute("maxlength", "15");
+  await expect(input).toBeFocused();
+  expect(await input.evaluate(element => [(element as HTMLInputElement).selectionStart, (element as HTMLInputElement).selectionEnd])).toEqual([0, 12]);
+  await input.press("Z"); await expect(input).toHaveValue("Z");
+  await input.fill("A".repeat(15)); await input.press("End"); await input.press("B");
+  await expect(input).toHaveValue("A".repeat(15));
+  await input.press("Enter");
+  await expect(page.getByTestId("skin-message-result")).toHaveText(JSON.stringify({ result: 1, input: "A".repeat(15) }));
+});
