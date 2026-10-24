@@ -35,8 +35,16 @@ export function resourceButtonGeometry(labels: string[], title: string, measure:
   return { widths, total, width };
 }
 
+// legacy/GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:1094-1155 (text input).
+export function resourceTextInputGeometry(input: { value: string; maxLength?: number; adaptWidth?: boolean },
+  base: { width: number; height: number }, measure: TextMeasure, inset: number, multiline: boolean) {
+  const width = multiline ? Math.max(base.width, measure(input.value).width) : base.width;
+  return { width, height: multiline ? measure(input.value, width).height + inset : base.height,
+    adaptedWidth: input.adaptWidth && input.maxLength ? input.maxLength * measure("W").width + 8 : undefined };
+}
+
 // legacy/GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:738-947.
-export function resourceGeometry(layout: LegacyLayout, text: string, title: string, labels: string[], measure: TextMeasure, viewport: number, input?: { width: number; height: number }) {
+export function resourceGeometry(layout: LegacyLayout, text: string, title: string, labels: string[], measure: TextMeasure, viewport: number, input?: { width: number; height: number; adaptedWidth?: number }) {
   const size = layout.window.size!, body = controlOf(layout, "LIB_INFO"), icon = controlOf(layout, "ICONE"), button = controlOf(layout, "BTN_1");
   const buttons = resourceButtonGeometry(labels, title, measure, viewport);
   const initial = measure(text, 1000);
@@ -57,6 +65,6 @@ export function resourceGeometry(layout: LegacyLayout, text: string, title: stri
   const space = (width - icon.width! - bodyWidth) / 3;
   const bodyX = 2 * space + icon.width!;
   return { ...buttons, width, height, textHeight, bodyWidth, bodyX, passes, iconX: space, iconY: icon.y + Math.max(0, (textHeight - icon.height!) / 2),
-    inputY: body.y + textHeight - 6, inputHeight, inputWidth: width - bodyX - 16,
+    inputY: body.y + textHeight - 6, inputHeight, inputWidth: input?.adaptedWidth ?? width - bodyX - 16,
     buttonY: button.y + height - size.height };
 }

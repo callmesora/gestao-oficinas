@@ -4,7 +4,7 @@ import proposals from "../../../docs/evidence/message-proposals.json";
 import { controlBox, controlOf, skinImage } from "./layout";
 import type { MessageController, PendingResource } from "./message-state";
 import { WdButton } from "./wd";
-import { browserMeasure, resourceGeometry } from "./dialog-metrics";
+import { browserMeasure, resourceGeometry, resourceTextInputGeometry } from "./dialog-metrics";
 
 export function ResourceBox({ current, controller }: { current: PendingResource; controller: MessageController }) {
   const { id, request, model } = current;
@@ -27,9 +27,11 @@ export function ResourceBox({ current, controller }: { current: PendingResource;
       // UNRESOLVED U-W0075A5-05: native text-height insets are unknown; reserve the target edit's measured insets.
       const style = inputRef.current ? getComputedStyle(inputRef.current) : null;
       const inset = style ? [style.paddingTop, style.paddingBottom, style.borderTopWidth, style.borderBottomWidth].reduce((sum, value) => sum + parseFloat(value || "0"), 0) : 0;
-      const inputHeight = multiline ? measure(String(request.input?.value), field.width!).height + inset : field.height!;
+      const inputSize = request.input?.kind === "text"
+        ? resourceTextInputGeometry(request.input, { width: field.width!, height: field.height! }, measure, inset, multiline)
+        : request.input ? { width: field.width!, height: field.height! } : undefined;
       setFit(resourceGeometry(layout, request.text, request.title, model.buttons.map(item => item.caption), measure, window.innerWidth,
-        request.input ? { width: field.width!, height: inputHeight } : undefined));
+        inputSize));
     });
     return () => { active = false; };
   }, [model.buttons, request.title, request.text, request.input, multiline, field.width, field.height]);

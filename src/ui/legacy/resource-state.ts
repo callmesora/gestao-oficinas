@@ -1,6 +1,6 @@
 import { skinSourceImage } from "./layout";
 
-export type ResourceInput = { kind: "text"; value: string; maxLength?: number; password?: boolean }
+export type ResourceInput = { kind: "text"; value: string; maxLength?: number; password?: boolean; adaptWidth?: boolean }
   | { kind: "checkbox"; value: boolean; label: string };
 export interface ResourceRequest {
   title: string; text: string; buttons: { label: string; value?: number }[];

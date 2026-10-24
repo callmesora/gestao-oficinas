@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
 import layout from "./WINDEVMESSAGEBOX.layout.json";
 import resource from "./WINDEVDIALOGBOX.layout.json";
-import { messageGeometry, resourceButtonGeometry, resourceGeometry, type TextMeasure } from "./dialog-metrics";
+import { messageGeometry, resourceButtonGeometry, resourceGeometry, resourceTextInputGeometry, type TextMeasure } from "./dialog-metrics";
 
 const measure: TextMeasure = (text, width) => ({ width: Math.min(text.length * 10, width ?? Infinity), height: Math.max(1, Math.ceil(text.length * 10 / (width ?? Infinity))) * 14 });
 
@@ -30,4 +30,24 @@ it("bounds source resource fitting to ten passes and reserves measured input hei
   expect(input.inputHeight).toBe(60);
   expect(input.inputY).toBe(31 + input.textHeight - 6);
   expect(input.inputWidth + input.bodyX + 16).toBe(input.width);
+});
+
+it("sizes multiline text before frame fitting and applies character-width adaptation afterwards", () => {
+  const base = { width: 181, height: 22 };
+  const measured: TextMeasure = (text, width) => {
+    const lines = text.split("\r\n");
+    return { width: Math.min(Math.max(...lines.map(line => line.length * 10)), width ?? Infinity), height: lines.length * 14 };
+  };
+  const wide = resourceTextInputGeometry({ value: "W".repeat(55) + "\r\nFim" }, base, measured, 6, true);
+  expect(wide).toEqual({ width: 550, height: 34, adaptedWidth: undefined });
+  const fit = resourceGeometry(resource, "Texto", "", ["A"], measured, 1024, wide);
+  expect(fit.width).toBeGreaterThanOrEqual(550 + 10 + resource.window.size.width - resource.controls.find(control => control.name === "LIB_INFO")!.width!);
+  const limited = resourceTextInputGeometry({ value: "ABC", maxLength: 5, adaptWidth: true }, base, measured, 6, false);
+  expect(limited).toEqual({ width: 181, height: 22, adaptedWidth: 58 });
+  expect(resourceGeometry(resource, "Texto", "", ["A"], measured, 1024, limited).inputWidth).toBe(58);
+  for (const maxLength of [0, undefined]) {
+    const unlimited = resourceTextInputGeometry({ value: "ABC", maxLength, adaptWidth: true }, base, measured, 6, false);
+    const result = resourceGeometry(resource, "Texto", "", ["A"], measured, 1024, unlimited);
+    expect(result.inputWidth + result.bodyX + 16).toBe(result.width);
+  }
 });

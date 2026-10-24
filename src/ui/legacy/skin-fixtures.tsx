@@ -45,6 +45,16 @@ function MessageFixture() {
     <label>Ícone de teste <select data-testid="skin-resource-icon" value={resourceIcon} onChange={event => setResourceIcon(event.target.value)}>
       <option value="32">Pergunta</option><option value="48">Erro da origem</option><option value="64">Informação</option><option value="0">Imagem do projeto</option>
     </select></label>
+    <button data-testid="skin-resource-sized" onClick={async () => {
+      const value = await resource({ title: "Entrada limitada", text: "Texto de teste", buttons: [{ label: "Aceitar" }, { label: "Cancelar" }],
+        defaultIndex: 1, cancelIndex: 2, input: { kind: "text", value: "ABC", maxLength: 5, adaptWidth: true } });
+      setResult(JSON.stringify(value));
+    }}>Testar largura limitada</button>
+    <button data-testid="skin-resource-wide" onClick={async () => {
+      const value = await resource({ title: "Entrada larga", text: "Texto de teste", buttons: [{ label: "Aceitar" }, { label: "Cancelar" }],
+        defaultIndex: 1, cancelIndex: 2, input: { kind: "text", value: "W".repeat(55) + "\r\nFim" } });
+      setResult(JSON.stringify(value));
+    }}>Testar largura multilinha</button>
     <button data-testid="skin-resource-checkbox" onClick={async () => {
       const value = await resource({ title: "Opção", text: "Opção de teste", buttons: [{ label: "Aceitar" }, { label: "Cancelar" }],
         defaultIndex: 1, cancelIndex: 2, input: { kind: "checkbox", value: false, label: "Opção" } });

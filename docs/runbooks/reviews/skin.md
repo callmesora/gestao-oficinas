@@ -41,3 +41,7 @@ Separate sequential self-review, same agent/context. Exact source separator/CRLF
 ## MIG-5b — resource icons
 
 Separate sequential self-review, same agent/context, against source :663–697 and sizing formulas. Preserved the unusual 0x30 error branch. Fixed external paths silently aliasing project basenames and custom images selecting cropped button states; checked custom images now use the complete export. Browser checks exercise all three source branches and a decoded PNG. Full verify passes (26 unit, 2 Rust, 19 browser checks); affected unit tests, production build and lint pass after the complete-image correction (one existing TanStack warning). Symbols/stretching and unknown initial images remain Q-12/U-W0075A5-01; no native visual claim or parity move.
+
+## MIG-5b — text input width
+
+Separate sequential self-review, same agent/context. Checked source :1094–1155 and :800–870: multiline width is expanded before height/frame sizing; optional character-limit width is applied afterwards, without changing that order or clamping away source behavior. Real browser checks cover the measured width, enforced character limit, expanded multiline frame and exact CRLF return. Full verify passes: 27 unit, 2 Rust, 20 browser checks; production build and parity file checks pass. Existing TanStack warning remains. Native insets/font metrics and numeric/date mask sizing remain unresolved; no parity rows moved.
