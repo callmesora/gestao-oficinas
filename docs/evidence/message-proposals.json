@@ -1,7 +1,7 @@
 {
   "confidence": "assumed",
   "evidence": "proposed: Q-12; ADR-003; ADR-006; templates/ui-kit",
-  "unresolved": ["U-W36869F-01", "U-W36869F-02", "U-W36869F-04"],
+  "unresolved": ["U-W36869F-01", "U-W36869F-02", "U-W36869F-04", "U-W0075A5-01", "U-W0075A5-02", "U-W0075A5-04", "U-W0075A5-05"],
   "captions": {"BTN_OK": "OK", "BTN_OUI": "Sim", "BTN_NON": "Não", "BTN_ANNULER": "Cancelar"},
   "frame": "MediaPlayer_Bg_Base.gif",
   "button": "MediaPlayer_Btn_anim.gif",

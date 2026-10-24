@@ -10,6 +10,8 @@ Variant supplies title/message/buttons/default/cancel/icon/input. Clone BTN_1 pe
 
 Caller arguments/results and native buffer changes: mapping entry/event ledger.
 
+MIG-5 checkpoint: useDialogs().resource returns explicit result/input through the shared message queue; source button-index/value and click/Esc/direct-close differences are retained. DEV identifiers skin-resource-open, skin-resource-checkbox and skin-resource-multiline use synthetic data; BTN_2 and later names are source-defined clones of BTN_1. Captions come from each request, skin defaults remain assumed under Q-12. Typed masks/coercion, invalid/absent indexes, calculator, resource image flags and full dynamic fitting remain pending; ui-check.config.json records the missing image and controls. This is not complete framework/native parity.
+
 ## Window/layout
 
 | Field | Extracted value |

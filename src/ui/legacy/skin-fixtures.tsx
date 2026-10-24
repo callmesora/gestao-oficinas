@@ -7,7 +7,7 @@ import { WdTable } from "./table";
 import { DialogProvider, useDialogs } from "./dialogs";
 
 function MessageFixture() {
-  const { message } = useDialogs();
+  const { message, resource } = useDialogs();
   const [result, setResult] = useState("");
   return <div data-testid="skin-message-fixture">
     <p>Mensagens — retorno de teste, sem operação de negócio.</p>
@@ -23,6 +23,21 @@ function MessageFixture() {
       void Promise.all([first, second]).then(values => setResult(values.join(",")));
     }}>Testar sequência</button>
     <output data-testid="skin-message-result">{result}</output>
+    <button data-testid="skin-resource-open" onClick={async () => {
+      const value = await resource({ title: "Recurso", text: "Valor de teste", buttons: [{ label: "Aceitar", value: 11 }, { label: "Cancelar", value: 27 }],
+        defaultIndex: 1, cancelIndex: 2, input: { kind: "text", value: "  original  " } });
+      setResult(JSON.stringify(value));
+    }}>Testar recurso</button>
+    <button data-testid="skin-resource-checkbox" onClick={async () => {
+      const value = await resource({ title: "Opção", text: "Opção de teste", buttons: [{ label: "Aceitar" }, { label: "Cancelar" }],
+        defaultIndex: 1, cancelIndex: 2, input: { kind: "checkbox", value: false, label: "Opção" } });
+      setResult(JSON.stringify(value));
+    }}>Testar opção</button>
+    <button data-testid="skin-resource-multiline" onClick={async () => {
+      const value = await resource({ title: "Texto", text: "Texto de teste", buttons: [{ label: "Aceitar" }, { label: "Cancelar" }],
+        defaultIndex: 1, cancelIndex: 2, input: { kind: "text", value: "A\r\nB" } });
+      setResult(JSON.stringify(value));
+    }}>Testar texto</button>
   </div>;
 }
 

@@ -2,24 +2,27 @@ import { createContext, useContext, useEffect, useId, useRef, useState, useSyncE
 import layout from "./WINDEVMESSAGEBOX.layout.json";
 import proposals from "../../../docs/evidence/message-proposals.json";
 import { controlBox, controlOf, skinImage } from "./layout";
-import { MessageController, type MessageRequest, type PendingMessage } from "./message-state";
+import { MessageController, type PendingMessage } from "./message-state";
 import { WdButton } from "./wd";
+import { ResourceBox } from "./resource-dialog";
 
-const MessageContext = createContext<((request: MessageRequest) => Promise<number>) | null>(null);
+type DialogService = Pick<MessageController, "open" | "resource">;
+const MessageContext = createContext<DialogService | null>(null);
 
 export function useDialogs() {
-  const message = useContext(MessageContext);
-  if (!message) throw new Error("DialogProvider is required");
-  return { message };
+  const service = useContext(MessageContext);
+  if (!service) throw new Error("DialogProvider is required");
+  return { message: service.open, resource: service.resource };
 }
 
 export function DialogProvider({ children }: { children: ReactNode }) {
   const [controller] = useState(() => new MessageController());
   const current = useSyncExternalStore(controller.subscribe, controller.getSnapshot);
   useEffect(() => () => controller.cancelAll(), [controller]);
-  return <MessageContext.Provider value={controller.open}>
+  return <MessageContext.Provider value={controller}>
     {children}
-    {current && <MessageBox key={current.id} current={current} controller={controller} />}
+    {current?.kind === "message" && <MessageBox key={current.id} current={current} controller={controller} />}
+    {current?.kind === "resource" && <ResourceBox key={current.id} current={current} controller={controller} />}
   </MessageContext.Provider>;
 }
 

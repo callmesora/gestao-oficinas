@@ -1,3 +1,4 @@
+import { resourceModel, resourceResult, type ResourceRequest, type ResourceResult } from "./resource-state";
 export type MessageType = 0 | 1 | 2 | 3 | 4 | 5;
 export type MessageButton = "BTN_OK" | "BTN_OUI" | "BTN_NON" | "BTN_ANNULER";
 export interface MessageRequest { title: string; text: string; type?: MessageType; defaultButton?: number; destructive?: boolean }
@@ -18,30 +19,48 @@ export function messageModel(request: MessageRequest) {
   return { type, buttons, closeResult, focus, icon: type === 1 ? "ICON_ERREUR" : type === 2 || type === 3 || type === 5 ? "ICON_QUESTION" : "ICON_INFORMATION" };
 }
 
-export interface PendingMessage { id: number; request: MessageRequest; model: ReturnType<typeof messageModel> }
+export interface PendingMessage { kind: "message"; id: number; request: MessageRequest; model: ReturnType<typeof messageModel> }
+export interface PendingResource { kind: "resource"; id: number; request: ResourceRequest; model: ReturnType<typeof resourceModel> }
+type QueueItem = { kind: "message"; value: PendingMessage; resolve: (result: number) => void }
+  | { kind: "resource"; value: PendingResource; resolve: (result: ResourceResult) => void };
 
 /** One awaited result per request; concurrent callers queue without replacing each other's dialog. */
 export class MessageController {
   private sequence = 0;
-  private queue: { value: PendingMessage; resolve: (result: number) => void }[] = [];
+  private queue: QueueItem[] = [];
   private listeners = new Set<() => void>();
   getSnapshot = () => this.queue[0]?.value ?? null;
   subscribe = (listener: () => void) => { this.listeners.add(listener); return () => { this.listeners.delete(listener); }; };
   private emit() { this.listeners.forEach(listener => listener()); }
   open = (request: MessageRequest): Promise<number> => {
     const copy = { ...request }, model = messageModel(copy);
-    return new Promise(resolve => { this.queue.push({ value: { id: ++this.sequence, request: copy, model }, resolve }); this.emit(); });
+    return new Promise(resolve => { this.queue.push({ kind: "message", value: { kind: "message", id: ++this.sequence, request: copy, model }, resolve }); this.emit(); });
   };
-  finish(id: number, button?: MessageButton) {
+  resource = (request: ResourceRequest): Promise<ResourceResult> => {
+    const copy = { ...request, buttons: request.buttons.map(button => ({ ...button })), ...(request.input ? { input: { ...request.input } } : {}) };
+    const model = resourceModel(copy);
+    return new Promise(resolve => { this.queue.push({ kind: "resource", value: { kind: "resource", id: ++this.sequence, request: copy, model }, resolve }); this.emit(); });
+  };
+  finish(id: number, button?: string, reason: "close" | "escape" = "close", input?: string | boolean) {
     const current = this.queue[0];
     if (!current || current.value.id !== id) return;
-    const selected = button ? current.value.model.buttons.find(item => item.name === button) : null;
-    if (button && !selected) throw new Error("Button is not present in this message");
+    let settle: () => void;
+    if (current.kind === "message") {
+      const selected = button ? current.value.model.buttons.find(item => item.name === button) : null;
+      if (button && !selected) throw new Error("Button is not present in this message");
+      settle = () => current.resolve(selected?.result ?? current.value.model.closeResult);
+    } else {
+      const result = resourceResult(current.value.request, current.value.model, button, reason, input);
+      settle = () => current.resolve(result);
+    }
     this.queue.shift(); this.emit();
-    current.resolve(selected?.result ?? current.value.model.closeResult);
+    settle();
   }
   cancelAll() {
     const pending = this.queue; this.queue = []; this.emit();
-    pending.forEach(item => item.resolve(item.value.model.closeResult));
+    pending.forEach(item => {
+      if (item.kind === "message") item.resolve(item.value.model.closeResult);
+      else item.resolve(resourceResult(item.value.request, item.value.model));
+    });
   }
 }

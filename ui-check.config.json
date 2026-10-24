@@ -1,6 +1,25 @@
 {
   "report": "ui-report",
   "windows": {
+    "WINDEVDIALOGBOX": {
+      "open": ["skin-launcher", "skin-resource-open"],
+      "visualUnavailableReason": "U-W0075A5-01: no dossier image for this framework resource dialog; visual/native parity remains pending.",
+      "ignore": {
+        "ICON_Question": "Off-canvas icon source; resource icon selection/rendering pending.",
+        "ICON_INFORMATION": "Off-canvas icon source; resource icon selection/rendering pending.",
+        "ICON_ERREUR": "Off-canvas icon source; resource icon selection/rendering pending.",
+        "ICONE": "Resource image flags/custom images not ported yet; U-W0075A5-01/04.",
+        "BTN_ESC": "Off-canvas event proxy; Escape invokes its source cancel-button result path directly.",
+        "LIB_TITRE": "Off-canvas alternate layout title; Windows frame uses RADTitle.",
+        "INT_1": "Checkbox absent in text fixture; covered in resource input flow.",
+        "BTN_MOBILE_1": "Mobile control template; current target is Windows per ADR-001.",
+        "SCSystemButtons": "Source supercontrol container; close rendered directly; other chrome still pending.",
+        "BTN_UMC": "Unresolved UMC feature; no exclusion approved.",
+        "BTN_SYST_MINIMIZE": "Modal minimize not ported yet; U-W0075A5-02.",
+        "BTN_Syst_Maximize": "Modal maximize/restore not ported yet; U-W0075A5-02.",
+        "BTN_Syst_Restore": "Off-canvas restore source; runtime wiring pending."
+      }
+    },
     "WINDEVMESSAGEBOX": {
       "open": ["skin-launcher", "skin-message-open"],
       "visualUnavailableReason": "U-W36869F-01: no dossier entry/image for WDFAA message box; screenshot captured, visual/native parity remains pending.",
