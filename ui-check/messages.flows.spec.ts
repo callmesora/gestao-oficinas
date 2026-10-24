@@ -1,5 +1,19 @@
 import { expect, test } from "@playwright/test";
 
+test("long message expands from source geometry, wraps at the source cap and keeps its button inside", async ({ page }) => {
+  await page.goto("/?skin=controls");
+  await page.getByTestId("skin-message-long").click();
+  const dialog = page.getByTestId("WINDEVMESSAGEBOX"), body = dialog.getByTestId("LIB_INFO");
+  await expect.poll(async () => (await body.boundingBox())!.height).toBeGreaterThan(48);
+  expect((await body.boundingBox())!.width).toBeLessThanOrEqual(600);
+  const overflow = await body.evaluate(element => element.scrollHeight - element.clientHeight);
+  expect(overflow).toBeLessThanOrEqual(1);
+  const frame = (await dialog.boundingBox())!, button = (await dialog.getByTestId("BTN_OK").boundingBox())!;
+  expect(button.y + button.height).toBeLessThanOrEqual(frame.y + frame.height);
+  await dialog.getByTestId("BTN_OK").click();
+  await expect(page.getByTestId("skin-message-result")).toHaveText("1");
+});
+
 test("awaited OKCancel retains source result 7, blocks background focus and restores its trigger", async ({ page }) => {
   await page.goto("/?skin=controls");
   const trigger = page.getByTestId("skin-message-open");

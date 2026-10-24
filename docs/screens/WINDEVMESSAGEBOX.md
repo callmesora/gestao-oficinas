@@ -23,7 +23,7 @@ Caller arguments/results and native buffer changes: mapping entry/event ledger.
 
 Default/Abort button types below; actual native routing and first focus U-W36869F-02. Saved position versus opening-mode precedence U-W36869F-02.
 
-MIG-5 checkpoint: dialogs.tsx implements the awaited message return/queue path with source geometry; appearance/captions use the labeled Q-12 defaults in docs/evidence/message-proposals.json. Non-legacy DEV controls: skin-launcher, skin-message-fixture, skin-message-open, skin-message-queue, skin-message-result. Remaining controls and the missing visual reference are explicit in ui-check.config.json; no visual/native/framework routing parity is established. Dynamic text resizing, clipboard and sound remain pending.
+MIG-5 checkpoint: dialogs.tsx implements awaited results and the source message-size formulas; browser measurement uses the assumed skin font. Appearance/captions use the labeled Q-12 defaults in docs/evidence/message-proposals.json. Non-legacy DEV controls: skin-launcher, skin-message-fixture, skin-message-open, skin-message-queue, skin-message-result, skin-message-long. Remaining controls and the missing visual reference are explicit in ui-check.config.json; font/wrapping/DPI, clipboard, sound and native/framework parity remain pending.
 
 ## Controls
 

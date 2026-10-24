@@ -4,6 +4,7 @@ import proposals from "../../../docs/evidence/message-proposals.json";
 import { controlBox, controlOf, skinImage } from "./layout";
 import type { MessageController, PendingResource } from "./message-state";
 import { WdButton } from "./wd";
+import { browserMeasure, resourceButtonGeometry } from "./dialog-metrics";
 
 export function ResourceBox({ current, controller }: { current: PendingResource; controller: MessageController }) {
   const { id, request, model } = current;
@@ -15,8 +16,18 @@ export function ResourceBox({ current, controller }: { current: PendingResource;
   const close = controlOf(layout, "BTN_SYST_FERMER");
   const multiline = request.input?.kind === "text" && !request.input.password && request.input.value.includes("\r\n");
   // Source RedimensionnerFenêtre: desktop minimum 400 and extra height for input.
-  const width = Math.max(400, size.width), extra = request.input ? field.height! : 0, height = size.height + extra;
-  const total = model.buttons.length * button.width! + (model.buttons.length - 1) * 12;
+  const [fit, setFit] = useState<ReturnType<typeof resourceButtonGeometry> | null>(null);
+  useEffect(() => {
+    let active = true;
+    void document.fonts.ready.then(() => {
+      if (!active || !ref.current) return;
+      const font = getComputedStyle(ref.current.querySelector(".wd-frame")!).font;
+      setFit(resourceButtonGeometry(model.buttons.map(item => item.caption), request.title, browserMeasure(font), window.innerWidth));
+    });
+    return () => { active = false; };
+  }, [model.buttons, request.title]);
+  const width = fit?.width ?? Math.max(400, size.width), extra = request.input ? field.height! : 0, height = size.height + extra;
+  const total = fit?.total ?? model.buttons.length * button.width! + (model.buttons.length - 1) * 12;
   useEffect(() => {
     const dialog = ref.current!;
     dialog.showModal();
@@ -51,7 +62,8 @@ export function ResourceBox({ current, controller }: { current: PendingResource;
         </div>}
         <div className="wd-resource-actions">
           {model.buttons.map((item, index) => <WdButton key={item.name} control={{ ...button, name: item.name, path: item.name,
-            caption: item.caption, background_image: proposals.button }} style={{ left: (width - total) / 2 + index * (button.width! + 12), top: button.y + extra }}
+            caption: item.caption, background_image: proposals.button }} style={{ left: (width - total) / 2 + (fit?.widths.slice(0, index).reduce((sum, value) => sum + value, 0) ?? index * button.width!) + index * 12,
+              width: fit?.widths[index] ?? button.width!, top: button.y + extra }}
             onClick={() => finish(item.name)} />)}
         </div>
       </div>

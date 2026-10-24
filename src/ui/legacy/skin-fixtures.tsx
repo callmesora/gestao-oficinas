@@ -23,6 +23,13 @@ function MessageFixture() {
       void Promise.all([first, second]).then(values => setResult(values.join(",")));
     }}>Testar sequência</button>
     <output data-testid="skin-message-result">{result}</output>
+    <button data-testid="skin-message-long" onClick={async () => {
+      setResult(String(await message({ title: "Texto longo", text: "Linha de teste com acentos: Açores. ".repeat(90), type: 0 })));
+    }}>Testar mensagem longa</button>
+    <button data-testid="skin-resource-long" onClick={async () => {
+      const value = await resource({ title: "Recurso", text: "Botões de teste", buttons: [{ label: "Aceitar este texto de teste mais comprido" }, { label: "Cancelar" }], defaultIndex: 1, cancelIndex: 2 });
+      setResult(JSON.stringify(value));
+    }}>Testar botão longo</button>
     <button data-testid="skin-resource-open" onClick={async () => {
       const value = await resource({ title: "Recurso", text: "Valor de teste", buttons: [{ label: "Aceitar", value: 11 }, { label: "Cancelar", value: 27 }],
         defaultIndex: 1, cancelIndex: 2, input: { kind: "text", value: "  original  " } });

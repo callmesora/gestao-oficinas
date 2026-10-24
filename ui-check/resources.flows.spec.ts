@@ -1,5 +1,16 @@
 import { expect, test } from "@playwright/test";
 
+test("resource button grows to its caption and reserves the source gap", async ({ page }) => {
+  await page.goto("/?skin=controls");
+  await page.getByTestId("skin-resource-long").click();
+  const dialog = page.getByTestId("WINDEVDIALOGBOX");
+  await expect.poll(async () => (await dialog.getByTestId("BTN_1").boundingBox())!.width).toBeGreaterThan(80);
+  const first = (await dialog.getByTestId("BTN_1").boundingBox())!, second = (await dialog.getByTestId("BTN_2").boundingBox())!;
+  expect(second.x - first.x - first.width).toBeCloseTo(12);
+  await dialog.getByTestId("BTN_2").click();
+  await expect(page.getByTestId("skin-message-result")).toHaveText(JSON.stringify({ result: 2 }));
+});
+
 test("resource click and Escape return explicit button values and current untrimmed input", async ({ page }) => {
   await page.goto("/?skin=controls");
   const result = page.getByTestId("skin-message-result");
