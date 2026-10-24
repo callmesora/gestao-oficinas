@@ -1,0 +1,30 @@
+/* MediaPlayer measurements from the guide and project images. Colors marked sampled remain visual-acceptance inputs. */
+.wd-frame { position: relative; box-sizing: border-box; font: 10.67px "Trebuchet MS", Tahoma, sans-serif; color: #000; overflow: hidden; }
+.wd-frame::before { content: ""; position: absolute; inset: 0; box-sizing: border-box; border: solid;
+  border-width: 25px 8px 8px; border-image: var(--wd-frame) 25 8 8 8 fill stretch; pointer-events: none; }
+.wd-client { position: absolute; inset: 0; }
+.wd-title { position: absolute; color: white; font-size: 12px; line-height: 18px; white-space: nowrap; overflow: hidden; }
+.wd-button { position: absolute; box-sizing: border-box; margin: 0; padding: 0 4px; border: 4px solid transparent;
+  border-image: var(--wd-background-0) 4 fill stretch; background: transparent; color: inherit; font: inherit;
+  line-height: 1.35; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: default; }
+.wd-button:hover { border-image-source: var(--wd-background-1); }
+.wd-button:focus-visible { border-image-source: var(--wd-background-3); outline: none; }
+.wd-button:active { border-image-source: var(--wd-background-2); }
+.wd-button:disabled { border-image-source: var(--wd-background-4); }
+.wd-button-icon { display: block; flex: none; width: 16px; height: 16px; background: var(--wd-icon-0) center / contain no-repeat; }
+.wd-button:hover .wd-button-icon { background-image: var(--wd-icon-1); }
+.wd-button:focus-visible .wd-button-icon { background-image: var(--wd-icon-3); }
+.wd-button:active .wd-button-icon { background-image: var(--wd-icon-2); }
+.wd-button:disabled .wd-button-icon { background-image: var(--wd-icon-4); }
+.wd-chrome-button { padding: 0; border: 0; background: var(--wd-background-0) center / 100% 100% no-repeat; }
+.wd-chrome-button:hover { background-image: var(--wd-background-1); }
+.wd-chrome-button:focus-visible { background-image: var(--wd-background-3); }
+.wd-chrome-button:active { background-image: var(--wd-background-2); }
+.wd-chrome-button:disabled { background-image: var(--wd-background-4); }
+.wd-field { position: absolute; font: inherit; color: inherit; }
+.wd-field label { position: absolute; left: 2px; top: 0; height: 100%; display: flex; align-items: center; }
+.wd-edit { position: absolute; top: 2px; height: calc(100% - 4px); box-sizing: border-box; margin: 0; padding: 2px 4px;
+  font: inherit; color: inherit; border: 1px solid #a7adb8; background: white; } /* sampled */
+.wd-edit:focus { outline: none; border-color: #7d8899; } /* sampled */
+/* Single-line field's 2px vertical inset measured on WIN_Form_Clientes.jpg. */
+.wd-frame [hidden] { display: none !important; }

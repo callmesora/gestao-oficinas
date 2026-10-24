@@ -41,6 +41,8 @@ Runtime and data edge cases without evidence receive U-UNIT-nn identifiers. No r
 
 The first implementation of each pattern must replace its reserved shape with actual symbols/tests in this document. No empty helper or adapter may satisfy a parity row. A missing pattern is added before its construct is ported, reviewed with the slice, and reused thereafter.
 
+Shared skin primitives now start in src/ui/legacy/wd.tsx (WdFrame, WdButton, WdEdit). layout.ts resolves qualified control paths and checked image/state files; geometry/captions come from generated inputs. Frame actions are required in-app callbacks, never native-window commands. ui-check/skin-controls.flows.spec.ts proves component state/assets/geometry; skin_visual_check.py checks component regions only. Full windows, tables, awaited dialogs and business bindings remain in their owning stages.
+
 ## Implemented database foundation
 
 HFSQL export → PostgreSQL: apps/server/src/db/column-mapping.v1.json names every field and conversion; legacy-import.ts exports convertCell/importLegacy/reconcileLegacy. Values cross this import boundary as exact strings, NULL or bytes, with typed provenance. migrate.ts owns transactional migration/checksum checks. legacy-import.test.ts exercises real PostgreSQL, rollback/retry, quarantine, precision, duplicate identities and restore; dry-run.ts reconciles the full copied dataset. This establishes import representation only; domain arithmetic and workflow write patterns above remain to implement in their owning stages.

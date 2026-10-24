@@ -5,3 +5,9 @@ button { padding: 8px 16px; cursor: pointer; }
 button:focus-visible { outline: 3px solid #1769aa; outline-offset: 3px; }
 output { display: block; padding-top: 16px; }
 [role="alert"] { color: #a01010; }
+.skin-fixtures { max-width: 1000px; display: grid; gap: 16px; line-height: 20px; }
+.skin-fixtures > div { display: grid; justify-items: start; gap: 8px; }
+.skin-fixtures h1, .skin-fixtures p { margin: 0; }
+.skin-fixtures h1 { line-height: 36px; }
+.skin-fixtures > div > button { font: inherit; line-height: 20px; }
+.skin-fixtures output { padding: 0; line-height: 20px; }
