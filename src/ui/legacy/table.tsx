@@ -2,13 +2,15 @@ import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { useMemo, useRef, type ReactNode } from "react";
 import { controlBox, type LegacyColumn, type LegacyControl } from "./layout";
 import "./skin.css";
+import { useAnchoredControl } from "./anchors";
 
-export function WdTable<T>({ control, rows, rowId, cell, selectedId, onSelect, onActivate, onSort }: {
+export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selectedId, onSelect, onActivate, onSort }: {
   control: LegacyControl; rows: T[]; rowId: (row: T) => string;
   cell: (row: T, column: LegacyColumn) => ReactNode;
   selectedId: string | null; onSelect: (id: string) => void;
   onActivate?: (id: string) => void; onSort?: (column: LegacyColumn) => void;
 }) {
+  const control = useAnchoredControl(sourceControl);
   if (!control.columns) throw new Error(`Table columns unresolved: ${control.path}`);
   const sourceColumns = control.columns;
   const container = useRef<HTMLDivElement>(null);

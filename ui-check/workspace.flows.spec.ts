@@ -58,11 +58,18 @@ test("workspace title drag, maximize and restore keep local bounds and mounted i
   await expect.poll(async () => (await window.boundingBox())!.width).toBe(await canvas.evaluate(element => element.clientWidth));
   expect((await window.boundingBox())!.x).toBeCloseTo(area.x);
   await expect(window.getByTestId("EDT_Descricao")).toHaveValue("Preservar");
+  const wide = (await window.boundingBox())!, button = (await window.getByTestId("BTN_Validar").boundingBox())!;
+  expect(wide.x + wide.width - button.x - button.width).toBeCloseTo(14);
+  const editWidth = await window.getByTestId("EDT_Descricao").evaluate(element => element.parentElement!.getBoundingClientRect().width);
+  expect(editWidth).toBeCloseTo(380 + wide.width - 500);
   await page.setViewportSize({ width: 1200, height: 900 });
   await expect.poll(async () => (await window.boundingBox())!.width).toBe(await canvas.evaluate(element => element.clientWidth));
   await window.getByTestId("BTN_Syst_Maximize").click();
   const restored = (await window.boundingBox())!, resizedArea = (await canvas.boundingBox())!;
   expect(restored.width).toBe(500);
+  expect((await window.getByTestId("EDT_Descricao").evaluate(element => element.parentElement!.getBoundingClientRect().width))).toBe(380);
+  const restoredButton = (await window.getByTestId("BTN_Validar").boundingBox())!;
+  expect(restoredButton.x - restored.x).toBe(406);
   expect(restored.x - resizedArea.x).toBeCloseTo(moved.x - area.x);
   expect(restored.y - resizedArea.y).toBeCloseTo(moved.y - area.y);
   await expect(window.getByTestId("EDT_Descricao")).toHaveValue("Preservar");

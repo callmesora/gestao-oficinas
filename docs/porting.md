@@ -65,6 +65,8 @@ WdWorkspace/useWorkspace in src/ui/legacy/workspace.tsx owns independent instanc
 
 dialog-keyboard.ts/trapDialogTab adds an explicit forward/backward Tab loop to both dialog roots; HTML dialog still supplies modal/inert behavior and source result handling. Off-canvas, disabled and negative-tab controls stay outside that loop. Workspace/browser flows exercise both directions through actual controls.
 
+Control anchors now use anchoredControl/useAnchoredControl in src/ui/legacy/anchors.tsx. WdFrame supplies width/height deltas from its source base; button/edit/memo/table primitives consume those deltas, including field caption/input subdivision. Explicit anchorRates support right/bottom/width/height percentages. The generated anchor labels correspond to [PC SOFT Anchor constants](https://doc.windev.com/en-US/?2510001=); missing/combined rate defaults are assumed under ADR-003/U-SKIN-01, not recovered from the labels. Dialogs keep their explicit sizing algorithms outside this frame context.
+
 ## Implemented database foundation
 
 HFSQL export → PostgreSQL: apps/server/src/db/column-mapping.v1.json names every field and conversion; legacy-import.ts exports convertCell/importLegacy/reconcileLegacy. Values cross this import boundary as exact strings, NULL or bytes, with typed provenance. migrate.ts owns transactional migration/checksum checks. legacy-import.test.ts exercises real PostgreSQL, rollback/retry, quarantine, precision, duplicate identities and restore; dry-run.ts reconciles the full copied dataset. This establishes import representation only; domain arithmetic and workflow write patterns above remain to implement in their owning stages.

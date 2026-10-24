@@ -64,3 +64,26 @@ test("table and read-only memo retain source columns, bounds, captions and compo
   const visual = await promisify(execFile)(process.execPath, ["scripts/py.mjs", "scripts/skin_visual_check.py", "ui-report/skin-table.png", "--fixture", "table"], { windowsHide: true });
   expect(JSON.parse(visual.stdout).passed).toBe(true);
 });
+
+test("table and memo consume the frame delta while retaining rows and controlled selection", async ({ page }) => {
+  await page.goto("/?skin=controls");
+  const fixture = page.getByTestId("skin-table-fixture"), table = fixture.getByTestId("TABLE_Clientes"), canvas = fixture.getByTestId("skin-table-canvas");
+  await table.locator("tbody tr").first().click();
+  const base = (await table.boundingBox())!, memo = fixture.getByTestId("EDT_Observacao");
+  const baseMemo = await memo.evaluate(element => element.parentElement!.getBoundingClientRect().toJSON() as { y: number; height: number });
+  const baseCanvas = (await canvas.boundingBox())!;
+  await fixture.getByTestId("skin-table-resize").check();
+  const resized = (await table.boundingBox())!, resizedCanvas = (await canvas.boundingBox())!;
+  expect(resized.width).toBe(base.width + 120);
+  expect(resized.height).toBe(base.height + 60);
+  expect(resized.x - resizedCanvas.x).toBe(base.x - baseCanvas.x);
+  expect(resized.y - resizedCanvas.y).toBe(base.y - baseCanvas.y);
+  const movedMemo = await memo.evaluate(element => element.parentElement!.getBoundingClientRect().toJSON() as { y: number; height: number });
+  expect(movedMemo.y - resizedCanvas.y).toBe(baseMemo.y - baseCanvas.y + 60);
+  expect(movedMemo.height).toBe(baseMemo.height);
+  await expect(table.locator('tbody tr[aria-selected="true"]')).toContainText("9007199254740993");
+  await fixture.getByTestId("skin-table-resize").uncheck();
+  await expect(table).toHaveCSS("width", `${base.width}px`);
+  await expect(table).toHaveCSS("height", `${base.height}px`);
+  await expect(table.locator("tbody tr")).toHaveCount(2);
+});

@@ -12,6 +12,8 @@ export interface LegacyControl {
   caption_width?: number; visible?: boolean; state?: string;
   tab_order?: number | string; image?: string; background_image?: string;
   h_align?: string;
+  anchoring?: string;
+  anchorRates?: { right?: number; bottom?: number; width?: number; height?: number };
   columns?: LegacyColumn[];
 }
 export interface LegacyLayout {

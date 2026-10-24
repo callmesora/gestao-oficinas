@@ -2,9 +2,11 @@ import { useId, type ButtonHTMLAttributes, type CSSProperties, type InputHTMLAtt
 import { buttonSkin, controlBox, controlOf, skinImage, type LegacyControl, type LegacyLayout } from "./layout";
 import "./skin.css";
 import { activateMnemonic, mnemonicCaption } from "./mnemonics";
+import { FrameDeltaContext, useAnchoredControl } from "./anchors";
 
 type ButtonProps = { control: LegacyControl; chrome?: boolean; interpretAmpersand?: boolean; style?: CSSProperties } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "type">;
-export function WdButton({ control, chrome = false, interpretAmpersand = true, style, className = "", tabIndex, ...props }: ButtonProps) {
+export function WdButton({ control: source, chrome = false, interpretAmpersand = true, style, className = "", tabIndex, ...props }: ButtonProps) {
+  const control = useAnchoredControl(source);
   const caption = mnemonicCaption(interpretAmpersand && !chrome ? control.caption ?? "" : "");
   return <button {...props} type="button" data-testid={control.name} data-control-path={control.path}
     data-wd-mnemonic={caption.letter ? caption.letter.toLocaleLowerCase("pt-PT") : undefined}
@@ -30,10 +32,11 @@ export function WdFrame({ layout, instance, children, width, height, onClose, on
     { name: "BTN_SYST_FERMER", label: "Fechar", action: onClose },
   ];
   const frameWidth = width ?? size.width;
+  const frameHeight = height ?? size.height;
   const skin = { "--wd-frame": `url("${skinImage(layout.window.background_image)}")` } as CSSProperties;
   return <section data-testid={instance} data-layout={layout.window.name} aria-label={title.caption ?? layout.window.title ?? undefined}
     data-wd-keyboard-scope="" tabIndex={-1} onKeyDown={activateMnemonic}
-    className="wd-frame" style={{ ...skin, width: frameWidth, height: height ?? size.height }}>
+    className="wd-frame" style={{ ...skin, width: frameWidth, height: frameHeight }}>
     <div className="wd-client">
       <div className="wd-title" data-testid={title.name} style={{ ...controlBox(title), width: (title.width ?? 0) + frameWidth - size.width }}>{title.caption}</div>
       {buttons.map(button => {
@@ -41,12 +44,13 @@ export function WdFrame({ layout, instance, children, width, height, onClose, on
         return <WdButton key={control.path} control={control} chrome aria-label={button.label} onClick={button.action}
           style={{ left: undefined, right: size.width - control.x - (control.width ?? 0) }} />;
       })}
-      {children}
+      <FrameDeltaContext.Provider value={{ width: frameWidth - size.width, height: frameHeight - size.height }}>{children}</FrameDeltaContext.Provider>
     </div>
   </section>;
 }
 
-export function WdEdit({ control, ...props }: { control: LegacyControl } & Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "style" | "className" | "id">) {
+export function WdEdit({ control: source, ...props }: { control: LegacyControl } & Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "style" | "className" | "id">) {
+  const control = useAnchoredControl(source);
   const id = useId();
   const captionWidth = control.caption_width ?? 0;
   return <div className="wd-field" hidden={props.hidden ?? control.visible === false} data-control-path={control.path} style={controlBox(control)}>
@@ -58,7 +62,8 @@ export function WdEdit({ control, ...props }: { control: LegacyControl } & Omit<
   </div>;
 }
 
-export function WdMemo({ control, ...props }: { control: LegacyControl } & Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "style" | "className" | "id">) {
+export function WdMemo({ control: source, ...props }: { control: LegacyControl } & Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "style" | "className" | "id">) {
+  const control = useAnchoredControl(source);
   const id = useId();
   const captionWidth = control.caption_width ?? 0;
   return <div className="wd-field wd-memo-field" hidden={props.hidden ?? control.visible === false} data-control-path={control.path} style={controlBox(control)}>
