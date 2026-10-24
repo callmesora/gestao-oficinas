@@ -3,6 +3,7 @@ import form from "./WIN_Form_Clientes.layout.json";
 import list from "./WIN_Table_Clientes.layout.json";
 import { controlOf } from "./layout";
 import { FrameDeltaContext } from "./anchors";
+import { useTableLayout } from "./table-layout";
 import { WdButton, WdEdit, WdFrame, WdMemo } from "./wd";
 import { WdTable } from "./table";
 import { DialogProvider, useDialogs } from "./dialogs";
@@ -81,8 +82,9 @@ const fixtureRows = [
 
 function TableFixture() {
   const [rows, setRows] = useState(fixtureRows);
-  const [columnWidths, setColumnWidths] = useState<Record<string, number>>({});
-  const [columnOrder, setColumnOrder] = useState<string[]>([]);
+  const baseTable = controlOf(list, "TABLE_Clientes");
+  const tableControl = { ...baseTable, flags: { ...baseTable.flags, ...(new URLSearchParams(window.location.search).get("columns") === "unsaved" ? { "Saves col. config.": false } : {}) } };
+  const { columnWidths, columnOrder, onColumnWidthsChange: setColumnWidths, onColumnOrderChange: setColumnOrder, resetLayout } = useTableLayout(tableControl, `${list.window.name}/${baseTable.path}`);
   const [locked, setLocked] = useState(false);
   const [movement, setMovement] = useState("free");
   const [resized, setResized] = useState(false);
@@ -95,6 +97,8 @@ function TableFixture() {
     <button data-testid="skin-empty" onClick={() => { setRows([]); select(null); }}>Esvaziar</button>
     <button data-testid="skin-reverse" onClick={() => setRows(value => [...value].reverse())}>Inverter linhas de teste</button>
     <label><input data-testid="skin-column-lock" type="checkbox" checked={locked} onChange={event => setLocked(event.target.checked)} />Bloquear largura de teste</label>
+    <a data-testid="skin-column-unsaved" href="/?skin=controls&columns=unsaved">Testar sem configuração guardada</a>
+    <button data-testid="skin-column-layout-reset" onClick={resetLayout}>Repor configuração de teste</button>
     <button data-testid="skin-column-reset" onClick={() => setColumnWidths({})}>Repor larguras de teste</button>
     <label>Movimento de teste <select data-testid="skin-column-movement" value={movement} onChange={event => setMovement(event.target.value)}><option value="free">Livre</option><option value="fixed">Fixa à esquerda</option><option value="locked">Imóvel</option></select></label>
     <button data-testid="skin-column-order-reset" onClick={() => setColumnOrder([])}>Repor ordem de teste</button>
@@ -105,7 +109,7 @@ function TableFixture() {
     <output data-testid="skin-sort">{sorted}</output>
     <div className="wd-component-canvas" data-testid="skin-table-canvas" style={{ width: list.window.size.width + (resized ? 120 : 0), height: list.window.size.height + (resized ? 60 : 0) }}>
       <FrameDeltaContext.Provider value={{ width: resized ? 120 : 0, height: resized ? 60 : 0 }}>
-      <WdTable control={{ ...controlOf(list, "TABLE_Clientes"), columns: controlOf(list, "TABLE_Clientes").columns!.map((column, index) => index === 0 ? { ...column, flags: { ...column.flags, ...(locked ? { "Adjustable width": false } : {}), ...(movement === "fixed" ? { "Fixed left": true } : {}), ...(movement === "locked" ? { Movable: false } : {}) } } : column) }} rows={rows} rowId={row => row.id} selectedId={selectedId}
+      <WdTable control={{ ...tableControl, columns: tableControl.columns!.map((column, index) => index === 0 ? { ...column, flags: { ...column.flags, ...(locked ? { "Adjustable width": false } : {}), ...(movement === "fixed" ? { "Fixed left": true } : {}), ...(movement === "locked" ? { Movable: false } : {}) } } : column) }} rows={rows} rowId={row => row.id} selectedId={selectedId}
         onSelect={select} onActivate={activate} onSort={column => sort(column.path)} columnWidths={columnWidths} onColumnWidthsChange={setColumnWidths} columnOrder={columnOrder} onColumnOrderChange={setColumnOrder}
         cell={(row, column) => column.name === "COL_Codigo" ? row.code : column.name === "COL_Descricao" ? row.description : ""} />
       <WdMemo control={controlOf(list, "EDT_Observacao")} value="" />

@@ -43,6 +43,11 @@
    "height": 18,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "RTF format": false,
+    "Default animation": false
+   },
    "anchoring": "Width",
    "input_mask": "0"
   },
@@ -56,6 +61,13 @@
    "height": 14,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "With click": true,
+    "Priority for click": false,
+    "Default animation": false,
+    "With focus": false
+   },
    "anchoring": "Right",
    "h_align": "Left"
   },
@@ -68,7 +80,11 @@
    "width": 128,
    "height": 18,
    "visible": true,
-   "state": "Active"
+   "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   }
   },
   {
    "name": "BTN_UMC",
@@ -81,6 +97,10 @@
    "caption": "&Bouton",
    "visible": false,
    "state": "Active",
+   "flags": {
+    "Visible": false,
+    "TAB Key": true
+   },
    "anchoring": "<None>",
    "tab_order": 1,
    "button_type": "Normal",
@@ -100,6 +120,10 @@
    "height": 19,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": false
+   },
    "anchoring": "<None>",
    "tab_order": "-1",
    "button_type": "Normal",
@@ -119,6 +143,10 @@
    "height": 19,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": false
+   },
    "anchoring": "<None>",
    "tab_order": "-1",
    "button_type": "Normal",
@@ -138,6 +166,10 @@
    "height": 19,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": false
+   },
    "anchoring": "<None>",
    "tab_order": "-1",
    "button_type": "Normal",
@@ -157,6 +189,23 @@
    "height": 24,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "<None>",
    "tab_order": 3,
    "h_align": "Right",
@@ -172,6 +221,23 @@
    "height": 24,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "<None>",
    "tab_order": 2,
    "h_align": "Right",
@@ -188,6 +254,23 @@
    "caption": "Tabela",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Browse": true,
+    "Use HFilter()": true,
+    "Lock record": false,
+    "Save on exit": true,
+    "Multi-selection": false,
+    "Display/Scrollbar": false,
+    "Proportional scrollbar": true,
+    "Scrollbar tooltip": true,
+    "Cascading input": false,
+    "ENTER Management": true,
+    "Saves col. config.": true,
+    "Anchored column": false,
+    "5.5-compatible": false
+   },
    "anchoring": "<None>",
    "tab_order": 4,
    "columns": [
@@ -276,7 +359,11 @@
    "y": 342,
    "width": 179,
    "height": 37,
-   "visible": true
+   "visible": true,
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   }
   },
   {
    "name": "STC_Titulo_Tabela",
@@ -289,6 +376,11 @@
    "caption": "Etiqueta",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "RTF format": false,
+    "Default animation": false
+   },
    "anchoring": "<None>",
    "input_mask": "0"
   }

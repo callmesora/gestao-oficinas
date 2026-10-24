@@ -44,6 +44,10 @@
    "caption": "1",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Bottom, height and width",
    "tab_order": 1,
    "button_type": "Normal",
@@ -62,6 +66,23 @@
    "height": 60,
    "visible": true,
    "state": "Read-only",
+   "flags": {
+    "Visible": true,
+    "TAB Key": false,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": false,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Bottom, height and width",
    "tab_order": "-1",
    "h_align": "Right",
@@ -78,6 +99,10 @@
    "caption": "2",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 2,
    "button_type": "Normal",
@@ -97,6 +122,10 @@
    "caption": "3",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 3,
    "button_type": "Normal",
@@ -116,6 +145,10 @@
    "caption": "4",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Bottom, height and width",
    "tab_order": 4,
    "button_type": "Normal",
@@ -135,6 +168,10 @@
    "caption": "5",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 5,
    "button_type": "Normal",
@@ -154,6 +191,10 @@
    "caption": "6",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 6,
    "button_type": "Normal",
@@ -173,6 +214,10 @@
    "caption": "7",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Bottom, height and width",
    "tab_order": 7,
    "button_type": "Normal",
@@ -192,6 +237,10 @@
    "caption": "8",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 8,
    "button_type": "Normal",
@@ -211,6 +260,10 @@
    "caption": "9",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 9,
    "button_type": "Normal",
@@ -230,6 +283,10 @@
    "caption": "0",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Bottom, height and width",
    "tab_order": 10,
    "button_type": "Normal",
@@ -248,6 +305,10 @@
    "height": 128,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 11,
    "button_type": "Normal",
@@ -267,6 +328,10 @@
    "height": 61,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 12,
    "button_type": "Normal",
@@ -287,6 +352,10 @@
    "caption": "Numero",
    "visible": true,
    "state": "Read-only",
+   "flags": {
+    "Visible": true,
+    "TAB Key": false
+   },
    "anchoring": "Width and height",
    "tab_order": "-1",
    "button_type": "Normal",
@@ -306,6 +375,10 @@
    "caption": ".",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 14,
    "button_type": "Normal",
@@ -325,6 +398,10 @@
    "caption": "-",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 15,
    "button_type": "Normal",
@@ -344,6 +421,10 @@
    "caption": "C",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 16,
    "button_type": "Normal",
@@ -363,6 +444,23 @@
    "caption": "Imput Manual (nªo visivel em runtime)",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": false,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "<None>",
    "tab_order": "-1",
    "h_align": "Left",

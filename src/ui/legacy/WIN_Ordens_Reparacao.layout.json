@@ -44,6 +44,11 @@
    "caption": "Ordens de Reparaçªo",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "RTF format": false,
+    "Default animation": false
+   },
    "anchoring": "Width",
    "input_mask": "0"
   },
@@ -57,6 +62,13 @@
    "height": 14,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "With click": true,
+    "Priority for click": false,
+    "Default animation": false,
+    "With focus": false
+   },
    "anchoring": "Right",
    "h_align": "Left"
   },
@@ -69,7 +81,11 @@
    "width": 128,
    "height": 18,
    "visible": true,
-   "state": "Active"
+   "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   }
   },
   {
    "name": "BTN_UMC",
@@ -82,6 +98,10 @@
    "caption": "&Bouton",
    "visible": false,
    "state": "Active",
+   "flags": {
+    "Visible": false,
+    "TAB Key": true
+   },
    "anchoring": "<None>",
    "tab_order": 1,
    "button_type": "Normal",
@@ -101,6 +121,10 @@
    "height": 19,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": false
+   },
    "anchoring": "<None>",
    "tab_order": "-1",
    "button_type": "Normal",
@@ -120,6 +144,10 @@
    "height": 19,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": false
+   },
    "anchoring": "<None>",
    "tab_order": "-1",
    "button_type": "Normal",
@@ -139,6 +167,10 @@
    "height": 19,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": false
+   },
    "anchoring": "<None>",
    "tab_order": "-1",
    "button_type": "Normal",
@@ -158,6 +190,23 @@
    "height": 403,
    "caption": "QRY_select_ordens_reparacao Tabela",
    "visible": true,
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Browse": true,
+    "Use HFilter()": true,
+    "Lock record": false,
+    "Save on exit": true,
+    "Multi-selection": false,
+    "Display/Scrollbar": false,
+    "Proportional scrollbar": true,
+    "Scrollbar tooltip": true,
+    "Cascading input": false,
+    "ENTER Management": true,
+    "Saves col. config.": true,
+    "Anchored column": false,
+    "5.5-compatible": false
+   },
    "anchoring": "Bottom, height and width",
    "tab_order": 22,
    "columns": [
@@ -471,6 +520,23 @@
    "caption": "Início",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Bottom, height and width",
    "tab_order": 8,
    "h_align": "Right",
@@ -488,6 +554,11 @@
    "caption": "Data Entrada",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "RTF format": false,
+    "Default animation": false
+   },
    "anchoring": "<None>",
    "input_mask": "0"
   },
@@ -502,6 +573,23 @@
    "caption": "Fim",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Bottom, height and width",
    "tab_order": 14,
    "h_align": "Right",
@@ -516,7 +604,12 @@
    "y": 36,
    "width": 129,
    "height": 20,
-   "visible": true
+   "visible": true,
+   "flags": {
+    "Visible": true,
+    "RTF format": false,
+    "Default animation": false
+   }
   },
   {
    "name": "TABLE_Estados_reparacao",
@@ -529,6 +622,23 @@
    "caption": "estados_reparacao Tabela",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Browse": true,
+    "Use HFilter()": true,
+    "Lock record": false,
+    "Save on exit": true,
+    "Multi-selection": false,
+    "Display/Scrollbar": false,
+    "Proportional scrollbar": true,
+    "Scrollbar tooltip": true,
+    "Cascading input": false,
+    "ENTER Management": true,
+    "Saves col. config.": true,
+    "Anchored column": false,
+    "5.5-compatible": false
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 9,
    "columns": [
@@ -692,6 +802,23 @@
    "caption": "Fim",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 13,
    "h_align": "Right",
@@ -709,6 +836,23 @@
    "caption": "Início",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 6,
    "h_align": "Right",
@@ -726,6 +870,11 @@
    "caption": "Data Entrega",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "RTF format": false,
+    "Default animation": false
+   },
    "anchoring": "Right",
    "input_mask": "0"
   },
@@ -740,6 +889,11 @@
    "caption": "Prioridade",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "RTF format": false,
+    "Default animation": false
+   },
    "anchoring": "Right",
    "input_mask": "0"
   },
@@ -754,6 +908,12 @@
    "caption": "&Selector",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Proportional column": false,
+    "Three states": false
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 10,
    "h_align": "Left",
@@ -770,6 +930,23 @@
    "height": 24,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": true,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 12,
    "h_align": "Left",
@@ -786,6 +963,11 @@
    "caption": "Matrícula / Marca",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "RTF format": false,
+    "Default animation": false
+   },
    "input_mask": "0"
   },
   {
@@ -799,6 +981,11 @@
    "caption": "Mecânico",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "RTF format": false,
+    "Default animation": false
+   },
    "anchoring": "Right and bottom, height",
    "input_mask": "0"
   },
@@ -812,6 +999,18 @@
    "height": 31,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Browse": true,
+    "Sorted": false,
+    "With input": false,
+    "Required input": false,
+    "File assisted input": false,
+    "NULL if empty": false,
+    "Scrollbar tooltip": true,
+    "Horizontal scroll": false
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 17,
    "h_align": "Left",
@@ -827,6 +1026,10 @@
    "height": 24,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 19,
    "button_type": "Normal",
@@ -846,6 +1049,10 @@
    "height": 24,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 11,
    "button_type": "Normal",
@@ -866,6 +1073,10 @@
    "caption": "Actualizar Dados",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 7,
    "button_type": "Normal",
@@ -886,6 +1097,10 @@
    "caption": "Novo",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 23,
    "button_type": "Normal",
@@ -906,6 +1121,10 @@
    "caption": "Alterar",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 24,
    "button_type": "Normal",
@@ -926,6 +1145,10 @@
    "caption": "Eliminar",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 25,
    "button_type": "Normal",
@@ -946,6 +1169,10 @@
    "caption": "[    ]",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right, height and width",
    "tab_order": 5,
    "button_type": "Normal",
@@ -965,6 +1192,10 @@
    "caption": "[ X ]",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right, height and width",
    "tab_order": 4,
    "button_type": "Normal",
@@ -983,6 +1214,10 @@
    "height": 24,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 15,
    "button_type": "Normal",
@@ -1002,6 +1237,10 @@
    "height": 24,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right, height and width",
    "tab_order": 2,
    "button_type": "Normal",
@@ -1022,6 +1261,10 @@
    "caption": "Informaçªo",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 26,
    "button_type": "Normal",
@@ -1042,6 +1285,10 @@
    "caption": "Imprimir",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 27,
    "button_type": "Normal",
@@ -1062,6 +1309,10 @@
    "caption": "Defa",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right, height and width",
    "tab_order": 3,
    "button_type": "Normal",
@@ -1081,6 +1332,10 @@
    "caption": "Gravar",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 21,
    "button_type": "Normal",
@@ -1099,6 +1354,10 @@
    "height": 24,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 18,
    "button_type": "Normal",
@@ -1118,6 +1377,23 @@
    "height": 24,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 20,
    "h_align": "Right",
@@ -1134,6 +1410,11 @@
    "caption": "Cliente/Terceiro",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "RTF format": false,
+    "Default animation": false
+   },
    "anchoring": "Right and bottom, height and width",
    "input_mask": "0"
   },
@@ -1147,6 +1428,10 @@
    "height": 18,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 16,
    "button_type": "Normal",

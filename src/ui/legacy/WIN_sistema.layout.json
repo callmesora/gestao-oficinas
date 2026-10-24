@@ -44,6 +44,11 @@
    "caption": "Sistema",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "RTF format": false,
+    "Default animation": false
+   },
    "anchoring": "Width",
    "input_mask": "0"
   },
@@ -57,6 +62,13 @@
    "height": 14,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "With click": true,
+    "Priority for click": false,
+    "Default animation": false,
+    "With focus": false
+   },
    "anchoring": "Right",
    "h_align": "Left"
   },
@@ -69,7 +81,11 @@
    "width": 128,
    "height": 18,
    "visible": true,
-   "state": "Active"
+   "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   }
   },
   {
    "name": "BTN_UMC",
@@ -82,6 +98,10 @@
    "caption": "&Bouton",
    "visible": false,
    "state": "Active",
+   "flags": {
+    "Visible": false,
+    "TAB Key": true
+   },
    "anchoring": "<None>",
    "tab_order": 1,
    "button_type": "Normal",
@@ -101,6 +121,10 @@
    "height": 19,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": false
+   },
    "anchoring": "<None>",
    "tab_order": "-1",
    "button_type": "Normal",
@@ -120,6 +144,10 @@
    "height": 19,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": false
+   },
    "anchoring": "<None>",
    "tab_order": "-1",
    "button_type": "Normal",
@@ -139,6 +167,10 @@
    "height": 19,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": false
+   },
    "anchoring": "<None>",
    "tab_order": "-1",
    "button_type": "Normal",
@@ -159,6 +191,10 @@
    "caption": "Guardar",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right",
    "tab_order": 8,
    "button_type": "Normal",
@@ -179,6 +215,10 @@
    "caption": "Cancelar",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right",
    "tab_order": 9,
    "button_type": "Normal",
@@ -198,6 +238,23 @@
    "height": 25,
    "caption": "Atualizaçªo ordens de reparaçªo (segundos)",
    "visible": true,
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "<None>",
    "tab_order": 2,
    "h_align": "Right",
@@ -215,6 +272,23 @@
    "caption": "Atualizaçªo materiais (segundos)",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "<None>",
    "tab_order": 3,
    "h_align": "Right",
@@ -232,6 +306,23 @@
    "caption": "Atualizaçªo tempos (segundos)",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "<None>",
    "tab_order": 4,
    "h_align": "Right",
@@ -249,6 +340,23 @@
    "caption": "Mostrar movimentos atØ dias anteriores",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "<None>",
    "tab_order": 5,
    "h_align": "Right",
@@ -265,6 +373,23 @@
    "height": 25,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Right",
    "tab_order": 6,
    "h_align": "Right",
@@ -281,6 +406,11 @@
    "caption": "Encerrar tempos automaticamente a partir das:",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "RTF format": false,
+    "Default animation": false
+   },
    "anchoring": "<None>",
    "input_mask": "0"
   },
@@ -294,6 +424,23 @@
    "height": 25,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Right",
    "tab_order": 7,
    "h_align": "Right",
@@ -310,6 +457,11 @@
    "caption": "e",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "RTF format": false,
+    "Default animation": false
+   },
    "anchoring": "Right",
    "input_mask": "0"
   }

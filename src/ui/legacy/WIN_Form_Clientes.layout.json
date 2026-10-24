@@ -44,6 +44,10 @@
    "caption": "Validar",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right",
    "tab_order": 3,
    "button_type": "Validate",
@@ -64,6 +68,10 @@
    "caption": "Cancelar",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right",
    "tab_order": 4,
    "button_type": "Abort",
@@ -82,7 +90,11 @@
    "width": 386,
    "height": 390,
    "visible": true,
-   "state": "Active"
+   "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   }
   },
   {
    "name": "EDT_Codigo",
@@ -95,6 +107,23 @@
    "caption": "Código",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": true,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Width",
    "tab_order": 1,
    "h_align": "Right",
@@ -112,6 +141,23 @@
    "caption": "Descriçªo",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": true,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Width",
    "tab_order": 2,
    "h_align": "Left",
@@ -129,6 +175,23 @@
    "caption": "Morada 1",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": true,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Width",
    "tab_order": 3,
    "h_align": "Left",
@@ -146,6 +209,23 @@
    "caption": "Morada2",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": true,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Width",
    "tab_order": 4,
    "h_align": "Left",
@@ -163,6 +243,23 @@
    "caption": "Código Postal",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": true,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Width",
    "tab_order": 5,
    "h_align": "Left",
@@ -180,6 +277,23 @@
    "caption": "Telefone",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": true,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Width",
    "tab_order": 6,
    "h_align": "Left",
@@ -197,6 +311,23 @@
    "caption": "Telemóvel",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": true,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Width",
    "tab_order": 7,
    "h_align": "Left",
@@ -214,6 +345,23 @@
    "caption": "Observaçıes",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": true,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": false,
+    "Vertical scroll": true,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": true
+   },
    "anchoring": "Width",
    "tab_order": 8,
    "h_align": "Left",
@@ -231,6 +379,11 @@
    "caption": "Clientes",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "RTF format": false,
+    "Default animation": false
+   },
    "anchoring": "Width",
    "input_mask": "0"
   },
@@ -243,7 +396,11 @@
    "width": 128,
    "height": 18,
    "visible": true,
-   "state": "Active"
+   "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   }
   },
   {
    "name": "BTN_UMC",
@@ -256,6 +413,10 @@
    "caption": "&Bouton",
    "visible": false,
    "state": "Active",
+   "flags": {
+    "Visible": false,
+    "TAB Key": true
+   },
    "anchoring": "<None>",
    "tab_order": 1,
    "button_type": "Normal",
@@ -275,6 +436,10 @@
    "height": 19,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": false
+   },
    "anchoring": "<None>",
    "tab_order": "-1",
    "button_type": "Normal",
@@ -294,6 +459,10 @@
    "height": 19,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": false
+   },
    "anchoring": "<None>",
    "tab_order": "-1",
    "button_type": "Normal",
@@ -313,6 +482,10 @@
    "height": 19,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": false
+   },
    "anchoring": "<None>",
    "tab_order": "-1",
    "button_type": "Normal",
@@ -332,6 +505,13 @@
    "height": 14,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "With click": true,
+    "Priority for click": false,
+    "Default animation": false,
+    "With focus": false
+   },
    "anchoring": "Right",
    "h_align": "Left"
   }

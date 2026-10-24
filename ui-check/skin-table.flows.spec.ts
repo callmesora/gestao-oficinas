@@ -108,6 +108,7 @@ test("source-enabled column resizing updates controlled widths without sorting o
   await fixture.getByTestId("skin-column-reset").click();
   await expect(code).toHaveCSS("width", "80px");
   await fixture.getByTestId("skin-column-lock").uncheck();
+  await handle.scrollIntoViewIfNeeded();
   const reset = (await handle.boundingBox())!;
   await page.mouse.move(reset.x + 2, reset.y + 10); await page.mouse.down();
   await page.mouse.move(reset.x - 98, reset.y + 10, { steps: 4 }); await page.mouse.up();
@@ -152,4 +153,48 @@ test("movable headers reorder real cells and controlled state without losing wid
   await expect(table.locator("thead th").nth(1)).toHaveAttribute("data-testid", "COL_Descricao");
   await expect(code).toHaveCSS("width", "88px");
   await expect(fixture.getByTestId("skin-selection")).toHaveText("9007199254740993");
+});
+
+test("source-enabled saved column layout survives real reload without saving row selection or data", async ({ page }) => {
+  await page.goto("/?skin=controls");
+  const fixture = page.getByTestId("skin-table-fixture"), table = fixture.getByTestId("TABLE_Clientes"), code = table.getByTestId("COL_Codigo");
+  const key = "gestao-oficinas:table-layout:v1:" + encodeURIComponent(`${list.window.name}/TABLE_Clientes`);
+  await table.locator("tbody tr").first().click();
+  await code.getByTestId("COL_Codigo__resize").focus(); await page.keyboard.press("ArrowRight");
+  await code.getByRole("button").dragTo(table.getByTestId("COL_Descricao").getByRole("button"));
+  await expect.poll(() => page.evaluate(key => JSON.parse(localStorage.getItem(key) ?? "null") as { widths?: Record<string, number> } | null, key)).toMatchObject({ widths: { "TABLE_Clientes.COL_Codigo": 88 } });
+  const saved = await page.evaluate(key => JSON.parse(localStorage.getItem(key)!) as Record<string, unknown>, key);
+  expect(Object.keys(saved).sort()).toEqual(["order", "version", "widths"]);
+  expect(JSON.stringify(saved)).not.toContain("9007199254740993");
+  await page.reload();
+  await expect(code).toHaveCSS("width", "88px");
+  await expect(table.locator("thead th").first()).toHaveAttribute("data-testid", "COL_Descricao");
+  await expect(table.locator('tbody tr[aria-selected="true"]')).toHaveCount(0);
+  await expect(fixture.getByTestId("skin-sort")).toBeEmpty();
+  await fixture.getByTestId("skin-column-layout-reset").click();
+  await page.reload();
+  await expect(code).toHaveCSS("width", "80px");
+  await expect(table.locator("thead th").first()).toHaveAttribute("data-testid", "COL_Codigo");
+});
+
+test("column settings reconcile stale keys and disabled config saving never reads or overwrites them", async ({ page }) => {
+  await page.goto("/?skin=controls");
+  const key = "gestao-oficinas:table-layout:v1:" + encodeURIComponent(`${list.window.name}/TABLE_Clientes`);
+  await page.evaluate(key => localStorage.setItem(key, "{"), key);
+  await page.reload();
+  const fixture = page.getByTestId("skin-table-fixture"), table = fixture.getByTestId("TABLE_Clientes"), code = table.getByTestId("COL_Codigo");
+  await expect(code).toHaveCSS("width", "80px");
+  expect(await page.evaluate(key => localStorage.getItem(key), key)).toBe("{");
+  const stale = JSON.stringify({ version: 1, widths: { stale: 999, "TABLE_Clientes.COL_Codigo": 91 }, order: ["TABLE_Clientes.COL_Descricao", "stale", "TABLE_Clientes.COL_Codigo"] });
+  await page.evaluate(({ key, stale }) => localStorage.setItem(key, stale), { key, stale });
+  await page.reload();
+  await expect(code).toHaveCSS("width", "91px");
+  await expect(table.locator("thead th").first()).toHaveAttribute("data-testid", "COL_Descricao");
+  expect(await page.evaluate(key => localStorage.getItem(key), key)).toBe(stale);
+  await fixture.getByTestId("skin-column-unsaved").click();
+  await expect(code).toHaveCSS("width", "80px");
+  await expect(table.locator("thead th").first()).toHaveAttribute("data-testid", "COL_Codigo");
+  await code.getByTestId("COL_Codigo__resize").focus(); await page.keyboard.press("ArrowRight");
+  await expect(code).toHaveCSS("width", "88px");
+  expect(await page.evaluate(key => localStorage.getItem(key), key)).toBe(stale);
 });

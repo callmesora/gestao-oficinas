@@ -43,6 +43,23 @@
    "height": 554,
    "visible": true,
    "state": "Read-only",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Browse": true,
+    "Use HFilter()": true,
+    "Lock record": false,
+    "Save on exit": true,
+    "Multi-selection": false,
+    "Display/Scrollbar": false,
+    "Proportional scrollbar": true,
+    "Scrollbar tooltip": true,
+    "Cascading input": true,
+    "ENTER Management": true,
+    "Saves col. config.": true,
+    "Anchored column": false,
+    "5.5-compatible": false
+   },
    "anchoring": "Width and height",
    "tab_order": 2,
    "columns": [
@@ -184,6 +201,10 @@
    "caption": "Fechar",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right",
    "tab_order": 7,
    "button_type": "Abort",
@@ -204,6 +225,10 @@
    "caption": "Novo",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right",
    "tab_order": 3,
    "button_type": "Normal",
@@ -224,6 +249,10 @@
    "caption": "Modificar",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right",
    "tab_order": 4,
    "button_type": "Normal",
@@ -244,6 +273,10 @@
    "caption": "Apagar",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right",
    "tab_order": 5,
    "button_type": "Normal",
@@ -264,6 +297,10 @@
    "caption": "Imprimir",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right",
    "tab_order": 6,
    "button_type": "Normal",
@@ -284,6 +321,11 @@
    "caption": "Tabela de Documentos",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "RTF format": false,
+    "Default animation": false
+   },
    "anchoring": "Width",
    "input_mask": "0"
   },
@@ -296,7 +338,11 @@
    "width": 128,
    "height": 18,
    "visible": true,
-   "state": "Active"
+   "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   }
   },
   {
    "name": "BTN_UMC",
@@ -309,6 +355,10 @@
    "caption": "&Bouton",
    "visible": false,
    "state": "Active",
+   "flags": {
+    "Visible": false,
+    "TAB Key": true
+   },
    "anchoring": "<None>",
    "tab_order": 1,
    "button_type": "Normal",
@@ -328,6 +378,10 @@
    "height": 19,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": false
+   },
    "anchoring": "<None>",
    "tab_order": "-1",
    "button_type": "Normal",
@@ -347,6 +401,10 @@
    "height": 19,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": false
+   },
    "anchoring": "<None>",
    "tab_order": "-1",
    "button_type": "Normal",
@@ -366,6 +424,10 @@
    "height": 19,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": false
+   },
    "anchoring": "<None>",
    "tab_order": "-1",
    "button_type": "Normal",
@@ -385,6 +447,13 @@
    "height": 14,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "With click": true,
+    "Priority for click": false,
+    "Default animation": false,
+    "With focus": false
+   },
    "anchoring": "Right",
    "h_align": "Left"
   },
@@ -399,6 +468,10 @@
    "caption": "Selecionar",
    "visible": false,
    "state": "Active",
+   "flags": {
+    "Visible": false,
+    "TAB Key": true
+   },
    "anchoring": "Right",
    "tab_order": 8,
    "button_type": "Validate",
@@ -419,6 +492,10 @@
    "caption": "Seguinte",
    "visible": false,
    "state": "Active",
+   "flags": {
+    "Visible": false,
+    "TAB Key": true
+   },
    "anchoring": "Right",
    "tab_order": 9,
    "button_type": "Validate",
@@ -439,6 +516,10 @@
    "caption": "Anterior",
    "visible": false,
    "state": "Active",
+   "flags": {
+    "Visible": false,
+    "TAB Key": true
+   },
    "anchoring": "Right",
    "tab_order": 10,
    "button_type": "Validate",

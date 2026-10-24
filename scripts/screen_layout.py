@@ -100,7 +100,7 @@ def layout(unit, latest, language=None):
         entry = {'name': item['name'], 'path': identity['path'], 'kind': details.get('kind') or item['kind'],
                  'x': item['x'], 'y': item['y'], 'width': item.get('width'), 'height': item.get('height'),
                  'caption': pick(details.get('caption') or details.get('title'), language),
-                 'visible': (details.get('flags') or {}).get('Visible'), 'state': details.get('state'),
+                 'visible': (details.get('flags') or {}).get('Visible'), 'state': details.get('state'), 'flags': details.get('flags'),
                  'anchoring': details.get('anchoring'), 'tab_order': details.get('tab_order'),
                  'button_type': details.get('button_type'), 'h_align': details.get('h_align') or raw_value(raw, 'Horz. alignment'),
                  'input_mask': pick(details.get('input_mask'), language), 'image': image,

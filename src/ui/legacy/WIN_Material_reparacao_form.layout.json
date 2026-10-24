@@ -44,6 +44,11 @@
    "caption": "Materiais de Reparaçªo",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "RTF format": false,
+    "Default animation": false
+   },
    "anchoring": "Width",
    "input_mask": "0"
   },
@@ -57,6 +62,13 @@
    "height": 14,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "With click": true,
+    "Priority for click": false,
+    "Default animation": false,
+    "With focus": false
+   },
    "anchoring": "Right",
    "h_align": "Left"
   },
@@ -69,7 +81,11 @@
    "width": 128,
    "height": 18,
    "visible": true,
-   "state": "Active"
+   "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   }
   },
   {
    "name": "BTN_UMC",
@@ -82,6 +98,10 @@
    "caption": "&Bouton",
    "visible": false,
    "state": "Active",
+   "flags": {
+    "Visible": false,
+    "TAB Key": true
+   },
    "anchoring": "<None>",
    "tab_order": 1,
    "button_type": "Normal",
@@ -101,6 +121,10 @@
    "height": 19,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": false
+   },
    "anchoring": "<None>",
    "tab_order": "-1",
    "button_type": "Normal",
@@ -120,6 +144,10 @@
    "height": 19,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": false
+   },
    "anchoring": "<None>",
    "tab_order": "-1",
    "button_type": "Normal",
@@ -139,6 +167,10 @@
    "height": 19,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": false
+   },
    "anchoring": "<None>",
    "tab_order": "-1",
    "button_type": "Normal",
@@ -159,6 +191,11 @@
    "caption": "Viatura",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "RTF format": false,
+    "Default animation": false
+   },
    "anchoring": "Width and height",
    "input_mask": "0"
   },
@@ -172,6 +209,23 @@
    "height": 38,
    "visible": true,
    "state": "Read-only",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Bottom, height and width",
    "tab_order": 2,
    "h_align": "Left",
@@ -187,6 +241,23 @@
    "height": 38,
    "visible": true,
    "state": "Read-only",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 3,
    "h_align": "Left",
@@ -202,6 +273,23 @@
    "height": 38,
    "visible": true,
    "state": "Read-only",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Bottom, height and width",
    "tab_order": 5,
    "h_align": "Left",
@@ -218,6 +306,11 @@
    "caption": "Mecânico",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "RTF format": false,
+    "Default animation": false
+   },
    "anchoring": "Bottom, height and width",
    "input_mask": "0"
   },
@@ -232,6 +325,10 @@
    "caption": "...",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 6,
    "button_type": "Normal",
@@ -250,6 +347,23 @@
    "height": 325,
    "visible": true,
    "state": "Read-only",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Browse": true,
+    "Use HFilter()": true,
+    "Lock record": false,
+    "Save on exit": true,
+    "Multi-selection": false,
+    "Display/Scrollbar": false,
+    "Proportional scrollbar": true,
+    "Scrollbar tooltip": true,
+    "Cascading input": false,
+    "ENTER Management": true,
+    "Saves col. config.": true,
+    "Anchored column": false,
+    "5.5-compatible": false
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 7,
    "columns": [
@@ -465,6 +579,23 @@
    "height": 38,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Bottom, height and width",
    "tab_order": 15,
    "h_align": "Right",
@@ -481,6 +612,11 @@
    "caption": "Quant",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "RTF format": false,
+    "Default animation": false
+   },
    "anchoring": "Bottom, height and width",
    "input_mask": "0"
   },
@@ -495,6 +631,11 @@
    "caption": "Artigo",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "RTF format": false,
+    "Default animation": false
+   },
    "anchoring": "Right and bottom, height and width",
    "input_mask": "0"
   },
@@ -508,6 +649,23 @@
    "height": 38,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 16,
    "h_align": "Left",
@@ -524,6 +682,10 @@
    "caption": "...",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 17,
    "button_type": "Normal",
@@ -542,6 +704,23 @@
    "height": 38,
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true,
+    "Multiline": false,
+    "RTF format": false,
+    "Password": false,
+    "Required input": false,
+    "Blank if zero": false,
+    "NULL if empty": false,
+    "File assisted input": false,
+    "Automatic erase": true,
+    "End of automatic input": false,
+    "Horizontal scroll": true,
+    "Vertical scroll": false,
+    "Horz. scrollbar": false,
+    "Vert. scrollbar": false
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 18,
    "h_align": "Left",
@@ -558,6 +737,10 @@
    "caption": "Adicionar",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 19,
    "button_type": "Validate",
@@ -578,6 +761,10 @@
    "caption": "Cancelar",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 20,
    "button_type": "Abort",
@@ -598,6 +785,10 @@
    "caption": "Sair",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 4,
    "button_type": "Abort",
@@ -618,6 +809,10 @@
    "caption": "Leitor",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 14,
    "button_type": "Normal",
@@ -638,6 +833,10 @@
    "caption": "Quantidade",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 12,
    "button_type": "Normal",
@@ -658,6 +857,10 @@
    "caption": "Eliminar",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 10,
    "button_type": "Normal",
@@ -678,6 +881,10 @@
    "caption": "Anterior",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 8,
    "button_type": "Validate",
@@ -698,6 +905,10 @@
    "caption": "Seguinte",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 9,
    "button_type": "Validate",
@@ -718,6 +929,10 @@
    "caption": "Preço",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 11,
    "button_type": "Normal",
@@ -738,6 +953,10 @@
    "caption": "Descriçªo",
    "visible": true,
    "state": "Active",
+   "flags": {
+    "Visible": true,
+    "TAB Key": true
+   },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 13,
    "button_type": "Normal",
