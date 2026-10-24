@@ -1,5 +1,7 @@
 # Screen spec — WIN_Form_Clientes
 
+MIG-7A implementation in progress: src/ui/customers.tsx uses the generated layout and React Hook Form. Non-legacy identifiers: customer-form-frame (frame instance), customer-form-restore (collapsed modal restore control), customer-form-diagnostic (developer-only typed failure output). The synthetic development environment is ADR-009, not WIN_Acesso parity. Untouched nullable text stays NULL; edited blank text stays empty. U-C286277B-01 retains cross-container Tab/default-key and modal minimize/restore acceptance; collapsed modal restoration is a reversible target choice, not recovered native behavior. The owning workflow must complete its two reviews and native checks before closure.
+
 Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Form_Clientes.wdw`, `dossier: WIN_Form_Clientes`, `docs/mapping/WIN_Form_Clientes.md`. Step 0 specification only.
 
 ## Contract

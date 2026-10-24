@@ -1,0 +1,123 @@
+import { expect, test } from "@playwright/test";
+
+test("SRC-51085948c6 real customer form validates, saves, edits, cancels and persists through the API", async ({ page, request }) => {
+  await page.goto("/?workflow=customers");
+  await page.getByTestId("customers-open").click();
+  await page.getByTestId("Btn_New").click();
+  const form = page.getByTestId("WIN_Form_Clientes");
+  await expect(form.getByTestId("EDT_Descricao")).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(form).toHaveCount(0);
+  await expect(page.getByTestId("WIN_Table_Clientes")).toBeVisible();
+  await page.getByTestId("Btn_New").click();
+  await form.getByTestId("EDT_Codigo").fill("0");
+  await form.getByTestId("BTN_Validar").click();
+  await expect(page.getByTestId("LIB_INFO")).toHaveText("Falta indicar o código");
+  await page.getByTestId("WINDEVMESSAGEBOX").getByTestId("BTN_OK").click();
+  const code = String(Date.now());
+  const description = `Cliente sintético d'Água ${code}`, edited = `Cliente sintético editado ${code}`;
+  await form.getByTestId("EDT_Codigo").fill(code);
+  await form.getByTestId("BTN_Validar").click();
+  await expect(page.getByTestId("LIB_INFO")).toHaveText("Falta indicar a descrição");
+  await page.getByTestId("WINDEVMESSAGEBOX").getByTestId("BTN_OK").click();
+  await form.getByTestId("EDT_Descricao").fill(description);
+  await form.getByTestId("EDT_Observacao").fill("Primeira linha\nSegunda linha");
+  await form.getByTestId("BTN_Validar").click();
+  await expect(form).toHaveCount(0);
+  const row = page.getByTestId("TABLE_Clientes").getByRole("row").filter({ hasText: description });
+  await row.click();
+  await expect(page.getByTestId("EDT_Observacao")).toHaveValue("Primeira linha\nSegunda linha");
+  let releaseRead!: () => void;
+  const gate = new Promise<void>(resolve => { releaseRead = resolve; });
+  await page.route("**/api/customers/list", async route => {
+    const response = await route.fetch();
+    await gate; await route.fulfill({ response });
+  });
+  await page.getByTestId("BTN_codigo").click();
+  await expect(page.getByTestId("BTN_Modificar")).toBeDisabled();
+  await expect(page.getByTestId("BTN_Delete")).toBeDisabled();
+  releaseRead();
+  await expect(page.getByTestId("BTN_Modificar")).toBeEnabled();
+  await page.unroute("**/api/customers/list");
+  await page.getByTestId("BTN_Modificar").click();
+  await expect(form.getByTestId("EDT_Codigo")).toHaveAttribute("readonly", "");
+  await form.getByTestId("EDT_Descricao").fill("Alteração cancelada");
+  await form.getByTestId("BTN_Cancelar").click();
+  await expect(row).toBeVisible();
+  await row.dblclick();
+  await form.getByTestId("EDT_Descricao").fill(edited);
+  await form.getByTestId("BTN_Validar").click();
+  await expect(form).toHaveCount(0);
+  const session = await request.post("/api/development/session", { headers: { Origin: "http://localhost:1431", "X-Isolated-Development": "1" } });
+  const { token } = await session.json();
+  const data = await request.post("/api/customers/list", { headers: { Authorization: `Bearer ${token}` }, data: { mode: "codigo", term: code } });
+  expect((await data.json()).customers).toMatchObject([{ Codigo: code, Descricao: edited, observacao: "Primeira linha\r\nSegunda linha" }]);
+  await page.reload(); await page.getByTestId("customers-open").click();
+  await expect(page.getByTestId("TABLE_Clientes").getByRole("row").filter({ hasText: edited })).toBeVisible();
+});
+
+test("SRC-0bb0e89335 real delete dialog cancels safely and explicit Sim removes the persisted customer", async ({ page, request }) => {
+  const session = await request.post("/api/development/session", { headers: { Origin: "http://localhost:1431", "X-Isolated-Development": "1" } });
+  const { token } = await session.json(), headers = { Authorization: `Bearer ${token}` };
+  const Codigo = String(Date.now());
+  const result = await request.post("/api/customers/save", { headers, data: { mode: "create", values: { Codigo, Descricao: "Cliente sintético eliminar", Morada1: "", Morada2: "", codpostal: "", Telefone1: "", Telemovel: "", observacao: "" } } });
+  expect((await result.json()).kind).toBe("saved");
+  await page.goto("/?workflow=customers"); await page.getByTestId("customers-open").click();
+  const row = page.getByTestId("TABLE_Clientes").getByRole("row").filter({ hasText: "Cliente sintético eliminar" });
+  await row.click(); await page.getByTestId("BTN_Delete").click();
+  const dialog = page.getByTestId("WINDEVDIALOGBOX");
+  await expect(dialog).toBeVisible();
+  await dialog.getByRole("button", { name: "Não", exact: true }).click();
+  await expect(row).toBeVisible();
+  await page.getByTestId("BTN_Delete").click();
+  await dialog.getByRole("button", { name: "Sim", exact: true }).click();
+  await expect(row).toHaveCount(0);
+  const data = await request.post("/api/customers/list", { headers, data: { mode: "codigo", term: Codigo } });
+  expect((await data.json()).customers).toEqual([]);
+});
+
+test("SRC-284e9feb26 real list search modes reset/focus and duplicate save keeps the form open", async ({ page, request }) => {
+  const session = await request.post("/api/development/session", { headers: { Origin: "http://localhost:1431", "X-Isolated-Development": "1" } });
+  const { token } = await session.json(), headers = { Authorization: `Bearer ${token}` };
+  const Codigo = String(Date.now()), description = `Pesquisa ${Codigo}`;
+  const values = { Codigo, Descricao: description, Morada1: `Rua ${Codigo}`, Morada2: `Lugar ${Codigo}`, codpostal: `CP ${Codigo}`, Telefone1: `Tel ${Codigo}`, Telemovel: `Mov ${Codigo}`, observacao: "Nota de pesquisa" };
+  expect((await (await request.post("/api/customers/save", { headers, data: { mode: "create", values } })).json()).kind).toBe("saved");
+  await page.goto("/?workflow=customers"); await page.getByTestId("customers-open").click();
+  for (const [mode, term] of [["codigo", Codigo], ["descricao", description], ["morada", values.Morada2], ["codigopostal", values.codpostal], ["telefone", values.Telemovel]]) {
+    await page.getByTestId(`BTN_${mode}`).click();
+    const search = page.getByTestId("EDT_termo_pesquisa");
+    await expect(search).toHaveValue(""); await expect(search).toBeFocused();
+    await search.fill(term);
+    await expect(page.getByTestId("TABLE_Clientes").getByRole("row")).toHaveCount(2);
+    await expect(page.getByTestId("TABLE_Clientes").getByRole("row").filter({ hasText: description })).toBeVisible();
+  }
+  await page.getByTestId("BTN_todos").click();
+  await expect(page.getByTestId("EDT_termo_pesquisa")).toHaveValue("");
+  await page.getByTestId("Btn_New").click();
+  const form = page.getByTestId("WIN_Form_Clientes");
+  await form.getByTestId("EDT_Codigo").fill(Codigo); await form.getByTestId("EDT_Descricao").fill("Duplicado sintético");
+  await form.getByTestId("BTN_Validar").click();
+  await expect(page.getByTestId("LIB_INFO")).toHaveText(`Duplicação:  Este registo não pode ser gravado.\nCampo associado ao erro: Codigo\nValor do campo duplicado: ${Codigo}`);
+  await page.getByTestId("WINDEVMESSAGEBOX").getByTestId("BTN_OK").click();
+  await expect(form).toBeVisible(); await form.getByTestId("BTN_Cancelar").click();
+  const read = await request.post("/api/customers/list", { headers, data: { mode: "codigo", term: Codigo } });
+  expect((await read.json()).customers).toMatchObject([{ Codigo, Descricao: description }]);
+});
+
+test("SRC-0e07efbaa4 selection mode returns the selected real code and Fechar retains caller origin", async ({ page, request }) => {
+  const session = await request.post("/api/development/session", { headers: { Origin: "http://localhost:1431", "X-Isolated-Development": "1" } });
+  const { token } = await session.json(), Codigo = String(Date.now()), Descricao = `Selecionar ${Codigo}`;
+  const response = await request.post("/api/customers/save", { headers: { Authorization: `Bearer ${token}` }, data: { mode: "create", values: { Codigo, Descricao, Morada1: "", Morada2: "", codpostal: "", Telefone1: "", Telemovel: "", observacao: "" } } });
+  expect((await response.json()).kind).toBe("saved");
+  await page.goto("/?workflow=customers&origin=41");
+  await page.getByTestId("customers-select-open").click();
+  await page.getByTestId("TABLE_Clientes").getByRole("row").filter({ hasText: Descricao }).dblclick();
+  await expect(page.getByTestId("WIN_Table_Clientes")).toHaveCount(0);
+  await expect(page.getByTestId("customer-return")).toHaveText(Codigo);
+  await page.getByTestId("customers-select-open").click();
+  await page.getByTestId("BTN_SYST_FERMER").click();
+  await expect(page.getByTestId("customer-return")).toHaveText("41");
+  await page.getByTestId("customers-select-open").click();
+  await page.getByTestId("BTN_Fechar").click();
+  await expect(page.getByTestId("customer-return")).toHaveText("41");
+});

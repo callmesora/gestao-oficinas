@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-24T19:24:55.208Z",
+  "evidence": "Copied official-driver export imported into fresh isolated PostgreSQL; actual session/API reads and relationship precheck",
+  "sourceCustomers": 2165,
+  "targetCustomers": 2165,
+  "linkedCustomerCheck": true,
+  "mutations": false
+}

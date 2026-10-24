@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "tauri": "tauri",
     "dev:server": "tsx apps/server/src/main.ts",
+    "dev:workflows": "tsx apps/server/src/development.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.tools.json",
     "lint": "eslint .",
     "test": "vitest run",
@@ -33,6 +34,7 @@
     "pg": "8.23.1",
     "react": "19.3.1",
     "react-dom": "19.3.1",
+    "react-hook-form": "7.91.0",
     "zod": "4.6.7"
   },
   "devDependencies": {

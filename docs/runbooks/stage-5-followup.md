@@ -1,0 +1,9 @@
+# MIG-7A.2 — customer designer and table follow-up
+
+Read handoff, AGENTS, ROADMAP, ADRs, full customer maps/specs/source and parity rows. Preserve the working real customer workflow. Follow the same review/check/explicit-file commit/push loop as stage-5.md; no unrelated infrastructure.
+
+After the first three real workflows and MIG-7C cleanup, finish the customer designer rows RULE-CC16AB27-028 and RULE-C286277B-011: source-enabled per-column search, column visibility/configuration, scrollbar behavior/appearance and any remaining source control flags. Audit masks, numeric entry, effective Tab/default/cancel behavior, saved layout, resize/minimize and actual caller refresh/filter coupling using the now-implemented vehicle consumer. Preserve U-CC16AB27-* and U-C286277B-* outcomes that still lack evidence/proposals. Unknown interaction defaults require explicit evidence/default documentation; no tests pin arbitrary guesses and no new text is verified without approval.
+
+Use the actual customer/session/API/database path for regressions. Keep existing customer golden/browser cases and visual floors. Native framework-dialog/keyboard/geometry and human visual checks remain explicitly owned by MIG-15 where machine/runtime evidence is still unavailable. Reports remain MIG-13. Do not mark the whole customer window verified while these rows or printing/UMC remain open.
+
+Done means every known feature in this follow-up is implemented and tested or assigned to its precise existing native U item, all relevant checks and two separate reviews are recorded, parity/roadmap/handoff/progress are current and explicit files are committed/pushed. Do not turn the unresolved list into a blanket deferral. This follow-up gates the remaining leaf workflows, not Viaturas or the third early lookup pair.

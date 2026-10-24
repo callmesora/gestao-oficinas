@@ -2,7 +2,10 @@
   "report": "ui-report",
   "windows": {
     "WINDEVDIALOGBOX": {
-      "open": ["skin-launcher", "skin-resource-open"],
+      "open": [
+        "skin-launcher",
+        "skin-resource-open"
+      ],
       "visualUnavailableReason": "U-W0075A5-01: no dossier image for this framework resource dialog; visual/native parity remains pending.",
       "ignore": {
         "ICON_Question": "Off-canvas icon source; resource icon selection/rendering pending.",
@@ -20,7 +23,10 @@
       }
     },
     "WINDEVMESSAGEBOX": {
-      "open": ["skin-launcher", "skin-message-open"],
+      "open": [
+        "skin-launcher",
+        "skin-message-open"
+      ],
       "visualUnavailableReason": "U-W36869F-01: no dossier entry/image for WDFAA message box; screenshot captured, visual/native parity remains pending.",
       "ignore": {
         "BTN_OK": "Type 5 uses BTN_OUI relabeled OK; type 0/1/4 button checked by separate flows.",
@@ -33,6 +39,40 @@
         "BTN_Syst_Maximize": "Modal maximize/restore not ported yet; pending U-W36869F-02.",
         "BTN_Syst_Restore": "Off-canvas source image; runtime restore wiring pending U-W36869F-02."
       }
+    },
+    "WIN_Table_Clientes": {
+      "ignore": {
+        "BTN_SYST_MINIMIZE": "Owned by enclosing workspace frame; source action checked through workspace chrome.",
+        "IMG_BTN_Syst_Restore": "Source off-canvas restore image; workspace draws state through its actual chrome.",
+        "SC_SCSystemButtons": "Source container; actual system controls are rendered by the owning workspace frame and tested in workspace flows.",
+        "BTN_SYST_FERMER": "Owned by enclosing workspace frame; source action checked through workspace chrome.",
+        "BTN_UMC": "Source hidden; unresolved UMC without approved exclusion.",
+        "BTN_Syst_Maximize": "Owned by enclosing workspace frame; source action checked through workspace chrome.",
+        "RADTitle": "Owned by enclosing workspace frame; title is drawn from the same generated layout."
+      },
+      "open": [
+        "customers-launcher",
+        "customers-open",
+        "BTN_descricao"
+      ],
+      "fill": {
+        "EDT_termo_pesquisa": "__VISUAL_CUSTOMER_EMPTY_CHECKPOINT__"
+      },
+      "tableRows": {
+        "TABLE_Clientes": 1
+      }
+    },
+    "WIN_Form_Clientes": {
+      "ignore": {
+        "BTN_UMC": "Source hidden; UMC remains unresolved, no approved exclusion.",
+        "SC_SCSystemButtons": "Source container; frame renders its actual chrome controls directly.",
+        "IMG_BTN_Syst_Restore": "Source off-canvas restore image; maximize/restore uses source frame controls."
+      },
+      "open": [
+        "customers-launcher",
+        "customers-open",
+        "Btn_New"
+      ]
     }
   }
 }

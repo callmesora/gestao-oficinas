@@ -1,0 +1,15 @@
+{
+  "legacy": {"delimiter": ",", "encoding": "utf-8"},
+  "target": {"delimiter": ",", "encoding": "utf-8"},
+  "tables": {
+    "Clientes": {
+      "key": ["Codigo"],
+      "columns": {
+        "Codigo": {"trim": false}, "Descricao": {"trim": false},
+        "Morada1": {"trim": false}, "Morada2": {"trim": false},
+        "codpostal": {"trim": false}, "Telefone1": {"trim": false},
+        "Telemovel": {"trim": false}, "observacao": {"trim": false}
+      }
+    }
+  }
+}

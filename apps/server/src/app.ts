@@ -1,7 +1,38 @@
 import Fastify from "fastify";
+import type { FastifyRequest } from "fastify";
+import { checkCustomerDelete, deleteCustomer, listCustomers, saveCustomer, type CustomerConnection } from "./operations/customers";
+import type { developmentSessions } from "./development-sessions";
 
-export function createApp() {
+export function createApp(options: { customerConnect?: CustomerConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
   const app = Fastify({ logger: false });
   app.get("/health/live", async () => ({ service: "gestao-oficinas-api", status: "alive" }));
+  const authenticate = options.authenticate ?? options.development?.authenticate;
+  if (options.development) app.post("/api/development/session", async (request, reply) => {
+    if (request.headers.origin !== options.development!.origin || request.headers["x-isolated-development"] !== "1") return reply.code(403).send({ kind: "denied" });
+    reply.header("Cache-Control", "no-store");
+    return { token: options.development!.issue() };
+  });
+  app.post("/api/customers/list", async (request, reply) => {
+    if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
+    if (!options.customerConnect) return reply.code(503).send({ kind: "unavailable" });
+    return listCustomers(options.customerConnect, request.body);
+  });
+  app.post("/api/customers/save", async (request, reply) => {
+    const principal = await authenticate?.(request);
+    if (!principal) return reply.code(401).send({ kind: "unauthenticated" });
+    if (!options.customerConnect) return reply.code(503).send({ kind: "unavailable" });
+    return saveCustomer(options.customerConnect, request.body);
+  });
+  app.post("/api/customers/delete", async (request, reply) => {
+    const principal = await authenticate?.(request);
+    if (!principal) return reply.code(401).send({ kind: "unauthenticated" });
+    if (!options.customerConnect) return reply.code(503).send({ kind: "unavailable" });
+    return deleteCustomer(options.customerConnect, request.body);
+  });
+  app.post("/api/customers/check-delete", async (request, reply) => {
+    if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
+    if (!options.customerConnect) return reply.code(503).send({ kind: "unavailable" });
+    return checkCustomerDelete(options.customerConnect, request.body);
+  });
   return app;
 }

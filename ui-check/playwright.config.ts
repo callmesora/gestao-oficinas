@@ -7,5 +7,5 @@ export default defineConfig({
   testMatch: ["ui-check.spec.ts", "*.flows.spec.ts"], // structure and look; click-throughs of golden scenarios
   workers: 1,
   use: { baseURL: "http://localhost:1431", channel: "chrome", viewport: { width: 1024, height: 768 } },
-  webServer: { command: "npm run dev -- --port 1431 --strictPort", url: "http://localhost:1431", reuseExistingServer: true },
+  webServer: { command: "npm run dev:workflows", url: "http://localhost:1431", reuseExistingServer: true, timeout: 90000 },
 });

@@ -12,6 +12,9 @@ type WindowConfig = {
   visualUnavailableReason?: string;
   /** data-testids to click, in order, from the start page (usually the legacy route). */
   open: string[];
+  /** Reproducible real-UI state for the visual checkpoint; never a fake backend. */
+  fill?: Record<string, string>;
+  tableRows?: Record<string, number>;
   /** Legacy controls deliberately absent, each with the reason (ADR, deferred slice, skin chrome…). */
   ignore: Record<string, string>;
 };
@@ -126,6 +129,8 @@ for (const [window, settings] of Object.entries(config.windows)) {
     for (const id of settings.open) await page.getByTestId(id).first().click();
     const view = page.getByTestId(window).first();
     await expect(view).toBeVisible();
+    for (const [id, value] of Object.entries(settings.fill ?? {})) await view.getByTestId(id).fill(value);
+    for (const [id, count] of Object.entries(settings.tableRows ?? {})) await expect(view.getByTestId(id).getByRole("row")).toHaveCount(count);
     const expected = legacyControls(window).filter((name) => !(name in settings.ignore));
     const missing: string[] = [];
     for (const name of expected) {

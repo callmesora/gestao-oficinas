@@ -1,5 +1,7 @@
 # Screen spec — WIN_Table_Clientes
 
+MIG-7A implementation in progress: src/ui/customers.tsx reads/writes through the real HTTP API and isolated PostgreSQL (ADR-009). Non-legacy identifiers: customers-launcher/customers-open, workflow-environment, customer-list-diagnostic. useWorkspaceClose closes this list's actual instance (SRC-e0b6683735); source system controls remain owned by its workspace frame. The customer workspace minimum height comes from the generated source height to avoid clipping its memo. Print is visibly disabled until MIG-13, not implemented. U-CC16AB27-01/02 retain full table-feature, locale, selection/caller and native acceptance gaps. No first-row or after-delete selection has been invented. Repeated test fixtures have unique labels so reruns do not mistake another persisted row for the current scenario.
+
 DEV component fixture only: skin-table-fixture and skin-table-canvas borrow the source table/memo. Synthetic rows and non-legacy skin-empty, skin-reverse, skin-selection, skin-activation, skin-sort, skin-table-resize, skin-column-reset/widths/lock/order/order-reset/movement controls test component callbacks; no customer query, refresh or business action is implemented by this fixture.
 
 The non-legacy shared helpers anchoredControl/useAnchoredControl and FrameDeltaContext resize the table and move the memo using source labels with ADR-003 rate defaults; U-SKIN-01 remains open.

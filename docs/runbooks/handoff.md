@@ -2,37 +2,36 @@
 
 ## Current stage
 
-MIG-5b.1 shared screen prerequisite closed on main, 2026-10-24. MIG-5 remains open for consumer/native gates. Next: implement MIG-7A Clientes from stage-5.md, then Viaturas and the simplest independent lookup pair, then MIG-7C cleanup. Full migration, routine defaults, commits and pushes remain authorized; no production cutover authorization.
+MIG-7A.1 usable customer core delivered on main; MIG-7A parent remains open for MIG-7A.2 (stage-5-followup.md). Next eligible slice: MIG-7B vehicle list/form, then the simplest independent lookup pair, then MIG-7C cleanup and the retained customer designer follow-up before further leaf workflows. Full migration/commits/pushes authorized; production cutover is not.
 
 ## Delivered
 
-- Read the goal objective attachment and enumerated the local read-only playbook. Resumed existing work; clean checkout and git pull --ff-only was already up to date at 99e098f.
-- Split MIG-5b in stage-4.md and ROADMAP: existing verified primitives are the screen prerequisite; full real-window/table/form verification goes with each consumer; remaining native/U-SKIN/dialog/UMC acceptance stays assigned to MIG-15. No feature exclusion or parity status change.
-- Actual code inspection: frame/edit/memo/table/workspace and awaited dialogs exist; server app.ts has only liveness. **No customer or other business workflow/save is implemented.** Component galleries are synthetic fixtures.
-- Separate sequential self-review by the same agent/context using skills/review/SKILL.md, per ADR-007: reviews/screen-prerequisite.md. Fixed explicit ownership of column visibility/configuration, source table flags and scrollbars. ADRs reread; no new decisions.
-
-## Assumptions and differences
-
-ADR-003 defaults and all U-SKIN-01..06, U-CC16AB27-*, U-C286277B-*, framework-dialog U items remain. Full-window scoring is mandatory in the consuming workflow. No inferred native behavior is verified. Existing schema/import foundation is unchanged (MIG-4 db441ba); generated layouts/assets unchanged (MIG-5a 6f0be86).
+- Real Clientes list/form at http://localhost:1431/?workflow=customers through npm run dev:workflows. List/search/selection/observation, new/edit/cancel, ordered required messages, duplicates, transactional saves, relationship-protected delete and explicit confirmation, caller return/close paths. Generated source layouts/assets; React Hook Form; real HTTP API and PostgreSQL, not customer mocks. Normal API denies anonymous requests; opt-in development sessions are ADR-009 fixtures, not legacy authentication.
+- ADR-008 records exact string identity/atomic write/failure boundary; ADR-009 records isolated development/search defaults. Original records, provenance and unchanged nullable/text values remain intact; edited memo uses Windows CRLF. No migration was edited or added.
+- Imported official-driver copy: 2,165 source/target customers matched, linked-customer precheck passed without original mutation (docs/data/customer-import-check.json). Four browser workflows also passed over this imported scratch database. GS-CUSTOMERS-001 is explicitly spec-derived; actual API/PostgreSQL export comparison passes without trimming.
+- Two sequential self-review passes by the same agent/context, per ADR-007: reviews/customers.md. Fixed nullable required-description bypass, Codpostal key case, nested Escape closing its owner, clipped source-height list, stale-selection actions while reads are pending, system-close caller return and CRLF preservation on unrelated edits.
+- Parent customer ticket stays in progress. The exact designer/table/caller/mask gaps are assigned to MIG-7A.2 after early workflows/cleanup; native/framework-dialog/human acceptance stays MIG-15, print stays MIG-13, UMC has no approved exclusion. No feature or seed row removed.
 
 ## Checks actually executed (Windows)
 
-- Loaded setup/Enter-Prerequisites.ps1; npm run verify: PASS, 40 unit tests, 2 Rust tests, bindings check, parity, 53 layout/154 PNG input checks, 41 browser tests. Existing TanStack incompatible-library lint warning only.
-- .venv/Scripts/python.exe scripts/parity_check.py docs/parity/parity.csv --seed docs/parity/parity-seed.csv --check-files: PASS. Unchanged 17/2,273 verified, 481 unmapped, 1,775 specified; all seed IDs retained.
-- git diff --check: PASS before closure edits; repeated before commit.
-- Both customer unit_evidence.py packs regenerated under ignored analysis-local/units/ for the upcoming implementation.
-- Native/package/printer/legacy-runtime/human visual checks not rerun for this documentation-only checkpoint. Existing native and hosted-CDP gaps remain open; no new golden scenario is claimed.
+- Full npm run verify passed after the golden/API/import work: 49 unit tests, 2 Rust tests, bindings, parity, 53 layouts/154 PNGs, 47 browser checks. Final full rerun after the CRLF fix also PASS: 49 unit tests, 2 Rust tests and 47 browser checks, with bindings/parity/layout checks. Session 70041 is terminal. Final focused typecheck/lint and four customer browser flows also passed.
+- npm run native:check PASS: actual built Tauri/WebView2/Rust IPC metadata and reload. Its evidence explicitly excludes business data, installer, reports/printing, devices and legacy parity; customer native persistence is not verified.
+- Visual controls/captions/assets and 90/60 floors passed for both real windows. Latest scores: list pixels 98.6 / edges 94.0, form 98.3 / 94.9. Screenshots inspected; comparisons in docs/evidence/visual/. Stable list scoring uses an actual search/empty result, with unchanged floor/tolerance.
+- Parity --check-files PASS: 2,273 rows; 21 verified, 34 implemented, 1,737 specified, 481 unmapped, zero exclusions; all SRC seeds retained. Four newly verified rows are only double-click routing, observation display, Fechar origin and selected-code return. reviews/customers.md records the five-point positive real-path audit. Broad save/search/designer/default/U behavior is not overclaimed.
+- Previous failed checks were fixed: PYTHON needed the .venv interpreter for Pillow; accumulated synthetic rows changed a visual capture; nested modal Escape and stale-selection/caller-return defects have positive regressions. Existing TanStack lint warning only. git diff --check passed; repeat before commit.
 
-## Remaining work
+## Running state and next actions
 
-1. MIG-7A: finish reading whole customer specs/maps/source/schema/callers and relevant library APIs; implement actual authenticated API/PostgreSQL + application + real UI route, required/duplicate messages, search, selection/observation, save/cancel, relationship-protected delete and refresh. Two sequential review passes, real-path/golden/browser/visual/native checks. Auth must deny direct unauthenticated calls; no production credentials or imported legacy-password reuse. Current dev server is liveness only.
-2. Keep customer report SRC-4883adab32 open for MIG-13, UMC unresolved; no no-op claims. Native follow-ups and remaining consumer features are enumerated in stage-4.md; MIG-3/2b hosted CDP remains deferred.
-3. Viaturas pair, simplest independent lookup pair (choose from mapping/dependencies), cleanup, then remaining ROADMAP slices through acceptance. Do not return to unrelated generic foundation work.
+The imported-copy development runner is live in unified exec session 26835 at port 1431. The prior empty runner 39099 was explicitly interrupted and is terminal. This runner's database is isolated; the corrected copied export is read-only. Poll the live handle before restarting; do not infer process state from this note alone. Commands: customer-development.md. Raw clusters/exports remain ignored.
 
-## Decisions needed
+1. Final verification 70041 passed; progress regenerated. Commit/push contains only this chat's explicit customer files. No guard script/hook exists: scripts/guard.py and .githooks/pre-commit absent; core.hooksPath unset. The absent-script attempt was file-not-found, not an approval/guard rejection; nothing was installed/bypassed.
+2. Reread ROADMAP/handoff and write a bounded MIG-7B brief before vehicle coding. Full vehicle maps/specs/parity/source/query evidence and ADRs still need their read/audit. Some vehicle mapping has been read, but no vehicle implementation has begun.
+3. Deliver the vehicle pair and simplest independent lookup pair, then cleanup and the exact retained customer follow-up. Do not expand generic launcher/workspace capabilities without a consuming parity ID. Customer source/system controls belong to their owning frame; non-legacy development/restore/diagnostic identifiers are recorded in screen specs.
 
-No blocking owner decision. Runtime/device/human confirmations remain named U items. Use documented proposals and safe reversible defaults without promoting unknown outcomes to verified.
+## Decisions needed and limits
+
+No blocking owner decision. U-SKIN-01..06, customer U items and runtime/device/human confirmations remain. Locale equivalence, cross-window HFSQL/filter edge outcomes, full masks/keys/table features, modal native behavior and framework-dialog visuals remain unverified. Proposed/safe defaults are not recovered runtime evidence. Recorded legacy golden replay was unavailable and legacy code was not executed. The whole migration is not complete.
 
 ## Playbook issues
 
-Prior screen_layout.py root-size extraction issue is fixed in application tools; read-only playbook untouched. Some large combined Markdown reads exceeded tool output limits; reread any truncated unit material in bounded chunks before coding. No application implementation began at this checkpoint.
+Read-only playbook unchanged. Earlier root-size extraction fix remains in application tooling. Large combined reads can truncate: use bounded chunks for whole unit files. The prerequisite script loads .venv on PATH but Windows py may still select another interpreter; explicitly set PYTHON to .venv/Scripts/python.exe when running npm visual checks.

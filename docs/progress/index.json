@@ -1,5 +1,45 @@
 [
  {
+  "name": "WIN_Form_Clientes",
+  "kind": "screen",
+  "total": 15,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 11,
+   "specified": 1,
+   "unmapped": 3
+  },
+  "looks": {
+   "pixel": 98.3,
+   "layout": 94.9
+  }
+ },
+ {
+  "name": "WIN_Table_Clientes",
+  "kind": "screen",
+  "total": 32,
+  "done": 4,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 4,
+   "excluded": 0,
+   "implemented": 23,
+   "specified": 2,
+   "unmapped": 3
+  },
+  "looks": {
+   "pixel": 98.6,
+   "layout": 94.0
+  }
+ },
+ {
   "name": "artigos",
   "kind": "table",
   "total": 4,
@@ -1632,23 +1672,6 @@
   "looks": null
  },
  {
-  "name": "WIN_Form_Clientes",
-  "kind": "screen",
-  "total": 15,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 12,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
   "name": "WIN_Form_documentos",
   "kind": "screen",
   "total": 15,
@@ -2070,23 +2093,6 @@
    "implemented": 0,
    "specified": 40,
    "unmapped": 5
-  },
-  "looks": null
- },
- {
-  "name": "WIN_Table_Clientes",
-  "kind": "screen",
-  "total": 32,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 29,
-   "unmapped": 3
   },
   "looks": null
  },

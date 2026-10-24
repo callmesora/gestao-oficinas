@@ -10,6 +10,14 @@ type ResizeEdge = "n" | "e" | "s" | "w" | "ne" | "nw" | "se" | "sw";
 const resizeEdges: ResizeEdge[] = ["n", "e", "s", "w", "ne", "nw", "se", "sw"];
 type OpenWindow = (spec: WindowSpec) => void;
 const WorkspaceContext = createContext<OpenWindow | null>(null);
+const WorkspaceCloseContext = createContext<(() => void) | null>(null);
+
+// SRC-e0b6683735: a real list's Fechar action closes its own workspace instance.
+export function useWorkspaceClose() {
+  const close = useContext(WorkspaceCloseContext);
+  if (!close) throw new Error("Workspace instance is required");
+  return close;
+}
 
 function saveGeometry(store: WindowGeometryStore, entry: WindowEntry) {
   if (entry.layout.window.flags?.["Save position"] !== true) return;
@@ -136,7 +144,7 @@ export function WdWorkspace({ children, geometryStore = windowGeometryStore }: {
             height={entry.maximized ? Math.max(size.height, extent.height) : entry.height}
             onClose={() => close(entry.id)} onMinimize={() => minimize(entry.id)}
             onToggleMaximize={() => setWindows(previous => previous.map(item => item.id === entry.id ? { ...item, maximized: !item.maximized } : item))}>
-            {entry.content}
+            <WorkspaceCloseContext.Provider value={() => close(entry.id)}>{entry.content}</WorkspaceCloseContext.Provider>
             {entry.layout.window.flags?.Resizable === true && !entry.maximized && resizeEdges.map(edge =>
               <button key={edge} type="button" tabIndex={edge === "se" ? 0 : -1}
                 className={`wd-workspace-edge wd-workspace-edge-${edge}${edge === "se" && entry.layout.window.flags?.["With grip"] === true ? " wd-workspace-grip" : ""}`}

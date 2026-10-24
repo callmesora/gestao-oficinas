@@ -43,3 +43,9 @@ Run `python3 scripts/unit_evidence.py WIN_Table_Clientes` and `python3 scripts/u
 ## Review mode
 
 Owner permits self-review. Since this workflow includes deleting records, make two separate sequential passes; state in the handoff that the same agent performed both passes and list any remaining findings or unavailable native/person checks.
+
+## Delivery checkpoint and retained follow-up — 2026-10-24
+
+MIG-7A.1 is the usable customer workflow: real list/form/session/API/PostgreSQL, the mapped business actions above, source-based visuals, imported-copy replay and spec-derived golden comparison. It may unblock Viaturas after its review and checks close; it does not declare the entire customer unit at parity.
+
+MIG-7A.2, brief stage-5-followup.md, retains the full designer/table-feature obligation (RULE-CC16AB27-028/RULE-C286277B-011), column search/visibility/scrollbar gaps and unresolved selection/caller/mask/keyboard outcomes. Schedule it after the first three usable workflows/cleanup and before further leaf workflows. Native, framework-dialog reference and human approvals stay with MIG-15; report printing stays MIG-13. No parity row or U item is removed or excluded by this scheduling split. The MIG-7A parent remains in progress until its owned follow-up closes.
