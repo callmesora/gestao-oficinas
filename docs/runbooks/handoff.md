@@ -2,25 +2,37 @@
 
 ## Current stage
 
-MIG-5b in progress on main; full migration, commits and pushes authorized. Continue ROADMAP.md in order. Hosted native CI diagnosis remains deferred (2b).
+MIG-5b.1 shared screen prerequisite closed on main, 2026-10-24. MIG-5 remains open for consumer/native gates. Next: implement MIG-7A Clientes from stage-5.md, then Viaturas and the simplest independent lookup pair, then MIG-7C cleanup. Full migration, routine defaults, commits and pushes remain authorized; no production cutover authorization.
 
-## Delivered and checked
+## Delivered
 
-- MIG-4 schema/import complete (db441ba); MIG-5a generated inputs complete (6f0be86).
-- Shared controls/dialogs at /?skin=controls and the temporary workspace launcher at /?skin=workspace. Workspace instances stack, drag, resize via edges/corners/keyboard, minimize/restore and maximize locally while retaining input; close affects only its instance. Save position persists only validated bounds/maximize state; precedence/lifecycle defaults remain ADR-003/U-SKIN-03 assumptions. Both dialogs have explicit Tab loops; table width/order changes are controlled and persisted only under Saves col. config. (ADR-003/U-SKIN-05). Shared controls apply source anchor flags and explicit rates; encoded-rate defaults remain ADR-003/U-SKIN-01 assumptions. ADR-003 records workspace/caption defaults. No customer workflow/save is implemented; native clipboard, appearance and missing designer metadata remain unverified.
-- Full npm run verify PASS: 40 unit tests, 2 Rust tests, bindings, parity, 53 layouts/154 PNGs and 41 browser checks. Production build and parity file checks also pass after the input-control change; source reproduction, input-metadata-only audit and 3 Python layout tests also pass. Lint retains one TanStack v8 compatibility warning; React Compiler is not enabled.
-- Edit primitives preserve password masking, positive Text entry limits, Tab exclusion and automatic selection without clearing bound values. Resource inputs share the selection helper; ADR-003/U-SKIN-06 retain native mouse/character-count uncertainty.
-- Component-region visual floors 90/60 pass; missing-component probe fails without replacing baseline. Screenshot inspected. Separate sequential self-review, same agent/context: reviews/skin.md.
-- No parity moves: 17/2,273 verified import rows; 481 unmapped; all 877 SRC IDs retained. Component checks do not prove full-window or native parity.
+- Read the goal objective attachment and enumerated the local read-only playbook. Resumed existing work; clean checkout and git pull --ff-only was already up to date at 99e098f.
+- Split MIG-5b in stage-4.md and ROADMAP: existing verified primitives are the screen prerequisite; full real-window/table/form verification goes with each consumer; remaining native/U-SKIN/dialog/UMC acceptance stays assigned to MIG-15. No feature exclusion or parity status change.
+- Actual code inspection: frame/edit/memo/table/workspace and awaited dialogs exist; server app.ts has only liveness. **No customer or other business workflow/save is implemented.** Component galleries are synthetic fixtures.
+- Separate sequential self-review by the same agent/context using skills/review/SKILL.md, per ADR-007: reviews/screen-prerequisite.md. Fixed explicit ownership of column visibility/configuration, source table flags and scrollbars. ADRs reread; no new decisions.
 
-## Next
+## Assumptions and differences
 
-Finish MIG-5b within its current brief. Keep its remaining foundation gaps visible; do not add generic launcher/workspace/skin features without evidence that a customer parity row needs them. After MIG-5b, the next business deliverable is the real `WIN_Table_Clientes` + `WIN_Form_Clientes` workflow in `docs/runbooks/stage-5.md`. Do not wait for all MIG-6 queries/helpers: implement only the patterns this workflow consumes, then add other query/helper units with their first real consumers. The customer print action remains open for MIG-13 unless separately scoped with its report evidence. Import instructions: docs/data/export-runbook.md.
+ADR-003 defaults and all U-SKIN-01..06, U-CC16AB27-*, U-C286277B-*, framework-dialog U items remain. Full-window scoring is mandatory in the consuming workflow. No inferred native behavior is verified. Existing schema/import foundation is unchanged (MIG-4 db441ba); generated layouts/assets unchanged (MIG-5a 6f0be86).
+
+## Checks actually executed (Windows)
+
+- Loaded setup/Enter-Prerequisites.ps1; npm run verify: PASS, 40 unit tests, 2 Rust tests, bindings check, parity, 53 layout/154 PNG input checks, 41 browser tests. Existing TanStack incompatible-library lint warning only.
+- .venv/Scripts/python.exe scripts/parity_check.py docs/parity/parity.csv --seed docs/parity/parity-seed.csv --check-files: PASS. Unchanged 17/2,273 verified, 481 unmapped, 1,775 specified; all seed IDs retained.
+- git diff --check: PASS before closure edits; repeated before commit.
+- Both customer unit_evidence.py packs regenerated under ignored analysis-local/units/ for the upcoming implementation.
+- Native/package/printer/legacy-runtime/human visual checks not rerun for this documentation-only checkpoint. Existing native and hosted-CDP gaps remain open; no new golden scenario is claimed.
+
+## Remaining work
+
+1. MIG-7A: finish reading whole customer specs/maps/source/schema/callers and relevant library APIs; implement actual authenticated API/PostgreSQL + application + real UI route, required/duplicate messages, search, selection/observation, save/cancel, relationship-protected delete and refresh. Two sequential review passes, real-path/golden/browser/visual/native checks. Auth must deny direct unauthenticated calls; no production credentials or imported legacy-password reuse. Current dev server is liveness only.
+2. Keep customer report SRC-4883adab32 open for MIG-13, UMC unresolved; no no-op claims. Native follow-ups and remaining consumer features are enumerated in stage-4.md; MIG-3/2b hosted CDP remains deferred.
+3. Viaturas pair, simplest independent lookup pair (choose from mapping/dependencies), cleanup, then remaining ROADMAP slices through acceptance. Do not return to unrelated generic foundation work.
 
 ## Decisions needed
 
-No blocking owner decision. Existing U items/proposals remain; native/device/human visual acceptance is still pending.
+No blocking owner decision. Runtime/device/human confirmations remain named U items. Use documented proposals and safe reversible defaults without promoting unknown outcomes to verified.
 
 ## Playbook issues
 
-scripts/screen_layout.py omitted root source sizes when the dossier entry was missing. Fixed locally with scoped parsing/tests; read-only playbook checkout unchanged.
+Prior screen_layout.py root-size extraction issue is fixed in application tools; read-only playbook untouched. Some large combined Markdown reads exceeded tool output limits; reread any truncated unit material in bounded chunks before coding. No application implementation began at this checkpoint.

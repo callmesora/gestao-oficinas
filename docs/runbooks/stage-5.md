@@ -2,7 +2,7 @@
 
 ## Objective
 
-After MIG-5b closes, deliver the first usable business workflow: the actual customer list and customer form connected to the application, server and PostgreSQL. It must be reachable from the running app using the temporary development entry point. This replaces synthetic customer fixtures as the proof of progress; it does not implement the full legacy menu.
+After the shared screen prerequisite MIG-5b.1 closes (see the rescope checkpoint in stage-4.md), deliver the first usable business workflow: the actual customer list and customer form connected to the application, server and PostgreSQL. It must be reachable from the running app using the temporary development entry point. This replaces synthetic customer fixtures as the proof of progress; it does not implement the full legacy menu. MIG-5b.2 consumer checks are part of this workflow; MIG-5b.3 native acceptance remains open.
 
 This is the first business slice, not a reason to finish MIG-6's unrelated backlog first. Implement only the query/helper behavior these customer units consume. Keep each new concrete pattern in `docs/porting.md`. Leave other QRY units assigned to MIG-6 for their first consuming workflow.
 
