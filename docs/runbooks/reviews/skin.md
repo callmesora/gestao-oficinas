@@ -29,3 +29,7 @@ Two separate sequential self-review passes, same agent/context. Resource and mes
 ## MIG-5b — message and button sizing
 
 Separate sequential self-review, same agent/context. Checked source caps, minimums, icon centering and bottom anchoring against pure geometry helpers and the actual renderers. Preserved initial coordinates until fonts finish loading; fixed nullable geometry types. Long-message/browser checks prove wrapping without clipping and clickable buttons; long resource captions preserve the source gap. Full verify: 22 unit, 2 Rust, 16 browser checks pass. Font/DPI/minimum-title geometry and full resource text/input fitting remain unresolved; no visual score or parity row advanced.
+
+## MIG-5b — resource text/input fitting
+
+Separate sequential self-review and screenshot pass, same agent/context. Ported the ten-pass ratio loop, frame bounds and input reservation. Screenshot review found the last input line clipped by target edit padding/border; measured insets now reserve that space and textarea resizing is disabled like the kit memo. Native insets and label anchoring remain marked U-W0075A5-05/01 fallbacks. Actual browser checks assert no input overflow, buttons below the input and exact unchanged CRLF output. Full verify passes: 23 unit, 2 Rust, 17 browser checks. No visual/native claim or parity move.

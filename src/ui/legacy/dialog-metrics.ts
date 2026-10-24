@@ -34,3 +34,29 @@ export function resourceButtonGeometry(labels: string[], title: string, measure:
   const width = Math.min(Math.max(400, total + 100, measure(title).width + 100), Math.min(4000, viewport - 16));
   return { widths, total, width };
 }
+
+// legacy/GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:738-947.
+export function resourceGeometry(layout: LegacyLayout, text: string, title: string, labels: string[], measure: TextMeasure, viewport: number, input?: { width: number; height: number }) {
+  const size = layout.window.size!, body = controlOf(layout, "LIB_INFO"), icon = controlOf(layout, "ICONE"), button = controlOf(layout, "BTN_1");
+  const buttons = resourceButtonGeometry(labels, title, measure, viewport);
+  const initial = measure(text, 1000);
+  let textWidth = initial.width + 40, textHeight = initial.height + 20, passes = 0;
+  while (textWidth / textHeight > 2 && passes < 10) {
+    const measured = measure(text, textWidth - (textWidth > 100 ? 100 : 50));
+    const nextWidth = measured.width + 40, nextHeight = measured.height + 20;
+    if (nextWidth / nextHeight < 1.4 || nextWidth === textWidth) break;
+    textWidth = nextWidth; textHeight = nextHeight; passes++;
+  }
+  const inputHeight = input?.height ?? 0;
+  if (input) textWidth = Math.max(textWidth, input.width + 10);
+  textHeight = Math.max(textHeight, icon.height! - inputHeight - 6);
+  const width = Math.min(Math.max(buttons.width, textWidth + size.width - body.width!), Math.min(4000, viewport - 16));
+  const height = Math.max(size.height, size.height + textHeight + inputHeight - body.height! + (inputHeight > 0 ? 6 : 0));
+  // UNRESOLVED U-W0075A5-01: designer anchoring is encoded; use the skin's width-stretch proposal.
+  const bodyWidth = body.width! + width - size.width;
+  const space = (width - icon.width! - bodyWidth) / 3;
+  const bodyX = 2 * space + icon.width!;
+  return { ...buttons, width, height, textHeight, bodyWidth, bodyX, passes,
+    inputY: body.y + textHeight - 6, inputHeight, inputWidth: width - bodyX - 16,
+    buttonY: button.y + height - size.height };
+}

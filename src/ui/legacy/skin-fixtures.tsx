@@ -30,6 +30,12 @@ function MessageFixture() {
       const value = await resource({ title: "Recurso", text: "Botões de teste", buttons: [{ label: "Aceitar este texto de teste mais comprido" }, { label: "Cancelar" }], defaultIndex: 1, cancelIndex: 2 });
       setResult(JSON.stringify(value));
     }}>Testar botão longo</button>
+    <button data-testid="skin-resource-long-text" onClick={async () => {
+      const value = await resource({ title: "Texto e entrada", text: "Texto longo com acentos: Açores. ".repeat(30),
+        buttons: [{ label: "Aceitar" }, { label: "Cancelar" }], defaultIndex: 1, cancelIndex: 2,
+        input: { kind: "text", value: "Um\r\nDois\r\nTrês\r\nQuatro\r\nCinco\r\nSeis" } });
+      setResult(JSON.stringify(value));
+    }}>Testar recurso longo</button>
     <button data-testid="skin-resource-open" onClick={async () => {
       const value = await resource({ title: "Recurso", text: "Valor de teste", buttons: [{ label: "Aceitar", value: 11 }, { label: "Cancelar", value: 27 }],
         defaultIndex: 1, cancelIndex: 2, input: { kind: "text", value: "  original  " } });

@@ -1,5 +1,22 @@
 import { expect, test } from "@playwright/test";
 
+test("resource text and multiline input expand without covering the source buttons", async ({ page }) => {
+  await page.goto("/?skin=controls");
+  await page.getByTestId("skin-resource-long-text").click();
+  const dialog = page.getByTestId("WINDEVDIALOGBOX"), text = dialog.getByTestId("LIB_INFO"), input = dialog.getByTestId("SAI_1");
+  await expect.poll(async () => (await text.boundingBox())!.height).toBeGreaterThan(44);
+  await expect.poll(async () => (await input.boundingBox())!.height).toBeGreaterThan(22);
+  expect(await input.evaluate(element => element.scrollHeight - element.clientHeight)).toBeLessThanOrEqual(1);
+  const field = (await input.boundingBox())!, button = (await dialog.getByTestId("BTN_1").boundingBox())!, frame = (await dialog.boundingBox())!;
+  expect(button.y).toBeGreaterThanOrEqual(field.y + field.height);
+  expect(button.y + button.height).toBeLessThanOrEqual(frame.y + frame.height);
+  await expect(input).toBeFocused();
+  await dialog.screenshot({ path: "ui-report/resource-long.png" });
+  await dialog.getByTestId("BTN_1").click();
+  const result = JSON.parse((await page.getByTestId("skin-message-result").textContent())!) as { input: string };
+  expect(result.input).toBe("Um\r\nDois\r\nTrês\r\nQuatro\r\nCinco\r\nSeis");
+});
+
 test("resource button grows to its caption and reserves the source gap", async ({ page }) => {
   await page.goto("/?skin=controls");
   await page.getByTestId("skin-resource-long").click();
