@@ -13,7 +13,7 @@ Window properties: {"title": {"PT": "Clientes"}, "window_type": "Free window", "
 
 Missing fields throughout this spec mean unresolved (encoded), tracked by U-C286277B-01; they never mean false or zero. Defaults and all runtime overrides are transcribed in the mapping event ledger. Original captions retain extracted encoding artifacts until image approval.
 
-Implementation note: the DEV component fixture borrows this layout's frame, buttons, two edits and memo; it does not implement this form. Its non-legacy identifiers (skin-fixture-A/B, skin-frame-A/B, skin-reopen, skin-disable, skin-clicks) and test-only actions are documented in docs/runbooks/foundation-controls.md. No source rule or U item is resolved by that fixture.
+Implementation note: the DEV component fixture borrows this layout's frame, buttons, two edits and memo; it does not implement this form. Its non-legacy identifiers (skin-fixture-A/B, skin-frame-A/B, skin-reopen, skin-disable, skin-clicks, skin-mnemonics, skin-mnemonic-duplicate, skin-mnemonic-hidden/other/literal) and test-only actions are documented in docs/runbooks/foundation-controls.md. No source rule or U item is resolved by that fixture.
 
 ## Layout
 

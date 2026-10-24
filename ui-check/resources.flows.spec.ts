@@ -121,3 +121,20 @@ test("resource text sizing expands initial multiline width and adapts a limited 
   const result = JSON.parse((await page.getByTestId("skin-message-result").textContent())!) as { input: string };
   expect(result.input).toBe("W".repeat(55) + "\r\nFim");
 });
+
+test("resource mnemonic uses its real button result and input without triggering a background frame", async ({ page }) => {
+  await page.goto("/?skin=controls");
+  const a = page.getByTestId("skin-fixture-A");
+  await a.getByTestId("skin-mnemonics").check();
+  await page.getByTestId("skin-resource-mnemonic").click();
+  const dialog = page.getByTestId("WINDEVDIALOGBOX");
+  await expect(dialog.getByTestId("BTN_1")).toHaveText("Validar");
+  await dialog.getByTestId("SAI_1").fill("  Açores  ");
+  await page.keyboard.press("Alt+v");
+  await expect(dialog).toHaveCount(0);
+  await expect(page.getByTestId("skin-message-result")).toHaveText(JSON.stringify({ result: 11, input: "  Açores  " }));
+  await expect(a.getByTestId("skin-clicks")).toHaveText("0");
+  await page.getByTestId("skin-resource-mnemonic").click();
+  await page.keyboard.press("Alt+c");
+  await expect(page.getByTestId("skin-message-result")).toHaveText(JSON.stringify({ result: 27, input: "original" }));
+});

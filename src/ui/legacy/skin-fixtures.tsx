@@ -45,6 +45,11 @@ function MessageFixture() {
     <label>Ícone de teste <select data-testid="skin-resource-icon" value={resourceIcon} onChange={event => setResourceIcon(event.target.value)}>
       <option value="32">Pergunta</option><option value="48">Erro da origem</option><option value="64">Informação</option><option value="0">Imagem do projeto</option>
     </select></label>
+    <button data-testid="skin-resource-mnemonic" onClick={async () => {
+      const value = await resource({ title: "Teclado", text: "Texto de teste", buttons: [{ label: "&Validar", value: 11 }, { label: "&Cancelar", value: 27 }],
+        defaultIndex: 1, cancelIndex: 2, input: { kind: "text", value: "original" } });
+      setResult(JSON.stringify(value));
+    }}>Testar letras no diálogo</button>
     <button data-testid="skin-resource-sized" onClick={async () => {
       const value = await resource({ title: "Entrada limitada", text: "Texto de teste", buttons: [{ label: "Aceitar" }, { label: "Cancelar" }],
         defaultIndex: 1, cancelIndex: 2, input: { kind: "text", value: "ABC", maxLength: 5, adaptWidth: true } });
@@ -100,14 +105,20 @@ function FrameFixture({ instance }: { instance: string }) {
   const [memo, setMemo] = useState("");
   const [disabled, disable] = useState(false);
   const [clicks, clicked] = useState(0);
+  const [mnemonics, setMnemonics] = useState(false), [duplicate, setDuplicate] = useState(false);
   return <div data-testid={`skin-fixture-${instance}`}>
     <p>Instância {instance} — componentes isolados, sem gravação.</p>
     <button data-testid="skin-reopen" onClick={() => { close(false); minimize(false); }}>Mostrar</button>
     <label><input data-testid="skin-disable" type="checkbox" checked={disabled} onChange={event => disable(event.target.checked)} />Desativar botão de teste</label>
+    <label><input data-testid="skin-mnemonics" type="checkbox" checked={mnemonics} onChange={event => setMnemonics(event.target.checked)} />Testar letras de chamada</label>
+    <label><input data-testid="skin-mnemonic-duplicate" type="checkbox" checked={duplicate} onChange={event => setDuplicate(event.target.checked)} />Testar letra duplicada</label>
     <output data-testid="skin-clicks">{clicks}</output>
     {!closed && !minimized && <WdFrame layout={form} instance={`skin-frame-${instance}`} width={maximized ? 640 : undefined}
       height={maximized ? 480 : undefined} onClose={() => close(true)} onMinimize={() => minimize(true)} onToggleMaximize={() => maximize(value => !value)}>
-      <WdButton control={controlOf(form, "BTN_Validar")} disabled={disabled} onClick={() => clicked(value => value + 1)} />
+      <WdButton control={{ ...controlOf(form, "BTN_Validar"), ...(mnemonics ? { caption: "&Validar && manter" } : {}) }} disabled={disabled} onClick={() => clicked(value => value + 1)} />
+      {mnemonics && <WdButton control={{ ...controlOf(form, "BTN_Validar"), name: "skin-mnemonic-hidden", caption: "&Validar", visible: false }} onClick={() => clicked(value => value + 100)} />}
+      {mnemonics && <WdButton interpretAmpersand={false} control={{ ...controlOf(form, "BTN_Validar"), name: "skin-mnemonic-literal", caption: "&Validar" }} style={{ top: 350 }} onClick={() => clicked(value => value + 1000)} />}
+      {mnemonics && duplicate && <WdButton control={{ ...controlOf(form, "BTN_Validar"), name: "skin-mnemonic-other", caption: "&Validar" }} style={{ top: 400 }} onClick={() => clicked(value => value + 10)} />}
       <WdButton control={controlOf(form, "BTN_Cancelar")} onClick={() => setText("")} />
       <WdEdit control={controlOf(form, "EDT_Codigo")} value="18446744073709551615" readOnly />
       <WdEdit control={controlOf(form, "EDT_Descricao")} value={text} onChange={event => setText(event.target.value)} />

@@ -45,3 +45,7 @@ Separate sequential self-review, same agent/context, against source :663–697 a
 ## MIG-5b — text input width
 
 Separate sequential self-review, same agent/context. Checked source :1094–1155 and :800–870: multiline width is expanded before height/frame sizing; optional character-limit width is applied afterwards, without changing that order or clamping away source behavior. Real browser checks cover the measured width, enforced character limit, expanded multiline frame and exact CRLF return. Full verify passes: 27 unit, 2 Rust, 20 browser checks; production build and parity file checks pass. Existing TanStack warning remains. Native insets/font metrics and numeric/date mask sizing remain unresolved; no parity rows moved.
+
+## MIG-5b — caption shortcuts
+
+Separate sequential self-review, same agent/context. Source :589–594 retains desktop caption markers; ADR-003 explicitly covers escaping, literal opt-out, underline and ambiguous-letter defaults. Checked that displayed captions drive resource width measurement and activation calls the real eligible button within the focused scope. Browser tests cover two frames, hidden/disabled/literal/duplicate buttons, AltGr and modal return/input without background activation. Full verify passes: 29 unit, 2 Rust, 22 browser checks including component visual floors; production build and parity file checks pass. No new review finding or parity move. Encoded custom shortcuts and native keyboard/underline acceptance remain unresolved.

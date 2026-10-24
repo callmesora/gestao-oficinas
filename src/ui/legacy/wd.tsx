@@ -1,14 +1,18 @@
 import { useId, type ButtonHTMLAttributes, type CSSProperties, type InputHTMLAttributes, type ReactNode, type TextareaHTMLAttributes } from "react";
 import { buttonSkin, controlBox, controlOf, skinImage, type LegacyControl, type LegacyLayout } from "./layout";
 import "./skin.css";
+import { activateMnemonic, mnemonicCaption } from "./mnemonics";
 
-type ButtonProps = { control: LegacyControl; chrome?: boolean; style?: CSSProperties } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "type">;
-export function WdButton({ control, chrome = false, style, className = "", tabIndex, ...props }: ButtonProps) {
+type ButtonProps = { control: LegacyControl; chrome?: boolean; interpretAmpersand?: boolean; style?: CSSProperties } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "type">;
+export function WdButton({ control, chrome = false, interpretAmpersand = true, style, className = "", tabIndex, ...props }: ButtonProps) {
+  const caption = mnemonicCaption(interpretAmpersand && !chrome ? control.caption ?? "" : "");
   return <button {...props} type="button" data-testid={control.name} data-control-path={control.path}
+    data-wd-mnemonic={caption.letter ? caption.letter.toLocaleLowerCase("pt-PT") : undefined}
+    aria-keyshortcuts={props["aria-keyshortcuts"] ?? (caption.letter ? `Alt+${caption.letter}` : undefined)}
     hidden={props.hidden ?? control.visible === false} tabIndex={String(control.tab_order) === "-1" ? -1 : tabIndex}
     className={`wd-button ${chrome ? "wd-chrome-button" : ""} ${className}`}
     style={{ ...controlBox(control), ...buttonSkin(control), ...style }}>
-    {!chrome && <span>{control.caption}</span>}
+    {!chrome && <span>{!interpretAmpersand ? control.caption : <>{caption.before}{caption.letter && <u>{caption.letter}</u>}{caption.after}</>}</span>}
     {control.image && <span className="wd-button-icon" aria-hidden="true" />}
   </button>;
 }
@@ -28,6 +32,7 @@ export function WdFrame({ layout, instance, children, width, height, onClose, on
   const frameWidth = width ?? size.width;
   const skin = { "--wd-frame": `url("${skinImage(layout.window.background_image)}")` } as CSSProperties;
   return <section data-testid={instance} data-layout={layout.window.name} aria-label={title.caption ?? layout.window.title ?? undefined}
+    data-wd-keyboard-scope="" onKeyDown={activateMnemonic}
     className="wd-frame" style={{ ...skin, width: frameWidth, height: height ?? size.height }}>
     <div className="wd-client">
       <div className="wd-title" data-testid={title.name} style={{ ...controlBox(title), width: (title.width ?? 0) + frameWidth - size.width }}>{title.caption}</div>

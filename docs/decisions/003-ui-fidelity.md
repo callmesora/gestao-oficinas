@@ -13,5 +13,7 @@ Reproduce the Portuguese legacy captions, geometry, masks, tab order, keyboard b
 
 Message clipboard default (Q-12; decided by default): route the standard copy event/Control+C to the mapped hidden copy action, retaining its exact title/separator/message payload. Keep that off-canvas control out of tab traversal. The encoded legacy shortcut/tab flags are still U-W36869F-02, so this route is assumed until confirmed. Use the WebView clipboard API for the hidden action; packaged Windows clipboard behavior requires native acceptance.
 
+Caption mnemonic default (decided by default): interpret the first unescaped & in button captions as Alt+letter, && as a literal &, and keep a trailing & literal. Render an underlined letter; the native Windows underline-visibility preference remains unverified. Scope activation to the focused in-app frame/modal, ignore disabled/hidden/inert controls and Ctrl+Alt (AltGr), and leave duplicate eligible letters unhandled rather than choose an unknown winner. These defaults do not recover encoded custom shortcuts or resolve the existing keyboard U items. Explicitly literal captions can opt out.
+
 ## Consequences and verification
 Skin kit precedes business screens. Every opened window/dialog needs control/caption checks, keyboard flows, image-load checks and recorded visual scores. Human visual acceptance remains pending; no score or browser mock proves native parity. Test multiple windows and cancellation explicitly.

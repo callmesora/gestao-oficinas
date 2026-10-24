@@ -1,4 +1,5 @@
 import { controlOf, type LegacyLayout } from "./layout";
+import { mnemonicCaption } from "./mnemonics";
 
 export type TextMeasure = (text: string, width?: number) => { width: number; height: number };
 
@@ -29,7 +30,7 @@ export function messageGeometry(layout: LegacyLayout, text: string, count: numbe
 
 // legacy/GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:550-656,738-804.
 export function resourceButtonGeometry(labels: string[], title: string, measure: TextMeasure, viewport: number) {
-  const widths = labels.map(label => Math.max(80, measure(label).width + 24));
+  const widths = labels.map(label => Math.max(80, measure(mnemonicCaption(label).text).width + 24));
   const total = widths.reduce((sum, width) => sum + width, 0) + (widths.length - 1) * 12;
   const width = Math.min(Math.max(400, total + 100, measure(title).width + 100), Math.min(4000, viewport - 16));
   return { widths, total, width };

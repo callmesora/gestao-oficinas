@@ -5,6 +5,7 @@ import { controlBox, controlOf, skinImage } from "./layout";
 import type { MessageController, PendingResource } from "./message-state";
 import { WdButton } from "./wd";
 import { browserMeasure, resourceGeometry, resourceTextInputGeometry } from "./dialog-metrics";
+import { activateMnemonic } from "./mnemonics";
 
 export function ResourceBox({ current, controller }: { current: PendingResource; controller: MessageController }) {
   const { id, request, model } = current;
@@ -48,9 +49,11 @@ export function ResourceBox({ current, controller }: { current: PendingResource;
     ref.current?.close(); controller.finish(id, name, reason, input);
   };
   const skin = { "--wd-frame": `url("${skinImage(proposals.frame)}")` } as CSSProperties;
-  return <dialog ref={ref} className="wd-dialog-host" data-testid="WINDEVDIALOGBOX" aria-label={request.title} aria-describedby={textId}
+  return <dialog ref={ref} className="wd-dialog-host" data-testid="WINDEVDIALOGBOX" data-wd-keyboard-scope="" aria-label={request.title} aria-describedby={textId}
     onCancel={event => { event.preventDefault(); finish(undefined, "escape"); }}
     onKeyDown={event => {
+      activateMnemonic(event);
+      if (event.defaultPrevented) return;
       if (event.key === "Enter" && !multiline && event.target === inputRef.current && model.buttons[model.focus]) {
         event.preventDefault(); finish(model.buttons[model.focus].name);
       }

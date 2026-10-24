@@ -84,3 +84,33 @@ test("skin geometry and label association follow the generated form inputs", asy
   const visual = await promisify(execFile)(process.execPath, ["scripts/py.mjs", "scripts/skin_visual_check.py", "ui-report/skin-frame.png"], { windowsHide: true });
   expect(JSON.parse(visual.stdout).passed).toBe(true);
 });
+
+test("caption mnemonics stay inside the focused frame and ignore hidden, disabled, AltGr and ambiguous targets", async ({ page }) => {
+  await page.goto("/?skin=controls");
+  const a = page.getByTestId("skin-fixture-A"), b = page.getByTestId("skin-fixture-B");
+  await a.getByTestId("skin-mnemonics").check();
+  await b.getByTestId("skin-mnemonics").check();
+  await expect(a.getByTestId("BTN_Validar")).toHaveText("Validar & manter");
+  await expect(a.getByTestId("BTN_Validar").locator("u")).toHaveText("V");
+  await expect(a.getByTestId("skin-mnemonic-literal")).toHaveText("&Validar");
+  await expect(a.getByTestId("skin-mnemonic-literal")).not.toHaveAttribute("data-wd-mnemonic");
+  await a.getByTestId("EDT_Descricao").focus();
+  await page.keyboard.press("Alt+v");
+  await expect(a.getByTestId("skin-clicks")).toHaveText("1");
+  await expect(b.getByTestId("skin-clicks")).toHaveText("0");
+  await a.getByTestId("skin-disable").check();
+  await a.getByTestId("EDT_Descricao").focus();
+  await page.keyboard.press("Alt+v");
+  await expect(a.getByTestId("skin-clicks")).toHaveText("1");
+  await a.getByTestId("skin-disable").uncheck();
+  await a.getByTestId("EDT_Descricao").focus();
+  await page.keyboard.press("Control+Alt+v");
+  await expect(a.getByTestId("skin-clicks")).toHaveText("1");
+  await a.getByTestId("skin-mnemonic-duplicate").check();
+  await a.getByTestId("EDT_Descricao").focus();
+  await page.keyboard.press("Alt+v");
+  await expect(a.getByTestId("skin-clicks")).toHaveText("1");
+  await b.getByTestId("EDT_Descricao").focus();
+  await page.keyboard.press("Alt+v");
+  await expect(b.getByTestId("skin-clicks")).toHaveText("1");
+});

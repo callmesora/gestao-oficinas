@@ -7,6 +7,7 @@ import { WdButton } from "./wd";
 import { ResourceBox } from "./resource-dialog";
 import { browserMeasure, messageGeometry } from "./dialog-metrics";
 import { messageClipboardText, writeMessageClipboard } from "./message-clipboard";
+import { activateMnemonic } from "./mnemonics";
 
 type DialogService = Pick<MessageController, "open" | "resource">;
 const MessageContext = createContext<DialogService | null>(null);
@@ -62,7 +63,7 @@ function MessageBox({ current, controller }: { current: PendingMessage; controll
   };
   const frameSkin = { "--wd-frame": `url("${skinImage(proposals.frame)}")` } as CSSProperties;
   // UNRESOLVED U-W36869F-01: minimum title geometry is unavailable; keep its width nonnegative.
-  return <dialog ref={ref} className="wd-dialog-host" data-testid="WINDEVMESSAGEBOX" aria-label={request.title} aria-describedby={textId}
+  return <dialog ref={ref} className="wd-dialog-host" data-testid="WINDEVMESSAGEBOX" data-wd-keyboard-scope="" onKeyDown={activateMnemonic} aria-label={request.title} aria-describedby={textId}
     onCopy={event => {
       // ADR-003 default; native shortcut metadata remains U-W36869F-02.
       event.preventDefault(); event.clipboardData.setData("text/plain", messageClipboardText(request));
