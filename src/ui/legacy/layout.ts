@@ -1,12 +1,18 @@
 import type { CSSProperties } from "react";
 import inputs from "../../../docs/evidence/ui-inputs.json";
 
+export interface LegacyColumn {
+  name: string; path: string; title: string | null; width: number | null;
+  h_align: string | null; flags?: Record<string, boolean> | null;
+}
+
 export interface LegacyControl {
   name: string; path: string; kind: string; x: number; y: number;
   width?: number | null; height?: number | null; caption?: string | null;
   caption_width?: number; visible?: boolean; state?: string;
   tab_order?: number | string; image?: string; background_image?: string;
   h_align?: string;
+  columns?: LegacyColumn[];
 }
 export interface LegacyLayout {
   window: { name: string; title: string | null; size: { width: number; height: number } | null; background_image: string | null };

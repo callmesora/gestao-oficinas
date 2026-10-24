@@ -28,3 +28,19 @@
 .wd-edit:focus { outline: none; border-color: #7d8899; } /* sampled */
 /* Single-line field's 2px vertical inset measured on WIN_Form_Clientes.jpg. */
 .wd-frame [hidden] { display: none !important; }
+.wd-memo { resize: none; overflow: auto; }
+.wd-memo-field label { align-items: start; padding-top: 4px; box-sizing: border-box; }
+/* Table geometry comes from the dossier; row/header sizes and colors sampled from WIN_Table_Clientes.jpg. */
+.wd-table { position: absolute; box-sizing: border-box; overflow: auto; border: 1px solid #a7adb8; background: white;
+  background-image: repeating-linear-gradient(to bottom, transparent 0 18px, #e0e2e4 18px 19px); background-position: 0 23px; }
+.wd-table table { border-collapse: separate; border-spacing: 0; table-layout: fixed; font: inherit; }
+.wd-table th { position: sticky; top: 0; box-sizing: border-box; height: 23px; font-weight: normal; text-align: center;
+  background: linear-gradient(#fdfdfd, #e3e5e8); border-right: 1px solid #d0d4da; border-bottom: 1px solid #b9bec7; }
+.wd-table th button { font: inherit; color: inherit; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; background: transparent; }
+.wd-table td { box-sizing: border-box; height: 19px; padding: 0 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  border-right: 1px solid #e3e6ea; border-bottom: 1px dotted #d3d7dd; }
+.wd-table tr[aria-selected="true"] td { background: #cfe3fb; }
+.wd-table:focus-visible { outline: 1px solid #7d8899; }
+.wd-table-grid { position: absolute; top: 23px; bottom: 0; display: flex; pointer-events: none; }
+.wd-table-grid span { box-sizing: border-box; flex: none; border-right: 1px solid #e3e6ea; }
+.wd-component-canvas { position: relative; font: 10.67px "Trebuchet MS", Tahoma, sans-serif; color: #000; background: #edf3fa; }

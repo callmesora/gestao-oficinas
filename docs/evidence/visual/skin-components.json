@@ -67,6 +67,21 @@
         87
       ],
       "passed": true
+    },
+    "EDT_Observacao": {
+      "pixel_similarity": 98.5,
+      "edge_overlap": 76.4,
+      "size": [
+        380,
+        170
+      ],
+      "bounds": [
+        14,
+        248,
+        394,
+        418
+      ],
+      "passed": true
     }
   },
   "passed": true

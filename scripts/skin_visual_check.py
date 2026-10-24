@@ -9,25 +9,28 @@ from visual_compare import compare
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('screenshot', type=Path)
+    parser.add_argument('--fixture', choices=('form', 'table'), default='form')
     args = parser.parse_args()
-    layout_path = Path('src/ui/legacy/WIN_Form_Clientes.layout.json')
+    unit = 'WIN_Table_Clientes' if args.fixture == 'table' else 'WIN_Form_Clientes'
+    layout_path = Path(f'src/ui/legacy/{unit}.layout.json')
     layout = json.loads(layout_path.read_text(encoding='utf-8'))
     reference_path = Path(layout['image'])
-    regions = {'header': (0, 0, layout['window']['size']['width'], 25)}
-    for name in ('BTN_Validar', 'BTN_Cancelar', 'EDT_Descricao'):
+    regions = {} if args.fixture == 'table' else {'header': (0, 0, layout['window']['size']['width'], 25)}
+    controls = ('TABLE_Clientes', 'EDT_Observacao') if args.fixture == 'table' else ('BTN_Validar', 'BTN_Cancelar', 'EDT_Descricao', 'EDT_Observacao')
+    for name in controls:
         control = next(control for control in layout['controls'] if control['name'] == name)
         regions[name] = (control['x'], control['y'], control['x'] + control['width'], control['y'] + control['height'])
     reference = Image.open(reference_path).convert('RGB')
     target = Image.open(args.screenshot).convert('RGB')
     if reference.size != target.size:
         raise ValueError('Component fixture must match the source frame size; no resizing')
-    output = Path('docs/evidence/visual/skin-components.json')
+    output = Path('docs/evidence/visual/skin-table-components.json' if args.fixture == 'table' else 'docs/evidence/visual/skin-components.json')
     previous = json.loads(output.read_text(encoding='utf-8')) if output.exists() else {}
     results = {}
     for name, bounds in regions.items():
-        before, after = Path(f'ui-report/skin-{name}-reference.png'), Path(f'ui-report/skin-{name}-target.png')
+        before, after = Path(f'ui-report/skin-{args.fixture}-{name}-reference.png'), Path(f'ui-report/skin-{args.fixture}-{name}-target.png')
         reference.crop(bounds).save(before); target.crop(bounds).save(after)
-        result = compare(before, after, Path(f'ui-report/skin-{name}-comparison.png'))
+        result = compare(before, after, Path(f'ui-report/skin-{args.fixture}-{name}-comparison.png'))
         result['bounds'] = list(bounds)
         result['passed'] = result['pixel_similarity'] >= 90 and result['edge_overlap'] >= 60
         baseline = previous.get('regions', {}).get(name)
@@ -39,7 +42,7 @@ def main():
               'floors': {'pixel_similarity': 90, 'edge_overlap': 60}, 'regions': results,
               'passed': all(result['passed'] for result in results.values())}
     if not report['passed']:
-        output = Path('ui-report/skin-components-failed.json')
+        output = Path(f'ui-report/skin-{args.fixture}-components-failed.json')
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     print(json.dumps(report))

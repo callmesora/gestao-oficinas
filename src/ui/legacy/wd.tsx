@@ -1,4 +1,4 @@
-import { useId, type ButtonHTMLAttributes, type CSSProperties, type InputHTMLAttributes, type ReactNode } from "react";
+import { useId, type ButtonHTMLAttributes, type CSSProperties, type InputHTMLAttributes, type ReactNode, type TextareaHTMLAttributes } from "react";
 import { buttonSkin, controlBox, controlOf, skinImage, type LegacyControl, type LegacyLayout } from "./layout";
 import "./skin.css";
 
@@ -50,5 +50,17 @@ export function WdEdit({ control, ...props }: { control: LegacyControl } & Omit<
       readOnly={props.readOnly ?? control.state === "Read-only"}
       aria-label={captionWidth ? undefined : props["aria-label"] ?? control.caption ?? control.name}
       style={{ left: captionWidth, width: (control.width ?? 0) - captionWidth, textAlign: control.h_align === "Right" ? "right" : "left" } as CSSProperties} />
+  </div>;
+}
+
+export function WdMemo({ control, ...props }: { control: LegacyControl } & Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "style" | "className" | "id">) {
+  const id = useId();
+  const captionWidth = control.caption_width ?? 0;
+  return <div className="wd-field wd-memo-field" hidden={props.hidden ?? control.visible === false} data-control-path={control.path} style={controlBox(control)}>
+    {captionWidth > 0 && <label htmlFor={id} style={{ width: captionWidth - 2 }}>{control.caption}</label>}
+    <textarea {...props} id={id} data-testid={control.name} className="wd-edit wd-memo"
+      readOnly={props.readOnly ?? control.state === "Read-only"}
+      aria-label={captionWidth ? undefined : props["aria-label"] ?? control.caption ?? control.name}
+      style={{ left: captionWidth, width: (control.width ?? 0) - captionWidth }} />
   </div>;
 }

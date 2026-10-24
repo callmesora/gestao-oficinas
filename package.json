@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@fastify/cors": "11.3.1",
+    "@tanstack/react-table": "8.21.3",
     "@tauri-apps/api": "2.12.4",
     "decimal.js": "10.6.0",
     "fastify": "5.12.7",

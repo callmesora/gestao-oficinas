@@ -1,5 +1,7 @@
 # Screen spec — WIN_Table_Clientes
 
+DEV component fixture only: skin-table-fixture and skin-table-canvas borrow the source table/memo. Synthetic rows and non-legacy skin-empty, skin-reverse, skin-selection, skin-activation and skin-sort controls test component callbacks; no customer query, refresh, saved-column behavior or business action is implemented by this fixture.
+
 Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Table_Clientes.wdw`, `dossier: WIN_Table_Clientes`, `docs/mapping/WIN_Table_Clientes.md`. Step 0 specification only.
 
 ## Contract

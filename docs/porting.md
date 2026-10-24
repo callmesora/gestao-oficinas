@@ -43,6 +43,8 @@ The first implementation of each pattern must replace its reserved shape with ac
 
 Shared skin primitives now start in src/ui/legacy/wd.tsx (WdFrame, WdButton, WdEdit). layout.ts resolves qualified control paths and checked image/state files; geometry/captions come from generated inputs. Frame actions are required in-app callbacks, never native-window commands. ui-check/skin-controls.flows.spec.ts proves component state/assets/geometry; skin_visual_check.py checks component regions only. Full windows, tables, awaited dialogs and business bindings remain in their owning stages.
 
+The next primitives are WdMemo in wd.tsx and WdTable in table.tsx: controlled text and row selection, qualified source columns, caller-provided stable row identities and activation/sort callbacks. TanStack Table 8 manages the row model only; it never invents a business comparator, initial selection or refresh. Table search, saved column configuration and HFSQL cursor coupling remain obligations of each workflow, including U-CC16AB27-02.
+
 ## Implemented database foundation
 
 HFSQL export → PostgreSQL: apps/server/src/db/column-mapping.v1.json names every field and conversion; legacy-import.ts exports convertCell/importLegacy/reconcileLegacy. Values cross this import boundary as exact strings, NULL or bytes, with typed provenance. migrate.ts owns transactional migration/checksum checks. legacy-import.test.ts exercises real PostgreSQL, rollback/retry, quarantine, precision, duplicate identities and restore; dry-run.ts reconciles the full copied dataset. This establishes import representation only; domain arithmetic and workflow write patterns above remain to implement in their owning stages.
