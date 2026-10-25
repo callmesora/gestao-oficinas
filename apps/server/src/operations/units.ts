@@ -1,11 +1,11 @@
-import type { CustomerConnection } from "./customers";
+import type { DatabaseConnection } from "../db/connection";
 import { unitIdentitySchema, unitListSchema, unitSaveSchema, unitRequiredMessage, unitDuplicateMessage,
   type Unit, type UnitListResult, type UnitSaveResult, type UnitDeleteResult } from "../../../../packages/domain/src/units";
 
 const returning = `_row_id::text AS id,"unidadesID"::text,"Codigo","Descricao"`;
 const associatedMessage = "Unidade usada em artigos, não pode ser eliminada";
 
-export async function listUnits(connect: CustomerConnection, input: unknown): Promise<UnitListResult> {
+export async function listUnits(connect: DatabaseConnection, input: unknown): Promise<UnitListResult> {
   const parsed = unitListSchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
   const client = await connect().catch(() => null);
@@ -17,7 +17,7 @@ export async function listUnits(connect: CustomerConnection, input: unknown): Pr
   finally { await client.end(); }
 }
 
-export async function saveUnit(connect: CustomerConnection, input: unknown): Promise<UnitSaveResult> {
+export async function saveUnit(connect: DatabaseConnection, input: unknown): Promise<UnitSaveResult> {
   const parsed = unitSaveSchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
   const command = parsed.data, values = command.values, required = unitRequiredMessage(values);
@@ -50,7 +50,7 @@ export async function saveUnit(connect: CustomerConnection, input: unknown): Pro
   } finally { await client.end(); }
 }
 
-export async function checkUnitDelete(connect: CustomerConnection, input: unknown): Promise<UnitDeleteResult | { kind: "ready" }> {
+export async function checkUnitDelete(connect: DatabaseConnection, input: unknown): Promise<UnitDeleteResult | { kind: "ready" }> {
   const parsed = unitIdentitySchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
   const client = await connect().catch(() => null);
@@ -63,7 +63,7 @@ export async function checkUnitDelete(connect: CustomerConnection, input: unknow
   finally { await client.end(); }
 }
 
-export async function deleteUnit(connect: CustomerConnection, input: unknown): Promise<UnitDeleteResult> {
+export async function deleteUnit(connect: DatabaseConnection, input: unknown): Promise<UnitDeleteResult> {
   const parsed = unitIdentitySchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
   const client = await connect().catch(() => null);

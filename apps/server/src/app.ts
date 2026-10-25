@@ -1,11 +1,12 @@
+import type { DatabaseConnection } from "./db/connection";
 import Fastify from "fastify";
 import type { FastifyRequest } from "fastify";
-import { checkCustomerDelete, deleteCustomer, listCustomers, saveCustomer, type CustomerConnection } from "./operations/customers";
+import { checkCustomerDelete, deleteCustomer, listCustomers, saveCustomer } from "./operations/customers";
 import type { developmentSessions } from "./development-sessions";
 import { checkVehicleDelete, deleteVehicle, listVehicles, lookupVehicle, saveVehicle } from "./operations/vehicles";
 import { checkUnitDelete, deleteUnit, listUnits, saveUnit } from "./operations/units";
 
-export function createApp(options: { customerConnect?: CustomerConnection; vehicleConnect?: CustomerConnection; unitConnect?: CustomerConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
+export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
   const app = Fastify({ logger: false });
   app.get("/health/live", async () => ({ service: "gestao-oficinas-api", status: "alive" }));
   const authenticate = options.authenticate ?? options.development?.authenticate;

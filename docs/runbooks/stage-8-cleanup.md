@@ -1,0 +1,21 @@
+# MIG-7C — cleanup after the first six usable windows
+
+First read handoff, AGENTS, ROADMAP, current code and ADRs 001–011. Synchronize safely with git pull --ff-only on the clean stage boundary; preserve unrelated work. Customer b646e15, vehicle 42763c2 and unit 95c4794 cores are pushed. Their full parent/designer/report/native parity remains open. This checkpoint gates the retained designer follow-ups and further leaf workflows.
+
+## Bounded work and evidence
+
+1. Fix the confirmed automatic-ID range gap in saveCustomer/saveVehicle. Column mapping sourceCode 24 is signed 8-byte; ADR-002 fixes lossless representation, ADRs 008/010 define allocation and rollback, ADR-011 and the actual unit exhaustion test show the correct source-range boundary. Do not let PostgreSQL NUMERIC(20,0) admit max+1 outside 9223372036854775807. Retain existing rows and their provenance; no migration, wrap/reuse, repair or new user-facing message. Add actual PostgreSQL/API exhaustion/no-write regressions and retain competing-create tests. Source rows: SRC-51085948c6 and SRC-0c045cf25e.
+2. Extract only the HTTP session/post transport now repeated by all three real infrastructure repositories. Preserve endpoint/body/auth headers, opt-in Origin restrictions, expiring bearer handling, typed operation results and failure behavior. Do not introduce production login, cache credentials, change the existing application repository interfaces or invent generic CRUD/UI components. Actual consuming rows include those save rows and SRC-a5097f5947; every existing browser workflow must continue through the same real API/database path.
+3. Move the shared database-connection type out of customer-specific operation ownership, updating actual imports/tests only. Do not abstract transaction bodies: customer selected-row writes, vehicle registration predicates and unit selected-row writes intentionally differ.
+4. Correct stale architecture/porting statements that no business functionality is implemented or that all browser flows use mocks. Record the concrete shared symbols and executed examples. Keep all 2,273 parity rows/statuses, defaults/U items and owning follow-up briefs. No status promotion follows from cleanup.
+
+Read all edited files in full and verify installed library APIs before changes. Pure domain stays free of I/O; no secret/legacy/binding/layout/committed-migration/guard/agent-setting edits. The three workflows' source rules, messages, field mapping, filters, selection, modal/caller sequencing and transaction boundaries remain unchanged apart from refusing out-of-source-range generated identifiers under existing ADRs. Production navigation/auth remains MIG-12.
+
+## Checks and closure
+
+Real focused DB/API max-boundary regressions first, all three golden comparators and real customer/vehicle/unit browser flows; full npm run verify with existing serialized fixture-file scheduling and explicit concurrent tests retained; applicable native check. No timeout/assertion/visual-floor relaxation, skipped tests or mocked business backend. Two separate sequential self-review passes for these write boundaries, fix findings, reread ADRs, update architecture/porting/parity references if needed, roadmap/handoff/progress and explicit-file commit/push.
+
+After this checkpoint, finish stage-5-followup.md, stage-6-vehicles-followup.md and stage-7-units-followup.md with concrete consumer evidence before remaining leaf workflows. Repair-order caller continuation, reports, UMC and native/human acceptance retain their existing ownership. Full migration remains the active goal.
+
+
+Closure checks (2026-10-25): focused 36120 PASS, 23 real domain/API/PostgreSQL tests; full npm run verify 87926 PASS, 69 TS tests including all three spec-derived golden comparators, 2 Rust tests, bindings, 2,273-row parity, 53 layouts/154 PNGs and 56 browser checks against a newly started real API/PostgreSQL runner. Native check 40451 PASS: actual built Tauri/WebView2/Rust metadata and reload only, expressly excluding business data, installer, printing, devices and legacy parity. Existing TanStack lint warning only. parity --check-files and git diff --check passed. ADRs 001–011 reread; no parity statuses changed. Two sequential same-agent/context reviews are in reviews/cleanup.md. Remaining designer and acceptance obligations stay open.

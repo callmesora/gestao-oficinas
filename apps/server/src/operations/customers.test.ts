@@ -1,8 +1,9 @@
+import type { DatabaseConnection } from "../db/connection";
 import { afterAll, beforeAll, expect, it } from "vitest";
 import type { Client } from "pg";
 import { startIsolatedPostgres } from "../../test-support/postgres";
 import { migrate } from "../db/migrate";
-import { deleteCustomer, saveCustomer, type CustomerConnection } from "./customers";
+import { deleteCustomer, saveCustomer } from "./customers";
 import { createApp } from "../app";
 import { developmentSessions } from "../development-sessions";
 import type { CustomerValues } from "../../../../packages/domain/src/customers";
@@ -11,7 +12,7 @@ import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { resolve } from "node:path";
 
-let server: Awaited<ReturnType<typeof startIsolatedPostgres>>, database: Client, connect: CustomerConnection;
+let server: Awaited<ReturnType<typeof startIsolatedPostgres>>, database: Client, connect: DatabaseConnection;
 const values: CustomerValues = { Codigo: "9007199254740993", Descricao: "Oficina d'Água  ", Morada1: null, Morada2: "", codpostal: "0123-001", Telefone1: "0012", Telemovel: "", observacao: "linha 1\r\nlinha 2 " };
 beforeAll(async () => {
   server = await startIsolatedPostgres(); database = await server.database(); await migrate(database);
@@ -19,6 +20,21 @@ beforeAll(async () => {
   connect = () => server.connect(name);
 }, 60000);
 afterAll(async () => { await database?.end(); await server?.stop(); }, 60000);
+
+it("MIG-7C customer API allocates the final signed source ID and refuses exhaustion without writing", async () => {
+  const app = createApp({ customerConnect: connect, authenticate: async () => ({ userId: "synthetic-boundary" }) });
+  const sentinel = await database.query<{ id: string }>('INSERT INTO app."Clientes" ("ClientesID","Codigo") VALUES (9223372036854775806,990001) RETURNING _row_id::text AS id');
+  try {
+    const saved = (await app.inject({ method: "POST", url: "/api/customers/save", payload: { mode: "create", values: { ...values, Codigo: "990002" } } })).json();
+    expect(saved).toMatchObject({ kind: "saved", customer: { ClientesID: "9223372036854775807", Codigo: "990002" } });
+    const before = (await database.query('SELECT _row_id::text,"ClientesID"::text,"Codigo"::text FROM app."Clientes" ORDER BY _row_id')).rows;
+    expect((await app.inject({ method: "POST", url: "/api/customers/save", payload: { mode: "create", values: { ...values, Codigo: "990003" } } })).json()).toEqual({ kind: "failed" });
+    expect((await database.query('SELECT _row_id::text,"ClientesID"::text,"Codigo"::text FROM app."Clientes" ORDER BY _row_id')).rows).toEqual(before);
+  } finally {
+    await database.query('DELETE FROM app."Clientes" WHERE _row_id=$1 OR "Codigo" IN (990002,990003)', [sentinel.rows[0].id]);
+    await app.close();
+  }
+});
 
 it("GS-CUSTOMERS-001 real API create/edit/duplicate matches the spec-derived export without normalization", async () => {
   const app = createApp({ customerConnect: connect, development: developmentSessions("http://localhost:1431") });

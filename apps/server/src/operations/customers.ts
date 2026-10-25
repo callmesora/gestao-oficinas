@@ -1,11 +1,10 @@
-import type { Client } from "pg";
+import type { DatabaseConnection } from "../db/connection";
 import { z } from "zod";
 import { customerDuplicateMessage, customerRequiredMessage, customerSaveSchema, customerFilterSchema, type Customer, type CustomerSaveResult, type CustomerListResult } from "../../../../packages/domain/src/customers";
 
-export type CustomerConnection = () => Promise<Client>;
 const returning = `_row_id::text AS id, "ClientesID"::text, "Codigo"::text, "Descricao", "Morada1", "Morada2", "codpostal", "Telefone1", "Telemovel", "observacao"`;
 
-export async function listCustomers(connect: CustomerConnection, input: unknown): Promise<CustomerListResult> {
+export async function listCustomers(connect: DatabaseConnection, input: unknown): Promise<CustomerListResult> {
   const parsed = customerFilterSchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
   const filter = parsed.data;
@@ -25,7 +24,7 @@ export async function listCustomers(connect: CustomerConnection, input: unknown)
   finally { await client.end(); }
 }
 
-export async function saveCustomer(connect: CustomerConnection, input: unknown): Promise<CustomerSaveResult> {
+export async function saveCustomer(connect: DatabaseConnection, input: unknown): Promise<CustomerSaveResult> {
   const parsed = customerSaveSchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
   const command = parsed.data, values = command.values;
@@ -41,7 +40,10 @@ export async function saveCustomer(connect: CustomerConnection, input: unknown):
       // ADR-008: serialize legacy automatic identifier allocation, not editable code suggestions.
       await client.query('LOCK TABLE app."Clientes" IN SHARE ROW EXCLUSIVE MODE');
       result = await client.query<Customer>(`INSERT INTO app."Clientes" ("ClientesID", "Codigo", "Descricao", "Morada1", "Morada2", "codpostal", "Telefone1", "Telemovel", "observacao")
-        SELECT GREATEST(COALESCE(MAX("ClientesID"),0),0)+1,$1,$2,$3,$4,$5,$6,$7,$8 FROM app."Clientes" RETURNING ${returning}`, parameters);
+        SELECT GREATEST(COALESCE(MAX("ClientesID"),0),0)+1,$1,$2,$3,$4,$5,$6,$7,$8 FROM app."Clientes"
+        HAVING GREATEST(COALESCE(MAX("ClientesID"),0),0)<9223372036854775807 RETURNING ${returning}`, parameters);
+      // Verified signed sourceCode 24 range; ADR-002/011: fail without wrapping or reusing IDs.
+      if (!result.rowCount) { await client.query("ROLLBACK"); return { kind: "failed" }; }
     } else {
       const existing = await client.query<{ Codigo: string | null }>('SELECT "Codigo"::text FROM app."Clientes" WHERE _row_id=$1 FOR UPDATE', [command.id]);
       if (!existing.rowCount) { await client.query("ROLLBACK"); return { kind: "missing" }; }
@@ -63,7 +65,7 @@ export async function saveCustomer(connect: CustomerConnection, input: unknown):
 const customerIdentitySchema = z.strictObject({ id: z.string().regex(/^[1-9][0-9]*$/).max(19) });
 export type CustomerDeleteResult = { kind: "deleted" | "missing" | "invalid" | "failed" } | { kind: "associated"; message: string };
 
-export async function checkCustomerDelete(connect: CustomerConnection, input: unknown): Promise<CustomerDeleteResult | { kind: "ready" }> {
+export async function checkCustomerDelete(connect: DatabaseConnection, input: unknown): Promise<CustomerDeleteResult | { kind: "ready" }> {
   const parsed = customerIdentitySchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
   const client = await connect().catch(() => null);
@@ -76,7 +78,7 @@ export async function checkCustomerDelete(connect: CustomerConnection, input: un
   finally { await client.end(); }
 }
 
-export async function deleteCustomer(connect: CustomerConnection, input: unknown): Promise<CustomerDeleteResult> {
+export async function deleteCustomer(connect: DatabaseConnection, input: unknown): Promise<CustomerDeleteResult> {
   const parsed = customerIdentitySchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
   const client = await connect().catch(() => null);

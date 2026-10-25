@@ -3,14 +3,14 @@ import type { Client } from "pg";
 import { startIsolatedPostgres } from "../../test-support/postgres";
 import { migrate } from "../db/migrate";
 import { createApp } from "../app";
-import type { CustomerConnection } from "./customers";
+import type { DatabaseConnection } from "../db/connection";
 import { checkUnitDelete, deleteUnit, listUnits, saveUnit } from "./units";
 import { mkdir, writeFile } from "node:fs/promises";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { resolve } from "node:path";
 
-let server: Awaited<ReturnType<typeof startIsolatedPostgres>>, database: Client, connect: CustomerConnection;
+let server: Awaited<ReturnType<typeof startIsolatedPostgres>>, database: Client, connect: DatabaseConnection;
 beforeAll(async () => {
   server = await startIsolatedPostgres(); database = await server.database(); await migrate(database);
   const name = (await database.query<{ name: string }>("SELECT current_database() AS name")).rows[0].name;

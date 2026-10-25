@@ -3,7 +3,7 @@ import type { Client } from "pg";
 import { startIsolatedPostgres } from "../../test-support/postgres";
 import { migrate } from "../db/migrate";
 import { createApp } from "../app";
-import type { CustomerConnection } from "./customers";
+import type { DatabaseConnection } from "../db/connection";
 import { checkVehicleDelete, deleteVehicle, listVehicles, lookupVehicle, saveVehicle } from "./vehicles";
 import type { VehicleValues } from "../../../../packages/domain/src/vehicles";
 import { mkdir, writeFile } from "node:fs/promises";
@@ -11,7 +11,7 @@ import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { resolve } from "node:path";
 
-let server: Awaited<ReturnType<typeof startIsolatedPostgres>>, database: Client, connect: CustomerConnection;
+let server: Awaited<ReturnType<typeof startIsolatedPostgres>>, database: Client, connect: DatabaseConnection;
 const values: VehicleValues = { matricula: "aa-01-aa", Cliente: "9007199254740993", marca: "D'Água  ", modelo: "Modelo", Ano: 0, mes: 0 };
 beforeAll(async () => {
   server = await startIsolatedPostgres(); database = await server.database(); await migrate(database);
@@ -20,6 +20,21 @@ beforeAll(async () => {
   await database.query('INSERT INTO app."Clientes" ("ClientesID","Codigo","Descricao") VALUES (1,$1,$2)', [values.Cliente, "Cliente d'Água"]);
 }, 60000);
 afterAll(async () => { await database?.end(); await server?.stop(); }, 60000);
+
+it("MIG-7C vehicle API allocates the final signed source ID and refuses exhaustion without writing", async () => {
+  const app = createApp({ vehicleConnect: connect, authenticate: async () => ({ userId: "synthetic-boundary" }) });
+  const sentinel = await database.query<{ id: string }>('INSERT INTO app."Viaturas" ("ViaturasID","matricula") VALUES (9223372036854775806,$1) RETURNING _row_id::text AS id', ["BOUND-SENTINEL"]);
+  try {
+    const saved = (await app.inject({ method: "POST", url: "/api/vehicles/save", payload: { mode: "create", values: { ...values, matricula: "BOUND-LAST" } } })).json();
+    expect(saved).toMatchObject({ kind: "saved", vehicles: [{ ViaturasID: "9223372036854775807", matricula: "BOUND-LAST" }] });
+    const before = (await database.query('SELECT _row_id::text,"ViaturasID"::text,"matricula" FROM app."Viaturas" ORDER BY _row_id')).rows;
+    expect((await app.inject({ method: "POST", url: "/api/vehicles/save", payload: { mode: "create", values: { ...values, matricula: "BOUND-FAIL" } } })).json()).toEqual({ kind: "failed" });
+    expect((await database.query('SELECT _row_id::text,"ViaturasID"::text,"matricula" FROM app."Viaturas" ORDER BY _row_id')).rows).toEqual(before);
+  } finally {
+    await database.query('DELETE FROM app."Viaturas" WHERE _row_id=$1 OR "matricula" IN ($2,$3)', [sentinel.rows[0].id, "BOUND-LAST", "BOUND-FAIL"]);
+    await app.close();
+  }
+});
 
 it("GS-VEHICLES-001 real API create/edit/duplicate export matches the spec-derived golden projection", async () => {
   const app = createApp({ vehicleConnect: connect, authenticate: async () => ({ userId: "synthetic-golden" }) });

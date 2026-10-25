@@ -1,5 +1,5 @@
-// Runs the app's Vite dev server in browser-preview mode (fake backend) and drives it with the
-// installed Chrome (no browser download). Proves UI structure, look and click-through behavior, never the Rust commands.
+// Runs the isolated Vite/API/PostgreSQL workflow server with installed Chrome (no download).
+// Business flows use the real API/database; native preview metadata never proves Rust commands.
 import { defineConfig } from "@playwright/test";
 
 export default defineConfig({

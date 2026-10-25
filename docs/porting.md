@@ -1,6 +1,6 @@
 # Porting patterns — framing boundaries and pending concrete implementations
 
-The original rows below remain mapping vocabulary, now constrained by accepted ADRs 001–007 and docs/architecture.md. They are not claims of implemented functions. The concrete homes below are reserved by framing; the owning stage must add the actual file/function/component and an executed example before translating the construct. No business functionality is implemented.
+The original rows below remain mapping vocabulary constrained by accepted ADRs and docs/architecture.md. Reserved homes are distinct from the concrete implementations and executed customer/vehicle/unit examples recorded below. The owning stage adds the actual file/function/component and an executed example before claiming implementation.
 
 | Legacy construct | Trap/reference | Proposed shape for later framing |
 |---|---|---|
@@ -102,3 +102,12 @@ Real browser replay must await the owning action's enabled state after a filter 
 Customer HAdd/HModify starts in `apps/server/src/operations/customers.ts` with `saveCustomer`: connect once, validate the command at the service boundary, BEGIN, acquire source-identity allocation lock only for creation, parameterized insert/update, COMMIT or ROLLBACK, close connection. `packages/domain/src/customers.ts` owns the exact ordered required checks and duplicate text (WIN_Form_Clientes.wdw:38–71). The internal/source ID and failure contract is ADR-008. First consumer is MIG-7A's customer API/form; no other query/helper backlog is introduced. This entry reserves concrete symbols before translation; execution evidence is added with the workflow checks.
 
 HFSQL export → PostgreSQL: apps/server/src/db/column-mapping.v1.json names every field and conversion; legacy-import.ts exports convertCell/importLegacy/reconcileLegacy. Values cross this import boundary as exact strings, NULL or bytes, with typed provenance. migrate.ts owns transactional migration/checksum checks. legacy-import.test.ts exercises real PostgreSQL, rollback/retry, quarantine, precision, duplicate identities and restore; dry-run.ts reconciles the full copied dataset. This establishes import representation only; domain arithmetic and workflow write patterns above remain to implement in their owning stages.
+
+
+## Three-workflow cleanup (MIG-7C)
+
+`src/infrastructure/workflow-http.ts/isolatedWorkflowPost` is the extracted transport used by the actual customer, vehicle and unit repositories. Each repository construction still bootstraps its own ADR-009 bearer session; operation paths, JSON payloads, headers and existing failure messages remain unchanged. No session cache, retry or production login is introduced. The three real browser workflows exercise these adapters against the API/PostgreSQL runner; foundation metadata preview remains a separate fixture.
+
+`apps/server/src/db/connection.ts/DatabaseConnection` names the shared connected-client factory. Operation bodies still own their transaction, lock order, source-specific predicate and client cleanup. Customer selected-row writes, vehicle original-registration writes and unit selected-row writes must not be merged into generic CRUD.
+
+Automatic sourceCode 24 identifiers in `saveCustomer`, `saveVehicle` and `saveUnit` are signed 8-byte values despite the wider PostgreSQL NUMERIC column. Under the existing allocation lock, INSERT SELECT uses a MAX-based HAVING check against 9223372036854775807. No returned row means ROLLBACK and the existing typed failed result, never an undefined saved record, wrap or reuse. Customer/vehicle real API tests positively allocate the final valid ID, then assert exhaustion and unchanged persisted identities; the existing unit exhaustion and competing-create tests remain. ADR-002/011 and column-mapping.v1.json establish the source range; no legacy/schema repair follows from the guard.

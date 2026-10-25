@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { CustomerConnection } from "./customers";
+import type { DatabaseConnection } from "../db/connection";
 import { vehicleFilterSchema, vehicleSaveSchema, vehicleRequiredMessage, vehicleDuplicateMessage,
   type Vehicle, type VehicleListRow, type VehicleListResult, type VehicleLookupResult,
   type VehicleSaveResult, type VehicleDeleteResult } from "../../../../packages/domain/src/vehicles";
@@ -8,7 +8,7 @@ const returning = `_row_id::text AS id,"ViaturasID"::text,"matricula","Cliente":
 const registrationSchema = z.strictObject({ registration: z.string().max(15) });
 const associatedMessage = "Viatura usada em ordens de reparação, não pode ser eliminada";
 
-export async function listVehicles(connect: CustomerConnection, input: unknown): Promise<VehicleListResult> {
+export async function listVehicles(connect: DatabaseConnection, input: unknown): Promise<VehicleListResult> {
   const parsed = vehicleFilterSchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
   const filter = parsed.data;
@@ -28,7 +28,7 @@ export async function listVehicles(connect: CustomerConnection, input: unknown):
   finally { await client.end(); }
 }
 
-export async function lookupVehicle(connect: CustomerConnection, input: unknown): Promise<VehicleLookupResult> {
+export async function lookupVehicle(connect: DatabaseConnection, input: unknown): Promise<VehicleLookupResult> {
   const parsed = registrationSchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
   const client = await connect().catch(() => null);
@@ -41,7 +41,7 @@ export async function lookupVehicle(connect: CustomerConnection, input: unknown)
   finally { await client.end(); }
 }
 
-export async function saveVehicle(connect: CustomerConnection, input: unknown): Promise<VehicleSaveResult> {
+export async function saveVehicle(connect: DatabaseConnection, input: unknown): Promise<VehicleSaveResult> {
   const parsed = vehicleSaveSchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
   const command = parsed.data, values = command.values;
@@ -64,7 +64,10 @@ export async function saveVehicle(connect: CustomerConnection, input: unknown): 
         return { kind: "duplicate", message: vehicleDuplicateMessage(registration) };
       }
       result = await client.query<Vehicle>(`INSERT INTO app."Viaturas" ("ViaturasID","Cliente","marca","modelo","Ano","mes","matricula")
-        SELECT GREATEST(COALESCE(MAX("ViaturasID"),0),0)+1,$1,$2,$3,$4,$5,$6 FROM app."Viaturas" RETURNING ${returning}`, [...parameters, registration]);
+        SELECT GREATEST(COALESCE(MAX("ViaturasID"),0),0)+1,$1,$2,$3,$4,$5,$6 FROM app."Viaturas"
+        HAVING GREATEST(COALESCE(MAX("ViaturasID"),0),0)<9223372036854775807 RETURNING ${returning}`, [...parameters, registration]);
+      // Verified signed sourceCode 24 range; ADR-002/011: fail without wrapping or reusing IDs.
+      if (!result.rowCount) { await client.query("ROLLBACK"); return { kind: "failed" }; }
     } else {
       // Verified: source updates all matching original registrations, not one internal row.
       result = await client.query<Vehicle>(`UPDATE app."Viaturas" SET "Cliente"=$1,"marca"=$2,"modelo"=$3,"Ano"=$4,"mes"=$5 WHERE "matricula"=$6 RETURNING ${returning}`, [...parameters, command.originalRegistration]);
@@ -79,7 +82,7 @@ export async function saveVehicle(connect: CustomerConnection, input: unknown): 
   } finally { await client.end(); }
 }
 
-export async function checkVehicleDelete(connect: CustomerConnection, input: unknown): Promise<VehicleDeleteResult | { kind: "ready" }> {
+export async function checkVehicleDelete(connect: DatabaseConnection, input: unknown): Promise<VehicleDeleteResult | { kind: "ready" }> {
   const parsed = registrationSchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
   const client = await connect().catch(() => null);
@@ -92,7 +95,7 @@ export async function checkVehicleDelete(connect: CustomerConnection, input: unk
   finally { await client.end(); }
 }
 
-export async function deleteVehicle(connect: CustomerConnection, input: unknown): Promise<VehicleDeleteResult> {
+export async function deleteVehicle(connect: DatabaseConnection, input: unknown): Promise<VehicleDeleteResult> {
   const parsed = registrationSchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
   const client = await connect().catch(() => null);

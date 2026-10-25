@@ -1,13 +1,13 @@
 # Architecture — accepted framing
 
-The owner authorized the complete guide on 23 October 2026. ADRs 001–007 record the initial framing choices, including defaults that may be superseded by evidence. This document describes intended boundaries, not implemented functionality.
+The owner authorized the complete guide on 23 October 2026. ADRs 001–007 record initial framing; ADRs 008–011 define the implemented customer, vehicle and unit write/development contracts. Full application parity remains pending.
 
 ## Structure and rule ownership
 
 - src/ui: React legacy screens and MediaPlayer primitives in src/ui/legacy.
 - packages/domain: the single pure TypeScript home for calculations, decisions and explicit WLanguage helpers.
 - src/application: per-window/workflow state, command builders and interfaces.
-- src/infrastructure: typed HTTP/native adapters; browser preview installs a visible fake backend only in development.
+- src/infrastructure: typed HTTP/native adapters. The customer, vehicle and unit repositories use workflow-http.ts/isolatedWorkflowPost for an individual expiring development session and real API requests. Synthetic native-preview metadata remains separate.
 - apps/server: Fastify, runtime input validation, authentication and transaction-owning operations over PostgreSQL.
 - apps/server/migrations: sole ordered production schema history, with local instructions.
 - src-tauri/src/commands: narrow native operations, not a second home for business rules.
@@ -21,4 +21,6 @@ Generate every screen layout from evidence, preserve legacy control names/captio
 
 ## Delivery and verification
 
-ROADMAP.md owns dependencies. Each bounded stage follows templates/prompt-stage.md. Foundation establishes npm verification, Rust checks, bindings drift, parity, preview/UI flows and Windows CI. Native UI/IPC, persistence, installer, printing and devices need their own real checks; mocked browser tests prove presentation only. No application behavior has yet passed target verification.
+ROADMAP.md owns dependencies. Each bounded stage follows templates/prompt-stage.md. Customer, vehicle and unit list/form flows have executed real API/PostgreSQL, browser and spec-derived golden checks through the opt-in development runner. DatabaseConnection in apps/server/src/db/connection.ts supplies a connected client per operation; each operation retains its own lock order, transaction and cleanup. No generic transaction/CRUD abstraction changes their different identity predicates.
+
+Foundation checks cover TypeScript, Rust, bindings, parity, generated layouts and browser flows. Native IPC metadata has separate built WebView2 evidence; native business persistence, installer, printing, devices and full legacy parity remain separate acceptance gates. See docs/runbooks/handoff.md for executed checks and retained limits.
