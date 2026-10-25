@@ -18,3 +18,8 @@
 .startup-module .wd-workspace-launcher { height: 0; }
 .startup-module .wd-workspace-canvas { height: calc(100% - 36px); }
 .startup-module-host { position: relative; height: calc(100vh - 52px); min-height: 600px; }
+
+.startup-session { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.startup-enrollment { max-width: 620px; padding: 12px; }
+.startup-enrollment form { display: grid; gap: 12px; }
+.startup-enrollment label { display: grid; gap: 4px; }

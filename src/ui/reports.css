@@ -2,5 +2,9 @@
 .report-preview-toolbar { display: flex; gap: 16px; align-items: center; padding: 8px; background: #e2e7eb; }
 .report-preview-toolbar span { flex: 1; }
 .report-preview iframe { border: 0; width: 100%; height: calc(100% - 44px); background: #ddd; }
+.report-preview[open] { display: flex; flex-direction: column; }
+.report-preview-toolbar { flex-wrap: wrap; }
+.report-preview-toolbar output { flex-basis: 100%; }
+.report-preview[open] iframe { flex: 1; min-height: 0; height: 0; }
 .report-development form { display: grid; gap: 8px; max-width: 600px; }
 .report-development label { display: grid; grid-template-columns: 150px 1fr; }

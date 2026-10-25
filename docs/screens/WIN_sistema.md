@@ -1,6 +1,6 @@
 # Screen spec — WIN_sistema
 
-Evidence `legacy/GestaoOficinas_TesteIA/WIN_sistema.wdw`, `dossier: WIN_sistema`, `docs/mapping/WIN_sistema.md`. Step 0 only.
+Evidence `legacy/GestaoOficinas_TesteIA/WIN_sistema.wdw`, `dossier: WIN_sistema`, `docs/mapping/WIN_sistema.md`. Source inventory plus scoped target implementation proof.
 
 ## Contract
 
@@ -89,7 +89,7 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 - Walk the actual event branches and result handoffs listed in the mapping; use scratch data for data-writing cases only.
 - Confirm keyboard/focus/Enter/Esc outcomes under U-W3BC89B-02. No grid test applies.
 - Compare baseline/resized designer image and missing visual properties under U-W3BC89B-01.
-- Resolve only the applicable U-items above before claiming runtime parity; no test is claimed executed here.
+- Resolve only the applicable U-items above before claiming runtime parity; executed target checks below do not resolve the remaining native/source U items.
 
 ## Message and dialog inventory
 
@@ -97,6 +97,12 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | --- | --- | --- | --- |
 | — | No explicit message calls in this unit | Framework calls may originate in callees | U-W3BC89B-04 |
 
-## Initial implementation checkpoint
+## Current implementation and executed proof
 
-MIG12 initial development implementation: `SystemDialog` and protected startup system-read/system-save operations load and reread the first internal row, then atomically assign only the six source fields. New defaults remain source15/15/15/7/030000/030000. The existing integer-mask primitive constrains new numeric entry while retaining oversized loaded strings; untouched NULL and opaque time text remain exact. Deliberate time edits require valid hh:mm:ss/six digits (blank remains empty), with no timezone/autocorrection. Existing active windows retain their original timer lifetime. First-row tie/transaction failure adaptations, native mask/coercion and resized appearance remain U03/U05/U01; save closes only after committed success, cancellation writes nothing. Real PG rollback and browser round-trip tests pass on the worker's macOS working tree; no native parity claim.
+`SystemDialog` and protected startup read/save operations use the first internal sistema row under the explicit ADR006 target fallback. `SRC-d9a33f8b29` is verified for its write contract: reread first; assign exactly the six source values; create when missing; preserve all other rows and untouched raw/NULL data; report committed success only. Real PostgreSQL assertions in `apps/server/src/operations/startup.test.ts` compare all six exact values, including maximum-size integer text, NULL, opaque time and retained second-row data, then inject failure to prove rollback. `ui-check/startup.flows.spec.ts` opens the actual system menu/editor, saves interval/time, reopens and retains a value beyond JavaScript integer precision. Atomic failure behavior is an approved ADR006 target difference, not captured source rollback behavior.
+
+`SRC-9890c46def` remains implemented: actual first-row/missing reads and an actual dialog interval are asserted, but all six UI assignments are not individually exercised. Edited time validation and integer-mask presentation follow ADR002/003; no native mask/coercion or undefined buffer outcome is claimed. Active windows retain their original timer lifetime; neither read nor save restarts those windows.
+
+Separately, the service factory performs the six empty-file source defaults before access under ADR004. Real PostgreSQL and `ui-check/startup-system.flows.spec.ts` assert source15/15/15/7/030000/030000, no account/credential creation, anonymous denial, persistence after access Cancel and no duplication on service restart. This supports the menu global checkpoint; it does not verify its remaining startup branches.
+
+The executed browser paths and focused PostgreSQL checks passed on macOS arm64, root e7d26c7 plus integration tree. U01/U02/U03/U05, all encoded actions and native Windows acceptance stay open. `system-diagnostic` and helper names are target-only identities; generated legacy control IDs remain unchanged. The five AGENTS criteria were checked for the save contract and current decisions re-read at stage end.

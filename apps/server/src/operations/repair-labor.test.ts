@@ -58,6 +58,22 @@ it("uses actual source joins, typed numero ordering and none-selected-unrestrict
   expect(await listRepairLabor(connect, { mechanic: null, states: [null] })).toEqual({ kind: "loaded", orders: [] });
   expect(await listRepairLabor(connect, { mechanic: 3, states: [] })).toEqual({ kind: "loaded", orders: [] });
 });
+it("sorts real labor headers by whitelisted typed source values and displayed priority while preserving the source filter", async () => {
+  await seed();
+  await database.query(`UPDATE app."ordem_reparacao" SET "recepcao_prioridade"=3;
+    INSERT INTO app."ordem_reparacao" ("ordem_reparacaoID","numero","matricula","reparacao_estado","reparacao_mecanico","recepcao_prioridade") VALUES (2,10,'AA-00-AA','R',2,1),(3,2,'AA-00-AA','R',2,2),(4,1,'AA-00-AA','E',2,1)`);
+  const numbers = async (sort?: string, descending?: boolean) => {
+    const result = await listRepairLabor(connect, { mechanic: 2, states: ["R"], ...(sort ? { sort } : {}), descending });
+    if (result.kind !== "loaded") throw new Error(result.kind); return result.orders.map(row => row.numero);
+  };
+  expect(await numbers("numero")).toEqual(["2", "10", numero]);
+  expect(await numbers("numero", true)).toEqual([numero, "10", "2"]);
+  expect(await numbers("recepcao_prioridade")).toEqual(["2", "10", numero]);
+  expect(await numbers(undefined, true)).toEqual(["2", "10", numero]);
+  let connections = 0;
+  expect(await listRepairLabor(async () => { connections++; return connect(); }, { mechanic: null, states: [], sort: 'numero; DELETE FROM app."ordem_reparacao"' })).toEqual({ kind: "invalid" });
+  expect(connections).toBe(0);
+});
 it("chooses latest source labor ID rather than start date, preserving literal zero17 and NULL distinctions", async () => {
   await seed(); await labor("9007199254740993", numero, OPEN_LABOR_FINISH, "20261025080000000"); await labor("2", numero, "20261025115900000", "20261025110000000");
   expect(await plan()).toMatchObject({ finish: true });

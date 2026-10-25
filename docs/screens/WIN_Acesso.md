@@ -1,6 +1,6 @@
 # Screen spec — WIN_Acesso
 
-Evidence `legacy/GestaoOficinas_TesteIA/WIN_Acesso.wdw`, `dossier: WIN_Acesso`, `docs/mapping/WIN_Acesso.md`. Step 0 only.
+Evidence `legacy/GestaoOficinas_TesteIA/WIN_Acesso.wdw`, `dossier: WIN_Acesso`, `docs/mapping/WIN_Acesso.md`. Source inventory plus scoped target implementation proof.
 
 ## Contract
 
@@ -83,7 +83,7 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 - Walk the actual event branches and result handoffs listed in the mapping; use scratch data for data-writing cases only.
 - Confirm keyboard/focus/Enter/Esc outcomes under U-W9D7053-02. No grid test applies.
 - Compare baseline/resized designer image and missing visual properties under U-W9D7053-01.
-- Resolve only the applicable U-items above before claiming runtime parity; no test is claimed executed here.
+- Resolve only the applicable U-items above before claiming runtime parity; executed target checks below do not resolve the remaining native/source U items.
 
 ## Message and dialog inventory
 
@@ -91,6 +91,14 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | --- | --- | --- | --- |
 | legacy/GestaoOficinas_TesteIA/WIN_Acesso.wdw:378 | "Utilizador e/ou palavra-passe incorreto(s)" | Info | U-W9D7053-04; exact branch result in mapping event ledger |
 
-## Initial implementation checkpoint
+## Current implementation and executed proof
 
-MIG12 initial development implementation: `StartupAccessDialog` uses the real public UserPicker, exact selected-code continuation, masked password/reveal, unconditional `userUppercase`, source incorrect-password Info and silent missing-user result. `checkStartupAccess` compares only the selected stored credential inside an already protected isolated-development context and returns public identity/continuar; it does not issue a production session or adopt a legacy password hash (ADR004/009). Cancel returns cancelar and ends the development shell. Touch entry is enabled only for modulo t/m. Production credential transition/reset/bootstrap/session support remains MIG12, along with U01/U02/U03/U04/U05 native/Unicode/NULL boundaries. Synthetic-only tests exercise success, failure, direct API denial and the actual picker; original credentials are never read in tests.
+Default business entry now uses `ProductionStartup`, the actual `StartupAccessDialog` and public user picker, and persistent authenticated transport (ADR004/017). `SRC-0ca1dfb2e6` is verified for selected Codigo→exact description→password focus after the real picker closes. Focus waits for the enabled input to commit; the actual ordinary production browser path caught and then passed this lifecycle correction. The public picker uses stable local row identities across sorting; only Codigo/Descricao crosses the pre-login boundary.
+
+`SRC-7891e7fd29` is verified for the supported managed-account path: selection is required, Confirm visibly uppercases the submitted draft, the exact source incorrect-password Info is awaited, missing selection is silent, and successful access closes into the actual menu. Production uses explicitly reset scrypt credentials and RAM client sessions under ADR004, rather than copied legacy passwords. Enrollment, hashing, expiry, revocation and direct API denial are accepted target security behavior, not newly discovered legacy rules. Explicit isolated DEV access still has its separately tested synthetic source comparison; it creates no production session.
+
+The root's macOS working-tree run passed all nine `ui-check/authentication.flows.spec.ts` cases, including selected-user/focus, wrong/lowercase/success, browser reload/Cancel, explicit imported-account reset, managed maintenance/self-reset, external revocation and captured module entry. Real PostgreSQL/API security tests cover selected identities, session lifecycle, reset/delete invalidation and coordinated reset/login locking. `ui-check/startup.flows.spec.ts` retains the actual synthetic DEV comparison and touch-keyboard return/cancel checks. Source touch title/mask/size/password arguments are implemented but not all individually asserted; `SRC-c9144a3e08` stays implemented. Constructor defaults/captured mode are implemented; no encoded action or designer row is promoted.
+
+The actual macOS WKWebView business scenario also enrolled, saved one synthetic customer, logged out and logged in again; database effects were one customer, zero remaining sessions and zero DEV-session requests. This is a limited executed Mac path, not Windows, legacy runtime, native keyboard or full-window acceptance. U01/U02/U03/U04/U05 retain their original scopes, including native traversal/message shell and Unicode/NULL/shared-buffer boundaries. No credential value is evidence or fixture here.
+
+`authentication-enrollment`, `business-logout`, `business-session-user`, `startup-terminated`, `startup-diagnostic` and helper names are target-only identities, not legacy controls. Original WIN_Acesso control test IDs remain unchanged. The five AGENTS criteria were checked against the named assertions and actual paths; relevant current ADRs were re-read at this stage end.

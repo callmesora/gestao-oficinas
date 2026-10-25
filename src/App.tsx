@@ -1,3 +1,4 @@
+import ProductionStartup from "./ui/production-startup";
 import { additionalWorkshopWindows } from "./ui/workshop-windows";
 import ReportFiltersWorkflow from "./ui/report-filters";
 import StartupWorkflow from "./ui/startup";
@@ -67,10 +68,11 @@ export default function App({ preview }: { preview: boolean }) {
   if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "menu") return <StartupWorkflow additionalWindows={additionalWorkshopWindows} />;
   if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "touch-keyboards") return <DialogProvider><TouchKeyboardWorkflow /></DialogProvider>;
   if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "report-filters") return <ReportFiltersWorkflow />;
+  if (new URLSearchParams(window.location.search).get("diagnostics") !== "foundation") return <ProductionStartup native={!preview && "__TAURI_INTERNALS__" in window} />;
   return <main>
     {preview && <aside role="status" data-testid="foundation-preview">Browser preview — dados simulados; não verifica o ambiente nativo.</aside>}
     <h1>Gestão de Oficinas</h1>
-    <p>Preparação do ambiente. Funcionalidades da aplicação ainda não migradas.</p>
+    <p>Diagnóstico do ambiente nativo.</p>
     {import.meta.env.DEV && <p><a data-testid="skin-launcher" href="/?skin=controls">Testar componentes da pele</a></p>}
     {import.meta.env.DEV && <p><a data-testid="workspace-launcher" href="/?skin=workspace">Testar espaço de trabalho</a></p>}
     {import.meta.env.DEV && <p><a data-testid="customers-launcher" href="/?workflow=customers">Clientes</a></p>}

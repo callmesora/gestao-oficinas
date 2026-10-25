@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test("workspace keeps instances independent through stacking, minimize, restore and close", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/?diagnostics=foundation");
   await page.getByTestId("workspace-launcher").click();
   await expect(page.getByTestId("workspace-open")).toBeVisible();
   await page.evaluate(() => {

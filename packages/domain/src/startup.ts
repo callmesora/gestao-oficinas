@@ -10,7 +10,7 @@ export type SystemReadResult = { kind: "loaded"; system: SystemRecord | null } |
 export type SystemSaveResult = { kind: "saved"; system: SystemRecord } | { kind: "invalid" | "failed" };
 export const accessSchema = z.strictObject({ code: z.number().int().min(0).max(255), password: z.string().max(15) });
 export type AccessCommand = z.infer<typeof accessSchema>;
-export type AccessResult = { kind: "continuar"; user: UserListRow } | { kind: "incorrect"; message: string } | { kind: "missing" | "invalid" | "failed" };
+export type AccessResult = { kind: "continuar"; user: UserListRow } | { kind: "incorrect"; message: string } | { kind: "missing" | "invalid" | "failed" | "resetRequired" | "unavailable" | "throttled" };
 export type StartupResult = { kind: "ready"; system: SystemRecord; bootstrapRequired: boolean } | { kind: "invalid" | "failed" };
 export type LaunchMode = "menu" | "articles" | "labor" | "materials";
 // WIN_MENU952–975: modulo routes after the artigos presentation transformation.

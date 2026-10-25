@@ -4,6 +4,7 @@ import { access, mkdir, mkdtemp, realpath, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { tmpdir } from "node:os";
 import { createServer } from "node:net";
+import { URL } from "node:url";
 import { setTimeout as delay } from "node:timers/promises";
 import { chromium, expect } from "@playwright/test";
 
@@ -42,6 +43,7 @@ try {
   const context = browser.contexts()[0];
   await expect.poll(() => context.pages().length).toBeGreaterThan(0);
   const page = context.pages()[0];
+  await page.goto(new URL("?diagnostics=foundation", page.url()).href);
   await expect(page).toHaveTitle("Gestão de Oficinas");
   await expect(page.getByTestId("foundation-inspect")).toBeVisible();
   await expect(page.getByTestId("foundation-preview")).toHaveCount(0);

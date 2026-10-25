@@ -1,7 +1,7 @@
 import type { Client } from "pg";
 import { connectOperationClient, rollbackAfterFailure, closeOperationClient, type DatabaseConnection } from "../db/connection";
 import { repairLaborAuthenticateSchema, repairLaborInitialiseSchema, repairLaborListSchema, repairLaborMaterialSaveSchema, repairLaborNumberSchema, repairLaborPrepareSchema, repairLaborStateSchema, repairLaborTickSchema, repairLaborToggleSchema,
-  type RepairLaborAuthenticateResult, type RepairLaborDetail, type RepairLaborInitialiseResult, type RepairLaborListResult, type RepairLaborMaterial, type RepairLaborOrder, type RepairLaborPrepareResult, type RepairLaborProof, type RepairLaborReadResult, type RepairLaborRow, type RepairLaborSettings, type RepairLaborWriteResult } from "../../../../packages/domain/src/repair-labor";
+  type RepairLaborAuthenticateResult, type RepairLaborDetail, type RepairLaborInitialiseResult, type RepairLaborListResult, type RepairLaborMaterial, type RepairLaborMaterialCheckResult, type RepairLaborOrder, type RepairLaborPrepareResult, type RepairLaborProof, type RepairLaborReadResult, type RepairLaborRow, type RepairLaborSettings, type RepairLaborWriteResult } from "../../../../packages/domain/src/repair-labor";
 import type { RepairOrderMechanic, RepairOrderStateFilter } from "../../../../packages/domain/src/repair-orders";
 import { OPEN_LABOR_FINISH, laborDateTimeMilliseconds, laborStateHistory, laborWithinClosure } from "../../../../packages/domain/src/repair-labor-time";
 import { dateTimeComparisonKey } from "../../../../packages/domain/src/date-time";
@@ -9,6 +9,11 @@ import { dateTimeComparisonKey } from "../../../../packages/domain/src/date-time
 const stateColumns = '_row_id::text AS id,"Codigo","Descricao","tipo","Cor"::double precision AS "Cor","lancar_defa"';
 const laborColumns = 't._row_id::text AS id,t."numero"::text,t."mecanico",t."inicio",t."fim",t."Inicio_reparacao_estado",t."fim_reparacao_estado",t."tempos_reparacaoID"::text';
 const materialColumns = '_row_id::text AS id,"numero"::text,"artigo","descricao_artigo","quantidade"::text,"data_hora","preco"::text,"lancado","extra"';
+const orderSortColumns = {
+  numero: 'o."numero"', Descricao_me: 'm."Descricao"', matricula: 'o."matricula"', marcamodelo: '(v."marca"||\' \')||v."modelo"',
+  recepcao_prioridade: `CASE o."recepcao_prioridade" WHEN 1 THEN 'Normal' WHEN 2 THEN 'Elevada' WHEN 3 THEN 'Urgente' ELSE o."recepcao_prioridade"::text END`,
+  Descricao: 's."Descricao"', reparacao_mecanico: 'o."reparacao_mecanico"', reparacao_estado: 'o."reparacao_estado"',
+};
 const detailSql = `SELECT o._row_id::text AS id,o."numero"::text,o."matricula",o."reparacao_mecanico",o."reparacao_estado",o."reparacao_estado_historico",o."reparacao_servico",o."recepcao_servico",o."recepcao_obs",o."recepacao_contatos",
   (SELECT (v."marca"||' ')||v."modelo" FROM app."Viaturas" v WHERE v."matricula"=o."matricula" ORDER BY v._row_id LIMIT 1) AS marcamodelo,
   (SELECT c."Descricao" FROM app."Clientes" c WHERE c."Codigo"=o."recepcao_cliente" ORDER BY c._row_id LIMIT 1) AS cliente
@@ -70,8 +75,9 @@ export async function listRepairLabor(connect: DatabaseConnection, input: unknow
     const filter = parsed.data, values: unknown[] = [], predicates: string[] = ['s."tipo" IN (2,3,4,5,6)'];
     if (filter.mechanic !== null) { values.push(filter.mechanic); predicates.push(`o."reparacao_mecanico"=$${values.length}`); }
     if (filter.states.length > 0) { values.push(filter.states); predicates.push(`o."reparacao_estado"=ANY($${values.length}::text[])`); }
+    const order = filter.sort ? `${orderSortColumns[filter.sort]} ${filter.descending ? "DESC" : "ASC"}` : 'o."numero" ASC';
     const orders = (await client.query<RepairLaborOrder>(`SELECT json_build_array(o._row_id::text,s._row_id::text,v._row_id::text,m._row_id::text)::text AS id,o._row_id::text AS "orderId",o."numero"::text,o."matricula",(v."marca"||' ')||v."modelo" AS marcamodelo,o."reparacao_mecanico",o."reparacao_estado",m."Descricao" AS "Descricao_me",s."Descricao",s."tipo",s."Cor"::double precision AS "Cor",o."recepcao_prioridade",o."reparacao_estado_data",o."reparacao_estado_obs",o."reparacao_servico"
-      FROM app."ordem_reparacao" o INNER JOIN app."estados_reparacao" s ON o."reparacao_estado"=s."Codigo" INNER JOIN app."Viaturas" v ON o."matricula"=v."matricula" LEFT JOIN app."mecanicos" m ON m."Codigo"=o."reparacao_mecanico" WHERE ${predicates.join(" AND ")} ORDER BY o."numero" ASC NULLS LAST,o._row_id,s._row_id,v._row_id,m._row_id`, values)).rows;
+      FROM app."ordem_reparacao" o INNER JOIN app."estados_reparacao" s ON o."reparacao_estado"=s."Codigo" INNER JOIN app."Viaturas" v ON o."matricula"=v."matricula" LEFT JOIN app."mecanicos" m ON m."Codigo"=o."reparacao_mecanico" WHERE ${predicates.join(" AND ")} ORDER BY ${order} NULLS LAST,o._row_id,s._row_id,v._row_id,m._row_id`, values)).rows;
     return { kind: "loaded", orders };
   } catch { return { kind: "failed" }; } finally { await closeOperationClient(client); }
 }
@@ -86,6 +92,25 @@ export async function readRepairLabor(connect: DatabaseConnection, input: unknow
     const choices = (await stateRows(client)).filter(state => state.tipo !== null && state.tipo >= 3 && state.tipo <= 7);
     await client.query("COMMIT"); return { kind: "loaded", order, labor, materials, baseline: baseline(order, raw, choices), materialBaseline: JSON.stringify(materials), choices };
   } catch { await rollbackAfterFailure(client); return { kind: "failed" }; } finally { await closeOperationClient(client); }
+}
+// WIN_Table_Tempos_materiais_Descricoes721–753: fresh seek/lock/state flag before Open.
+// ADR006/U03: this check releases its connection before the modal; no native lock lifetime claim.
+export async function checkRepairLaborMaterials(connect: DatabaseConnection, input: unknown): Promise<RepairLaborMaterialCheckResult> {
+  const parsed = repairLaborNumberSchema.safeParse(input); if (!parsed.success) return { kind: "invalid" };
+  const client = await connectOperationClient(connect); if (!client) return { kind: "failed" };
+  try {
+    await client.query("BEGIN");
+    const locked = (await client.query('SELECT _row_id FROM app."ordem_reparacao" WHERE "numero"=$1 ORDER BY _row_id LIMIT 1 FOR UPDATE NOWAIT', [parsed.data.numero])).rows[0];
+    if (!locked) { await client.query("ROLLBACK"); return { kind: "missing" }; }
+    const order = await detail(client, parsed.data.numero);
+    if (!order) { await client.query("ROLLBACK"); return { kind: "missing" }; }
+    const state = (await client.query<{ lancar_material: boolean | null }>('SELECT "lancar_material" FROM app."estados_reparacao" WHERE "Codigo"=$1 ORDER BY _row_id LIMIT 1', [order.reparacao_estado])).rows[0];
+    await client.query("COMMIT");
+    if (!state) return { kind: "skip" };
+    // Explicit false differs from NULL; native coercion remains U-WBBC9D9-05/ADR002.
+    return state.lancar_material === false ? { kind: "blocked", message: "Não pode ser inserido material nesta ordem de reparação" } : { kind: "ready", order };
+  } catch (error) { await rollbackAfterFailure(client); return { kind: inUse(error) ? "in_use" : "failed" }; }
+  finally { await closeOperationClient(client); }
 }
 export async function authenticateRepairLabor(connect: DatabaseConnection, input: unknown): Promise<RepairLaborAuthenticateResult> {
   const parsed = repairLaborAuthenticateSchema.safeParse(input); if (!parsed.success) return { kind: "invalid" };

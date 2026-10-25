@@ -22,7 +22,7 @@ const searchValue = (row: UserListRow, key: NonNullable<UserList["sort"]>) => St
 export type UserSelection = number | string;
 
 function UserForm({ repository, user, descriptions, finish }: { repository: UserRepository; user: UserRecord | null; descriptions: readonly string[]; finish: (saved: boolean) => void }) {
-  const dialog = useRef<WdModalHandle>(null), pending = useRef(false);
+  const dialog = useRef<WdModalHandle>(null), pending = useRef(false), passwordEdited = useRef(false);
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const { message } = useDialogs();
   const { register, getValues, setValue, formState: { dirtyFields } } = useForm<{ Codigo: string; Descricao: string; palavra_passe: string }>({
@@ -36,13 +36,13 @@ function UserForm({ repository, user, descriptions, finish }: { repository: User
       const text = getValues(), code = user && !dirtyFields.Codigo ? user.Codigo : userCode(text.Codigo);
       if (code === undefined) { setDiagnostic("invalid_code"); return; }
       const values: UserValues = { Codigo: code, Descricao: user && !dirtyFields.Descricao ? user.Descricao : text.Descricao, palavra_passe: user && !dirtyFields.palavra_passe ? user.palavra_passe : text.palavra_passe };
-      const required = userRequiredMessage(values);
+      const passwordUnchanged = user?.credentialManaged === true && !passwordEdited.current;
+      const required = userRequiredMessage(values, passwordUnchanged);
       if (required) { await message({ title: formTitle, text: required, type: 0 }); return; }
       // WIN_Form_utilizadores34–47: conversion is unconditional after all required guards,
       // including an untouched loaded value. Keep the transformed draft after refusal.
-      values.palavra_passe = userUppercase(values.palavra_passe!);
-      setValue("palavra_passe", values.palavra_passe, { shouldDirty: true });
-      const result = await repository.save(user ? { mode: "update", id: user.id, values } : { mode: "create", values });
+      if (!passwordUnchanged) { values.palavra_passe = userUppercase(values.palavra_passe!); setValue("palavra_passe", values.palavra_passe, { shouldDirty: true }); }
+      const result = await repository.save(user ? { mode: "update", id: user.id, values, ...(user.credentialManaged ? { passwordUnchanged } : {}) } : { mode: "create", values });
       if (result.kind === "saved") { pending.current = false; close(true); }
       else if (result.kind === "required" || result.kind === "duplicate") await message({ title: formTitle, text: result.message, type: result.kind === "duplicate" ? 1 : 0 });
       // UNRESOLVED U-CE3323C9-03: developer diagnostic only; no credential values/new error text.
@@ -50,10 +50,11 @@ function UserForm({ repository, user, descriptions, finish }: { repository: User
     } catch { setDiagnostic("transport"); }
     finally { pending.current = false; setBusy(false); }
   };
+  const passwordBinding = register("palavra_passe");
   const fieldBindings: WdRadBinding[] = [
     { name: "EDT_Codigo", kind: "edit", props: { ...register("Codigo"), integerMask: true, readOnly: user !== null, disabled: busy } },
     { name: "EDT_Descricao", kind: "edit", props: { ...register("Descricao"), disabled: busy, suggestions: descriptions, onSuggestion: value => setValue("Descricao", value, { shouldDirty: true }) } },
-    { name: "EDT_Palavra_passe", kind: "edit", props: { ...register("palavra_passe"), passwordReveal: true, disabled: busy } },
+    { name: "EDT_Palavra_passe", kind: "edit", props: { ...passwordBinding, onChange: event => { passwordEdited.current = true; void passwordBinding.onChange(event); }, passwordReveal: true, placeholder: user?.credentialManaged ? "Manter palavra-passe atual" : undefined, disabled: busy } },
   ];
   const buttonBindings: WdRadBinding[] = [
     { name: "BTN_Validar", kind: "button", props: { disabled: busy, onClick: () => void save() } },

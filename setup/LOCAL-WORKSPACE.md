@@ -88,7 +88,7 @@ npm run desktop:mac
 
 The Mac workflow config opens the development menu; the existing Windows terminal-test config remains unchanged. `dev:local` always creates a new isolated PostgreSQL database and writes an import summary in that cluster's `analysis-local/postgres-test-*/import-report.json`. Restarting it starts a fresh database; older scratch clusters remain on disk. Stop it with Ctrl+C. Never run browser golden tests against a manually populated server: stop it first so Playwright starts a clean synthetic runner.
 
-`npm run build:mac` builds a local debug `.app` under `src-tauri/target/debug/bundle/macos/`. The packaged app still exposes the existing foundation diagnostic; business routes are development-only. Use the two-terminal development commands for working screens. This setup does not implement production navigation/access or release signing/notarization.
+`npm run build:mac` builds a local debug `.app` under `src-tauri/target/debug/bundle/macos/`. The original setup bundle exposed foundation diagnostics; current business startup and persistent commands are below. Release signing/notarization remain separate.
 
 ## Local verification and remaining acceptance gates
 
@@ -115,4 +115,18 @@ Final launch smoke: `npm run dev:local` imported the provisional data and served
 
 The stock derivative is already prepared on this Mac. Run `npm run dev:local:stock`, then `npm run desktop:mac` in a second prepared terminal, or open `http://localhost:1431/?workflow=menu`. Choose **Abrir ambiente de desenvolvimento**; real legacy credentials are unnecessary for that entry. Each restart recreates the disposable database.
 
-On a fresh machine only, prepare a fresh derivative with `python scripts/prepare_local_sqlite.py legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/GestaoOficinas.sqlite --out analysis-local/sqlite-development-stock --stock-development-derivative`. An existing output is deliberately refused. Exact fingerprint/count/hash gates are ADR017; originals and ordinary projection stay unchanged. Disposable import:159668rows/0quarantine/0mismatch; official full-database fidelity remains open. Production authentication/packaged persistence/native printing remain gates.
+On a fresh machine only, prepare a fresh derivative with `python scripts/prepare_local_sqlite.py legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/GestaoOficinas.sqlite --out analysis-local/sqlite-development-stock --stock-development-derivative`. An existing output is deliberately refused. Exact fingerprint/count/hash gates are ADR017; originals and ordinary projection stay unchanged. Disposable import:159668rows/0quarantine/0mismatch; official full-database fidelity remains open.
+
+## Persistent local app
+
+From the application directory, source `setup/Enter-Prerequisites.sh` (Windows: `setup/Enter-Prerequisites.ps1`). Build and explicitly set up a fresh private local profile once:
+
+```sh
+npm run build
+npm run local:setup -- --snapshot analysis-local/sqlite-development-stock/data.sqlite
+npm run local:start
+```
+
+Omit `--snapshot` for an empty demo. Setup refuses existing state and prints only the private operator-token file path; use its contents in **Definir acesso**, select an imported account and set a new password. Never reuse legacy credentials. Ordinary `local:start` preserves data and sessions and requires free ports3210/54329; Ctrl+C stops only its owned service. Open `http://127.0.0.1:3210/` or build/open the Mac app with `npm run build:mac` and `open 'src-tauri/target/debug/bundle/macos/Gestao Oficinas.app'`. The native client expects this running API; the DEV launcher remains disposable.
+
+Actual macOS arm64 checks over e7d26c7 plus the persistent-startup tree passed native enrollment/customer save/logout/login and four native argument/exit cases. The ordinary built-browser flow also passed full PostgreSQL/API restart persistence and reload/login, with no Vite or DEV-session requests. OS save/print dialogs, physical devices, Windows and official HFSQL fidelity remain separate. Reports require the explicit offline runtime provisioning in [README](../README.md#offline-report-runtime-on-the-api-host).

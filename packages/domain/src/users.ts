@@ -11,14 +11,14 @@ export const userIdentitySchema = z.strictObject({
 });
 export const userSaveSchema = z.discriminatedUnion("mode", [
   z.strictObject({ mode: z.literal("create"), values: userValuesSchema }),
-  z.strictObject({ mode: z.literal("update"), id: userIdentitySchema.shape.id, values: userValuesSchema }),
+  z.strictObject({ mode: z.literal("update"), id: userIdentitySchema.shape.id, values: userValuesSchema, passwordUnchanged: z.boolean().optional() }),
 ]);
 export const userListSchema = z.strictObject({ sort: z.enum(["Codigo", "Descricao"]).optional(), descending: z.boolean().optional() });
 export type UserValues = z.infer<typeof userValuesSchema>;
 export type UserSave = z.infer<typeof userSaveSchema>;
 export type UserList = z.infer<typeof userListSchema>;
 export type UserListRow = Omit<UserValues, "palavra_passe"> & { id: string };
-export type UserRecord = UserListRow & { utilizadoresID: string | null; palavra_passe: string | null };
+export type UserRecord = UserListRow & { utilizadoresID: string | null; palavra_passe: string | null; credentialManaged?: boolean };
 export type UserListResult = { kind: "loaded"; users: UserListRow[] } | { kind: "invalid" | "failed" };
 export type UserReadResult = { kind: "loaded"; user: UserRecord } | { kind: "invalid" | "missing" | "failed" };
 export type UserSaveResult = { kind: "saved"; user: UserListRow } | { kind: "required" | "duplicate"; message: string } | { kind: "invalid" | "missing" | "codeLocked" | "failed" };
@@ -26,10 +26,10 @@ export type UserDeleteResult = { kind: "deleted" | "invalid" | "missing" | "fail
 
 // Verified text/order: legacy/GestaoOficinas_TesteIA/WIN_Form_utilizadores.wdw:34–43.
 // ADR-008/U03: numeric empty-string comparison uses the explicit NULL/zero required default.
-export function userRequiredMessage(values: UserValues): string | null {
+export function userRequiredMessage(values: UserValues, passwordUnchanged = false): string | null {
   if (values.Codigo === null || values.Codigo === 0) return "Falta indicar o código";
   if (values.Descricao === null || values.Descricao === "") return "Falta indicar o nome";
-  return values.palavra_passe === null || values.palavra_passe === "" ? "Falta indicar a palavra-passe" : null;
+  return !passwordUnchanged && (values.palavra_passe === null || values.palavra_passe === "") ? "Falta indicar a palavra-passe" : null;
 }
 
 // Verified: WIN_Form_utilizadores.wdw:54/64, numeric unique Codigo key.

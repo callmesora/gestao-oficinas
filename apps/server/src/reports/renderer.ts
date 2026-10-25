@@ -19,14 +19,23 @@ export async function loadReportAssets(moduleDirectory?: string): Promise<Report
     readFile(resolve(fontRoot, "files/noto-sans-latin-700-normal.woff2")),
     readFile(resolve(pagedRoot, "LICENSE.md"), "utf8"), readFile(resolve(fontRoot, "LICENSE"), "utf8"),
   ]);
+  const [pagedPackage, fontPackage, playwrightPackage] = await Promise.all([
+    readFile(resolve(pagedRoot, "package.json"), "utf8"), readFile(resolve(fontRoot, "package.json"), "utf8"), readFile(require.resolve("playwright-core/package.json"), "utf8"),
+  ]);
+  if (JSON.parse(pagedPackage).version !== "0.4.3" || JSON.parse(fontPackage).version !== "5.3.0" || JSON.parse(playwrightPackage).version !== "1.64.1") throw new Error("Report asset version mismatch");
+  for (const font of [regular, bold]) if (font.length < 48 || font.toString("ascii", 0, 4) !== "wOF2" || font.readUInt32BE(8) !== font.length) throw new Error("Report font invalid");
   return { pagedScript, fontRegular: regular.toString("base64"), fontBold: bold.toString("base64"), notices: pagedLicense + "\n" + fontLicense };
 }
 export type ReportRenderer = (document: ReportDocument) => Promise<ReportRenderResult>;
+export type ReportRendererOptions = { assets?: Promise<ReportAssets> } & (
+  { channel?: "chrome" | "chromium"; executablePath?: never; expectedVersion?: never }
+  | { channel?: never; executablePath: string; expectedVersion: string }
+);
 
 /** One existing Chromium stack; it owns pagination, fonts, text shaping and PDF creation.
  * Host-installed Chrome is an initial development prerequisite, not a packaged-runtime promise.
  */
-export function createReportRenderer(options: { assets?: Promise<ReportAssets>; channel?: "chrome" | "chromium" } = {}): ReportRenderer {
+export function createReportRenderer(options: ReportRendererOptions = {}): ReportRenderer {
   const assets = options.assets ?? loadReportAssets();
   // Avoid an unhandled failed lazy asset read before the first request.
   void assets.catch(() => undefined);
@@ -37,7 +46,11 @@ export function createReportRenderer(options: { assets?: Promise<ReportAssets>; 
     let browser: Browser | undefined;
     try {
       const files = await assets;
-      browser = await chromium.launch({ channel: options.channel ?? "chrome", headless: true });
+      browser = await chromium.launch(options.executablePath === undefined
+        ? { channel: options.channel ?? "chrome", headless: true }
+        : { executablePath: options.executablePath, headless: true });
+      // A provisioned browser that changes after startup cannot silently change the report runtime.
+      if (options.expectedVersion !== undefined && browser.version() !== options.expectedVersion) return { kind: "unavailable" };
       const context = await browser.newContext({ serviceWorkers: "block" });
       await context.route("**/*", route => route.abort());
       const page = await context.newPage();
@@ -80,6 +93,6 @@ export function createReportRenderer(options: { assets?: Promise<ReportAssets>; 
       const pdf = await pdfPage.pdf({ preferCSSPageSize: true, printBackground: true });
       return { kind: "rendered", reportId: report.reportId, html, pdfBase64: pdf.toString("base64"), pageCount: snapshot.pages, unresolved: report.unresolved };
     } catch { return { kind: "failed" }; }
-    finally { try { await browser?.close(); } finally { rendering = false; } }
+    finally { try { await browser?.close(); } catch { /* The owned process may already have exited. */ } finally { rendering = false; } }
   };
 }

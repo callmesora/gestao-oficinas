@@ -1,6 +1,7 @@
 .repair-labor-screen { position: absolute; inset: 0; pointer-events: none; }
 .repair-labor-screen > * { pointer-events: auto; }
 .repair-labor-color { display: inline-block; width: 18px; height: 18px; border-radius: 50%; vertical-align: middle; }
+.repair-labor-registration { font-size: 12px; font-weight: bold; }
 .repair-labor-check { border: 0; padding: 0; background: transparent; min-width: 20px; height: 22px; display: inline-grid; place-items: center; }
 .repair-labor-price { border: 0; padding: 0; width: 100%; background: transparent; text-align: right; font: inherit; color: inherit; }
 .repair-labor-mechanics { position: absolute; border: 1px solid #aeb5bc; background: white; font: inherit; }

@@ -18,6 +18,7 @@ import { DialogProvider, useDialogs } from "./legacy/dialogs";
 import { WdWorkspace, useWorkspace, useWorkspaceClose } from "./legacy/workspace";
 import { WdModal, type WdModalHandle } from "./legacy/modal";
 import { AlphaTouchKeyboardDialog } from "./touch-keyboard";
+import { useLaunchMode } from "./launch-mode";
 
 // Only captions evidenced by the JPG differ from the generated source metadata (ADR-003/U01).
 const formCaptions: Record<string, string> = { EDT_Descricao: "Descrição", CBOX_Inativo: "Inativo" };
@@ -105,7 +106,8 @@ export function ArticleListScreen({ repository, selecting = false, launchMode, f
   const [loaded, setLoaded] = useState<{ query: ArticleList; refresh: number } | null>(null), [form, setForm] = useState<{ article: Article | null } | null>(null);
   const [busy, setBusy] = useState(false), pending = useRef(false), readOwner = useRef(0), search = useRef<HTMLInputElement>(null);
   // WIN_Table_artigos930–940 captures lTeclado only when this selector opens in t/m.
-  const [touchSearch] = useState(() => selecting && (launchMode === "t" || launchMode === "m"));
+  const capturedMode = useLaunchMode();
+  const [touchSearch] = useState(() => selecting && ["t", "m"].includes(launchMode ?? capturedMode ?? ""));
   const [keyboard, setKeyboard] = useState<{ original: string } | null>(null);
   const columnSearch = useRef<{ key: NonNullable<ArticleList["sort"]>; term: string } | null>(null), focused = useRef(false), screen = useRef<HTMLDivElement>(null);
   const settings = useTableLayout(table, "WIN_Table_artigos/TABLE_artigos");

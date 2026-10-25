@@ -90,3 +90,7 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | Trigger/source | Exact argument/resource | Kind and buttons | Default/Esc |
 | --- | --- | --- | --- |
 | legacy/GestaoOficinas_TesteIA/WIN_Mudar_Estado.wdw:199 | "Verifique o carater de validação" | Info | U-W20AB1F-04; exact branch result in mapping event ledger |
+
+## Target implementation and actual repair caller
+
+`src/ui/repair-state-confirmation.tsx::RepairStateConfirmationDialog` preserves the exact runtime prompt, unchanged leading-prefix comparison, awaited source Info, numeric1 confirmation and numeric0 cancellation. The actual repair form restores its opening state on refusal/cancellation and resumes with the chosen state after confirmation. Custom close/minimize/maximize use the recorded proposals and preserve the mounted draft. The per-unit CSV links positive standalone and actual repair cases; empty/NULL fallback, native key/locale/message shell and whole-designer U gates remain open under ADR003/006.

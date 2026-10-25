@@ -1,6 +1,6 @@
 # Screen spec — WIN_MENU
 
-Evidence `legacy/GestaoOficinas_TesteIA/WIN_MENU.wdw`, `dossier: WIN_MENU`, `docs/mapping/WIN_MENU.md`. Step 0 only.
+Evidence `legacy/GestaoOficinas_TesteIA/WIN_MENU.wdw`, `dossier: WIN_MENU`, `docs/mapping/WIN_MENU.md`. Source inventory plus scoped target implementation proof.
 
 ## Contract
 
@@ -87,7 +87,7 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 - Walk the actual event branches and result handoffs listed in the mapping; use scratch data for data-writing cases only.
 - Confirm keyboard/focus/Enter/Esc outcomes under U-WCB13D1-02. No grid test applies.
 - Compare baseline/resized designer image and missing visual properties under U-WCB13D1-01.
-- Resolve only the applicable U-items above before claiming runtime parity; no test is claimed executed here.
+- Resolve only the applicable U-items above before claiming runtime parity; executed target checks below do not resolve the remaining native/source U items.
 
 ## Message and dialog inventory
 
@@ -95,8 +95,18 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | --- | --- | --- | --- |
 | legacy/GestaoOficinas_TesteIA/WIN_MENU.wdw:911 | "Terminado" | Info | U-WCB13D1-04; exact branch result in mapping event ledger |
 
-## Initial implementation checkpoint
+## Current implementation and executed proof
 
-MIG12 initial development implementation: `src/ui/startup.tsx` and `startup-windows.tsx` open the actual existing list/form workflows in one shared workspace; keyed opens restore the same mounted instance. Explicit `artigos=1` and `modulo=t/m` query launch adapters preserve source presentation precedence; native command-line integration remains U01/U02. Source toolbar child layout positions use the JPG's horizontal arrangement because extracted Layout children overlap. Optional root integration supplies material/labor/stock/report definitions. `initialiseStartup` creates only source system defaults; an empty user file reports bootstrapRequired and never copies the source embedded credential. A separate labelled development entry uses the existing authorized ADR009 identity, with no successful source-login claim. Production bootstrap/credential transition, updater/INI/remote connection, native process termination and menu drag/resize/geometry acceptance remain open; source customer-reassignment utility and inventory reconstruction→inventory sequence are not implemented here. No parity promotion from this checkpoint.
+The default packaged/browser entry prepares real authenticated repositories and opens migrated business screens through `MenuLaunchers`, `defaultStartupWindows` and `additionalWorkshopWindows`. Toolbar/table/report entries are connected to actual screens and exact source report modes; their individual menu activation/restoration claims remain implemented unless named below. Source menu event confidence stays inferred where event32 is inferred. Shared workspace behavior is the explicit ADR003 adaptation, not recovered native window-manager behavior.
 
-Follow-through adds narrow Rust `read_startup_arguments` and `terminate_application` commands/generated adapters (ADR005), with parser, boundary and real-handler/mock-runtime tests. Business caller integration and actual Windows/macOS argument/exit checks remain separate; no native parity promotion.
+`SRC-7d51a650ff` is verified for actual customer quick-button open-once and same-instance restore after minimization: `ui-check/startup.flows.spec.ts` asserts the window count and visibility through the real workspace. `ui-check/authentication.flows.spec.ts` additionally saves and reads a real customer through ordinary authenticated entry. The system menu opens the actual editor; no complete menu/designer claim follows.
+
+`SRC-1d228089f7` is verified for the supported unambiguous customer-reassignment target. Six real PostgreSQL/API tests assert the mandatory reception-customer/state/vehicle joins, optional mechanic/third-party joins, duplicate query-row effects, exact numeroDESC update order and by-numero writes, including an owner absent from Clientes. They also assert empty traversal, conservative NULL/ambiguity refusal before writes, rollback on a later failure and anonymous denial before database acquisition. The actual authenticated utility success/refusal browser cases passed: only eligible data changes, controls block a competing action, exact Info("Terminado") follows completion, and unresolved data cannot display success. ADR006 explicitly approves the parameterized single target transaction/preflight; original partial-write/current-buffer and query lookup ambiguities remain in U-WCB13D1-03 and query U items. New typed diagnostics are target output, not source messages.
+
+`ui-check/startup-utilities.flows.spec.ts` also passed the real Mapas reconstruction→inventory sequence after No and after successful reconstruction, awaiting the source completion Info and asserting persisted stock3.000. `SRC-beeaf5ae4b` stays implemented because native/chrome/default/Esc result variants are not measured. `SRC-e0dfacbe65` records implemented six-default initialization before access and approved explicit enrollment replacement: the real cold-service browser test asserts all six defaults before the access dialog, anonymous denial, Cancel, restart and no duplicate settings. That broad global row retains unresolved legacy buffer/marker/updater scope and is not promoted.
+
+Three authenticated presentation cases and a captured-material-mode caller passed `artigos=1` and t/m precedence/module-close behavior. Four actual native startup argument/exit checks and a limited native business scenario passed on macOS. Exact hidden-control coverage, toolbar geometry, saved position, Unicode/NULL, native focus/default/message shell, Windows and legacy updater/INI/marker behavior remain open. `SRC-b6a81add98` and project startup therefore stay implemented.
+
+Execution labels: macOS arm64, root e7d26c7 plus current integration tree; actual browser logs are `analysis-local/business-labor-fixed-browser.log`, `material-guard-startup-after-browser.log` and `local-service-built-browser.log`; native count-only result is `analysis-local/native-business-probe.json`. Local-service browser proof covers built assets, a complete PostgreSQL/API restart, same-RAM session, browser reload/login and retained customer, with no DEV/Vite calls. No check claims Windows or physical-device acceptance.
+
+`menu-action-diagnostic`, startup enrollment/logout/status helpers and workspace instance IDs are target-only identifiers. No original SRC/evidence/confidence/legacy-behavior or unresolved row is rewritten. The five AGENTS criteria were checked for the two verified events; all current decisions were re-read at stage end.

@@ -32,6 +32,8 @@ MIG9 parallel implementation homes: `packages/domain/src/repair-materials.ts` ho
 
 MIG10 parallel homes: `packages/domain/src/repair-labor.ts` supplies tagged millisecond/Gregorian/duration-display helpers and explicit state/history DTOs; `apps/server/src/operations/repair-labor.ts` owns real timer/start/stop/state/material-description operations and transient mechanic proof under ADR002/004/006. `src/ui/repair-labor.tsx` supplies the actual source windows using existing RAD/table/modal controls and finite dialog continuations. Preserve source current-buffer snapshots explicitly. All asynchronous rollback/refusal helpers must be awaited inside try before finally closes the client: the MIG8.2 real500/pg end() failure demonstrated this lifecycle requirement.
 
+Scanner fOpen/fReadLine uses a narrow native identity-to-file grant (ADR005/017), an explicit configured strict decoder and bounded read-only regular-file bytes; no inferred encoding or file consumption. Preserve the existing pure first-empty-line/EOT parser and actual caller validation. Keep terminal record-position context separate from the OS file grant.
+
 | Construct | Concrete boundary / shape to establish before use | Owner |
 |---|---|---|
 | Pure strings/arrays/date/rounding helpers | packages/domain/src/wl/: named 1-based middle/position helpers, injected clock and exact decimal conversions; one implementation per helper | MIG-6 |
@@ -236,6 +238,20 @@ Nullable keyboard callers consume the shared optional `{confirmed,edited}` callb
 
 Production access preserves source Upper/Codigo rules in the domain; the server security module owns versioned async scrypt, one-use operator enrollment and hashed bearer-session transactions (ADR004). Shared workflow-http selects one RAM session and validated API base; explicit DEV routes retain opt-in bootstrap. Secure user maintenance uses blank+unchanged-password intent and atomically replaces the hash/version/revokes sessions, returning no credentials.
 
+Production mechanic maintenance similarly uses explicit case-sensitive reset/blank+managed intent; it never adopts imported TEXT. Material/labor proofs stay volatile and bind to the current managed revision, with each caller's own inactive/cancel rules. Keep the shared mecanicos→credential→business lock order, validate through the short mutation and preserve DEV fixtures separately (ADR004).
+
 CommandLine("modulo"/"artigos") uses the narrow Rust startup_arguments adapter and generated bindings, returning only supported mode values. EndProgram uses terminate_application with fixed exit0; neither exposes raw argv, caller shell code or arbitrary process control (ADR005).
+
+Native report output consumes `{reportId,pdfBase64}` with the28-report allowlist, canonical STANDARD base64, decoded≤33,554,432bytes/encoded≤44,739,244characters and PDF header/EOF validation (ADR005). Preserve exact bytes: OS-selected PDF saves use atomic sibling replacement; PDFKit prints without rescaling/reflow; Windows uses only fixed print on an owned private-cache PDF. Typed request/not-requested/error outcomes do not prove physical printing. No caller path/shell or business-value conversion crosses this boundary.
+
+WIN_MENU customer reassignment executes the actual joined order traversal and updates by source numero in one protected startup command/transaction. Parameterized lookup/updates preserve duplicate-number effects and missing new customer references; preflight unresolved NULL/ambiguous buffers without writes, then show exact Terminado only on success (ADR006).
+
+The captured CommandLine module travels through LaunchModeContext to nested article keyboards. A native module argument must not be re-read from the browser URL; explicit development picker arguments retain precedence.
+
+Persistent local service setup/start reuse the installed matching PostgreSQL binaries with an owned profile/cluster/runner lock (ADR017). Initialization/import require explicit fresh setup; ordinary start validates existing state, serves only confined built assets and shuts down only its captured owned PID. Source sistema defaults initialize idempotently before access, without credential bootstrap (ADR004).
+
+Node24 ESM entry points import JSON with explicit `with {type:"json"}` attributes; Vite/Vitest transformation alone does not prove ordinary CLI execution. Exercise local setup/start through the installed `node --import tsx` loader as well as the bundled tests.
+
+Keep query-specific reads separate when source eligibility differs: Time's numero/mechanic query reads raw ordered time rows, including orphans; the details table's mechanic INNER JOIN remains explicit. Reuse formatting and DTO fields without substituting one query for the other (ADR006).
 
 Paged.js generic running bands declare all four page margins and only actual source margin boxes. Keep common band CSS separate from the initial templates' default footer rule: Paged.js0.4.3 otherwise replaces partial margin maps and propagates content:none visibility into later boxes. Assert repeated headers on every real PDF page, source counters and retained totals; no custom pagination.

@@ -5,6 +5,24 @@ description = "Gestao Oficinas desktop"
 authors = ["Pedro Azevedo"]
 edition = "2024"
 default-run = "gestao-oficinas"
+autobins = false
+
+[[bin]]
+name = "gestao-oficinas"
+path = "src/main.rs"
+
+[[bin]]
+name = "export-bindings"
+path = "tools/export-bindings.rs"
+required-features = ["development-tools"]
+
+[[bin]]
+name = "native-probe"
+path = "tools/native-probe.rs"
+required-features = ["development-tools"]
+
+[features]
+development-tools = []
 
 [lib]
 name = "gestao_oficinas_lib"
@@ -12,12 +30,14 @@ crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]
 tauri-build = { version = "2", features = [] }
+cc = "=1.10.0"
 
 [dependencies]
 tauri = { version = "2", features = [] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 ts-rs = "=12.0.1"
+base64 = "=0.23.1"
 
 [dev-dependencies]
 tauri = { version = "2", features = ["test"] }
@@ -33,4 +53,4 @@ strip = true
 rfd = { version = "=0.17.2", default-features = false }
 
 [target.'cfg(target_os = "windows")'.dependencies]
-windows-sys = { version = "=0.61.2", features = ["Win32_Foundation", "Win32_UI_Controls_Dialogs"] }
+windows-sys = { version = "=0.61.2", features = ["Win32_Foundation", "Win32_UI_Controls_Dialogs", "Win32_UI_Shell", "Win32_UI_WindowsAndMessaging", "Win32_System_Com"] }

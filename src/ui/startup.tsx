@@ -6,7 +6,7 @@ import { isolatedStartupRepository } from "../infrastructure/startup";
 import { isolatedUserRepository } from "../infrastructure/users";
 import { StartupAccessDialog } from "./startup-access";
 import { SystemDialog } from "./system";
-import { DialogProvider } from "./legacy/dialogs";
+import { DialogProvider, useDialogs } from "./legacy/dialogs";
 import { WdWorkspace, useWorkspace } from "./legacy/workspace";
 import { WdButton, WdFrame } from "./legacy/wd";
 import { controlOf, type LegacyLayout } from "./legacy/layout";
@@ -14,15 +14,24 @@ import sourceMenu from "./legacy/WIN_MENU.layout.json";
 import { defaultStartupWindows, type StartupWindowDefinition } from "./startup-windows";
 import "./startup.css";
 
-const menuTitle = "Golfinho Software - Gestão de ordens de reparação oficinas auto.    Versão: 2024.01.000";
-const menuLayout: LegacyLayout = { ...sourceMenu, window: { ...sourceMenu.window, title: menuTitle }, controls: sourceMenu.controls.map(control => control.name === "RADTitle" ? { ...control, caption: menuTitle } : control.name === "BTN_Ordens_reparacao" ? { ...control, caption: "Ordens de reparação" } : control) };
+export const menuTitle = "Golfinho Software - Gestão de ordens de reparação oficinas auto.    Versão: 2024.01.000";
+export const menuLayout: LegacyLayout = { ...sourceMenu, window: { ...sourceMenu.window, title: menuTitle }, controls: sourceMenu.controls.map(control => control.name === "RADTitle" ? { ...control, caption: menuTitle } : control.name === "BTN_Ordens_reparacao" ? { ...control, caption: "Ordens de reparação" } : control) };
 const quick = [ ["BTN_Clientes", "customers"], ["BTN_Viaturas", "vehicles"], ["BTN_Ordens_reparacao", "repair-orders"], ["BTN_Artigos", "articles"], ["BTN_movimentos_stock", "stock-documents"], ["BTN_tempos", "repair-labor"], ["BTN_material", "repair-materials"] ] as const;
 const noAdditionalWindows = async () => [];
 
-function MenuLaunchers({ windows, mode, system, terminate }: { windows: StartupWindowDefinition[]; mode: LaunchMode; system: () => void; terminate: () => void }) {
-  const { open } = useWorkspace(), openedModule = useRef(false);
+export function MenuLaunchers({ windows, mode, system, terminate }: { windows: StartupWindowDefinition[]; mode: LaunchMode; system: () => void; terminate: () => void }) {
+  const { open } = useWorkspace(), openedModule = useRef(false), actionPending = useRef(false), { message } = useDialogs();
+  const [actionBusy, setActionBusy] = useState(false), [actionDiagnostic, setActionDiagnostic] = useState("");
   const [dialog, setDialog] = useState<StartupWindowDefinition | null>(null);
-  const launch = (definition: StartupWindowDefinition) => {
+  const launch = async (definition: StartupWindowDefinition) => {
+    if (actionPending.current) return;
+    if (definition.action) {
+      actionPending.current = true; setActionBusy(true); setActionDiagnostic("");
+      try { const result = await definition.action(); if (result.kind === "completed" && definition.completedMessage) await message({ type: 0, title: "", text: definition.completedMessage }); else if (result.kind !== "completed") setActionDiagnostic(result.kind); }
+      catch { setActionDiagnostic("transport"); }
+      finally { actionPending.current = false; setActionBusy(false); }
+      return;
+    }
     if (definition.renderDialog) { setDialog(definition); return; }
     open({ key: definition.id, layout: definition.layout, content: definition.content, onClose: mode === "labor" || mode === "materials" ? terminate : undefined });
   };
@@ -34,17 +43,17 @@ function MenuLaunchers({ windows, mode, system, terminate }: { windows: StartupW
   if (mode === "labor" || mode === "materials") return windows.some(item => item.id === (mode === "labor" ? "repair-labor" : "repair-materials")) ? null : <output data-testid="startup-module-unavailable">Módulo indisponível nesta versão de desenvolvimento.</output>;
   return <><div data-testid="WIN_MENU" style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
     {mode !== "articles" && <nav className="startup-menu-bar" aria-label="Menu principal">
-      <details><summary>Menu</summary><div><button data-testid="OPT_Postos" onClick={() => { const definition = windows.find(item => item.id === "postos"); if (definition) launch(definition); }}>Postos</button><button data-testid="OPT_Sistema" onClick={system}>Sistema</button><button data-testid="MENU_OPT_Exit" onClick={terminate}>Sair</button></div></details>
-      {([["tables", "Tabelas"], ["movements", "Movimentos"], ["reports", "Mapas"], ["utilities", "Utilitários"]] as const).map(([group, label]) => <details key={group}><summary>{label}</summary><div>{windows.filter(item => item.group === group && item.id !== "postos" && !item.toolbarOnly).map(item => <button key={item.id} data-testid={item.menuControl ?? `menu-${item.id}`} onClick={() => launch(item)}>{item.label}</button>)}</div></details>)}
+      <details><summary>Menu</summary><div><button disabled={actionBusy} data-testid="OPT_Postos" onClick={() => { const definition = windows.find(item => item.id === "postos"); if (definition) launch(definition); }}>Postos</button><button disabled={actionBusy} data-testid="OPT_Sistema" onClick={system}>Sistema</button><button disabled={actionBusy} data-testid="MENU_OPT_Exit" onClick={terminate}>Sair</button></div></details>
+      {([["tables", "Tabelas"], ["movements", "Movimentos"], ["reports", "Mapas"], ["utilities", "Utilitários"]] as const).map(([group, label]) => <details key={group}><summary>{label}</summary><div>{windows.filter(item => item.group === group && item.id !== "postos" && !item.toolbarOnly).map(item => <button key={item.id} disabled={actionBusy} data-testid={item.menuControl ?? `menu-${item.id}`} onClick={() => launch(item)}>{item.label}</button>)}</div></details>)}
     </nav>}
     <div className="startup-quick-bar" style={{ top: mode === "articles" ? 27 : 53 }}>
       {quick.filter(([, key]) => mode !== "articles" || key === "articles" || key === "stock-documents").map(([name, key], index) => {
         const definition = windows.find(item => item.id === key), control = controlOf(menuLayout, name);
         // Dossier/JPG lays the seven buttons horizontally; the extracted Layout children overlap.
-        return <WdButton key={name} control={{ ...control, x: 6 + index * 83, y: 6 }} disabled={!definition} title={definition ? undefined : "Migração em curso"} onClick={() => { if (definition) launch(definition); }} />;
+        return <WdButton key={name} control={{ ...control, x: 6 + index * 83, y: 6 }} disabled={!definition || actionBusy} title={definition ? undefined : "Migração em curso"} onClick={() => { if (definition) launch(definition); }} />;
       })}
     </div>
-  </div>{dialog?.renderDialog?.(() => setDialog(null))}</>;
+  </div>{dialog?.renderDialog?.(() => setDialog(null))}{actionDiagnostic && <output data-testid="menu-action-diagnostic">{actionDiagnostic}</output>}</>;
 }
 
 /** Explicit development shell. Production updater, identity transition and persistent entry remain gates. */

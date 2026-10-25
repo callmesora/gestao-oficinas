@@ -1,0 +1,53 @@
+import assert from "node:assert/strict";
+import { spawn, spawnSync } from "node:child_process";
+import { randomBytes } from "node:crypto";
+import { mkdtemp, realpath, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath, URL } from "node:url";
+import { setTimeout, clearTimeout } from "node:timers";
+import { startIsolatedPostgres } from "../apps/server/test-support/postgres.ts";
+import { createBusinessApp } from "../apps/server/src/business-app.ts";
+import { readServiceConfiguration } from "../apps/server/src/configuration.ts";
+
+if (!["darwin", "win32"].includes(process.platform)) throw new Error("Native business probe requires Windows/macOS");
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+assert.ok(process.env.npm_execpath, "Run through npm run native:business");
+const build = spawnSync(process.execPath, [process.env.npm_execpath, "run", "build"], { cwd: root, encoding: "utf8", timeout: 180_000, env: { ...process.env, VITE_WORKSHOP_API_BASE: "http://127.0.0.1:3210" } });
+assert.equal(build.status, 0, build.stderr || "Frontend build failed");
+const native = spawnSync("cargo", ["build", "--locked", "--manifest-path", "src-tauri/Cargo.toml", "--features", "tauri/custom-protocol,development-tools", "--bin", "native-probe"], { cwd: root, encoding: "utf8", timeout: 180_000 });
+assert.equal(native.status, 0, native.stderr || "Native build failed");
+const engine = await startIsolatedPostgres(), profile = await mkdtemp(join(await realpath(tmpdir()), "gestao-native-business-"));
+let database, app, child;
+try {
+  database = await engine.database();
+  const url = new URL(`postgresql://127.0.0.1:${database.port}/${database.database}`); url.username = database.user; url.password = database.password;
+  const token = randomBytes(32).toString("hex"), tokenFile = join(engine.directory, "synthetic-native-operator-token");
+  await writeFile(tokenFile, token, { mode: 0o600, flag: "wx" });
+  app = await createBusinessApp(await readServiceConfiguration({ WORKSHOP_DATABASE_URL: url.href, WORKSHOP_SETUP_TOKEN_FILE: tokenFile }));
+  let developmentRequests = 0;
+  app.addHook("onRequest", async request => { if (request.url.startsWith("/api/development/")) developmentRequests++; });
+  await app.listen({ host: "127.0.0.1", port: 3210 });
+  const executable = join(root, "src-tauri/target/debug", `native-probe${process.platform === "win32" ? ".exe" : ""}`);
+  let stdout = "", stderr = "";
+  child = spawn(executable, [], { cwd: root, windowsHide: true, stdio: ["ignore", "pipe", "pipe"], env: { ...process.env, GESTAO_NATIVE_PROBE_MODE: "business", GESTAO_NATIVE_PROBE_SETUP_TOKEN: token, GESTAO_NATIVE_PROBE_DATA_DIRECTORY: profile } });
+  child.stdout.on("data", data => { stdout = (stdout + data).slice(-16_384); }); child.stderr.on("data", data => { stderr = (stderr + data).slice(-16_384); });
+  const exitCode = await new Promise((done, reject) => {
+    const timeout = setTimeout(() => { child.kill(); reject(new Error("Native business probe timed out")); }, 100_000);
+    child.once("error", error => { clearTimeout(timeout); reject(error); }); child.once("exit", code => { clearTimeout(timeout); done(code); });
+  });
+  assert.equal(exitCode, 0, stderr || "Native business probe failed");
+  const line = stdout.split(/\r?\n/).find(value => value.startsWith("NATIVE_PROBE ")); assert.ok(line, "Native result missing");
+  const result = JSON.parse(line.slice("NATIVE_PROBE ".length)); assert.equal(result.passed, true);
+  assert.deepEqual(result.result.business, { enrolled: true, customerSaved: true, loggedOut: true, loggedInAgain: true });
+  const customers = (await database.query('SELECT count(*)::int AS count FROM app."Clientes" WHERE "Codigo"=771 AND "Descricao"=$1', ["Native synthetic customer"])).rows[0].count;
+  const sessions = (await database.query("SELECT count(*)::int AS count FROM auth.sessions")).rows[0].count;
+  assert.equal(customers, 1); assert.equal(sessions, 0); assert.equal(developmentRequests, 0);
+  const commit = spawnSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }); assert.equal(commit.status, 0);
+  await writeFile(join(root, "analysis-local/native-business-probe.json"), JSON.stringify({ platform: process.platform, architecture: process.arch, baseCommit: commit.stdout.trim(), workingTree: true, passed: true, customerRows: customers, remainingSessions: sessions, developmentRequests, native: result, limits: "Synthetic actual native business path only; no print-device or other-host acceptance." }, null, 2) + "\n");
+  console.log(`Native business probe passed on ${process.platform}/${process.arch}: enrollment, customer save, logout/login; real database effects and zero DEV requests.`);
+} finally {
+  if (child && child.exitCode === null && child.signalCode === null) child.kill();
+  try { await app?.close(); } finally { try { await database?.end(); } finally { await engine.stop(); } }
+  await rm(profile, { recursive: true, force: true, maxRetries: 20, retryDelay: 100 });
+}

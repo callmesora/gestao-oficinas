@@ -1,3 +1,7 @@
+import { reassignReceptionCustomers } from "./operations/startup-utilities";
+import cors from "@fastify/cors";
+import type { SessionSecurity } from "./security/sessions";
+import { readSecureUser, saveSecureUser, deleteSecureUser } from "./security/users";
 import { listSalesReportStates } from "./operations/report-filters";
 import { initialiseStartup, checkStartupAccess, readSystem, saveSystem } from "./operations/startup";
 import { listStock, readStock, nextStockNumber, lookupStockArticle, saveStock, deleteStock, stockInventory, rebuildStock, stockScannerConfig, partitionStockScanner } from "./operations/stock";
@@ -23,15 +27,28 @@ import { initialiseRepairOrderForm, resolveRepairOrderVehicle, lookupRepairOrder
 
 import { listRepairMaterials, readRepairMaterials, lookupRepairMaterialArticle, authenticateRepairMaterialMechanic, saveRepairMaterials } from "./operations/repair-materials";
 
-import { initialiseRepairLabor, listRepairLabor, readRepairLabor, authenticateRepairLabor, prepareRepairLabor, toggleRepairLabor, saveRepairLaborState, tickRepairLabor, saveRepairLaborMaterials } from "./operations/repair-labor";
+import { initialiseRepairLabor, listRepairLabor, readRepairLabor, authenticateRepairLabor, prepareRepairLabor, toggleRepairLabor, saveRepairLaborState, tickRepairLabor, saveRepairLaborMaterials, checkRepairLaborMaterials } from "./operations/repair-labor";
 
 import { renderReport } from "./operations/reports";
 import type { ReportRenderer } from "./reports/renderer";
 
-export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; terminalConnect?: DatabaseConnection; postoConnect?: DatabaseConnection; mechanicsConnect?: DatabaseConnection; repairStateConnect?: DatabaseConnection; documentTypeConnect?: DatabaseConnection; articleConnect?: DatabaseConnection; userConnect?: DatabaseConnection; repairOrderConnect?: DatabaseConnection; repairMaterialsConnect?: DatabaseConnection; repairLaborConnect?: DatabaseConnection; startupConnect?: DatabaseConnection; stockConnect?: DatabaseConnection; reportFilterConnect?: DatabaseConnection; reportConnect?: DatabaseConnection; reportRenderer?: ReportRenderer; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
+export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; terminalConnect?: DatabaseConnection; postoConnect?: DatabaseConnection; mechanicsConnect?: DatabaseConnection; repairStateConnect?: DatabaseConnection; documentTypeConnect?: DatabaseConnection; articleConnect?: DatabaseConnection; userConnect?: DatabaseConnection; repairOrderConnect?: DatabaseConnection; repairMaterialsConnect?: DatabaseConnection; repairLaborConnect?: DatabaseConnection; startupConnect?: DatabaseConnection; stockConnect?: DatabaseConnection; reportFilterConnect?: DatabaseConnection; reportConnect?: DatabaseConnection; reportRenderer?: ReportRenderer; security?: SessionSecurity; origins?: readonly string[]; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
   const app = Fastify({ logger: false });
   app.get("/health/live", async () => ({ service: "gestao-oficinas-api", status: "alive" }));
-  const authenticate = options.authenticate ?? options.development?.authenticate;
+  const authenticate = options.authenticate ?? options.security?.authenticate ?? options.development?.authenticate;
+  if (options.security) {
+    const origins = new Set(options.origins ?? []);
+    void app.register(cors, { origin: (origin, callback) => callback(null, origin === undefined || origins.has(origin)), methods: ["POST", "GET"], allowedHeaders: ["Content-Type", "Authorization"], credentials: false });
+    app.addHook("onRequest", async (request, reply) => {
+      if (request.url.startsWith("/api/")) {
+        reply.header("Cache-Control", "no-store");
+        if (request.headers.origin && !origins.has(request.headers.origin)) return reply.code(403).send({ kind: "denied" });
+      }
+    });
+    for (const [action, operation] of Object.entries({ status: () => options.security!.status(), users: (request: FastifyRequest) => options.security!.users(request.body), login: (request: FastifyRequest) => options.security!.login(request.body, request.ip), enroll: (request: FastifyRequest) => options.security!.enroll(request.body, request.ip), session: (request: FastifyRequest) => options.security!.inspect(request), logout: (request: FastifyRequest) => options.security!.logout(request) })) {
+      app.post(`/api/auth/${action}`, async (request, reply) => { reply.header("Cache-Control", "no-store"); return operation(request); });
+    }
+  }
   app.post("/api/report-filters/states", async (request, reply) => {
     reply.header("Cache-Control", "no-store");
     if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
@@ -135,7 +152,7 @@ export function createApp(options: { customerConnect?: DatabaseConnection; vehic
       return operation(options.articleConnect, request.body);
     });
   }
-  for (const [action, operation] of Object.entries({ list: listUsers, read: readUser, save: saveUser, delete: deleteUser })) {
+  for (const [action, operation] of Object.entries({ list: listUsers, read: options.security ? readSecureUser : readUser, save: options.security ? saveSecureUser : saveUser, delete: options.security ? deleteSecureUser : deleteUser })) {
     app.post(`/api/users/${action}`, async (request, reply) => {
       if (action === "read") reply.header("Cache-Control", "no-store");
       if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
@@ -161,7 +178,7 @@ export function createApp(options: { customerConnect?: DatabaseConnection; vehic
       return operation(options.repairMaterialsConnect, request.body);
     });
   }
-  for (const [action, operation] of Object.entries({ initialise: initialiseRepairLabor, list: listRepairLabor, read: readRepairLabor, authenticate: authenticateRepairLabor, prepare: prepareRepairLabor, toggle: toggleRepairLabor, state: saveRepairLaborState, tick: tickRepairLabor, "save-materials": saveRepairLaborMaterials })) {
+  for (const [action, operation] of Object.entries({ initialise: initialiseRepairLabor, list: listRepairLabor, read: readRepairLabor, authenticate: authenticateRepairLabor, prepare: prepareRepairLabor, toggle: toggleRepairLabor, state: saveRepairLaborState, tick: tickRepairLabor, "save-materials": saveRepairLaborMaterials, "check-materials": checkRepairLaborMaterials })) {
     app.post(`/api/repair-labor/${action}`, async (request, reply) => {
       reply.header("Cache-Control", "no-store");
       if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
@@ -177,12 +194,12 @@ export function createApp(options: { customerConnect?: DatabaseConnection; vehic
       return operation(options.stockConnect, request.body);
     });
   }
-  for (const [action, operation] of Object.entries({ initialise: initialiseStartup, access: checkStartupAccess, "system-read": readSystem, "system-save": saveSystem })) {
+  for (const [action, operation] of Object.entries({ initialise: initialiseStartup, access: checkStartupAccess, "system-read": readSystem, "system-save": saveSystem, "reassign-customers": reassignReceptionCustomers })) {
     app.post(`/api/startup/${action}`, async (request, reply) => {
       reply.header("Cache-Control", "no-store");
       if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
       if (!options.startupConnect) return reply.code(503).send({ kind: "unavailable" });
-      return operation(options.startupConnect, request.body);
+      return options.security && action === "access" ? { kind: "invalid" } : operation(options.startupConnect, request.body);
     });
   }
   return app;

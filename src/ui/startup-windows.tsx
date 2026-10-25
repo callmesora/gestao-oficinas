@@ -41,7 +41,7 @@ import articlesLayout from "./legacy/WIN_Table_artigos.layout.json";
 import usersLayout from "./legacy/WIN_Table_utilizadores.layout.json";
 import ordersLayout from "./legacy/WIN_Ordens_Reparacao.layout.json";
 
-export interface StartupWindowDefinition { id: string; label: string; layout: LegacyLayout; content: ReactNode; group: "tables" | "movements" | "reports" | "utilities"; menuControl?: string; toolbarOnly?: boolean; renderDialog?: (finish: () => void) => ReactNode }
+export interface StartupWindowDefinition { id: string; label: string; layout: LegacyLayout; content: ReactNode; group: "tables" | "movements" | "reports" | "utilities"; menuControl?: string; toolbarOnly?: boolean; renderDialog?: (finish: () => void) => ReactNode; action?: () => Promise<{ kind: string }>; completedMessage?: string }
 // All entries use actual existing business screens/repositories and one shared file-context lifetime.
 export async function defaultStartupWindows(): Promise<StartupWindowDefinition[]> {
   const [customers, vehicles, units, descriptiveStates, terminals, postos, mechanics, repairStates, documents, articles, users, orders, form, labor, materials] = await Promise.all([

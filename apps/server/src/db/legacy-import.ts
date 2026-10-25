@@ -4,7 +4,7 @@ import { DatabaseSync } from "node:sqlite";
 import Decimal from "decimal.js";
 import type { Client } from "pg";
 import { z } from "zod";
-import mapping from "./column-mapping.v1.json";
+import mapping from "./column-mapping.v1.json" with { type: "json" };
 
 export const columnMapping = mapping;
 type Column = typeof mapping.tables[number]["columns"][number];

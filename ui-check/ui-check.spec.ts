@@ -132,7 +132,7 @@ for (const [window, settings] of Object.entries(config.windows)) {
     page.on("requestfailed", (request) => failed.push(request.url()));
     page.on("response", (response) => { if (response.status() >= 400) failed.push(`${response.status()} ${response.url()}`); });
     if (settings.viewport) await page.setViewportSize(settings.viewport);
-    await page.goto(settings.url ?? "/");
+    await page.goto(settings.url ?? "/?diagnostics=foundation");
     for (const id of settings.open) await page.getByTestId(id).first().click();
     const view = page.getByTestId(window).first();
     await expect(view).toBeVisible();

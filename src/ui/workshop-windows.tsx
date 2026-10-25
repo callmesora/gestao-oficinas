@@ -1,3 +1,5 @@
+import { isolatedStartupUtilityRepository } from "../infrastructure/startup-utilities";
+import menuSource from "./legacy/WIN_MENU.layout.json";
 import { useState, type ReactNode } from "react";
 import type { FamilyReportRequest, ReportContext } from "../../packages/domain/src/reports";
 import type { MaterialReportMode, LaborReportMode, SalesReportMode } from "../../packages/domain/src/report-filters";
@@ -51,8 +53,8 @@ function InventoryMenuSequence({ repository, context, finish }: { repository: St
 
 /** Additional real source menu windows for StartupWorkflow's existing isolated-development entry. */
 export async function additionalWorkshopWindows(options: { context?: ReportContext; today?: string; restrictedMaterials?: boolean } = {}): Promise<StartupWindowDefinition[]> {
-  const [labor, materials, stock, articles, mechanics, documents, descriptions, vehicles, customers, filters] = await Promise.all([
-    isolatedRepairLaborRepository(), isolatedRepairMaterialsRepository(), isolatedStockRepository(), isolatedArticleRepository(), isolatedMechanicRepository(), isolatedDocumentTypeRepository(), isolatedDescriptiveStateRepository(), isolatedVehicleRepository(), isolatedCustomerRepository(), isolatedReportFilterRepository(),
+  const [labor, materials, stock, articles, mechanics, documents, descriptions, vehicles, customers, filters, startupUtilities] = await Promise.all([
+    isolatedRepairLaborRepository(), isolatedRepairMaterialsRepository(), isolatedStockRepository(), isolatedArticleRepository(), isolatedMechanicRepository(), isolatedDocumentTypeRepository(), isolatedDescriptiveStateRepository(), isolatedVehicleRepository(), isolatedCustomerRepository(), isolatedReportFilterRepository(), isolatedStartupUtilityRepository(),
   ]);
   const context = options.context ?? reportContext(), now = new Date();
   const today = options.today ?? `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, "0")}${String(now.getDate()).padStart(2, "0")}`;
@@ -86,5 +88,6 @@ export async function additionalWorkshopWindows(options: { context?: ReportConte
   for (const mode of ["vendas", "recebimentos"] as SalesReportMode[]) definitions.push({ id: `sales-report-${mode}`, label: mode === "vendas" ? "Vendas" : "Recebimentos", menuControl: mode === "vendas" ? "OPT_Vendas" : "OPT_Recebimentos", group: "reports", layout: salesReportFilterLayout(mode), content:
     <FilterPreviewWindow>{onPreview => <SalesReportFilter mode={mode} repository={filters} context={context} today={today} onPreview={onPreview} />}</FilterPreviewWindow> });
   definitions.push({ id: "stock-rebuild", label: "Reconstrução de Stocks", menuControl: "OPT_Reconstrução_de_Stocks", group: "utilities", layout: rebuildLayout, content: null, renderDialog: finish => <StockReconstructionDialog repository={stock} finish={finish} /> });
+  definitions.push({ id: "reassign-reception-customers", label: "Clientes Reparação", menuControl: "OPT_Clientes_Reparação", group: "utilities", layout: menuSource, content: null, action: () => startupUtilities.reassignReceptionCustomers(), completedMessage: "Terminado" });
   return definitions;
 }

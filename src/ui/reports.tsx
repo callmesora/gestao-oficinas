@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { familyReportIds, type FamilyReportRequest, type ReportId, type ReportRequest, type ReportRenderResult, type ReportContext } from "../../packages/domain/src/reports";
 import { isolatedReportRenderer } from "../infrastructure/reports";
+import { nativeReportOutputAvailable, printReportPdf, saveReportPdf, type ReportOutputResult } from "../infrastructure/report-output";
 import "./reports.css";
 
 export type RenderReport = (request: ReportRequest) => Promise<ReportRenderResult>;
@@ -29,19 +30,39 @@ export function useStockReportPreview(context: ReportContext) {
     }
   } };
 }
-/** Initial preview displays the exact paginated HTML used for its PDF. No print-device claim. */
+/** Preview, native save and native print share the exact generated PDF snapshot. */
 export function ReportPreview({ result, close }: { result: Extract<ReportRenderResult, { kind: "rendered" }>; close: () => void }) {
   const pdfLink = useRef<HTMLAnchorElement>(null);
   const dialog = useRef<HTMLDialogElement>(null);
+  const [outputBusy, setOutputBusy] = useState(false), [output, setOutput] = useState<{ pdfBase64: string; kind: ReportOutputResult["kind"] | "failed" } | null>(null);
+  const outputOwner = useRef({ alive: true, pending: false });
+  useEffect(() => { const owner = outputOwner.current; owner.alive = true; return () => { owner.alive = false; }; }, []);
+  const native = nativeReportOutputAvailable();
+  const status = output?.pdfBase64 === result.pdfBase64 ? output.kind : null;
+  const act = async (kind: "save" | "print") => {
+    const owner = outputOwner.current;
+    if (owner.pending) return;
+    owner.pending = true; setOutputBusy(true); setOutput(null);
+    try {
+      const answer = await (kind === "save" ? saveReportPdf : printReportPdf)({ reportId: result.reportId, pdfBase64: result.pdfBase64 });
+      if (owner.alive) setOutput({ pdfBase64: result.pdfBase64, kind: answer.kind });
+    } catch { if (owner.alive) setOutput({ pdfBase64: result.pdfBase64, kind: "failed" }); }
+    finally { owner.pending = false; if (owner.alive) setOutputBusy(false); }
+  };
   useEffect(() => {
+    if (native) return;
     const bytes = Uint8Array.from(atob(result.pdfBase64), character => character.charCodeAt(0));
     const url = URL.createObjectURL(new Blob([bytes], { type: "application/pdf" }));
     if (pdfLink.current) pdfLink.current.href = url;
     return () => URL.revokeObjectURL(url);
-  }, [result.pdfBase64]);
+  }, [native, result.pdfBase64]);
   useEffect(() => { dialog.current?.showModal(); }, []);
-  return <dialog ref={dialog} className="report-preview" onCancel={event => { event.preventDefault(); close(); }}>
-    <div className="report-preview-toolbar"><span>{result.reportId} · {result.pageCount}</span><a ref={pdfLink} download={`${result.reportId}.pdf`}>PDF</a><button onClick={close}>Fechar</button></div>
+  return <dialog ref={dialog} className="report-preview" onCancel={event => { event.preventDefault(); if (!outputOwner.current.pending) close(); }}>
+    <div className="report-preview-toolbar"><span>{result.reportId} · {result.pageCount}</span>
+      {native ? <><button data-testid="report-save-pdf" disabled={outputBusy} onClick={() => { void act("save"); }}>Guardar PDF</button><button data-testid="report-print-pdf" disabled={outputBusy} onClick={() => { void act("print"); }}>Imprimir</button></>
+        : <a ref={pdfLink} download={`${result.reportId}.pdf`}>PDF</a>}
+      <button disabled={outputBusy} onClick={close}>Fechar</button>
+      {status && status !== "cancelled" && <output data-testid="report-output-result">{status === "saved" ? "PDF guardado" : status === "requested" ? "Pedido de impressão enviado" : "Pedido não concluído"}</output>}</div>
     <iframe title={result.reportId} sandbox="" srcDoc={result.html} />
   </dialog>;
 }
