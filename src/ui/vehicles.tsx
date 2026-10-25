@@ -11,12 +11,12 @@ import listLayout from "./legacy/WIN_Table_Viaturas.layout.json";
 import formLayout from "./legacy/WIN_Form_Viaturas.layout.json";
 import { controlBox, controlOf, type LegacyColumn } from "./legacy/layout";
 import { useAnchoredControl } from "./legacy/anchors";
-import { WdButton, WdEdit, WdFrame } from "./legacy/wd";
+import { WdButton, WdEdit } from "./legacy/wd";
 import { WdTable } from "./legacy/table";
 import { useTableLayout } from "./legacy/table-layout";
 import { DialogProvider, useDialogs } from "./legacy/dialogs";
 import { WdWorkspace, useWorkspace, useWorkspaceClose } from "./legacy/workspace";
-import { trapDialogTab } from "./legacy/dialog-keyboard";
+import { WdModal, type WdModalHandle } from "./legacy/modal";
 
 type Repositories = { vehicles: VehicleRepository; customers: CustomerRepository };
 type FormText = { matricula: string; Cliente: string; marca: string; modelo: string; Ano: string; mes: string };
@@ -40,15 +40,13 @@ function CustomerCombo({ customers, value, change, disabled }: { customers: Cust
 }
 
 function VehicleForm({ repositories, vehicle, finish }: { repositories: Repositories; vehicle: Vehicle | null; finish: (saved: boolean) => void }) {
-  const dialog = useRef<HTMLDialogElement>(null), pending = useRef(false);
+  const dialog = useRef<WdModalHandle>(null), pending = useRef(false);
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const [customers, setCustomers] = useState<Customer[]>([]), [picker, setPicker] = useState(false);
-  const [maximized, setMaximized] = useState(false), [minimized, setMinimized] = useState(false);
   const { message } = useDialogs();
   const defaults: FormText = { matricula: vehicle?.matricula ?? "", Cliente: vehicle?.Cliente ?? "", marca: vehicle?.marca ?? "", modelo: vehicle?.modelo ?? "", Ano: String(vehicle?.Ano ?? 0), mes: String(vehicle?.mes ?? 0) };
   const { register, getValues, setValue, control, formState: { dirtyFields } } = useForm<FormText>({ defaultValues: defaults });
   const selectedCustomer = useWatch({ control, name: "Cliente" });
-  useEffect(() => { const element = dialog.current!; element.showModal(); return () => element.close(); }, []);
   useEffect(() => {
     let active = true;
     void repositories.customers.list({ mode: "todos", term: "" }).then(result => {
@@ -91,26 +89,22 @@ function VehicleForm({ repositories, vehicle, finish }: { repositories: Reposito
     } catch { setDiagnostic("transport"); }
     finally { pending.current = false; setBusy(false); }
   };
-  return <dialog ref={dialog} className="wd-dialog-host" data-testid="WIN_Form_Viaturas" aria-label={formLayout.window.title}
-    onCancel={event => { event.preventDefault(); event.stopPropagation(); close(); }} onKeyDown={event => {
-      if (event.target instanceof Element && event.target.closest("dialog") !== dialog.current) return;
-      trapDialogTab(event);
+  return <WdModal ref={dialog} layout={formLayout} instance="vehicle-form-frame" testId="WIN_Form_Viaturas" restoreTestId="vehicle-form-restore"
+    onClose={() => close()} onKeyDown={event => {
+      // ADR-003 defaults; exact native Validate-key precedence retains the form U-*-01.
       if (event.key === "Enter" && !(event.target instanceof HTMLButtonElement)) { event.preventDefault(); void save(); }
     }}>
-    {minimized && <button data-testid="vehicle-form-restore" onClick={() => setMinimized(false)}>{formLayout.window.title}</button>}
-    <div hidden={minimized}><WdFrame layout={formLayout} instance="vehicle-form-frame" width={maximized ? Math.max(500, innerWidth - 40) : undefined} height={maximized ? Math.max(230, innerHeight - 40) : undefined}
-      onClose={() => close()} onMinimize={() => setMinimized(true)} onToggleMaximize={() => setMaximized(value => !value)}>
       <div data-testid="SC_Form" style={{ display: "contents" }}>
-        {fields.map(field => <WdEdit key={field} control={controlOf(formLayout, inputNames[field])} {...register(field)} disabled={busy} readOnly={field === "matricula" && vehicle !== null} />)}
+        {fields.slice(0, 3).map(field => <WdEdit key={field} control={controlOf(formLayout, inputNames[field])} {...register(field)} disabled={busy} readOnly={field === "matricula" && vehicle !== null} />)}
         <CustomerCombo customers={customers} value={selectedCustomer} change={code => setValue("Cliente", code, { shouldDirty: true })} disabled={busy} />
         <WdButton control={controlOf(formLayout, "BTN_VISION")} disabled={busy} onClick={() => setPicker(true)} />
+        {fields.slice(3).map(field => <WdEdit key={field} control={controlOf(formLayout, inputNames[field])} {...register(field)} disabled={busy} />)}
       </div>
       <WdButton control={controlOf(formLayout, "BTN_Validar")} disabled={busy} onClick={() => void save()} />
       <WdButton control={controlOf(formLayout, "BTN_Cancelar")} disabled={busy} onClick={() => close()} />
-    </WdFrame></div>
     {picker && <CustomerPicker repository={repositories.customers} origin={getValues("Cliente")} finish={code => void picked(code)} />}
     {diagnostic && <output data-testid="vehicle-form-diagnostic">{diagnostic}</output>}
-  </dialog>;
+  </WdModal>;
 }
 
 function VehicleList({ repositories, selecting = false, origin = "", selected }: { repositories: Repositories; selecting?: boolean; origin?: string; selected?: (registration: string) => void }) {

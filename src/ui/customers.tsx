@@ -6,12 +6,12 @@ import { isolatedCustomerRepository } from "../infrastructure/customers";
 import listLayout from "./legacy/WIN_Table_Clientes.layout.json";
 import formLayout from "./legacy/WIN_Form_Clientes.layout.json";
 import { controlOf, type LegacyColumn } from "./legacy/layout";
-import { WdButton, WdEdit, WdFrame, WdMemo } from "./legacy/wd";
+import { WdButton, WdEdit, WdMemo } from "./legacy/wd";
+import { WdModal, type WdModalHandle } from "./legacy/modal";
 import { WdTable } from "./legacy/table";
 import { useTableLayout } from "./legacy/table-layout";
 import { DialogProvider, useDialogs } from "./legacy/dialogs";
 import { WdWorkspace, useWorkspace, useWorkspaceClose } from "./legacy/workspace";
-import { trapDialogTab } from "./legacy/dialog-keyboard";
 
 const fields = ["Codigo", "Descricao", "Morada1", "Morada2", "codpostal", "Telefone1", "Telemovel", "observacao"] as const;
 const controls = ["EDT_Codigo", "EDT_Descricao", "EDT_Morada1", "EDT_Morada2", "EDT_Codpostal", "EDT_Telefone1", "EDT_Telemovel", "EDT_Observacao"];
@@ -20,17 +20,14 @@ type FormText = Record<typeof fields[number], string>;
 const codeText = (value: string | null) => value?.replace(/\B(?=(\d{3})+(?!\d))/g, " ") ?? "0";
 
 function CustomerForm({ repository, customer, nextCode, finish }: { repository: CustomerRepository; customer: Customer | null; nextCode: string; finish: (saved: boolean) => void }) {
-  const dialog = useRef<HTMLDialogElement>(null), pending = useRef(false);
+  const dialog = useRef<WdModalHandle>(null), pending = useRef(false);
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
-  const [maximized, setMaximized] = useState(false), [minimized, setMinimized] = useState(false);
   const { message } = useDialogs();
   const defaults = Object.fromEntries(fields.map(field => [field, field === "Codigo" ? codeText(customer ? customer.Codigo : nextCode) : customer?.[field] ?? ""])) as FormText;
   const { register, getValues, setFocus, formState: { dirtyFields } } = useForm<FormText>({ defaultValues: defaults });
   useEffect(() => {
-    const element = dialog.current!; element.showModal();
     // Verified new-mode focus: WIN_Form_Clientes.wdw:481. Edit focus remains U-C286277B-01.
     if (!customer) setFocus("Descricao");
-    return () => element.close();
   }, [customer, setFocus]);
   const close = (saved = false) => { if (!pending.current) { dialog.current?.close(); finish(saved); } };
   const save = async () => {
@@ -51,14 +48,10 @@ function CustomerForm({ repository, customer, nextCode, finish }: { repository: 
     } catch { setDiagnostic("transport"); }
     finally { pending.current = false; setBusy(false); }
   };
-  return <dialog ref={dialog} className="wd-dialog-host" data-testid="WIN_Form_Clientes" aria-label={formLayout.window.title!}
-    onCancel={event => { event.preventDefault(); event.stopPropagation(); close(); }} onKeyDown={event => {
-      trapDialogTab(event);
+  return <WdModal ref={dialog} layout={formLayout} instance="customer-form-frame" testId="WIN_Form_Clientes" restoreTestId="customer-form-restore"
+    onClose={() => close()} onKeyDown={event => {
       if (event.key === "Enter" && !(event.target instanceof HTMLTextAreaElement) && !(event.target instanceof HTMLButtonElement)) { event.preventDefault(); void save(); }
     }}>
-    {minimized ? <button data-testid="customer-form-restore" onClick={() => setMinimized(false)}>{formLayout.window.title}</button> :
-      <WdFrame layout={formLayout} instance="customer-form-frame" width={maximized ? Math.max(formLayout.window.size.width, innerWidth - 40) : undefined} height={maximized ? Math.max(formLayout.window.size.height, innerHeight - 40) : undefined}
-        onClose={() => close()} onMinimize={() => setMinimized(true)} onToggleMaximize={() => setMaximized(value => !value)}>
         <div data-testid="SC_Form" style={{ display: "contents" }}>
           {fields.map((field, index) => field === "observacao" ?
             <WdMemo key={field} control={controlOf(formLayout, controls[index])} {...register(field)} disabled={busy} /> :
@@ -66,9 +59,8 @@ function CustomerForm({ repository, customer, nextCode, finish }: { repository: 
         </div>
         <WdButton control={controlOf(formLayout, "BTN_Validar")} disabled={busy} onClick={() => void save()} />
         <WdButton control={controlOf(formLayout, "BTN_Cancelar")} disabled={busy} onClick={() => close()} />
-      </WdFrame>}
     {diagnostic && <output data-testid="customer-form-diagnostic">{diagnostic}</output>}
-  </dialog>;
+  </WdModal>;
 }
 
 function CustomerList({ repository, selecting = false, origin = "", selected, closeOverride }: { repository: CustomerRepository; selecting?: boolean; origin?: string; selected?: (code: string) => void; closeOverride?: (code: string) => void }) {
@@ -153,22 +145,11 @@ function CustomerList({ repository, selecting = false, origin = "", selected, cl
 
 // SRC-a29b466a64: Open(WIN_Table_Clientes,true,COMBO_Codigo) blocks its real vehicle caller.
 export function CustomerPicker({ repository, origin, finish }: { repository: CustomerRepository; origin: string; finish: (code: string) => void }) {
-  const dialog = useRef<HTMLDialogElement>(null);
-  const [maximized, setMaximized] = useState(false), [minimized, setMinimized] = useState(false);
-  useEffect(() => { const element = dialog.current!; element.showModal(); return () => element.close(); }, []);
+  const dialog = useRef<WdModalHandle>(null);
   const close = (code = origin) => { dialog.current?.close(); finish(code); };
-  return <dialog ref={dialog} className="wd-dialog-host" data-testid="customer-picker" aria-label={listLayout.window.title!}
-    onCancel={event => { event.preventDefault(); event.stopPropagation(); close(); }} onKeyDown={event => {
-      if (event.target instanceof Element && event.target.closest("dialog") !== dialog.current) return;
-      trapDialogTab(event);
-    }}>
-    {minimized && <button data-testid="customer-picker-restore" onClick={() => setMinimized(false)}>{listLayout.window.title}</button>}
-    <div hidden={minimized}>
-      <WdFrame layout={listLayout} instance="customer-picker-frame" width={maximized ? Math.max(800, innerWidth - 40) : undefined} height={maximized ? Math.max(600, innerHeight - 40) : undefined}
-        onClose={() => close()} onMinimize={() => setMinimized(true)} onToggleMaximize={() => setMaximized(value => !value)}>
+  return <WdModal ref={dialog} layout={listLayout} instance="customer-picker-frame" testId="customer-picker" restoreTestId="customer-picker-restore" onClose={() => close()}>
         <CustomerList repository={repository} selecting origin={origin} closeOverride={close} />
-      </WdFrame></div>
-  </dialog>;
+  </WdModal>;
 }
 
 function CustomerLauncher({ repository }: { repository: CustomerRepository }) {

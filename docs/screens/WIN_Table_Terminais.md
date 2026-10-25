@@ -1,5 +1,7 @@
 # Screen spec — WIN_Table_Terminais
 
+MIG-7C2.1: actual modal geometry uses `WdModal`/`WdModalHandle` and the source Resizable/With grip/Save position flags under ADR-003. Non-legacy `${instance}-resize-${edge}` handles preserve source Tab traversal; existing frame/restore IDs stay unchanged. Hidden mounted controls retain drafts; own-dialog focus and pointer/key ownership prevent ancestor interference. `ui-check/modal-geometry.flows.spec.ts` covers actual consumers. Exact native limits, parent centering, persistence lifetime and existing unit U01 remain open; broad designer parity is not promoted.
+
 Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Table_Terminais.wdw`, `dossier: WIN_Table_Terminais`, `docs/mapping/WIN_Table_Terminais.md`. Step 0 specification only.
 
 ## Contract

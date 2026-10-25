@@ -7,12 +7,12 @@ import { isolatedTerminalRepository } from "../infrastructure/terminals";
 import listLayout from "./legacy/WIN_Table_Terminais.layout.json";
 import formLayout from "./legacy/WIN_Form_Terminais.layout.json";
 import { controlOf, type LegacyColumn } from "./legacy/layout";
-import { WdButton, WdEdit, WdFrame } from "./legacy/wd";
+import { WdButton, WdEdit } from "./legacy/wd";
 import { WdTable } from "./legacy/table";
 import { useTableLayout } from "./legacy/table-layout";
 import { DialogProvider, useDialogs } from "./legacy/dialogs";
 import { WdWorkspace, useWorkspace, useWorkspaceClose } from "./legacy/workspace";
-import { trapDialogTab } from "./legacy/dialog-keyboard";
+import { WdModal, type WdModalHandle } from "./legacy/modal";
 
 // Inferred from designer JPG; ADR-016 leaves generated source metadata unchanged.
 const captions: Record<string, string> = { EDT_Descricao: "Descrição", EDT_Posicao_Inicial_do_Codigo_de_Barras: "Posição Inicial do Código de Barras", EDT_Posicao_Final_do_Codigo_de_Barras: "Posição Final do Código de Barras", EDT_Posicao_Inicial_da_Quantidade: "Posição Inicial da Quantidade", EDT_Posicao_Final_da_Quantidade: "Posição Final da Quantidade", EDT_Localizacao_da_pasta: "Localização da pasta" };
@@ -23,14 +23,12 @@ const positionFields = ["codbarras_inicio", "codbarras_fim", "quant_inicio", "qu
 type FormText = Record<keyof TerminalValues, string>;
 
 function TerminalForm({ repository, terminal, finish }: { repository: TerminalRepository; terminal: Terminal | null; finish: (saved: boolean) => void }) {
-  const dialog = useRef<HTMLDialogElement>(null), pending = useRef(false);
+  const dialog = useRef<WdModalHandle>(null), pending = useRef(false);
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
-  const [maximized, setMaximized] = useState(false), [minimized, setMinimized] = useState(false);
   const { message } = useDialogs();
   const buffer = useRef(terminal), afterSeek = useRef(false);
   const defaults = Object.fromEntries(Object.keys(fieldControls).map(key => [key, terminal ? String(terminal[key as keyof TerminalValues] ?? "") : positionFields.includes(key as typeof positionFields[number]) ? "0" : ""])) as FormText;
   const { register, getValues, setValue, formState: { dirtyFields } } = useForm<FormText>({ defaultValues: defaults });
-  useEffect(() => { const element = dialog.current!; element.showModal(); return () => element.close(); }, []);
   const close = (saved = false) => { if (!pending.current) { dialog.current?.close(); finish(saved); } };
   const save = async () => {
     if (pending.current) return;
@@ -70,25 +68,19 @@ function TerminalForm({ repository, terminal, finish }: { repository: TerminalRe
     } catch (error) { setDiagnostic(error instanceof Error && error.message === "native_only" ? "native_only" : "folder_failed"); }
     finally { pending.current = false; setBusy(false); }
   };
-  return <dialog ref={dialog} className="wd-dialog-host" data-testid="WIN_Form_Terminais" aria-label={formTitle}
-    onCancel={event => { event.preventDefault(); event.stopPropagation(); close(); }} onKeyDown={event => {
-      if (event.target instanceof Element && event.target.closest("dialog") !== dialog.current) return;
-      trapDialogTab(event);
-      // UNRESOLVED U-CDF1C34F-01: reversible Validate-key route; native default precedence awaits capture.
+  return <WdModal ref={dialog} layout={displayedFormLayout} instance="terminal-form-frame" testId="WIN_Form_Terminais" restoreTestId="terminal-form-restore"
+    onClose={() => close()} onKeyDown={event => {
+      // ADR-003 defaults; exact native Validate-key precedence retains the form U-*-01.
       if (event.key === "Enter" && !(event.target instanceof HTMLButtonElement)) { event.preventDefault(); void save(); }
     }}>
-    {minimized && <button data-testid="terminal-form-restore" onClick={() => setMinimized(false)}>{formTitle}</button>}
-    <div hidden={minimized}><WdFrame layout={displayedFormLayout} instance="terminal-form-frame" width={maximized ? Math.max(formLayout.window.size.width, innerWidth - 40) : undefined} height={maximized ? Math.max(formLayout.window.size.height, innerHeight - 40) : undefined}
-      onClose={() => close()} onMinimize={() => setMinimized(true)} onToggleMaximize={() => setMaximized(value => !value)}>
       <div data-testid="SC_Form" style={{ display: "contents" }}>
         {(Object.keys(fieldControls) as (keyof TerminalValues)[]).map(key => <WdEdit key={key} control={controlOf(displayedFormLayout, fieldControls[key])} {...register(key)} readOnly={key === "pasta_localizacao" || (key === "Codigo" && terminal !== null)} disabled={busy} />)}
         <WdButton control={controlOf(formLayout, "BTN_procurar_pasta")} disabled={busy} onClick={() => void chooseFolder()} />
       </div>
       <WdButton control={controlOf(formLayout, "BTN_Validar")} disabled={busy} onClick={() => void save()} />
       <WdButton control={controlOf(formLayout, "BTN_Cancelar")} disabled={busy} onClick={() => close()} />
-    </WdFrame></div>
     {diagnostic && <output data-testid="terminal-form-diagnostic">{diagnostic}</output>}
-  </dialog>;
+  </WdModal>;
 }
 
 export function TerminalListScreen({ repository, selecting = false, finish }: { repository: TerminalRepository; selecting?: boolean; finish?: (code?: string) => void }) {
@@ -173,18 +165,11 @@ export function TerminalListScreen({ repository, selecting = false, finish }: { 
 
 // WIN_Form_postos.wdw:239 consumes the actual Codigo result when its real workflow is ported.
 export function TerminalPicker({ repository, origin, finish }: { repository: TerminalRepository; origin: string; finish: (code: string) => void }) {
-  const dialog = useRef<HTMLDialogElement>(null);
-  const [maximized, setMaximized] = useState(false), [minimized, setMinimized] = useState(false);
-  useEffect(() => { const element = dialog.current!; element.showModal(); return () => element.close(); }, []);
+  const dialog = useRef<WdModalHandle>(null);
   const close = (code = origin) => { dialog.current?.close(); finish(code); };
-  return <dialog ref={dialog} className="wd-dialog-host" data-testid="terminal-picker" aria-label={listLayout.window.title}
-    onCancel={event => { event.preventDefault(); event.stopPropagation(); close(); }} onKeyDown={trapDialogTab}>
-    {minimized && <button data-testid="terminal-picker-restore" onClick={() => setMinimized(false)}>{listLayout.window.title}</button>}
-    <div hidden={minimized}><WdFrame layout={listLayout} instance="terminal-picker-frame" width={maximized ? Math.max(listLayout.window.size.width, innerWidth - 40) : undefined} height={maximized ? Math.max(listLayout.window.size.height, innerHeight - 40) : undefined}
-      onClose={() => close()} onMinimize={() => setMinimized(true)} onToggleMaximize={() => setMaximized(value => !value)}>
+  return <WdModal ref={dialog} layout={listLayout} instance="terminal-picker-frame" testId="terminal-picker" restoreTestId="terminal-picker-restore" onClose={() => close()}>
       <TerminalListScreen repository={repository} selecting finish={close} />
-    </WdFrame></div>
-  </dialog>;
+  </WdModal>;
 }
 
 function TerminalLauncher({ repository }: { repository: TerminalRepository }) {

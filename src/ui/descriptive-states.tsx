@@ -6,24 +6,22 @@ import { isolatedDescriptiveStateRepository } from "../infrastructure/descriptiv
 import listLayout from "./legacy/WIN_Table_estados_descritivos.layout.json";
 import formLayout from "./legacy/WIN_Form_estados_descritivos.layout.json";
 import { controlOf, type LegacyColumn } from "./legacy/layout";
-import { WdButton, WdEdit, WdFrame } from "./legacy/wd";
+import { WdButton, WdEdit } from "./legacy/wd";
 import { WdTable } from "./legacy/table";
 import { useTableLayout } from "./legacy/table-layout";
 import { DialogProvider, useDialogs } from "./legacy/dialogs";
 import { WdWorkspace, useWorkspace, useWorkspaceClose } from "./legacy/workspace";
-import { trapDialogTab } from "./legacy/dialog-keyboard";
+import { WdModal, type WdModalHandle } from "./legacy/modal";
 
 // Inferred from designer JPGs, ADR-015; generated metadata stays unchanged.
 const displayedFormLayout = { ...formLayout, controls: formLayout.controls.map(control => control.name === "EDT_Descricao" ? { ...control, caption: "Descrição" } : control) };
 const formTitle = controlOf(formLayout, "RADTitle").caption!;
 
 function DescriptiveStateForm({ repository, descriptiveState, finish }: { repository: DescriptiveStateRepository; descriptiveState: DescriptiveState | null; finish: (saved: boolean) => void }) {
-  const dialog = useRef<HTMLDialogElement>(null), pending = useRef(false);
+  const dialog = useRef<WdModalHandle>(null), pending = useRef(false);
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
-  const [maximized, setMaximized] = useState(false), [minimized, setMinimized] = useState(false);
   const { message } = useDialogs();
   const { register, getValues, formState: { dirtyFields } } = useForm<{ Codigo: string; Descricao: string }>({ defaultValues: { Codigo: descriptiveState?.Codigo ?? "", Descricao: descriptiveState?.Descricao ?? "" } });
-  useEffect(() => { const element = dialog.current!; element.showModal(); return () => element.close(); }, []);
   const close = (saved = false) => { if (!pending.current) { dialog.current?.close(); finish(saved); } };
   const save = async () => {
     if (pending.current) return;
@@ -39,25 +37,19 @@ function DescriptiveStateForm({ repository, descriptiveState, finish }: { reposi
     } catch { setDiagnostic("transport"); }
     finally { pending.current = false; setBusy(false); }
   };
-  return <dialog ref={dialog} className="wd-dialog-host" data-testid="WIN_Form_estados_descritivos" aria-label={formTitle}
-    onCancel={event => { event.preventDefault(); event.stopPropagation(); close(); }} onKeyDown={event => {
-      if (event.target instanceof Element && event.target.closest("dialog") !== dialog.current) return;
-      trapDialogTab(event);
-      // UNRESOLVED U-CB7C31CC-01: reversible Validate-key route; native default precedence awaits capture.
+  return <WdModal ref={dialog} layout={displayedFormLayout} instance="descriptiveState-form-frame" testId="WIN_Form_estados_descritivos" restoreTestId="descriptiveState-form-restore"
+    onClose={() => close()} onKeyDown={event => {
+      // ADR-003 defaults; exact native Validate-key precedence retains the form U-*-01.
       if (event.key === "Enter" && !(event.target instanceof HTMLButtonElement)) { event.preventDefault(); void save(); }
     }}>
-    {minimized && <button data-testid="descriptiveState-form-restore" onClick={() => setMinimized(false)}>{formTitle}</button>}
-    <div hidden={minimized}><WdFrame layout={displayedFormLayout} instance="descriptiveState-form-frame" width={maximized ? Math.max(formLayout.window.size.width, innerWidth - 40) : undefined} height={maximized ? Math.max(formLayout.window.size.height, innerHeight - 40) : undefined}
-      onClose={() => close()} onMinimize={() => setMinimized(true)} onToggleMaximize={() => setMaximized(value => !value)}>
       <div data-testid="SC_Form" style={{ display: "contents" }}>
         <WdEdit control={controlOf(formLayout, "EDT_Codigo")} {...register("Codigo")} readOnly={descriptiveState !== null} disabled={busy} />
         <WdEdit control={controlOf(displayedFormLayout, "EDT_Descricao")} {...register("Descricao")} disabled={busy} />
       </div>
       <WdButton control={controlOf(formLayout, "BTN_Validar")} disabled={busy} onClick={() => void save()} />
       <WdButton control={controlOf(formLayout, "BTN_Cancelar")} disabled={busy} onClick={() => close()} />
-    </WdFrame></div>
     {diagnostic && <output data-testid="descriptiveState-form-diagnostic">{diagnostic}</output>}
-  </dialog>;
+  </WdModal>;
 }
 
 export function DescriptiveStateListScreen({ repository, selecting = false, finish }: { repository: DescriptiveStateRepository; selecting?: boolean; finish?: (description?: string) => void }) {
@@ -145,18 +137,11 @@ export function DescriptiveStateListScreen({ repository, selecting = false, fini
 
 // WIN_Tempos_Reparacao_Estado.wdw:416 consumes this description result when its real workflow is ported.
 export function DescriptiveStatePicker({ repository, origin, finish }: { repository: DescriptiveStateRepository; origin: string; finish: (description: string) => void }) {
-  const dialog = useRef<HTMLDialogElement>(null);
-  const [maximized, setMaximized] = useState(false), [minimized, setMinimized] = useState(false);
-  useEffect(() => { const element = dialog.current!; element.showModal(); element.querySelector<HTMLButtonElement>('[data-testid="BTN_selecionar"]')?.focus(); return () => element.close(); }, []);
+  const dialog = useRef<WdModalHandle>(null);
   const close = (description = origin) => { dialog.current?.close(); finish(description); };
-  return <dialog ref={dialog} className="wd-dialog-host" data-testid="descriptive-state-picker" aria-label={listLayout.window.title}
-    onCancel={event => { event.preventDefault(); event.stopPropagation(); close(); }} onKeyDown={trapDialogTab}>
-    {minimized && <button data-testid="descriptive-state-picker-restore" onClick={() => setMinimized(false)}>{listLayout.window.title}</button>}
-    <div hidden={minimized}><WdFrame layout={listLayout} instance="descriptive-state-picker-frame" width={maximized ? Math.max(listLayout.window.size.width, innerWidth - 40) : undefined} height={maximized ? Math.max(listLayout.window.size.height, innerHeight - 40) : undefined}
-      onClose={() => close()} onMinimize={() => setMinimized(true)} onToggleMaximize={() => setMaximized(value => !value)}>
+  return <WdModal ref={dialog} layout={listLayout} instance="descriptive-state-picker-frame" testId="descriptive-state-picker" restoreTestId="descriptive-state-picker-restore" onClose={() => close()}>
       <DescriptiveStateListScreen repository={repository} selecting finish={close} />
-    </WdFrame></div>
-  </dialog>;
+  </WdModal>;
 }
 
 function DescriptiveStateLauncher({ repository }: { repository: DescriptiveStateRepository }) {

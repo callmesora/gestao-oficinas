@@ -6,22 +6,20 @@ import { isolatedUnitRepository } from "../infrastructure/units";
 import listLayout from "./legacy/WIN_Table_unidades.layout.json";
 import formLayout from "./legacy/WIN_Form_unidades.layout.json";
 import { controlOf, type LegacyColumn } from "./legacy/layout";
-import { WdButton, WdEdit, WdFrame } from "./legacy/wd";
+import { WdButton, WdEdit } from "./legacy/wd";
 import { WdTable } from "./legacy/table";
 import { useTableLayout } from "./legacy/table-layout";
 import { DialogProvider, useDialogs } from "./legacy/dialogs";
 import { WdWorkspace, useWorkspace, useWorkspaceClose } from "./legacy/workspace";
-import { trapDialogTab } from "./legacy/dialog-keyboard";
+import { WdModal, type WdModalHandle } from "./legacy/modal";
 
 const formTitle = controlOf(formLayout, "RADTitle").caption!;
 
 function UnitForm({ repository, unit, finish }: { repository: UnitRepository; unit: Unit | null; finish: (saved: boolean) => void }) {
-  const dialog = useRef<HTMLDialogElement>(null), pending = useRef(false);
+  const dialog = useRef<WdModalHandle>(null), pending = useRef(false);
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
-  const [maximized, setMaximized] = useState(false), [minimized, setMinimized] = useState(false);
   const { message } = useDialogs();
   const { register, getValues, formState: { dirtyFields } } = useForm<{ Codigo: string; Descricao: string }>({ defaultValues: { Codigo: unit?.Codigo ?? "", Descricao: unit?.Descricao ?? "" } });
-  useEffect(() => { const element = dialog.current!; element.showModal(); return () => element.close(); }, []);
   const close = (saved = false) => { if (!pending.current) { dialog.current?.close(); finish(saved); } };
   const save = async () => {
     if (pending.current) return;
@@ -37,25 +35,19 @@ function UnitForm({ repository, unit, finish }: { repository: UnitRepository; un
     } catch { setDiagnostic("transport"); }
     finally { pending.current = false; setBusy(false); }
   };
-  return <dialog ref={dialog} className="wd-dialog-host" data-testid="WIN_Form_unidades" aria-label={formTitle}
-    onCancel={event => { event.preventDefault(); event.stopPropagation(); close(); }} onKeyDown={event => {
-      if (event.target instanceof Element && event.target.closest("dialog") !== dialog.current) return;
-      trapDialogTab(event);
-      // UNRESOLVED U-C77806F9-01: reversible Validate-key route; native default precedence awaits capture.
+  return <WdModal ref={dialog} layout={formLayout} instance="unit-form-frame" testId="WIN_Form_unidades" restoreTestId="unit-form-restore"
+    onClose={() => close()} onKeyDown={event => {
+      // ADR-003 defaults; exact native Validate-key precedence retains the form U-*-01.
       if (event.key === "Enter" && !(event.target instanceof HTMLButtonElement)) { event.preventDefault(); void save(); }
     }}>
-    {minimized && <button data-testid="unit-form-restore" onClick={() => setMinimized(false)}>{formTitle}</button>}
-    <div hidden={minimized}><WdFrame layout={formLayout} instance="unit-form-frame" width={maximized ? Math.max(formLayout.window.size.width, innerWidth - 40) : undefined} height={maximized ? Math.max(formLayout.window.size.height, innerHeight - 40) : undefined}
-      onClose={() => close()} onMinimize={() => setMinimized(true)} onToggleMaximize={() => setMaximized(value => !value)}>
       <div data-testid="SC_Form" style={{ display: "contents" }}>
         <WdEdit control={controlOf(formLayout, "EDT_Codigo")} {...register("Codigo")} readOnly={unit !== null} disabled={busy} />
         <WdEdit control={controlOf(formLayout, "EDT_Descricao")} {...register("Descricao")} disabled={busy} />
       </div>
       <WdButton control={controlOf(formLayout, "BTN_Validar")} disabled={busy} onClick={() => void save()} />
       <WdButton control={controlOf(formLayout, "BTN_Cancelar")} disabled={busy} onClick={() => close()} />
-    </WdFrame></div>
     {diagnostic && <output data-testid="unit-form-diagnostic">{diagnostic}</output>}
-  </dialog>;
+  </WdModal>;
 }
 
 function UnitListScreen({ repository }: { repository: UnitRepository }) {
