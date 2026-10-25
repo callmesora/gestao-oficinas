@@ -79,6 +79,7 @@ function CustomerList({ repository, selecting = false, origin = "", selected, cl
   const [form, setForm] = useState<{ customer: Customer | null } | null>(null), [diagnostic, setDiagnostic] = useState("");
   const search = useRef<HTMLInputElement | null>(null), request = useRef(0), mutation = useRef(false);
   const [refresh, setRefresh] = useState(0);
+  const columnSearch = useRef<{ key: keyof CustomerValues; term: string } | null>(null);
   const [loaded, setLoaded] = useState<{ filter: CustomerFilter; refresh: number } | null>(null);
   // Source ReturnedValue starts as origem, including closure through the system chrome.
   useEffect(() => () => { selected?.(returned.current); }, [selected]);
@@ -90,7 +91,11 @@ function CustomerList({ repository, selecting = false, origin = "", selected, cl
       if (result.kind !== "loaded") { setDiagnostic(result.kind); return; }
       setRows(result.customers); setNextCode(result.nextCode); setDiagnostic(""); setLoaded({ filter, refresh });
       // UNRESOLVED U-CC16AB27-02: retain an existing selection; no guessed first/after-delete selection.
-      setSelection(previous => result.customers.some(row => row.id === previous) ? previous : null);
+      // ADR-012/009: seek within the actual filtered, server-sorted result; never remove rows.
+      const sought = columnSearch.current;
+      const match = sought && result.customers.find(row => row[sought.key]?.toLocaleLowerCase("pt-PT").startsWith(sought.term.toLocaleLowerCase("pt-PT")));
+      columnSearch.current = null;
+      setSelection(previous => match ? match.id : result.customers.some(row => row.id === previous) ? previous : null);
     }).catch(() => { if (active) setDiagnostic("transport"); });
     return () => { active = false; };
   }, [repository, filter, refresh]);
@@ -115,6 +120,7 @@ function CustomerList({ repository, selecting = false, origin = "", selected, cl
     finally { mutation.current = false; }
   };
   const sort = (column: LegacyColumn) => {
+    columnSearch.current = null;
     const key = (column.name === "COL_Codpostal" ? "codpostal" : column.name.slice(4)) as NonNullable<CustomerFilter["sort"]>;
     setFilter(previous => ({ ...previous, sort: key, descending: previous.sort === key ? !previous.descending : false }));
   };
@@ -123,10 +129,15 @@ function CustomerList({ repository, selecting = false, origin = "", selected, cl
   }}><div style={{ display: "contents", pointerEvents: "auto" }}>
     <WdTable control={tableControl} rows={rows} rowId={row => row.id} selectedId={selection} onSelect={setSelection}
       cell={(row, column) => { const key = (column.name === "COL_Codpostal" ? "codpostal" : column.name.slice(4)) as keyof CustomerValues; return key === "Codigo" ? codeText(row.Codigo) : row[key] ?? ""; }}
-      onActivate={id => { const row = rows.find(value => value.id === id); if (ready && row) { if (selecting) choose(row); else setForm({ customer: row }); } }} onSort={sort} {...tableSettings} />
-    <WdEdit control={controlOf(listLayout, "EDT_termo_pesquisa")} value={filter.term} {...{ ref: search }} onChange={event => setFilter(previous => ({ ...previous, term: event.target.value }))} />
+      onActivate={id => { const row = rows.find(value => value.id === id); if (ready && row) { if (selecting) choose(row); else setForm({ customer: row }); } }} onSort={sort} {...tableSettings} configureColumns onResetColumns={tableSettings.resetLayout}
+      onColumnSearch={(column, term) => {
+        const key = (column.name === "COL_Codpostal" ? "codpostal" : column.name.slice(4)) as NonNullable<CustomerFilter["sort"]>;
+        columnSearch.current = term ? { key, term } : null;
+        if (term) setFilter(previous => ({ ...previous, sort: key, descending: false }));
+      }} />
+    <WdEdit control={controlOf(listLayout, "EDT_termo_pesquisa")} value={filter.term} {...{ ref: search }} onChange={event => { columnSearch.current = null; setFilter(previous => ({ ...previous, term: event.target.value })); }} />
     {modes.map(mode => <WdButton key={mode} control={controlOf(listLayout, `BTN_${mode}`)} style={{ fontWeight: filter.mode === mode ? "bold" : "normal", textDecoration: filter.mode === mode ? "underline" : "none", color: filter.mode === mode ? "darkblue" : "black" }}
-      onClick={() => { setFilter({ mode, term: "" }); search.current?.focus(); }} />)}
+      onClick={() => { columnSearch.current = null; setFilter({ mode, term: "" }); search.current?.focus(); }} />)}
     <WdMemo control={controlOf(listLayout, "EDT_Observacao")} value={current?.observacao ?? ""} readOnly />
     <WdButton control={controlOf(listLayout, "Btn_New")} disabled={!ready} onClick={() => setForm({ customer: null })} />
     <WdButton control={controlOf(listLayout, "BTN_Modificar")} disabled={!ready} onClick={() => { if (ready && current) setForm({ customer: current }); }} />

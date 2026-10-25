@@ -123,3 +123,78 @@ test("SRC-0e07efbaa4 selection mode returns the selected real code and Fechar re
   await page.getByTestId("BTN_Fechar").click();
   await expect(page.getByTestId("customer-return")).toHaveText("41");
 });
+
+
+test("RULE-CC16AB27-028 header prefix search selects real filtered data without filtering rows or activating the form", async ({ page, request }) => {
+  const session = await request.post("/api/development/session", { headers: { Origin: "http://localhost:1431", "X-Isolated-Development": "1" } });
+  const headers = { Authorization: `Bearer ${(await session.json()).token}` }, marker = String(Date.now());
+  const codes = [marker + "1", marker + "2"];
+  for (const [index, Codigo] of codes.entries()) {
+    const saved = await request.post("/api/customers/save", { headers, data: { mode: "create", values: { Codigo, Descricao: `Header ${marker} ${index}`, Morada1: index ? `Zeta ${marker}` : `Alpha ${marker}`, Morada2: "", codpostal: "", Telefone1: "", Telemovel: "", observacao: `Observation ${marker} ${index}` } } });
+    expect((await saved.json()).kind).toBe("saved");
+  }
+  await page.goto("/?workflow=customers&origin=41"); await page.getByTestId("customers-select-open").click();
+  await page.getByTestId("BTN_descricao").click(); await page.getByTestId("EDT_termo_pesquisa").fill(`Header ${marker}`);
+  await expect(page.getByTestId("BTN_Modificar")).toBeEnabled();
+  const table = page.getByTestId("TABLE_Clientes");
+  await expect(table.getByRole("row")).toHaveCount(3);
+  await table.getByTestId("COL_Morada1__search").click();
+  const search = table.getByRole("textbox", { name: "Pesquisar Morada 1", exact: true });
+  await expect(search).toBeFocused();
+  let releaseRead!: () => void;
+  const gate = new Promise<void>(resolve => { releaseRead = resolve; });
+  await page.route("**/api/customers/list", async route => {
+    const response = await route.fetch(); // Delay only the real API/database response, never replace its rows.
+    await gate; await route.fulfill({ response });
+  });
+  await search.fill(`Zeta ${marker}`);
+  await expect(page.getByTestId("BTN_selecionar")).toBeDisabled();
+  await search.press("Enter");
+  await expect(page.getByTestId("WIN_Form_Clientes")).toHaveCount(0);
+  releaseRead();
+  await expect(page.getByTestId("BTN_selecionar")).toBeEnabled();
+  await page.unroute("**/api/customers/list");
+  await expect(table.locator('tr[aria-selected="true"]')).toContainText(codes[1].replace(/\B(?=(\d{3})+(?!\d))/g, " "));
+  await expect(page.getByTestId("EDT_Observacao")).toHaveValue(`Observation ${marker} 1`);
+  await expect(table.getByRole("row")).toHaveCount(3);
+  await expect(table.locator("tbody tr").first()).toContainText(`Alpha ${marker}`);
+  await expect(page.getByTestId("EDT_termo_pesquisa")).toHaveValue(`Header ${marker}`);
+  await expect(page.getByTestId("WIN_Form_Clientes")).toHaveCount(0);
+  await expect(table).toBeFocused();
+  await table.getByTestId("COL_Descricao__search").click();
+  await table.getByRole("textbox").press("Escape");
+  await expect(page.getByTestId("WIN_Table_Clientes")).toBeVisible();
+  await page.getByTestId("BTN_selecionar").click();
+  await expect(page.getByTestId("customer-return")).toHaveText(codes[1]);
+});
+
+test("RULE-CC16AB27-028 real customer column visibility reload preserves widths and order and can restore the column", async ({ page }) => {
+  await page.goto("/?workflow=customers"); await page.getByTestId("customers-open").click();
+  const table = page.getByTestId("TABLE_Clientes"), phone = table.getByTestId("COL_Telefone1");
+  const original = (await phone.boundingBox())!.width;
+  await phone.getByRole("separator").press("ArrowRight");
+  const resized = (await phone.boundingBox())!.width; expect(resized).toBe(original + 8);
+  await table.getByTestId("COL_Descricao").getByRole("button").first().press("Control+Shift+ArrowLeft");
+  await expect(table.getByRole("columnheader").first()).toHaveAttribute("data-testid", "COL_Descricao");
+  await table.getByTestId("TABLE_Clientes__columns").click();
+  await table.getByRole("checkbox", { name: "Telefone", exact: true }).uncheck();
+  await expect(phone).toHaveCount(0);
+  await page.reload(); await page.getByTestId("customers-open").click();
+  await expect(phone).toHaveCount(0);
+  await expect(table.getByRole("columnheader").first()).toHaveAttribute("data-testid", "COL_Descricao");
+  await table.getByTestId("TABLE_Clientes__columns").click();
+  await expect(table.getByRole("checkbox", { name: "Telefone", exact: true })).not.toBeChecked();
+  await table.getByRole("checkbox", { name: "Telefone", exact: true }).check();
+  await expect(phone).toBeVisible(); expect((await phone.boundingBox())!.width).toBe(resized);
+  await table.getByRole("checkbox", { name: "Telefone", exact: true }).press("Escape");
+  await expect(table.getByRole("group", { name: "Colunas", exact: true })).toHaveCount(0);
+  await expect(page.getByTestId("WIN_Table_Clientes")).toBeVisible();
+  await table.getByTestId("TABLE_Clientes__columns").click();
+  await table.getByRole("button", { name: "Repor", exact: true }).click();
+  await expect(table.getByRole("columnheader").first()).toHaveAttribute("data-testid", "COL_Codigo");
+  expect((await phone.boundingBox())!.width).toBe(original);
+  await page.reload(); await page.getByTestId("customers-open").click();
+  await expect(table.getByRole("columnheader")).toHaveCount(7);
+  await expect(table.getByRole("columnheader").first()).toHaveAttribute("data-testid", "COL_Codigo");
+  expect((await phone.boundingBox())!.width).toBe(original);
+});

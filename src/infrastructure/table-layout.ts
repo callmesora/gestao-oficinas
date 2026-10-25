@@ -8,10 +8,11 @@ function valid(value: unknown): value is TableLayout {
   const data = value as Record<string, unknown>;
   return !!data.widths && typeof data.widths === "object" && !Array.isArray(data.widths) &&
     Object.entries(data.widths).every(([key, width]) => key.length > 0 && typeof width === "number" && Number.isFinite(width) && width > 0) &&
-    Array.isArray(data.order) && data.order.every(key => typeof key === "string" && key.length > 0) && new Set(data.order).size === data.order.length;
+    Array.isArray(data.order) && data.order.every(key => typeof key === "string" && key.length > 0) && new Set(data.order).size === data.order.length &&
+    (data.hidden === undefined || Array.isArray(data.hidden) && data.hidden.every(key => typeof key === "string" && key.length > 0) && new Set(data.hidden).size === data.hidden.length);
 }
 
-function layoutOnly(value: TableLayout): TableLayout { return { widths: { ...value.widths }, order: [...value.order] }; }
+function layoutOnly(value: TableLayout): TableLayout { return { widths: { ...value.widths }, order: [...value.order], ...(value.hidden?.length ? { hidden: [...value.hidden] } : {}) }; }
 
 export function createTableLayoutStore(storage?: LayoutStorage): TableLayoutStore {
   return {

@@ -10,13 +10,18 @@ it("round-trips layout-only fields using a scoped/versioned key and rejects inva
   expect(store.save("WIN/TABLE", withRows)).toBe(true);
   expect(JSON.parse(values.get(key)!)).toEqual({ version: 1, ...layout });
   expect(store.load("WIN/TABLE")).toEqual(layout);
+  const withVisibility = { ...layout, hidden: ["TABLE.OTHER"], selectedId: "not settings", rows: ["not settings"] };
+  expect(store.save("WIN/TABLE", withVisibility)).toBe(true);
+  expect(store.load("WIN/TABLE")).toEqual({ ...layout, hidden: ["TABLE.OTHER"] });
+  expect(JSON.parse(values.get(key)!)).toEqual({ version: 1, ...layout, hidden: ["TABLE.OTHER"] });
   expect(store.load("OTHER/TABLE")).toBeNull();
   expect(store.save("WIN/TABLE", { ...layout, widths: { "TABLE.COL": NaN } })).toBe(false);
-  expect(JSON.parse(values.get(key)!)).toEqual({ version: 1, ...layout });
+  expect(JSON.parse(values.get(key)!)).toEqual({ version: 1, ...layout, hidden: ["TABLE.OTHER"] });
 });
 it("rejects malformed/versioned/duplicate configuration without writing on read", () => {
   const cases = ["{", "null", JSON.stringify({ ...layout, version: 2 }), JSON.stringify({ ...layout, version: 1, widths: [] }),
-    JSON.stringify({ ...layout, version: 1, widths: { "TABLE.COL": -1 } }), JSON.stringify({ ...layout, version: 1, order: ["TABLE.COL", "TABLE.COL"] })];
+    JSON.stringify({ ...layout, version: 1, widths: { "TABLE.COL": -1 } }), JSON.stringify({ ...layout, version: 1, order: ["TABLE.COL", "TABLE.COL"] }),
+    JSON.stringify({ ...layout, version: 1, hidden: ["TABLE.COL", "TABLE.COL"] }), JSON.stringify({ ...layout, version: 1, hidden: "TABLE.COL" })];
   for (const value of cases) {
     let writes = 0;
     const store = createTableLayoutStore({ getItem: () => value, setItem: () => { writes++; } });

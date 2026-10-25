@@ -18,3 +18,11 @@ it("keeps fixed/non-movable source barriers when loading an older order", () => 
       .toEqual([a.path, b.path, d.path, c.path]);
   }
 });
+
+it("retains hidden columns' geometry and order while dropping stale or source-hidden visibility keys", () => {
+  const [code, description, address] = columns;
+  const saved = { widths: { [description.path]: 143 }, order: [description.path, code.path], hidden: [description.path, address.path, "stale"] };
+  const reconciled = reconcileTableLayout(saved, [code, description, { ...address, flags: { ...address.flags, Visible: false } }]);
+  expect(reconciled).toEqual({ widths: { [description.path]: 143 }, order: [description.path, code.path], hidden: [description.path] });
+  expect(reconcileTableLayout({ ...saved, hidden: [code.path, description.path] }, [code, description]).hidden).toHaveLength(1);
+});

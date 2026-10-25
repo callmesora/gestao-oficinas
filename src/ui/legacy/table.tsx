@@ -4,17 +4,22 @@ import { controlBox, type LegacyColumn, type LegacyControl } from "./layout";
 import "./skin.css";
 import { useAnchoredControl } from "./anchors";
 
-export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selectedId, onSelect, onActivate, onSort, columnWidths, onColumnWidthsChange, columnOrder, onColumnOrderChange }: {
+export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selectedId, onSelect, onActivate, onSort, onColumnSearch, configureColumns = false, hiddenColumns = [], onHiddenColumnsChange, onResetColumns, columnWidths, onColumnWidthsChange, columnOrder, onColumnOrderChange }: {
   control: LegacyControl; rows: T[]; rowId: (row: T) => string;
   cell: (row: T, column: LegacyColumn) => ReactNode;
   selectedId: string | null; onSelect: (id: string) => void;
   onActivate?: (id: string) => void; onSort?: (column: LegacyColumn) => void;
+  onColumnSearch?: (column: LegacyColumn, term: string) => void;
+  configureColumns?: boolean; hiddenColumns?: string[]; onHiddenColumnsChange?: (hidden: string[]) => void;
+  onResetColumns?: () => void;
   columnWidths?: ColumnSizingState; onColumnWidthsChange?: (widths: ColumnSizingState) => void;
   columnOrder?: string[]; onColumnOrderChange?: (order: string[]) => void;
 }) {
   const [localWidths, setLocalWidths] = useState<ColumnSizingState>({});
   const widths = columnWidths ?? localWidths;
   const [localOrder, setLocalOrder] = useState<string[]>([]);
+  const [searchColumn, setSearchColumn] = useState<string | null>(null), [searchTerm, setSearchTerm] = useState("");
+  const [configurationOpen, setConfigurationOpen] = useState(false);
   const order = columnOrder ?? localOrder;
   const draggedColumn = useRef<string | null>(null), keyboardFocus = useRef<HTMLElement | null>(null);
   useEffect(() => { keyboardFocus.current?.focus(); keyboardFocus.current = null; }, [order]);
@@ -24,6 +29,9 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
   if (!control.columns) throw new Error(`Table columns unresolved: ${control.path}`);
   const sourceColumns = control.columns;
   const container = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    container.current?.querySelector('tr[aria-selected="true"]')?.scrollIntoView({ block: "nearest", inline: "nearest" });
+  }, [selectedId, rows]);
   const ids = rows.map(rowId);
   if (new Set(ids).size !== ids.length) throw new Error(`Duplicate table row identity: ${control.path}`);
   const columns = useMemo(() => sourceColumns.filter(column => column.flags?.Visible !== false).map(column => {
@@ -32,7 +40,7 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
       maxSize: Number.MAX_SAFE_INTEGER, enableResizing: column.flags?.["Adjustable width"] === true };
   }), [sourceColumns]);
   const table = useReactTable({ data: rows, columns, getRowId: rowId, getCoreRowModel: getCoreRowModel(),
-    manualSorting: true, autoResetAll: false, enableRowSelection: false, columnResizeMode: "onChange", state: { columnSizing: widths, columnOrder: order },
+    manualSorting: true, autoResetAll: false, enableRowSelection: false, columnResizeMode: "onChange", state: { columnSizing: widths, columnOrder: order, columnVisibility: Object.fromEntries(hiddenColumns.map(key => [key, false])) },
     onColumnOrderChange: update => {
       if (onColumnOrderChange) onColumnOrderChange(typeof update === "function" ? update(order) : update);
       else setLocalOrder(update);
@@ -61,11 +69,24 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
         event.preventDefault(); onSelect(displayed[next].id);
       }
     }}>
+    {configureColumns && control.flags?.["Saves col. config."] === true && onHiddenColumnsChange && <div className="wd-table-tools"
+      onKeyDown={event => { if (event.key === "Escape") { event.preventDefault(); event.stopPropagation(); setConfigurationOpen(false); container.current?.focus(); } }}>
+      <button type="button" data-testid={`${control.name}__columns`} aria-label="Colunas" aria-expanded={configurationOpen} onClick={() => setConfigurationOpen(value => !value)}>▾</button>
+      {configurationOpen && <div className="wd-column-settings" role="group" aria-label="Colunas">
+        {table.getAllLeafColumns().map(column => <label key={column.id}><input type="checkbox" checked={column.getIsVisible()}
+          disabled={column.getIsVisible() && table.getVisibleLeafColumns().length === 1}
+          onChange={event => {
+            if (searchColumn === column.id && !event.target.checked) { setSearchColumn(null); onColumnSearch?.(columnOf(column.id), ""); }
+            onHiddenColumnsChange(event.target.checked ? hiddenColumns.filter(key => key !== column.id) : [...hiddenColumns, column.id]);
+          }} />{columnOf(column.id).title}</label>)}
+        {onResetColumns && <button type="button" onClick={() => { onResetColumns(); setConfigurationOpen(false); container.current?.focus(); }}>Repor</button>}
+      </div>}
+    </div>}
     <div className="wd-table-grid" aria-hidden="true" style={{ width: table.getTotalSize() }}>
-      {table.getAllLeafColumns().map(column => <span key={column.id} style={{ width: column.getSize() }} />)}
+      {table.getVisibleLeafColumns().map(column => <span key={column.id} style={{ width: column.getSize() }} />)}
     </div>
     <table aria-label={control.caption ?? control.name} style={{ width: table.getTotalSize() }}>
-      <colgroup>{table.getAllLeafColumns().map(column => <col key={column.id} style={{ width: column.getSize() }} />)}</colgroup>
+      <colgroup>{table.getVisibleLeafColumns().map(column => <col key={column.id} style={{ width: column.getSize() }} />)}</colgroup>
       <thead>{table.getHeaderGroups().map(group => <tr key={group.id}>{group.headers.map(header => {
         const column = header.column;
         const source = columnOf(column.id);
@@ -84,8 +105,19 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
             keyboardFocus.current = null;
             if (target && moveColumn(column.id, target)) keyboardFocus.current = event.target as HTMLElement;
           }}>
-          {onSort && source.flags?.["Sortable column"] === true
-            ? <button {...captionProps} type="button" onClick={() => onSort(source)}>{source.title}</button> : <span {...captionProps} tabIndex={movable ? 0 : undefined} className="wd-column-caption">{source.title}</span>}
+          {searchColumn === column.id ? <input autoFocus className="wd-column-search-input" aria-label={`Pesquisar ${source.title ?? source.name}`} value={searchTerm}
+            onChange={event => { setSearchTerm(event.target.value); onColumnSearch?.(source, event.target.value); }}
+            onKeyDown={event => {
+              if (event.key !== "Escape" && event.key !== "Enter") return;
+              event.preventDefault(); event.stopPropagation(); setSearchColumn(null);
+              if (event.key === "Escape") onColumnSearch?.(source, "");
+              container.current?.focus();
+            }} /> : <>
+            {onSort && source.flags?.["Sortable column"] === true
+              ? <button {...captionProps} className={onColumnSearch && source.flags?.["With search"] ? "wd-searchable-caption" : undefined} type="button" onClick={() => onSort(source)}>{source.title}</button> : <span {...captionProps} tabIndex={movable ? 0 : undefined} className="wd-column-caption">{source.title}</span>}
+            {onColumnSearch && source.flags?.["With search"] === true && <button type="button" className="wd-column-search" data-testid={`${source.name}__search`} aria-label={`Pesquisar ${source.title ?? source.name}`}
+              onClick={() => { setSearchColumn(column.id); setSearchTerm(""); onColumnSearch(source, ""); }}><span aria-hidden="true" /></button>}
+          </>}
           {column.getCanResize() && <span role="separator" aria-orientation="vertical" aria-label={source.title ?? source.name}
             aria-valuenow={column.getSize()} aria-valuemin={Math.min(24, source.width!)} aria-valuemax={Number.MAX_SAFE_INTEGER} aria-valuetext={`${column.getSize()} px`} tabIndex={0} data-testid={`${source.name}__resize`} className="wd-column-resize"
             onMouseDown={header.getResizeHandler()} onTouchStart={header.getResizeHandler()}
@@ -99,7 +131,7 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
       })}</tr>)}</thead>
       <tbody>{displayed.map(row => <tr key={row.id} aria-selected={row.id === selectedId}
         onClick={() => { container.current?.focus(); onSelect(row.id); }} onDoubleClick={() => onActivate?.(row.id)}>
-        {row.getAllCells().map(value => {
+        {row.getVisibleCells().map(value => {
           const source = columnOf(value.column.id);
           return <td key={value.id} style={{ textAlign: source.h_align === "Right" ? "right" : "left" }}>{cell(row.original, source)}</td>;
         })}

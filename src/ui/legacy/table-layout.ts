@@ -18,7 +18,10 @@ export function reconcileTableLayout(saved: TableLayout | null, columns: LegacyC
     else { flush(); order.push(column.path); }
   }
   flush();
-  return { widths, order };
+  const hidden = (saved?.hidden ?? []).filter(key => allowed.has(key));
+  // ADR-012: retain at least one visible source column, without discarding its saved geometry.
+  if (hidden.length === visible.length) hidden.pop();
+  return { widths, order, ...(hidden.length ? { hidden } : {}) };
 }
 
 /** Mount with a stable owner/window/table key; recreating the owner loads its saved layout. */
@@ -29,9 +32,10 @@ export function useTableLayout(control: LegacyControl, settingsKey: string, stor
   const dirty = useRef(false);
   useEffect(() => { if (enabled && dirty.current) store.save(settingsKey, layout); }, [enabled, layout, settingsKey, store]);
   return {
-    columnWidths: layout.widths, columnOrder: layout.order,
+    columnWidths: layout.widths, columnOrder: layout.order, hiddenColumns: layout.hidden ?? [],
     onColumnWidthsChange: (widths: Record<string, number>) => { dirty.current = true; setLayout(previous => ({ ...previous, widths })); },
     onColumnOrderChange: (order: string[]) => { dirty.current = true; setLayout(previous => ({ ...previous, order })); },
+    onHiddenColumnsChange: (hidden: string[]) => { dirty.current = true; setLayout(previous => reconcileTableLayout({ ...previous, hidden }, control.columns!)); },
     resetLayout: () => { dirty.current = true; setLayout(reconcileTableLayout(null, control.columns!)); },
   };
 }
