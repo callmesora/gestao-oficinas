@@ -74,6 +74,23 @@
   }
  },
  {
+  "name": "WIN_Form_estados_reparacao",
+  "kind": "screen",
+  "total": 15,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 11,
+   "specified": 1,
+   "unmapped": 3
+  },
+  "looks": null
+ },
+ {
   "name": "WIN_Form_mecanicos",
   "kind": "screen",
   "total": 14,
@@ -206,6 +223,23 @@
    "pixel": 98.5,
    "layout": 92.2
   }
+ },
+ {
+  "name": "WIN_Table_estados_reparacao",
+  "kind": "screen",
+  "total": 20,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 15,
+   "specified": 2,
+   "unmapped": 3
+  },
+  "looks": null
  },
  {
   "name": "WIN_Table_mecanicos",
@@ -1917,23 +1951,6 @@
   "looks": null
  },
  {
-  "name": "WIN_Form_estados_reparacao",
-  "kind": "screen",
-  "total": 15,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 12,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
   "name": "WIN_Form_utilizadores",
   "kind": "screen",
   "total": 15,
@@ -2252,23 +2269,6 @@
    "excluded": 0,
    "implemented": 0,
    "specified": 13,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
-  "name": "WIN_Table_estados_reparacao",
-  "kind": "screen",
-  "total": 20,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 17,
    "unmapped": 3
   },
   "looks": null

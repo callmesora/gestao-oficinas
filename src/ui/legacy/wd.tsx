@@ -43,6 +43,37 @@ export function WdCheckbox({ control: source, checked, onChange, disabled }: {
   </label>;
 }
 
+export interface WdRadioOption { value: number; label: string }
+/** ADR-003: keep unknown/NULL stored values until an explicit selection. */
+export function WdRadio({ control: source, options, value, onChange, disabled, label }: {
+  control: LegacyControl; options: readonly WdRadioOption[]; value: number | null;
+  onChange: (value: number) => void; disabled?: boolean; label: string;
+}) {
+  const control = useAnchoredControl(source), buttons = useRef<(HTMLButtonElement | null)[]>([]);
+  const selected = options.findIndex(option => option.value === value);
+  const tabStop = selected < 0 ? 0 : selected;
+  return <div role="radiogroup" aria-label={label} data-testid={control.name} data-control-path={control.path}
+    hidden={control.visible === false || control.flags?.Visible === false} className="wd-radio" style={controlBox(control)}>
+    {options.map((option, index) => <button key={option.value} ref={node => { buttons.current[index] = node; }} type="button" role="radio"
+      aria-checked={selected === index} disabled={disabled} data-radio-value={option.value}
+      tabIndex={control.flags?.["TAB Key"] === false || String(control.tab_order) === "-1" || index !== tabStop ? -1 : 0}
+      onClick={() => onChange(option.value)} onKeyDown={event => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault(); event.stopPropagation(); if (event.key === " ") onChange(option.value); return;
+        }
+        const direction = event.key === "ArrowDown" || event.key === "ArrowRight" ? 1 : event.key === "ArrowUp" || event.key === "ArrowLeft" ? -1 : 0;
+        if (!direction || event.altKey || event.ctrlKey || event.metaKey) return;
+        event.preventDefault(); event.stopPropagation();
+        // UNRESOLVED U01: reversible clamped target movement; native wrapping remains unclaimed.
+        const next = Math.max(0, Math.min(options.length - 1, index + direction));
+        onChange(options[next].value); buttons.current[next]?.focus();
+      }}>
+      <span className="wd-radio-mark" aria-hidden="true" style={{ backgroundImage: `url("${skinImage(control.image ?? "MediaPlayer_Radio_Anim.gif")}")` }} />
+      <span>{option.label}</span>
+    </button>)}
+  </div>;
+}
+
 export function WdFrame({ layout, instance, children, width, height, onClose, onMinimize, onToggleMaximize }: {
   layout: LegacyLayout; instance: string; children: ReactNode; width?: number; height?: number;
   onClose: () => void; onMinimize: () => void; onToggleMaximize: () => void;

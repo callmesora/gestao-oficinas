@@ -1,0 +1,3 @@
+# GS-REPAIR-STATES-001
+
+Spec-derived, not legacy-recorded: actual API creates code R01 with empty optional description, tipo1/Cor0/fivefalse; then updates the same selected record to exact accented/trailing-space description, tipo6, WINDEV RGB(1,2,3)=197121 and explicit flags. An exact duplicate create is rejected. Compare only the nine bound business values below; internal/source identity and provenance are asserted separately in real PostgreSQL tests. Source WIN_Form_estados_reparacao.wdw:38–66/528–536 and schema defaults; target transaction/failure boundaries ADR-011/008. Chooser/runtime/native/HFSQL/locale acceptance remains separate.

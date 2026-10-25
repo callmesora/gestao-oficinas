@@ -1,5 +1,11 @@
 # Screen spec — WIN_Form_estados_reparacao
 
+## Target image-backed presentation and non-legacy identifiers (MIG-7I)
+
+`WIN_Form_estados_reparacao.jpg` supplies visible title “Estados Reparação”, “Descrição”, eight radio options in order Recepção/Aguardar início reparação/Em reparação/Teste/Lavagem/Reparação suspensa/Reparação finalizada/Orçamento and checkbox labels Selecionar por defeito/Permite lançar material/Pedir confirmação na mudança do estado/Pedir data de entrega/Pedir data de pagamento. These scoped presentation overrides do not edit generated metadata. Radio keys, nullable-state preservation, Cor draft/preview independence, white fallback and pointer-transparent source shape follow ADR-003; exact native drawing/keys stay U-CE554DEA-01/03.
+
+The actual form uses the reusable `WdRadControls` renderer with explicitly ordered typed bindings and source kind/path validation. It renders source geometry/flags through existing primitives; business handlers, values and required rules remain explicit. Non-legacy identifiers: `repair-state-form-frame`, `repair-state-form-restore`, its `-resize-*` handles and `repair-state-form-diagnostic`. Radio options retain source group `RADIO_NoName1` and add non-legacy `data-radio-value` values for accessible target interaction; captions are JPG evidence, not decoded option metadata.
+
 Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Form_estados_reparacao.wdw`, `dossier: WIN_Form_estados_reparacao`, `docs/mapping/WIN_Form_estados_reparacao.md`. Step 0 specification only.
 
 ## Contract

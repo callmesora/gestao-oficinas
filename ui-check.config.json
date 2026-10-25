@@ -266,6 +266,43 @@
         "EDT_Descricao": "ADR-003: source JPG visibly reads Descrição; generated extraction spelling retained. Actual browser text assertion; native/human U-C17FCA03-01 remains.",
         "CBOX_Inativo": "ADR-003: source JPG visibly reads Inativo with initial capital; generated metadata retained. Actual checkbox caption asserted, native/human U-C17FCA03-01 remains."
       }
+    },
+    "WIN_Table_estados_reparacao": {
+      "ignore": {
+        "BTN_SYST_MINIMIZE": "Owned by enclosing workspace frame.",
+        "IMG_BTN_Syst_Restore": "Source off-canvas image; workspace chrome owns restore.",
+        "SC_SCSystemButtons": "Source container; owning frame renders actual controls.",
+        "BTN_SYST_FERMER": "Owned by enclosing workspace frame.",
+        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
+        "RADTitle": "Owning workspace reads the generated layout with scoped source-JPG caption override."
+      },
+      "open": [
+        "repair-states-launcher",
+        "repair-states-open"
+      ]
+    },
+    "WIN_Form_estados_reparacao": {
+      "ignore": {
+        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "SC_SCSystemButtons": "Source container; frame renders actual chrome.",
+        "IMG_BTN_Syst_Restore": "Source off-canvas image; frame owns restore."
+      },
+      "open": [
+        "repair-states-launcher",
+        "repair-states-open",
+        "Btn_New"
+      ],
+      "captionIgnore": {
+        "RADTitle": "ADR-003: source JPG supplies the visible caption/options where parsed designer text is encoded/generic; actual browser assertions preserve these labels. Native/human U-CE554DEA-01 remains.",
+        "EDT_Descricao": "ADR-003: source JPG supplies the visible caption/options where parsed designer text is encoded/generic; actual browser assertions preserve these labels. Native/human U-CE554DEA-01 remains.",
+        "RADIO_NoName1": "ADR-003: source JPG supplies the visible caption/options where parsed designer text is encoded/generic; actual browser assertions preserve these labels. Native/human U-CE554DEA-01 remains.",
+        "CBOX_NoName1": "ADR-003: source JPG supplies the visible caption/options where parsed designer text is encoded/generic; actual browser assertions preserve these labels. Native/human U-CE554DEA-01 remains.",
+        "CBOX_NoName2": "ADR-003: source JPG supplies the visible caption/options where parsed designer text is encoded/generic; actual browser assertions preserve these labels. Native/human U-CE554DEA-01 remains.",
+        "CBOX_NoName3": "ADR-003: source JPG supplies the visible caption/options where parsed designer text is encoded/generic; actual browser assertions preserve these labels. Native/human U-CE554DEA-01 remains.",
+        "CBOX_NoName4": "ADR-003: source JPG supplies the visible caption/options where parsed designer text is encoded/generic; actual browser assertions preserve these labels. Native/human U-CE554DEA-01 remains.",
+        "CBOX_NoName5": "ADR-003: source JPG supplies the visible caption/options where parsed designer text is encoded/generic; actual browser assertions preserve these labels. Native/human U-CE554DEA-01 remains."
+      }
     }
   }
 }

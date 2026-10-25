@@ -45,6 +45,23 @@
 .wd-checkbox:active .wd-check-mark[data-checked="true"] { background-position: -26px 0; }
 .wd-checkbox input:disabled + .wd-check-mark { background-position: -91px 0; }
 .wd-checkbox input:disabled + .wd-check-mark[data-checked="true"] { background-position: -39px 0; }
+/* ADR-003/U01: radio strip cells are12px; state-frame choices remain inferred from the supplied asset. */
+.wd-radio { position: absolute; box-sizing: border-box; display: flex; flex-direction: column; }
+.wd-radio button { position: relative; display: flex; align-items: center; gap: 6px; flex: 1; min-height: 0; padding: 0 3px;
+  margin: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; white-space: nowrap; }
+.wd-radio-mark { display: inline-block; flex: none; width: 12px; height: 12px; background-repeat: no-repeat; background-position: -12px 0; }
+.wd-radio button[aria-checked="true"] .wd-radio-mark { background-position: 0 0; }
+.wd-radio button:focus-visible { outline: none; }
+.wd-radio button:focus-visible .wd-radio-mark { outline: 1px dotted #444; outline-offset: 1px; }
+.wd-radio button:hover .wd-radio-mark { background-position: -48px 0; }
+.wd-radio button[aria-checked="true"]:hover .wd-radio-mark { background-position: -36px 0; }
+.wd-radio button:active .wd-radio-mark { background-position: -60px 0; }
+.wd-radio button[aria-checked="true"]:active .wd-radio-mark { background-position: -96px 0; }
+.wd-radio button:disabled .wd-radio-mark { background-position: -72px 0; }
+.wd-radio button[aria-checked="true"]:disabled .wd-radio-mark { background-position: -24px 0; }
+.wd-rad-caption, .wd-rad-shape { position: absolute; box-sizing: border-box; }
+.wd-rad-caption { padding-left: 2px; }
+.wd-rad-shape { border: 1px solid #000; pointer-events: none; }
 /* ADR-003 reversible input-assistance list; source frames and edit geometry stay unchanged. */
 .wd-input-suggestions { position: fixed; inset: auto; box-sizing: border-box; margin: 0; padding: 0; overflow: auto;
   border: 1px solid #a7adb8; background: white; color: #000; font: 10.67px "Trebuchet MS", Tahoma, sans-serif; }

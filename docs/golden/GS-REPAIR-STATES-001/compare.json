@@ -1,0 +1,46 @@
+{
+  "legacy": {
+    "delimiter": ",",
+    "encoding": "utf-8"
+  },
+  "target": {
+    "delimiter": ",",
+    "encoding": "utf-8"
+  },
+  "tables": {
+    "estados_reparacao": {
+      "key": [
+        "Codigo"
+      ],
+      "columns": {
+        "Codigo": {
+          "trim": false
+        },
+        "Descricao": {
+          "trim": false
+        },
+        "tipo": {
+          "trim": false
+        },
+        "Cor": {
+          "trim": false
+        },
+        "lancar_defa": {
+          "trim": false
+        },
+        "lancar_material": {
+          "trim": false
+        },
+        "confirmacao": {
+          "trim": false
+        },
+        "pedir_data_entrega": {
+          "trim": false
+        },
+        "pedir_data_pag": {
+          "trim": false
+        }
+      }
+    }
+  }
+}

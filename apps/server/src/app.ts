@@ -11,8 +11,9 @@ import { listDescriptiveStates, saveDescriptiveState, deleteDescriptiveState } f
 import { listTerminals, saveTerminal, deleteTerminal, prepareTerminalFolder } from "./operations/terminals";
 import { listPostos, savePosto, deletePosto } from "./operations/postos";
 import { listMechanics, readMechanic, saveMechanic, deleteMechanic } from "./operations/mechanics";
+import { listRepairStates, saveRepairState, checkRepairStateDelete, deleteRepairState } from "./operations/repair-states";
 
-export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; terminalConnect?: DatabaseConnection; postoConnect?: DatabaseConnection; mechanicsConnect?: DatabaseConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
+export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; terminalConnect?: DatabaseConnection; postoConnect?: DatabaseConnection; mechanicsConnect?: DatabaseConnection; repairStateConnect?: DatabaseConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
   const app = Fastify({ logger: false });
   app.get("/health/live", async () => ({ service: "gestao-oficinas-api", status: "alive" }));
   const authenticate = options.authenticate ?? options.development?.authenticate;
@@ -84,6 +85,13 @@ export function createApp(options: { customerConnect?: DatabaseConnection; vehic
       if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
       if (!options.mechanicsConnect) return reply.code(503).send({ kind: "unavailable" });
       return operation(options.mechanicsConnect, request.body);
+    });
+  }
+  for (const [action, operation] of Object.entries({ list: listRepairStates, save: saveRepairState, "check-delete": checkRepairStateDelete, delete: deleteRepairState })) {
+    app.post(`/api/repair-states/${action}`, async (request, reply) => {
+      if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
+      if (!options.repairStateConnect) return reply.code(503).send({ kind: "unavailable" });
+      return operation(options.repairStateConnect, request.body);
     });
   }
   return app;

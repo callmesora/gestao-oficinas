@@ -1,5 +1,5 @@
 /** ADR-009: each isolated repository bootstraps its own expiring development session. */
-export async function isolatedWorkflowPost(resource: "customers" | "vehicles" | "units" | "descriptive-states" | "terminals" | "postos" | "mechanics", failureMessage: string) {
+export async function isolatedWorkflowPost(resource: "customers" | "vehicles" | "units" | "descriptive-states" | "terminals" | "postos" | "mechanics" | "repair-states", failureMessage: string) {
   const response = await fetch("/api/development/session", { method: "POST", headers: { "X-Isolated-Development": "1" } });
   if (!response.ok) throw new Error("Isolated workflow server unavailable");
   const { token } = await response.json() as { token: string };

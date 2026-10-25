@@ -1,4 +1,6 @@
+pub mod repair_state_color;
 pub mod terminal_folder;
+pub use repair_state_color::SELECT_REPAIR_STATE_COLOR_COMMAND;
 pub use terminal_folder::SELECT_TERMINAL_FOLDER_COMMAND;
 
 use crate::contracts::NativeInfo;

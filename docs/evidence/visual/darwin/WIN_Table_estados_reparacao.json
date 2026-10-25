@@ -1,0 +1,12 @@
+{
+ "pixel_similarity": 98.7,
+ "edge_overlap": 94.9,
+ "size": [
+  634,
+  600
+ ],
+ "legacy": "docs/evidence/images/WIN_Table_estados_reparacao.jpg",
+ "new": "ui-report/WIN_Table_estados_reparacao.png",
+ "side_by_side": "ui-report/WIN_Table_estados_reparacao.compare.png",
+ "date": "2026-10-25"
+}
