@@ -29,3 +29,16 @@ The visible development banner and bootstrap identity are ADR-009 fixtures. Requ
 MIG-7A remains in progress until its complete review/parity/golden/native gates are recorded. Print, source-hidden UMC, unknown table features/selection edge behavior, native modal behavior and human visual approval remain open. Browser scores alone do not close those gaps.
 
 Estados descritivos: http://localhost:1431/?workflow=descriptive-states. Novo accepts code text3 and an optional description text100; select a row to edit its description or explicitly delete. Header magnifiers seek without filtering the rows. Direct real selector mode is http://localhost:1431/?workflow=descriptive-states&selecting=1&origin=Original; its development result output exposes Descricao or original cancellation value. This uses the actual screen/API/PostgreSQL, not the future labor caller. ADR-015 governs writes. Source labor continuation remains MIG-10, report MIG-13, exact designer/native/UMC obligations open.
+
+Terminais: http://localhost:1431/?workflow=terminals. Source code/description are required; all eight fields use the real API/PostgreSQL. Direct selector ?workflow=terminals&selecting=1&origin=Original returns Codigo and keeps CRUD visible. Folder path is read-only; its button first prepares the source current buffer through the API, then invokes the local native picker. A browser cannot supply an absolute client OS folder and shows only a native_only developer diagnostic; no fake folder is returned.
+
+For actual native business/folder testing, keep the isolated runner on1431 and start Tauri development in a separate PowerShell session (child-only environment):
+
+```powershell
+. ./setup/Enter-Prerequisites.ps1
+$env:WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS = '--remote-debugging-port=1433 --remote-debugging-address=127.0.0.1'
+$env:WEBVIEW2_USER_DATA_FOLDER = Join-Path (Get-Location) ('analysis-local/native-terminal-' + [guid]::NewGuid().ToString())
+npm run tauri -- dev --no-watch --config src-tauri/tauri.workflows.conf.json
+```
+
+Then run node scripts/native-terminal-check.mjs from another prepared shell. It performs actual UI/API/PostgreSQL assertions, pauses for two real Windows picker actions (120s each), then writes native-terminal-check.json. At step1 confirm the dialog address is the synthetic native-terminal-folder-choice directory and click Cancel; at step2 confirm the same initial address and Select Folder without navigating elsewhere. Human or Computer Use may operate those two native buttons. The helper verifies cancellation clears/persists and a new form's folder seek changes the existing save identity; it never reads selected files. Stop the owned Tauri dev process before a native rebuild. No global debug setting, production access or installer acceptance follows from this test.

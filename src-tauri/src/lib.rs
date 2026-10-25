@@ -2,7 +2,10 @@ pub mod commands;
 pub mod contracts;
 
 pub fn configure<R: tauri::Runtime>(builder: tauri::Builder<R>) -> tauri::Builder<R> {
-    builder.invoke_handler(tauri::generate_handler![commands::native_info])
+    builder.invoke_handler(tauri::generate_handler![
+        commands::native_info,
+        commands::terminal_folder::select_terminal_folder
+    ])
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]

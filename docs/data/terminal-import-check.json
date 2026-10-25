@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-25T08:17:38.157Z",
+  "evidence": "Read-only official-driver export imported by real importer and compared with authenticated API over isolated PostgreSQL",
+  "sourceTerminals": 0,
+  "matchedOriginalTerminals": 0,
+  "comparedFields": [
+    "Codigo",
+    "Descricao",
+    "codbarras_inicio",
+    "codbarras_fim",
+    "quant_inicio",
+    "quant_fim",
+    "pasta_localizacao",
+    "nome_ficheiro"
+  ],
+  "originalMutations": false,
+  "limitation": "Source has zero terminal records: empty-result import and source hash check only; positive field/write behavior is covered by synthetic real database/API/native tests, not original projection parity."
+}

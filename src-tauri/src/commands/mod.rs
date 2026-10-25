@@ -1,3 +1,6 @@
+pub mod terminal_folder;
+pub use terminal_folder::SELECT_TERMINAL_FOLDER_COMMAND;
+
 use crate::contracts::NativeInfo;
 
 pub const NATIVE_INFO_COMMAND: &str = "native_info";

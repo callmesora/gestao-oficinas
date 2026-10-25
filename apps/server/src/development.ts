@@ -18,7 +18,7 @@ try {
     try { await importLegacy(database, source); } finally { source.close(); }
   }
   const name = (await database.query<{ name: string }>("SELECT current_database() AS name")).rows[0].name;
-  app = createApp({ customerConnect: () => engine.connect(name), vehicleConnect: () => engine.connect(name), unitConnect: () => engine.connect(name), descriptiveStateConnect: () => engine.connect(name), development: developmentSessions("http://localhost:1431") });
+  app = createApp({ customerConnect: () => engine.connect(name), vehicleConnect: () => engine.connect(name), unitConnect: () => engine.connect(name), descriptiveStateConnect: () => engine.connect(name), terminalConnect: () => engine.connect(name), development: developmentSessions("http://localhost:1431") });
   await app.listen({ host: "127.0.0.1", port: 0 });
   const address = app.server.address();
   if (!address || typeof address === "string") throw new Error("Development API address unavailable");

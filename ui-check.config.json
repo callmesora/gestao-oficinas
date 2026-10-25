@@ -166,6 +166,41 @@
       "captionIgnore": {
         "EDT_Descricao": "ADR-015: source JPG visibly reads Descrição; extracted Descriçªo is retained in generated metadata. Positive image-backed text assertion in descriptive-states browser flow; human acceptance U-CB7C31CC-01."
       }
+    },
+    "WIN_Table_Terminais": {
+      "ignore": {
+        "BTN_SYST_MINIMIZE": "Owned by enclosing workspace frame.",
+        "IMG_BTN_Syst_Restore": "Source off-canvas image; workspace chrome owns restore.",
+        "SC_SCSystemButtons": "Source container; owning frame renders actual controls.",
+        "BTN_SYST_FERMER": "Owned by enclosing workspace frame.",
+        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
+        "RADTitle": "Owning frame reads the source-generated title."
+      },
+      "open": [
+        "terminals-launcher",
+        "terminals-open"
+      ]
+    },
+    "WIN_Form_Terminais": {
+      "ignore": {
+        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "SC_SCSystemButtons": "Source container; frame renders actual chrome.",
+        "IMG_BTN_Syst_Restore": "Source off-canvas image; frame owns restore."
+      },
+      "open": [
+        "terminals-launcher",
+        "terminals-open",
+        "Btn_New"
+      ],
+      "captionIgnore": {
+        "EDT_Descricao": "ADR-016: source JPG shows Portuguese caption; generated encoded spelling retained. Image-backed presentation, human/native U-CDF1C34F-01 remains.",
+        "EDT_Posicao_Inicial_do_Codigo_de_Barras": "ADR-016: source JPG shows Portuguese caption; generated encoded spelling retained. Image-backed presentation, human/native U-CDF1C34F-01 remains.",
+        "EDT_Posicao_Final_do_Codigo_de_Barras": "ADR-016: source JPG shows Portuguese caption; generated encoded spelling retained. Image-backed presentation, human/native U-CDF1C34F-01 remains.",
+        "EDT_Posicao_Inicial_da_Quantidade": "ADR-016: source JPG shows Portuguese caption; generated encoded spelling retained. Image-backed presentation, human/native U-CDF1C34F-01 remains.",
+        "EDT_Posicao_Final_da_Quantidade": "ADR-016: source JPG shows Portuguese caption; generated encoded spelling retained. Image-backed presentation, human/native U-CDF1C34F-01 remains.",
+        "EDT_Localizacao_da_pasta": "ADR-016: source JPG shows Portuguese caption; generated encoded spelling retained. Image-backed presentation, human/native U-CDF1C34F-01 remains."
+      }
     }
   }
 }

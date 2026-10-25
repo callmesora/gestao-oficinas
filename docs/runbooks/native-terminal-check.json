@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-25T08:06:15.629Z",
+  "evidence": "Actual Tauri development WebView2, real authenticated API/PostgreSQL, native rfd Windows folder selection controlled through Computer Use",
+  "cancelClearsControlAndPersists": true,
+  "initialFolderFromPositionedRecord": true,
+  "newFormFolderSeekUpdatesExistingIdentity": true,
+  "selectedFolderPersists": true,
+  "notCovered": [
+    "legacy runtime equivalence",
+    "installer",
+    "production navigation/access",
+    "terminal hardware/file import"
+  ]
+}
