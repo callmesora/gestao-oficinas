@@ -74,6 +74,23 @@
   }
  },
  {
+  "name": "WIN_Form_postos",
+  "kind": "screen",
+  "total": 15,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 11,
+   "specified": 1,
+   "unmapped": 3
+  },
+  "looks": null
+ },
+ {
   "name": "WIN_Form_Terminais",
   "kind": "screen",
   "total": 16,
@@ -172,6 +189,23 @@
    "pixel": 98.5,
    "layout": 92.2
   }
+ },
+ {
+  "name": "WIN_Table_postos",
+  "kind": "screen",
+  "total": 17,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 11,
+   "specified": 3,
+   "unmapped": 3
+  },
+  "looks": null
  },
  {
   "name": "WIN_Table_Terminais",
@@ -1883,23 +1917,6 @@
   "looks": null
  },
  {
-  "name": "WIN_Form_postos",
-  "kind": "screen",
-  "total": 15,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 12,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
   "name": "WIN_Form_utilizadores",
   "kind": "screen",
   "total": 15,
@@ -2269,23 +2286,6 @@
    "excluded": 0,
    "implemented": 0,
    "specified": 20,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
-  "name": "WIN_Table_postos",
-  "kind": "screen",
-  "total": 17,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 14,
    "unmapped": 3
   },
   "looks": null
