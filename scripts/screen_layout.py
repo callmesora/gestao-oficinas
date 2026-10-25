@@ -13,6 +13,7 @@ from pathlib import Path
 import re
 from collections import Counter
 import inspect_windev
+import dossier_extract
 
 
 def load(path):
@@ -70,6 +71,57 @@ def date_edit_options(details):
             if (value := raw_value(details.get('raw', []), name)) is not None}
 
 
+def qualified_table_details(lines):
+    """Recover exact table/column/cell ownership without borrowing merged leaf metadata or flags."""
+    blocks, summaries = {}, {}
+    table, summary_table, previous, block = None, None, None, None
+    for raw_line in lines:
+        line = raw_line.strip()
+        if line == 'Code':
+            break
+        heading = dossier_extract.DETAIL.fullmatch(line)
+        if heading:
+            kind, path = heading[1], heading[2]
+            block, previous, summary_table = None, None, None
+            if kind == 'Table':
+                table = summary_table = path
+            elif kind in ('Table column', 'Shape') and '.' in path:
+                parent = path.rsplit('.', 1)[0]
+                if ((kind == 'Table column' and parent == table) or
+                        (kind == 'Shape' and path.rsplit('.', 2)[0] == table)):
+                    block = [line]
+                else:
+                    table = None
+                blocks.setdefault(path, []).append(block)
+            else:
+                table = None
+            continue
+        if block is not None:
+            block.append(line)
+        if summary_table:
+            if previous and dossier_extract.COLUMN_ROW.fullmatch(line):
+                row = dossier_extract.parse_rows([previous, line])[previous]
+                summaries.setdefault(f'{summary_table}.{previous}', []).append(row)
+            previous = line if re.fullmatch(r'[A-Za-z_]\w*', line) else None
+    qualified = {}
+    for path, candidates in blocks.items():
+        if len(candidates) != 1 or candidates[0] is None or len(summaries.get(path, [])) != 1:
+            continue
+        details = next(iter(dossier_extract.parse_details(candidates[0]).values()))
+        if details.get('kind') != 'Table column' or not details.get('column_index'):
+            continue
+        for key, value in summaries[path][0].items():
+            details.setdefault(key, value)
+        qualified[path] = details
+    for path, candidates in blocks.items():
+        if len(candidates) != 1 or candidates[0] is None or path.rsplit('.', 1)[0] not in qualified:
+            continue
+        details = next(iter(dossier_extract.parse_details(candidates[0]).values()))
+        if details.get('kind') == 'Shape':
+            qualified[path] = details
+    return qualified
+
+
 def control_paths(text):
     """Preserve scoped identities when two tables use the same column name."""
     lines = text.splitlines()
@@ -122,10 +174,16 @@ def layout(unit, latest, language=None):
     if [item['name'] for item in paths] != [item['name'] for item in source.get('layout', [])]:
         raise ValueError(f'{unit}: source hierarchy differs from inspected layout')
     repeated = {name for name, count in Counter(item['name'] for item in paths).items() if count > 1}
-    if repeated:
-        unknown.append('duplicate names have ambiguous dossier metadata; only source geometry/path retained: ' + ', '.join(sorted(repeated)))
+    qualified = qualified_table_details(element.get('lines', []))
+    unresolved = {item['name'] for item in paths if item['name'] in repeated and item['path'] not in qualified}
+    recovered = [item['path'] for item in paths if item['name'] in repeated and item['path'] in qualified]
+    if unresolved:
+        unknown.append('duplicate names have ambiguous dossier metadata; only source geometry/path retained: ' + ', '.join(sorted(unresolved)))
+    if recovered:
+        unknown.append('qualified duplicate metadata recovered; scoped dossier flags remain unknown: ' + ', '.join(recovered))
     for item, identity in zip(source.get('layout', []), paths):
-        details = (described.get(item['name']) or {}) if item['name'] not in repeated else {}
+        details = ((described.get(item['name']) or {}) if item['name'] not in repeated
+                   else qualified.get(identity['path'], {}))
         raw = details.get('raw', [])
         caption_alignment = caption_summary_alignment(details)
         image = basename(pick(details.get('image'), language))
@@ -156,7 +214,7 @@ def layout(unit, latest, language=None):
             columns.append({'name': item['name'], 'path': identity['path'], 'parent': identity['parent'], 'title': entry['caption'], 'width': details.get('width'),
                                      'h_align': details.get('h_align'), 'input_type': details.get('input_type'),
                                      'linked_item': details.get('linked_item'), 'index': details.get('column_index'),
-                                     'flags': details.get('flags'), 'metadata_unresolved': item['name'] in repeated})
+                                     'flags': details.get('flags'), 'metadata_unresolved': item['name'] in repeated and not details})
             continue
         controls.append({k: v for k, v in entry.items() if v is not None})
     for control in controls:

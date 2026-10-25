@@ -1,0 +1,3 @@
+position,numero,matricula,Descricao_Cliente,Descricao_Terceiro,marcamodelo,recepcao_datahora,recepcao_entrega_prevista,Descricao,recepcao_prioridade,Descricao_me,Cor
+I:1,D:2,T:A'1,T:Cliente d'Água  ,T:Terceiro,T:MERCEDES SPRINTER  ,T:20240228000000000,T:20240228,T:Atual d'Água  ,I:1,T:Mecânico público,I:197121
+I:2,D:2,T:A'1,T:Cliente d'Água  ,T:Terceiro,T:MERCEDES SPRINTER  ,T:20240228000000000,T:20240228,T:Duplicado,I:1,T:Mecânico público,I:4294967295

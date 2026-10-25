@@ -1,0 +1,12 @@
+{
+ "pixel_similarity": 96.2,
+ "edge_overlap": 76.8,
+ "size": [
+  1024,
+  600
+ ],
+ "legacy": "docs/evidence/images/WIN_Ordens_Reparacao.jpg",
+ "new": "ui-report/WIN_Ordens_Reparacao.png",
+ "side_by_side": "ui-report/WIN_Ordens_Reparacao.compare.png",
+ "date": "2026-10-25"
+}

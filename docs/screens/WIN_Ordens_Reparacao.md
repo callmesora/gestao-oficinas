@@ -213,3 +213,9 @@ Resource metadata from original source (localized labels retained):
 }
 ```
 Cancellation field is metadata; resource-to-runtime mapping remains U-W53605A-04.
+
+## Target implementation — MIG-8.1
+
+The real development list uses generated geometry with shared RAD/table/calendar controls and protected PostgreSQL operations. Its source-derived golden is GS-REPAIR-LIST-001; details and external limits are in stage-24-repair-list.md. Full repair form/New/Edit/Delete/Information and reports remain their consuming stages. No whole-window/native acceptance is claimed.
+
+Non-legacy diagnostic identifiers: repair-orders-launcher/open, repair-order-selected, repair-order-read-state and repair-order-diagnostic. VehiclePicker uses vehicle-picker/frame while its contained controls retain original names. Date/calendar adapter suffixes retain the established shared Date convention. The source JPG supports the visible title/Informação/header accents and priority labels; ADR003 records the narrow encoded-caption overlay and headerless state table.

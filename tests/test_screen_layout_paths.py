@@ -219,6 +219,155 @@ class CaptionAlignmentChecks(DossierLayoutFixture):
 
 
 class ScopedLayoutChecks(unittest.TestCase):
+    qualified_source = '''window :
+ controls :
+  -
+    name : TABLE_A
+    columns :
+     -
+       name : COL_image
+       content :
+        controls :
+         -
+           name : SHA_color
+  -
+    name : TABLE_B
+    columns :
+     -
+       name : COL_image
+       content :
+        controls :
+         -
+           name : SHA_color
+'''
+
+    qualified_body = '''Table : TABLE_A
+SHA_color 417 64 18 18 0 Active
+COL_image
+39 Active Center Center
+Table : TABLE_B
+SHA_color 34 204 18 18 0 Inactive
+COL_image
+50 Active Left Center
+Table : TABLE_A
+Table column : TABLE_A.COL_image (5)
+Title PT: First image
+Data binding records.first
+Anchoring <None>
+Shape : TABLE_A.COL_image.SHA_color
+Anchoring Right
+Table : TABLE_B
+Table column : TABLE_B.COL_image (1)
+Title PT: Second image
+Data binding records.second
+Anchoring Bottom
+Shape : TABLE_B.COL_image.SHA_color
+Anchoring Right and bottom
+'''
+
+    def render_qualified(self, body, source=None):
+        source = source or self.qualified_source
+        page = ('Part 3 WINDEV window\x9bWIN_columns\x9bInformation on controls\n'
+                '25/10/2026 1Synthetic\n' + body)
+        dossier = collect([page])['WINDEV window']['WIN_columns']
+        # Existing extraction merges these by leaf. Those flags must never leak to either scoped control.
+        for name in ('COL_image', 'SHA_color'):
+            if name in dossier.get('controls', {}):
+                dossier['controls'][name]['flags'] = {'Visible': True, 'Movable': True}
+        inspected = {'name': 'WIN_columns', 'path': 'WIN_columns.wdw', 'layout': [
+            {'name': identity['name'], 'kind': 'column' if identity['name'].startswith('COL_') else 'control',
+             'x': 10 + index, 'y': 20 + index,
+             'width': None if identity['name'].startswith('COL_') else 18,
+             'height': None if identity['name'].startswith('COL_') else 18}
+            for index, identity in enumerate(control_paths(source))]}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'legacy').mkdir()
+            (root / 'legacy/WIN_columns.wdw').write_text(source, encoding='utf-8')
+            (root / 'inspect/code').mkdir(parents=True)
+            (root / 'inspect/code/WIN_columns.wdw.json').write_text(json.dumps(inspected), encoding='utf-8')
+            (root / 'dossier/windev-window').mkdir(parents=True)
+            (root / 'dossier/windev-window/WIN_columns.json').write_text(json.dumps(dossier), encoding='utf-8')
+            return layout('WIN_columns', {key: str(root / key) for key in ('legacy', 'inspect', 'dossier')}, 'PT')
+
+    def test_exact_qualified_columns_and_cell_shapes_recover_only_their_own_metadata(self):
+        result = self.render_qualified(self.qualified_body)
+        tables = {control['name']: control for control in result['controls'] if control['kind'] == 'Table'}
+        for table, width, index, title, linked, alignment in (
+                ('TABLE_A', 39, 5, 'First image', 'records.first', 'Center'),
+                ('TABLE_B', 50, 1, 'Second image', 'records.second', 'Left')):
+            with self.subTest(table=table):
+                column = tables[table]['columns'][0]
+                self.assertEqual((column['path'], column['parent'], column['width'], column['index'],
+                                  column['title'], column['linked_item'], column['h_align']),
+                                 (f'{table}.COL_image', table, width, index, title, linked, alignment))
+                self.assertFalse(column['metadata_unresolved'])
+                self.assertIsNone(column['flags'])
+                self.assertIsNone(column['input_type'])
+        shapes = [control for control in result['controls'] if control['name'] == 'SHA_color']
+        self.assertEqual([(control['path'], control['kind'], control.get('anchoring'),
+                           control['x'], control['y'], control['width'], control['height']) for control in shapes], [
+            ('TABLE_A.COL_image.SHA_color', 'Shape', 'Right', 12, 22, 18, 18),
+            ('TABLE_B.COL_image.SHA_color', 'Shape', 'Right and bottom', 15, 25, 18, 18)])
+        self.assertTrue(all('flags' not in control and 'visible' not in control for control in shapes))
+        self.assertTrue(any('scoped dossier flags remain unknown' in value for value in result['unknown']))
+
+    def test_qualified_recovery_refuses_duplicate_summary_or_detail_within_the_same_table(self):
+        cases = [self.qualified_body.replace('39 Active Center Center',
+                                            '39 Active Center Center\nCOL_image\n45 Active Right Center'),
+                 self.qualified_body.replace('Shape : TABLE_A.COL_image.SHA_color',
+                                            'Table column : TABLE_A.COL_image (5)\nTitle PT: Duplicate\n'
+                                            'Shape : TABLE_A.COL_image.SHA_color')]
+        for body in cases:
+            with self.subTest(body=body):
+                result = self.render_qualified(body)
+                tables = {control['name']: control for control in result['controls'] if control['kind'] == 'Table'}
+                column = tables['TABLE_A']['columns'][0]
+                self.assertTrue(column['metadata_unresolved'])
+                self.assertTrue(all(column[key] is None for key in ('width', 'title', 'index', 'flags')))
+                # The independent table still has complete evidence and must remain usable.
+                self.assertEqual(tables['TABLE_B']['columns'][0]['width'], 50)
+                self.assertEqual(next(control for control in result['controls']
+                                      if control['path'] == 'TABLE_A.COL_image.SHA_color')['kind'], 'control')
+
+    def test_qualified_recovery_requires_matching_table_ownership_summary_and_column_position(self):
+        cases = [self.qualified_body.replace('Table column : TABLE_A.COL_image (5)',
+                                            'Table column : TABLE_OTHER.COL_image (5)'),
+                 self.qualified_body.replace('Table column : TABLE_A.COL_image (5)',
+                                            'Table column : TABLE_A.COL_image'),
+                 self.qualified_body.replace('COL_image\n39 Active Center Center', 'COL_image\nUnknown summary'),
+                 self.qualified_body.replace('Table : TABLE_A\nTable column : TABLE_A.COL_image (5)',
+                                            'Table : TABLE_B\nTable column : TABLE_A.COL_image (5)')]
+        for body in cases:
+            with self.subTest(body=body):
+                result = self.render_qualified(body)
+                table = next(control for control in result['controls'] if control['path'] == 'TABLE_A')
+                self.assertTrue(table['columns'][0]['metadata_unresolved'])
+                self.assertIsNone(table['columns'][0]['width'])
+                self.assertIsNone(table['columns'][0]['flags'])
+
+    def test_conflicting_table_owner_for_the_same_full_path_remains_ambiguous(self):
+        body = self.qualified_body.replace('Shape : TABLE_A.COL_image.SHA_color',
+                                           'Table : TABLE_B\nTable column : TABLE_A.COL_image (5)\n'
+                                           'Title PT: Conflicting owner\nTable : TABLE_A\n'
+                                           'Shape : TABLE_A.COL_image.SHA_color')
+        result = self.render_qualified(body)
+        table = next(control for control in result['controls'] if control['path'] == 'TABLE_A')
+        self.assertTrue(table['columns'][0]['metadata_unresolved'])
+        self.assertIsNone(table['columns'][0]['width'])
+        self.assertIsNone(table['columns'][0]['flags'])
+
+    def test_qualified_recovery_does_not_use_post_code_or_unqualified_shape_details(self):
+        body = self.qualified_body.replace('Shape : TABLE_A.COL_image.SHA_color', 'Shape : SHA_color')
+        result = self.render_qualified(body + '\nCode\nTable : TABLE_A\n'
+                                       'Table column : TABLE_A.COL_image (9)\nTitle PT: Fake\n'
+                                       'Shape : TABLE_A.COL_image.SHA_color\nAnchoring Left\n')
+        table = next(control for control in result['controls'] if control['path'] == 'TABLE_A')
+        self.assertEqual((table['columns'][0]['index'], table['columns'][0]['title']), (5, 'First image'))
+        shape = next(control for control in result['controls'] if control['path'] == 'TABLE_A.COL_image.SHA_color')
+        self.assertEqual(shape['kind'], 'control')
+        self.assertNotIn('anchoring', shape)
+
     def test_named_table_options_do_not_infer_missing_values_or_confuse_distinct_scrollbar_fields(self):
         self.assertEqual(table_options(['Display/Scrollbar', 'Vert. scrollbar Always visible',
                                         'Horz. scrollbar Automatic', 'Tooltip when truncated Yes',
@@ -275,7 +424,7 @@ resources :
             'TABLE_A', 'TABLE_A.COL_image', 'TABLE_A.COL_image.SHAPE',
             'TABLE_B', 'TABLE_B.COL_image', 'TABLE_B.COL_image.SHAPE'])
 
-    def test_layout_recovers_unique_column_but_omits_ambiguous_duplicate_metadata(self):
+    def test_layout_recovers_unique_column_but_omits_unqualified_duplicate_metadata(self):
         source = '''window :
  properties :
   width : 400
@@ -297,10 +446,10 @@ resources :
         page = ('Part 3 WINDEV window\x9bWIN_columns\x9bInformation on controls\n'
                 '25/10/2026 1Synthetic\n'
                 'Table : TABLE_A\nCOL_image\n39 Active Center Center\nCOL_flag\n63 Active Center Center\n'
-                'Table column : TABLE_A.COL_image (1)\nTitle PT: First image\nData binding records.first\n'
+                'Table column : COL_image (1)\nTitle PT: First image\nData binding records.first\n'
                 'Table column : TABLE_A.COL_flag (2)\nTitle PT: Flag\nData binding records.flag\n'
                 'Table : TABLE_B\nCOL_image\n50 Active Left Center\n'
-                'Table column : TABLE_B.COL_image (1)\nTitle PT: Second image\nData binding records.second\n')
+                'Table column : COL_image (1)\nTitle PT: Second image\nData binding records.second\n')
         dossier = collect([page])['WINDEV window']['WIN_columns']
         dossier['controls']['COL_image']['flags'] = {'Visible': True, 'Movable': True}
         dossier['controls']['COL_flag']['flags'] = {'Visible': True}

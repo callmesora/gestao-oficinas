@@ -1328,7 +1328,7 @@
       "sha256": "f45e820ecb6580c62b355cad01a43b1f580a3ffd06772488ed22008f2df1988a"
     },
     "src/ui/legacy/WIN_Ordens_Reparacao.layout.json": {
-      "sha256": "e5c80cef9ecc5547822ca71fa0534d381ec72efb4f7a9b777401b0b9b648a7ff"
+      "sha256": "db4ae622aa2d97cb6221cf1a2c6633611a5ab5b0e62c28100b2cc38aa43e67b6"
     },
     "src/ui/legacy/WIN_Ordens_Reparacao_Form.layout.json": {
       "sha256": "2ef062a60ed9aa63021ebbe6646441b3f824a4a779515437ca2f77783827efcd"
@@ -1388,7 +1388,7 @@
       "sha256": "4618491fb5e82cf822a2acebe83b20931432d0c70a4b5f9da5219b2baa016cdb"
     },
     "src/ui/legacy/WIN_Tempos_Reparacao.layout.json": {
-      "sha256": "5e004e420939ac58b6331005251df2eca8531390721bf2b7a206c3e0c7565fbe"
+      "sha256": "714c0bc40862121afa1c275cac26f70996f2a564fc05ca1a16911bbdb4b1c4ac"
     },
     "src/ui/legacy/WIN_Tempos_Reparacao_Estado.layout.json": {
       "sha256": "cba56fdec8ef071b3e5ab73ea56763e1ce53a0fd84fead03bc022d4e786503de"
@@ -1722,7 +1722,7 @@
     },
     "WIN_Ordens_Reparacao": {
       "details": [
-        "duplicate names have ambiguous dossier metadata; only source geometry/path retained: COL_imagem, SHA_cor",
+        "qualified duplicate metadata recovered; scoped dossier flags remain unknown: TABLE_QRY_select_ordens_reparacao.COL_imagem, TABLE_QRY_select_ordens_reparacao.COL_imagem.SHA_cor, TABLE_Estados_reparacao.COL_imagem, TABLE_Estados_reparacao.COL_imagem.SHA_cor",
         "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
       ],
       "issues": [
@@ -1939,7 +1939,7 @@
     },
     "WIN_Tempos_Reparacao": {
       "details": [
-        "duplicate names have ambiguous dossier metadata; only source geometry/path retained: COL_Tipo, COL_imagem, SHA_cor",
+        "qualified duplicate metadata recovered; scoped dossier flags remain unknown: TABLE_Estados_reparacao.COL_Tipo, TABLE_Estados_reparacao.COL_imagem, TABLE_Estados_reparacao.COL_imagem.SHA_cor, TABLE_tempos_reparacao.COL_imagem, TABLE_tempos_reparacao.COL_imagem.SHA_cor, TABLE_tempos_reparacao.COL_Tipo",
         "fonts, font sizes and colors: from the skin template (.sty), not extracted — read them from the dossier image"
       ],
       "issues": [

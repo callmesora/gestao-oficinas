@@ -392,6 +392,31 @@
         "CBOX_Obriga_macanico": "ADR-003: source JPG reads Obriga a identificar mecânico; generated generic caption retained. Exact real caption assertion, U-C5CA4D83-01/native/human remains.",
         "RADIO_NoName1": "ADR-003: source JPG supplies Entrada/Saída options instead of generic Selector. Exact real option assertions, U-C5CA4D83-01/native/human remains."
       }
+    },
+    "WIN_Ordens_Reparacao": {
+      "viewport": { "width": 1160, "height": 768 },
+      "open": [
+        "repair-orders-launcher",
+        "repair-orders-open",
+        "BTN_OK"
+      ],
+      "ignore": {
+        "BTN_UMC": "Source hidden; UMC remains unresolved without an approved exclusion.",
+        "SCSystemButtons": "Source container; the owning workspace renders actual chrome.",
+        "BTN_SYST_MINIMIZE": "Owned by the enclosing workspace frame.",
+        "BTN_SYST_FERMER": "Owned by the enclosing workspace frame; real flows exercise closing.",
+        "BTN_Syst_Maximize": "Owned by the enclosing workspace frame.",
+        "BTN_Syst_Restore": "Source off-canvas restore image; owning frame renders restore.",
+        "RADTitle": "Owning workspace frame reads the JPG-backed Portuguese title under ADR-003.",
+        "COL_Codigo": "Source-hidden state code column retained in generated metadata and filter DTO.",
+        "COL_Tipo": "Source-hidden state type column retained in generated metadata and filter DTO.",
+        "COL_cor": "Source-hidden state numeric color column retained in generated metadata and filter DTO.",
+        "SHA_cor": "Repeated cell template has no row instance in this empty synthetic visual fixture; actual populated browser flow positively checks source18x18 circles."
+      },
+      "captionIgnore": {
+        "RADIO_prioridade": "ADR-003: source JPG supplies Todos/Normal/Elevada/Urgente in place of generic Selector; actual browser asserts every label.",
+        "BTN_informacao": "ADR-003: source JPG supplies Informação in place of the encoded extraction; geometry and source identity retained."
+      }
     }
   }
 }

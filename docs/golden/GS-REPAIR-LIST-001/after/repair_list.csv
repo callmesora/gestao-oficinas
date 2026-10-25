@@ -1,0 +1,9 @@
+position,numero,matricula,Descricao_Cliente,Descricao_Terceiro,marcamodelo,recepcao_datahora,recepcao_entrega_prevista,Descricao,recepcao_prioridade,Descricao_me,Cor
+I:1,D:10,T:A'1,T:Cliente d'Água  ,N:,T:MERCEDES SPRINTER  ,T:2024-02-29 23:59:59.000,T:2024-03-07,T:Atual d'Água  ,I:2,N:,I:197121
+I:2,D:10,T:A'1,T:Cliente d'Água  ,N:,T:MERCEDES SPRINTER  ,T:2024-02-29 23:59:59.000,T:2024-03-07,T:Duplicado,I:2,N:,I:4294967295
+I:3,D:10,T:A'1,T:Cliente d'Água  ,N:,N:,T:2024-02-29 23:59:59.000,T:2024-03-07,T:Atual d'Água  ,I:2,N:,I:197121
+I:4,D:10,T:A'1,T:Cliente d'Água  ,N:,N:,T:2024-02-29 23:59:59.000,T:2024-03-07,T:Duplicado,I:2,N:,I:4294967295
+I:5,D:2,T:A'1,T:Cliente d'Água  ,T:Terceiro,T:MERCEDES SPRINTER  ,T:20240228000000000,T:20240228,T:Atual d'Água  ,I:1,T:Mecânico público,I:197121
+I:6,D:2,T:A'1,T:Cliente d'Água  ,T:Terceiro,T:MERCEDES SPRINTER  ,T:20240228000000000,T:20240228,T:Duplicado,I:1,T:Mecânico público,I:4294967295
+I:7,D:2,T:A'1,T:Cliente d'Água  ,T:Terceiro,N:,T:20240228000000000,T:20240228,T:Atual d'Água  ,I:1,T:Mecânico público,I:197121
+I:8,D:2,T:A'1,T:Cliente d'Água  ,T:Terceiro,N:,T:20240228000000000,T:20240228,T:Duplicado,I:1,T:Mecânico público,I:4294967295

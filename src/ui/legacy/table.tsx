@@ -4,7 +4,7 @@ import { controlBox, type LegacyColumn, type LegacyControl } from "./layout";
 import "./skin.css";
 import { useAnchoredControl } from "./anchors";
 
-export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selectedId, onSelect, onActivate, onSort, onColumnSearch, rowHeight, configureColumns = false, designerOptions = false, hiddenColumns = [], onHiddenColumnsChange, onResetColumns, columnWidths, onColumnWidthsChange, columnOrder, onColumnOrderChange }: {
+export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selectedId, onSelect, onActivate, onSort, onColumnSearch, rowHeight, showHeaders = true, configureColumns = false, designerOptions = false, hiddenColumns = [], onHiddenColumnsChange, onResetColumns, columnWidths, onColumnWidthsChange, columnOrder, onColumnOrderChange }: {
   control: LegacyControl; rows: T[]; rowId: (row: T) => string;
   cell: (row: T, column: LegacyColumn) => ReactNode;
   selectedId: string | null; onSelect: (id: string) => void;
@@ -12,7 +12,7 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
   onColumnSearch?: (column: LegacyColumn, term: string) => void;
   configureColumns?: boolean; hiddenColumns?: string[]; onHiddenColumnsChange?: (hidden: string[]) => void;
   onResetColumns?: () => void;
-  designerOptions?: boolean; rowHeight?: number;
+  designerOptions?: boolean; rowHeight?: number; showHeaders?: boolean;
   columnWidths?: ColumnSizingState; onColumnWidthsChange?: (widths: ColumnSizingState) => void;
   columnOrder?: string[]; onColumnOrderChange?: (order: string[]) => void;
 }) {
@@ -64,6 +64,10 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
     next.splice(start, 1); next.splice(end, 0, from); table.setColumnOrder(next); return true;
   };
   return <div ref={container} data-testid={control.name} data-control-path={control.path} className={`wd-table${designerOptions ? " wd-table-designer" : ""}`}
+    onContextMenu={event => {
+      if (showHeaders || !configureColumns || options?.column_context_menu !== "Yes" || !onHiddenColumnsChange) return;
+      event.preventDefault(); setConfigurationOpen(true);
+    }}
     hidden={control.visible === false} style={{ ...controlBox(control), ...(effectiveRowHeight ? { backgroundImage: `repeating-linear-gradient(to bottom, transparent 0 ${effectiveRowHeight - 1}px, #e0e2e4 ${effectiveRowHeight - 1}px ${effectiveRowHeight}px)` } : {}), overflowY: scrollbarMode(options?.vertical_scrollbar), overflowX: scrollbarMode(options?.horizontal_scrollbar), touchAction: options?.touch_scrolling === "No" ? "none" : undefined }} tabIndex={String(control.tab_order) === "-1" ? -1 : 0}
     onKeyDown={event => {
       if (event.target !== event.currentTarget) return;
@@ -77,7 +81,7 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
     }}>
     {configureColumns && control.flags?.["Saves col. config."] === true && onHiddenColumnsChange && <div className="wd-table-tools"
       onKeyDown={event => { if (event.key === "Escape") { event.preventDefault(); event.stopPropagation(); setConfigurationOpen(false); container.current?.focus(); } }}>
-      <button type="button" data-testid={`${control.name}__columns`} aria-label="Colunas" aria-expanded={configurationOpen} onClick={() => setConfigurationOpen(value => !value)}>▾</button>
+      <button hidden={!showHeaders} type="button" data-testid={`${control.name}__columns`} aria-label="Colunas" aria-expanded={configurationOpen} onClick={() => setConfigurationOpen(value => !value)}>▾</button>
       {configurationOpen && <div className="wd-column-settings" role="group" aria-label="Colunas">
         {table.getAllLeafColumns().map(column => <label key={column.id}><input type="checkbox" checked={column.getIsVisible()}
           disabled={column.getIsVisible() && table.getVisibleLeafColumns().length === 1}
@@ -88,12 +92,12 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
         {onResetColumns && <button type="button" onClick={() => { onResetColumns(); setConfigurationOpen(false); container.current?.focus(); }}>Repor</button>}
       </div>}
     </div>}
-    <div className="wd-table-grid" aria-hidden="true" style={{ width: table.getTotalSize() }}>
+    <div className="wd-table-grid" aria-hidden="true" style={{ width: table.getTotalSize(), top: showHeaders ? undefined : 0 }}>
       {table.getVisibleLeafColumns().map(column => <span key={column.id} style={{ width: column.getSize() }} />)}
     </div>
     <table aria-label={control.caption ?? control.name} style={{ width: table.getTotalSize() }}>
       <colgroup>{table.getVisibleLeafColumns().map(column => <col key={column.id} style={{ width: column.getSize() }} />)}</colgroup>
-      <thead>{table.getHeaderGroups().map(group => <tr key={group.id}>{group.headers.map(header => {
+      <thead hidden={!showHeaders}>{table.getHeaderGroups().map(group => <tr key={group.id}>{group.headers.map(header => {
         const column = header.column;
         const source = columnOf(column.id);
         const movable = source.flags?.Movable === true && source.flags?.["Fixed left"] !== true;

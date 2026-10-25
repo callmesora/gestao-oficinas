@@ -1,0 +1,268 @@
+{
+  "classification": "spec-derived synthetic PostgreSQL/API scenario; not legacy-recorded",
+  "importId": "00000000-0000-4000-8000-000000000824",
+  "tables": {
+    "Clientes": [
+      {
+        "ClientesID": "1",
+        "Codigo": "9007199254740993",
+        "Descricao": "Cliente d'Água  "
+      },
+      {
+        "ClientesID": "2",
+        "Codigo": "2",
+        "Descricao": "Terceiro"
+      }
+    ],
+    "Viaturas": [
+      {
+        "ViaturasID": "1",
+        "matricula": "A'1",
+        "Cliente": "2",
+        "marca": "MERCEDES",
+        "modelo": "SPRINTER  "
+      },
+      {
+        "ViaturasID": "2",
+        "matricula": "A'1",
+        "Cliente": "999",
+        "marca": null,
+        "modelo": "SEGUNDO"
+      }
+    ],
+    "estados_reparacao": [
+      {
+        "_import_id": "00000000-0000-4000-8000-000000000824",
+        "_source_row": "42",
+        "estados_reparacaoID": "9007199254740993",
+        "Codigo": "R01",
+        "Descricao": "Atual d'Água  ",
+        "tipo": 3,
+        "Cor": 197121,
+        "lancar_defa": true,
+        "lancar_material": true,
+        "confirmacao": false,
+        "pedir_data_entrega": false,
+        "pedir_data_pag": true
+      },
+      {
+        "_import_id": "00000000-0000-4000-8000-000000000824",
+        "_source_row": "43",
+        "estados_reparacaoID": "9007199254740994",
+        "Codigo": "R01",
+        "Descricao": "Duplicado",
+        "tipo": 7,
+        "Cor": 4294967295,
+        "lancar_defa": false,
+        "lancar_material": false,
+        "confirmacao": true,
+        "pedir_data_entrega": true,
+        "pedir_data_pag": false
+      },
+      {
+        "_import_id": "00000000-0000-4000-8000-000000000824",
+        "_source_row": "44",
+        "estados_reparacaoID": "3",
+        "Codigo": "NUL",
+        "Descricao": null,
+        "tipo": 1,
+        "Cor": null,
+        "lancar_defa": null,
+        "lancar_material": null,
+        "confirmacao": null,
+        "pedir_data_entrega": null,
+        "pedir_data_pag": null
+      },
+      {
+        "_import_id": "00000000-0000-4000-8000-000000000824",
+        "_source_row": "45",
+        "estados_reparacaoID": "4",
+        "Codigo": null,
+        "Descricao": "Sem código",
+        "tipo": null,
+        "Cor": 0,
+        "lancar_defa": true,
+        "lancar_material": false,
+        "confirmacao": false,
+        "pedir_data_entrega": false,
+        "pedir_data_pag": false
+      }
+    ],
+    "mecanicos": [
+      {
+        "mecanicosID": "1",
+        "Codigo": 2,
+        "Descricao": "Mecânico público",
+        "inativo": true
+      }
+    ],
+    "sistema": [
+      {
+        "Data_inicio": 2,
+        "Tempo_ordem_reparacao": "3"
+      }
+    ],
+    "ordem_reparacao": [
+      {
+        "numero": "2",
+        "matricula": "A'1",
+        "recepcao_cliente": "9007199254740993",
+        "recepcao_terceiro": "2",
+        "recepcao_datahora": "20240228000000000",
+        "recepcao_entrega_prevista": "20240228",
+        "reparacao_estado": "R01",
+        "recepcao_prioridade": 1,
+        "reparacao_mecanico": 2
+      },
+      {
+        "numero": "10",
+        "matricula": "A'1",
+        "recepcao_cliente": "9007199254740993",
+        "recepcao_terceiro": "999",
+        "recepcao_datahora": "2024-02-29 23:59:59.000",
+        "recepcao_entrega_prevista": "2024-03-07",
+        "reparacao_estado": "R01",
+        "recepcao_prioridade": 2,
+        "reparacao_mecanico": 254
+      },
+      {
+        "numero": "11",
+        "matricula": "A'1",
+        "recepcao_cliente": "9007199254740993",
+        "recepcao_terceiro": "2",
+        "recepcao_datahora": "20240229235959001",
+        "recepcao_entrega_prevista": "20240228",
+        "reparacao_estado": "R01",
+        "recepcao_prioridade": 1,
+        "reparacao_mecanico": 2
+      },
+      {
+        "numero": "12",
+        "matricula": "A'1",
+        "recepcao_cliente": "9007199254740993",
+        "recepcao_terceiro": "2",
+        "recepcao_datahora": "20240227235959999",
+        "recepcao_entrega_prevista": "20240228",
+        "reparacao_estado": "R01",
+        "recepcao_prioridade": 1,
+        "reparacao_mecanico": 2
+      },
+      {
+        "numero": "13",
+        "matricula": "A'1",
+        "recepcao_cliente": "9007199254740993",
+        "recepcao_terceiro": "2",
+        "recepcao_datahora": "20240228000000000",
+        "recepcao_entrega_prevista": "20240227",
+        "reparacao_estado": "R01",
+        "recepcao_prioridade": 1,
+        "reparacao_mecanico": 2
+      },
+      {
+        "numero": "14",
+        "matricula": "A'1",
+        "recepcao_cliente": "9007199254740993",
+        "recepcao_terceiro": "2",
+        "recepcao_datahora": "20240228000000000",
+        "recepcao_entrega_prevista": "20240308",
+        "reparacao_estado": "R01",
+        "recepcao_prioridade": 1,
+        "reparacao_mecanico": 2
+      },
+      {
+        "numero": "15",
+        "matricula": "A'1",
+        "recepcao_cliente": "999",
+        "recepcao_terceiro": "2",
+        "recepcao_datahora": "20240228000000000",
+        "recepcao_entrega_prevista": "20240228",
+        "reparacao_estado": "R01",
+        "recepcao_prioridade": 1,
+        "reparacao_mecanico": 2
+      },
+      {
+        "numero": "16",
+        "matricula": "MISSING",
+        "recepcao_cliente": "9007199254740993",
+        "recepcao_terceiro": "2",
+        "recepcao_datahora": "20240228000000000",
+        "recepcao_entrega_prevista": "20240228",
+        "reparacao_estado": "R01",
+        "recepcao_prioridade": 1,
+        "reparacao_mecanico": 2
+      },
+      {
+        "numero": "17",
+        "matricula": "A'1",
+        "recepcao_cliente": "9007199254740993",
+        "recepcao_terceiro": "2",
+        "recepcao_datahora": "20240228000000000",
+        "recepcao_entrega_prevista": "20240228",
+        "reparacao_estado": "BAD",
+        "recepcao_prioridade": 1,
+        "reparacao_mecanico": 2
+      },
+      {
+        "numero": "18",
+        "matricula": "A'1",
+        "recepcao_cliente": "9007199254740993",
+        "recepcao_terceiro": "2",
+        "recepcao_datahora": null,
+        "recepcao_entrega_prevista": "20240228",
+        "reparacao_estado": "R01",
+        "recepcao_prioridade": 1,
+        "reparacao_mecanico": 2
+      },
+      {
+        "numero": "19",
+        "matricula": "A'1",
+        "recepcao_cliente": "9007199254740993",
+        "recepcao_terceiro": "2",
+        "recepcao_datahora": "20240228000000000",
+        "recepcao_entrega_prevista": null,
+        "reparacao_estado": "R01",
+        "recepcao_prioridade": 1,
+        "reparacao_mecanico": 2
+      }
+    ]
+  },
+  "filter": {
+    "entryStart": "20240228000000",
+    "entryEnd": "20240229235959",
+    "deliveryStart": "20240228",
+    "deliveryEnd": "20240307",
+    "priority": 0,
+    "mechanic": 0,
+    "customer": "",
+    "registration": "",
+    "states": [
+      "R01"
+    ]
+  },
+  "narrowFilter": {
+    "priority": 1,
+    "mechanic": 2,
+    "customer": "2",
+    "registration": "merc%"
+  },
+  "saveDefaults": {
+    "states": [
+      {
+        "Codigo": "R01",
+        "checked": false
+      },
+      {
+        "Codigo": "NUL",
+        "checked": null
+      },
+      {
+        "Codigo": null,
+        "checked": false
+      },
+      {
+        "Codigo": "MISSING",
+        "checked": true
+      }
+    ]
+  }
+}

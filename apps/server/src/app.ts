@@ -15,8 +15,9 @@ import { listRepairStates, saveRepairState, checkRepairStateDelete, deleteRepair
 import { listDocumentTypes, saveDocumentType, checkDocumentTypeDelete, deleteDocumentType } from "./operations/document-types";
 import { listArticles, saveArticle, checkArticleDelete, deleteArticle } from "./operations/articles";
 import { listUsers, readUser, saveUser, deleteUser } from "./operations/users";
+import { initialiseRepairOrders, listRepairOrders, saveRepairOrderDefaults } from "./operations/repair-orders";
 
-export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; terminalConnect?: DatabaseConnection; postoConnect?: DatabaseConnection; mechanicsConnect?: DatabaseConnection; repairStateConnect?: DatabaseConnection; documentTypeConnect?: DatabaseConnection; articleConnect?: DatabaseConnection; userConnect?: DatabaseConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
+export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; terminalConnect?: DatabaseConnection; postoConnect?: DatabaseConnection; mechanicsConnect?: DatabaseConnection; repairStateConnect?: DatabaseConnection; documentTypeConnect?: DatabaseConnection; articleConnect?: DatabaseConnection; userConnect?: DatabaseConnection; repairOrderConnect?: DatabaseConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
   const app = Fastify({ logger: false });
   app.get("/health/live", async () => ({ service: "gestao-oficinas-api", status: "alive" }));
   const authenticate = options.authenticate ?? options.development?.authenticate;
@@ -117,6 +118,13 @@ export function createApp(options: { customerConnect?: DatabaseConnection; vehic
       if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
       if (!options.userConnect) return reply.code(503).send({ kind: "unavailable" });
       return operation(options.userConnect, request.body);
+    });
+  }
+  for (const [action, operation] of Object.entries({ initialise: initialiseRepairOrders, list: listRepairOrders, "save-defaults": saveRepairOrderDefaults })) {
+    app.post(`/api/repair-orders/${action}`, async (request, reply) => {
+      if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
+      if (!options.repairOrderConnect) return reply.code(503).send({ kind: "unavailable" });
+      return operation(options.repairOrderConnect, request.body);
     });
   }
   return app;

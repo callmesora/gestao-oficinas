@@ -1,20 +1,24 @@
-import { useId } from "react";
+import { useId, useLayoutEffect, useRef } from "react";
 import { useAnchoredControl } from "./anchors";
 import { controlBox, type LegacyControl } from "./layout";
 
 export interface WdComboOption { value: string; label: string }
 
 /** Noneditable source combo. Its caller owns option order, blank/orphan values and all reads. */
-export function WdCombo({ control: source, options, value, onChange, disabled }: {
+export function WdCombo({ control: source, options, value, onChange, disabled, allowNoSelection = false }: {
   control: LegacyControl; options: readonly WdComboOption[]; value: string;
-  onChange: (value: string) => void; disabled?: boolean;
+  onChange: (value: string) => void; disabled?: boolean; allowNoSelection?: boolean;
 }) {
   const control = useAnchoredControl(source), id = useId();
   const captionWidth = control.caption_width ?? 0;
+  const select = useRef<HTMLSelectElement>(null);
+  useLayoutEffect(() => {
+    if (allowNoSelection && !options.some(option => option.value === value) && select.current) select.current.selectedIndex = -1;
+  }, [allowNoSelection, options, value]);
   return <div className="wd-field wd-combo-field" hidden={control.visible === false || control.flags?.Visible === false}
     data-control-path={control.path} style={controlBox(control)}>
     {captionWidth > 0 && <label htmlFor={id} style={{ width: captionWidth - 2 }}>{control.caption}</label>}
-    <select id={id} data-testid={control.name} className="wd-edit wd-combo" value={value} disabled={disabled}
+    <select ref={select} id={id} data-testid={control.name} className="wd-edit wd-combo" value={value} disabled={disabled}
       aria-label={captionWidth ? undefined : control.caption ?? control.name}
       tabIndex={control.flags?.["TAB Key"] === false || String(control.tab_order) === "-1" ? -1 : undefined}
       onChange={event => onChange(event.currentTarget.value)}

@@ -8,6 +8,8 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 
 import { join, resolve } from "node:path";
 
 type WindowConfig = {
+  /** Fit a large source window plus development shell without clipping its visual capture. */
+  viewport?: { width: number; height: number };
   /** Missing evidence stays explicit; this does not establish visual parity. */
   visualUnavailableReason?: string;
   /** data-testids to click, in order, from the start page (usually the legacy route). */
@@ -127,10 +129,18 @@ for (const [window, settings] of Object.entries(config.windows)) {
     const failed: string[] = [];
     page.on("requestfailed", (request) => failed.push(request.url()));
     page.on("response", (response) => { if (response.status() >= 400) failed.push(`${response.status()} ${response.url()}`); });
+    if (settings.viewport) await page.setViewportSize(settings.viewport);
     await page.goto("/");
     for (const id of settings.open) await page.getByTestId(id).first().click();
     const view = page.getByTestId(window).first();
     await expect(view).toBeVisible();
+    if (settings.viewport) {
+      const windowBounds = await view.boundingBox();
+      const workspaceBounds = await view.locator("xpath=ancestor::*[contains(@class,'wd-workspace-canvas')]").boundingBox();
+      expect(windowBounds).not.toBeNull(); expect(workspaceBounds).not.toBeNull();
+      expect(windowBounds!.x).toBeGreaterThanOrEqual(workspaceBounds!.x);
+      expect(windowBounds!.x + windowBounds!.width).toBeLessThanOrEqual(workspaceBounds!.x + workspaceBounds!.width);
+    }
     for (const [id, value] of Object.entries(settings.fill ?? {})) await view.getByTestId(id).fill(value);
     for (const [id, count] of Object.entries(settings.tableRows ?? {})) await expect(view.getByTestId(id).getByRole("row")).toHaveCount(count);
     const expected = legacyControls(window).filter((name) => !(name in settings.ignore));

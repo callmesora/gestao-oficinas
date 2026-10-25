@@ -1,0 +1,6 @@
+.repair-orders-screen { position: absolute; inset: 0; pointer-events: none; }
+.repair-orders-content { display: contents; pointer-events: auto; }
+.repair-state-checkbox { padding: 0; border: 0; margin: 0; background: transparent; color: inherit; display: inline-flex; vertical-align: middle; }
+.repair-state-checkbox:focus-visible { outline: 1px dotted currentColor; }
+.repair-order-color-cell { display: block; position: relative; width: 100%; height: 100%; }
+.repair-order-color-cell > span { position: absolute; display: block; border-radius: 50%; }

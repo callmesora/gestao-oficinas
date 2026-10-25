@@ -1,0 +1,142 @@
+{
+  "legacy": {
+    "delimiter": ",",
+    "encoding": "utf-8"
+  },
+  "target": {
+    "delimiter": ",",
+    "encoding": "utf-8"
+  },
+  "cellEncoding": "N: NULL; T: exact text; D: exact decimal identifier string; I: exact integer or Boolean0/1. No date normalization. position is a synthetic export ordinal, not a legacy field.",
+  "tables": {
+    "repair_list": {
+      "key": [
+        "position"
+      ],
+      "columns": {
+        "position": {
+          "trim": false
+        },
+        "numero": {
+          "trim": false
+        },
+        "matricula": {
+          "trim": false
+        },
+        "Descricao_Cliente": {
+          "trim": false
+        },
+        "Descricao_Terceiro": {
+          "trim": false
+        },
+        "marcamodelo": {
+          "trim": false
+        },
+        "recepcao_datahora": {
+          "trim": false
+        },
+        "recepcao_entrega_prevista": {
+          "trim": false
+        },
+        "Descricao": {
+          "trim": false
+        },
+        "recepcao_prioridade": {
+          "trim": false
+        },
+        "Descricao_me": {
+          "trim": false
+        },
+        "Cor": {
+          "trim": false
+        }
+      }
+    },
+    "repair_filtered": {
+      "key": [
+        "position"
+      ],
+      "columns": {
+        "position": {
+          "trim": false
+        },
+        "numero": {
+          "trim": false
+        },
+        "matricula": {
+          "trim": false
+        },
+        "Descricao_Cliente": {
+          "trim": false
+        },
+        "Descricao_Terceiro": {
+          "trim": false
+        },
+        "marcamodelo": {
+          "trim": false
+        },
+        "recepcao_datahora": {
+          "trim": false
+        },
+        "recepcao_entrega_prevista": {
+          "trim": false
+        },
+        "Descricao": {
+          "trim": false
+        },
+        "recepcao_prioridade": {
+          "trim": false
+        },
+        "Descricao_me": {
+          "trim": false
+        },
+        "Cor": {
+          "trim": false
+        }
+      }
+    },
+    "estados_reparacao": {
+      "key": [
+        "_source_row"
+      ],
+      "columns": {
+        "_import_id": {
+          "trim": false
+        },
+        "_source_row": {
+          "trim": false
+        },
+        "estados_reparacaoID": {
+          "trim": false
+        },
+        "Codigo": {
+          "trim": false
+        },
+        "Descricao": {
+          "trim": false
+        },
+        "tipo": {
+          "trim": false
+        },
+        "Cor": {
+          "trim": false
+        },
+        "lancar_defa": {
+          "trim": false
+        },
+        "lancar_material": {
+          "trim": false
+        },
+        "confirmacao": {
+          "trim": false
+        },
+        "pedir_data_entrega": {
+          "trim": false
+        },
+        "pedir_data_pag": {
+          "trim": false
+        }
+      }
+    }
+  }
+}

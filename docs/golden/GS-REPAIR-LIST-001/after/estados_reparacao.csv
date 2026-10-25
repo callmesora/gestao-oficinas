@@ -1,0 +1,5 @@
+_import_id,_source_row,estados_reparacaoID,Codigo,Descricao,tipo,Cor,lancar_defa,lancar_material,confirmacao,pedir_data_entrega,pedir_data_pag
+T:00000000-0000-4000-8000-000000000824,D:42,D:9007199254740993,T:R01,T:Atual d'Água  ,I:3,I:197121,I:0,I:1,I:0,I:0,I:1
+T:00000000-0000-4000-8000-000000000824,D:43,D:9007199254740994,T:R01,T:Duplicado,I:7,I:4294967295,I:0,I:0,I:1,I:1,I:0
+T:00000000-0000-4000-8000-000000000824,D:44,D:3,T:NUL,N:,I:1,N:,N:,N:,N:,N:,N:
+T:00000000-0000-4000-8000-000000000824,D:45,D:4,N:,T:Sem código,N:,I:0,I:1,I:0,I:0,I:0,I:0

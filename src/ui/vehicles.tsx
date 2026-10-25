@@ -108,8 +108,8 @@ function VehicleForm({ repositories, vehicle, finish }: { repositories: Reposito
   </WdModal>;
 }
 
-function VehicleList({ repositories, selecting = false, origin = "", selected }: { repositories: Repositories; selecting?: boolean; origin?: string; selected?: (registration: string) => void }) {
-  const closeWindow = useWorkspaceClose(), { resource, message } = useDialogs();
+function VehicleList({ repositories, selecting = false, origin = "", selected, closeOverride }: { repositories: Repositories; selecting?: boolean; origin?: string; selected?: (registration: string) => void; closeOverride?: (registration: string) => void }) {
+  const closeWindow = useWorkspaceClose(closeOverride ? () => closeOverride(origin) : undefined), { resource, message } = useDialogs();
   const [mode, setMode] = useState<VehicleFilter["mode"]>("todos"), [term, setTerm] = useState("");
   const [filter, setFilter] = useState<VehicleFilter>({ mode: "todos", term: "" }), [refresh, setRefresh] = useState(0);
   const [rows, setRows] = useState<VehicleListRow[]>([]), [selection, setSelection] = useState<string | null>(null);
@@ -119,8 +119,9 @@ function VehicleList({ repositories, selecting = false, origin = "", selected }:
   const search = useRef<HTMLInputElement>(null), returned = useRef(origin), pending = useRef(false), reselect = useRef<string | null>(null);
   const columnSearch = useRef<{ key: NonNullable<VehicleFilter["sort"]>; term: string } | null>(null);
   const callback = useRef(selected);
+  const operationOwner = useRef(0);
   useEffect(() => { callback.current = selected; }, [selected]);
-  useEffect(() => () => { callback.current?.(returned.current); }, []);
+  useEffect(() => () => { operationOwner.current++; callback.current?.(returned.current); }, []);
   const table = controlOf(listLayout, "TABLE_Viaturas"), settings = useTableLayout(table, "WIN_Table_Viaturas/TABLE_Viaturas");
   useEffect(() => {
     let active = true;
@@ -138,33 +139,39 @@ function VehicleList({ repositories, selecting = false, origin = "", selected }:
   }, [repositories, filter, refresh]);
   const ready = loaded?.filter === filter && loaded?.refresh === refresh;
   const current = rows.find(row => row.id === selection);
-  const choose = (row: VehicleListRow) => { if (row.matricula !== null) { returned.current = row.matricula; closeWindow(); } };
+  const choose = (row: VehicleListRow) => { if (row.matricula !== null) { returned.current = row.matricula; if (closeOverride) closeOverride(row.matricula); else closeWindow(); } };
   const modify = async (row = current) => {
     if (!ready || !row || row.matricula === null || pending.current) return;
+    const owner = operationOwner.current;
     pending.current = true; setBusy(true);
     try {
       const result = await repositories.vehicles.lookup(row.matricula);
+      if (owner !== operationOwner.current) return;
       if (result.kind === "loaded") setForm({ vehicle: result.vehicle, prior: row.matricula });
       else setDiagnostic(result.kind);
-    } catch { setDiagnostic("transport"); }
-    finally { pending.current = false; setBusy(false); }
+    } catch { if (owner === operationOwner.current) setDiagnostic("transport"); }
+    finally { if (owner === operationOwner.current) { pending.current = false; setBusy(false); } }
   };
   const remove = async () => {
     if (!ready || !current || current.matricula === null || pending.current) return;
+    const owner = operationOwner.current;
     pending.current = true; setBusy(true);
     try {
       const registration = current.matricula;
       const check = await repositories.vehicles.checkDelete(registration);
+      if (owner !== operationOwner.current) return;
       if (check.kind === "associated") { await message({ title: listLayout.window.title, text: check.message, type: 0 }); return; }
       if (check.kind !== "ready") { setDiagnostic(check.kind); return; }
       const answer = await resource({ title: listLayout.window.title, text: "Deseja apagar o registo?", buttons: [{ label: "Sim", value: 1 }, { label: "Não", value: 2 }], defaultIndex: 2, cancelIndex: 2, destructive: true, safeIndex: 2 });
+      if (owner !== operationOwner.current) return;
       if (answer.result !== 1) return;
       const result = await repositories.vehicles.remove(registration);
+      if (owner !== operationOwner.current) return;
       if (result.kind === "associated") await message({ title: listLayout.window.title, text: result.message, type: 0 });
       else if (result.kind === "deleted") setRefresh(value => value + 1);
       else setDiagnostic(result.kind);
-    } catch { setDiagnostic("transport"); }
-    finally { pending.current = false; setBusy(false); }
+    } catch { if (owner === operationOwner.current) setDiagnostic("transport"); }
+    finally { if (owner === operationOwner.current) { pending.current = false; setBusy(false); } }
   };
   const sort = (column: LegacyColumn) => {
     if (pending.current) return;
@@ -202,6 +209,15 @@ function VehicleList({ repositories, selecting = false, origin = "", selected }:
     }} />}
     {diagnostic && <output data-testid="vehicle-list-diagnostic">{diagnostic}</output>}
   </div></div>;
+}
+
+/** The real caller receives the selected plate or exact entry origin; workspace callbacks stay unchanged. */
+export function VehiclePicker({ repositories, origin, finish }: { repositories: Repositories; origin: string; finish: (registration: string) => void }) {
+  const dialog = useRef<WdModalHandle>(null);
+  const close = (registration = origin) => { dialog.current?.close(); finish(registration); };
+  return <WdModal ref={dialog} layout={listLayout} instance="vehicle-picker-frame" testId="vehicle-picker" restoreTestId="vehicle-picker-restore" onClose={() => close()}>
+    <VehicleList repositories={repositories} selecting origin={origin} closeOverride={close} />
+  </WdModal>;
 }
 
 function VehicleLauncher({ repositories }: { repositories: Repositories }) {
