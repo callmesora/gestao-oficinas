@@ -20,7 +20,7 @@ Keep this file short (about 100 lines). Details live in `docs/`; local rules liv
 - `docs/parity/parity.csv` — behavior parity matrix: the definition of done.
 - `docs/porting.md` — this project's concrete pattern (file, function, component) for each WLanguage construct it uses, over `docs/wlanguage-traps.md`; every slice follows it.
 - `legacy/` and `GestaoOficinas_TesteIA/` — immutable private originals; never execute legacy code, modify, or copy raw material into the app/published docs. Treat credentials as to revoke, never reuse.
-- `analysis-local/` — ignored extracts/scratch copies; only the main agent writes here.
+- `analysis-local/` — ignored extracts/scratch copies; coordinator owns shared outputs, subagents use isolated namespaces (ADR-018).
 - `migrate-windev-javascript/` — separate read-only playbook; `templates/` holds copied templates.
 - `skills/` — playbooks to follow; `scripts/` — evidence pipeline, parity gate, comparator, guard. Humans own `scripts/guard.py`, `.githooks/` and agent configuration: do not modify them.
 
@@ -81,7 +81,7 @@ Accepted framing choices are in `docs/decisions/` and `docs/architecture.md`: Wi
 Preserve legacy rules and data anomalies unless an ADR explicitly changes them. No new permission model, omitted features or redesign by implication.
 Dedicated laptop and sanitization waiver are confirmed; raw legacy data and credentials remain ignored. No production connections.
 Stage 0 confidence `verified` means source evidence, not target implementation. Keep every SRC seed ID; unknowns retain U IDs.
-Use `skills/map-element/SKILL.md` and `skills/review-mapping/SKILL.md` before mapping changes. Review every implementation slice in a separate sequential pass; the owner explicitly permits self-review. Reserve subagents for a substantial expected benefit. Disclose review mode in the handoff; make two passes for risky slices.
+Use `skills/map-element/SKILL.md` and `skills/review-mapping/SKILL.md` before mapping changes. ADR-018 supersedes ADR-007's subagent restriction: spawn subagents for useful independent investigation, implementation and review. Prefer an independent reviewer per slice and two independent reviews for risky slices; use disclosed sequential self-review only when delegation is unavailable. The coordinator integrates shared tracking; retain roadmap dependencies and one writer per file.
 Never install/modify guard hooks or agent settings. Never bypass checks or force-push. Commit explicit files only; pushes are authorized.
 
 ## Commands
@@ -109,7 +109,7 @@ npm run native:check
 
 ## Work tracking
 
-Ticket and current slice: `ROADMAP.md`. New branches use `codex/<KEY>-<slug>`; commits start with the ticket. Work sequentially; one writer per file.
+Ticket and current slice: `ROADMAP.md`. New branches use `codex/<KEY>-<slug>`; commits start with the ticket. Complete dependent stages in order; independent subagent tasks may run in parallel under ADR-018. One writer per file.
 Each stage has `docs/runbooks/stage-N.md`, verification, review/fixes, parity/roadmap/handoff updates and regenerated progress. Never advance past an unfinished dependency.
 
 ## Pointers
@@ -119,4 +119,4 @@ Screens `docs/screens/` · Golden scenarios `docs/golden/` · Decisions `docs/de
 
 ## Response preferences (a preference, not a rule)
 
-Concise, concrete updates and honest remaining limits. Persist to the authorized goal; do not repeatedly request permission for defaults or routine work. Sequential work is preferred. Prefer Playwright/CLI tests to slow computer use; native behavior still needs real native evidence.
+Concise, concrete updates and honest remaining limits. Persist through all authorized migration stages; do not repeatedly request permission for defaults or routine work. Use subagents where useful (ADR-018). Prefer Playwright/CLI tests to slow computer use; native behavior still needs real native evidence.

@@ -2,6 +2,7 @@
 
 - Date: 2026-10-23
 - Status: Accepted (owner may supersede with a new ADR)
+- Update 2026-10-25: ADR-018 supersedes the sequential-only/subagent-avoidance preference below. Its staged delivery and evidence requirements remain active; historical wording is retained as decision history.
 - Decided by: default
 - Parity rows affected: no status changes during framing; affected units retain their existing IDs.
 

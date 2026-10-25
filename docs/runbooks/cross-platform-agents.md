@@ -2,6 +2,8 @@
 
 Windows and Mac Codex agents work on the same migration. Both follow the shared ADRs, roadmap, parity matrix and handoff. Local environments, legacy copies, databases and process handles are separate.
 
+ADR-018 explicitly permits useful subagents and independent review. The coordinator can delegate bounded work without repeated permission; this does not automatically create/access an agent on another physical machine. Use actual available tools and OS-labelled evidence. Historical sequential-review notes do not prohibit future delegation.
+
 ## Ownership and integration
 
 1. Read `AGENTS.md`, `ROADMAP.md`, `docs/runbooks/handoff.md`, the stage's ADRs and local setup notes. Check actual Git status/log and remote state; never assume the other machine's latest work is present.
