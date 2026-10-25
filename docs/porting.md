@@ -121,3 +121,11 @@ TableLayout adds optional hidden qualified paths, preserving old version-1 width
 
 
 MIG-7A.2a execution: real customer browser tests prove header seek preserves the active filter/row set, selects observation/Codigo, dismisses header Enter/Escape locally, retains a pending seek until a delayed real response arrives, and persists/reset visibility together with width/order. Seek resolves in the existing active/sequence-guarded repository callback, not an effect that synchronously sets derived state. Selected-row visibility reacts to both identity and returned row ordering. Full verify 83423 passed 70 TS/DB and 58 browser cases; native 64418 proves metadata only. ADR-012/defaults and the parent remaining obligations prevent broad designer verification.
+
+
+## Named raw table options (MIG-7A.2b, before translation)
+
+screen_layout.py/table_options reads exact named raw dossier values into optional table_options on generated Table controls, without defaults or business normalization (ADR-013). WdTable's explicit designerOptions consumer opt-in will use Always visible/Automatic scrollbar modes and Tooltip when truncated; missing options retain the existing behavior. The actual customer consumer owns the first proof (RULE-CC16AB27-028), not a fixture. Browser per-pixel scrolling is retained; native skin/timing, scrollbar-tooltip wording and automatic menu command membership stay U-CC16AB27-01/02. Other additive generated metadata is not a parity claim.
+
+
+Scrollbar verification must use actual visible tracks: installed Playwright headless Chrome adds --hide-scrollbars, so the UI harness omits that default argument without changing assertions/floors. Empty customer results assert reserved width, not just overflow CSS. The changed harness exposed dialog scrollbar feedback: measured static captions in skin.css use overflow-visible, and ResourceBox keeps initial multiline overflow hidden only until fit is measured, then auto for user edits. This preserves the existing TexteHauteur sizing/result path used by customer SRC-51085948c6 dialogs; no silent clipping, extra timer or test relaxation. Existing long-caption/multiline-input regressions must pass with normal scrollbars.

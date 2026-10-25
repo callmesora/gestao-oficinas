@@ -46,7 +46,7 @@
 .wd-component-canvas { position: relative; font: 10.67px "Trebuchet MS", Tahoma, sans-serif; color: #000; background: #edf3fa; }
 .wd-dialog-host { border: 0; padding: 0; background: transparent; max-width: calc(100vw - 16px); max-height: calc(100vh - 16px); }
 .wd-dialog-host::backdrop { background: transparent; }
-.wd-message-text { position: absolute; display: flex; align-items: center; white-space: pre-wrap; overflow: auto; overflow-wrap: anywhere; }
+.wd-message-text { position: absolute; display: flex; align-items: center; white-space: pre-wrap; overflow: visible; overflow-wrap: anywhere; }
 /* proposed: Q-12, standard symbols; no legacy icon image available. */
 .wd-message-icon { position: absolute; border-radius: 50%; background: #2f6fcf; color: white; display: flex;
   align-items: center; justify-content: center; font: bold 30px "Trebuchet MS", Tahoma, sans-serif; }
@@ -91,3 +91,11 @@ textarea.wd-resource-edit { resize: none; }
 .wd-table-tools > button { width: 16px; height: 23px; padding: 0; font: inherit; border: 1px solid #b9bec7; background: #edf3fa; }
 .wd-column-settings { position: absolute; right: 0; top: 23px; min-width: 160px; padding: 5px; border: 1px solid #a7adb8; background: #edf3fa; }
 .wd-column-settings label { display: flex; align-items: center; white-space: nowrap; }
+
+/* Always-visible source scrollbar: prevent Chromium overlay auto-hiding. 16px/tones sampled; native skin remains U-CC16AB27-01. */
+.wd-table-designer::-webkit-scrollbar { width: 16px; height: 16px; }
+.wd-table-designer::-webkit-scrollbar-track { background: #edf3fa; border-left: 1px solid #a7adb8; }
+.wd-table-designer::-webkit-scrollbar-thumb { background: linear-gradient(90deg, #d4dfef, #7d94b5); border: 1px solid #7d8899; border-radius: 3px; }
+.wd-table-designer::-webkit-scrollbar-corner { background: #edf3fa; }
+.wd-table-designer th:last-child button.wd-searchable-caption { width: calc(100% - 32px); margin-right: 32px; }
+.wd-table-designer th:last-child button.wd-column-search { right: 19px; }

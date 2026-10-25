@@ -37,6 +37,20 @@ def basename(path):
     return re.split(r'[\\/]', path)[-1] if path else None
 
 
+def table_options(raw):
+    """Retain named source details omitted by the check-mark parser; no inferred defaults."""
+    names = {
+        'magnifier_mode': 'Magnifier mode', 'horizontal_scrollbar': 'Horz. scrollbar',
+        'vertical_scrollbar': 'Vert. scrollbar', 'truncated_tooltip': 'Tooltip when truncated',
+        'pixel_scrolling': 'Per-pixel scrolling', 'touch_scrolling': 'Touch scrolling',
+        'column_context_menu': 'Column context menu', 'context_menu': 'Context menu mode.',
+        'remember_filters': 'Remember filters', 'remember_sorts': 'Remember sorts',
+        'row_height': 'Row height (without margin)', 'selection_mode': 'Selection mode',
+        'column_selection': 'Select. columns', 'cell_selection': 'Select. cells',
+    }
+    return {key: value for key, name in names.items() if (value := raw_value(raw, name)) is not None}
+
+
 def control_paths(text):
     """Preserve scoped identities when two tables use the same column name."""
     lines = text.splitlines()
@@ -112,6 +126,8 @@ def layout(unit, latest, language=None):
             # Edits, combos, lists: the caption is drawn left of the input box, which is the last `Inside width`.
             entry['caption_width'] = entry['width'] - int(inside)
         entry['displayed_item'] = details.get('displayed_item')
+        if entry['kind'] == 'Table':
+            entry['table_options'] = table_options(raw)
         if item['kind'] == 'column':
             columns.append({'name': item['name'], 'path': identity['path'], 'parent': identity['parent'], 'title': entry['caption'], 'width': details.get('width'),
                                      'h_align': details.get('h_align'), 'input_type': details.get('input_type'),

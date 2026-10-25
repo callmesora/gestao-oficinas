@@ -4,7 +4,7 @@ import { controlBox, type LegacyColumn, type LegacyControl } from "./layout";
 import "./skin.css";
 import { useAnchoredControl } from "./anchors";
 
-export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selectedId, onSelect, onActivate, onSort, onColumnSearch, configureColumns = false, hiddenColumns = [], onHiddenColumnsChange, onResetColumns, columnWidths, onColumnWidthsChange, columnOrder, onColumnOrderChange }: {
+export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selectedId, onSelect, onActivate, onSort, onColumnSearch, configureColumns = false, designerOptions = false, hiddenColumns = [], onHiddenColumnsChange, onResetColumns, columnWidths, onColumnWidthsChange, columnOrder, onColumnOrderChange }: {
   control: LegacyControl; rows: T[]; rowId: (row: T) => string;
   cell: (row: T, column: LegacyColumn) => ReactNode;
   selectedId: string | null; onSelect: (id: string) => void;
@@ -12,6 +12,7 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
   onColumnSearch?: (column: LegacyColumn, term: string) => void;
   configureColumns?: boolean; hiddenColumns?: string[]; onHiddenColumnsChange?: (hidden: string[]) => void;
   onResetColumns?: () => void;
+  designerOptions?: boolean;
   columnWidths?: ColumnSizingState; onColumnWidthsChange?: (widths: ColumnSizingState) => void;
   columnOrder?: string[]; onColumnOrderChange?: (order: string[]) => void;
 }) {
@@ -50,6 +51,8 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
       else setLocalWidths(update);
     } });
   const displayed = table.getRowModel().rows;
+  const options = designerOptions ? control.table_options : undefined;
+  const scrollbarMode = (value: string | undefined) => value === "Always visible" ? "scroll" as const : value === "Automatic" ? "auto" as const : undefined;
   const columnOf = (id: string) => sourceColumns.find(column => column.path === id)!;
   const moveColumn = (from: string, to: string) => {
     const next = table.getAllLeafColumns().map(column => column.id), start = next.indexOf(from), end = next.indexOf(to);
@@ -57,8 +60,8 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
     if (next.slice(Math.min(start, end), Math.max(start, end) + 1).some(id => columnOf(id).flags?.Movable !== true || columnOf(id).flags?.["Fixed left"] === true)) return false;
     next.splice(start, 1); next.splice(end, 0, from); table.setColumnOrder(next); return true;
   };
-  return <div ref={container} data-testid={control.name} data-control-path={control.path} className="wd-table"
-    hidden={control.visible === false} style={controlBox(control)} tabIndex={String(control.tab_order) === "-1" ? -1 : 0}
+  return <div ref={container} data-testid={control.name} data-control-path={control.path} className={`wd-table${designerOptions ? " wd-table-designer" : ""}`}
+    hidden={control.visible === false} style={{ ...controlBox(control), overflowY: scrollbarMode(options?.vertical_scrollbar), overflowX: scrollbarMode(options?.horizontal_scrollbar) }} tabIndex={String(control.tab_order) === "-1" ? -1 : 0}
     onKeyDown={event => {
       if (event.target !== event.currentTarget) return;
       const index = displayed.findIndex(row => row.id === selectedId);
@@ -95,6 +98,10 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
           onDragStart: (event: DragEvent<HTMLElement>) => { draggedColumn.current = column.id; event.dataTransfer.setData("text/plain", column.id); event.dataTransfer.effectAllowed = "move"; },
           onDragEnd: () => { draggedColumn.current = null; } };
         return <th key={column.id} scope="col" data-testid={source.name} data-control-path={source.path}
+          onContextMenu={event => {
+            if (!configureColumns || options?.column_context_menu !== "Yes" || !onHiddenColumnsChange) return;
+            event.preventDefault(); setConfigurationOpen(true);
+          }}
           onDragOver={event => { if (draggedColumn.current) event.preventDefault(); }}
           onDrop={event => { event.preventDefault(); if (draggedColumn.current) moveColumn(draggedColumn.current, column.id); draggedColumn.current = null; }}
           onKeyDown={event => {
@@ -133,7 +140,12 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
         onClick={() => { container.current?.focus(); onSelect(row.id); }} onDoubleClick={() => onActivate?.(row.id)}>
         {row.getVisibleCells().map(value => {
           const source = columnOf(value.column.id);
-          return <td key={value.id} style={{ textAlign: source.h_align === "Right" ? "right" : "left" }}>{cell(row.original, source)}</td>;
+          return <td key={value.id} style={{ textAlign: source.h_align === "Right" ? "right" : "left" }}
+            onMouseEnter={event => {
+              const element = event.currentTarget;
+              if (options?.truncated_tooltip === "Yes" && element.scrollWidth > element.clientWidth) element.title = element.textContent ?? "";
+              else element.removeAttribute("title");
+            }} onMouseLeave={event => event.currentTarget.removeAttribute("title")}>{cell(row.original, source)}</td>;
         })}
       </tr>)}</tbody>
     </table>

@@ -108,3 +108,25 @@ test("SRC-a61ff747bb picker returns actual registration and both close routes re
   await page.getByTestId("vehicles-select-open").click(); await page.getByTestId("BTN_Fechar").click(); await expect(page.getByTestId("vehicle-return")).toHaveText("ORIGINAL");
   await page.getByTestId("vehicles-select-open").click(); await page.getByTestId("BTN_SYST_FERMER").click(); await expect(page.getByTestId("vehicle-return")).toHaveText("ORIGINAL");
 });
+
+
+test("SRC-a29b466a64 actual new customer picker refreshes the vehicle combo and does not leak its filter", async ({ page, request }) => {
+  const previous = await customer(request), Codigo = String(Date.now()) + "77", Descricao = `New picker ${Codigo}`;
+  await page.goto("/?workflow=vehicles"); await page.getByTestId("vehicles-open").click(); await page.getByTestId("Btn_New").click();
+  const vehicle = page.getByTestId("WIN_Form_Viaturas");
+  await vehicle.getByTestId("BTN_VISION").click(); const picker = page.getByTestId("customer-picker");
+  await picker.getByTestId("Btn_New").click(); const form = page.getByTestId("WIN_Form_Clientes");
+  await form.getByTestId("EDT_Codigo").fill(Codigo); await form.getByTestId("EDT_Descricao").fill(Descricao); await form.getByTestId("BTN_Validar").click();
+  await expect(form).toHaveCount(0); await expect(picker.getByTestId("BTN_selecionar")).toBeEnabled();
+  await picker.getByTestId("BTN_descricao").click(); await picker.getByTestId("EDT_termo_pesquisa").fill(Descricao);
+  await expect(picker.getByTestId("BTN_selecionar")).toBeEnabled();
+  await picker.getByTestId("TABLE_Clientes").getByRole("row").filter({ hasText: Descricao }).click(); await picker.getByTestId("BTN_selecionar").click();
+  await expect(picker).toHaveCount(0); await expect(vehicle.getByTestId("COMBO_Codigo")).toHaveValue(Codigo);
+  await expect(vehicle.getByTestId("COMBO_Codigo").getByRole("option", { name: Descricao, exact: true })).toHaveAttribute("value", Codigo);
+  await expect(vehicle.getByTestId("COMBO_Codigo").getByRole("option", { name: previous.Descricao, exact: true })).toHaveAttribute("value", previous.Codigo);
+  await vehicle.getByTestId("BTN_VISION").click(); await picker.getByTestId("BTN_descricao").click(); await picker.getByTestId("EDT_termo_pesquisa").fill(`Empty ${Codigo}`);
+  await expect(picker.getByTestId("BTN_selecionar")).toBeEnabled(); await expect(picker.getByTestId("TABLE_Clientes").getByRole("row")).toHaveCount(1);
+  await picker.getByTestId("BTN_Fechar").click(); await expect(picker).toHaveCount(0);
+  await expect(vehicle.getByTestId("COMBO_Codigo")).toHaveValue(Codigo);
+  await vehicle.getByTestId("BTN_Cancelar").click();
+});

@@ -386,3 +386,8 @@ Parameterized SQL, explicit buffer/state contracts and improved write failures a
 Related extraction findings (report mappings own their resolution):
 - RPT_List_Clientes: embedded query — its SQL is not in the dossier (the items it selects are in docs/mapping/event-codes.md from the compile folder; export the conditions and sort from the report editor, or derive them from a legacy printout on known data) — proposed: every record of Clientes, no condition, in the order of the table that prints it (WIN_Table_Clientes, by ClientesID); confirm on a legacy printout
 - RPT_List_Clientes: no call in code; named in the compiled code of WIN_Table_Clientes (a predefined button action there is the likely caller — see encoded actions)
+
+
+## Designer raw-detail audit (MIG-7A.2b)
+
+Verified source evidence: `dossier: WIN_Table_Clientes/controls.TABLE_Clientes.raw`. The unparsed detail lines explicitly specify Search magnifier mode, automatic horizontal/always-visible vertical scrollbar, per-pixel scrolling, truncated-text tooltips, column context menu enabled and no remembered filters/sorts. These exact values narrow U-CC16AB27-01; they are not inferred from the screenshot. Full control values belong to the screen spec. Source single-row selection remains distinct from column/cell selection, both disabled. This evidence does not resolve runtime no-match/locale/shared-buffer behavior, native tooltip/scrollbar appearance or the exact enabled automatic menu commands (U-CC16AB27-01/02).

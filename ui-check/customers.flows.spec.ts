@@ -130,7 +130,7 @@ test("RULE-CC16AB27-028 header prefix search selects real filtered data without 
   const headers = { Authorization: `Bearer ${(await session.json()).token}` }, marker = String(Date.now());
   const codes = [marker + "1", marker + "2"];
   for (const [index, Codigo] of codes.entries()) {
-    const saved = await request.post("/api/customers/save", { headers, data: { mode: "create", values: { Codigo, Descricao: `Header ${marker} ${index}`, Morada1: index ? `Zeta ${marker}` : `Alpha ${marker}`, Morada2: "", codpostal: "", Telefone1: "", Telemovel: "", observacao: `Observation ${marker} ${index}` } } });
+    const saved = await request.post("/api/customers/save", { headers, data: { mode: "create", values: { Codigo, Descricao: `Header ${marker} ${index}`, Morada1: index ? `Zeta ${marker}` : `Alpha ${marker}`, Morada2: "", codpostal: "", Telefone1: "", Telemovel: `Cell ${index} ${marker}`, observacao: `Observation ${marker} ${index}` } } });
     expect((await saved.json()).kind).toBe("saved");
   }
   await page.goto("/?workflow=customers&origin=41"); await page.getByTestId("customers-select-open").click();
@@ -161,11 +161,17 @@ test("RULE-CC16AB27-028 header prefix search selects real filtered data without 
   await expect(page.getByTestId("EDT_termo_pesquisa")).toHaveValue(`Header ${marker}`);
   await expect(page.getByTestId("WIN_Form_Clientes")).toHaveCount(0);
   await expect(table).toBeFocused();
+  await table.getByTestId("COL_Telemovel__search").click();
+  const lastSearch = table.getByRole("textbox", { name: "Pesquisar Telemóvel", exact: true });
+  await lastSearch.fill(`Cell 0 ${marker}`);
+  await expect(page.getByTestId("BTN_selecionar")).toBeEnabled();
+  await expect(page.getByTestId("EDT_Observacao")).toHaveValue(`Observation ${marker} 0`);
+  await lastSearch.press("Escape");
   await table.getByTestId("COL_Descricao__search").click();
   await table.getByRole("textbox").press("Escape");
   await expect(page.getByTestId("WIN_Table_Clientes")).toBeVisible();
   await page.getByTestId("BTN_selecionar").click();
-  await expect(page.getByTestId("customer-return")).toHaveText(codes[1]);
+  await expect(page.getByTestId("customer-return")).toHaveText(codes[0]);
 });
 
 test("RULE-CC16AB27-028 real customer column visibility reload preserves widths and order and can restore the column", async ({ page }) => {
@@ -176,7 +182,8 @@ test("RULE-CC16AB27-028 real customer column visibility reload preserves widths 
   const resized = (await phone.boundingBox())!.width; expect(resized).toBe(original + 8);
   await table.getByTestId("COL_Descricao").getByRole("button").first().press("Control+Shift+ArrowLeft");
   await expect(table.getByRole("columnheader").first()).toHaveAttribute("data-testid", "COL_Descricao");
-  await table.getByTestId("TABLE_Clientes__columns").click();
+  await table.getByTestId("COL_Telefone1").click({ button: "right" });
+  await expect(table.getByRole("group", { name: "Colunas", exact: true })).toBeVisible();
   await table.getByRole("checkbox", { name: "Telefone", exact: true }).uncheck();
   await expect(phone).toHaveCount(0);
   await page.reload(); await page.getByTestId("customers-open").click();
@@ -197,4 +204,62 @@ test("RULE-CC16AB27-028 real customer column visibility reload preserves widths 
   await expect(table.getByRole("columnheader")).toHaveCount(7);
   await expect(table.getByRole("columnheader").first()).toHaveAttribute("data-testid", "COL_Codigo");
   expect((await phone.boundingBox())!.width).toBe(original);
+});
+
+
+test("RULE-CC16AB27-028 raw designer scroll and truncated tooltip options reach actual customer data", async ({ page, request }) => {
+  const session = await request.post("/api/development/session", { headers: { Origin: "http://localhost:1431", "X-Isolated-Development": "1" } });
+  const headers = { Authorization: `Bearer ${(await session.json()).token}` }, marker = String(Date.now());
+  const Descricao = `Scroll ${marker} ` + "d'Água ".repeat(10);
+  for (let index = 0; index < 25; index++) {
+    const saved = await request.post("/api/customers/save", { headers, data: { mode: "create", values: { Codigo: marker + String(index).padStart(2, "0"), Descricao, Morada1: "", Morada2: "", codpostal: "", Telefone1: "1", Telemovel: "", observacao: "" } } });
+    expect((await saved.json()).kind).toBe("saved");
+  }
+  await page.goto("/?workflow=customers"); await page.getByTestId("customers-open").click();
+  const table = page.getByTestId("TABLE_Clientes");
+  await page.getByTestId("BTN_descricao").click(); await page.getByTestId("EDT_termo_pesquisa").fill(`Scroll ${marker}`);
+  await expect(page.getByTestId("BTN_Modificar")).toBeEnabled();
+  await expect(table.locator("tbody tr")).toHaveCount(25);
+  await expect(table).toHaveCSS("overflow-y", "scroll"); await expect(table).toHaveCSS("overflow-x", "auto");
+  const description = table.locator("tbody tr").first().locator("td").nth(1);
+  await description.hover(); await expect(description).toHaveAttribute("title", Descricao);
+  const short = table.locator("tbody tr").first().locator("td").nth(5);
+  await short.hover(); await expect(short).not.toHaveAttribute("title");
+  expect(await table.evaluate(element => element.scrollHeight > element.clientHeight)).toBe(true);
+  await table.evaluate(element => { element.scrollTop = 7; });
+  expect(await table.evaluate(element => element.scrollTop)).toBe(7);
+  await page.getByTestId("EDT_termo_pesquisa").fill(`No rows ${marker}`);
+  await expect(page.getByTestId("BTN_Modificar")).toBeEnabled();
+  await expect(table.locator("tbody tr")).toHaveCount(0);
+  await expect(table).toHaveCSS("overflow-y", "scroll");
+  expect(await table.evaluate(element => (element as HTMLDivElement).offsetWidth - element.clientWidth)).toBeGreaterThanOrEqual(16);
+});
+
+
+test("RULE-C286277B-011 actual customer keyboard path keeps exact grouped code and source field traversal; list chrome retains data", async ({ page, request }) => {
+  const marker = String(Date.now()), Codigo = String(9007199254740993n + BigInt(marker)), Descricao = `Keyboard ${marker}`;
+  await page.goto("/?workflow=customers"); await page.getByTestId("customers-open").click();
+  const table = page.getByTestId("TABLE_Clientes");
+  await page.getByTestId("Btn_New").click(); const form = page.getByTestId("WIN_Form_Clientes");
+  await expect(form.getByTestId("EDT_Descricao")).toBeFocused();
+  await page.keyboard.press("Shift+Tab"); await expect(form.getByTestId("EDT_Codigo")).toBeFocused();
+  await form.getByTestId("EDT_Codigo").fill(Codigo.replace(/\B(?=(\d{3})+(?!\d))/g, " "));
+  await page.keyboard.press("Tab"); await expect(form.getByTestId("EDT_Descricao")).toBeFocused();
+  await form.getByTestId("EDT_Descricao").fill(Descricao); await expect(form.getByTestId("EDT_Descricao")).toHaveAttribute("maxlength", "100");
+  for (const name of ["EDT_Morada1", "EDT_Morada2", "EDT_Codpostal", "EDT_Telefone1", "EDT_Telemovel", "EDT_Observacao"]) {
+    await page.keyboard.press("Tab"); await expect(form.getByTestId(name)).toBeFocused();
+  }
+  await form.getByTestId("EDT_Observacao").fill("Memo"); await page.keyboard.press("Enter"); await expect(form).toBeVisible();
+  await expect(form.getByTestId("EDT_Observacao")).toHaveValue("Memo\n");
+  await form.getByTestId("EDT_Descricao").focus(); await page.keyboard.press("Enter"); await expect(form).toHaveCount(0);
+  const session = await request.post("/api/development/session", { headers: { Origin: "http://localhost:1431", "X-Isolated-Development": "1" } });
+  const result = await request.post("/api/customers/list", { headers: { Authorization: `Bearer ${(await session.json()).token}` }, data: { mode: "codigo", term: Codigo } });
+  expect((await result.json()).customers).toMatchObject([{ Codigo, Descricao, observacao: "Memo\r\n" }]);
+  const width = (await table.boundingBox())!.width;
+  await page.getByTestId("BTN_Syst_Maximize").click();
+  await expect.poll(async () => (await table.boundingBox())!.width).toBeGreaterThan(width);
+  await page.getByTestId("BTN_Syst_Maximize").click(); await expect.poll(async () => (await table.boundingBox())!.width).toBe(width);
+  await page.getByTestId("BTN_SYST_MINIMIZE").click(); await expect(table).toBeHidden();
+  await page.getByTestId("workspace-tasks").getByRole("button").click(); await expect(table).toBeVisible();
+  await expect(table.getByRole("row").filter({ hasText: Descricao })).toBeVisible();
 });

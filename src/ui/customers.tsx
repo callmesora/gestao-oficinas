@@ -129,7 +129,7 @@ function CustomerList({ repository, selecting = false, origin = "", selected, cl
   }}><div style={{ display: "contents", pointerEvents: "auto" }}>
     <WdTable control={tableControl} rows={rows} rowId={row => row.id} selectedId={selection} onSelect={setSelection}
       cell={(row, column) => { const key = (column.name === "COL_Codpostal" ? "codpostal" : column.name.slice(4)) as keyof CustomerValues; return key === "Codigo" ? codeText(row.Codigo) : row[key] ?? ""; }}
-      onActivate={id => { const row = rows.find(value => value.id === id); if (ready && row) { if (selecting) choose(row); else setForm({ customer: row }); } }} onSort={sort} {...tableSettings} configureColumns onResetColumns={tableSettings.resetLayout}
+      onActivate={id => { const row = rows.find(value => value.id === id); if (ready && row) { if (selecting) choose(row); else setForm({ customer: row }); } }} onSort={sort} {...tableSettings} configureColumns designerOptions onResetColumns={tableSettings.resetLayout}
       onColumnSearch={(column, term) => {
         const key = (column.name === "COL_Codpostal" ? "codpostal" : column.name.slice(4)) as NonNullable<CustomerFilter["sort"]>;
         columnSearch.current = term ? { key, term } : null;

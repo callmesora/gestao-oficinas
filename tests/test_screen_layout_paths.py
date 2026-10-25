@@ -3,10 +3,18 @@ from pathlib import Path
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from screen_layout import control_paths, source_window_size
+from screen_layout import control_paths, source_window_size, table_options
 
 
 class ScopedLayoutChecks(unittest.TestCase):
+    def test_named_table_options_do_not_infer_missing_values_or_confuse_distinct_scrollbar_fields(self):
+        self.assertEqual(table_options(['Display/Scrollbar', 'Vert. scrollbar Always visible',
+                                        'Horz. scrollbar Automatic', 'Tooltip when truncated Yes',
+                                        'Remember sorts No', 'Column context menu Yes', 'Context menu mode. <None>']), {
+            'vertical_scrollbar': 'Always visible', 'horizontal_scrollbar': 'Automatic',
+            'truncated_tooltip': 'Yes', 'remember_sorts': 'No', 'column_context_menu': 'Yes', 'context_menu': '<None>'})
+        self.assertEqual(table_options([]), {})
+
     def test_root_window_size_survives_missing_dossier_without_borrowing_control_or_code_values(self):
         source = '''window :
  properties :

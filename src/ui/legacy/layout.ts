@@ -17,6 +17,7 @@ export interface LegacyControl {
   anchoring?: string;
   anchorRates?: { right?: number; bottom?: number; width?: number; height?: number };
   columns?: LegacyColumn[];
+  table_options?: Record<string, string>;
 }
 export interface LegacyLayout {
   window: { name: string; title: string | null; size: { width: number; height: number } | null; background_image: string | null; flags?: Record<string, boolean> };

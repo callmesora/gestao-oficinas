@@ -258,3 +258,27 @@ Blank strings are compared exactly by source, with no trimming; absent NULL coer
 Non-legacy identifiers/symbols: `COL_*__search`, `TABLE_Clientes__columns`, `onColumnSearch`, `configureColumns`, `hiddenColumns`, `onHiddenColumnsChange`, `onResetColumns`; the optional `TableLayout.hidden` and checkbox configuration panel are target state. The existing source column captions label each checkbox. New Colunas/Pesquisar/Repor text, header input dismissal and minimum-one-visible default are explicitly assumed ADR-012 choices. Stored visibility keeps original width/order and older version-1 settings; reset restores source geometry/order/visibility. Search/filter/selection and row data are never saved as settings. Only the actual customer consumer opts into new controls; other workflows retain their current feature scope.
 
 RULE-CC16AB27-028 remains implemented: scrollbar drawing/tooltips, exact automatic context-menu filters/exports, complete masks/Tab/default keys, human/native and shared-context edge acceptance still need the remaining stage-5-followup.md audit. Reports/UMC retain their existing owners; this subsection is no blanket feature exclusion.
+
+
+## Raw designer options recovered before MIG-7A.2b
+
+Confidence verified from `dossier: WIN_Table_Clientes/controls.TABLE_Clientes.raw`; these named source values were retained in raw text but omitted from generated fields. They narrow U-CC16AB27-01 without resolving native appearance or unknown interaction edges.
+
+| Source option | Exact value |
+|---|---|
+| Magnifier mode | Search |
+| Horz. scrollbar | Automatic |
+| Vert. scrollbar | Always visible |
+| Tooltip when truncated | Yes |
+| Per-pixel scrolling | Yes |
+| Touch scrolling | No |
+| Column context menu | Yes |
+| Context menu mode. | <None> |
+| Remember filters | No |
+| Remember sorts | No |
+| Row height (without margin) | 18 |
+| Selection mode | Single selection |
+| Select. columns | No selection |
+| Select. cells | No selection |
+
+The broad designer row remains implemented while remaining mask/key/menu/native/caller obligations are audited. Native drawing and exact tooltip timing remain U-CC16AB27-01; shared selection/filter effects remain U-CC16AB27-02. Do not substitute a generic context-menu implementation based only on this enabled flag.

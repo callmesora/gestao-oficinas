@@ -437,6 +437,22 @@
    },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 10,
+   "table_options": {
+    "magnifier_mode": "Search",
+    "horizontal_scrollbar": "Automatic",
+    "vertical_scrollbar": "Automatic",
+    "truncated_tooltip": "Yes",
+    "pixel_scrolling": "Yes",
+    "touch_scrolling": "No",
+    "column_context_menu": "Yes",
+    "context_menu": "<None>",
+    "remember_filters": "No",
+    "remember_sorts": "No",
+    "row_height": "45",
+    "selection_mode": "Single selection",
+    "column_selection": "No selection",
+    "cell_selection": "No selection"
+   },
    "columns": [
     {
      "name": "COL_Tipo",
@@ -652,6 +668,22 @@
    },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 11,
+   "table_options": {
+    "magnifier_mode": "Search",
+    "horizontal_scrollbar": "Automatic",
+    "vertical_scrollbar": "Always visible",
+    "truncated_tooltip": "Yes",
+    "pixel_scrolling": "Yes",
+    "touch_scrolling": "No",
+    "column_context_menu": "Yes",
+    "context_menu": "<None>",
+    "remember_filters": "No",
+    "remember_sorts": "No",
+    "row_height": "30",
+    "selection_mode": "Single selection",
+    "column_selection": "No selection",
+    "cell_selection": "No selection"
+   },
    "columns": [
     {
      "name": "COL_Mecanico",
@@ -759,6 +791,22 @@
    },
    "anchoring": "Right and bottom, height and width",
    "tab_order": 4,
+   "table_options": {
+    "magnifier_mode": "Search",
+    "horizontal_scrollbar": "Automatic",
+    "vertical_scrollbar": "Always visible",
+    "truncated_tooltip": "Yes",
+    "pixel_scrolling": "Yes",
+    "touch_scrolling": "No",
+    "column_context_menu": "Yes",
+    "context_menu": "<None>",
+    "remember_filters": "No",
+    "remember_sorts": "No",
+    "row_height": "45",
+    "selection_mode": "Single selection",
+    "column_selection": "No selection",
+    "cell_selection": "No selection"
+   },
    "columns": [
     {
      "name": "COL_imagem",

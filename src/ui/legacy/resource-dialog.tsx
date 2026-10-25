@@ -81,6 +81,7 @@ export function ResourceBox({ current, controller }: { current: PendingResource;
           {request.input.kind === "checkbox" ? <label>
             <input ref={node => { inputRef.current = node; }} data-testid="INT_1" type="checkbox" checked={Boolean(input)} onChange={event => setInput(event.target.checked)} />{request.input.label}
           </label> : multiline ? <textarea {...selection} ref={node => { inputRef.current = node; }} className="wd-resource-edit" data-testid="SAI_1" aria-labelledby={textId}
+            style={{ overflowY: fit ? "auto" : "hidden" }}
             maxLength={request.input.maxLength || undefined} value={String(input)} onChange={event => setInput(event.target.value.replace(/\r?\n/g, "\r\n"))} />
           : <input {...selection} ref={node => { inputRef.current = node; }} className="wd-resource-edit" data-testid="SAI_1" aria-labelledby={textId}
             type={request.input.password ? "password" : "text"} maxLength={request.input.maxLength || undefined} value={String(input)} onChange={event => setInput(event.target.value)} />}
