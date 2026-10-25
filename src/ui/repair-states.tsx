@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useForm } from "react-hook-form";
 import { repairStateTypeLabel, type RepairState, type RepairStateList, type RepairStateValues } from "../../packages/domain/src/repair-states";
 import type { RepairStateRepository } from "../application/repair-states";
+import { selectAfterTableRead } from "../application/table-selection";
 import { isolatedRepairStateRepository } from "../infrastructure/repair-states";
 import { selectRepairStateColor, type RepairStateColorChooser } from "../infrastructure/repair-state-color";
 import sourceListLayout from "./legacy/WIN_Table_estados_reparacao.layout.json";
@@ -123,10 +124,11 @@ export function RepairStateListScreen({ repository, selecting = false, chooser =
       if (result.kind !== "loaded") { setDiagnostic(result.kind); return; }
       setRows(result.repairStates); setLoaded({ query, refresh }); setDiagnostic("");
       const sought = columnSearch.current;
-      const match = sought && result.repairStates.find(row => (sought.key === "tipo" ? repairStateTypeLabel(row.tipo) : String(row[sought.key] ?? "")).toLocaleLowerCase("pt-PT").startsWith(sought.term.toLocaleLowerCase("pt-PT")));
       columnSearch.current = null;
       // UNRESOLVED U-CEBED898-02: preserve explicit selection without guessing initial/delete fallback.
-      setSelection(previous => match ? match.id : result.repairStates.some(row => row.id === previous) ? previous : null);
+      setSelection(previous => selectAfterTableRead(result.repairStates, previous, sought ? {
+        term: sought.term, value: row => sought.key === "tipo" ? repairStateTypeLabel(row.tipo) : String(row[sought.key] ?? ""),
+      } : undefined));
     }).catch(() => { if (active) setDiagnostic("transport"); });
     return () => { active = false; };
   }, [repository, query, refresh]);

@@ -14,7 +14,8 @@
    "specified": 0,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_select_viaturas",
@@ -31,7 +32,8 @@
    "specified": 0,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Form_Clientes",
@@ -51,6 +53,16 @@
   "looks": {
    "pixel": 98.0,
    "layout": 94.3
+  },
+  "visuals": {
+   "windows": {
+    "pixel": 98.0,
+    "layout": 94.3
+   },
+   "darwin": {
+    "pixel": 98.3,
+    "layout": 94.9
+   }
   }
  },
  {
@@ -68,7 +80,13 @@
    "specified": 1,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {
+   "darwin": {
+    "pixel": 98.9,
+    "layout": 96.7
+   }
+  }
  },
  {
   "name": "WIN_Form_estados_descritivos",
@@ -88,6 +106,16 @@
   "looks": {
    "pixel": 98.2,
    "layout": 96.3
+  },
+  "visuals": {
+   "windows": {
+    "pixel": 98.2,
+    "layout": 96.3
+   },
+   "darwin": {
+    "pixel": 98.4,
+    "layout": 96.7
+   }
   }
  },
  {
@@ -105,7 +133,13 @@
    "specified": 1,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {
+   "darwin": {
+    "pixel": 98.1,
+    "layout": 93.1
+   }
+  }
  },
  {
   "name": "WIN_Form_mecanicos",
@@ -122,7 +156,13 @@
    "specified": 1,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {
+   "darwin": {
+    "pixel": 98.8,
+    "layout": 96.7
+   }
+  }
  },
  {
   "name": "WIN_Form_postos",
@@ -139,7 +179,13 @@
    "specified": 1,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {
+   "darwin": {
+    "pixel": 97.5,
+    "layout": 95.4
+   }
+  }
  },
  {
   "name": "WIN_Form_Terminais",
@@ -159,6 +205,16 @@
   "looks": {
    "pixel": 97.8,
    "layout": 94.9
+  },
+  "visuals": {
+   "windows": {
+    "pixel": 97.8,
+    "layout": 94.9
+   },
+   "darwin": {
+    "pixel": 98.1,
+    "layout": 95.5
+   }
   }
  },
  {
@@ -179,6 +235,16 @@
   "looks": {
    "pixel": 98.4,
    "layout": 96.6
+  },
+  "visuals": {
+   "windows": {
+    "pixel": 98.4,
+    "layout": 96.6
+   },
+   "darwin": {
+    "pixel": 98.6,
+    "layout": 96.9
+   }
   }
  },
  {
@@ -199,6 +265,16 @@
   "looks": {
    "pixel": 98.2,
    "layout": 93.5
+  },
+  "visuals": {
+   "windows": {
+    "pixel": 98.2,
+    "layout": 93.5
+   },
+   "darwin": {
+    "pixel": 98.4,
+    "layout": 93.9
+   }
   }
  },
  {
@@ -219,6 +295,16 @@
   "looks": {
    "pixel": 98.4,
    "layout": 93.8
+  },
+  "visuals": {
+   "windows": {
+    "pixel": 98.4,
+    "layout": 93.8
+   },
+   "darwin": {
+    "pixel": 98.5,
+    "layout": 94.4
+   }
   }
  },
  {
@@ -236,7 +322,13 @@
    "specified": 2,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {
+   "darwin": {
+    "pixel": 98.2,
+    "layout": 91.6
+   }
+  }
  },
  {
   "name": "WIN_Table_estados_descritivos",
@@ -256,6 +348,16 @@
   "looks": {
    "pixel": 98.5,
    "layout": 92.2
+  },
+  "visuals": {
+   "windows": {
+    "pixel": 98.5,
+    "layout": 92.2
+   },
+   "darwin": {
+    "pixel": 98.3,
+    "layout": 91.8
+   }
   }
  },
  {
@@ -273,7 +375,13 @@
    "specified": 2,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {
+   "darwin": {
+    "pixel": 98.7,
+    "layout": 94.9
+   }
+  }
  },
  {
   "name": "WIN_Table_mecanicos",
@@ -290,7 +398,13 @@
    "specified": 2,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {
+   "darwin": {
+    "pixel": 98.5,
+    "layout": 92.8
+   }
+  }
  },
  {
   "name": "WIN_Table_postos",
@@ -307,7 +421,13 @@
    "specified": 3,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {
+   "darwin": {
+    "pixel": 98.6,
+    "layout": 96.0
+   }
+  }
  },
  {
   "name": "WIN_Table_Terminais",
@@ -327,6 +447,16 @@
   "looks": {
    "pixel": 98.3,
    "layout": 93.5
+  },
+  "visuals": {
+   "windows": {
+    "pixel": 98.3,
+    "layout": 93.5
+   },
+   "darwin": {
+    "pixel": 98.2,
+    "layout": 92.7
+   }
   }
  },
  {
@@ -347,6 +477,16 @@
   "looks": {
    "pixel": 98.6,
    "layout": 94.7
+  },
+  "visuals": {
+   "windows": {
+    "pixel": 98.6,
+    "layout": 94.7
+   },
+   "darwin": {
+    "pixel": 98.9,
+    "layout": 96.4
+   }
   }
  },
  {
@@ -367,6 +507,16 @@
   "looks": {
    "pixel": 98.4,
    "layout": 93.6
+  },
+  "visuals": {
+   "windows": {
+    "pixel": 98.4,
+    "layout": 93.6
+   },
+   "darwin": {
+    "pixel": 98.6,
+    "layout": 94.7
+   }
   }
  },
  {
@@ -384,7 +534,8 @@
    "specified": 0,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "cab_stocks",
@@ -401,7 +552,8 @@
    "specified": 0,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "Clientes",
@@ -418,7 +570,8 @@
    "specified": 0,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "documentos",
@@ -435,7 +588,8 @@
    "specified": 0,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "estados_descritivos",
@@ -452,7 +606,8 @@
    "specified": 0,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "estados_reparacao",
@@ -469,7 +624,8 @@
    "specified": 0,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "lin_stocks",
@@ -486,7 +642,8 @@
    "specified": 0,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "material_reparacao",
@@ -503,7 +660,8 @@
    "specified": 0,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "mecanicos",
@@ -520,7 +678,8 @@
    "specified": 0,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "ordem_reparacao",
@@ -537,7 +696,8 @@
    "specified": 0,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "postos",
@@ -554,7 +714,8 @@
    "specified": 0,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "sistema",
@@ -571,7 +732,8 @@
    "specified": 0,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "tempos_reparacao",
@@ -588,7 +750,8 @@
    "specified": 0,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "Terminais",
@@ -605,7 +768,8 @@
    "specified": 0,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "unidades",
@@ -622,7 +786,8 @@
    "specified": 0,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "utilizadores",
@@ -639,7 +804,8 @@
    "specified": 0,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "Viaturas",
@@ -656,7 +822,8 @@
    "specified": 0,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "MediaPlayer_0_D",
@@ -673,7 +840,8 @@
    "specified": 0,
    "unmapped": 1
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "MediaPlayer_1",
@@ -690,7 +858,8 @@
    "specified": 0,
    "unmapped": 1
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "MediaPlayer_13",
@@ -707,7 +876,8 @@
    "specified": 0,
    "unmapped": 1
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "MediaPlayer_22",
@@ -724,7 +894,8 @@
    "specified": 0,
    "unmapped": 1
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "MediaPlayer_23",
@@ -741,7 +912,8 @@
    "specified": 0,
    "unmapped": 1
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "MediaPlayer_24",
@@ -758,7 +930,8 @@
    "specified": 0,
    "unmapped": 1
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "MediaPlayer_Etiquette",
@@ -775,7 +948,8 @@
    "specified": 0,
    "unmapped": 1
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "MediaPlayer_Fiche",
@@ -792,7 +966,8 @@
    "specified": 0,
    "unmapped": 1
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "MediaPlayer_Form",
@@ -809,7 +984,8 @@
    "specified": 0,
    "unmapped": 1
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "MediaPlayer_Label",
@@ -826,7 +1002,8 @@
    "specified": 0,
    "unmapped": 1
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "MediaPlayer_Mailing",
@@ -843,7 +1020,8 @@
    "specified": 0,
    "unmapped": 1
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "MediaPlayer_MailingUS",
@@ -860,7 +1038,8 @@
    "specified": 0,
    "unmapped": 1
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "MediaPlayer_Table",
@@ -877,7 +1056,8 @@
    "specified": 0,
    "unmapped": 1
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "MediaPlayer_TableUS",
@@ -894,7 +1074,8 @@
    "specified": 0,
    "unmapped": 1
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "My_GestaoOficinas",
@@ -911,7 +1092,8 @@
    "specified": 1,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_insert_material_reparacao",
@@ -928,7 +1110,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_insert_ordens_reparacao",
@@ -945,7 +1128,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_noname",
@@ -962,7 +1146,8 @@
    "specified": 0,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_select_cab_lin_stocks",
@@ -979,7 +1164,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_select_cab_stocks",
@@ -996,7 +1182,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_select_cliente_codigo",
@@ -1013,7 +1200,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_select_consumo_material_viatura",
@@ -1030,7 +1218,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_select_lin_stocks",
@@ -1047,7 +1236,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_select_material_ordem_Reparacao",
@@ -1064,7 +1254,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_select_material_reparacao",
@@ -1081,7 +1272,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_select_mecanicos_codigo",
@@ -1098,7 +1290,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_select_ordens_reparacao",
@@ -1115,7 +1308,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_select_ordens_reparacao_data_entrega",
@@ -1132,7 +1326,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_select_ordens_reparacao_data_pag",
@@ -1149,7 +1344,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_select_ordens_reparacao_matricula",
@@ -1166,7 +1362,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_select_ordens_reparacao_numero",
@@ -1183,7 +1380,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_select_ordens_reparacao_tempos",
@@ -1200,7 +1398,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_select_tempos_Reparacao_numero_mecanico",
@@ -1217,7 +1416,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_select_tempos_reparacao_ordem",
@@ -1234,7 +1434,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_tempos_ordem_reparacao",
@@ -1251,7 +1452,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_tempos_ordem_reparacao_matricula",
@@ -1268,7 +1470,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_tempos_ordem_reparacao_mecanico",
@@ -1285,7 +1488,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_union_extrato_artigos",
@@ -1302,7 +1506,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_union_extrato_artigos_calcular_total",
@@ -1319,7 +1524,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_union_lin_stocks",
@@ -1336,7 +1542,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_Union_lin_stocks_material_reparacao",
@@ -1353,7 +1560,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_union_material_reparacao",
@@ -1370,7 +1578,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "QRY_update_ordens_reparacao",
@@ -1387,7 +1596,8 @@
    "specified": 1,
    "unmapped": 2
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_Consumo_Material_Descriminado_Ordens",
@@ -1404,7 +1614,8 @@
    "specified": 6,
    "unmapped": 5
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_Consumo_Material_Descriminado_ordens_saidas",
@@ -1421,7 +1632,8 @@
    "specified": 5,
    "unmapped": 5
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_Consumo_Material_Descriminado_Saidas",
@@ -1438,7 +1650,8 @@
    "specified": 6,
    "unmapped": 4
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_Consumo_Material_Resumo_ordem_saidas",
@@ -1455,7 +1668,8 @@
    "specified": 6,
    "unmapped": 4
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_Consumo_Material_Resumo_ordens",
@@ -1472,7 +1686,8 @@
    "specified": 4,
    "unmapped": 4
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_Consumo_Material_Resumo_Saidas",
@@ -1489,7 +1704,8 @@
    "specified": 4,
    "unmapped": 4
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_Consumo_Material_Viatura_Descriminado",
@@ -1506,7 +1722,8 @@
    "specified": 5,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_Consumo_Material_Viatura_Resumo",
@@ -1523,7 +1740,8 @@
    "specified": 5,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_Extrato_artigos",
@@ -1540,7 +1758,8 @@
    "specified": 8,
    "unmapped": 5
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_inventario",
@@ -1557,7 +1776,8 @@
    "specified": 5,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_List_artigos",
@@ -1574,7 +1794,8 @@
    "specified": 6,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_List_Clientes",
@@ -1591,7 +1812,8 @@
    "specified": 6,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_List_documentos",
@@ -1608,7 +1830,8 @@
    "specified": 6,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_List_estados_descritivos",
@@ -1625,7 +1848,8 @@
    "specified": 6,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_List_estados_reparacao",
@@ -1642,7 +1866,8 @@
    "specified": 6,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_List_mecanicos",
@@ -1659,7 +1884,8 @@
    "specified": 6,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_List_unidades",
@@ -1676,7 +1902,8 @@
    "specified": 6,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_List_utilizadores",
@@ -1693,7 +1920,8 @@
    "specified": 6,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_List_Viaturas",
@@ -1710,7 +1938,8 @@
    "specified": 6,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_Materiais",
@@ -1727,7 +1956,8 @@
    "specified": 4,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_Ordens_Reparacao",
@@ -1744,7 +1974,8 @@
    "specified": 6,
    "unmapped": 4
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_Ordens_Reparacao_DataEntrega",
@@ -1761,7 +1992,8 @@
    "specified": 6,
    "unmapped": 4
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_Ordens_Reparacao_DataPag",
@@ -1778,7 +2010,8 @@
    "specified": 6,
    "unmapped": 4
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_Servico_Avaria",
@@ -1795,7 +2028,8 @@
    "specified": 3,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_Tempos_Ordem_Reparacao",
@@ -1812,7 +2046,8 @@
    "specified": 10,
    "unmapped": 4
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_Tempos_Ordem_Reparacao_Mecanico",
@@ -1829,7 +2064,8 @@
    "specified": 11,
    "unmapped": 4
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo",
@@ -1846,7 +2082,8 @@
    "specified": 10,
    "unmapped": 4
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "RPT_Tempos_Ordem_Reparacao_viatura",
@@ -1863,7 +2100,8 @@
    "specified": 12,
    "unmapped": 4
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Acesso",
@@ -1880,7 +2118,8 @@
    "specified": 23,
    "unmapped": 5
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Data",
@@ -1897,7 +2136,8 @@
    "specified": 10,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Extrato_Artigos",
@@ -1914,7 +2154,8 @@
    "specified": 25,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Filtro_Mapas_Artigos",
@@ -1931,7 +2172,8 @@
    "specified": 51,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Filtro_Mapas_Tempos",
@@ -1948,7 +2190,8 @@
    "specified": 33,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Form_artigos",
@@ -1965,7 +2208,8 @@
    "specified": 11,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Form_utilizadores",
@@ -1982,7 +2226,8 @@
    "specified": 12,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Inserir_quantidade_password",
@@ -1999,7 +2244,8 @@
    "specified": 26,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Inventario",
@@ -2016,7 +2262,8 @@
    "specified": 22,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Inventario_Reconstrucao",
@@ -2033,7 +2280,8 @@
    "specified": 17,
    "unmapped": 5
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Leitor_cod_barras",
@@ -2050,7 +2298,8 @@
    "specified": 21,
    "unmapped": 5
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Leitor_cod_barras_desconhecidos",
@@ -2067,7 +2316,8 @@
    "specified": 20,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Mapa_Vendas",
@@ -2084,7 +2334,8 @@
    "specified": 26,
    "unmapped": 4
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Material_Reparacao",
@@ -2101,7 +2352,8 @@
    "specified": 42,
    "unmapped": 5
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Material_reparacao_form",
@@ -2118,7 +2370,8 @@
    "specified": 65,
    "unmapped": 5
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_MENU",
@@ -2135,7 +2388,8 @@
    "specified": 58,
    "unmapped": 5
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Mudar_Estado",
@@ -2152,7 +2406,8 @@
    "specified": 21,
    "unmapped": 4
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Ordens_Reparacao",
@@ -2169,7 +2424,8 @@
    "specified": 90,
    "unmapped": 5
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Ordens_Reparacao_Form",
@@ -2186,7 +2442,8 @@
    "specified": 65,
    "unmapped": 5
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Reconstrucao_Stocks",
@@ -2203,7 +2460,8 @@
    "specified": 14,
    "unmapped": 5
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_sistema",
@@ -2220,7 +2478,8 @@
    "specified": 26,
    "unmapped": 4
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Table_artigos",
@@ -2237,7 +2496,8 @@
    "specified": 33,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Table_cab_stocks",
@@ -2254,7 +2514,8 @@
    "specified": 40,
    "unmapped": 5
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Table_estado_reparacao_tipo3",
@@ -2271,7 +2532,8 @@
    "specified": 13,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Table_Lin_Stocks",
@@ -2288,7 +2550,8 @@
    "specified": 64,
    "unmapped": 5
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Table_Tempos_materiais_Descricoes",
@@ -2305,7 +2568,8 @@
    "specified": 49,
    "unmapped": 5
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Table_utilizadores",
@@ -2322,7 +2586,8 @@
    "specified": 18,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Teclado_Alfa",
@@ -2339,7 +2604,8 @@
    "specified": 147,
    "unmapped": 3
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Teclado_numerico",
@@ -2356,7 +2622,8 @@
    "specified": 39,
    "unmapped": 4
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Tempos_Reparacao",
@@ -2373,7 +2640,8 @@
    "specified": 70,
    "unmapped": 5
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Tempos_Reparacao_Estado",
@@ -2390,7 +2658,8 @@
    "specified": 46,
    "unmapped": 4
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Tempos_Reparacao_Informacao",
@@ -2407,7 +2676,8 @@
    "specified": 26,
    "unmapped": 4
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Tempos_Reparacao_Tempo",
@@ -2424,7 +2694,8 @@
    "specified": 21,
    "unmapped": 5
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WINDEVDIALOGBOX",
@@ -2441,7 +2712,8 @@
    "specified": 25,
    "unmapped": 39
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WINDEVMESSAGEBOX",
@@ -2458,6 +2730,7 @@
    "specified": 14,
    "unmapped": 25
   },
-  "looks": null
+  "looks": null,
+  "visuals": {}
  }
 ]

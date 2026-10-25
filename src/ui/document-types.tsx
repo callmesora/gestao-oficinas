@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useForm } from "react-hook-form";
 import { documentTypeRequiredMessage, documentTypeStockLabel, type DocumentType, type DocumentTypeList, type DocumentTypeValues } from "../../packages/domain/src/document-types";
 import type { DocumentTypeRepository } from "../application/document-types";
+import { selectAfterTableRead } from "../application/table-selection";
 import { isolatedDocumentTypeRepository } from "../infrastructure/document-types";
 import listLayout from "./legacy/WIN_Table_documentos.layout.json";
 import sourceFormLayout from "./legacy/WIN_Form_documentos.layout.json";
@@ -86,10 +87,9 @@ export function DocumentTypeListScreen({ repository, selecting = false, finish }
       if (result.kind !== "loaded") { setDiagnostic(result.kind); return; }
       setRows(result.documentTypes); setLoaded({ query, refresh }); setDiagnostic("");
       const sought = columnSearch.current;
-      const match = sought && result.documentTypes.find(row => searchValue(row, sought.key).toLocaleLowerCase("pt-PT").startsWith(sought.term.toLocaleLowerCase("pt-PT")));
       columnSearch.current = null;
       // UNRESOLVED U-CFEE768B-02: preserve explicit selection without inventing initial/delete fallback.
-      setSelection(previous => match ? match.id : result.documentTypes.some(row => row.id === previous) ? previous : null);
+      setSelection(previous => selectAfterTableRead(result.documentTypes, previous, sought ? { term: sought.term, value: row => searchValue(row, sought.key) } : undefined));
     }).catch(() => { if (active) setDiagnostic("transport"); });
     return () => { active = false; };
   }, [repository, query, refresh]);

@@ -31,4 +31,6 @@ ROADMAP.md owns dependencies. Each bounded stage follows templates/prompt-stage.
 
 Foundation checks cover TypeScript, Rust, bindings, parity, generated layouts and browser flows. Native IPC metadata has separate built WebView2 evidence; native business persistence, installer, printing, devices and full legacy parity remain separate acceptance gates. See docs/runbooks/handoff.md for executed checks and retained limits.
 
+C4's application/table-selection.ts shares only the post-read displayed-prefix/previous-identity policy already used by repair states and Documentos. Each consumer supplies display values and keeps query/refresh, async result ownership, diagnostics and source selector behavior. The documentation dashboard displays all available Windows/macOS visual measurements separately, without changing acceptance or business status.
+
 MIG-7H Mecânicos preserves the existing API/PostgreSQL boundary: public list/picker/save replies omit credential fields; only authenticated selected-record read returns the masked form password with no-store. Automatic source identity/immutable edit code follow ADR-008; checkbox NULL display and password-eye defaults follow ADR-003. No schema, auth-model or password-hash migration is introduced by this leaf.

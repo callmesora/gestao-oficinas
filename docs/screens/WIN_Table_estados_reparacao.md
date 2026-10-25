@@ -4,9 +4,11 @@
 
 The source JPG supplies visible “Tabela de Estados de Reparação” and “Descrição” presentation overrides. Generated metadata stays unchanged. Ordinary selector mode keeps source CRUD, printing geometry and 19px target content/border row height; it adds no arrows, type filter or maintenance hiding. Its Codigo return/default origin differs from the separate tipo3 selector. Known Tipo labels come from literal row event129–146, including list “Recepçao”; display-text search/sort default is ADR-012.
 
+C4 reuses the pure `application/table-selection.ts` policy for ordered displayed-prefix search and exact prior identity; blank/no-match has no implicit fallback. Source pre-edit refresh, query/refresh and stale success/failure ownership stay in this screen. Real delayed API snapshot/transport regressions are `ui-check/table-selection.flows.spec.ts`; accepted target defaults do not resolve U02/native behavior.
+
 Non-legacy development identifiers: `repair-states-launcher`, `repair-states-open`, `repair-states-select-open`, `repair-states-returned`, `repair-state-picker`, `repair-state-picker-frame`, `repair-state-picker-restore`/`-resize-*` and `repair-state-list-diagnostic`. Development routing is not production menu/native acceptance.
 
-Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Table_estados_reparacao.wdw`, `dossier: WIN_Table_estados_reparacao`, `docs/mapping/WIN_Table_estados_reparacao.md`. Step 0 specification only.
+Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Table_estados_reparacao.wdw`, `dossier: WIN_Table_estados_reparacao`, `docs/mapping/WIN_Table_estados_reparacao.md`. Bounded implementation MIG-7I.1/C4; full runtime/native acceptance remains open.
 
 ## Contract
 
