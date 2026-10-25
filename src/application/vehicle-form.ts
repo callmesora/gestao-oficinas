@@ -12,7 +12,8 @@ function unsignedDraft(text: string, maximum: number): number | undefined {
 /** WIN_Form_Viaturas.wdw:34–51 ordered required checks, then explicit ScreenToFile values. */
 export function vehicleFormValues(text: VehicleFormText, vehicle: Vehicle | null, dirty: Partial<Record<keyof VehicleFormText, boolean>>) {
   const values: VehicleValues = {
-    matricula: text.matricula, Cliente: vehicle && !dirty.Cliente ? vehicle.Cliente : text.Cliente || "0",
+    // Existing source SQL keeps its original codigo even after uppercasing the readonly display.
+    matricula: vehicle ? vehicle.matricula ?? "" : text.matricula, Cliente: vehicle && !dirty.Cliente ? vehicle.Cliente : text.Cliente || "0",
     marca: vehicle && !dirty.marca ? vehicle.marca : text.marca,
     modelo: vehicle && !dirty.modelo ? vehicle.modelo : text.modelo,
     Ano: vehicle && !dirty.Ano ? vehicle.Ano : 0, mes: vehicle && !dirty.mes ? vehicle.mes : 0,

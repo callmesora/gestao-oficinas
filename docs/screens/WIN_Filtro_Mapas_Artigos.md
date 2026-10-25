@@ -10,6 +10,8 @@ tipo_report selects resumo plane1, descriminado plane3, resumo_viatura/descrimin
 
 Initial implementation: `src/ui/report-filters.tsx` uses the four source planes, existing article/vehicle pickers and shared report preview/PDF. Scoped overlays retain accented source identities/geometry while using matching dossier typo aliases for preview-button/description metadata; base date type is inferred from DateSys/AAAAMMJJ/calendar properties (U-WCD4890-01). `CBOX_doc[1]`/`[2]` identify source indexed options. Summary caller still has four positional arguments; target query receives explicit `ParamDescricao:null` for its omitted argument (U-WCD4890-05). Blank/zero date-to-datetime coercion, native keyboard/printing and source PDF goldens remain open. Non-legacy diagnostics/launchers are `report-filter-diagnostic`, `report-filters-launcher`, `report-filter-material-*`. Pure, actual PostgreSQL and installed-Chrome/PDF checks cover all eight report branches; this is initial delivery, not parity completion.
 
+Focused caller checks in `ui-check/report-filters.flows.spec.ts` exercise every material plane with the real article/vehicle pickers: lower cancellation reassigns the original nonempty value and copies the upper bound, while upper selection changes only the upper bound. The same frozen seven-test report-filter suite passed in the integration checkout on macOS; picker internals, native focus and printing remain their separate acceptance items.
+
 Caller arguments/results and native buffer changes: mapping entry/event ledger.
 
 ## Window/layout

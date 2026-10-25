@@ -1,6 +1,6 @@
 import { useReportPreview } from "./reports";
 import { reportContext } from "./report-callers";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type PointerEventHandler } from "react";
 import Decimal from "decimal.js";
 import type { RepairLaborDetail, RepairLaborMaterial, RepairLaborOrder, RepairLaborPlan, RepairLaborProof, RepairLaborReadResult, RepairLaborRow } from "../../packages/domain/src/repair-labor";
 import { OPEN_LABOR_FINISH, laborDuration, laborDurationDisplay, laborSumHours } from "../../packages/domain/src/repair-labor-time";
@@ -15,6 +15,7 @@ import { isolatedDescriptiveStateRepository } from "../infrastructure/descriptiv
 import { MechanicPicker } from "./mechanics";
 import { DescriptiveStatePicker } from "./descriptive-states";
 import { RepairMaterialPrompt } from "./repair-materials-prompt";
+import { TouchKeyboardDialog, type TouchKeyboardRequest } from "./touch-keyboard";
 import { DialogProvider, useDialogs } from "./legacy/dialogs";
 import { WdModal, type WdModalHandle } from "./legacy/modal";
 import { WdRadControls, type WdRadBinding } from "./legacy/rad-controls";
@@ -67,10 +68,11 @@ function move<T extends { id: string }>(rows: T[], current: string | null, delta
   // U02: source -1→0 has no representable HTML row. Retain selection without claiming runtime behavior.
   return requested >= 1 && requested <= rows.length ? rows[requested - 1].id : current;
 }
-function memo(layout: LegacyLayout, name: string, value: string | null, onChange?: (value: string) => void, disabled = false) {
+function memo(layout: LegacyLayout, name: string, value: string | null, onChange?: (value: string) => void, disabled = false,
+  props: { onPointerDown?: PointerEventHandler<HTMLInputElement | HTMLTextAreaElement> } = {}) {
   const control = controlOf(layout, name);
-  return control.flags?.Multiline === true ? <WdMemo key={name} control={control} value={value ?? ""} disabled={disabled} onChange={event => onChange?.(event.currentTarget.value)} />
-    : <WdEdit key={name} control={control} value={value ?? ""} disabled={disabled} onChange={event => onChange?.(event.currentTarget.value)} />;
+  return control.flags?.Multiline === true ? <WdMemo key={name} control={control} value={value ?? ""} disabled={disabled} onChange={event => onChange?.(event.currentTarget.value)} {...props} />
+    : <WdEdit key={name} control={control} value={value ?? ""} disabled={disabled} onChange={event => onChange?.(event.currentTarget.value)} {...props} />;
 }
 function useRead(repository: RepairLaborRepository, numero: string, accept?: (value: Loaded) => void) {
   const [loaded, setLoaded] = useState<Loaded | null>(null), [diagnostic, setDiagnostic] = useState("");
@@ -108,13 +110,24 @@ export function RepairLaborStatePicker({ choices, finish }: { choices: RepairOrd
   </WdModal>;
 }
 export function RepairLaborStateDialog({ repository, descriptiveRepository, numero, finish }: { repository: RepairLaborRepository; descriptiveRepository?: DescriptiveStateRepository; numero: string; finish: () => void }) {
-  const modal = useRef<WdModalHandle>(null), calendar = useRef<WdDateEditHandle>(null), pending = useRef(false), lifetime = useRef(0);
+  const modal = useRef<WdModalHandle>(null), calendar = useRef<WdDateEditHandle>(null), history = useRef<HTMLDivElement>(null), pending = useRef(false), lifetime = useRef(0);
   const [description, setDescription] = useState(""), [service, setService] = useState<string | null>(""), [when, setWhen] = useState(() => dateTimeEntryInitial(repairLaborWorkstationClock()));
   const [selection, setSelection] = useState<string | null>(null), [busy, setBusy] = useState(false), [picker, setPicker] = useState(false), [invalid, setInvalid] = useState(false);
+  const [keyboard, setKeyboard] = useState<{ field: "description" | "service"; request: TouchKeyboardRequest } | null>(null);
   const { loaded, diagnostic, setDiagnostic } = useRead(repository, numero, value => { setService(value.order.reparacao_servico); setSelection(value.choices.find(state => state.Codigo !== null && state.Codigo === value.order.reparacao_estado)?.id ?? null); });
   const table = controlOf(stateLayout, "TABLE_Estados_reparacao"), settings = useTableLayout(table, "WIN_Tempos_Reparacao_Estado/TABLE_Estados_reparacao");
   useEffect(() => { const counter = lifetime; counter.current++; return () => { counter.current++; }; }, []);
-  const close = () => { if (pending.current || picker) return; lifetime.current++; modal.current?.close(); finish(); };
+  useLayoutEffect(() => {
+    const field = history.current?.querySelector("textarea");
+    if (!loaded || !field) return;
+    field.setSelectionRange(field.value.length, field.value.length); field.scrollTop = field.scrollHeight;
+  }, [loaded]);
+  const close = () => { if (pending.current || picker || keyboard) return; lifetime.current++; modal.current?.close(); finish(); };
+  const openKeyboard = (field: "description" | "service"): PointerEventHandler<HTMLInputElement | HTMLTextAreaElement> => event => {
+    if (event.button !== 0 || busy || !loaded || picker || keyboard) return;
+    const control = controlOf(stateLayout, field === "description" ? "EDT_descricao" : "EDT_obs_servico");
+    setKeyboard({ field, request: { kind: "alpha", options: { title: field === "description" ? "Descrição" : "Serviço", inputMask: control.input_mask, maxLength: control.input_size, value: (field === "description" ? description : service) ?? "", password: false } } });
+  };
   const save = async () => {
     if (pending.current || !loaded) return;
     const value = dateTimeEntryResult(when);
@@ -133,9 +146,15 @@ export function RepairLaborStateDialog({ repository, descriptiveRepository, nume
     <WdTable control={table} rows={loaded?.choices ?? []} rowId={row => row.id} selectedId={selection} onSelect={id => { if (!busy) setSelection(id); }} {...settings} designerOptions configureColumns onResetColumns={settings.resetLayout} showHeaders={false}
       cell={(row, column) => column.name === "COL_imagem" ? <ColorCell value={row.Cor} /> : column.name === "COL_Descricao" ? row.Descricao : ""} />
     <WdDateTimeEdit ref={calendar} control={controlOf(stateLayout, "EDT_Data_Hora")} draft={when} onChange={value => { setWhen(value); setInvalid(false); }} invalid={invalid} disabled={busy} />
-    {memo(stateLayout, "EDT_descricao", description, setDescription, busy)}{memo(stateLayout, "EDT_historico", loaded?.order.reparacao_estado_historico ?? "")}{memo(stateLayout, "EDT_obs_servico", service, setService, busy)}
+    {memo(stateLayout, "EDT_descricao", description, setDescription, busy, { onPointerDown: openKeyboard("description") })}
+    <div ref={history}><WdMemo control={controlOf(stateLayout, "EDT_historico")} value={loaded?.order.reparacao_estado_historico ?? ""} /></div>
+    {memo(stateLayout, "EDT_obs_servico", service, setService, busy, { onPointerDown: openKeyboard("service") })}
     <Buttons layout={stateLayout} actions={{ BTN_Confirmar: { disabled: busy || !loaded, onClick: () => void save() }, BTN_Cancelar: { disabled: busy, onClick: close }, BTN_NoName1: { disabled: busy || !descriptiveRepository, onClick: () => setPicker(true) }, BTN_anterior: { disabled: busy, onClick: () => setSelection(move(loaded?.choices ?? [], selection, -1)) }, BTN_seguinte: { disabled: busy, onClick: () => setSelection(move(loaded?.choices ?? [], selection, 1)) } }} />
     {picker && descriptiveRepository && <DescriptiveStatePicker repository={descriptiveRepository} origin="" finish={value => { setDescription(value); setPicker(false); }} />}
+    {keyboard && <TouchKeyboardDialog request={keyboard.request} finish={(value, outcome) => {
+      if (outcome.confirmed && outcome.edited) { if (keyboard.field === "description") setDescription(value); else setService(value); }
+      setKeyboard(null);
+    }} />}
     {diagnostic && <output data-testid="repair-labor-state-diagnostic">{diagnostic}</output>}
   </WdModal>;
 }
@@ -144,11 +163,19 @@ export function RepairLaborTimeDialog({ repository, mechanicRepository, numero, 
   const modal = useRef<WdModalHandle>(null), pending = useRef(false), alive = useRef(true), proof = useRef<RepairLaborProof | null>(null);
   const { loaded, diagnostic, setDiagnostic } = useRead(repository, numero), { message } = useDialogs();
   const [activeMechanic, setActiveMechanic] = useState(mechanic), [activeName, setActiveName] = useState(() => mechanics.find(row => row.Codigo === mechanic)?.Descricao ?? ""), [busy, setBusy] = useState(false), [mechanicPicker, setMechanicPicker] = useState(false), [password, setPassword] = useState<number | null>(null), [statePicker, setStatePicker] = useState(false);
+  const [stateChoices, setStateChoices] = useState<RepairOrderStateFilter[]>([]);
   const passwordResult = useRef<((value: string | null) => void) | null>(null), stateResult = useRef<((value: RepairOrderStateFilter | null) => void) | null>(null);
   useEffect(() => { alive.current = true; return () => { alive.current = false; proof.current = null; passwordResult.current?.(null); stateResult.current?.(null); }; }, []);
   const close = () => { if (pending.current || password !== null || mechanicPicker || statePicker) return; proof.current = null; modal.current?.close(); finish(); };
   const askPassword = (code: number) => new Promise<string | null>(resolve => { passwordResult.current = resolve; setPassword(code); });
-  const askState = () => new Promise<RepairOrderStateFilter | null>(resolve => { stateResult.current = resolve; setStatePicker(true); });
+  const askState = async () => {
+    // This source window runs its own query on every Open; keep the prepared write baseline unchanged.
+    const current = await repository.read({ numero });
+    if (!alive.current) return null;
+    if (current.kind !== "loaded") { setDiagnostic(current.kind); return null; }
+    setStateChoices(current.choices);
+    return new Promise<RepairOrderStateFilter | null>(resolve => { stateResult.current = resolve; setStatePicker(true); });
+  };
   const authenticate = async (code: number, required: boolean) => {
     if (proof.current?.mechanic === code) return proof.current;
     const entered = await askPassword(code); if (!alive.current) return null;
@@ -198,7 +225,7 @@ export function RepairLaborTimeDialog({ repository, mechanicRepository, numero, 
     <Buttons layout={timeLayout} actions={{ BTN_Iniciar: { caption, disabled: busy || !loaded, onClick: () => void toggle() }, BTN_Cancelar: { disabled: busy, onClick: close }, BTN_NoName1: { disabled: busy || !mechanicRepository, onClick: () => setMechanicPicker(true) } }} />
     {mechanicPicker && mechanicRepository && <MechanicPicker repository={mechanicRepository} origin="" finish={value => { setMechanicPicker(false); if (value !== "") void chooseMechanic(Number(value)); }} />}
     {password !== null && <RepairMaterialPrompt mode="password" value="" finish={value => { setPassword(null); const resolve = passwordResult.current; passwordResult.current = null; resolve?.(value); }} />}
-    {statePicker && <RepairLaborStatePicker choices={loaded?.choices ?? []} finish={value => { setStatePicker(false); const resolve = stateResult.current; stateResult.current = null; resolve?.(value); }} />}
+    {statePicker && <RepairLaborStatePicker choices={stateChoices} finish={value => { setStatePicker(false); const resolve = stateResult.current; stateResult.current = null; resolve?.(value); }} />}
     {diagnostic && <output data-testid="repair-labor-time-diagnostic">{diagnostic}</output>}
   </WdModal>;
 }
@@ -305,8 +332,9 @@ export function RepairLaborScreen({ repositories }: { repositories: Repositories
   const orderTable = controlOf(listLayout, "TABLE_tempos_reparacao"), stateTable = controlOf(listLayout, "TABLE_Estados_reparacao"), laborTable = controlOf(listLayout, "TABLE_tempos_reparacao_ordem");
   const orderSettings = useTableLayout(orderTable, "WIN_Tempos_Reparacao/TABLE_tempos_reparacao"), stateSettings = useTableLayout(stateTable, "WIN_Tempos_Reparacao/TABLE_Estados_reparacao"), laborSettings = useTableLayout(laborTable, "WIN_Tempos_Reparacao/TABLE_tempos_reparacao_ordem");
   const latest = useRef({ orders, selection, states, mechanic, child }), request = useRef(0), childRequest = useRef(0), lifetime = useRef(0), inFlight = useRef(false), messageRef = useRef(message);
+  const stateReturnIndex = useRef<number | null>(null);
   useLayoutEffect(() => { latest.current = { orders, selection, states, mechanic, child }; messageRef.current = message; }, [orders, selection, states, mechanic, child, message]);
-  const read = useCallback(async (nextMechanic = latest.current.mechanic, nextStates = latest.current.states, tick = false) => {
+  const read = useCallback(async (nextMechanic = latest.current.mechanic, nextStates = latest.current.states, tick = false, restoreIndex: number | null = null) => {
     if (inFlight.current) return;
     const owner = ++request.current, alive = lifetime.current; inFlight.current = true; setBusy(true);
     try {
@@ -319,7 +347,8 @@ export function RepairLaborScreen({ repositories }: { repositories: Repositories
       const result = await repositories.labor.list({ mechanic: nextMechanic, states: nextStates.filter(row => row.checked).map(row => row.Codigo) });
       if (owner !== request.current || alive !== lifetime.current) return;
       if (result.kind !== "loaded") { setDiagnostic(result.kind); return; }
-      setOrders(result.orders); setSelection(result.orders.find(row => row.numero === number)?.id ?? result.orders.at(-1)?.id ?? null); setDiagnostic("");
+      setOrders(result.orders);
+      setSelection(restoreIndex !== null ? result.orders[restoreIndex]?.id ?? null : result.orders.find(row => row.numero === number)?.id ?? result.orders.at(-1)?.id ?? null); setDiagnostic("");
     } catch { if (owner === request.current && alive === lifetime.current) setDiagnostic("transport"); }
     finally { if (owner === request.current && alive === lifetime.current) { inFlight.current = false; setBusy(false); } }
   }, [repositories.labor]);
@@ -356,9 +385,10 @@ export function RepairLaborScreen({ repositories }: { repositories: Repositories
   const open = async (kind: NonNullable<typeof child>) => {
     if (busy || !selected?.numero) return;
     if (kind === "state" && selected.tipo === 2) { await message({ title: "Tempos de Reparação", text: "A reparação está a espera do início", type: 0 }); return; }
+    stateReturnIndex.current = kind === "state" ? orders.findIndex(row => row.id === selection) : null;
     setChild(kind);
   };
-  const finishChild = () => { setChild(null); void read(); };
+  const finishChild = () => { const kind = latest.current.child, restore = stateReturnIndex.current; stateReturnIndex.current = null; setChild(null); if (kind !== "info") void read(undefined, undefined, false, kind === "state" ? restore : null); };
   const list = controlOf(listLayout, "LIST_mecanicos"), selectedLabor = labor.find(row => row.id === laborSelection);
   return <div data-testid="WIN_Tempos_Reparacao" className="repair-labor-screen" onKeyDown={event => {
     if (event.key === "Escape" && !busy && !child && !(event.target instanceof Element && event.target.closest("dialog"))) close();

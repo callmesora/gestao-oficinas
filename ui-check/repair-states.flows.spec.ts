@@ -154,6 +154,7 @@ test("SRC-d7c408a29d SRC-dee1d17856 ordinary selector retains real maintenance, 
     await expect(list.getByTestId("BTN_anterior")).toHaveCount(0); await expect(list.getByTestId("BTN_seguinte")).toHaveCount(0); expect((await table.locator("tbody tr").first().boundingBox())!.height).toBe(19); await expect(table.locator("tbody tr")).toHaveCount((await rows(request, headers)).length);
     await list.getByTestId("Btn_New").click(); await form.getByTestId("EDT_Codigo").fill(code); await form.getByTestId("BTN_Validar").click(); await info(page, `Duplicação:  Este registo não pode ser gravado.\nCampo associado ao erro: Codigo\nValor do campo duplicado: ${code}`); await form.getByTestId("BTN_Cancelar").click(); await expect(picker).toBeVisible();
     await rowFor(page, table, code).dblclick(); await expect(picker).toHaveCount(0); await expect(page.getByTestId("repair-states-returned")).toHaveText(code);
+    await page.getByTestId("repair-states-select-open").click(); await rowFor(page, table, code).click(); await picker.getByTestId("BTN_selecionar").click(); await expect(picker).toHaveCount(0); await expect(page.getByTestId("repair-states-returned")).toHaveText(code);
     await page.getByTestId("repair-states-select-open").click(); await picker.getByTestId("BTN_Fechar").click(); await expect(page.getByTestId("repair-states-returned")).toHaveText("ORIGINAL");
     await page.getByTestId("repair-states-select-open").click(); await page.keyboard.press("Escape"); await expect(picker).toHaveCount(0); await expect(page.getByTestId("repair-states-returned")).toHaveText("ORIGINAL");
   } finally { await cleanup(request, headers, [original.id]); }
@@ -182,5 +183,21 @@ test("RULE-CE554DEA-011 actual form retains source geometry, real description as
     await form.getByTestId("EDT_Codigo").fill(code.slice(0, 1)); await expect(form.getByTestId("EDT_Codigo__suggestions")).toHaveCount(0); await form.getByTestId("EDT_Descricao").fill("Suggest"); await form.getByRole("option", { name: "Suggest repair d'Água", exact: true }).click(); await expect(form.getByTestId("EDT_Descricao")).toHaveValue("Suggest repair d'Água");
     const frame = page.getByTestId("repair-state-form-frame"), width = (await frame.boundingBox())!.width; await page.getByTestId("repair-state-form-frame-resize-e").press("ArrowRight"); expect((await frame.boundingBox())!.width).toBe(width + 8); await form.getByRole("radio", { name: "Teste", exact: true }).click(); await form.getByTestId("CBOX_NoName3").check(); await form.getByTestId("EDT_Descricao").focus(); await form.getByTestId("BTN_SYST_MINIMIZE").click(); await page.getByTestId("repair-state-form-restore").click(); await expect(form.getByTestId("EDT_Descricao")).toBeFocused(); await expect(form.getByRole("radio", { name: "Teste", exact: true })).toHaveAttribute("aria-checked", "true"); await expect(form.getByTestId("CBOX_NoName3")).toBeChecked(); await expect(form.getByTestId("EDT_Descricao")).toHaveValue("Suggest repair d'Água");
     await form.getByTestId("BTN_Cancelar").click(); await expect(list).toBeVisible(); await list.getByTestId("Btn_New").click(); expect((await frame.boundingBox())!.width).toBe(width + 8); await expect(form.getByTestId("CBOX_NoName3")).not.toBeChecked(); await expect(form.getByRole("radio", { name: "Recepção", exact: true })).toHaveAttribute("aria-checked", "true"); await page.keyboard.press("Escape"); await expect(form).toHaveCount(0);
+  } finally { await cleanup(request, headers, [original.id]); }
+});
+
+
+test("ADR-002 accepted optional description edits retain deliberate blank after a NULL opening baseline", async ({ page, request }) => {
+  const headers = await session(request), [code] = await codes(request, headers, 1), original = await seed(request, headers, values(code, { Descricao: null }));
+  const payloads: { values: { Descricao: string | null } }[] = [];
+  page.on("request", item => { if (item.url().endsWith("/api/repair-states/save")) payloads.push(item.postDataJSON()); });
+  try {
+    await open(page); const list = page.getByTestId("WIN_Table_estados_reparacao"), form = page.getByTestId("WIN_Form_estados_reparacao");
+    await rowFor(page, list.getByTestId("TABLE_estados_reparacao"), code).click(); await list.getByTestId("BTN_Modificar").click();
+    await expect(form.getByTestId("EDT_Descricao")).toHaveValue("");
+    await form.getByTestId("EDT_Descricao").fill("Accepted edit"); await form.getByTestId("EDT_Descricao").fill("");
+    await form.getByTestId("BTN_Validar").click(); await expect(form).toHaveCount(0);
+    expect(payloads.at(-1)!.values.Descricao).toBe("");
+    expect((await rows(request, headers)).find(row => row.id === original.id)!.Descricao).toBe("");
   } finally { await cleanup(request, headers, [original.id]); }
 });

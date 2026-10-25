@@ -29,3 +29,9 @@ it("RULE-C9675195-013 untouched oversized bound values, NULLs and exact identifi
     .toMatchObject({ kind: "values", values: { Ano: 65535, mes: null, marca: "Marca  ", Cliente: "9007199254740993", modelo: "Edited" } });
   expect(vehicleFormValues(text, { ...vehicle, marca: null }, {})).toEqual({ kind: "required", message: "Falta indicar a marca" });
 });
+
+it("SRC-0c045cf25e readonly uppercase display never changes the original edit registration predicate", () => {
+  const vehicle: Vehicle = { ...text, matricula: "ab-01-cd", id: "42", ViaturasID: "43", Ano: 2026, mes: 10 };
+  expect(vehicleFormValues({ ...text, matricula: "AB-01-CD" }, vehicle, { matricula: true }))
+    .toMatchObject({ kind: "values", values: { matricula: "ab-01-cd" } });
+});

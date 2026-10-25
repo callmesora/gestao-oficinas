@@ -19,6 +19,7 @@ test("SRC-0c045cf25e actual vehicle form validates in order, awaits real custome
   await page.getByTestId("WINDEVMESSAGEBOX").getByTestId("BTN_OK").click();
   await form.getByTestId("EDT_Matricula").fill(registration.toLowerCase());
   await validate.click(); await expect(page.getByTestId("LIB_INFO")).toHaveText("Falta indicar o cliente");
+  await expect(form.getByTestId("EDT_Matricula")).toHaveValue(registration.toLowerCase());
   await page.getByTestId("WINDEVMESSAGEBOX").getByTestId("BTN_OK").click();
   await form.getByTestId("BTN_VISION").click();
   const picker = page.getByTestId("customer-picker");
@@ -84,10 +85,11 @@ test("SRC-9ba7df099d query filter survives non-todos mode changes; duplicate and
   await expect(table.getByRole("row").filter({ hasText: registration })).toBeVisible();
   await list.getByTestId("Btn_New").click();
   const form = page.getByTestId("WIN_Form_Viaturas");
-  await form.getByTestId("EDT_Matricula").fill(registration); await form.getByTestId("COMBO_Codigo").selectOption(client.Codigo);
+  await form.getByTestId("EDT_Matricula").fill(registration.toLowerCase()); await form.getByTestId("COMBO_Codigo").selectOption(client.Codigo);
   await form.getByTestId("EDT_Marca").fill("Duplicate"); await form.getByTestId("EDT_Modelo").fill("Duplicate");
   await form.getByTestId("BTN_Validar").click();
   await expect(page.getByTestId("LIB_INFO")).toHaveText(`Duplicação:  Este registo não pode ser gravado.\nCampo associado ao erro: matricula\nValor do campo duplicado: ${registration}`);
+  await expect(form.getByTestId("EDT_Matricula")).toHaveValue(registration);
   await page.getByTestId("WINDEVMESSAGEBOX").getByTestId("BTN_OK").click(); await form.getByTestId("BTN_Cancelar").click();
   const row = table.getByRole("row").filter({ hasText: registration });
   await row.click(); await list.getByTestId("BTN_Delete").click();

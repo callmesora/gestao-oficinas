@@ -2,6 +2,8 @@
 
 Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Table_artigos.wdw`, `dossier: WIN_Table_artigos`, `docs/mapping/WIN_Table_artigos.md`. Source specification; bounded implementation contract below.
 
+Source684–687/930–940 search keyboard continuation: ArticlePicker/ArticleListScreen receive explicit `launchMode` and capture keyboard enablement only when selecting with literal `t` or `m`. Primary pointer down awaits the real Alpha keyboard with title Pesquisa, source mask/length and password=false; both Confirm and Cancel assign the returned text and execute the shared search-change handler, reapplying visible active/inactive flags. The ordinary selector and maintenance screens keep this source guard off. The DEV selector harness uses URL modulo; actual callers propagate their source launch mode. Native key/coercion and HFSQL coupling remain U01/U02/U03.
+
 ## Contract
 
 MIG-7K.1 ordinary core uses real authenticated API/PostgreSQL list/save/check-delete/delete and the shared table/selection/RAD primitives. Initialization is active-only; each mode click clears ALL effective filters and search text/focuses search while visible Ativo/Inativo flags remain unchanged. Only real term/checkbox changes reapply flags; todos ignores text, bothtrue includesNULL, active-onlyfalse/inactive-onlytrue. Turning one off forces the other on. Header sort/search retains the current effective filter independently from visible controls. Typed source artigosID/preco sort occurs before exact text transport; price seek uses raw canonical decimal strings and Boolean0/1/empty under ADR012/U02 defaults.

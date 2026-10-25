@@ -17,6 +17,7 @@ import { useTableLayout } from "./legacy/table-layout";
 import { DialogProvider, useDialogs } from "./legacy/dialogs";
 import { WdWorkspace, useWorkspace, useWorkspaceClose } from "./legacy/workspace";
 import { WdModal, type WdModalHandle } from "./legacy/modal";
+import { AlphaTouchKeyboardDialog } from "./touch-keyboard";
 
 // Only captions evidenced by the JPG differ from the generated source metadata (ADR-003/U01).
 const formCaptions: Record<string, string> = { EDT_Descricao: "Descrição", CBOX_Inativo: "Inativo" };
@@ -35,7 +36,7 @@ type FormText = { Codigo: string; Descricao: string; codbarras: string; unidade:
 function ArticleForm({ repository, article, descriptions, finish }: {
   repository: ArticleRepository; article: Article | null; descriptions: readonly string[]; finish: (saved: boolean) => void;
 }) {
-  const dialog = useRef<WdModalHandle>(null), pending = useRef(false), priceEdited = useRef(false);
+  const dialog = useRef<WdModalHandle>(null), pending = useRef(false), priceEdited = useRef(false), barcodeEdited = useRef(false);
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const [units, setUnits] = useState<Unit[]>([]), [inactive, setInactive] = useState<boolean | null>(() => article ? article.inativo : false);
   const { register, control, getValues, setValue, formState: { dirtyFields } } = useForm<FormText>({ defaultValues: {
@@ -59,7 +60,7 @@ function ArticleForm({ repository, article, descriptions, finish }: {
       const values: ArticleValues = {
         Codigo: text.Codigo,
         Descricao: article && !dirtyFields.Descricao ? article.Descricao : text.Descricao,
-        codbarras: article && !dirtyFields.codbarras ? article.codbarras : text.codbarras,
+        codbarras: article && !barcodeEdited.current ? article.codbarras : text.codbarras,
         unidade: article && !dirtyFields.unidade ? article.unidade : text.unidade,
         // Invalid drafts still reach the server AFTER its source barcode check (ADR-002/011).
         preco: article && !priceEdited.current ? article.preco : decimalMaskValue(priceMask, text.preco) ?? text.preco,
@@ -75,11 +76,12 @@ function ArticleForm({ repository, article, descriptions, finish }: {
     } catch { setDiagnostic("transport"); }
     finally { pending.current = false; setBusy(false); }
   };
-  const priceInput = register("preco");
+  const priceInput = register("preco"), barcodeInput = register("codbarras");
   const bindings: WdRadBinding[] = [
     { name: "EDT_Codigo", kind: "edit", props: { ...register("Codigo"), readOnly: article !== null, disabled: busy } },
     { name: "EDT_Descricao", kind: "edit", props: { ...register("Descricao"), disabled: busy, suggestions: descriptions, onSuggestion: value => setValue("Descricao", value, { shouldDirty: true }) } },
-    { name: "EDT_Codbaras", kind: "edit", props: { ...register("codbarras"), disabled: busy } },
+    // ADR-002: dirtyFields resets at the displayed NULL baseline; accepted edits have modal lifetime.
+    { name: "EDT_Codbaras", kind: "edit", props: { ...barcodeInput, onChange: event => { barcodeEdited.current = true; void barcodeInput.onChange(event); }, disabled: busy } },
     { name: "COMBO_Unidade", kind: "combo", props: { options: unitOptions, value: unit, onChange: value => setValue("unidade", value, { shouldDirty: true }), disabled: busy } },
     { name: "EDT_Preco", kind: "edit", props: { ...priceInput, onChange: event => { priceEdited.current = true; void priceInput.onChange(event); }, decimalMask: true, disabled: busy } },
     { name: "CBOX_Inativo", kind: "checkbox", props: { checked: inactive, onChange: setInactive, disabled: busy } },
@@ -94,7 +96,7 @@ function ArticleForm({ repository, article, descriptions, finish }: {
   </WdModal>;
 }
 
-export function ArticleListScreen({ repository, selecting = false, finish }: { repository: ArticleRepository; selecting?: boolean; finish?: (code?: string) => void }) {
+export function ArticleListScreen({ repository, selecting = false, launchMode, finish }: { repository: ArticleRepository; selecting?: boolean; launchMode?: string; finish?: (code?: string) => void }) {
   const report = useListReportPreview("RPT_List_artigos");
   const close = useWorkspaceClose(finish ? () => finish() : undefined), { resource, message } = useDialogs();
   const [mode, setMode] = useState<ArticleList["mode"]>("todos"), [term, setTerm] = useState(""), [active, setActive] = useState(true), [inactive, setInactive] = useState(false);
@@ -102,6 +104,9 @@ export function ArticleListScreen({ repository, selecting = false, finish }: { r
   const [rows, setRows] = useState<Article[]>([]), [selection, setSelection] = useState<string | null>(null), [diagnostic, setDiagnostic] = useState("");
   const [loaded, setLoaded] = useState<{ query: ArticleList; refresh: number } | null>(null), [form, setForm] = useState<{ article: Article | null } | null>(null);
   const [busy, setBusy] = useState(false), pending = useRef(false), readOwner = useRef(0), search = useRef<HTMLInputElement>(null);
+  // WIN_Table_artigos930–940 captures lTeclado only when this selector opens in t/m.
+  const [touchSearch] = useState(() => selecting && (launchMode === "t" || launchMode === "m"));
+  const [keyboard, setKeyboard] = useState<{ original: string } | null>(null);
   const columnSearch = useRef<{ key: NonNullable<ArticleList["sort"]>; term: string } | null>(null), focused = useRef(false), screen = useRef<HTMLDivElement>(null);
   const settings = useTableLayout(table, "WIN_Table_artigos/TABLE_artigos");
   useEffect(() => () => { readOwner.current++; }, []);
@@ -167,7 +172,11 @@ export function ArticleListScreen({ repository, selecting = false, finish }: { r
     {report.element}
     <WdButton control={{ ...controlOf(listLayout, "BTN_Fechar"), ...(selecting ? { y: 503, height: 38 } : {}) }} disabled={busy} onClick={close} />
     {modeButton("todos")}
-    <WdEdit control={controlOf(listLayout, "EDT_termo_pesquisa")} ref={search} disabled={busy} value={term} onChange={event => applyChange(event.currentTarget.value)} />
+    <WdEdit control={controlOf(listLayout, "EDT_termo_pesquisa")} ref={search} disabled={busy} value={term} onChange={event => applyChange(event.currentTarget.value)} onPointerDown={event => {
+      // Source684–687 awaits the keyboard, assigns even its cancellation result, then runs trtChange.
+      if (!touchSearch || pending.current || event.button !== 0) return;
+      event.preventDefault(); pending.current = true; setBusy(true); setKeyboard({ original: term });
+    }} />
     {modes.slice(1).map(modeButton)}
     <WdButton control={{ ...controlOf(listLayout, "BTN_selecionar"), visible: selecting }} disabled={!ready || busy} onClick={() => { if (current) choose(current); }} />
     <WdButton control={{ ...controlOf(listLayout, "BTN_anterior"), visible: selecting }} disabled={!ready || busy} onClick={() => move(-1)} />
@@ -175,13 +184,16 @@ export function ArticleListScreen({ repository, selecting = false, finish }: { r
     <WdCheckbox control={controlOf(listLayout, "CBOX_ativo")} checked={active} disabled={busy} onChange={value => applyChange(term, value, value ? inactive : true)} />
     <WdCheckbox control={controlOf(listLayout, "CBOX_inativo")} checked={inactive} disabled={busy} onChange={value => applyChange(term, value ? active : true, value)} />
     {form && <ArticleForm repository={repository} article={form.article} descriptions={rows.flatMap(row => row.Descricao === null ? [] : [row.Descricao])} finish={saved => { const editing = form.article !== null; setForm(null); if (saved || editing) setRefresh(value => value + 1); }} />}
+    {keyboard && <AlphaTouchKeyboardDialog options={{ title: "Pesquisa", inputMask: controlOf(listLayout, "EDT_termo_pesquisa").input_mask, maxLength: controlOf(listLayout, "EDT_termo_pesquisa").input_size, value: keyboard.original, password: false }} finish={value => {
+      setKeyboard(null); pending.current = false; setBusy(false); applyChange(value); search.current?.focus();
+    }} />}
     {diagnostic && <output data-testid="article-list-diagnostic">{diagnostic}</output>}
   </div></div>;
 }
 
-export function ArticlePicker({ repository, origin, finish }: { repository: ArticleRepository; origin: string; finish: (code: string) => void }) {
+export function ArticlePicker({ repository, origin, launchMode, finish }: { repository: ArticleRepository; origin: string; launchMode?: string; finish: (code: string) => void }) {
   const dialog = useRef<WdModalHandle>(null), close = (code: string = origin) => { dialog.current?.close(); finish(code); };
-  return <WdModal ref={dialog} layout={listLayout} instance="article-picker-frame" testId="article-picker" restoreTestId="article-picker-restore" onClose={() => close()}><ArticleListScreen repository={repository} selecting finish={close} /></WdModal>;
+  return <WdModal ref={dialog} layout={listLayout} instance="article-picker-frame" testId="article-picker" restoreTestId="article-picker-restore" onClose={() => close()}><ArticleListScreen repository={repository} selecting launchMode={launchMode} finish={close} /></WdModal>;
 }
 function ArticleLauncher({ repository }: { repository: ArticleRepository }) {
   const { open } = useWorkspace();
@@ -194,7 +206,7 @@ export default function ArticlesWorkflow() {
   return <DialogProvider><main className="workspace-fixture customer-workflow" style={{ "--customer-workspace-height": `${listLayout.window.size.height}px` } as CSSProperties}>
     <aside data-testid="workflow-environment">Desenvolvimento isolado — API e PostgreSQL reais. {failed && "dev:workflows indisponível"}</aside>
     <WdWorkspace>{repository && (directSelector ? <button data-testid="articles-select-open" onClick={() => setPickerOpen(true)}>{listLayout.window.title}</button> : <ArticleLauncher repository={repository} />)}
-      {repository && pickerOpen && <ArticlePicker repository={repository} origin={params.get("origin") ?? ""} finish={code => { setReturned(code); setPickerOpen(false); }} />}
+      {repository && pickerOpen && <ArticlePicker repository={repository} origin={params.get("origin") ?? ""} launchMode={params.get("modulo") ?? undefined} finish={code => { setReturned(code); setPickerOpen(false); }} />}
     </WdWorkspace>
     {returned !== null && <output data-testid="articles-returned">{returned}</output>}
   </main></DialogProvider>;

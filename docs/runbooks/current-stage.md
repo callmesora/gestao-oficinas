@@ -1,12 +1,12 @@
-# Current stage — consolidate initial screen breadth
+# Current stage — complete and verify screen families
 
-MIG11/12/13 initial implementation is integrated on local main over 258b9aa, macOS arm64. Root owns integration/shared tracking; no push. All 51 application windows and 28 reports have initial paths; shared built-in dialogs remain in use. Isolated stock/startup/report writers are finished. Full verification (443 TS/9 Rust/237 browser) and Mac bundle/import/menu smoke passed; details stay in the rolling handoff.
+MIG7/9/10/11/12/13 follow-through on main over f41c4e6, macOS arm64. Root owns shared tracking/integration and native startup arguments; no push. All51 windows/28reports have initial paths, with whole-window/native/U acceptance still open. Available isolated writers own repair/labor, report families/runtime and persistent authentication/startup. Existing frozen master-data/material/stock fixes are integrated; full verification is running before the next commit.
 
 Next bounded work follows actual defects and existing U/spec obligations:
 
-- Consolidate repeated screen bindings/query adapters only where multiple real consumers establish the pattern. Keep metadata generation, shared controls and one reporting engine.
+- Complete source continuations, NULL editing, live reads and keyboard behavior using existing controls; promote only exact source events after the five parity criteria.
 - Exercise the full demo through real menu workflows; fix reproducible data/layout/cancellation failures without silently changing source quirks. Document unresolved differences in existing specs.
-- Production access/session/bootstrap/updater and packaged business entry remain MIG12 work. Preserve the explicit development entry and current authorization boundaries.
+- Deliver ADR004 persistent access/session/enrollment and packaged business entry; preserve explicit development access and keep updater/INI/native gates named.
 - Packaged Chromium/fonts, native preview/download/printing, scanner configured-path/encoding and Windows/macOS device/window acceptance need their actual host/runtime evidence.
 - Resolve report source/designer/Resumo assumptions and repair Information locking from evidence; no invented behavior or automatic parity promotion. Reconcile 17 historical table aggregate/per-unit differences separately.
 

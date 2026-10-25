@@ -1,5 +1,7 @@
 # Screen spec — WIN_Teclado_Alfa
 
+Completion: actual browser flows now check every source character button, explicit focus, caps colors, accent branches and confirm/cancel returns. Narrow click events are verified; mask/coercion/native/U and broad helper claims remain separate. The actual dialog passes unchanged visual floors on macOS (97.0pixel/88.8edge); runtime caption/glyph overlays and3px client inset follow ADR003.
+
 Evidence `legacy/GestaoOficinas_TesteIA/WIN_WIN_Teclado.wdw`, `dossier: WIN_Teclado_Alfa`, `docs/mapping/WIN_Teclado_Alfa.md`. Step 0 only.
 
 ## Contract
@@ -209,4 +211,4 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 
 ## Initial implementation checkpoint
 
-Initial reusable implementation: `AlphaTouchKeyboardDialog`/`TouchKeyboardDialog` use the generated source layout/assets and pure `alphaKeyboardWrite`. Preserve append-to-original, three caps states and one-shot uppercase, source's limited A/E/I accent cases (tilde only A), clear/delete, physical comma→semicolon, original-on-cancel, password and nomepasta-disabled keys. `finish` returns the actual caller string. New character limits are enforced without truncating loaded originals; arbitrary WINDEV input-mask coercion, native encoded physical codes/IME and exact typography remain U05/U02/U01. The title-bar-free modal supplies a hidden zero-size accessibility title for the shared frame. Actual two-cell background strips use the accepted0/1/1/0/0 state fallback; JPG-backed touch font/color overrides are target visual defaults. Pure state and actual touch/physical browser tests passed; all U items remain open.
+Initial reusable implementation: `AlphaTouchKeyboardDialog`/`TouchKeyboardDialog` use the generated source layout/assets and pure `alphaKeyboardWrite`. Preserve append-to-original, three caps states and one-shot uppercase, source's limited A/E/I accent cases (tilde only A), clear/delete, physical comma→semicolon, original-on-cancel, password and nomepasta-disabled keys. `finish` returns the actual caller string, with optional-to-consume `{confirmed,edited}` metadata for lossless nullable callers (ADR002). The development harness's data-confirmed/data-edited output attributes are non-legacy test observations. New character limits are enforced without truncating loaded originals; arbitrary WINDEV input-mask coercion, native encoded physical codes/IME and exact typography remain U05/U02/U01. The title-bar-free modal supplies a hidden zero-size accessibility title for the shared frame. Actual two-cell background strips use the accepted0/1/1/0/0 state fallback; JPG-backed touch font/color overrides are target visual defaults. Pure state and actual touch/physical browser tests passed; all U items remain open.

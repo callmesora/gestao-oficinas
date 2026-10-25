@@ -67,7 +67,7 @@ it("SRC-ccd6dd9cc2/SRC-91067de207 load raw dates/NULL/decimals and prefer barcod
 
 it("SRC-08f76d0b2c/SRC-24e17a93a6 mechanic inactive, cancellation and exact password cases remain distinct with public replies", async () => {
   expect(await authenticateRepairMaterialMechanic(connect, { code: 8, password: "" })).toEqual({ kind: "inactive" });
-  expect(await authenticateRepairMaterialMechanic(connect, { code: 7, password: "" })).toEqual({ kind: "cancelled" });
+  expect(await authenticateRepairMaterialMechanic(connect, { code: 7, password: "" })).toEqual({ kind: "cancelled", mechanic: { Codigo: 7, Descricao: "Mecânico  ", inativo: false } });
   expect(await authenticateRepairMaterialMechanic(connect, { code: 7, password: "CASE' " })).toEqual({ kind: "incorrect" });
   expect(await authenticateRepairMaterialMechanic(connect, { code: 7, password: "CaSe' " })).toEqual({ kind: "authenticated", mechanic: { Codigo: 7, Descricao: "Mecânico  ", inativo: false } });
   const draft = await command(); draft.rows.push(payload(newLine()));
@@ -156,4 +156,23 @@ it("SRC-2a6708ad6f/SRC-26d646dccd actual material-list query preserves source jo
   expect(await listRepairMaterials(connect, { restricted: false })).toMatchObject({ kind: "loaded", orders: [{ numero: scenario.order }] });
   await database.query('UPDATE app."estados_reparacao" SET "lancar_material"=FALSE');
   expect(await listRepairMaterials(connect, { restricted: false })).toMatchObject({ kind: "loaded", orders: [] });
+});
+
+
+it("SRC-5b7c9d17d1 read refuses a competing writer before editing, releases successful launch locks and observes current public mechanic changes", async () => {
+  const blocker = await connect();
+  try {
+    await blocker.query("BEGIN"); await blocker.query('SELECT 1 FROM app."ordem_reparacao" WHERE _row_id=1 FOR UPDATE');
+    expect(await readRepairMaterials(connect, { orderId: "1" })).toEqual({ kind: "inUse" });
+  } finally { await blocker.query("ROLLBACK"); await blocker.end(); }
+  expect(await readRepairMaterials(connect, { orderId: "1" })).toMatchObject({ kind: "loaded", document: { numero: scenario.order } });
+  const next = await connect();
+  try {
+    await next.query("BEGIN");
+    expect((await next.query('SELECT _row_id FROM app."ordem_reparacao" WHERE _row_id=1 FOR UPDATE NOWAIT')).rowCount).toBe(1);
+  } finally { await next.query("ROLLBACK"); await next.end(); }
+  await database.query('UPDATE app."mecanicos" SET "Descricao"=$1 WHERE "Codigo"=7', ["Renomeado"]);
+  expect(await authenticateRepairMaterialMechanic(connect, { code: 7, password: "" })).toEqual({ kind: "cancelled", mechanic: { Codigo: 7, Descricao: "Renomeado", inativo: false } });
+  await database.query('UPDATE app."mecanicos" SET "inativo"=TRUE WHERE "Codigo"=7');
+  expect(await authenticateRepairMaterialMechanic(connect, { code: 7, password: "" })).toEqual({ kind: "inactive" });
 });

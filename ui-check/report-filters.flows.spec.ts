@@ -118,3 +118,40 @@ test("date blocking keeps the invalid material draft and allows a corrected prev
   await preview(page, screen, "BTN_Visualizar_impressão", "RPT_Consumo_Material_Descriminado_Ordens");
   expect(requests).toBe(1);
 });
+
+test("source material lower and upper pickers preserve distinct unconditional cancel continuations in every source plane", async ({ page, reportFiltersServer }) => {
+  for (const mode of ["resumo", "descriminado", "resumo_viatura", "descriminado_viatura"] as const) {
+    const screen = await start(page, reportFiltersServer.origin, `report-filter-material-${mode}`, "WIN_Filtro_Mapas_Artigos");
+    const vehicle = mode.endsWith("viatura"), suffix = vehicle ? "1" : mode === "descriminado" ? "2" : "";
+    const lower = vehicle ? "BTN_VISION4" : mode === "descriminado" ? "BTN_VISION8" : "BTN_VISION6";
+    const upper = vehicle ? "BTN_VISION3" : mode === "descriminado" ? "BTN_VISION7" : "BTN_VISION5";
+    const from = screen.getByTestId(`EDT_Do_artigo${suffix}`), to = screen.getByTestId(`EDT_Ao_artigo${suffix}`), picker = page.getByTestId("article-picker");
+    await from.fill("A"); await to.fill("Z"); await screen.getByTestId(lower).click(); await picker.getByTestId("BTN_Fechar").click();
+    await expect(from).toHaveValue("A"); await expect(to).toHaveValue("A");
+    await from.fill("B"); await to.fill("Z"); await screen.getByTestId(upper).click();
+    await picker.getByTestId("TABLE_artigos").getByRole("row").filter({ hasText: "ARTIGO FILTROS" }).click(); await picker.getByTestId("BTN_selecionar").click();
+    await expect(from).toHaveValue("B"); await expect(to).toHaveValue("A");
+    await to.fill("Z"); await screen.getByTestId(upper).click(); await picker.getByTestId("BTN_Fechar").click();
+    await expect(from).toHaveValue("B"); await expect(to).toHaveValue("Z");
+    if (vehicle) {
+      await screen.getByTestId("EDT_Da_viatura").fill("AA-00-AA"); await screen.getByTestId("EDT_a_viatura").fill("ZZ"); await screen.getByTestId("BTN_VISION1").click();
+      await page.getByTestId("vehicle-picker").getByTestId("BTN_Fechar").click(); await expect(screen.getByTestId("EDT_a_viatura")).toHaveValue("AA-00-AA");
+      await screen.getByTestId("EDT_Da_viatura").fill("BB"); await screen.getByTestId("BTN_VISION2").click();
+      const vehicles = page.getByTestId("vehicle-picker"); await vehicles.getByTestId("TABLE_Viaturas").getByRole("row").filter({ hasText: "AA-00-AA" }).click(); await vehicles.getByTestId("BTN_selecionar").click();
+      await expect(screen.getByTestId("EDT_Da_viatura")).toHaveValue("BB"); await expect(screen.getByTestId("EDT_a_viatura")).toHaveValue("AA-00-AA");
+    }
+  }
+});
+
+test("source labor upper pickers change only upper values and lower cancellation reassigns each nonzero origin", async ({ page, reportFiltersServer }) => {
+  for (const mode of ["mecanico_descriminado", "mecanico_resumo", "viatura"] as const) {
+    const screen = await start(page, reportFiltersServer.origin, `report-filter-labor-${mode}`, "WIN_Filtro_Mapas_Tempos"), vehicle = mode === "viatura";
+    const from = screen.getByTestId(vehicle ? "EDT_Da_viatura" : "EDT_Do_mecanico"), to = screen.getByTestId(vehicle ? "EDT_a_viatura" : "EDT_Ao_mecanico");
+    const lower = vehicle ? "BTN_VISION1" : "BTN_VISION4", upper = vehicle ? "BTN_VISION2" : "BTN_VISION3", id = vehicle ? "vehicle-picker" : "mechanic-picker";
+    await from.fill(vehicle ? "AA-00-AA" : "7"); await to.fill(vehicle ? "ZZ" : "9"); await screen.getByTestId(lower).click(); await page.getByTestId(id).getByTestId("BTN_Fechar").click();
+    await expect(to).toHaveValue(vehicle ? "AA-00-AA" : "7");
+    await from.fill(vehicle ? "BB" : "8"); await to.fill(vehicle ? "ZZ" : "9"); await screen.getByTestId(upper).click();
+    const picker = page.getByTestId(id); await picker.getByTestId(vehicle ? "TABLE_Viaturas" : "TABLE_mecanicos").getByRole("row").filter({ hasText: vehicle ? "AA-00-AA" : "MECÂNICO FILTROS" }).click(); await picker.getByTestId("BTN_selecionar").click();
+    await expect(from).toHaveValue(vehicle ? "BB" : "8"); await expect(to).toHaveValue(vehicle ? "AA-00-AA" : "7");
+  }
+});

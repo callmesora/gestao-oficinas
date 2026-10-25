@@ -2,8 +2,8 @@ import type { Page } from "@playwright/test";
 import type { Client } from "pg";
 import { test, expect } from "./support/repair-materials";
 
-async function open(page: Page, origin: string) {
-  await page.goto(`${origin}/?workflow=repair-materials`);
+async function open(page: Page, origin: string, modulo?: string) {
+  await page.goto(`${origin}/?workflow=repair-materials${modulo ? `&modulo=${modulo}` : ""}`);
   await page.getByTestId("repair-materials-open").click();
   await page.getByTestId("TABLE_ordens_reparacao").getByRole("cell", { name: "9007199254740993", exact: true }).click();
   await page.getByTestId("BTN_Material").click();
@@ -27,6 +27,20 @@ async function passwordKeyboard(page: Page) {
   await prompt.getByTestId("BTN_Confirmar").click();
 }
 const content = "BAR-B 2.25\r\nWHAT  1.00\r\n\r\nBAR   9.99";
+
+test("source material caller carries module m into the actual article picker and awaits its search keyboard result", async ({ page, materialServer }) => {
+  const form = await open(page, materialServer.origin, "m");
+  await form.getByTestId("BTN_NoName2").click();
+  const picker = page.getByTestId("article-picker"), search = picker.getByTestId("EDT_termo_pesquisa");
+  await picker.getByTestId("BTN_codigo").click(); await search.click();
+  const keyboard = page.getByTestId("WIN_Teclado_Alfa"); await expect(keyboard).toBeVisible();
+  await keyboard.getByTestId("BTN_CapsLock").click(); await keyboard.getByTestId("BTN_b").click();
+  await keyboard.getByTestId("BTN_confirmar").click(); await expect(search).toHaveValue("B");
+  const row = picker.getByTestId("TABLE_artigos").locator("tbody tr").filter({ has: page.getByRole("cell", { name: "B", exact: true }) });
+  await expect(row).toHaveCount(1); await row.dblclick(); await expect(picker).toHaveCount(0);
+  await expect(form.getByTestId("EDT_artigo")).toHaveValue("B");
+  await expect(form.getByTestId("EDT_artigo_descricao")).toHaveValue("Outro");
+});
 
 test("SRC-517e7660ea SRC-a5152a0572 active prompt mouse actions await actual numeric/alpha keyboards; commented material handlers stay inert", async ({ page, materialServer, materialDatabase }) => {
   const form = await open(page, materialServer.origin), errors: string[] = []; page.on("pageerror", error => errors.push(error.message));

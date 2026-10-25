@@ -61,6 +61,9 @@ test("SRC-31858cfb4d SRC-b4f27ecae7 SRC-c6c8dfb543 actual selector hides writes,
   await page.getByTestId("descriptive-states-select-open").click();
   const view = page.getByTestId("WIN_Table_estados_descritivos"), table = view.getByTestId("TABLE_estados_descritivos");
   await expect(view.getByTestId("BTN_selecionar")).toBeFocused();
+  const frameBounds = (await page.getByTestId("descriptive-state-picker").locator(".wd-frame").boundingBox())!;
+  const closeBounds = (await view.getByTestId("BTN_Fechar").boundingBox())!;
+  expect(closeBounds.y - frameBounds.y).toBe(506); expect(closeBounds.height).toBe(38);
   for (const id of ["Btn_New", "BTN_Modificar", "BTN_Delete", "BTN_Imprimir"]) await expect(view.getByTestId(id)).toBeHidden();
   const rowFor = (description: string) => table.getByRole("row").filter({ has: page.getByRole("cell", { name: description, exact: true }) });
   const first = rowFor(ordered[0].Descricao), last = rowFor(ordered.at(-1).Descricao);

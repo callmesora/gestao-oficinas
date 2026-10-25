@@ -1,7 +1,7 @@
 import { useListReportPreview } from "./report-callers";
 import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import { useForm, useWatch } from "react-hook-form";
-import type { Vehicle, VehicleFilter, VehicleListRow } from "../../packages/domain/src/vehicles";
+import { vehicleUppercase, type Vehicle, type VehicleFilter, type VehicleListRow } from "../../packages/domain/src/vehicles";
 import type { Customer } from "../../packages/domain/src/customers";
 import type { VehicleRepository } from "../application/vehicles";
 import type { CustomerRepository } from "../application/customers";
@@ -68,6 +68,8 @@ function VehicleForm({ repositories, vehicle, initialRegistration = "", finish }
       if (draft.kind === "required") { await message({ title: formLayout.window.title, text: draft.message, type: 0 }); return; }
       if (draft.kind === "invalid_numeric") { setDiagnostic(draft.kind); return; }
       const values = draft.values;
+      // WIN_Form_Viaturas.wdw:50 changes the visible draft before persistence, including refusal.
+      setValue("matricula", vehicleUppercase(values.matricula), { shouldDirty: true });
       const result = await repositories.vehicles.save(vehicle ? { mode: "update", originalRegistration: vehicle.matricula!, values } : { mode: "create", values });
       if (result.kind === "saved") { pending.current = false; close(true); }
       else if (result.kind === "required" || result.kind === "duplicate") await message({ title: formLayout.window.title, text: result.message, type: result.kind === "duplicate" ? 1 : 0 });

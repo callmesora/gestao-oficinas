@@ -109,7 +109,7 @@ export function MaterialReportFilter({ mode, repositories, context, today, onPre
       const range = dates.read(); if (!range) return;
       void caller.run(materialReportDispatch(mode, { ...range, articleFrom: article.from, articleTo: article.to, description, orders, stockOut, vehicleFrom: vehicle.from, vehicleTo: vehicle.to }, context));
     }} />
-    {picker?.kind === "article" && <ArticlePicker repository={repositories.articles} origin={picker.origin} finish={selected => { setArticle(previous => reportPickerRange(previous.from, previous.to, selected, picker.lower)); setPicker(null); }} />}
+    {picker?.kind === "article" && <ArticlePicker launchMode={new URLSearchParams(window.location.search).get("modulo") ?? undefined} repository={repositories.articles} origin={picker.origin} finish={selected => { setArticle(previous => reportPickerRange(previous.from, previous.to, selected, picker.lower)); setPicker(null); }} />}
     {picker?.kind === "vehicle" && <VehiclePicker repositories={repositories} origin={picker.origin} finish={selected => { setVehicle(previous => reportPickerRange(previous.from, previous.to, selected, picker.lower)); setPicker(null); }} />}
     {caller.diagnostic && <output data-testid="report-filter-diagnostic">{caller.diagnostic}</output>}
   </FilterBody>;

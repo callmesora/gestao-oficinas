@@ -2,9 +2,9 @@
 
 WINDEV/HFSQL workshop application migration workspace.
 
-Local development now supports Windows and macOS. For this Mac's prepared source evidence, exact runtimes, temporary SQLite data and launch commands, read [setup/LOCAL-WORKSPACE.md](setup/LOCAL-WORKSPACE.md). Current migration status is in the handoff; the early foundation summary below is historical.
+Local development supports Windows and macOS. For prepared source evidence, exact runtimes, temporary SQLite data and launch commands, read [setup/LOCAL-WORKSPACE.md](setup/LOCAL-WORKSPACE.md). Current delivery and remaining work are in the [handoff](docs/runbooks/handoff.md).
 
-**Step 0 evidence/mapping complete; full migration authorized. Framing is recorded; foundation has local verification and native IPC smoke evidence. Business slices remain unmigrated.**
+All51 business windows and28 reports have initial paths. Completion is measured by verified source behaviors in the [dashboard](docs/progress/index.html); partial implementations, native acceptance and unresolved evidence remain visible.
 
 - [Step 0 results and remaining questions](docs/runbooks/step0-report.md)
 - [Handoff and next-session instructions](docs/runbooks/handoff.md)
@@ -13,7 +13,7 @@ Local development now supports Windows and macOS. For this Mac's prepared source
 - [Data profile](docs/data/profile.md) and [export verification](docs/data/export-verification.json)
 - [Progress dashboard](docs/progress/index.html)
 
-The original WINDEV project, dossier, HFSQL data, Python environment and raw extraction cache stay local and ignored. This repository contains the tools, specifications, source fingerprints, review findings and behavior-parity matrix. Source evidence confidence is separate from implemented/tested target behavior: no behavior is marked implemented or verified yet.
+Original WINDEV evidence, databases, environments and extraction caches stay local and ignored. Source evidence confidence is separate from implemented/tested target behavior.
 
 Follow [ROADMAP.md](ROADMAP.md) in dependency order. Accepted framing defaults are in [docs/decisions](docs/decisions); current state is in the handoff. The target uses Windows Tauri with a shared TypeScript API/PostgreSQL by default; deployed topology still needs confirmation.
 
@@ -21,7 +21,7 @@ From a local checkout with the private legacy inputs:
 
 ```powershell
 . .\setup\Enter-Prerequisites.ps1
-python scripts/verify_step0.py
+python scripts/parity_check.py docs/parity/parity.csv --seed docs/parity/parity-seed.csv --check-files
 python -m unittest discover -s tests -v
 ```
 
@@ -38,4 +38,4 @@ npm run tauri -- build --debug --no-bundle
 npm run native:check
 ```
 
-`npm run dev` shows an explicitly labelled browser preview with simulated native metadata. It is a temporary foundation diagnostic, not a migrated legacy window. `npm run native:check` uses Playwright with the built app’s actual WebView2 and Rust command. Schema/import, skin kit and business workflows follow the roadmap.
+`npm run dev` without a workflow still shows the foundation diagnostic. Use the imported menu commands in the local setup guide for working business screens. Persistent authenticated packaged startup is the active MIG12 slice. `npm run native:check` exercises the built Windows WebView2 app separately from browser checks.

@@ -59,6 +59,8 @@ recepcao_datahora ASC
 
 Parameter names listed by the parser: ParamAData, ParamDaData. SQL placeholders are authoritative evidence of additional names; argument order must follow caller/designer rather than this sorted list. U-R26-03.
 
+The target preserves source mechanic key ASC then reception DateTime ASC using ADR002 comparison keys before the existing subtotal events. Compact14/17 and spaced23 values retain their exact raw output; no hidden summary body or new aggregation is inferred.
+
 Sort/filter/join semantics are the literal WHERE/ORDER BY above. No implicit sort is added when SQL has no ORDER BY. Omitted/null parameter condition removal is a WLanguage trap requiring U-R26-03.
 
 ## Bands

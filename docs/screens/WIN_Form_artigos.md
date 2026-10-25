@@ -2,6 +2,8 @@
 
 Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Form_artigos.wdw`, `dossier: WIN_Form_artigos`, `docs/mapping/WIN_Form_artigos.md`. Source specification; bounded implementation contract below.
 
+Optional barcode editing follows ADR002: preserve untouched NULL, track every accepted input or suggestion through the modal lifetime, and send an explicit empty string after NULL→text→blank. Focus, blur and rejected input do not mark an edit. The actual browser/save/API/PostgreSQL regression asserts both the submitted empty string and its stored value.
+
 ## Contract
 
 MIG-7K.1 ordinary core uses the real authenticated Artigos API/PostgreSQL, existing Unidades endpoint and shared WdRadControls. Form entry freezes the current cached row (or new zero-price/stock/false-inactive draft); async options never reset inputs. Existing Codigo is immutable. Save sends exactly six writable fields and the selected internal identity on update, preserving automatic ID/provenance and CURRENT DB stock. Readonly stock never enters the command. Required Code→description→unit precedes nonempty barcode query, then decimal grammar/write; literal update Codigo<> predicate, exact Info/duplicate Error and rollback defaults are ADR002/011. NULL description/unit display blank and remain required; untouched nullable barcode/price/flag stay NULL.

@@ -2,6 +2,8 @@
 
 Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Form_documentos.wdw`, `dossier: WIN_Form_documentos`, `docs/mapping/WIN_Form_documentos.md`. Bounded implementation: MIG-7J.1; full runtime/native acceptance remains open.
 
+Optional description editing follows ADR002: preserve untouched NULL, track every accepted input or suggestion through the modal lifetime, and send an explicit empty string after NULL→text→blank. Focus, blur and rejected input do not mark an edit. The actual browser/save/API/PostgreSQL regression asserts both the submitted empty string and its stored value.
+
 ## Contract
 
 MIG-7J.1 uses the shared metadata-driven `WdRadControls` and `WdRadio` with explicit source-order bindings. New stock=1/checkbox=false; only exact empty Codigo is required, existing Codigo is immutable, Descricao is optional and exact text/spaces are retained. Untouched nullable description/byte/checkbox values survive unrelated saves; byte0/255/NULL remain unselected until an actual radio choice. Save code is non-null text3; nullable imported read code remains visible without silent repair. ADR003/011 define these boundary defaults; source automatic ID/provenance stay intact under selected internal identity. No mechanic-required business guard is inferred from the caption.

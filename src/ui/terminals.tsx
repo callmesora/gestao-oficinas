@@ -28,6 +28,7 @@ export function TerminalForm({ repository, fileContext, terminal, codes, finish 
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const { message } = useDialogs();
   const buffer = useRef(terminal), afterSeek = useRef(false);
+  const acceptedTextEdits = useRef<Partial<Record<"Descricao" | "pasta_localizacao" | "nome_ficheiro", boolean>>>({});
   const defaults = Object.fromEntries(Object.keys(fieldControls).map(key => [key, terminal ? String(terminal[key as keyof TerminalValues] ?? "") : positionFields.includes(key as typeof positionFields[number]) ? "0" : ""])) as FormText;
   const { register, getValues, setValue, formState: { dirtyFields } } = useForm<FormText>({ defaultValues: defaults });
   const close = (saved = false) => { if (!pending.current) { dialog.current?.close(); finish(saved); } };
@@ -39,7 +40,7 @@ export function TerminalForm({ repository, fileContext, terminal, codes, finish 
       const values = { Codigo: text.Codigo, Descricao: text.Descricao, pasta_localizacao: text.pasta_localizacao, nome_ficheiro: text.nome_ficheiro } as TerminalValues;
       const required = terminalRequiredMessage(values);
       if (required) { await message({ title: formTitle, text: required, type: 0 }); return; }
-      for (const key of ["Descricao", "pasta_localizacao", "nome_ficheiro"] as const) if (terminal && !dirtyFields[key]) values[key] = terminal[key];
+      for (const key of ["Descricao", "pasta_localizacao", "nome_ficheiro"] as const) if (terminal && !acceptedTextEdits.current[key]) values[key] = terminal[key];
       for (const key of positionFields) {
         if (terminal && !dirtyFields[key]) values[key] = terminal[key];
         else {
@@ -65,6 +66,8 @@ export function TerminalForm({ repository, fileContext, terminal, codes, finish 
       if (positioned.kind !== "positioned") { setDiagnostic(positioned.kind); return; }
       if (positioned.terminal) { buffer.current = positioned.terminal; afterSeek.current = true; fileContext.position(positioned.terminal.id); }
       const selected = await selectTerminalFolder(buffer.current?.pasta_localizacao ?? "");
+      // Source296–299 assigns the actual chooser result even when cancellation returns empty text.
+      acceptedTextEdits.current.pasta_localizacao = true;
       setValue("pasta_localizacao", selected, { shouldDirty: true });
     } catch (error) { setDiagnostic(error instanceof Error && error.message === "native_only" ? "native_only" : "folder_failed"); }
     finally { pending.current = false; setBusy(false); }
@@ -75,8 +78,15 @@ export function TerminalForm({ repository, fileContext, terminal, codes, finish 
       if (event.key === "Enter" && !(event.target instanceof HTMLButtonElement)) { event.preventDefault(); void save(); }
     }}>
       <div data-testid="SC_Form" style={{ display: "contents" }}>
-        {(Object.keys(fieldControls) as (keyof TerminalValues)[]).map(key => <WdEdit key={key} control={controlOf(displayedFormLayout, fieldControls[key])} {...register(key)} readOnly={key === "pasta_localizacao" || (key === "Codigo" && terminal !== null)} disabled={busy} integerMask={positionFields.includes(key as typeof positionFields[number])}
-          suggestions={key === "Codigo" ? codes : undefined} onSuggestion={key === "Codigo" ? value => setValue("Codigo", value, { shouldDirty: true }) : undefined} />)}
+        {(Object.keys(fieldControls) as (keyof TerminalValues)[]).map(key => {
+          const binding = register(key);
+          return <WdEdit key={key} control={controlOf(displayedFormLayout, fieldControls[key])} {...binding} readOnly={key === "pasta_localizacao" || (key === "Codigo" && terminal !== null)} disabled={busy} integerMask={positionFields.includes(key as typeof positionFields[number])}
+            onChange={event => {
+              if (key === "Descricao" || key === "pasta_localizacao" || key === "nome_ficheiro") acceptedTextEdits.current[key] = true;
+              return binding.onChange(event);
+            }}
+            suggestions={key === "Codigo" ? codes : undefined} onSuggestion={key === "Codigo" ? value => setValue("Codigo", value, { shouldDirty: true }) : undefined} />;
+        })}
         <WdButton control={controlOf(formLayout, "BTN_procurar_pasta")} disabled={busy} onClick={() => void chooseFolder()} />
       </div>
       <WdButton control={controlOf(formLayout, "BTN_Validar")} disabled={busy} onClick={() => void save()} />

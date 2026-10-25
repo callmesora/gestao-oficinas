@@ -85,9 +85,10 @@ export function PostoListScreen({ repository, terminalRepository, fileContext }:
   const [rows, setRows] = useState<Posto[]>([]), [selection, setSelection] = useState<string | null>(null);
   const [loaded, setLoaded] = useState<{ query: PostoList; refresh: number } | null>(null);
   const [form, setForm] = useState<FormOpening | null>(null), [diagnostic, setDiagnostic] = useState("");
-  const pending = useRef(false), [busy, setBusy] = useState(false);
+  const pending = useRef(false), [busy, setBusy] = useState(false), readOwner = useRef(0);
   const columnSearch = useRef<{ key: NonNullable<PostoList["sort"]>; term: string } | null>(null);
   const settings = useTableLayout(displayedTable, "WIN_Table_postos/TABLE_postos");
+  useEffect(() => () => { readOwner.current++; }, []);
   useEffect(() => {
     let active = true;
     void repository.list(query).then(result => {
@@ -106,28 +107,30 @@ export function PostoListScreen({ repository, terminalRepository, fileContext }:
   const current = rows.find(row => row.id === selection);
   const remove = async () => {
     if (!ready || !current || pending.current) return;
-    pending.current = true; setBusy(true); setDiagnostic("");
+    pending.current = true; setBusy(true); setDiagnostic(""); const owner = ++readOwner.current;
     try {
       const answer = await resource({ title: listLayout.window.title, text: "Deseja apagar o registo?", buttons: [{ label: "Sim", value: 1 }, { label: "Não", value: 2 }], defaultIndex: 2, cancelIndex: 2, destructive: true, safeIndex: 2 });
-      if (answer.result !== 1) return;
+      if (owner !== readOwner.current || answer.result !== 1) return;
       const result = await repository.remove(current.id);
+      if (owner !== readOwner.current) return;
       if (result.kind === "deleted") setRefresh(value => value + 1);
       else setDiagnostic(result.kind);
-    } catch { setDiagnostic("transport"); }
-    finally { pending.current = false; setBusy(false); }
+    } catch { if (owner === readOwner.current) setDiagnostic("transport"); }
+    finally { if (owner === readOwner.current) { pending.current = false; setBusy(false); } }
   };
   const modify = async (id: string) => {
     if (!ready || pending.current) return;
-    pending.current = true; setBusy(true); setDiagnostic("");
+    pending.current = true; setBusy(true); setDiagnostic(""); const owner = ++readOwner.current;
     try {
       // WIN_Table_postos.wdw:191–194: actual refresh before positioning/opening, then after any result.
       const result = await repository.list(query);
+      if (owner !== readOwner.current) return;
       if (result.kind !== "loaded") { setDiagnostic(result.kind); return; }
       setRows(result.postos);
       const record = result.postos.find(row => row.id === id);
       if (record) setForm({ posto: record, codeEditableAtOpen: fileContext.snapshot().kind === "new" });
-    } catch { setDiagnostic("transport"); }
-    finally { pending.current = false; setBusy(false); }
+    } catch { if (owner === readOwner.current) setDiagnostic("transport"); }
+    finally { if (owner === readOwner.current) { pending.current = false; setBusy(false); } }
   };
   const sort = (column: LegacyColumn) => {
     if (pending.current) return;

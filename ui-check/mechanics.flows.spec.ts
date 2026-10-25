@@ -116,6 +116,10 @@ test("SRC-934dda9b58 selected authenticated read blocks competing operations; ed
   let release = () => {};
   try {
     await open(page); const list = page.getByTestId("WIN_Table_mecanicos"), table = list.getByTestId("TABLE_mecanicos"), form = page.getByTestId("WIN_Form_mecanicos");
+    expect(listInputs[0]).toEqual({ sort: "inativo", descending: false });
+    const initialPositions = await table.locator("tbody tr").evaluateAll((elements, values) => values.map(value => elements.findIndex(row => row.querySelector("td")?.textContent === value)), [String(secondCode), String(firstCode)]);
+    for (const position of initialPositions) expect(position).toBeGreaterThanOrEqual(0);
+    expect(initialPositions[0]).toBeLessThan(initialPositions[1]);
     await table.getByTestId("COL_Descricao").getByRole("button").first().click(); await expect(list.getByTestId("BTN_Modificar")).toBeEnabled();
     await rowFor(page, table, String(firstCode)).click();
     expect((await api<{ kind: string }>(request, headers, "save", { mode: "update", id: original.id, values: { Codigo: firstCode, Descricao: "Fresh selected description", palavra_passe: "Synthetic", inativo: true } })).kind).toBe("saved");
@@ -165,9 +169,10 @@ test("SRC-5551fef826 SRC-df9e51fef3 DEV mechanic selector component hides mainte
     expect(close.y - frame.y).toBe(506); expect(close.height).toBe(38);
     const first = table.locator("tbody tr").first(), last = table.locator("tbody tr").last();
     await first.click(); await picker.getByTestId("BTN_anterior").click(); await expect(first).toHaveAttribute("aria-selected", "true");
-    await picker.getByTestId("BTN_seguinte").click(); await expect(table.locator("tbody tr").nth(1)).toHaveAttribute("aria-selected", "true");
+    await picker.getByTestId("BTN_seguinte").click(); await expect(table.locator("tbody tr").nth(1)).toHaveAttribute("aria-selected", "true"); await picker.getByTestId("BTN_anterior").click(); await expect(first).toHaveAttribute("aria-selected", "true");
     await last.click(); await picker.getByTestId("BTN_seguinte").click(); await expect(last).toHaveAttribute("aria-selected", "true");
     await rowFor(page, table, String(firstCode)).dblclick(); await expect(picker).toHaveCount(0); await expect(page.getByTestId("mechanics-returned")).toHaveText(String(firstCode)); await expect(page.getByTestId("mechanics-returned-kind")).toHaveText("number"); expect(reads).toBe(0);
+    await page.getByTestId("mechanics-select-open").click(); await rowFor(page, table, String(firstCode)).click(); await picker.getByTestId("BTN_selecionar").click(); await expect(picker).toHaveCount(0); await expect(page.getByTestId("mechanics-returned")).toHaveText(String(firstCode));
     await page.getByTestId("mechanics-select-open").click(); await picker.getByTestId("BTN_Fechar").click(); await expect(page.getByTestId("mechanics-returned")).toHaveText("ORIGINAL"); await expect(page.getByTestId("mechanics-returned-kind")).toHaveText("string");
     await page.getByTestId("mechanics-select-open").click(); await page.keyboard.press("Escape"); await expect(picker).toHaveCount(0); await expect(page.getByTestId("mechanics-returned")).toHaveText("ORIGINAL");
     await expect(list).toHaveCount(0);

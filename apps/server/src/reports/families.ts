@@ -44,11 +44,19 @@ function exactSum(values: (string | null)[]): string | null {
   const Exact = Decimal.clone({ precision: sizes.reduce((max, parts) => Math.max(max, parts[0].length), 1) + sizes.reduce((max, parts) => Math.max(max, parts[1]?.length ?? 0), 0) + String(values.length + 1).length + 2, toExpNeg: -1_000_000, toExpPos: 1_000_000 });
   return values.reduce((sum, value) => sum.plus(value!), new Exact(0)).toFixed();
 }
+/** ADR002: source Date/DateTime ordering precedes lossless text transport, without rewriting values. */
+function compareDates(left: string | null, right: string | null, dateOnly = false, descending = false): number {
+  const key = dateOnly ? dateOnlyComparisonKey : dateTimeComparisonKey, first = key(left), last = key(right);
+  // Retain the existing explicit NULLS LAST default, independent of source direction.
+  if (first === null || last === null) return first === last ? 0 : first === null ? 1 : -1;
+  const order = first < last ? -1 : first > last ? 1 : 0;
+  return descending ? -order : order;
+}
 function sortedWithinGroups(rows: ReportValues[], group: string, date: string): ReportValues[] {
   const order = new Map<string | null, number>();
   for (const row of rows) if (!order.has(reportValue(row, group))) order.set(reportValue(row, group), order.size);
   return rows.sort((a, b) => order.get(reportValue(a, group))! - order.get(reportValue(b, group))!
-    || String(dateTimeComparisonKey(reportValue(a, date))).localeCompare(String(dateTimeComparisonKey(reportValue(b, date))), "en", { numeric: false }));
+    || compareDates(reportValue(a, date), reportValue(b, date)));
 }
 
 /** Explicit source consumption shapes: source joins differ deliberately between document/order branches. */
@@ -148,6 +156,8 @@ export async function familyReportDocument(client: Client, request: FamilyReport
       FROM app."ordem_reparacao" o INNER JOIN app."Viaturas" v ON v."matricula"=o."matricula" INNER JOIN app."Clientes" c ON c."Codigo"=v."Cliente"
       INNER JOIN app."estados_reparacao" s ON o."reparacao_estado"=s."Codigo" WHERE ($1::text[] IS NULL OR o."reparacao_estado"=ANY($1::text[]))${delivery ? ` ORDER BY o."${field}" DESC NULLS LAST,o._row_id,v._row_id,c._row_id,s._row_id` : ""}`, [params.ParamEstados]);
     rows = rows.filter(row => datePredicate(row[field], bound(params, "ParamDaData"), bound(params, "ParamAData"), true));
+    // Only delivery has this source ORDER BY. Payment deliberately retains its unsorted query path.
+    if (delivery) rows.sort((left, right) => compareDates(left[field], right[field], true, true));
     const total = exactSum(rows.map(row => row.total_pago));
     if (total === null) return { kind: "unresolved", unresolved: ["U-report: NULL automatic sum"] };
     return flatReportDocument(request.reportId, request.context, rows, { CALC_Total_pago: total });
@@ -165,6 +175,8 @@ async function laborReport(client: Client, request: FamilyReportRequest, params:
     WHERE ($1::${vehicle ? "text" : "numeric"} IS NULL OR $2::${vehicle ? "text" : "numeric"} IS NULL OR ${field} BETWEEN $1 AND $2)
     ORDER BY ${vehicle ? 'o."matricula",o."numero"' : order ? 'o."numero"' : 't."mecanico",o."recepcao_datahora"'},o._row_id,t._row_id,v._row_id,m._row_id`, [params[range[0]], params[range[1]]]);
   rows = rows.filter(row => datePredicate(row.inicio, bound(params, "ParamDaData"), bound(params, "ParamAData")));
+  // QRY_tempos_ordem_reparacao_mecanico sorts reception datetime within each typed mechanic key.
+  if (!vehicle && !order) rows = sortedWithinGroups(rows, "mecanico", "recepcao_datahora");
   const body: string[] = [], groupKey = vehicle ? "matricula" : order ? "numero" : "mecanico";
   for (let index = 0; index < rows.length;) {
     let end = index + 1; while (end < rows.length && rows[end][groupKey] === rows[index][groupKey]) end++;

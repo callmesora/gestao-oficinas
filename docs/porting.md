@@ -227,3 +227,15 @@ MIG10 caller composition: repair-details.tsx awaits the genuine materials editor
 DateTime CalendarNo consumer uses the same text-draft/date validation with no calendar adornment or AltDown adapter; preserve generated source options (ADR003).
 
 buttonSkin uses extracted sprite state counts: existing five-cell strips stay unchanged; source two-cell keyboard strip uses the explicit ADR003/U01 mapping, never requests a nonexistent frame.
+
+Completion follow-through: optional nullable text uses an accepted-edit lifetime flag, like price/date fields; RHF dirtyFields cannot distinguish untouched NULL from a deliberate NULL→text→blank edit (ADR002). Memory material/stock tables reuse existing sort/search callbacks, with Decimal comparisons for numeric strings, current cell drafts and displayed-row bounds for next/previous; source database-list sorting remains server-owned. Material reads use a short repeatable-read/NOWAIT order check before opening; lifetime editor locking remains U03 and no database lock spans a modal.
+
+Customer pre-open TableDisplay/FOR EACH executes against the live file in the owning CustomerList.openForm; cached rows/nextCode do not implement those events. Vehicle validation shares vehicleUppercase across domain/server/UI, assigning the visible uppercase draft after required-field checks while preserving the original readonly edit SQL key. Keyboard source glyph overlays use the actual click literals and JPG, including €; the UI gate may use an explicit development URL for a real dialog requiring caller arguments, retaining all existing image/control/visual floors.
+
+Nullable keyboard callers consume the shared optional `{confirmed,edited}` callback metadata (ADR002); string-only callers keep the original contract. Track accepted text actions over the whole keyboard lifetime, including explicit clear, so cancel/untouched confirmation preserve original NULL while confirmed deliberate blank writes empty text. Caps/accent changes alone are not text edits.
+
+Production access preserves source Upper/Codigo rules in the domain; the server security module owns versioned async scrypt, one-use operator enrollment and hashed bearer-session transactions (ADR004). Shared workflow-http selects one RAM session and validated API base; explicit DEV routes retain opt-in bootstrap. Secure user maintenance uses blank+unchanged-password intent and atomically replaces the hash/version/revokes sessions, returning no credentials.
+
+CommandLine("modulo"/"artigos") uses the narrow Rust startup_arguments adapter and generated bindings, returning only supported mode values. EndProgram uses terminate_application with fixed exit0; neither exposes raw argv, caller shell code or arbitrary process control (ADR005).
+
+Paged.js generic running bands declare all four page margins and only actual source margin boxes. Keep common band CSS separate from the initial templates' default footer rule: Paged.js0.4.3 otherwise replaces partial margin maps and propagates content:none visibility into later boxes. Assert repeated headers on every real PDF page, source counters and retained totals; no custom pagination.

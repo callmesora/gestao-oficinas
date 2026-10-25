@@ -101,4 +101,4 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 
 ## Initial target checkpoint
 
-The initial target is `src/ui/repair-labor.tsx::RepairLaborInformationDialog`, an actual protected order/customer read. The JPG establishes Informações/Observação accents; the unique primary source STC_Observação retains its identity with a narrow Caption overlay. Printing accepts an actual supplied callback and stays disabled while absent. Browser/native/visual and U gates remain open; no parity rows are promoted. Non-legacy diagnostics/frame helpers use `repair-labor-info-*`.
+The target is `src/ui/repair-labor.tsx::RepairLaborInformationDialog`, an actual protected order/customer read. The JPG establishes Informações/Observação accents and the source caption overlay. Actual Fechar returns to the labor caller without an extra list query; the later Todos action performs the source refresh. Printing consumes the supplied real report callback. Exact executed cases are linked from the per-unit CSV; broad read-failure/native/visual/U gates remain open. Non-legacy diagnostics/frame helpers use `repair-labor-info-*`.

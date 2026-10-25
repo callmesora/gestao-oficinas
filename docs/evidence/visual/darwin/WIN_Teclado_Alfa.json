@@ -1,0 +1,12 @@
+{
+ "pixel_similarity": 97.0,
+ "edge_overlap": 88.8,
+ "size": [
+  782,
+  600
+ ],
+ "legacy": "docs/evidence/images/WIN_Teclado_Alfa.jpg",
+ "new": "ui-report/WIN_Teclado_Alfa.png",
+ "side_by_side": "ui-report/WIN_Teclado_Alfa.compare.png",
+ "date": "2026-10-25"
+}

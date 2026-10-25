@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import Decimal from "decimal.js";
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { nextStockLine, parseScannerText, type StockLine, type StockListRow, type StockDocumentType, type StockMechanic, type StockReadResult, type StockArticle, type ScannerRow, type ScannerResult, type StockList } from "../../packages/domain/src/stock";
 import { dateEntryInitial, dateEntryResult, dateEntryDisplay } from "../../packages/domain/src/date-entry";
@@ -50,16 +51,31 @@ export type StockReportPreview = (input: { reportId: "RPT_inventario" | "RPT_Ext
 const rowIdentity = (row: StockListRow) => `${row.id}:${row.documentId}`;
 function staticCaptions(layout: LegacyLayout): WdRadBinding[] { return layout.controls.filter(c => c.kind === "Caption" && c.name !== "RADTitle").map(c => ({ name: c.name, kind: "caption" })); }
 
-function StockTable<T>({ layout, name, rows, id, cell, selection, select, activate, sort }: { layout: LegacyLayout; name: string; rows: T[]; id: (row: T) => string; cell: (row: T, column: LegacyColumn) => ReactNode; selection: string | null; select: (id: string) => void; activate?: (id: string) => void; sort?: (column: LegacyColumn) => void }) {
+function StockTable<T>({ layout, name, rows, id, cell, selection, select, activate, sort, value }: { layout: LegacyLayout; name: string; rows: T[]; id: (row: T) => string; cell: (row: T, column: LegacyColumn) => ReactNode; selection: string | null; select: (id: string) => void; activate?: (id: string) => void; sort?: (column: LegacyColumn) => void; value?: (row: T, column: LegacyColumn) => string | number | null }) {
   const table = controlOf(layout, name), settings = useTableLayout(table, `${layout.window.name}/${name}`);
-  return <WdTable control={table} rows={rows} rowId={id} cell={cell} selectedId={selection} onSelect={select} onActivate={activate} onSort={sort}
+  const [sorting, setSorting] = useState<{ column: LegacyColumn; descending: boolean } | null>(null);
+  const cellValue = (row: T, column: LegacyColumn) => { const displayed = cell(row, column); return value ? value(row, column) : typeof displayed === "string" || typeof displayed === "number" ? displayed : null; };
+  const displayedRows = useMemo(() => {
+    if (sort || !sorting) return rows;
+    const { column, descending } = sorting;
+    const raw = (row: T) => { const content = cell(row, column); return value ? value(row, column) : typeof content === "string" || typeof content === "number" ? content : null; };
+    return [...rows].sort((a, b) => {
+      const x = raw(a), y = raw(b);
+      if (x === null || y === null) return x === y ? 0 : x === null ? 1 : -1;
+      const numeric = (column as LegacyColumn & { input_type?: string }).input_type === "Numeric" && /^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)$/.test(String(x)) && /^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)$/.test(String(y));
+      const compared = numeric ? new Decimal(x).comparedTo(y) : String(x).toLocaleLowerCase("pt-PT").localeCompare(String(y).toLocaleLowerCase("pt-PT"), "pt-PT");
+      return compared * (descending ? -1 : 1);
+    });
+  }, [rows, sorting, sort, cell, value]);
+  return <WdTable control={table} rows={displayedRows} rowId={id} cell={cell} selectedId={selection} onSelect={select} onActivate={activate} onSort={sort ?? (column => setSorting(previous => ({ column, descending: previous?.column.name === column.name ? !previous.descending : false })))}
     designerOptions configureColumns {...settings} onResetColumns={settings.resetLayout}
-    onColumnSearch={(column, term) => { if (term !== "") { const hit = rows.find(row => String(cell(row, column) ?? "").toLocaleLowerCase("pt-PT").startsWith(term.toLocaleLowerCase("pt-PT"))); if (hit) select(id(hit)); } }} />;
+    onColumnSearch={(column, term) => { if (term !== "") { const hit = displayedRows.find(row => String(cellValue(row, column) ?? "").toLocaleLowerCase("pt-PT").startsWith(term.toLocaleLowerCase("pt-PT"))); if (hit) select(id(hit)); } }} />;
 }
 
-export function StockDocumentDialog({ services, documents, mechanics, loaded, finish }: { services: Services; documents: StockDocumentType[]; mechanics: StockMechanic[]; loaded: Extract<StockReadResult, { kind: "loaded" }> | null; finish: () => void }) {
+export function StockDocumentDialog({ services, documents: initialDocuments, mechanics: initialMechanics, loaded, finish }: { services: Services; documents: StockDocumentType[]; mechanics: StockMechanic[]; loaded: Extract<StockReadResult, { kind: "loaded" }> | null; finish: () => void }) {
   const { stock } = services, dialog = useRef<WdModalHandle>(null), pending = useRef(false), active = useRef(true), nextOwner = useRef(0), lookupOwner = useRef(0), lookupTask = useRef<Promise<void> | null>(null);
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
+  const [documents, setDocuments] = useState(initialDocuments), [mechanics, setMechanics] = useState(initialMechanics);
   const [document, setDocument] = useState(loaded?.header.documento_codigo ?? documents[0]?.Codigo ?? "");
   const [number, setNumber] = useState(loaded?.header.documento_numero ?? "0"), [description, setDescription] = useState<string | null>(loaded ? loaded.header.Descricao : "");
   const [mechanic, setMechanic] = useState<string | null>(loaded ? loaded.header.mecanico : null), [date, setDate] = useState(() => dateEntryInitial(loaded ? loaded.header.data : today()));
@@ -116,6 +132,20 @@ export function StockDocumentDialog({ services, documents, mechanics, loaded, fi
       else setDiagnostic(result.kind);
     } catch { if (active.current) setDiagnostic("transport"); } finally { pending.current = false; if (active.current) setBusy(false); }
   };
+  const refreshPicker = async (kind: "document" | "mechanic", code: string) => {
+    setPicker(null);
+    try {
+      if (kind === "document") {
+        const result = await services.documents.list({}); if (!active.current) return;
+        if (result.kind !== "loaded") { setDiagnostic(result.kind); return; }
+        setDocuments(result.documentTypes); setDocument(code);
+      } else {
+        const result = await services.mechanics.list({}); if (!active.current) return;
+        if (result.kind !== "loaded") { setDiagnostic(result.kind); return; }
+        setMechanics(result.mechanics.map(row => ({ Codigo: row.Codigo === null ? null : String(row.Codigo), Descricao: row.Descricao }))); setMechanic(code);
+      }
+    } catch { if (active.current) setDiagnostic("transport"); }
+  };
   const visibleMechanic = documents.find(d => d.Codigo === document)?.obriga_macanico !== false;
   const liveLayout = { ...lineLayout, controls: lineLayout.controls.map(c => ["COMBO_mecanico", "BTN_VISION2", "STC_Mecanico"].includes(c.name) ? { ...c, visible: visibleMechanic, flags: { ...c.flags, Visible: visibleMechanic } } : c) };
   const codeInput = register("code");
@@ -141,15 +171,20 @@ export function StockDocumentDialog({ services, documents, mechanics, loaded, fi
   return <WdModal ref={dialog} layout={liveLayout} instance="stock-document" testId="WIN_Table_Lin_Stocks" restoreTestId="stock-document-restore" onClose={() => void confirmCancel()}>
     <WdRadControls layout={liveLayout} bindings={bindings} />
     <StockTable layout={liveLayout} name="TABLE_lin_Stocks" rows={lines.map((row, index) => ({ ...row, index }))} id={row => String(row.index)} selection={selection} select={setSelection}
+      value={(row, column) => {
+        if (column.name === "COL_Quant") return `${row.index}:quantidade` in cellDrafts ? decimalMaskValue(qtyMask, cellDrafts[`${row.index}:quantidade`]) ?? cellDrafts[`${row.index}:quantidade`] : row.quantidade;
+        if (column.name === "COL_Preco") return `${row.index}:preco` in cellDrafts ? decimalMaskValue(priceMask, cellDrafts[`${row.index}:preco`]) ?? cellDrafts[`${row.index}:preco`] : row.preco;
+        return column.name === "COL_Codigo" ? row.artigo : column.name === "COL_Descricao" ? row.descricao_artigo : row.linha;
+      }}
       cell={(row, column) => {
         const field = column.name === "COL_Quant" ? "quantidade" : column.name === "COL_Preco" ? "preco" : null;
         if (!field) return column.name === "COL_Codigo" ? row.artigo : column.name === "COL_Descricao" ? row.descricao_artigo : row.linha;
         const key = `${row.index}:${field}`, mask = field === "quantidade" ? qtyMask : priceMask;
         return <input className="wd-edit" style={{ position: "static", width: "100%", textAlign: "right", border: 0, background: "transparent" }} aria-label={column.title ?? column.name} data-testid={`${column.name}-${row.index}`} value={cellDrafts[key] ?? decimalMaskDisplay(mask, row[field])} disabled={busy} onChange={e => { const value = e.currentTarget.value; setCellDrafts(old => ({ ...old, [key]: value })); }} />;
       }} />
-    {picker === "article" && <ArticlePicker repository={services.articles} origin={getValues("code")} finish={code => { setPicker(null); setValue("code", code); void lookup(code, false, false); focus("EDT_codigo"); }} />}
-    {picker === "document" && <DocumentTypePicker repository={services.documents} origin={document} finish={code => { setPicker(null); setDocument(code); }} />}
-    {picker === "mechanic" && <MechanicPicker repository={services.mechanics} origin={mechanic === null ? 0 : Number(mechanic)} finish={code => { setPicker(null); setMechanic(String(code)); }} />}
+    {picker === "article" && <ArticlePicker launchMode={new URLSearchParams(window.location.search).get("modulo") ?? undefined} repository={services.articles} origin={getValues("code")} finish={code => { setPicker(null); setValue("code", code); void lookup(code, false, false); focus("EDT_codigo"); }} />}
+    {picker === "document" && <DocumentTypePicker repository={services.documents} origin={document} finish={code => void refreshPicker("document", code)} />}
+    {picker === "mechanic" && <MechanicPicker repository={services.mechanics} origin={mechanic === null ? 0 : Number(mechanic)} finish={code => void refreshPicker("mechanic", String(code))} />}
     {picker === "createArticle" && <StockArticleWindow repository={services.articles} finish={() => setPicker(null)} />}
     {diagnostic && <output data-testid="stock-document-diagnostic">{diagnostic}</output>}
   </WdModal>;
@@ -279,7 +314,7 @@ export function StockStatementDialog({ services, onPreview, finish }: { services
   ];
   return <WdModal ref={dialog} layout={statementLayout} instance="stock-statement" testId="WIN_Extrato_Artigos" restoreTestId="stock-statement-restore" onClose={close}>
     <WdRadControls layout={statementLayout} bindings={bindings} />
-    {picker && <ArticlePicker repository={services.articles} origin={picker === "from" ? articleFrom : articleTo} finish={code => { if (picker === "from") { setArticleFrom(code); if (code !== "") setArticleTo(code); } else setArticleTo(code); setPicker(null); }} />}
+    {picker && <ArticlePicker launchMode={new URLSearchParams(window.location.search).get("modulo") ?? undefined} repository={services.articles} origin={picker === "from" ? articleFrom : articleTo} finish={code => { if (picker === "from") { setArticleFrom(code); if (code !== "") setArticleTo(code); } else setArticleTo(code); setPicker(null); }} />}
   </WdModal>;
 }
 

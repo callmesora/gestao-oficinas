@@ -1,5 +1,7 @@
 # Screen spec — WIN_Teclado_numerico
 
+Completion: actual source digit/clear/point/sign/cancel and displayed-input focus paths are verified through the shared keyboard caller. Bounds-message shell, fixed-decimal/native rounding and broad helper/U claims remain open. Actual macOS dialog passes unchanged visual floors (95.7pixel/84.7edge); frame/client drawing follows ADR003.
+
 Evidence `legacy/GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw`, `dossier: WIN_Teclado_numerico`, `docs/mapping/WIN_Teclado_numerico.md`. Step 0 only.
 
 ## Contract

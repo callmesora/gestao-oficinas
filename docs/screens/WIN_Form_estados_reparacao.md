@@ -8,6 +8,8 @@ The actual form uses the reusable `WdRadControls` renderer with explicitly order
 
 Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Form_estados_reparacao.wdw`, `dossier: WIN_Form_estados_reparacao`, `docs/mapping/WIN_Form_estados_reparacao.md`. Step 0 specification only.
 
+Optional description editing follows ADR002: preserve untouched NULL, track every accepted input or suggestion through the modal lifetime, and send an explicit empty string after NULL→text→blank. Focus, blur and rejected input do not mark an edit. The actual browser/save/API/PostgreSQL regression asserts both the submitted empty string and its stored value.
+
 ## Contract
 
 | Direction | Contract | Evidence |

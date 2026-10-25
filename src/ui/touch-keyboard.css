@@ -1,6 +1,9 @@
 /* JPG-backed touch typography/colors; exact native metrics remain each keyboard's U01. */
+[data-testid="WIN_Teclado_Alfa"] .wd-frame::before, [data-testid="WIN_Teclado_numerico"] .wd-frame::before { border: 0; border-image: none; background: #f0f0f0; }
+[data-testid="WIN_Teclado_Alfa"] .wd-client, [data-testid="WIN_Teclado_numerico"] .wd-client { transform: translate(3px, 3px); }
 [data-testid="WIN_Teclado_Alfa"] .wd-button, [data-testid="WIN_Teclado_numerico"] .wd-button { color: white; font: 36px Arial, sans-serif; }
 [data-testid="WIN_Teclado_Alfa"] .wd-button[data-testid="BTN_Caption"], [data-testid="WIN_Teclado_numerico"] .wd-button[data-testid="BTN_Caption"] { font-size: 24px; font-weight: bold; }
+[data-testid="WIN_Teclado_Alfa"] .wd-button[data-testid="BTN_Caption"], [data-testid="WIN_Teclado_numerico"] .wd-button[data-testid="BTN_Caption"] { border-width: 16px; border-image-slice: 16 fill; }
 [data-testid="WIN_Teclado_Alfa"] .wd-button[data-testid="BTN_CapsLock"], [data-testid="WIN_Teclado_Alfa"] .wd-button[data-testid="BTN_apagar_tudo"], [data-testid="WIN_Teclado_Alfa"] .wd-button[data-testid="BTN_apagar_ultimo"] { font-size: 14px; }
 [data-testid="WIN_Teclado_Alfa"] .wd-button[data-testid="BTN_apagar_tudo"] { color: red; }
 [data-testid="WIN_Teclado_Alfa"] .wd-button[data-testid="BTN_apagar_ultimo"], [data-testid="WIN_Teclado_numerico"] .wd-button[data-testid="BTN_limpar"] { color: yellow; }

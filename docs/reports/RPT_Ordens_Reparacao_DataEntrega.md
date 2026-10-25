@@ -55,6 +55,8 @@ recepcao_entrega_prevista DESC
 
 Parameter names listed by the parser: ParamAData, ParamDaData, ParamEstados. SQL placeholders are authoritative evidence of additional names; argument order must follow caller/designer rather than this sorted list. U-R21-03.
 
+The target preserves source delivery-date DESC using ADR002 Date comparison keys before printing; supported compact8/ISO10 values retain their exact raw output. PostgreSQL source-row ties and NULLS LAST stay explicit target defaults. The distinct payment report still has no added ORDER BY.
+
 Sort/filter/join semantics are the literal WHERE/ORDER BY above. No implicit sort is added when SQL has no ORDER BY. Omitted/null parameter condition removal is a WLanguage trap requiring U-R21-03.
 
 ## Bands

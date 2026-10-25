@@ -1,5 +1,7 @@
 # Screen spec — WIN_Form_Clientes
 
+Core source-event completion: opening Novo now rereads the live active customer filter before suggesting exact MAX(Codigo)+1; the scan does not refresh the table on cancellation or reserve a code. `ui-check/customers.flows.spec.ts` case SRC-c02f88ba18 changes the real database after table load and proves the opening suggestion/focus/editability. Source integer narrowing and shared-file/runtime U items remain open.
+
 MIG-7C2.2: explicit `WdEdit integerMask` consumes the generated numeric masks under ADR-003; strings/loaded overflow/NULLs and schema/API ranges remain intact. Actual entry/caret/paste and persistence tests: `ui-check/numeric-entry.flows.spec.ts`. Vehicle conversion uses `vehicleFormValues` before transport; exact native locale/coercion remains U01/U03. Text fields and lookup keys retain their existing behavior.
 
 MIG-7C2.1: actual modal geometry uses `WdModal`/`WdModalHandle` and the source Resizable/With grip/Save position flags under ADR-003. Non-legacy `${instance}-resize-${edge}` handles preserve source Tab traversal; existing frame/restore IDs stay unchanged. Hidden mounted controls retain drafts; own-dialog focus and pointer/key ownership prevent ancestor interference. `ui-check/modal-geometry.flows.spec.ts` covers actual consumers. Exact native limits, parent centering, persistence lifetime and existing unit U01 remain open; broad designer parity is not promoted.

@@ -38,10 +38,12 @@ export function pageHeaderCss(height: number, sourceWidth = 175.9): string {
 }
 // Source paper/margins and all controls are in the two report specs/raw .wde definitions.
 // Orientation/typeface/alignment/clipping remain explicit ADR005 evaluation defaults/U-R09/U-R20.
-export const baseCss = `
+const defaultPageCss = `
 @page { size:215.9mm 279.4mm; margin:20mm 20mm 26.614mm 20mm;
  @bottom-right { content:counter(page) "/" counter(pages); font-family:ReportSans; font-size:9pt; vertical-align:top; padding-top:0; height:6.614mm; }
 }
+`;
+export const reportBodyCss = `
 * { box-sizing:border-box; } body { margin:0; font-family:ReportSans; font-size:8pt; color:#000; }
 .report { width:${width}mm; } .band { width:${width}mm; position:relative; break-inside:avoid; }
 .control { position:absolute; padding:0.6mm 0.3mm; white-space:pre-wrap; overflow:hidden; overflow-wrap:anywhere; }
@@ -51,6 +53,7 @@ tr { break-inside:avoid; } .page-header { background:#819fb4; } .detail { backgr
 .document-start,.document-end { background:linear-gradient(#fafafa,#e1e1e1); } .group-header { break-after:avoid; } .group-footer { break-before:avoid; }
 html { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 `;
+export const baseCss = defaultPageCss + reportBodyCss;
 type OrderColumn = { key: keyof OrderReportRequest["source"]["rows"][number]; caption: string; x: number; width: number };
 const orderColumns: OrderColumn[] = [
   { key: "COL_Numero", caption: "Número", x: 0, width: 13.602 },

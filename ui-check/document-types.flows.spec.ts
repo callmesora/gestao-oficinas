@@ -97,8 +97,9 @@ test("SRC-e017fec224 SRC-fac9bff440 real Documentos selector hides maintenance, 
     for (const id of ["Btn_New", "BTN_Modificar", "BTN_Delete", "BTN_Imprimir"]) await expect(picker.getByTestId(id)).toBeHidden(); for (const id of ["BTN_anterior", "BTN_seguinte", "BTN_selecionar"]) await expect(picker.getByTestId(id)).toBeVisible();
     expect((await table.locator("tbody tr").first().boundingBox())!.height).toBe(30); await expect(table.locator("tbody tr")).toHaveCount((await rows(request, headers)).length);
     const frame = (await page.getByTestId("document-type-picker-frame").boundingBox())!, close = (await picker.getByTestId("BTN_Fechar").boundingBox())!; expect(close.y - frame.y).toBe(503); expect(close.height).toBe(38);
-    const first = table.locator("tbody tr").first(), last = table.locator("tbody tr").last(); await first.click(); await picker.getByTestId("BTN_anterior").click(); await expect(first).toHaveAttribute("aria-selected", "true"); await picker.getByTestId("BTN_seguinte").click(); await expect(table.locator("tbody tr").nth(1)).toHaveAttribute("aria-selected", "true"); await last.click(); await picker.getByTestId("BTN_seguinte").click(); await expect(last).toHaveAttribute("aria-selected", "true");
+    const first = table.locator("tbody tr").first(), last = table.locator("tbody tr").last(); await first.click(); await picker.getByTestId("BTN_anterior").click(); await expect(first).toHaveAttribute("aria-selected", "true"); await picker.getByTestId("BTN_seguinte").click(); await expect(table.locator("tbody tr").nth(1)).toHaveAttribute("aria-selected", "true"); await picker.getByTestId("BTN_anterior").click(); await expect(first).toHaveAttribute("aria-selected", "true"); await last.click(); await picker.getByTestId("BTN_seguinte").click(); await expect(last).toHaveAttribute("aria-selected", "true");
     await rowFor(page, table, exact.trim()).dblclick(); await expect(picker).toHaveCount(0); expect(await page.getByTestId("document-types-returned").textContent()).toBe(exact);
+    await page.getByTestId("document-types-select-open").click(); await rowFor(page, table, exact.trim()).click(); await picker.getByTestId("BTN_selecionar").click(); await expect(picker).toHaveCount(0); expect(await page.getByTestId("document-types-returned").textContent()).toBe(exact);
     await page.getByTestId("document-types-select-open").click(); await picker.getByTestId("BTN_Fechar").click(); expect(await page.getByTestId("document-types-returned").textContent()).toBe(origin);
     await page.getByTestId("document-types-select-open").click(); await page.keyboard.press("Escape"); await expect(picker).toHaveCount(0); expect(await page.getByTestId("document-types-returned").textContent()).toBe(origin);
     // This DEV launcher does not implement the stock callers' unconditional continuation (MIG-11).
@@ -129,5 +130,21 @@ test("RULE-C5CA4D83-011 actual source geometry, eligible description assistance 
     await form.getByTestId("EDT_Codigo").fill(code.slice(0, 1)); await expect(form.getByTestId("EDT_Codigo__suggestions")).toHaveCount(0); await expect(form.getByTestId("EDT_Codigo")).not.toHaveAttribute("aria-autocomplete"); const description = form.getByTestId("EDT_Descricao"); await description.fill("Suggest"); await description.press("ArrowDown"); await description.press("Enter"); await expect(description).toHaveValue("Suggest document d'Água  "); await expect(form).toBeVisible(); await description.fill("Suggest"); await description.press("Escape"); await expect(form).toBeVisible(); await expect(form.getByTestId("EDT_Descricao__suggestions")).toHaveCount(0); await description.fill("Free document draft  ");
     await page.getByTestId("document-type-form-frame-resize-e").press("ArrowRight"); expect((await frame.boundingBox())!.width).toBe(initial.width + 8); await form.getByRole("radio", { name: "Saída", exact: true }).click(); await form.getByTestId("CBOX_Obriga_macanico").check(); await description.focus(); await form.getByTestId("BTN_SYST_MINIMIZE").click(); await page.getByTestId("document-type-form-restore").click(); await expect(description).toBeFocused(); await expect(description).toHaveValue("Free document draft  "); await expect(form.getByRole("radio", { name: "Saída", exact: true })).toHaveAttribute("aria-checked", "true"); await expect(form.getByTestId("CBOX_Obriga_macanico")).toBeChecked();
     await form.getByTestId("BTN_Cancelar").click(); await list.getByTestId("Btn_New").click(); expect((await frame.boundingBox())!.width).toBe(initial.width + 8); await expect(form.getByTestId("CBOX_Obriga_macanico")).not.toBeChecked(); await expect(form.getByRole("radio", { name: "Entrada", exact: true })).toHaveAttribute("aria-checked", "true"); await page.keyboard.press("Escape"); await expect(form).toHaveCount(0);
+  } finally { await cleanup(request, headers, [original.id]); }
+});
+
+
+test("ADR-002 accepted optional description edits retain deliberate blank after a NULL opening baseline", async ({ page, request }) => {
+  const headers = await session(request), [code] = await codes(request, headers, 1), original = await seed(request, headers, values(code, { Descricao: null }));
+  const payloads: { values: { Descricao: string | null } }[] = [];
+  page.on("request", item => { if (item.url().endsWith("/api/document-types/save")) payloads.push(item.postDataJSON()); });
+  try {
+    await open(page); const list = page.getByTestId("WIN_Table_documentos"), form = page.getByTestId("WIN_Form_documentos");
+    await rowFor(page, list.getByTestId("TABLE_documentos"), code).click(); await list.getByTestId("BTN_Modificar").click();
+    await expect(form.getByTestId("EDT_Descricao")).toHaveValue("");
+    await form.getByTestId("EDT_Descricao").fill("Accepted edit"); await form.getByTestId("EDT_Descricao").fill("");
+    await form.getByTestId("BTN_Validar").click(); await expect(form).toHaveCount(0);
+    expect(payloads.at(-1)!.values.Descricao).toBe("");
+    expect((await rows(request, headers)).find(row => row.id === original.id)!.Descricao).toBe("");
   } finally { await cleanup(request, headers, [original.id]); }
 });

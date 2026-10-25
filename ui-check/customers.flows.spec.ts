@@ -86,6 +86,12 @@ test("SRC-284e9feb26 real list search modes reset/focus and duplicate save keeps
   await page.goto("/?workflow=customers"); await page.getByTestId("customers-open").click();
   for (const [mode, term] of [["codigo", Codigo], ["descricao", description], ["morada", values.Morada2], ["codigopostal", values.codpostal], ["telefone", values.Telemovel]]) {
     await page.getByTestId(`BTN_${mode}`).click();
+    for (const candidate of ["todos", "codigo", "descricao", "morada", "codigopostal", "telefone"]) {
+      const button = page.getByTestId(`BTN_${candidate}`), chosen = candidate === mode;
+      await expect(button).toHaveCSS("font-weight", chosen ? "700" : "400");
+      await expect(button).toHaveCSS("text-decoration-line", chosen ? "underline" : "none");
+      await expect(button).toHaveCSS("color", chosen ? "rgb(0, 0, 139)" : "rgb(0, 0, 0)");
+    }
     const search = page.getByTestId("EDT_termo_pesquisa");
     await expect(search).toHaveValue(""); await expect(search).toBeFocused();
     await search.fill(term);
@@ -95,6 +101,10 @@ test("SRC-284e9feb26 real list search modes reset/focus and duplicate save keeps
   }
   await page.getByTestId("BTN_todos").click();
   await expect(page.getByTestId("EDT_termo_pesquisa")).toHaveValue("");
+  await expect(page.getByTestId("EDT_termo_pesquisa")).toBeFocused();
+  await expect(page.getByTestId("BTN_todos")).toHaveCSS("font-weight", "700");
+  await expect(page.getByTestId("BTN_todos")).toHaveCSS("text-decoration-line", "underline");
+  await expect(page.getByTestId("BTN_todos")).toHaveCSS("color", "rgb(0, 0, 139)");
   await page.getByTestId("Btn_New").click();
   const form = page.getByTestId("WIN_Form_Clientes");
   await form.getByTestId("EDT_Codigo").fill(Codigo); await form.getByTestId("EDT_Descricao").fill("Duplicado sintético");
@@ -266,4 +276,56 @@ test("RULE-C286277B-011 actual customer keyboard path keeps exact grouped code a
   await page.getByTestId("BTN_SYST_MINIMIZE").click(); await expect(table).toBeHidden();
   await page.getByTestId("workspace-tasks").getByRole("button").click(); await expect(table).toBeVisible();
   await expect(table.getByRole("row").filter({ hasText: Descricao })).toBeVisible();
+});
+
+test("SRC-c02f88ba18 customer Novo scans the live filtered file when the form opens", async ({ page, request }) => {
+  const session = await request.post("/api/development/session", { headers: { Origin: "http://localhost:1431", "X-Isolated-Development": "1" } });
+  const headers = { Authorization: `Bearer ${(await session.json()).token}` }, marker = `Live allocation ${Date.now()}`;
+  const code = BigInt(Date.now() % 1000000000) + 1000000000n;
+  const values = { Codigo: String(code), Descricao: marker, Morada1: "", Morada2: "", codpostal: "", Telefone1: "", Telemovel: "", observacao: "" };
+  const created = [];
+  for (let index = 0; index < 2; index++) {
+    if (index === 1) {
+      await page.goto("/?workflow=customers"); await page.getByTestId("customers-open").click();
+      await page.getByTestId("BTN_descricao").click(); await page.getByTestId("EDT_termo_pesquisa").fill(marker);
+      await expect(page.getByTestId("BTN_Modificar")).toBeEnabled();
+      await expect(page.getByTestId("TABLE_Clientes").locator("tbody tr")).toHaveCount(1);
+    }
+    const saved = await (await request.post("/api/customers/save", { headers, data: { mode: "create", values: { ...values, Codigo: String(code + BigInt(index)) } } })).json();
+    expect(saved.kind).toBe("saved"); created.push(saved.customer);
+  }
+  await page.getByTestId("Btn_New").click();
+  const form = page.getByTestId("WIN_Form_Clientes");
+  await expect(form.getByTestId("EDT_Codigo")).toHaveValue(String(code + 2n).replace(/\B(?=(\d{3})+(?!\d))/g, " "));
+  await expect(form.getByTestId("EDT_Codigo")).toBeEditable();
+  await expect(form.getByTestId("EDT_Descricao")).toBeFocused();
+  await form.getByTestId("BTN_Cancelar").click();
+  // The initialization scan is not a table refresh after a cancelled creation.
+  await expect(page.getByTestId("TABLE_Clientes").locator("tbody tr")).toHaveCount(1);
+  for (const customer of created) expect((await (await request.post("/api/customers/delete", { headers, data: { id: customer.id } })).json()).kind).toBe("deleted");
+});
+
+test("SRC-b25815b4ba customer edit refreshes before FileToScreen and after cancellation through button and double-click", async ({ page, request }) => {
+  const session = await request.post("/api/development/session", { headers: { Origin: "http://localhost:1431", "X-Isolated-Development": "1" } });
+  const headers = { Authorization: `Bearer ${(await session.json()).token}` }, marker = String(Date.now());
+  const values = { Codigo: marker, Descricao: `Cached customer ${marker}`, Morada1: "", Morada2: "", codpostal: "", Telefone1: "", Telemovel: "", observacao: "Cached note" };
+  const created = await (await request.post("/api/customers/save", { headers, data: { mode: "create", values } })).json(); expect(created.kind).toBe("saved");
+  await page.goto("/?workflow=customers"); await page.getByTestId("customers-open").click();
+  const list = page.getByTestId("WIN_Table_Clientes"), table = list.getByTestId("TABLE_Clientes"), form = page.getByTestId("WIN_Form_Clientes");
+  await table.getByRole("row").filter({ hasText: values.Descricao }).click();
+  for (const [index, activate] of ["button", "double-click"].entries()) {
+    const current = { ...values, Descricao: `Current customer ${marker} ${index}`, observacao: `Current note ${index}` };
+    expect((await (await request.post("/api/customers/save", { headers, data: { mode: "update", id: created.customer.id, values: current } })).json()).kind).toBe("saved");
+    if (activate === "button") await list.getByTestId("BTN_Modificar").click();
+    else await table.locator('tbody tr[aria-selected="true"]').dblclick();
+    await expect(form.getByTestId("EDT_Codigo")).toHaveAttribute("readonly", "");
+    await expect(form.getByTestId("EDT_Descricao")).toHaveValue(current.Descricao);
+    await expect(form.getByTestId("EDT_Observacao")).toHaveValue(current.observacao);
+    const after = { ...current, Descricao: `After cancel ${marker} ${index}`, observacao: `After note ${index}` };
+    expect((await (await request.post("/api/customers/save", { headers, data: { mode: "update", id: created.customer.id, values: after } })).json()).kind).toBe("saved");
+    await form.getByTestId("BTN_Cancelar").click();
+    await expect(table.locator('tbody tr[aria-selected="true"]')).toContainText(after.Descricao);
+    await expect(list.getByTestId("EDT_Observacao")).toHaveValue(after.observacao);
+  }
+  expect((await (await request.post("/api/customers/delete", { headers, data: { id: created.customer.id } })).json()).kind).toBe("deleted");
 });

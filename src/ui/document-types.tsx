@@ -29,11 +29,11 @@ const searchValue = (row: DocumentType, key: NonNullable<DocumentTypeList["sort"
 function DocumentTypeForm({ repository, documentType, descriptions, finish }: {
   repository: DocumentTypeRepository; documentType: DocumentType | null; descriptions: readonly string[]; finish: (saved: boolean) => void;
 }) {
-  const dialog = useRef<WdModalHandle>(null), pending = useRef(false);
+  const dialog = useRef<WdModalHandle>(null), pending = useRef(false), descriptionEdited = useRef(false);
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const [stock, setStock] = useState<number | null>(() => documentType ? documentType.stock : 1);
   const [mechanic, setMechanic] = useState<boolean | null>(() => documentType ? documentType.obriga_macanico : false);
-  const { register, getValues, setValue, formState: { dirtyFields } } = useForm<{ Codigo: string; Descricao: string }>({ defaultValues: { Codigo: documentType?.Codigo ?? "", Descricao: documentType?.Descricao ?? "" } });
+  const { register, getValues, setValue } = useForm<{ Codigo: string; Descricao: string }>({ defaultValues: { Codigo: documentType?.Codigo ?? "", Descricao: documentType?.Descricao ?? "" } });
   const { message } = useDialogs();
   const close = (saved = false) => { if (!pending.current) { dialog.current?.close(); finish(saved); } };
   const save = async () => {
@@ -41,7 +41,7 @@ function DocumentTypeForm({ repository, documentType, descriptions, finish }: {
     pending.current = true; setBusy(true); setDiagnostic("");
     try {
       const text = getValues();
-      const values: DocumentTypeValues = { Codigo: text.Codigo, Descricao: documentType && !dirtyFields.Descricao ? documentType.Descricao : text.Descricao, stock, obriga_macanico: mechanic };
+      const values: DocumentTypeValues = { Codigo: text.Codigo, Descricao: documentType && !descriptionEdited.current ? documentType.Descricao : text.Descricao, stock, obriga_macanico: mechanic };
       const required = documentTypeRequiredMessage(values);
       if (required) { await message({ title: formTitle, text: required, type: 0 }); return; }
       const result = await repository.save(documentType ? { mode: "update", id: documentType.id, values } : { mode: "create", values });
@@ -53,9 +53,11 @@ function DocumentTypeForm({ repository, documentType, descriptions, finish }: {
     finally { pending.current = false; setBusy(false); }
   };
   // Source SC_Form Tab3 checkbox precedes Tab4 radio, despite its lower visual position.
+  const descriptionInput = register("Descricao");
   const bindings: WdRadBinding[] = [
     { name: "EDT_Codigo", kind: "edit", props: { ...register("Codigo"), readOnly: documentType !== null, disabled: busy } },
-    { name: "EDT_Descricao", kind: "edit", props: { ...register("Descricao"), disabled: busy, suggestions: descriptions, onSuggestion: value => setValue("Descricao", value, { shouldDirty: true }) } },
+    // ADR-002: retain untouched NULL, but never undo an accepted text→blank edit or suggestion.
+    { name: "EDT_Descricao", kind: "edit", props: { ...descriptionInput, onChange: event => { descriptionEdited.current = true; void descriptionInput.onChange(event); }, disabled: busy, suggestions: descriptions, onSuggestion: value => { descriptionEdited.current = true; setValue("Descricao", value, { shouldDirty: true }); } } },
     { name: "CBOX_Obriga_macanico", kind: "checkbox", props: { checked: mechanic, onChange: setMechanic, disabled: busy } },
     { name: "STC_Stock", kind: "caption" },
     { name: "RADIO_NoName1", kind: "radio", props: { label: "Stock", options: radioOptions, value: stock, onChange: setStock, disabled: busy } },

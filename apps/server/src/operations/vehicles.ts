@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { connectOperationClient, rollbackAfterFailure, closeOperationClient, type DatabaseConnection } from "../db/connection";
-import { vehicleFilterSchema, vehicleSaveSchema, vehicleRequiredMessage, vehicleDuplicateMessage,
+import { vehicleFilterSchema, vehicleSaveSchema, vehicleRequiredMessage, vehicleDuplicateMessage, vehicleUppercase,
   type Vehicle, type VehicleListRow, type VehicleListResult, type VehicleLookupResult,
   type VehicleSaveResult, type VehicleDeleteResult } from "../../../../packages/domain/src/vehicles";
 
@@ -48,7 +48,7 @@ export async function saveVehicle(connect: DatabaseConnection, input: unknown): 
   const required = vehicleRequiredMessage(values);
   if (required) return { kind: "required", message: required };
   if (command.mode === "update" && values.matricula !== command.originalRegistration) return { kind: "registrationLocked" };
-  const registration = values.matricula.toLocaleUpperCase("pt-PT");
+  const registration = vehicleUppercase(values.matricula);
   if (registration.length > 15) return { kind: "invalid" };
   const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };

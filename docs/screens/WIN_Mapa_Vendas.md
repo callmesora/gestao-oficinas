@@ -10,6 +10,8 @@ vendas selects states pedir_data_entrega=1 and delivery report; other modes pedi
 
 Initial implementation: `src/ui/report-filters.tsx` reads source-flag states through protected `POST /api/report-filters/states`, preserving duplicates/NULL rows; checked rows remain local to each window. Explicit target fallback orders initial rows by internal identity (source SQL has no ORDER BY; U-W7DB489-03), supports local checkbox/sort/seek and retains the current row order in the source semicolon dispatch. Date controls return Date8 despite SysDateTime initial assignments; no day expansion. Empty selection reaches the engine as `[]`, never a disabled predicate; selected NULL codes stay unresolved (U-W7DB489-05). Scoped dossier overlays supply missing preview-button/caption-width metadata without editing generated layouts. Non-legacy helpers: `TABLE_Estados.COL_checkbox:<row-id>`, `report-filter-diagnostic`, `report-filters-launcher`, `report-filter-sales-*`. Actual PostgreSQL/installed-Chrome/PDF checks cover both modes and empty selection. Native checkbox/keyboard/printing and source goldens remain open; no parity completion claim.
 
+Focused PostgreSQL checks in `apps/server/src/operations/report-filters.test.ts` assert the exact mode flag, all checked defaults and preservation of duplicate/NULL rows. The actual sales/receipts browser path reaches PDF with the checked source codes and an empty selection. Query-buffer failure/ordering, selected NULL codes and native Date initialization remain U-W7DB489-03/05, so these compound initialization/dispatch events remain implemented.
+
 Caller arguments/results and native buffer changes: mapping entry/event ledger.
 
 ## Window/layout

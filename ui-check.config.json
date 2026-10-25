@@ -315,7 +315,10 @@
         "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
         "RADTitle": "Owning frame reads source-generated title."
       },
-      "open": ["document-types-launcher", "document-types-open"]
+      "open": [
+        "document-types-launcher",
+        "document-types-open"
+      ]
     },
     "WIN_Table_artigos": {
       "ignore": {
@@ -332,7 +335,10 @@
         "CBOX_ativo": "ADR003: JPG Ativo replaces generic Interruptor; exact real browser caption assertion, native/human U01 retained.",
         "CBOX_inativo": "ADR003: JPG Inativo replaces generic Interruptor; exact real browser caption assertion, native/human U01 retained."
       },
-      "open": ["articles-launcher", "articles-open"]
+      "open": [
+        "articles-launcher",
+        "articles-open"
+      ]
     },
     "WIN_Form_artigos": {
       "ignore": {
@@ -340,7 +346,11 @@
         "SC_SCSystemButtons": "Source container; frame renders actual chrome.",
         "IMG_BTN_Syst_Restore": "Source off-canvas image; frame owns restore."
       },
-      "open": ["articles-launcher", "articles-open", "Btn_New"],
+      "open": [
+        "articles-launcher",
+        "articles-open",
+        "Btn_New"
+      ],
       "captionIgnore": {
         "EDT_Descricao": "ADR003: JPG Descrição replaces extraction artifact; exact real browser caption assertion, native/human U01 retained.",
         "CBOX_Inativo": "ADR003: JPG Inativo capitalized; exact real browser caption assertion, native/human U01 retained."
@@ -356,7 +366,10 @@
         "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
         "RADTitle": "Owning frame reads source-generated title."
       },
-      "open": ["users-launcher", "users-open"]
+      "open": [
+        "users-launcher",
+        "users-open"
+      ]
     },
     "WIN_Form_utilizadores": {
       "ignore": {
@@ -364,13 +377,20 @@
         "SC_SCSystemButtons": "Source container; frame renders actual chrome.",
         "IMG_BTN_Syst_Restore": "Source off-canvas image; frame owns restore."
       },
-      "open": ["users-launcher", "users-open", "Btn_New"]
+      "open": [
+        "users-launcher",
+        "users-open",
+        "Btn_New"
+      ]
     },
     "WIN_Data": {
       "ignore": {
         "BTN_Syst_Restore": "Source off-canvas restore image; no actual chrome/minimize/maximize exists in this window."
       },
-      "open": ["date-prompt-launcher", "date-prompt-open"]
+      "open": [
+        "date-prompt-launcher",
+        "date-prompt-open"
+      ]
     },
     "WIN_Mudar_Estado": {
       "ignore": {
@@ -378,7 +398,10 @@
         "SCSystemButtons": "Source container; actual custom chrome rendered by the modal frame.",
         "BTN_Syst_Restore": "Source off-canvas restore image; modal frame owns actual maximize/restore."
       },
-      "open": ["repair-confirmation-launcher", "repair-confirmation-open"]
+      "open": [
+        "repair-confirmation-launcher",
+        "repair-confirmation-open"
+      ]
     },
     "WIN_Form_documentos": {
       "ignore": {
@@ -386,7 +409,11 @@
         "SC_SCSystemButtons": "Source container; frame renders actual chrome.",
         "IMG_BTN_Syst_Restore": "Source off-canvas image; frame owns restore."
       },
-      "open": ["document-types-launcher", "document-types-open", "Btn_New"],
+      "open": [
+        "document-types-launcher",
+        "document-types-open",
+        "Btn_New"
+      ],
       "captionIgnore": {
         "EDT_Descricao": "ADR-003: source JPG reads Descrição; generated extraction retained. Exact real caption assertion, U-C5CA4D83-01/native/human remains.",
         "CBOX_Obriga_macanico": "ADR-003: source JPG reads Obriga a identificar mecânico; generated generic caption retained. Exact real caption assertion, U-C5CA4D83-01/native/human remains.",
@@ -394,7 +421,10 @@
       }
     },
     "WIN_Ordens_Reparacao": {
-      "viewport": { "width": 1160, "height": 768 },
+      "viewport": {
+        "width": 1160,
+        "height": 768
+      },
       "open": [
         "repair-orders-launcher",
         "repair-orders-open",
@@ -441,6 +471,35 @@
         "EDT_Ordem_n": "ADR003: JPG-backed Portuguese caption overlay; exact real browser caption assertions; source identity/geometry retained, native/human U01 stays open.",
         "EDT_Nr_Fatura": "ADR003: JPG-backed Portuguese caption overlay; exact real browser caption assertions; source identity/geometry retained, native/human U01 stays open.",
         "STC_Observação": "ADR003: actual primary source identity at19,324,100,20; unique dossier Caption/Left/Top and JPG-backed Observação overlay; positive actual browser caption assertion, native U01 retained."
+      }
+    },
+    "WIN_Teclado_Alfa": {
+      "url": "/?workflow=touch-keyboards&kind=alpha&value=",
+      "open": [
+        "touch-keyboard-open"
+      ],
+      "ignore": {},
+      "captionIgnore": {
+        "BTN_Caption": "Source runtime caption/glyph assignment, corroborated by the keyboard JPG and exact event ledger; native font/visual acceptance remains U01.",
+        "BTN_c_cedilha": "Source runtime caption/glyph assignment, corroborated by the keyboard JPG and exact event ledger; native font/visual acceptance remains U01.",
+        "BTN_euro": "Source runtime caption/glyph assignment, corroborated by the keyboard JPG and exact event ledger; native font/visual acceptance remains U01.",
+        "BTN_a_cima": "Source runtime caption/glyph assignment, corroborated by the keyboard JPG and exact event ledger; native font/visual acceptance remains U01.",
+        "BTN_o_cima": "Source runtime caption/glyph assignment, corroborated by the keyboard JPG and exact event ledger; native font/visual acceptance remains U01.",
+        "BTN_acento_grave": "Source runtime caption/glyph assignment, corroborated by the keyboard JPG and exact event ledger; native font/visual acceptance remains U01.",
+        "BTN_acento_agudo": "Source runtime caption/glyph assignment, corroborated by the keyboard JPG and exact event ledger; native font/visual acceptance remains U01.",
+        "BTN_acento_circunflexo": "Source runtime caption/glyph assignment, corroborated by the keyboard JPG and exact event ledger; native font/visual acceptance remains U01.",
+        "EDT_input_manual": "Source runtime caption/glyph assignment, corroborated by the keyboard JPG and exact event ledger; native font/visual acceptance remains U01."
+      }
+    },
+    "WIN_Teclado_numerico": {
+      "url": "/?workflow=touch-keyboards&value=0",
+      "open": [
+        "touch-keyboard-open"
+      ],
+      "ignore": {},
+      "captionIgnore": {
+        "BTN_Caption": "Source runtime caption/glyph assignment, corroborated by the keyboard JPG and exact event ledger; native font/visual acceptance remains U01.",
+        "EDT_input_manual": "Source runtime caption/glyph assignment, corroborated by the keyboard JPG and exact event ledger; native font/visual acceptance remains U01."
       }
     }
   }

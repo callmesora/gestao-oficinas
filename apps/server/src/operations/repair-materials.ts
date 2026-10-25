@@ -43,16 +43,23 @@ export async function readRepairMaterials(connect: DatabaseConnection, input: un
   const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
+    // Source WIN_Material_Reparacao483–513: refuse an existing writer before opening.
+    // ADR006: release this short consistency check before any user interaction.
+    await client.query("BEGIN ISOLATION LEVEL REPEATABLE READ");
     const lookup = "orderId" in parsed.data ? { field: "_row_id", value: parsed.data.orderId } : { field: '"numero"', value: parsed.data.numero };
-    const order = (await client.query<Order>(`SELECT ${orderFields} FROM app."ordem_reparacao" WHERE ${lookup.field}=$1 ORDER BY _row_id LIMIT 1`, [lookup.value])).rows[0];
-    if (!order || order.numero === null) return { kind: "missing" };
+    const order = (await client.query<Order>(`SELECT ${orderFields} FROM app."ordem_reparacao" WHERE ${lookup.field}=$1 ORDER BY _row_id LIMIT 1 FOR UPDATE NOWAIT`, [lookup.value])).rows[0];
+    if (!order || order.numero === null) { await client.query("ROLLBACK"); return { kind: "missing" }; }
     const rows = await materialRows(client, order.numero);
     const mechanics = (await client.query<RepairMaterialsMechanic>('SELECT "Codigo","Descricao","inativo" FROM app."mecanicos" ORDER BY _row_id')).rows;
     const vehicle = (await client.query<{ marcamodelo: string | null }>('SELECT ("marca"||\' \')||"modelo" AS marcamodelo FROM app."Viaturas" WHERE "matricula"=$1 ORDER BY _row_id LIMIT 1', [order.matricula])).rows[0];
+    await client.query("COMMIT");
     return { kind: "loaded", document: { orderId: order.orderId, numero: order.numero, matricula: order.matricula, marcamodelo: vehicle?.marcamodelo ?? null,
       state: order.state, mechanic: mechanics.find(value => value.Codigo !== null && value.Codigo === order.mechanicCode) ?? null, baseline: revision(order.state, rows),
       rows: rows.map(row => ({ ...publicLine(row), mechanicDescription: mechanics.find(value => value.Codigo !== null && value.Codigo === row.mecanico)?.Descricao ?? null })) } };
-  } catch { return { kind: "failed" }; }
+  } catch (error) {
+    await rollbackAfterFailure(client);
+    return { kind: (error as { code?: string }).code === "55P03" ? "inUse" : "failed" };
+  }
   finally { await closeOperationClient(client); }
 }
 
@@ -76,7 +83,7 @@ async function authenticateMechanic(client: Client, code: number | null, passwor
   const record = (await client.query<RepairMaterialsMechanic & { palavra_passe: string | null }>('SELECT "Codigo","Descricao","inativo","palavra_passe" FROM app."mecanicos" WHERE "Codigo"=$1 ORDER BY _row_id LIMIT 1', [code])).rows[0];
   if (!record) return { kind: "missing" };
   if (record.inativo === true) return { kind: "inactive" };
-  if (password === "") return { kind: "cancelled" };
+  if (password === "") return { kind: "cancelled", mechanic: { Codigo: record.Codigo, Descricao: record.Descricao, inativo: record.inativo } };
   if (record.palavra_passe === null || password !== record.palavra_passe) return { kind: "incorrect" };
   return { kind: "authenticated", mechanic: { Codigo: record.Codigo, Descricao: record.Descricao, inativo: record.inativo } };
 }

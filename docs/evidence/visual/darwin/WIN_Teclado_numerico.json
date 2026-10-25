@@ -1,0 +1,12 @@
+{
+ "pixel_similarity": 95.7,
+ "edge_overlap": 84.7,
+ "size": [
+  330,
+  425
+ ],
+ "legacy": "docs/evidence/images/WIN_Teclado_numerico.jpg",
+ "new": "ui-report/WIN_Teclado_numerico.png",
+ "side_by_side": "ui-report/WIN_Teclado_numerico.compare.png",
+ "date": "2026-10-25"
+}

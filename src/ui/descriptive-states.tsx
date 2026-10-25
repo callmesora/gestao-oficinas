@@ -19,17 +19,18 @@ const displayedFormLayout = { ...formLayout, controls: formLayout.controls.map(c
 const formTitle = controlOf(formLayout, "RADTitle").caption!;
 
 function DescriptiveStateForm({ repository, descriptiveState, descriptions, finish }: { repository: DescriptiveStateRepository; descriptiveState: DescriptiveState | null; descriptions: readonly string[]; finish: (saved: boolean) => void }) {
-  const dialog = useRef<WdModalHandle>(null), pending = useRef(false);
+  const dialog = useRef<WdModalHandle>(null), pending = useRef(false), acceptedDescriptionEdit = useRef(false);
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const { message } = useDialogs();
-  const { register, getValues, setValue, formState: { dirtyFields } } = useForm<{ Codigo: string; Descricao: string }>({ defaultValues: { Codigo: descriptiveState?.Codigo ?? "", Descricao: descriptiveState?.Descricao ?? "" } });
+  const { register, getValues, setValue } = useForm<{ Codigo: string; Descricao: string }>({ defaultValues: { Codigo: descriptiveState?.Codigo ?? "", Descricao: descriptiveState?.Descricao ?? "" } });
+  const descriptionBinding = register("Descricao");
   const close = (saved = false) => { if (!pending.current) { dialog.current?.close(); finish(saved); } };
   const save = async () => {
     if (pending.current) return;
     pending.current = true; setBusy(true); setDiagnostic("");
     try {
       const text = getValues();
-      const values: DescriptiveStateValues = { Codigo: text.Codigo, Descricao: descriptiveState && !dirtyFields.Descricao ? descriptiveState.Descricao : text.Descricao };
+      const values: DescriptiveStateValues = { Codigo: text.Codigo, Descricao: descriptiveState && !acceptedDescriptionEdit.current ? descriptiveState.Descricao : text.Descricao };
       const result = await repository.save(descriptiveState ? { mode: "update", id: descriptiveState.id, values } : { mode: "create", values });
       if (result.kind === "saved") { pending.current = false; close(true); }
       else if (result.kind === "required" || result.kind === "duplicate") await message({ title: formTitle, text: result.message, type: result.kind === "duplicate" ? 1 : 0 });
@@ -45,7 +46,9 @@ function DescriptiveStateForm({ repository, descriptiveState, descriptions, fini
     }}>
       <div data-testid="SC_Form" style={{ display: "contents" }}>
         <WdEdit control={controlOf(formLayout, "EDT_Codigo")} {...register("Codigo")} readOnly={descriptiveState !== null} disabled={busy} />
-        <WdEdit control={controlOf(displayedFormLayout, "EDT_Descricao")} {...register("Descricao")} disabled={busy} suggestions={descriptions} onSuggestion={value => setValue("Descricao", value, { shouldDirty: true })} />
+        <WdEdit control={controlOf(displayedFormLayout, "EDT_Descricao")} {...descriptionBinding} disabled={busy} suggestions={descriptions}
+          onChange={event => { acceptedDescriptionEdit.current = true; return descriptionBinding.onChange(event); }}
+          onSuggestion={value => { acceptedDescriptionEdit.current = true; setValue("Descricao", value, { shouldDirty: true }); }} />
       </div>
       <WdButton control={controlOf(formLayout, "BTN_Validar")} disabled={busy} onClick={() => void save()} />
       <WdButton control={controlOf(formLayout, "BTN_Cancelar")} disabled={busy} onClick={() => close()} />

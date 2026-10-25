@@ -48,14 +48,14 @@ function RepairStateForm({ repository, repairState, descriptions, chooser, finis
   repository: RepairStateRepository; repairState: RepairState | null; descriptions: readonly string[];
   chooser: RepairStateColorChooser; finish: (saved: boolean) => void;
 }) {
-  const dialog = useRef<WdModalHandle>(null), pending = useRef(false), chooserOwner = useRef(0);
+  const dialog = useRef<WdModalHandle>(null), pending = useRef(false), chooserOwner = useRef(0), descriptionEdited = useRef(false);
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const [tipo, setTipo] = useState<number | null>(() => repairState ? repairState.tipo : 1);
   const [flags, setFlags] = useState<Flags>(() => ({ lancar_defa: repairState ? repairState.lancar_defa : false, lancar_material: repairState ? repairState.lancar_material : false,
     confirmacao: repairState ? repairState.confirmacao : false, pedir_data_entrega: repairState ? repairState.pedir_data_entrega : false, pedir_data_pag: repairState ? repairState.pedir_data_pag : false }));
   const [color, setColor] = useState<{ text: string; raw: number | null | undefined }>(() => ({ text: String(repairState?.Cor ?? (repairState ? "" : 0)), raw: repairState ? repairState.Cor : 0 }));
   const [preview, setPreview] = useState(() => repairState ? colorPreview(repairState.Cor) : "#ffffff");
-  const { register, getValues, setValue, formState: { dirtyFields } } = useForm<{ Codigo: string; Descricao: string }>({ defaultValues: { Codigo: repairState?.Codigo ?? "", Descricao: repairState?.Descricao ?? "" } });
+  const { register, getValues, setValue } = useForm<{ Codigo: string; Descricao: string }>({ defaultValues: { Codigo: repairState?.Codigo ?? "", Descricao: repairState?.Descricao ?? "" } });
   const { message } = useDialogs();
   useEffect(() => () => { chooserOwner.current++; }, []);
   const close = (saved = false) => { if (!pending.current) { dialog.current?.close(); finish(saved); } };
@@ -78,7 +78,7 @@ function RepairStateForm({ repository, repairState, descriptions, chooser, finis
       const text = getValues();
       if (text.Codigo === "") { await message({ title: formTitle, text: "Falta indicar o código", type: 0 }); return; }
       if (color.raw === undefined) { setDiagnostic("invalid_color"); return; }
-      const values: RepairStateValues = { Codigo: text.Codigo, Descricao: repairState && !dirtyFields.Descricao ? repairState.Descricao : text.Descricao, tipo, Cor: color.raw, ...flags };
+      const values: RepairStateValues = { Codigo: text.Codigo, Descricao: repairState && !descriptionEdited.current ? repairState.Descricao : text.Descricao, tipo, Cor: color.raw, ...flags };
       const result = await repository.save(repairState ? { mode: "update", id: repairState.id, values } : { mode: "create", values });
       if (result.kind === "saved") { pending.current = false; close(true); }
       else if (result.kind === "required" || result.kind === "duplicate") await message({ title: formTitle, text: result.message, type: result.kind === "duplicate" ? 1 : 0 });
@@ -87,9 +87,11 @@ function RepairStateForm({ repository, repairState, descriptions, chooser, finis
     } catch { setDiagnostic("transport"); }
     finally { pending.current = false; setBusy(false); }
   };
+  const descriptionInput = register("Descricao");
   const bindings: WdRadBinding[] = [
     { name: "EDT_Codigo", kind: "edit", props: { ...register("Codigo"), readOnly: repairState !== null, disabled: busy } },
-    { name: "EDT_Descricao", kind: "edit", props: { ...register("Descricao"), disabled: busy, suggestions: descriptions, onSuggestion: value => setValue("Descricao", value, { shouldDirty: true }) } },
+    // ADR-002: retain untouched NULL, but never undo an accepted text→blank edit or suggestion.
+    { name: "EDT_Descricao", kind: "edit", props: { ...descriptionInput, onChange: event => { descriptionEdited.current = true; void descriptionInput.onChange(event); }, disabled: busy, suggestions: descriptions, onSuggestion: value => { descriptionEdited.current = true; setValue("Descricao", value, { shouldDirty: true }); } } },
     { name: "STC_Tipo", kind: "caption" },
     { name: "RADIO_NoName1", kind: "radio", props: { label: "Tipo", options: radioOptions, value: tipo, onChange: setTipo, disabled: busy } },
     { name: "EDT_Cor", kind: "edit", props: { value: color.text, onChange: event => setColor({ text: event.currentTarget.value, raw: numericColor(event.currentTarget.value) }), integerMask: true, disabled: busy } },

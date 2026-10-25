@@ -34,6 +34,16 @@ async function cleanup(request: APIRequestContext, headers: Headers, articleIds:
 const rowFor = (page: Page, table: Locator, value: string) => table.getByRole("row").filter({ has: page.getByRole("cell", { name: value.trim(), exact: true }) });
 async function open(page: Page) { await page.goto("/?workflow=articles"); await page.getByTestId("articles-open").click(); await expect(page.getByTestId("WIN_Table_artigos").getByTestId("Btn_New")).toBeEnabled(); }
 async function info(page: Page, text: string) { const dialog = page.getByTestId("WINDEVMESSAGEBOX"); await expect(dialog.getByTestId("RADTitle")).toHaveText("Artigos"); await expect(dialog.getByTestId("LIB_INFO")).toHaveText(text); await dialog.getByTestId("BTN_OK").click(); }
+async function articleMode(list: Locator, selected: string) {
+  for (const mode of ["todos", "codigo", "descricao", "codigobarras"]) {
+    const button = list.getByTestId(`BTN_${mode}`);
+    await expect(button).toHaveCSS("font-weight", mode === selected ? "700" : "400");
+    await expect(button).toHaveCSS("color", mode === selected ? "rgb(0, 0, 139)" : "rgb(0, 0, 0)");
+    await expect(button).toHaveCSS("text-decoration-line", mode === selected ? "underline" : "none");
+    await expect(button).toHaveCSS("font-size", "10.67px");
+    await expect(button).toHaveCSS("font-family", '"Trebuchet MS", Tahoma, sans-serif');
+  }
+}
 async function swipeTable(page: Page, table: Locator) {
   const client = await page.context().newCDPSession(page), box = (await table.boundingBox())!;
   await client.send("Emulation.setTouchEmulationEnabled", { enabled: true, maxTouchPoints: 1 });
@@ -79,13 +89,13 @@ test("SRC-9efbe81830 source mode reset clears effective filters without changing
     await open(page); const list = page.getByTestId("WIN_Table_artigos"), table = list.getByTestId("TABLE_artigos"), search = list.getByTestId("EDT_termo_pesquisa");
     await list.getByTestId("BTN_todos").focus(); for (const name of ["EDT_termo_pesquisa", "BTN_codigo", "BTN_descricao", "BTN_codigobarras", "CBOX_ativo", "CBOX_inativo"]) { await page.keyboard.press("Tab"); await expect(list.getByTestId(name)).toBeFocused(); }
     await expect(rowFor(page, table, seeded[0].Codigo!)).toBeVisible(); for (const item of seeded.slice(1)) await expect(rowFor(page, table, item.Codigo!)).toHaveCount(0);
-    await list.getByTestId("BTN_codigo").click(); await expect(search).toBeFocused(); await expect(list.getByTestId("CBOX_ativo")).toBeChecked(); await expect(list.getByTestId("CBOX_inativo")).not.toBeChecked(); for (const item of seeded) await expect(rowFor(page, table, item.Codigo!)).toBeVisible();
+    await list.getByTestId("BTN_codigo").click(); await articleMode(list, "codigo"); await expect(search).toBeFocused(); await expect(search).toHaveValue(""); await expect(search).toBeFocused(); await expect(list.getByTestId("CBOX_ativo")).toBeChecked(); await expect(list.getByTestId("CBOX_inativo")).not.toBeChecked(); for (const item of seeded) await expect(rowFor(page, table, item.Codigo!)).toBeVisible();
     await search.fill(marker); await expect(rowFor(page, table, seeded[0].Codigo!)).toBeVisible(); for (const item of seeded.slice(1)) await expect(rowFor(page, table, item.Codigo!)).toHaveCount(0);
     await list.getByTestId("CBOX_inativo").check(); for (const item of seeded) await expect(rowFor(page, table, item.Codigo!)).toBeVisible(); await list.getByTestId("CBOX_ativo").uncheck(); await expect(rowFor(page, table, seeded[1].Codigo!)).toBeVisible(); for (const item of [seeded[0], seeded[2]]) await expect(rowFor(page, table, item.Codigo!)).toHaveCount(0);
     await list.getByTestId("CBOX_inativo").uncheck(); await expect(list.getByTestId("CBOX_ativo")).toBeChecked(); await expect(rowFor(page, table, seeded[0].Codigo!)).toBeVisible(); await expect(rowFor(page, table, seeded[1].Codigo!)).toHaveCount(0);
-    await list.getByTestId("BTN_descricao").click(); await expect(search).toHaveValue(""); for (const item of seeded) await expect(rowFor(page, table, item.Codigo!)).toBeVisible(); await search.fill(`${marker} d'Água %_`); await expect(rowFor(page, table, seeded[0].Codigo!)).toBeVisible(); await expect(rowFor(page, table, seeded[1].Codigo!)).toHaveCount(0);
-    await list.getByTestId("BTN_codigobarras").click(); await search.fill(`${marker}'%_`); await expect(rowFor(page, table, seeded[0].Codigo!)).toBeVisible(); await expect(rowFor(page, table, seeded[1].Codigo!)).toHaveCount(0);
-    await list.getByTestId("BTN_todos").click(); for (const item of seeded) await expect(rowFor(page, table, item.Codigo!)).toBeVisible(); await search.fill("this term is ignored in todos"); await expect(rowFor(page, table, seeded[0].Codigo!)).toBeVisible(); await expect(rowFor(page, table, seeded[1].Codigo!)).toHaveCount(0);
+    await list.getByTestId("BTN_descricao").click(); await articleMode(list, "descricao"); await expect(search).toBeFocused(); await expect(search).toHaveValue(""); await expect(search).toHaveValue(""); for (const item of seeded) await expect(rowFor(page, table, item.Codigo!)).toBeVisible(); await search.fill(`${marker} d'Água %_`); await expect(rowFor(page, table, seeded[0].Codigo!)).toBeVisible(); await expect(rowFor(page, table, seeded[1].Codigo!)).toHaveCount(0);
+    await list.getByTestId("BTN_codigobarras").click(); await articleMode(list, "codigobarras"); await expect(search).toBeFocused(); await expect(search).toHaveValue(""); await search.fill(`${marker}'%_`); await expect(rowFor(page, table, seeded[0].Codigo!)).toBeVisible(); await expect(rowFor(page, table, seeded[1].Codigo!)).toHaveCount(0);
+    await list.getByTestId("BTN_todos").click(); await articleMode(list, "todos"); await expect(search).toBeFocused(); await expect(search).toHaveValue(""); for (const item of seeded) await expect(rowFor(page, table, item.Codigo!)).toBeVisible(); await search.fill("this term is ignored in todos"); await expect(rowFor(page, table, seeded[0].Codigo!)).toBeVisible(); await expect(rowFor(page, table, seeded[1].Codigo!)).toHaveCount(0);
     await expect(list.getByTestId("BTN_todos")).toHaveCSS("font-weight", "700"); await expect(list.getByTestId("BTN_todos")).toHaveCSS("text-decoration-line", "underline");
   } finally { await cleanup(request, headers, owned); }
 });
@@ -183,8 +193,9 @@ test("SRC-931f8b27a0 source Artigos selector hides maintenance and preserves exa
     await page.goto(`/?workflow=articles&selecting=1&origin=${encodeURIComponent(origin)}`); await page.getByTestId("articles-select-open").click(); const picker = page.getByTestId("article-picker"), table = picker.getByTestId("TABLE_artigos"); await expect(picker.getByTestId("BTN_selecionar")).toBeFocused();
     for (const name of ["Btn_New", "BTN_Modificar", "BTN_Delete", "BTN_Imprimir"]) await expect(picker.getByTestId(name)).toBeHidden(); for (const name of ["BTN_anterior", "BTN_seguinte", "BTN_selecionar"]) await expect(picker.getByTestId(name)).toBeVisible();
     expect((await table.locator("tbody tr").first().boundingBox())!.height).toBe(30); const frame = (await page.getByTestId("article-picker-frame").boundingBox())!, close = (await picker.getByTestId("BTN_Fechar").boundingBox())!; expect(close.y - frame.y).toBe(503); expect(close.height).toBe(38);
-    const first = table.locator("tbody tr").first(), last = table.locator("tbody tr").last(); await first.click(); await picker.getByTestId("BTN_anterior").click(); await expect(first).toHaveAttribute("aria-selected", "true"); await picker.getByTestId("BTN_seguinte").click(); await expect(table.locator("tbody tr").nth(1)).toHaveAttribute("aria-selected", "true"); await last.click(); await picker.getByTestId("BTN_seguinte").click(); await expect(last).toHaveAttribute("aria-selected", "true");
+    const first = table.locator("tbody tr").first(), last = table.locator("tbody tr").last(); await first.click(); await picker.getByTestId("BTN_anterior").click(); await expect(first).toHaveAttribute("aria-selected", "true"); await picker.getByTestId("BTN_seguinte").click(); await expect(table.locator("tbody tr").nth(1)).toHaveAttribute("aria-selected", "true"); await picker.getByTestId("BTN_anterior").click(); await expect(first).toHaveAttribute("aria-selected", "true"); await last.click(); await picker.getByTestId("BTN_seguinte").click(); await expect(last).toHaveAttribute("aria-selected", "true");
     await rowFor(page, table, exact).dblclick(); await expect(picker).toHaveCount(0); expect(await page.getByTestId("articles-returned").textContent()).toBe(exact);
+    await page.getByTestId("articles-select-open").click(); await rowFor(page, table, exact.trim()).click(); await picker.getByTestId("BTN_selecionar").click(); await expect(picker).toHaveCount(0); expect(await page.getByTestId("articles-returned").textContent()).toBe(exact);
     await page.getByTestId("articles-select-open").click(); await picker.getByTestId("BTN_Fechar").click(); expect(await page.getByTestId("articles-returned").textContent()).toBe(origin); await page.getByTestId("articles-select-open").click(); await page.keyboard.press("Escape"); await expect(picker).toHaveCount(0); expect(await page.getByTestId("articles-returned").textContent()).toBe(origin);
     // DEV component evidence only; actual stock/material callers retain their distinct continuation obligations.
   } finally { await cleanup(request, headers, owned); }
@@ -216,4 +227,51 @@ test("RULE-CAA44622-010 real description assistance and mounted modal preserve e
     await form.getByTestId("EDT_Codbaras").fill(original.Descricao!.slice(0, 8)); await expect(form.getByTestId("EDT_Codbaras__suggestions")).toHaveCount(0); await form.getByTestId("EDT_Descricao").fill("Unmatched free text  "); await form.getByTestId("EDT_Preco").fill("1,");
     await form.getByRole("button", { name: "Minimizar", exact: true }).click(); await page.getByTestId("article-form-restore").click(); await expect(form.getByTestId("EDT_Descricao")).toHaveValue("Unmatched free text  "); await expect(form.getByTestId("EDT_Preco")).toHaveValue("1,"); await form.getByTestId("BTN_Cancelar").click();
   } finally { await cleanup(request, headers, [original.id]); }
+});
+
+
+test("ADR-002 accepted optional barcode edits retain deliberate blank after a NULL opening baseline", async ({ page, request }) => {
+  const headers = await session(request), original = await seed(request, headers, values(code(), { codbarras: null }));
+  const payloads: { values: { codbarras: string | null } }[] = [];
+  page.on("request", item => { if (item.url().endsWith("/api/articles/save")) payloads.push(item.postDataJSON()); });
+  try {
+    await open(page); const list = page.getByTestId("WIN_Table_artigos"), form = page.getByTestId("WIN_Form_artigos");
+    await rowFor(page, list.getByTestId("TABLE_artigos"), original.Codigo!).click(); await list.getByTestId("BTN_Modificar").click();
+    await expect(form.getByTestId("EDT_Codbaras")).toHaveValue("");
+    await form.getByTestId("EDT_Codbaras").fill("Accepted edit"); await form.getByTestId("EDT_Codbaras").fill("");
+    await form.getByTestId("BTN_Validar").click(); await expect(form).toHaveCount(0);
+    expect(payloads.at(-1)!.values.codbarras).toBe("");
+    expect((await rows(request, headers)).find(row => row.id === original.id)!.codbarras).toBe("");
+  } finally { await cleanup(request, headers, [original.id]); }
+});
+
+for (const launchMode of ["t", "m"]) test(`SRC-289f90002c source selector ${launchMode} pointer search awaits the actual keyboard and reapplies filters even on cancellation`, async ({ page, request }) => {
+  const headers = await session(request), marker = code().toLocaleLowerCase("pt-PT"), active = await seed(request, headers, values(marker, { Descricao: marker })), inactive = await seed(request, headers, values(code(), { inativo: true }));
+  const queries: ArticleList[] = [];
+  page.on("request", item => { if (item.url().endsWith("/api/articles/list")) queries.push(item.postDataJSON()); });
+  try {
+    await page.goto(`/?workflow=articles&selecting=1&modulo=${launchMode}`); await page.getByTestId("articles-select-open").click();
+    const picker = page.getByTestId("article-picker"), list = picker.getByTestId("WIN_Table_artigos"), table = list.getByTestId("TABLE_artigos"), search = list.getByTestId("EDT_termo_pesquisa"), keyboard = page.getByTestId("WIN_Teclado_Alfa");
+    await expect(list.getByTestId("BTN_codigo")).toBeEnabled(); await list.getByTestId("BTN_codigo").click();
+    await expect(rowFor(page, table, inactive.Codigo!)).toHaveCount(1);
+    const beforeCancel = queries.length;
+    await search.click(); await expect(keyboard).toBeVisible(); await expect(keyboard.getByTestId("BTN_Caption")).toHaveText("Pesquisa");
+    await keyboard.getByTestId("BTN_cancelar").click(); await expect(keyboard).toHaveCount(0);
+    await expect.poll(() => queries.length).toBe(beforeCancel + 1);
+    expect(queries.at(-1)).toMatchObject({ mode: "codigo", term: "", active: true, inactive: false });
+    await expect(rowFor(page, table, inactive.Codigo!)).toHaveCount(0);
+    await search.click(); await keyboard.getByTestId("EDT_input_manual").pressSequentially(marker); await keyboard.getByTestId("BTN_confirmar").click();
+    await expect(keyboard).toHaveCount(0); await expect(search).toHaveValue(marker);
+    await expect(table.locator("tbody tr")).toHaveCount(1); await expect(rowFor(page, table, active.Codigo!)).toHaveCount(1);
+    expect(queries.at(-1)).toMatchObject({ mode: "codigo", term: marker, active: true, inactive: false });
+    await search.click(); await keyboard.getByTestId("BTN_apagar_tudo").click(); await keyboard.getByTestId("BTN_cancelar").click();
+    await expect(search).toHaveValue(marker); await expect(rowFor(page, table, active.Codigo!)).toHaveCount(1);
+  } finally { await cleanup(request, headers, [active.id, inactive.id]); }
+});
+
+test("SRC-289f90002c ordinary selectors and maintenance keep the source touch-search guard off", async ({ page }) => {
+  await page.goto("/?workflow=articles&selecting=1&modulo=x"); await page.getByTestId("articles-select-open").click();
+  await page.getByTestId("article-picker").getByTestId("EDT_termo_pesquisa").click(); await expect(page.getByTestId("WIN_Teclado_Alfa")).toHaveCount(0);
+  await page.goto("/?workflow=articles&modulo=t"); await page.getByTestId("articles-open").click();
+  await page.getByTestId("WIN_Table_artigos").getByTestId("EDT_termo_pesquisa").click(); await expect(page.getByTestId("WIN_Teclado_Alfa")).toHaveCount(0);
 });

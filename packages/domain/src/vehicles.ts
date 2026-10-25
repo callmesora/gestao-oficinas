@@ -42,3 +42,8 @@ export function vehicleRequiredMessage(values: VehicleValues): string | null {
 export function vehicleDuplicateMessage(registration: string): string {
   return `Duplicação:  Este registo não pode ser gravado.\nCampo associado ao erro: matricula\nValor do campo duplicado: ${registration}`;
 }
+
+// WIN_Form_Viaturas.wdw:50; existing ADR-010 pt-PT target locale default.
+export function vehicleUppercase(registration: string): string {
+  return registration.toLocaleUpperCase("pt-PT");
+}

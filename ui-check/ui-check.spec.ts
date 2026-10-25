@@ -8,6 +8,8 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 
 import { join, resolve } from "node:path";
 
 type WindowConfig = {
+  /** Direct development entry for a real dialog whose source caller requires arguments. */
+  url?: string;
   /** Fit a large source window plus development shell without clipping its visual capture. */
   viewport?: { width: number; height: number };
   /** Missing evidence stays explicit; this does not establish visual parity. */
@@ -130,7 +132,7 @@ for (const [window, settings] of Object.entries(config.windows)) {
     page.on("requestfailed", (request) => failed.push(request.url()));
     page.on("response", (response) => { if (response.status() >= 400) failed.push(`${response.status()} ${response.url()}`); });
     if (settings.viewport) await page.setViewportSize(settings.viewport);
-    await page.goto("/");
+    await page.goto(settings.url ?? "/");
     for (const id of settings.open) await page.getByTestId(id).first().click();
     const view = page.getByTestId(window).first();
     await expect(view).toBeVisible();

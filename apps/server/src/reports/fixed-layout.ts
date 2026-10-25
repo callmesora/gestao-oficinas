@@ -1,6 +1,6 @@
 import sourceLayouts from "./layouts.json" with { type: "json" };
 import type { ReportContext, ReportId } from "../../../../packages/domain/src/reports";
-import { band, baseCss, pageHeaderCss, type ReportDocument } from "./templates";
+import { band, reportBodyCss, pageHeaderCss, type ReportDocument } from "./templates";
 
 export type ReportValues = Record<string, string | null>;
 type SourceControl = { name: string; kind: string; x: number; y: number; width: number; height: number; visible: boolean; auto: boolean; divisible: boolean; item?: string; literal?: string; preset?: string; calculation?: string; border?: string };
@@ -29,9 +29,13 @@ export function fixedReportDocument(reportId: ReportId, context: ReportContext, 
   const header = sourceBand(reportId, "PAGE_HEADER", all), row = (html: string) => `<tr><td>${html}</td></tr>`;
   const paper = layout.paper === "A4" ? "210mm 297mm" : layout.paper === "A5" ? "148mm 210mm" : "215.9mm 279.4mm";
   const pageNumber = footerBand?.controls.find(control => control.visible && control.preset === "[PAGENUM]/[NBPAGES]");
-  const footerCss = pageNumber ? `@page{@bottom-right{content:none;}@bottom-left{content:counter(page) "/" counter(pages);font-family:ReportSans;font-size:9pt;vertical-align:top;margin-left:${pageNumber.x}mm;width:${pageNumber.width}mm;height:${pageNumber.height}mm;padding:0;}}` : "@page{@bottom-right{content:none;}}";
-  const css = baseCss + (headerBand ? pageHeaderCss(headerBand.height, sourceWidth) : "") + footerCss
-    + `@page{size:${paper};margin-left:20mm;margin-right:20mm;margin-bottom:${20 + (footerBand?.height ?? 0)}mm;}.report,.band,table{width:${sourceWidth}mm;}.running-header{width:${sourceWidth}mm;}`;
+  // Declare only the source footer. Paged.js0.4.3 leaks content:none to later margin
+  // boxes, so cancelling another template's footer would also hide this running header.
+  const footerCss = pageNumber ? `@page{@bottom-left{content:counter(page) "/" counter(pages);font-family:ReportSans;font-size:9pt;vertical-align:top;margin-left:${pageNumber.x}mm;width:${pageNumber.width}mm;height:${pageNumber.height}mm;padding:0;}}` : "";
+  const css = reportBodyCss + (headerBand ? pageHeaderCss(headerBand.height, sourceWidth) : "") + footerCss
+    // Paged.js0.4.3 atpage.onAtPage replaces the whole margin map on a later partial
+    // declaration. Keep every side here, including the source repeated-header reservation.
+    + `@page{size:${paper};margin:${20 + (headerBand?.height ?? 0)}mm 20mm ${20 + (footerBand?.height ?? 0)}mm 20mm;}.report,.band,table{width:${sourceWidth}mm;}.running-header{width:${sourceWidth}mm;}`;
   return { reportId, unresolved: [...layout.unresolved], css,
     html: `${headerBand ? `<div class="running-header">${header}</div>` : ""}<article class="report">${sourceBand(reportId, "START_OF_DOCUMENT", all)}<table>${headerBand ? `<thead>${row(header)}</thead>` : ""}<tbody>${body.map(row).join("")}</tbody></table>${sourceBand(reportId, "END_OF_DOCUMENT", all)}</article>` };
 }

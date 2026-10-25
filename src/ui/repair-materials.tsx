@@ -1,3 +1,4 @@
+import Decimal from "decimal.js";
 import { useContext, useEffect, useRef, useState, type CSSProperties } from "react";
 import { repairMaterialEditMessage, type RepairMaterialLine, type RepairMaterialProof, type RepairMaterialsDocument, type RepairMaterialsMechanic, type RepairMaterialsOrder } from "../../packages/domain/src/repair-materials";
 import { dateTimeEntryDisplay } from "../../packages/domain/src/date-time";
@@ -9,7 +10,7 @@ import { isolatedArticleRepository } from "../infrastructure/articles";
 import { isolatedMechanicRepository } from "../infrastructure/mechanics";
 import sourceListLayout from "./legacy/WIN_Material_Reparacao.layout.json";
 import sourceFormLayout from "./legacy/WIN_Material_reparacao_form.layout.json";
-import { controlBox, controlOf, type LegacyLayout } from "./legacy/layout";
+import { controlBox, controlOf, type LegacyLayout, type LegacyColumn } from "./legacy/layout";
 import { anchoredControl, FrameDeltaContext } from "./legacy/anchors";
 import { WdCheckMark } from "./legacy/wd";
 import { WdRadControls, type WdRadBinding } from "./legacy/rad-controls";
@@ -64,6 +65,14 @@ function workstationDateTime() {
   const date = new Date(), pad = (value: number, digits = 2) => String(value).padStart(digits, "0");
   return `${pad(date.getFullYear(), 4)}${pad(date.getMonth() + 1)}${pad(date.getDate())}${pad(date.getHours())}${pad(date.getMinutes())}${pad(date.getSeconds())}${pad(date.getMilliseconds(), 3)}`;
 }
+// Dossier sortable/search flags; locale/NULL ordering remains U02 under ADR009.
+// Decimal comparisons retain imported capacity and never narrow quantities/IDs to Number.
+function compareCell(a: string | number | null, b: string | number | null, numeric: boolean): number {
+  if (a === null || b === null) return a === b ? 0 : a === null ? 1 : -1;
+  return numeric ? new Decimal(a).comparedTo(b) : String(a).toLocaleLowerCase("pt-PT").localeCompare(String(b).toLocaleLowerCase("pt-PT"), "pt-PT");
+}
+const materialField = (name: string) => ({ COL_data_hora: "data_hora", COL_mecanico_codigo: "mecanico", COL_mecanico_descricao: "mechanicDescription", COL_codigo_artigo: "artigo", COL_descricao_artigo: "descricao_artigo", COL_quant: "quantidade", COL_preco: "preco" } as const)[name as "COL_data_hora"];
+const orderField = (name: string) => ({ COL_Numero: "numero", COL_Matricula: "matricula", COL_Marca_Modelo: "marcamodelo" } as const)[name as "COL_Numero"];
 const linePayload = ({ id, data_hora, mecanico, artigo, descricao_artigo, quantidade, preco, lancado }: RepairMaterialLine) => ({ id, data_hora, mecanico, artigo, descricao_artigo, quantidade, preco, lancado });
 function materialDateDisplay(value: string | null) {
   const minute = dateTimeEntryDisplay(value);
@@ -78,6 +87,7 @@ function MaterialEditor({ repository, document, articleRepository, mechanicRepos
   finish: () => void; saveRef: { current: (() => void) | null };
 }) {
   const [rows, setRows] = useState<DraftLine[]>(() => document.rows.map(row => ({ ...row, key: `stored:${row.id}` })));
+  const sorting = useRef<{ column: string; descending: boolean } | null>(null);
   const [selected, setSelected] = useState<string | null>(null), [article, setArticle] = useState(""), [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(() => decimalMaskDisplay(quantityMask, "1")), [actor, setActor] = useState<RepairMaterialsMechanic | null>(null);
   const [scannerChild, setScannerChild] = useState<ScannerChild | null>(null), latestScannerChild = useRef<ScannerChild | null>(null);
@@ -105,6 +115,8 @@ function MaterialEditor({ repository, document, articleRepository, mechanicRepos
     if (!alive.current) return null;
     if (check.kind === "inactive") { await info("Mecânico inativo"); return null; }
     if (check.kind !== "cancelled") { setDiagnostic(check.kind); return null; }
+    // Source292 checks current inactivity before reusing the already authenticated actor.
+    if (actor?.Codigo === code) { setActor(check.mechanic); return check.mechanic; }
     const password = await ask("password", "");
     if (!alive.current || password === null || password === "") return null;
     const result = await repository.authenticate({ code, password });
@@ -185,6 +197,13 @@ function MaterialEditor({ repository, document, articleRepository, mechanicRepos
       defaultIndex: 2, cancelIndex: 2, destructive: true, safeIndex: 2 });
     if (alive.current && answer.result === 1) { setRows(previous => previous.filter(row => row.key !== current.key)); setSelected(null); }
   });
+  const sort = (column: LegacyColumn) => {
+    if (pending.current) return;
+    const field = materialField(column.name); if (!field) return;
+    const descending = sorting.current?.column === column.name ? !sorting.current.descending : false;
+    sorting.current = { column: column.name, descending };
+    setRows(previous => [...previous].sort((a, b) => compareCell(a[field] ?? null, b[field] ?? null, ["COL_quant", "COL_preco", "COL_mecanico_codigo"].includes(column.name)) * (descending ? -1 : 1)));
+  };
   const move = (direction: -1 | 1) => { const index = rows.findIndex(row => row.key === selected), next = index + direction; if (!pending.current && index >= 0 && next >= 0 && next < rows.length) setSelected(rows[next].key); };
   const bindings: WdRadBinding[] = [
     ...["STC_Viatura", "STC_Mecanico", "STC_Artigo", "STC_Quant"].map(name => ({ name, kind: "caption" as const })),
@@ -209,13 +228,15 @@ function MaterialEditor({ repository, document, articleRepository, mechanicRepos
   ];
   return <>
     <WdRadControls layout={formLayout} bindings={bindings} />
-    <WdTable control={materialTable} rows={rows} rowId={row => row.key} selectedId={selected} onSelect={key => { if (!pending.current) setSelected(key); }} {...settings} configureColumns designerOptions onResetColumns={settings.resetLayout}
+    <WdTable control={materialTable} rows={rows} rowId={row => row.key} selectedId={selected} onSelect={key => { if (!pending.current) setSelected(key); }} onSort={sort}
+      onColumnSearch={(column, term) => { if (pending.current || !term) return; const field = materialField(column.name); if (!field) return;
+        const found = rows.find(row => String(row[field] ?? "").toLocaleLowerCase("pt-PT").startsWith(term.toLocaleLowerCase("pt-PT"))); if (found) setSelected(found.key); }} {...settings} configureColumns designerOptions onResetColumns={settings.resetLayout}
       rowHeight={sourceRowHeight * (600 + delta.height) / 600}
       cell={(row, column) => column.name === "COL_data_hora" ? materialDateDisplay(row.data_hora) : column.name === "COL_mecanico_codigo" ? row.mecanico ?? "" : column.name === "COL_mecanico_descricao" ? row.mechanicDescription ?? "" :
         column.name === "COL_codigo_artigo" ? row.artigo ?? "" : column.name === "COL_descricao_artigo" ? row.descricao_artigo ?? "" : column.name === "COL_quant" ? decimalMaskDisplay(displayMask, row.quantidade) : column.name === "COL_preco" ? decimalMaskDisplay(displayMask, row.preco) : column.name === "COL_Lancado" ? <WdCheckMark checked={row.lancado} /> : ""} />
     {prompt && <RepairMaterialPrompt mode={prompt.mode} value={prompt.value} finish={value => { latestPrompt.current = null; setPrompt(null); prompt.resolve(value); }} />}
-    {picker === "article" && articleRepository && <ArticlePicker repository={articleRepository} origin={article} finish={value => { setPicker(null); if (value !== "") { setArticleValue(value); void run(() => verifyArticle(value, false)); } }} />}
-    {picker === "mechanic" && mechanicRepository && <MechanicPicker repository={mechanicRepository} origin="" finish={value => { setPicker(null); if (value !== "") void run(async () => { const code = typeof value === "number" ? value : Number(value); if (actor?.Codigo === code) return; await authenticate(code); }); }} />}
+    {picker === "article" && articleRepository && <ArticlePicker launchMode={new URLSearchParams(window.location.search).get("modulo") ?? undefined} repository={articleRepository} origin={article} finish={value => { setPicker(null); if (value !== "") { setArticleValue(value); void run(() => verifyArticle(value, false)); } }} />}
+    {picker === "mechanic" && mechanicRepository && <MechanicPicker repository={mechanicRepository} origin="" finish={value => { setPicker(null); if (value !== "") void run(async () => { const code = typeof value === "number" ? value : Number(value); await authenticate(code); }); }} />}
     {scannerChild?.kind === "file" && <MaterialScannerFileBridge finish={text => { latestScannerChild.current = null; setScannerChild(null); scannerChild.resolve(text); }} />}
     {scannerChild?.kind === "scanner" && <StockScannerDialog repository={scannerChild.repository} sourceText={scannerChild.text} finish={result => { latestScannerChild.current = null; setScannerChild(null); scannerChild.resolve(result); }} />}
     {scannerChild?.kind === "unknown" && <StockUnknownScannerDialog rows={scannerChild.rows} finish={() => { latestScannerChild.current = null; setScannerChild(null); scannerChild.resolve(); }} />}
@@ -226,12 +247,21 @@ function MaterialEditor({ repository, document, articleRepository, mechanicRepos
 export function RepairMaterialsDialog({ repository, orderId, numero, articleRepository, mechanicRepository, finish }: {
   repository: RepairMaterialsRepository; orderId?: string; numero?: string; articleRepository?: ArticleRepository; mechanicRepository?: MechanicRepository; finish: (saved: boolean) => void;
 }) {
-  const modal = useRef<WdModalHandle>(null), save = useRef<(() => void) | null>(null);
+  const modal = useRef<WdModalHandle>(null), save = useRef<(() => void) | null>(null), { message } = useDialogs();
+  const finished = useRef(finish); useEffect(() => { finished.current = finish; }, [finish]);
   const [document, setDocument] = useState<RepairMaterialsDocument | null>(null), [diagnostic, setDiagnostic] = useState("");
+  const initialRead = useRef<{ repository: RepairMaterialsRepository; orderId?: string; numero?: string; request: ReturnType<RepairMaterialsRepository["read"]> } | null>(null);
   useEffect(() => { let active = true;
-    void repository.read(orderId ? { orderId } : { numero: numero ?? "" }).then(result => { if (!active) return; if (result.kind === "loaded") setDocument(result.document); else setDiagnostic(result.kind); }).catch(() => { if (active) setDiagnostic("transport"); });
+    // One launch owns one short NOWAIT check. StrictMode effect replay reattaches to
+    // that promise; it must not start a second writer that refuses this own launch.
+    if (!initialRead.current || initialRead.current.repository !== repository || initialRead.current.orderId !== orderId || initialRead.current.numero !== numero) {
+      initialRead.current = { repository, orderId, numero, request: repository.read(orderId ? { orderId } : { numero: numero ?? "" }) };
+    }
+    void initialRead.current.request.then(result => { if (!active) return; if (result.kind === "loaded") setDocument(result.document); else if (result.kind === "inUse") {
+      void message({ title: "Materiais de Reparação", text: "Ordem de reparação em uso por outro utilizador", type: 0 }).then(() => { if (active) { modal.current?.close(); finished.current(false); } });
+    } else setDiagnostic(result.kind); }).catch(() => { if (active) setDiagnostic("transport"); });
     return () => { active = false; };
-  }, [repository, orderId, numero]);
+  }, [repository, orderId, numero, message]);
   return <WdModal ref={modal} layout={formLayout} instance="repair-material-form-frame" testId="WIN_Material_reparacao_form" restoreTestId="repair-material-form-restore"
     onClose={() => { if (document) save.current?.(); else { modal.current?.close(); finish(false); } }}
     onKeyDown={event => { if (event.key === "Escape") { event.preventDefault(); event.stopPropagation(); } }}>
@@ -244,8 +274,9 @@ export function MaterialsList({ repository, articleRepository, mechanicRepositor
   repository: RepairMaterialsRepository; articleRepository: ArticleRepository; mechanicRepository: MechanicRepository; restricted: boolean;
 }) {
   const close = useWorkspaceClose(), { message } = useDialogs(), delta = useContext(FrameDeltaContext);
+  const sorting = useRef<{ column: string; descending: boolean } | null>(null);
   const [orders, setOrders] = useState<RepairMaterialsOrder[]>([]), [mechanics, setMechanics] = useState<RepairMaterialsMechanic[]>([]);
-  const [mechanic, setMechanic] = useState<number | null | undefined>(undefined), [selected, setSelected] = useState<string | null>(null), [form, setForm] = useState<string | null>(null);
+  const [mechanic, setMechanic] = useState<number | null | undefined>(undefined), [mechanicSelection, setMechanicSelection] = useState<number | null | undefined>(undefined), [selected, setSelected] = useState<string | null>(null), [form, setForm] = useState<string | null>(null);
   const [diagnostic, setDiagnostic] = useState(""), [tick, setTick] = useState(0), pending = useRef(false);
   const [timer, setTimer] = useState<string | null | undefined>(undefined), reading = useRef(false), timerMessage = useRef(message);
   useEffect(() => { timerMessage.current = message; }, [message]);
@@ -284,8 +315,19 @@ export function MaterialsList({ repository, articleRepository, mechanicRepositor
     } catch { setDiagnostic("transport"); }
     finally { pending.current = false; }
   };
+  const sort = (column: LegacyColumn) => {
+    if (pending.current) return; const field = orderField(column.name); if (!field) return;
+    const descending = sorting.current?.column === column.name ? !sorting.current.descending : false;
+    sorting.current = { column: column.name, descending };
+    setOrders(previous => [...previous].sort((a, b) => compareCell(a[field], b[field], field === "numero") * (descending ? -1 : 1)));
+  };
   const move = (step: -1 | 1) => { const index = orders.findIndex(row => row.id === selected), next = index + step; if (!pending.current && index >= 0 && next >= 0 && next < orders.length) { setSelected(orders[next].id); selectedNumber.current = orders[next].numero; } };
-  const moveMechanic = (step: -1 | 1) => { const index = mechanics.findIndex(value => value.Codigo === mechanic), next = index + step; if (index >= 0 && next >= 0 && next < mechanics.length) setMechanic(mechanics[next].Codigo); };
+  const moveMechanic = (step: -1 | 1) => {
+    const index = mechanics.findIndex(value => value.Codigo === mechanicSelection); if (index < 0) return;
+    const next = index + step, code = mechanics[next >= 0 && next < mechanics.length ? next : index].Codigo;
+    // Source603–606/630–633 invokes the filter even when the list cannot move.
+    setMechanicSelection(code); setMechanic(code);
+  };
   const mechanicControl = anchoredControl(controlOf(listLayout, "LIST_mecanicos"), delta);
   const bindings: WdRadBinding[] = [
     { name: "STC_Ordens_de_Reparacao", kind: "caption", props: { text: "Ordens de Reparação" } },
@@ -300,11 +342,13 @@ export function MaterialsList({ repository, articleRepository, mechanicRepositor
   ];
   return <>
     <WdRadControls layout={listLayout} bindings={bindings} />
-    <select data-testid="LIST_mecanicos" size={15} aria-label="Mecânicos" value={mechanic === undefined ? "none" : String(mechanic)}
-      style={controlBox(mechanicControl)} onChange={event => setMechanic(event.currentTarget.value === "null" ? null : Number(event.currentTarget.value))}>
+    <select data-testid="LIST_mecanicos" size={15} aria-label="Mecânicos" value={mechanicSelection === undefined ? "none" : String(mechanicSelection)}
+      style={controlBox(mechanicControl)} onChange={event => { const code = event.currentTarget.value === "null" ? null : Number(event.currentTarget.value); setMechanicSelection(code); setMechanic(code); }}>
       {mechanics.map((value, index) => <option key={`${value.Codigo}:${index}`} value={String(value.Codigo)}>{value.Descricao ?? ""}</option>)}
     </select>
-    <WdTable control={orderTable} rows={orders} rowId={row => row.id} selectedId={selected} onSelect={id => { const row = orders.find(value => value.id === id); setSelected(id); selectedNumber.current = row?.numero ?? null; }} onActivate={() => void open()} {...listSettings} configureColumns designerOptions onResetColumns={listSettings.resetLayout}
+    <WdTable control={orderTable} rows={orders} rowId={row => row.id} selectedId={selected} onSelect={id => { const row = orders.find(value => value.id === id); setSelected(id); selectedNumber.current = row?.numero ?? null; }} onActivate={() => void open()} onSort={sort}
+      onColumnSearch={(column, term) => { if (pending.current || !term) return; const field = orderField(column.name); if (!field) return;
+        const found = orders.find(row => String(row[field] ?? "").toLocaleLowerCase("pt-PT").startsWith(term.toLocaleLowerCase("pt-PT"))); if (found) { setSelected(found.id); selectedNumber.current = found.numero; } }} {...listSettings} configureColumns designerOptions onResetColumns={listSettings.resetLayout}
       cell={(row, column) => column.name === "COL_Numero" ? row.numero ?? "" : column.name === "COL_Matricula" ? <span style={{ fontSize: 12, fontWeight: "bold" }}>{row.matricula ?? ""}</span> : column.name === "COL_Marca_Modelo" ? row.marcamodelo ?? "" : ""} />
     {form && <RepairMaterialsDialog repository={repository} orderId={form} articleRepository={articleRepository} mechanicRepository={mechanicRepository} finish={() => { setForm(null); setTick(value => value + 1); }} />}
     {diagnostic && <output data-testid="repair-materials-list-diagnostic">{diagnostic}</output>}

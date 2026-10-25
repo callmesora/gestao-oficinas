@@ -25,10 +25,10 @@ export type RepairMaterialsOrder = { id: string; orderId: string; numero: string
 export type RepairMaterialsMechanic = { Codigo: number | null; Descricao: string | null; inativo: boolean | null };
 export type RepairMaterialsListResult = { kind: "loaded"; orders: RepairMaterialsOrder[]; mechanics: RepairMaterialsMechanic[]; timer: string | null } | { kind: "invalid" | "failed" };
 export type RepairMaterialsDocument = { orderId: string; numero: string; matricula: string | null; marcamodelo: string | null; state: string | null; mechanic: RepairMaterialsMechanic | null; baseline: string; rows: RepairMaterialLine[] };
-export type RepairMaterialsReadResult = { kind: "loaded"; document: RepairMaterialsDocument } | { kind: "invalid" | "missing" | "failed" };
+export type RepairMaterialsReadResult = { kind: "loaded"; document: RepairMaterialsDocument } | { kind: "invalid" | "missing" | "failed" | "inUse" };
 export type RepairMaterialsArticle = { Codigo: string | null; Descricao: string | null; preco: string | null };
 export type RepairMaterialsArticleResult = { kind: "loaded"; article: RepairMaterialsArticle } | { kind: "invalid" | "missing" | "failed" };
-export type RepairMaterialsMechanicResult = { kind: "authenticated"; mechanic: RepairMaterialsMechanic } | { kind: "inactive" | "incorrect" | "cancelled" | "missing" | "invalid" | "failed" };
+export type RepairMaterialsMechanicResult = { kind: "authenticated" | "cancelled"; mechanic: RepairMaterialsMechanic } | { kind: "inactive" | "incorrect" | "missing" | "invalid" | "failed" };
 export type RepairMaterialsSaveResult = { kind: "saved" } | { kind: "invalid" | "missing" | "failed" | "stale" | "inUse" | "launched" | "inactive" | "incorrect" };
 
 /** Verified WIN_Material_reparacao_form.wdw:971–979/1003–1012/1088–1127. */

@@ -112,6 +112,7 @@ it("renders the explicit live caller table snapshot and same offline preview/PDF
   expect(result.html).toContain("data:font/woff2;base64,"); expect(result.html).toContain("SIL OPEN FONT LICENSE");
   const pdf = inspectPdf(result.pdfBase64);
   expect(pdf.pages).toHaveLength(1); expect(pdf.pages[0]).toMatchObject({ width: 612, height: 792 });
+  expect(result.html).toContain(context.company); expect(pdf.pages[0].text).toContain("OFICINA SINTÉTICA");
   expect(pdf.pages[0].text).toContain("Ordens de Reparação"); expect(pdf.pages[0].text).toContain("Elevada");
   expect(pdf.embeddedFonts).toBeGreaterThanOrEqual(2);
   await app.close();
@@ -145,6 +146,7 @@ it("executes both real source movement branches, preserves code+number joins/dup
   expect(result.html).not.toContain('data-control="ITEM_Quantidade"'); expect(result.html).not.toContain('data-control="ITEM_Stock"');
   const pdf = inspectPdf(result.pdfBase64);
   expect(pdf.pages).toHaveLength(result.pageCount);
+  expect(result.html).toContain(context.company); expect(pdf.pages[0].text).toContain("OFICINA SINTÉTICA");
   for (const page of pdf.pages) {
     expect(page).toMatchObject({ width: 612, height: 792 });
     expect(page.text).toContain("Data"); expect(page.text).toContain("Número"); expect(page.text).toContain("Descrição");

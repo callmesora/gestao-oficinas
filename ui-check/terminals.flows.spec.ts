@@ -24,6 +24,9 @@ test("SRC-f62ee211d1 actual terminal form validates in order, persists all field
   expect((await (await request.post("/api/terminals/save", { headers, data: { mode: "update", id: row.id, values } })).json()).kind).toBe("saved");
   await list.getByTestId("BTN_Modificar").click(); await expect(form.getByTestId("EDT_Descricao")).toHaveValue("Refreshed before edit");
   await expect(form.getByTestId("EDT_Posicao_Final_do_Codigo_de_Barras")).toHaveValue("255");
+  for (const [control, value] of [["EDT_Codigo", code], ["EDT_Posicao_Inicial_do_Codigo_de_Barras", "1"], ["EDT_Posicao_Inicial_da_Quantidade", "0"], ["EDT_Posicao_Final_da_Quantidade", "2"], ["EDT_Localizacao_da_pasta", ""], ["EDT_Nome_do_ficheiro", "d'Água.txt  "]]) {
+    await expect(form.getByTestId(control)).toHaveValue(value);
+  }
   await expect(form.getByTestId("EDT_Codigo")).toHaveAttribute("readonly", "");
   await form.getByTestId("EDT_Descricao").fill("Cancelled"); await page.keyboard.press("Escape"); await expect(form).toHaveCount(0); await expect(list).toBeVisible();
   await expect(list.getByTestId("BTN_Modificar")).toBeEnabled(); await selected.dblclick(); await form.getByTestId("EDT_Descricao").fill("Final"); await form.getByTestId("BTN_Validar").click(); await expect(form).toHaveCount(0);
@@ -46,6 +49,8 @@ test("SRC-3ee5a8fb54 SRC-958c07be8f actual terminal selector retains CRUD, retur
   await page.getByTestId("WINDEVMESSAGEBOX").getByTestId("BTN_OK").click(); await form.getByTestId("BTN_Cancelar").click(); await expect(list).toBeVisible();
   const selected = list.getByRole("row").filter({ has: page.getByRole("cell", { name: code, exact: true }) });
   await expect(list.getByTestId("BTN_selecionar")).toBeEnabled(); await selected.dblclick(); await expect(page.getByTestId("terminals-returned")).toHaveText(code);
+  await page.getByTestId("terminals-select-open").click(); await selected.click(); await list.getByTestId("BTN_selecionar").click();
+  await expect(page.getByTestId("terminals-returned")).toHaveText(code); await expect(page.getByTestId("terminal-picker")).toHaveCount(0);
   await page.getByTestId("terminals-select-open").click(); await list.getByTestId("BTN_Fechar").click(); await expect(page.getByTestId("terminals-returned")).toHaveText("Original");
   await page.getByTestId("terminals-select-open").click(); await selected.click(); await list.getByTestId("BTN_Delete").click();
   const confirm = page.getByTestId("WINDEVDIALOGBOX"); await confirm.getByRole("button", { name: "Não", exact: true }).click(); await expect(selected).toBeVisible();

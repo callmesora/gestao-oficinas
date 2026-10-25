@@ -99,3 +99,5 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 Initial implementation retains today/today and upper zzzzzzzzzz defaults, both actual article pickers and lower-nonempty→upper continuation. Preview sends source Date8 start00:00:00/end23:59:59 and article bounds through an explicit RPT_Extrato_artigos callback owned by MIG13; there is no reversed-range guard (legacy/GestaoOficinas_TesteIA/WIN_Extrato_Artigos.wdw:197/303–306/412–446).
 
 U-W13F458-01/02/05 retain the partly missing preview-button metadata, native date coercion/locale and full-window/keyboard acceptance. Visible preview caption/kind is a local JPG-backed projection without changing generated metadata. Development route `?workflow=stock-statement` is not production navigation.
+
+MIG11 continuation: real article pickers return the upper bound directly; a nonempty lower return also assigns the upper bound. Cancellation retains each original argument. Both initial dates use the workstation day and the initial upper article bound is literal zzzzzzzzzz. These exact caller checks live in stock.flows.spec.ts; report/native preview acceptance remains separate.
