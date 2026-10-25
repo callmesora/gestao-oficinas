@@ -1,0 +1,104 @@
+{
+  "legacy": {
+    "delimiter": ",",
+    "encoding": "utf-8"
+  },
+  "target": {
+    "delimiter": ",",
+    "encoding": "utf-8"
+  },
+  "cellEncoding": "N: NULL; T: exact raw text; D: exact decimal; I: byte/Boolean integer. No date, whitespace, scale or newline normalization.",
+  "tables": {
+    "ordem_reparacao": {
+      "key": [
+        "numero"
+      ],
+      "columns": {
+        "ordem_reparacaoID": {
+          "trim": false
+        },
+        "numero": {
+          "trim": false
+        },
+        "matricula": {
+          "trim": false
+        },
+        "km_viatura": {
+          "trim": false
+        },
+        "recepcao_util": {
+          "trim": false
+        },
+        "recepcao_datahora": {
+          "trim": false
+        },
+        "recepcao_cliente": {
+          "trim": false
+        },
+        "recepcao_terceiro": {
+          "trim": false
+        },
+        "recepacao_contatos": {
+          "trim": false
+        },
+        "recepcao_servico": {
+          "trim": false
+        },
+        "recepcao_obs": {
+          "trim": false
+        },
+        "recepcao_entrega_prevista": {
+          "trim": false
+        },
+        "recepcao_prioridade": {
+          "trim": false
+        },
+        "reparacao_mecanico": {
+          "trim": false
+        },
+        "reparacao_estado": {
+          "trim": false
+        },
+        "reparacao_estado_obs": {
+          "trim": false
+        },
+        "reparacao_servico": {
+          "trim": false
+        },
+        "reparacao_estado_data": {
+          "trim": false
+        },
+        "reparacao_estado_historico": {
+          "trim": false
+        },
+        "totaL_mao_obra": {
+          "trim": false
+        },
+        "total_pecas": {
+          "trim": false
+        },
+        "total_desconto": {
+          "trim": false
+        },
+        "total_reparacao": {
+          "trim": false
+        },
+        "faturado": {
+          "trim": false
+        },
+        "total_pago": {
+          "trim": false
+        },
+        "Estados_reparacaoID": {
+          "trim": false
+        },
+        "numero_fatura": {
+          "trim": false
+        },
+        "data_pagamento": {
+          "trim": false
+        }
+      }
+    }
+  }
+}

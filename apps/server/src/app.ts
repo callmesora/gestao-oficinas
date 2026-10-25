@@ -16,6 +16,7 @@ import { listDocumentTypes, saveDocumentType, checkDocumentTypeDelete, deleteDoc
 import { listArticles, saveArticle, checkArticleDelete, deleteArticle } from "./operations/articles";
 import { listUsers, readUser, saveUser, deleteUser } from "./operations/users";
 import { initialiseRepairOrders, listRepairOrders, saveRepairOrderDefaults } from "./operations/repair-orders";
+import { initialiseRepairOrderForm, resolveRepairOrderVehicle, lookupRepairOrderCustomer, checkRepairOrderVehicleChange, checkRepairOrderStateChange, prepareRepairOrderSave, saveRepairOrder, deleteRepairOrder } from "./operations/repair-order-form";
 
 export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; terminalConnect?: DatabaseConnection; postoConnect?: DatabaseConnection; mechanicsConnect?: DatabaseConnection; repairStateConnect?: DatabaseConnection; documentTypeConnect?: DatabaseConnection; articleConnect?: DatabaseConnection; userConnect?: DatabaseConnection; repairOrderConnect?: DatabaseConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
   const app = Fastify({ logger: false });
@@ -120,7 +121,10 @@ export function createApp(options: { customerConnect?: DatabaseConnection; vehic
       return operation(options.userConnect, request.body);
     });
   }
-  for (const [action, operation] of Object.entries({ initialise: initialiseRepairOrders, list: listRepairOrders, "save-defaults": saveRepairOrderDefaults })) {
+  for (const [action, operation] of Object.entries({ initialise: initialiseRepairOrders, list: listRepairOrders, "save-defaults": saveRepairOrderDefaults,
+    "form-initialise": initialiseRepairOrderForm, "resolve-vehicle": resolveRepairOrderVehicle, "lookup-customer": lookupRepairOrderCustomer,
+    "check-vehicle-change": checkRepairOrderVehicleChange, "check-state-change": checkRepairOrderStateChange,
+    "prepare-save": prepareRepairOrderSave, save: saveRepairOrder, delete: deleteRepairOrder })) {
     app.post(`/api/repair-orders/${action}`, async (request, reply) => {
       if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
       if (!options.repairOrderConnect) return reply.code(503).send({ kind: "unavailable" });

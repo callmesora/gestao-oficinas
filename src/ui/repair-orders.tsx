@@ -6,10 +6,15 @@ import type { RepairOrderRepository } from "../application/repair-orders";
 import type { CustomerRepository } from "../application/customers";
 import type { VehicleRepository } from "../application/vehicles";
 import type { MechanicRepository } from "../application/mechanics";
+import type { UserRepository } from "../application/users";
+import type { RepairOrderFormRepository } from "../application/repair-order-form";
+import type { RepairFormTarget } from "../../packages/domain/src/repair-order-form";
 import { isolatedRepairOrderRepository } from "../infrastructure/repair-orders";
 import { isolatedCustomerRepository } from "../infrastructure/customers";
 import { isolatedVehicleRepository } from "../infrastructure/vehicles";
 import { isolatedMechanicRepository } from "../infrastructure/mechanics";
+import { isolatedUserRepository } from "../infrastructure/users";
+import { isolatedRepairOrderFormRepository } from "../infrastructure/repair-order-form";
 import { selectAfterTableRead } from "../application/table-selection";
 import sourceLayout from "./legacy/WIN_Ordens_Reparacao.layout.json";
 import { controlOf, type LegacyColumn, type LegacyLayout } from "./legacy/layout";
@@ -23,6 +28,7 @@ import { WdWorkspace, useWorkspace, useWorkspaceClose } from "./legacy/workspace
 import { CustomerPicker } from "./customers";
 import { VehiclePicker } from "./vehicles";
 import { MechanicPicker } from "./mechanics";
+import { RepairOrderFormDialog } from "./repair-order-form";
 import "./repair-orders.css";
 
 // JPG/dossier-backed display overlay; generated identities/geometry remain unchanged (ADR-003/U01).
@@ -40,7 +46,7 @@ type Dates = { EDT_data_entrada_inicio: DateTimeEntryDraft; EDT_data_entrada_fim
 type StateDraft = RepairOrderStateFilter & { checked: boolean | null };
 type Initial = Extract<Awaited<ReturnType<RepairOrderRepository["initialise"]>>, { kind: "loaded" }>;
 type Draft = Dates & { priority: number; mechanic: number; customer: string; registration: string; states: StateDraft[] };
-type Repositories = { orders: RepairOrderRepository; customers: CustomerRepository; vehicles: VehicleRepository; mechanics: MechanicRepository };
+type Repositories = { orders: RepairOrderRepository; form: RepairOrderFormRepository; customers: CustomerRepository; vehicles: VehicleRepository; mechanics: MechanicRepository; users: UserRepository };
 const columnKeys: Record<string, NonNullable<RepairOrderList["sort"]>> = { COL_Numero: "numero", COL_Matricula: "matricula", COL_Cliente: "Descricao_Cliente", COL_Terceiro: "Descricao_Terceiro", COL_marca_modelo: "marcamodelo", COL_Recepcao_datahora: "recepcao_datahora", COL_Recepcao_entrega_prevista: "recepcao_entrega_prevista", COL_Reparacao_estado: "Descricao", COL_Recepcao_prioridade: "recepcao_prioridade", COL_Reparacao_mecanico: "Descricao_me", COL_Cor: "Cor" };
 function displayed(row: RepairOrderListRow, key: NonNullable<RepairOrderList["sort"]>): string {
   if (key === "recepcao_datahora") return dateTimeEntryDisplay(row.recepcao_datahora);
@@ -78,11 +84,12 @@ function RadDate({ name, draft, invalid, disabled, inputRef, onChange }: { name:
 }
 
 export function RepairOrderListScreen({ repositories }: { repositories: Repositories }) {
-  const close = useWorkspaceClose(), { message } = useDialogs();
+  const close = useWorkspaceClose(), { message, resource } = useDialogs();
   const [draft, setDraft] = useState<Draft | null>(null), [initial, setInitial] = useState<Initial | null>(null);
   const [rows, setRows] = useState<RepairOrderListRow[]>([]), [selection, setSelection] = useState<string | null>(null), [stateSelection, setStateSelection] = useState<string | null>(null);
   const [reading, setReading] = useState(false), [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const [invalidDate, setInvalidDate] = useState<DateName | null>(null), [picker, setPicker] = useState<"customer" | "vehicle" | "mechanic" | null>(null);
+  const [editor, setEditor] = useState<{ target: RepairFormTarget; lifetime: number } | null>(null);
   const latest = useRef(draft), currentRows = useRef(rows), selected = useRef(selection), messageRef = useRef(message);
   const owner = useRef(0), lifetime = useRef(0), inFlight = useRef(false), mutating = useRef(false), pickerActive = useRef(false);
   const activeQuery = useRef<RepairOrderList | null>(null), headerQuery = useRef<RepairOrderList | null>(null);
@@ -184,6 +191,35 @@ export function RepairOrderListScreen({ repositories }: { repositories: Reposito
     finally { if (alive === lifetime.current) { mutating.current = false; setBusy(false); } }
   };
   const patch = (change: Partial<Draft>) => setDraft(previous => previous ? { ...previous, ...change } : previous);
+  const edit = (mode: "create" | "update") => {
+    if (mutating.current || inFlight.current || !latest.current) return;
+    const numero = currentRows.current.find(row => row.id === selected.current)?.numero;
+    if (mode === "update" && numero == null) return;
+    mutating.current = true; pickerActive.current = true; setBusy(true); setDiagnostic("");
+    setEditor({ target: mode === "create" ? { mode } : { mode, originalNumero: numero! }, lifetime: lifetime.current });
+  };
+  const finishEditor = () => {
+    if (!editor || editor.lifetime !== lifetime.current) return;
+    setEditor(null); pickerActive.current = false; mutating.current = false; setBusy(false);
+    // SRC-385d90c6c0 / SRC-21d283fcfc: refresh after every actual return, including cancellation.
+    refresh();
+  };
+  const remove = async () => {
+    const numero = currentRows.current.find(row => row.id === selected.current)?.numero;
+    if (numero == null || mutating.current || inFlight.current) return;
+    const alive = lifetime.current;
+    mutating.current = true; setBusy(true); setDiagnostic("");
+    try {
+      const answer = await resource({ title: captions.RADTitle, text: "Deseja apagar o registo?", buttons: [{ label: "Sim", value: 1 }, { label: "Não", value: 2 }], defaultIndex: 2, cancelIndex: 2, destructive: true, safeIndex: 2 });
+      if (alive !== lifetime.current || answer.result !== 1) return;
+      const result = await repositories.form.remove({ numero });
+      if (alive !== lifetime.current) return;
+      if (result.kind === "deleted" || result.kind === "missing") {
+        mutating.current = false; refresh();
+      } else setDiagnostic(result.kind);
+    } catch { if (alive === lifetime.current) setDiagnostic("transport"); }
+    finally { if (alive === lifetime.current) { mutating.current = false; setBusy(false); } }
+  };
   const setDate = (name: DateName, value: DateEntryDraft | DateTimeEntryDraft) => { setInvalidDate(null); patch({ [name]: value }); };
   const openPicker = (kind: NonNullable<typeof picker>) => { if (!draft || busy) return; pickerActive.current = true; setPicker(kind); };
   const finishPicker = (change: Partial<Draft>) => { pickerActive.current = false; setPicker(null); patch(change); };
@@ -232,7 +268,11 @@ export function RepairOrderListScreen({ repositories }: { repositories: Reposito
     <WdTable control={orderTable} rows={rows} rowId={row => row.id} selectedId={selection} onSelect={id => { if (!busy && !reading) setSelection(id); }} rowHeight={30}
       {...orderSettings} configureColumns designerOptions onResetColumns={orderSettings.resetLayout} onSort={column => sort(column)} onColumnSearch={(column, term) => { if (term) sort(column, term); }}
       cell={(row, column) => column.name === "COL_imagem" ? <CellColor table={orderTable} color={row.Cor} /> : column.name === "COL_Matricula" ? <span style={{ fontSize: 12, fontWeight: "bold" }}>{row.matricula ?? ""}</span> : columnKeys[column.name] ? displayed(row, columnKeys[column.name]) : ""} />
-    {["BTN_Novo", "BTN_Alterar", "BTN_Eliminar", "BTN_informacao", "BTN_Imprimir"].map(name => rad({ name, kind: "button", props: { disabled: true, title: name === "BTN_Imprimir" ? "MIG-13" : "MIG-8.2" } }))}
+    <RadButton name="BTN_Novo" disabled={busy || reading || !draft} onClick={() => edit("create")} />
+    <RadButton name="BTN_Alterar" disabled={busy || reading || !rows.some(row => row.id === selection && row.numero !== null)} onClick={() => edit("update")} />
+    <RadButton name="BTN_Eliminar" disabled={busy || reading || !rows.some(row => row.id === selection && row.numero !== null)} onClick={() => void remove()} />
+    {["BTN_informacao", "BTN_Imprimir"].map(name => rad({ name, kind: "button", props: { disabled: true, title: name === "BTN_Imprimir" ? "MIG-13" : "MIG-10" } }))}
+    {editor && <RepairOrderFormDialog repositories={repositories} target={editor.target} finish={finishEditor} />}
     {picker === "customer" && draft && <CustomerPicker repository={repositories.customers} origin={draft.customer.replaceAll(" ", "")} finish={customer => finishPicker({ customer })} />}
     {picker === "vehicle" && draft && <VehiclePicker repositories={repositories} origin={draft.registration} finish={registration => finishPicker({ registration })} />}
     {picker === "mechanic" && draft && <MechanicPicker repository={repositories.mechanics} origin={draft.mechanic} finish={mechanic => finishPicker({ mechanic: typeof mechanic === "number" ? mechanic : Number(mechanic) })} />}
@@ -249,8 +289,8 @@ export default function RepairOrdersWorkflow() {
   const [repositories, setRepositories] = useState<Repositories | null>(null), [failed, setFailed] = useState(false);
   useEffect(() => {
     let active = true;
-    void Promise.all([isolatedRepairOrderRepository(), isolatedCustomerRepository(), isolatedVehicleRepository(), isolatedMechanicRepository()]).then(([orders, customers, vehicles, mechanics]) => {
-      if (active) setRepositories({ orders, customers, vehicles, mechanics });
+    void Promise.all([isolatedRepairOrderRepository(), isolatedCustomerRepository(), isolatedVehicleRepository(), isolatedMechanicRepository(), isolatedRepairOrderFormRepository(), isolatedUserRepository()]).then(([orders, customers, vehicles, mechanics, form, users]) => {
+      if (active) setRepositories({ orders, customers, vehicles, mechanics, form, users });
     }).catch(() => { if (active) setFailed(true); });
     return () => { active = false; };
   }, []);

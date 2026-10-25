@@ -1,35 +1,17 @@
 # Handoff — Gestao Oficinas
 
-## Stage — MIG-8.C1 documentation consolidation
+## Latest delivery — MIG-8.2 repair form
 
-macOS arm64, local `main`, base `8188064`; cleanup independently reviewed; ready for explicit local commit. No push. Preserve the unowned `.handoff.md.swp`, private sources/backup/playbook, guards and runtime settings.
+macOS arm64, local `main`, tested working tree over `ae0b8de`; no push. Preserve the unowned `.handoff.md.swp`, originals/backup/playbook and guards.
 
-### 1. Delivered
+Real repair New/Edit/Delete now use the shared RAD controls, genuine pickers/vehicle creation, source-ordered Date continuations and one atomic write. Read28raw query fields, assign18, preserve current omitted fields/provenance and captured customer. Exact number allocation, stale-context refusal and number-scoped child deletion are tested. Actual browser failure exposed rollback racing connection close; awaiting refusal before finally fixes it.
 
-One reusable [active brief](current-stage.md), this rolling last-stage handoff and a compact [migration history](../migration-history.md) replace68 overlapping stage/review narratives. Full originals are recoverable at8188064 with the history's exact paths/anchors. Seven runbook Markdown files plus the history replace74 files; total text falls about90%. Operational instructions now cover both OSes/current routes. The retained designer-checkpoint path is a current acceptance checklist; Step0 is explicitly historical.
+Checks actually run: full verify369TS/DB in55files,9Rust,210browser/13DBgoldens; two later browser flows pass separately. Form visual98.9pixel/95.0edge at800×600; Mac debug bundle30.25MiB, foundation entry only. Type/lint/Python/parity/input integrity and exact tracking audit recorded locally. Two fresh source/code reviews found no remaining defect; coordinator closes tracking.22rows become implemented, none verified:2,273total/23verified/365implemented/1,404specified/481unmapped/0excluded. UMC remains unexcluded; no whole-window acceptance.
 
-Guide04 and user-requested consolidation are recorded in ADR007. Current obligations stay in ADRs/specs/ROADMAP, including repair captured-customer and Date-prompt continuation. Stock code28/key2/size11 provenance is direct in its mapping/doc generator, without decoding unknown link bytes.
+Known gaps: Information awaits labor integration; Print awaits reports. Native dropdown/NULL/designer behavior, Windows/macOS interaction, packaged business navigation/PDF/printing, devices and official HFSQL reconciliation remain open. Existing source defects and target safety adaptations stay in ADR002/003/006 and specs. SQLite remains provisional136053imported/23615quarantined/0mismatch; originals unchanged.
 
-### 2. Assumptions and differences
+## Continue
 
-Documentation only. Application, tests, parity, goldens, evidence assets and three runbook JSON evidence files are byte-identical to8188064. No new behavior or acceptance claim. One review finding removed an unsupported universal two-pass count from historical self-review descriptions.
+The owner requests functional breadth and fewer independent reviews. ADR007 permits coordinator self-review/focused integration checks for initial deliveries; use available workers for implementation and document gaps in existing specs. Root integrates shared files/tracking and commits tested batches on main; never push.
 
-Parity remains2,273 rows:23verified/343implemented/1,426specified/481unmapped/0excluded;25development windows,0/53 whole windows complete. UMC remains unexcluded.
-
-### 3. Checks actually executed
-
-Python35run34pass/one existing Windows-only skip; doc-generator syntax, parity--check-files and53layout/154PNG integrity pass. Exact audit validates69archive paths/anchors,68removed reports,238changed-document links, no stale references and864protected files unchanged (`analysis-local/doc-consolidation/check-result.json`). Independent review closed all four categories after the historical-count correction, with no remaining finding.
-
-Last functional delivery8188064 passed full verify:327TS/DB52files,9Rust,197browser/twelve DB goldens; Mac debug bundle30.25MiB, foundation entry only; zero owned PostgreSQL after shutdown. Those checks were not rerun for this documentation-only change.
-
-Not run: Windows/shared/native interaction, legacy/runtime/human/device acceptance and official scratch-copy HFSQL reconciliation. Current Mac SQLite is provisional:136053imported/23615quarantined/zero mismatch. Stock empty-TEXT→empty-BLOB historical-hash proof remains preparation only; no adapter change.
-
-### 4. Remaining work
-
-1. Commit the reviewed explicit cleanup files locally.
-2. Reuse current-stage.md for MIG-8.2 full repair form and real New/Edit/Delete callers. Read all18form blocks/map/spec/70rows/query SQL; freeze gnCliente capture,18writes/8omitted parameters, required-before-Date-prompt continuation, current-value preservation and movement-query ambiguity in existing ADRs before code.
-3. Continue materials/labor/stock, persistent startup/access/navigation (MIG-12), reports (MIG-13), native/transition rehearsal. Current packaged entry is still the foundation diagnostic; development routes do not finish normal persistence/navigation.
-
-### 5. Decisions needed
-
-No blocking owner decision. Continue with documented safe defaults and precise U gates. No push or production cutover. A bounded delivery or context compaction does not end the full migration assignment.
+Materials draft is ready (10realPG/API and2pure tests); integrate it next. Labor6screens, stock8screens and the shared report engine/28report families are isolated parallel writers. Reuse current-stage.md; rotate free workers into startup/access/menu/system, touch keyboards and remaining filters. Continue all independently actionable work without routine approval. External/native acceptance remains explicit, not a reason to stop implementation.

@@ -1,6 +1,6 @@
 # Screen spec — WIN_Ordens_Reparacao_Form
 
-Evidence `legacy/GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw`, `dossier: WIN_Ordens_Reparacao_Form`, `docs/mapping/WIN_Ordens_Reparacao_Form.md`. Step 0 only.
+Evidence `legacy/GestaoOficinas_TesteIA/WIN_Ordens_Reparacao_Form.wdw`, `dossier: WIN_Ordens_Reparacao_Form`, `docs/mapping/WIN_Ordens_Reparacao_Form.md`.
 
 ## Contract
 
@@ -198,3 +198,9 @@ Cancellation field is metadata; resource-to-runtime mapping remains U-W61831D-04
 ## Designer image inspection
 
 Observed image title: Ordem de reparação. Top line order number, entry/delivery dates and KM; vehicle/client/third party/state/contact section; two large Serviço / Avaria and Observação multiline areas; mechanic/receptionist/priority and invoice/payment controls below. Save/Cancel are top-right, Informação bottom-right. Designer image shows all invoice controls; runtime CBOX_faturado code overrides invoice-number visibility. Evidence: `docs/evidence/images/WIN_Ordens_Reparacao_Form.jpg`.
+
+## Target implementation — MIG-8.2
+
+The actual modal uses generated geometry/shared RAD controls and protected PostgreSQL operations; source ordering, captured customer, raw-value preservation and transaction/conflict defaults are in ADR002/003/006. Primary STC_Observação is the actual label identity; the encoded dossier spelling is a narrow evidenced Caption overlay, not a second control. Informação awaits the actual MIG10 child; UMC/runtime/native/designer gates remain open.
+
+Nonlegacy identifiers: `repair-order-form-frame`, `repair-order-form-restore`, `repair-order-form-read-state`, `repair-order-form-diagnostic` and shared frame resize/calendar suffixes. They identify the target modal/lifetime/checks, not legacy controls. GS-REPAIR-FORM-001 is an independently authored synthetic source/ADR golden, not a legacy recording.

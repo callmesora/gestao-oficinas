@@ -1,8 +1,11 @@
 import { expect, it } from "vitest";
-import { resolveRadBindings } from "./rad-controls";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { resolveRadBindings, WdRadControls } from "./rad-controls";
 import repair from "./WIN_Form_estados_reparacao.layout.json";
 import order from "./WIN_Ordens_Reparacao.layout.json";
 import articles from "./WIN_Form_artigos.layout.json";
+import repairForm from "./WIN_Ordens_Reparacao_Form.layout.json";
 
 it("renders only explicitly bound source controls in caller order without fabricating geometry or actions", () => {
   const result = resolveRadBindings(repair, [{ name: "EDT_Cor", kind: "edit", props: { value: "4294967295" } }, { name: "EDT_Codigo", kind: "edit", props: { readOnly: true } }]);
@@ -29,4 +32,15 @@ it("binds the actual Artigos combo without replacing caller-owned values, option
   expect(result.binding).toMatchObject({ props: { options, value: "A' ", onChange } });
   expect(() => resolveRadBindings(articles, [{ name: "COMBO_Unidade", kind: "edit", props: {} }])).toThrow("kind mismatch");
   expect(() => resolveRadBindings(articles, [{ name: "EDT_Codigo", kind: "combo", props: { options, value: "", onChange } }])).toThrow("kind mismatch");
+});
+
+it("constructs the actual repair contact memo as a multiline control with its explicit raw value", () => {
+  const markup = renderToStaticMarkup(createElement(WdRadControls, { layout: repairForm, bindings: [
+    { name: "EDT_Contactos", kind: "memo", props: { value: "Telefone\r\nTelemóvel", readOnly: true } },
+  ] }));
+  expect(markup).toContain('<textarea');
+  expect(markup).toContain('data-testid="EDT_Contactos"');
+  expect(markup).toContain("Telefone\r\nTelemóvel</textarea>");
+  expect(markup).toContain('width:350px;height:72px');
+  expect(markup).not.toContain('<input');
 });

@@ -1,5 +1,23 @@
 [
  {
+  "name": "QRY_select_ordens_reparacao_numero",
+  "kind": "query",
+  "total": 3,
+  "done": 0,
+  "stage": "building",
+  "spec": false,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 0,
+   "unmapped": 2
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
   "name": "QRY_select_viatura_matricula",
   "kind": "query",
   "total": 3,
@@ -380,8 +398,8 @@
   "statuses": {
    "verified": 0,
    "excluded": 0,
-   "implemented": 18,
-   "specified": 72,
+   "implemented": 21,
+   "specified": 69,
    "unmapped": 5
   },
   "looks": null,
@@ -389,6 +407,29 @@
    "darwin": {
     "pixel": 96.2,
     "layout": 76.8
+   }
+  }
+ },
+ {
+  "name": "WIN_Ordens_Reparacao_Form",
+  "kind": "screen",
+  "total": 70,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 18,
+   "specified": 47,
+   "unmapped": 5
+  },
+  "looks": null,
+  "visuals": {
+   "darwin": {
+    "pixel": 98.9,
+    "layout": 95.0
    }
   }
  },
@@ -1527,24 +1568,6 @@
   "visuals": {}
  },
  {
-  "name": "QRY_select_ordens_reparacao_numero",
-  "kind": "query",
-  "total": 3,
-  "done": 0,
-  "stage": "mapped",
-  "spec": false,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 1,
-   "unmapped": 2
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
   "name": "QRY_select_ordens_reparacao_tempos",
   "kind": "query",
   "total": 3,
@@ -2493,24 +2516,6 @@
    "excluded": 0,
    "implemented": 0,
    "specified": 58,
-   "unmapped": 5
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Ordens_Reparacao_Form",
-  "kind": "screen",
-  "total": 70,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 65,
    "unmapped": 5
   },
   "looks": null,

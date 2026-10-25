@@ -1,0 +1,4 @@
+"ordem_reparacaoID","numero","matricula","km_viatura","recepcao_util","recepcao_datahora","recepcao_cliente","recepcao_terceiro","recepacao_contatos","recepcao_servico","recepcao_obs","recepcao_entrega_prevista","recepcao_prioridade","reparacao_mecanico","reparacao_estado","reparacao_estado_obs","reparacao_servico","reparacao_estado_data","reparacao_estado_historico","totaL_mao_obra","total_pecas","total_desconto","total_reparacao","faturado","total_pago","Estados_reparacaoID","numero_fatura","data_pagamento"
+"D:77","D:9007199254740992","T:A'1","D:9007199254740993","I:1","T:2024-02-29 12:34:56.789","D:1","D:2","T:  contacto
+original  ","T:serviço original","N:","T:20240301","I:3","I:2","T:Z","T:estado atual  ","T:reparação
+actual","T:opaque-state-date","T:HISTÓRICO","D:1234567890123456789.125","D:-0.125","D:0.00001","D:1234567890123456789.00001","N:","N:","D:9007199254740993","T: fatura antiga ","N:"

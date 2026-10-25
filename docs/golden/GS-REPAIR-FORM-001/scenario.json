@@ -1,0 +1,184 @@
+{
+  "classification": "spec-derived synthetic source/ADR scenario; not legacy-recorded",
+  "source": [
+    "WIN_Ordens_Reparacao_Form.wdw:943-1125",
+    "dossier: QRY_insert_ordens_reparacao/sql",
+    "dossier: QRY_update_ordens_reparacao/sql",
+    "ADR-002",
+    "ADR-006"
+  ],
+  "tables": {
+    "Clientes": [
+      {
+        "ClientesID": "1",
+        "Codigo": "3",
+        "Descricao": "Cliente atual"
+      }
+    ],
+    "Viaturas": [
+      {
+        "ViaturasID": "1",
+        "matricula": "A'1",
+        "Cliente": "3",
+        "marca": "MARCA",
+        "modelo": "MODELO"
+      }
+    ],
+    "utilizadores": [
+      {
+        "utilizadoresID": "1",
+        "Codigo": 1,
+        "Descricao": "Recepção"
+      }
+    ],
+    "mecanicos": [
+      {
+        "mecanicosID": "1",
+        "Codigo": 2,
+        "Descricao": "Mecânico",
+        "inativo": false
+      }
+    ],
+    "estados_reparacao": [
+      {
+        "estados_reparacaoID": "1",
+        "Codigo": "Z",
+        "Descricao": "Terminado",
+        "tipo": 7,
+        "pedir_data_entrega": false,
+        "pedir_data_pag": false
+      },
+      {
+        "estados_reparacaoID": "2",
+        "Codigo": "P",
+        "Descricao": "Datas",
+        "tipo": 2,
+        "pedir_data_entrega": true,
+        "pedir_data_pag": true
+      }
+    ],
+    "ordem_reparacao": [
+      {
+        "ordem_reparacaoID": "77",
+        "numero": "9007199254740992",
+        "matricula": "A'1",
+        "km_viatura": "9007199254740993",
+        "recepcao_util": 1,
+        "recepcao_datahora": "2024-02-29 12:34:56.789",
+        "recepcao_cliente": "1",
+        "recepcao_terceiro": "2",
+        "recepacao_contatos": "  contacto\r\noriginal  ",
+        "recepcao_servico": "serviço original",
+        "recepcao_obs": null,
+        "recepcao_entrega_prevista": "20240301",
+        "recepcao_prioridade": 3,
+        "reparacao_mecanico": 2,
+        "reparacao_estado": "Z",
+        "reparacao_estado_obs": "estado atual  ",
+        "reparacao_servico": "reparação\r\nactual",
+        "reparacao_estado_data": "opaque-state-date",
+        "reparacao_estado_historico": "HISTÓRICO",
+        "totaL_mao_obra": "1234567890123456789.125",
+        "total_pecas": "-0.125",
+        "total_desconto": "0.00001",
+        "total_reparacao": "1234567890123456789.00001",
+        "faturado": null,
+        "total_pago": null,
+        "Estados_reparacaoID": "9007199254740993",
+        "numero_fatura": " fatura antiga ",
+        "data_pagamento": null
+      }
+    ]
+  },
+  "create": {
+    "target": {
+      "mode": "create"
+    },
+    "values": {
+      "numero": "9007199254740993",
+      "matricula": "A'1",
+      "km_viatura": "18446744073709551615",
+      "recepcao_util": 1,
+      "recepcao_datahora": "20240229123456000",
+      "recepcao_cliente": "42",
+      "recepcao_terceiro": "18446744073709551615",
+      "recepacao_contatos": "  telefone\r\n telemóvel  ",
+      "recepcao_servico": "serviço d'Água  ",
+      "recepcao_obs": null,
+      "recepcao_entrega_prevista": "20240301",
+      "recepcao_prioridade": 1,
+      "reparacao_mecanico": 2,
+      "reparacao_estado": "P",
+      "faturado": false,
+      "total_pago": "1234567890123456789.123456789",
+      "numero_fatura": " NF  ",
+      "data_pagamento": null
+    },
+    "formMeta": {
+      "state": {
+        "index": 1,
+        "value": "1",
+        "storedValue": "P"
+      },
+      "mechanicEmpty": false,
+      "receptionistEmpty": false
+    },
+    "workstationDay": "20240229"
+  },
+  "createAnswers": [
+    {
+      "field": "delivery",
+      "value": ""
+    },
+    {
+      "field": "payment",
+      "value": null
+    }
+  ],
+  "update": {
+    "target": {
+      "mode": "update",
+      "originalNumero": "9007199254740992"
+    },
+    "values": {
+      "numero": "9007199254740992",
+      "matricula": "A'1",
+      "km_viatura": "9007199254740993",
+      "recepcao_util": 1,
+      "recepcao_datahora": "2024-02-29 12:34:56.789",
+      "recepcao_cliente": "3",
+      "recepcao_terceiro": "2",
+      "recepacao_contatos": "  contacto\r\noriginal  ",
+      "recepcao_servico": "alterado\r\nsem tocar no histórico",
+      "recepcao_obs": null,
+      "recepcao_entrega_prevista": "20240301",
+      "recepcao_prioridade": 3,
+      "reparacao_mecanico": 2,
+      "reparacao_estado": "P",
+      "faturado": null,
+      "total_pago": "-1234567890123456789.123456789",
+      "numero_fatura": " fatura antiga ",
+      "data_pagamento": null
+    },
+    "formMeta": {
+      "state": {
+        "index": 1,
+        "value": "1",
+        "storedValue": "P"
+      },
+      "mechanicEmpty": false,
+      "receptionistEmpty": false
+    },
+    "workstationDay": "20240229"
+  },
+  "updateAnswers": [
+    {
+      "field": "delivery",
+      "value": "00000000"
+    },
+    {
+      "field": "payment",
+      "value": "20240302"
+    }
+  ]
+}

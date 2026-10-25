@@ -5,9 +5,9 @@ import { controlBox, type LegacyControl } from "./layout";
 export interface WdComboOption { value: string; label: string }
 
 /** Noneditable source combo. Its caller owns option order, blank/orphan values and all reads. */
-export function WdCombo({ control: source, options, value, onChange, disabled, allowNoSelection = false }: {
+export function WdCombo({ control: source, options, value, onChange, disabled, allowNoSelection = false, onOpenIntent }: {
   control: LegacyControl; options: readonly WdComboOption[]; value: string;
-  onChange: (value: string) => void; disabled?: boolean; allowNoSelection?: boolean;
+  onChange: (value: string) => void; disabled?: boolean; allowNoSelection?: boolean; onOpenIntent?: () => void;
 }) {
   const control = useAnchoredControl(source), id = useId();
   const captionWidth = control.caption_width ?? 0;
@@ -22,7 +22,10 @@ export function WdCombo({ control: source, options, value, onChange, disabled, a
       aria-label={captionWidth ? undefined : control.caption ?? control.name}
       tabIndex={control.flags?.["TAB Key"] === false || String(control.tab_order) === "-1" ? -1 : undefined}
       onChange={event => onChange(event.currentTarget.value)}
+      onPointerDown={event => { if (event.button === 0 && !disabled) onOpenIntent?.(); }}
       onKeyDown={event => {
+        // ADR-003/U-W61831D-02: browser selects expose opening intent, not a popup lifetime.
+        if (!disabled && !event.ctrlKey && !event.metaKey && (event.key === " " || event.key === "F4" || (event.altKey && event.key === "ArrowDown"))) onOpenIntent?.();
         // ADR-003/U01: while focused, keep native select keys/Escape inside this control.
         // This does not infer whether an OS popup is currently open.
         if (event.key === "Escape") event.preventDefault();

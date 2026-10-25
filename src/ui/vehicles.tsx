@@ -40,12 +40,12 @@ function CustomerCombo({ customers, value, change, disabled }: { customers: Cust
   </div>;
 }
 
-function VehicleForm({ repositories, vehicle, finish }: { repositories: Repositories; vehicle: Vehicle | null; finish: (saved: boolean) => void }) {
+function VehicleForm({ repositories, vehicle, initialRegistration = "", finish }: { repositories: Repositories; vehicle: Vehicle | null; initialRegistration?: string; finish: (saved: boolean) => void }) {
   const dialog = useRef<WdModalHandle>(null), pending = useRef(false), customerRead = useRef(0);
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const [customers, setCustomers] = useState<Customer[]>([]), [picker, setPicker] = useState(false);
   const { message } = useDialogs();
-  const defaults: VehicleFormText = { matricula: vehicle?.matricula ?? "", Cliente: vehicle?.Cliente ?? "", marca: vehicle?.marca ?? "", modelo: vehicle?.modelo ?? "", Ano: String(vehicle?.Ano ?? 0), mes: String(vehicle?.mes ?? 0) };
+  const defaults: VehicleFormText = { matricula: vehicle ? vehicle.matricula ?? "" : initialRegistration, Cliente: vehicle?.Cliente ?? "", marca: vehicle?.marca ?? "", modelo: vehicle?.modelo ?? "", Ano: String(vehicle?.Ano ?? 0), mes: String(vehicle?.mes ?? 0) };
   const { register, getValues, setValue, control, formState: { dirtyFields } } = useForm<VehicleFormText>({ defaultValues: defaults });
   const selectedCustomer = useWatch({ control, name: "Cliente" });
   useEffect(() => {
@@ -106,6 +106,13 @@ function VehicleForm({ repositories, vehicle, finish }: { repositories: Reposito
     {picker && <CustomerPicker repository={repositories.customers} origin={getValues("Cliente")} finish={code => void picked(code)} />}
     {diagnostic && <output data-testid="vehicle-form-diagnostic">{diagnostic}</output>}
   </WdModal>;
+}
+
+/** WIN_Ordens_Reparacao_Form opens the actual NOVO editor with its complete registration. */
+export function VehicleEditor({ repositories, initialRegistration = "", finish }: {
+  repositories: Repositories; initialRegistration?: string; finish: (saved: boolean) => void;
+}) {
+  return <VehicleForm repositories={repositories} vehicle={null} initialRegistration={initialRegistration} finish={finish} />;
 }
 
 function VehicleList({ repositories, selecting = false, origin = "", selected, closeOverride }: { repositories: Repositories; selecting?: boolean; origin?: string; selected?: (registration: string) => void; closeOverride?: (registration: string) => void }) {

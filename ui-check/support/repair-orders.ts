@@ -79,7 +79,7 @@ export const test = base.extend<TestFixtures, WorkerFixtures>({
       const name = (await database.query<{ name: string }>("SELECT current_database() AS name")).rows[0].name;
       const connect = () => engine.connect(name);
       const options = { repairOrderConnect: connect, customerConnect: connect, vehicleConnect: connect,
-        mechanicsConnect: connect, development: developmentSessions(origin) };
+        mechanicsConnect: connect, userConnect: connect, development: developmentSessions(origin) };
       app = createApp(options); await app.listen({ host: "127.0.0.1", port: 0 });
       const address = app.server.address();
       if (!address || typeof address === "string") throw new Error("Repair test API address unavailable");

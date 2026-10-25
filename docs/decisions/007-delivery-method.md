@@ -11,7 +11,9 @@ Playbook chapters 04–06/10 and stage templates define the workflow. The owner 
 ## Decision
 Follow bounded stages in dependency order: implement, verify, review/fix, synchronize aggregate and affected per-unit parity CSVs, update roadmap/handoff/progress, commit explicit files, then continue. Final tracking review compares exact row IDs and unchanged evidence/confidence fields. Do not stop for routine stage approval. Retain human-only acceptance as an open gate without blocking independent implementation.
 
-Use subagents for useful independent investigation, implementation and review. Prefer an independent reviewer per stage and two reviews for risky work; disclose self-review if delegation is unavailable. One coordinator integrates shared tracking; one writer per file. Use separate worktrees for concurrent writers, and serialize heavy checks per checkout.
+Use subagents for useful investigation, implementation and review. The owner's current breadth-first phase prioritizes isolated implementation workers over independent reviewers: coordinator self-review and focused integration checks suffice for initial deliveries; document known gaps and retain final acceptance gates. One coordinator integrates shared tracking; one writer per file. Use separate worktrees for concurrent writers, and serialize heavy checks per checkout.
+
+The owner additionally requests ambitious parallel initial implementations across remaining screen/report families. Fill available isolated writer slots with bounded modules while the coordinator verifies/integrates earlier dependencies; draft work does not close parity or bypass review/cleanup. Reuse existing tracking and rotate idle/checkpointed agents instead of creating a runbook per worker.
 
 Tested local commits may go directly to main; no mandatory codex branch or PR. Never push: the owner will publish when ready. Do not rewrite history, bypass guards or modify hooks/runtime agent settings.
 

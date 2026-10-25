@@ -417,6 +417,31 @@
         "RADIO_prioridade": "ADR-003: source JPG supplies Todos/Normal/Elevada/Urgente in place of generic Selector; actual browser asserts every label.",
         "BTN_informacao": "ADR-003: source JPG supplies Informação in place of the encoded extraction; geometry and source identity retained."
       }
+    },
+    "WIN_Ordens_Reparacao_Form": {
+      "viewport": {
+        "width": 1160,
+        "height": 768
+      },
+      "open": [
+        "repair-orders-launcher",
+        "repair-orders-open",
+        "BTN_OK",
+        "BTN_Novo"
+      ],
+      "ignore": {
+        "BTN_UMC": "Source hidden; UMC remains unresolved without an approved exclusion.",
+        "SCSystemButtons": "Source container; actual source chrome is rendered by the modal.",
+        "BTN_Syst_Restore": "Source off-canvas restore image; the modal renders actual restore."
+      },
+      "captionIgnore": {
+        "RADTitle": "ADR003: JPG-backed Portuguese caption overlay; exact real browser caption assertions; source identity/geometry retained, native/human U01 stays open.",
+        "BTN_informacao": "ADR003: JPG-backed Portuguese caption overlay; exact real browser caption assertions; source identity/geometry retained, native/human U01 stays open.",
+        "CBOX_faturado": "ADR003: JPG-backed Portuguese caption overlay; exact real browser caption assertions; source identity/geometry retained, native/human U01 stays open.",
+        "EDT_Ordem_n": "ADR003: JPG-backed Portuguese caption overlay; exact real browser caption assertions; source identity/geometry retained, native/human U01 stays open.",
+        "EDT_Nr_Fatura": "ADR003: JPG-backed Portuguese caption overlay; exact real browser caption assertions; source identity/geometry retained, native/human U01 stays open.",
+        "STC_Observação": "ADR003: actual primary source identity at19,324,100,20; unique dossier Caption/Left/Top and JPG-backed Observação overlay; positive actual browser caption assertion, native U01 retained."
+      }
     }
   }
 }
