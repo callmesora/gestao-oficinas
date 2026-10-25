@@ -147,3 +147,7 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | --- | --- | --- | --- |
 | legacy/GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:1371 | "Erro ao criar timer de atualização" | Error | U-W9DD275-04; exact branch result in mapping event ledger |
 | legacy/GestaoOficinas_TesteIA/WIN_Tempos_Reparacao.wdw:505 | "A reparação está a espera do início" | Info | U-W9DD275-04; exact branch result in mapping event ledger |
+
+## Initial target checkpoint
+
+The initial target is `src/ui/repair-labor.tsx::RepairLaborScreen`, with protected `apps/server/src/operations/repair-labor.ts` initialization/list/tick operations. Source timer writes, typed numeric order, exact zero17-open behavior and state/mechanic filters are implemented. Source-ID/latest, prior-day and visible-order-state quirks follow ADR002/004/006. Browser/native/visual and all U gates remain open; this checkpoint promotes no parity rows. Non-legacy diagnostics and frame helpers use the `repair-labor-*` test-id prefix.

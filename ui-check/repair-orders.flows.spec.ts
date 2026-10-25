@@ -72,7 +72,8 @@ test("RULE-W53605A-1000 actual repair list mounts with qualified39/50px color co
   await expect(table.locator("tbody tr").first().locator("td").first()).toHaveCSS("height", "30px");
   await expect(table.locator("tbody tr").first().locator("td").nth(5).locator("span")).toHaveCSS("font-weight", "700");
   for (const button of ["BTN_Novo", "BTN_Alterar", "BTN_Eliminar"]) await expect(screen.getByTestId(button)).toBeEnabled();
-  for (const button of ["BTN_informacao", "BTN_Imprimir"]) await expect(screen.getByTestId(button)).toBeDisabled();
+  await expect(screen.getByTestId("BTN_informacao")).toBeEnabled();
+  await expect(screen.getByTestId("BTN_Imprimir")).toBeDisabled();
   await expect(page.getByTestId("WINDEVMESSAGEBOX")).toHaveCount(0);
 });
 

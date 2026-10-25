@@ -1,17 +1,17 @@
 # Handoff — Gestao Oficinas
 
-## Latest delivery — MIG-8.2 repair form
+## Latest delivery — MIG9/10 initial repair breadth
 
-macOS arm64, local `main`, tested working tree over `ae0b8de`; no push. Preserve the unowned `.handoff.md.swp`, originals/backup/playbook and guards.
+macOS arm64, localmain tested working tree over `d2e3e0f`; no push. Preserve unowned `.handoff.md.swp`, originals/backup/playbook, guards and native acceptance gates.
 
-Real repair New/Edit/Delete now use the shared RAD controls, genuine pickers/vehicle creation, source-ordered Date continuations and one atomic write. Read28raw query fields, assign18, preserve current omitted fields/provenance and captured customer. Exact number allocation, stale-context refusal and number-scoped child deletion are tested. Actual browser failure exposed rollback racing connection close; awaiting refusal before finally fixes it.
+Nine additional windows now have initial implementations: materials list/editor/shared prompt; labor list/state/information/time, descriptions tabs and type3/4/5 picker. Repair list/edit Information opens the actual descriptions dialog and nested materials editor. Saves perform real authenticated atomic PostgreSQL operations. Source stock arithmetic, zero17 labor sentinel, state/history/other-order effects and current fields remain explicit (ADR002/004/006).
 
-Checks actually run: full verify369TS/DB in55files,9Rust,210browser/13DBgoldens; two later browser flows pass separately. Form visual98.9pixel/95.0edge at800×600; Mac debug bundle30.25MiB, foundation entry only. Type/lint/Python/parity/input integrity and exact tracking audit recorded locally. Two fresh source/code reviews found no remaining defect; coordinator closes tracking.22rows become implemented, none verified:2,273total/23verified/365implemented/1,404specified/481unmapped/0excluded. UMC remains unexcluded; no whole-window acceptance.
+Actually executed:33focused TS/PG tests in5files;52affected date/repair/material/labor browser flows; typecheck/lint (one existing TanStack warning), parity/input checks and exact coordinator tracking audit. Browser found and fixed CalendarNo metadata handling and effect-replay duplicate startup writes. Zero owned postmaster files after shutdown. Prior d2e3e0f full verify was369TS/9Rust/210browser plus2separate flows; Mac debug bundle30.25MiB. No new native/visual/full-suite claim for this initial batch.
 
-Known gaps: Information awaits labor integration; Print awaits reports. Native dropdown/NULL/designer behavior, Windows/macOS interaction, packaged business navigation/PDF/printing, devices and official HFSQL reconciliation remain open. Existing source defects and target safety adaptations stay in ADR002/003/006 and specs. SQLite remains provisional136053imported/23615quarantined/0mismatch; originals unchanged.
+20additional rows implemented, none verified:2273total/23verified/385implemented/1384specified/481unmapped/0excluded.35WIN windows have some target implementation;0whole-window acceptance. Coordinator self-review follows the owner's breadth preference (ADR007); no new independent reviewer task.
+
+Known gaps remain in existing specs: materials scanner/keyboards and table/header/resize details; repair Information open-lock/other-editor detection; labor native/coercion/designer behavior and printing. New-order Information stays disabled until persisted. UMC remains unexcluded. Packaged business startup, both-OS native interaction/PDF/printing/devices and official HFSQL reconciliation are open. Current SQLite provisional136053imported/23615quarantined/0mismatch.
 
 ## Continue
 
-The owner requests functional breadth and fewer independent reviews. ADR007 permits coordinator self-review/focused integration checks for initial deliveries; use available workers for implementation and document gaps in existing specs. Root integrates shared files/tracking and commits tested batches on main; never push.
-
-Materials draft is ready (10realPG/API and2pure tests); integrate it next. Labor6screens, stock8screens and the shared report engine/28report families are isolated parallel writers. Reuse current-stage.md; rotate free workers into startup/access/menu/system, touch keyboards and remaining filters. Continue all independently actionable work without routine approval. External/native acceptance remains explicit, not a reason to stop implementation.
+Root integrates shared files/tracking and commits tested batches on main, no push. Stock8screens, startup/access/menu/system/keyboards and all28report families are isolated writers. Reports first2real PDFs already passed their bounded offline/font/multipage gate in the writer's tree; integrate its single Paged.js/Chromium adapter next, then stock/menu/filter callers. Reuse current-stage.md and existing specs for gaps; no new per-agent runbooks. Continue independently actionable migration work without routine approval.

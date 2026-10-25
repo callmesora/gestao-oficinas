@@ -78,10 +78,10 @@ export function WdCalendarEdit({ control, value, onTextChange, calendarValue, is
     aria-hidden={calendarMode || undefined} tabIndex={calendarMode ? -1 : undefined}
     onChange={event => { nativeInvalid.current = false; setCalendarInvalid(false); onTextChange(event.currentTarget.value); }}
     onKeyDown={event => {
-      if (event.altKey && event.key === "ArrowDown" && !event.ctrlKey && !event.metaKey) {
+      if (control.calendar_button === "Yes" && event.altKey && event.key === "ArrowDown" && !event.ctrlKey && !event.metaKey) {
         event.preventDefault(); event.stopPropagation(); openCalendar();
       } else if (event.key === "Enter") { event.preventDefault(); event.stopPropagation(); }
-    }} adornment={{ width: 20, content: <>
+    }} adornment={control.calendar_button === "Yes" ? { width: 20, content: <>
       <button type="button" className="wd-date-calendar-button" data-testid={`${control.name}__calendar`}
         aria-label="Calendário" tabIndex={-1} disabled={disabled} onPointerDown={event => event.preventDefault()}
         onClick={openCalendar}><span className="wd-date-calendar-icon" aria-hidden="true" /></button>
@@ -100,5 +100,5 @@ export function WdCalendarEdit({ control, value, onTextChange, calendarValue, is
           if (keyboardBefore.current !== null && keyboardBefore.current !== calendarState(event.currentTarget)) changeCalendar(event.currentTarget);
           keyboardBefore.current = null;
         }} />
-    </> }} />;
+    </> } : undefined} />;
 }

@@ -98,3 +98,7 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | Trigger/source | Exact argument/resource | Kind and buttons | Default/Esc |
 | --- | --- | --- | --- |
 | — | No explicit message calls in this unit | Framework calls may originate in callees | U-W24748E-04 |
+
+## Initial target checkpoint
+
+The initial target is `src/ui/repair-labor.tsx::RepairLaborInformationDialog`, an actual protected order/customer read. The JPG establishes Informações/Observação accents; the unique primary source STC_Observação retains its identity with a narrow Caption overlay. Printing accepts an actual supplied callback and stays disabled while absent. Browser/native/visual and U gates remain open; no parity rows are promoted. Non-legacy diagnostics/frame helpers use `repair-labor-info-*`.

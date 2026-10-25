@@ -365,6 +365,60 @@
   }
  },
  {
+  "name": "WIN_Inserir_quantidade_password",
+  "kind": "screen",
+  "total": 29,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 25,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "WIN_Material_Reparacao",
+  "kind": "screen",
+  "total": 47,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 2,
+   "specified": 40,
+   "unmapped": 5
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "WIN_Material_reparacao_form",
+  "kind": "screen",
+  "total": 70,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 8,
+   "specified": 57,
+   "unmapped": 5
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
   "name": "WIN_Mudar_Estado",
   "kind": "screen",
   "total": 25,
@@ -510,6 +564,24 @@
   }
  },
  {
+  "name": "WIN_Table_estado_reparacao_tipo3",
+  "kind": "screen",
+  "total": 16,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 12,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
   "name": "WIN_Table_estados_descritivos",
   "kind": "screen",
   "total": 21,
@@ -607,6 +679,24 @@
     "layout": 96.0
    }
   }
+ },
+ {
+  "name": "WIN_Table_Tempos_materiais_Descricoes",
+  "kind": "screen",
+  "total": 54,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 3,
+   "specified": 46,
+   "unmapped": 5
+  },
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Table_Terminais",
@@ -720,6 +810,78 @@
     "layout": 94.7
    }
   }
+ },
+ {
+  "name": "WIN_Tempos_Reparacao",
+  "kind": "screen",
+  "total": 75,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 2,
+   "specified": 68,
+   "unmapped": 5
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "WIN_Tempos_Reparacao_Estado",
+  "kind": "screen",
+  "total": 50,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 45,
+   "unmapped": 4
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "WIN_Tempos_Reparacao_Informacao",
+  "kind": "screen",
+  "total": 30,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 25,
+   "unmapped": 4
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "WIN_Tempos_Reparacao_Tempo",
+  "kind": "screen",
+  "total": 26,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 20,
+   "unmapped": 5
+  },
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "artigos",
@@ -2360,24 +2522,6 @@
   "visuals": {}
  },
  {
-  "name": "WIN_Inserir_quantidade_password",
-  "kind": "screen",
-  "total": 29,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 26,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
   "name": "WIN_Inventario",
   "kind": "screen",
   "total": 25,
@@ -2468,42 +2612,6 @@
   "visuals": {}
  },
  {
-  "name": "WIN_Material_Reparacao",
-  "kind": "screen",
-  "total": 47,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 42,
-   "unmapped": 5
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Material_reparacao_form",
-  "kind": "screen",
-  "total": 70,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 65,
-   "unmapped": 5
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
   "name": "WIN_MENU",
   "kind": "screen",
   "total": 63,
@@ -2576,24 +2684,6 @@
   "visuals": {}
  },
  {
-  "name": "WIN_Table_estado_reparacao_tipo3",
-  "kind": "screen",
-  "total": 16,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 13,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
   "name": "WIN_Table_Lin_Stocks",
   "kind": "screen",
   "total": 69,
@@ -2606,24 +2696,6 @@
    "excluded": 0,
    "implemented": 0,
    "specified": 64,
-   "unmapped": 5
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Table_Tempos_materiais_Descricoes",
-  "kind": "screen",
-  "total": 54,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 49,
    "unmapped": 5
   },
   "looks": null,
@@ -2661,78 +2733,6 @@
    "implemented": 0,
    "specified": 39,
    "unmapped": 4
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Tempos_Reparacao",
-  "kind": "screen",
-  "total": 75,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 70,
-   "unmapped": 5
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Tempos_Reparacao_Estado",
-  "kind": "screen",
-  "total": 50,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 46,
-   "unmapped": 4
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Tempos_Reparacao_Informacao",
-  "kind": "screen",
-  "total": 30,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 26,
-   "unmapped": 4
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Tempos_Reparacao_Tempo",
-  "kind": "screen",
-  "total": 26,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 21,
-   "unmapped": 5
   },
   "looks": null,
   "visuals": {}

@@ -89,3 +89,7 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | legacy/GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Tempo.wdw:316 | "Palavra-passe incorreta" | Info | U-W6D3B26-04; exact branch result in mapping event ledger |
 | legacy/GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Tempo.wdw:321 | "Palavra-passe incorreta" | Info | U-W6D3B26-04; exact branch result in mapping event ledger |
 | legacy/GestaoOficinas_TesteIA/WIN_Tempos_Reparacao_Tempo.wdw:336 | 0 | YesNo | U-W6D3B26-04; exact branch result in mapping event ledger |
+
+## Initial target checkpoint
+
+The initial target is `src/ui/repair-labor.tsx::RepairLaborTimeDialog`, using the actual `RepairMaterialPrompt` password child and `RepairLaborStatePicker`. Volatile proof is server checked again at mutation, and the plan baseline is rechecked after consent/state dialogs. Start/finish/other-order consent and the old query-buffer start-state behavior are implemented under ADR002/004/006. Browser/native/visual and U gates remain open; no parity rows are promoted. Non-legacy diagnostics/frame helpers use `repair-labor-time-*`.

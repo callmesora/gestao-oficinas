@@ -18,7 +18,11 @@ import { listUsers, readUser, saveUser, deleteUser } from "./operations/users";
 import { initialiseRepairOrders, listRepairOrders, saveRepairOrderDefaults } from "./operations/repair-orders";
 import { initialiseRepairOrderForm, resolveRepairOrderVehicle, lookupRepairOrderCustomer, checkRepairOrderVehicleChange, checkRepairOrderStateChange, prepareRepairOrderSave, saveRepairOrder, deleteRepairOrder } from "./operations/repair-order-form";
 
-export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; terminalConnect?: DatabaseConnection; postoConnect?: DatabaseConnection; mechanicsConnect?: DatabaseConnection; repairStateConnect?: DatabaseConnection; documentTypeConnect?: DatabaseConnection; articleConnect?: DatabaseConnection; userConnect?: DatabaseConnection; repairOrderConnect?: DatabaseConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
+import { listRepairMaterials, readRepairMaterials, lookupRepairMaterialArticle, authenticateRepairMaterialMechanic, saveRepairMaterials } from "./operations/repair-materials";
+
+import { initialiseRepairLabor, listRepairLabor, readRepairLabor, authenticateRepairLabor, prepareRepairLabor, toggleRepairLabor, saveRepairLaborState, tickRepairLabor, saveRepairLaborMaterials } from "./operations/repair-labor";
+
+export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; terminalConnect?: DatabaseConnection; postoConnect?: DatabaseConnection; mechanicsConnect?: DatabaseConnection; repairStateConnect?: DatabaseConnection; documentTypeConnect?: DatabaseConnection; articleConnect?: DatabaseConnection; userConnect?: DatabaseConnection; repairOrderConnect?: DatabaseConnection; repairMaterialsConnect?: DatabaseConnection; repairLaborConnect?: DatabaseConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
   const app = Fastify({ logger: false });
   app.get("/health/live", async () => ({ service: "gestao-oficinas-api", status: "alive" }));
   const authenticate = options.authenticate ?? options.development?.authenticate;
@@ -129,6 +133,22 @@ export function createApp(options: { customerConnect?: DatabaseConnection; vehic
       if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
       if (!options.repairOrderConnect) return reply.code(503).send({ kind: "unavailable" });
       return operation(options.repairOrderConnect, request.body);
+    });
+  }
+  for (const [action, operation] of Object.entries({ list: listRepairMaterials, read: readRepairMaterials, article: lookupRepairMaterialArticle, authenticate: authenticateRepairMaterialMechanic, save: saveRepairMaterials })) {
+    app.post(`/api/repair-materials/${action}`, async (request, reply) => {
+      reply.header("Cache-Control", "no-store");
+      if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
+      if (!options.repairMaterialsConnect) return reply.code(503).send({ kind: "unavailable" });
+      return operation(options.repairMaterialsConnect, request.body);
+    });
+  }
+  for (const [action, operation] of Object.entries({ initialise: initialiseRepairLabor, list: listRepairLabor, read: readRepairLabor, authenticate: authenticateRepairLabor, prepare: prepareRepairLabor, toggle: toggleRepairLabor, state: saveRepairLaborState, tick: tickRepairLabor, "save-materials": saveRepairLaborMaterials })) {
+    app.post(`/api/repair-labor/${action}`, async (request, reply) => {
+      reply.header("Cache-Control", "no-store");
+      if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
+      if (!options.repairLaborConnect) return reply.code(503).send({ kind: "unavailable" });
+      return operation(options.repairLaborConnect, request.body);
     });
   }
   return app;

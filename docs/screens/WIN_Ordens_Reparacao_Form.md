@@ -204,3 +204,5 @@ Observed image title: Ordem de reparação. Top line order number, entry/deliver
 The actual modal uses generated geometry/shared RAD controls and protected PostgreSQL operations; source ordering, captured customer, raw-value preservation and transaction/conflict defaults are in ADR002/003/006. Primary STC_Observação is the actual label identity; the encoded dossier spelling is a narrow evidenced Caption overlay, not a second control. Informação awaits the actual MIG10 child; UMC/runtime/native/designer gates remain open.
 
 Nonlegacy identifiers: `repair-order-form-frame`, `repair-order-form-restore`, `repair-order-form-read-state`, `repair-order-form-diagnostic` and shared frame resize/calendar suffixes. They identify the target modal/lifetime/checks, not legacy controls. GS-REPAIR-FORM-001 is an independently authored synthetic source/ADR golden, not a legacy recording.
+
+Initial MIG10 integration: Information opens the real labor/material/description tabs and nested material editor. Source record-lock lifetime/other-editor detection remains U03; no full event parity claim. New-order Information stays disabled before persistence.

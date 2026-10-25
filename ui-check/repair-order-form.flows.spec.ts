@@ -83,7 +83,7 @@ test("MIG-8.2 actual RAD form preserves raw edit values, invoice visibility, sou
   await form.getByTestId("CBOX_faturado").check(); await form.getByTestId("CBOX_faturado").uncheck();
   await expect(form.getByTestId("EDT_Nr_Fatura")).toBeHidden();
   await form.getByTestId("CBOX_faturado").check(); await expect(form.getByTestId("EDT_Nr_Fatura")).toHaveValue(" NF original ");
-  await expect(form.getByTestId("BTN_VISION")).toBeHidden(); await expect(form.getByTestId("BTN_informacao")).toBeDisabled();
+  await expect(form.getByTestId("BTN_VISION")).toBeHidden(); await expect(form.getByTestId("BTN_informacao")).toBeEnabled();
   const frame = (await page.getByTestId("repair-order-form-frame").boundingBox())!;
   expect([frame.width, frame.height]).toEqual([800, 600]);
   for (const [name, tag] of [["EDT_Contactos", "TEXTAREA"], ["EDT_servico_avaria", "TEXTAREA"], ["EDT_observacao", "TEXTAREA"]]) expect(await form.getByTestId(name).evaluate(element => element.tagName)).toBe(tag);

@@ -12,7 +12,7 @@ export function WdDateTimeEdit({ control, draft, onChange, invalid = false, disa
   invalid?: boolean; disabled?: boolean; ref?: Ref<WdDateTimeEditHandle>;
 }) {
   if (control.input_type !== "Date" || control.return_format !== "YYYYMMDDHHmmSS" || control.input_mask !== "DD/MM/YYYY HH:mm"
-    || control.calendar_button !== "Yes" || control.blocking_validation !== "Yes") {
+    || !["Yes", "No"].includes(control.calendar_button ?? "") || control.blocking_validation !== "Yes") {
     throw new Error(`Date-time metadata unresolved: ${control.path}`);
   }
   // U-W53605A-01/05: literal CalculatorYes does not establish a second behavior or precision conversion.

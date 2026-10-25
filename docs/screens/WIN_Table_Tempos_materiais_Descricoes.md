@@ -134,3 +134,7 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | legacy/GestaoOficinas_TesteIA/WIN_Table_Tempos_materiais_Descricoes.wdw:727 | "Ordem de reparação em uso por outro utilizador" | Info | U-WBBC9D9-04; exact branch result in mapping event ledger |
 | legacy/GestaoOficinas_TesteIA/WIN_Table_Tempos_materiais_Descricoes.wdw:735 | "Não pode ser inserido material nesta ordem de reparação" | Info | U-WBBC9D9-04; exact branch result in mapping event ledger |
 | legacy/GestaoOficinas_TesteIA/WIN_Table_Tempos_materiais_Descricoes.wdw:745 | "Ordem de reparação em uso por outro utilizador" | Info | U-WBBC9D9-04; exact branch result in mapping event ledger |
+
+## Initial target checkpoint
+
+The initial target is `src/ui/repair-labor.tsx::RepairDescriptionsDialog`, with four source tabs, real time/material/order reads and the exact ordered Sair update predicate. Source summary/JPG puts TABLE_Tempos at y66; a narrow page-child overlay adds the24px tab header to generated page-relative coordinates. The JPG supplies Tempos/Materiais/Descrições/Observações/Histórico dos estados captions and Portuguese accents. Source exact decimal totals and duration formulas use ADR002 defaults; unsupported NULL arithmetic stays visible as a typed diagnostic. Actual materials/report callbacks enable their buttons only when supplied. System close skips Sair writes as source does. Browser/native/visual and U gates remain open; no parity rows are promoted. Non-legacy diagnostics/frame helpers use `repair-descriptions-*`.

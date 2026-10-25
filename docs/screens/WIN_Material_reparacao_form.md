@@ -181,3 +181,5 @@ Cancellation field is metadata; resource-to-runtime mapping remains U-W27273E-04
 ## Designer image inspection
 
 Observed image title: Materiais de Reparação. Button caption Descrição and column heading Lançado contain correctly rendered Portuguese characters; dossier text extraction corrupts some of these as çª. Layout shows vehicle fields top, mechanic next, central materials grid and right action stack; bottom quantity/article/description editor and Add/Cancel. Image is a designer state with blank records, not runtime evidence. Evidence: `docs/evidence/images/WIN_Material_reparacao_form.jpg`.
+
+Initial MIG9 target: repair-materials.tsx and shared RepairMaterialPrompt use real authenticated API/atomic stock writes; focused PG and actual browser flows cover quantity, Add/password, launched guards, cancel and stale edits. Scanner/touch keyboards, header sort/search, full resize typography and native acceptance remain U01/U02/U03; no whole-window completion. Nonlegacy IDs: repair-materials-open, repair-materials-list-diagnostic, repair-material-form-diagnostic, repair-material-form-frame/restore and repair-material-prompt-restore.

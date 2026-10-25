@@ -87,3 +87,5 @@ The form's primary source694/generated identity is STC_Observação, geometry19,
 
 ## Consequences and verification
 Skin kit precedes business screens. Every opened window/dialog needs control/caption checks, keyboard flows, image-load checks and recorded visual scores. Human visual acceptance remains pending; no score or browser mock proves native parity. Test multiple windows and cancellation explicitly.
+
+MIG10 DateTime follow-through (before correction): WIN_Tempos_Reparacao_Estado/EDT_Data_Hora has the same Date/return/mask/blocking contract but literal CalendarNo. WdDateTimeEdit accepts that evidenced variant; shared WdCalendarEdit omits its icon/native adapter/AltDown and reserved width for No, retaining exact text draft/validation. Do not overlay metadata to Yes or weaken other invariants.

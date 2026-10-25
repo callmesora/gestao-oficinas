@@ -137,3 +137,7 @@ Delete resource CASE 1 deletes and CASE 2 makes no change when present. Default/
 ## Data edge cases and acceptance checks
 
 Blank strings are compared exactly by source, with no trimming; absent NULL coercion rules and number/text locale boundaries belong to U-C52946E4-03. Required controls are those guarded explicitly in mapping, never inferred from a caption. Observe mask/size above and compare schema types. Keyboard-only test: open, traverse by container tab order, trigger mandatory validation, select/change/cancel, then repeat with an empty filter result and first/last row. Visual approval is outstanding under U-C52946E4-01. Runtime writes must be performed only against a preserved scratch data copy.
+
+## Initial target checkpoint
+
+The initial target is `src/ui/repair-labor.tsx::RepairLaborStatePicker`, consumed by the actual labor start continuation. It retains type3/4/5 choices, exact selected code and cancel result; no-selection native behavior stays U02. The JPG supplies the Portuguese title accent. Browser/native/visual and U gates remain open; no parity rows are promoted. Non-legacy frame helpers use `repair-labor-state-picker-*`.

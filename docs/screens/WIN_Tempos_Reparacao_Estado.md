@@ -116,3 +116,7 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | Trigger/source | Exact argument/resource | Kind and buttons | Default/Esc |
 | --- | --- | --- | --- |
 | — | No explicit message calls in this unit | Framework calls may originate in callees | U-W6946F0-04 |
+
+## Initial target checkpoint
+
+The initial target is `src/ui/repair-labor.tsx::RepairLaborStateDialog`, with actual descriptive-state picker, DateTime edit, source history and type6/7 closure in one protected write. Cached order/labor/state-choice baselines are rechecked without holding a lock across dialogs (ADR006). Source touch-keyboard paths remain unavailable; ordinary entry is available. Browser/native/visual and U gates remain open; no parity rows are promoted. Non-legacy diagnostics/frame helpers use `repair-labor-state-*`.

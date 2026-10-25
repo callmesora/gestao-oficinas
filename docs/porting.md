@@ -219,3 +219,9 @@ Playwright's default webServer SIGKILL bypasses development.ts signal cleanup wh
 MIG-8.1 actual picker continuation: src/ui/vehicles.tsx::VehiclePicker wraps the existing VehicleList with an explicit close/result override, preserving existing workspace callback-on-unmount behavior. Repair list owns all three real picker lifetimes and copies their exact result into the source filter without an invented refresh. WdCombo.allowNoSelection represents an absent selection by native selectedIndex=-1, preserving real option inventory and all existing matched consumers; it does not decode an unknown custom row.
 
 Before MIG-11 reconstruction: stock operations validate every document-type lookup before zeroing/rebuilding stock; an absent/ambiguous buffer returns typed unresolved with no writes (ADR006/U03/U05). Keep each operation’s distinct source stock-direction predicate explicit; do not substitute the reconstruction predicate into document save/delete.
+
+Before MIG12 initial translation: startup/system operations remain protected by the existing isolated-development session, expose only public access results and update six sistema fields atomically. Shared TouchKeyboardDialog adapts extracted key controls with exact string/Decimal results and original-on-cancel; U05 covers uncaptured fixed-decimal tie rounding (ADR002/004/006). Production bootstrap/session transition remains separate.
+
+MIG10 caller composition: repair-details.tsx awaits the genuine materials editor from RepairDescriptionsDialog; repair list/form Information opens that same dialog. No connection spans the nested modal. Initial open does not yet reproduce source record-lock lifetime/other-editor detection; keep U03 and do not promote that complete source event.
+
+DateTime CalendarNo consumer uses the same text-draft/date validation with no calendar adornment or AltDown adapter; preserve generated source options (ADR003).

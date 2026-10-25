@@ -108,3 +108,5 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | legacy/GestaoOficinas_TesteIA/WIN_Material_Reparacao.wdw:489 | "Ordem de reparação em uso por outro utilizador" | Info | U-WE6E1AD-04; exact branch result in mapping event ledger |
 | legacy/GestaoOficinas_TesteIA/WIN_Material_Reparacao.wdw:497 | "Documento em edição, por favor feche a janela" | Info | U-WE6E1AD-04; exact branch result in mapping event ledger |
 | legacy/GestaoOficinas_TesteIA/WIN_Material_Reparacao.wdw:510 | "Ordem de reparação em uso por outro utilizador" | Info | U-WE6E1AD-04; exact branch result in mapping event ledger |
+
+Initial MIG9 target: repair-materials.tsx and shared RepairMaterialPrompt use real authenticated API/atomic stock writes; focused PG and actual browser flows cover quantity, Add/password, launched guards, cancel and stale edits. Scanner/touch keyboards, header sort/search, full resize typography and native acceptance remain U01/U02/U03; no whole-window completion. Nonlegacy IDs: repair-materials-open, repair-materials-list-diagnostic, repair-material-form-diagnostic, repair-material-form-frame/restore and repair-material-prompt-restore.

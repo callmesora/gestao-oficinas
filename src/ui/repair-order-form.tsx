@@ -72,7 +72,7 @@ function sourceMeta(initial: Loaded, values: RepairOrderWrite18): RepairFormMeta
 }
 const windowsMemo = (value: string) => value.replace(/\r\n|\r|\n/g, "\r\n");
 
-export function RepairOrderFormDialog({ repositories, target, finish }: { repositories: RepairOrderFormRepositories; target: RepairFormTarget; finish: (saved: boolean) => void }) {
+export function RepairOrderFormDialog({ repositories, target, finish, onInformation }: { repositories: RepairOrderFormRepositories; target: RepairFormTarget; finish: (saved: boolean) => void; onInformation?: (numero: string) => Promise<void> }) {
   const [clock] = useState(workstationClock), [initial, setInitial] = useState<Loaded | null>(null), [diagnostic, setDiagnostic] = useState("");
   const dialog = useRef<WdModalHandle>(null);
   useEffect(() => {
@@ -83,7 +83,7 @@ export function RepairOrderFormDialog({ repositories, target, finish }: { reposi
     }).catch(() => { if (active) setDiagnostic("transport"); });
     return () => { active = false; };
   }, [repositories.form, target]);
-  if (initial) return <RepairOrderEditor repositories={repositories} target={target} initial={initial} clock={clock} finish={finish} />;
+  if (initial) return <RepairOrderEditor repositories={repositories} target={target} initial={initial} clock={clock} finish={finish} onInformation={onInformation} />;
   return <WdModal ref={dialog} layout={layout} instance="repair-order-form-frame" testId="WIN_Ordens_Reparacao_Form" restoreTestId="repair-order-form-restore"
     onClose={() => { dialog.current?.close(); finish(false); }}>
     <output data-testid="repair-order-form-read-state" hidden>initialising</output>
@@ -91,8 +91,8 @@ export function RepairOrderFormDialog({ repositories, target, finish }: { reposi
   </WdModal>;
 }
 
-function RepairOrderEditor({ repositories, target, initial, clock, finish }: {
-  repositories: RepairOrderFormRepositories; target: RepairFormTarget; initial: Loaded; clock: ReturnType<typeof workstationClock>; finish: (saved: boolean) => void;
+function RepairOrderEditor({ repositories, target, initial, clock, finish, onInformation }: {
+  repositories: RepairOrderFormRepositories; target: RepairFormTarget; initial: Loaded; clock: ReturnType<typeof workstationClock>; finish: (saved: boolean) => void; onInformation?: (numero: string) => Promise<void>;
 }) {
   const dialog = useRef<WdModalHandle>(null), alive = useRef(true), lifetime = useRef(0), queue = useRef(Promise.resolve()), actionPending = useRef(false), exitCount = useRef(0);
   const [values] = useState(() => startingValues(initial, clock)), raw = useRef(values), edited = useRef(new Set<TextName>());
@@ -364,7 +364,7 @@ function RepairOrderEditor({ repositories, target, initial, clock, finish }: {
     { name: "BTN_VISION2", kind: "button", props: { disabled: actionDisabled, onClick: () => enqueue("action", () => bytePicker("mechanic")) } },
     { name: "BTN_VISION3", kind: "button", props: { disabled: actionDisabled, onClick: () => enqueue("action", () => bytePicker("user")) } },
     { name: "COMBO_Prioridade", kind: "combo", props: { options: ["Normal", "Elevada", "Urgente"].map((label, index) => ({ value: String(index + 1), label })), value: String(rawValues.recepcao_prioridade ?? ""), allowNoSelection: true, disabled, onChange: value => { writeRaw({ ...raw.current, recepcao_prioridade: Number(value) }); updateMeta({ ...metaRef.current }); } } },
-    { name: "BTN_informacao", kind: "button", props: { disabled: true, title: "MIG-10" } },
+    { name: "BTN_informacao", kind: "button", props: { disabled: actionDisabled || !onInformation || target.mode !== "update", onClick: () => { if (onInformation) enqueue("action", () => onInformation(raw.current.numero)); } } },
     { name: "CBOX_faturado", kind: "checkbox", props: { checked: faturado, disabled, onChange: value => { writeRaw({ ...raw.current, faturado: value }); setFaturado(value); setInvoiceVisible(value); } } },
     { name: "EDT_Nr_Fatura", kind: "edit", props: { ...invoiceInput, disabled, onChange: event => { edited.current.add("numero_fatura"); void invoiceInput.onChange(event); }, hidden: !invoiceVisible } },
     { name: "EDT_Total_Pago", kind: "edit", props: { ...totalInput, disabled, onChange: event => { edited.current.add("total_pago"); void totalInput.onChange(event); }, decimalMask: true } },

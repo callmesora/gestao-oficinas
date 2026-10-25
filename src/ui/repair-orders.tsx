@@ -29,6 +29,13 @@ import { CustomerPicker } from "./customers";
 import { VehiclePicker } from "./vehicles";
 import { MechanicPicker } from "./mechanics";
 import { RepairOrderFormDialog } from "./repair-order-form";
+import type { RepairLaborRepository } from "../application/repair-labor";
+import type { RepairMaterialsRepository } from "../application/repair-materials";
+import type { ArticleRepository } from "../application/articles";
+import { isolatedRepairLaborRepository } from "../infrastructure/repair-labor";
+import { isolatedRepairMaterialsRepository } from "../infrastructure/repair-materials";
+import { isolatedArticleRepository } from "../infrastructure/articles";
+import { RepairDetailsDialog } from "./repair-details";
 import "./repair-orders.css";
 
 // JPG/dossier-backed display overlay; generated identities/geometry remain unchanged (ADR-003/U01).
@@ -46,7 +53,7 @@ type Dates = { EDT_data_entrada_inicio: DateTimeEntryDraft; EDT_data_entrada_fim
 type StateDraft = RepairOrderStateFilter & { checked: boolean | null };
 type Initial = Extract<Awaited<ReturnType<RepairOrderRepository["initialise"]>>, { kind: "loaded" }>;
 type Draft = Dates & { priority: number; mechanic: number; customer: string; registration: string; states: StateDraft[] };
-type Repositories = { orders: RepairOrderRepository; form: RepairOrderFormRepository; customers: CustomerRepository; vehicles: VehicleRepository; mechanics: MechanicRepository; users: UserRepository };
+type Repositories = { labor: RepairLaborRepository; materials: RepairMaterialsRepository; articles: ArticleRepository; orders: RepairOrderRepository; form: RepairOrderFormRepository; customers: CustomerRepository; vehicles: VehicleRepository; mechanics: MechanicRepository; users: UserRepository };
 const columnKeys: Record<string, NonNullable<RepairOrderList["sort"]>> = { COL_Numero: "numero", COL_Matricula: "matricula", COL_Cliente: "Descricao_Cliente", COL_Terceiro: "Descricao_Terceiro", COL_marca_modelo: "marcamodelo", COL_Recepcao_datahora: "recepcao_datahora", COL_Recepcao_entrega_prevista: "recepcao_entrega_prevista", COL_Reparacao_estado: "Descricao", COL_Recepcao_prioridade: "recepcao_prioridade", COL_Reparacao_mecanico: "Descricao_me", COL_Cor: "Cor" };
 function displayed(row: RepairOrderListRow, key: NonNullable<RepairOrderList["sort"]>): string {
   if (key === "recepcao_datahora") return dateTimeEntryDisplay(row.recepcao_datahora);
@@ -89,6 +96,8 @@ export function RepairOrderListScreen({ repositories }: { repositories: Reposito
   const [rows, setRows] = useState<RepairOrderListRow[]>([]), [selection, setSelection] = useState<string | null>(null), [stateSelection, setStateSelection] = useState<string | null>(null);
   const [reading, setReading] = useState(false), [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const [invalidDate, setInvalidDate] = useState<DateName | null>(null), [picker, setPicker] = useState<"customer" | "vehicle" | "mechanic" | null>(null);
+  const [details, setDetails] = useState<{ numero: string; resolve: () => void } | null>(null);
+  const information = (numero: string) => new Promise<void>(resolve => setDetails({ numero, resolve }));
   const [editor, setEditor] = useState<{ target: RepairFormTarget; lifetime: number } | null>(null);
   const latest = useRef(draft), currentRows = useRef(rows), selected = useRef(selection), messageRef = useRef(message);
   const owner = useRef(0), lifetime = useRef(0), inFlight = useRef(false), mutating = useRef(false), pickerActive = useRef(false);
@@ -271,8 +280,10 @@ export function RepairOrderListScreen({ repositories }: { repositories: Reposito
     <RadButton name="BTN_Novo" disabled={busy || reading || !draft} onClick={() => edit("create")} />
     <RadButton name="BTN_Alterar" disabled={busy || reading || !rows.some(row => row.id === selection && row.numero !== null)} onClick={() => edit("update")} />
     <RadButton name="BTN_Eliminar" disabled={busy || reading || !rows.some(row => row.id === selection && row.numero !== null)} onClick={() => void remove()} />
-    {["BTN_informacao", "BTN_Imprimir"].map(name => rad({ name, kind: "button", props: { disabled: true, title: name === "BTN_Imprimir" ? "MIG-13" : "MIG-10" } }))}
-    {editor && <RepairOrderFormDialog repositories={repositories} target={editor.target} finish={finishEditor} />}
+    <RadButton name="BTN_informacao" disabled={busy || reading || details !== null || !rows.some(row => row.id === selection && row.numero !== null)} onClick={() => { const numero = rows.find(row => row.id === selection)?.numero; if (numero !== null && numero !== undefined) void information(numero); }} />
+    {rad({ name: "BTN_Imprimir", kind: "button", props: { disabled: true, title: "MIG-13" } })}
+    {editor && <RepairOrderFormDialog repositories={repositories} target={editor.target} finish={finishEditor} onInformation={information} />}
+    {details && <RepairDetailsDialog repositories={repositories} numero={details.numero} finish={() => { setDetails(null); details.resolve(); }} />}
     {picker === "customer" && draft && <CustomerPicker repository={repositories.customers} origin={draft.customer.replaceAll(" ", "")} finish={customer => finishPicker({ customer })} />}
     {picker === "vehicle" && draft && <VehiclePicker repositories={repositories} origin={draft.registration} finish={registration => finishPicker({ registration })} />}
     {picker === "mechanic" && draft && <MechanicPicker repository={repositories.mechanics} origin={draft.mechanic} finish={mechanic => finishPicker({ mechanic: typeof mechanic === "number" ? mechanic : Number(mechanic) })} />}
@@ -289,8 +300,8 @@ export default function RepairOrdersWorkflow() {
   const [repositories, setRepositories] = useState<Repositories | null>(null), [failed, setFailed] = useState(false);
   useEffect(() => {
     let active = true;
-    void Promise.all([isolatedRepairOrderRepository(), isolatedCustomerRepository(), isolatedVehicleRepository(), isolatedMechanicRepository(), isolatedRepairOrderFormRepository(), isolatedUserRepository()]).then(([orders, customers, vehicles, mechanics, form, users]) => {
-      if (active) setRepositories({ orders, customers, vehicles, mechanics, form, users });
+    void Promise.all([isolatedRepairOrderRepository(), isolatedCustomerRepository(), isolatedVehicleRepository(), isolatedMechanicRepository(), isolatedRepairOrderFormRepository(), isolatedUserRepository(), isolatedRepairLaborRepository(), isolatedRepairMaterialsRepository(), isolatedArticleRepository()]).then(([orders, customers, vehicles, mechanics, form, users, labor, materials, articles]) => {
+      if (active) setRepositories({ orders, customers, vehicles, mechanics, form, users, labor, materials, articles });
     }).catch(() => { if (active) setFailed(true); });
     return () => { active = false; };
   }, []);
