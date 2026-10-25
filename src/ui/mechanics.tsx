@@ -25,7 +25,7 @@ const searchValue = (row: MechanicListRow, key: NonNullable<MechanicList["sort"]
 export type MechanicSelection = number | string;
 
 function MechanicForm({ repository, mechanic, descriptions, finish }: { repository: MechanicRepository; mechanic: MechanicRecord | null; descriptions: readonly string[]; finish: (saved: boolean) => void }) {
-  const dialog = useRef<WdModalHandle>(null), pending = useRef(false);
+  const dialog = useRef<WdModalHandle>(null), pending = useRef(false), passwordEdited = useRef(false);
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const [inactive, setInactive] = useState<boolean | null>(() => mechanic ? mechanic.inativo : false);
   const { message } = useDialogs();
@@ -40,9 +40,10 @@ function MechanicForm({ repository, mechanic, descriptions, finish }: { reposito
       const text = getValues(), code = mechanic && !dirtyFields.Codigo ? mechanic.Codigo : mechanicCode(text.Codigo);
       if (code === undefined) { setDiagnostic("invalid_code"); return; }
       const values: MechanicValues = { Codigo: code, Descricao: mechanic && !dirtyFields.Descricao ? mechanic.Descricao : text.Descricao, palavra_passe: mechanic && !dirtyFields.palavra_passe ? mechanic.palavra_passe : text.palavra_passe, inativo: inactive };
-      const required = mechanicRequiredMessage(values);
+      const passwordUnchanged = mechanic?.credentialManaged === true && !passwordEdited.current;
+      const required = mechanicRequiredMessage(values, passwordUnchanged);
       if (required) { await message({ title: formTitle, text: required, type: 0 }); return; }
-      const result = await repository.save(mechanic ? { mode: "update", id: mechanic.id, values } : { mode: "create", values });
+      const result = await repository.save(mechanic ? { mode: "update", id: mechanic.id, values, ...(mechanic.credentialManaged ? { passwordUnchanged } : {}) } : { mode: "create", values });
       if (result.kind === "saved") { pending.current = false; close(true); }
       else if (result.kind === "required" || result.kind === "duplicate") await message({ title: formTitle, text: result.message, type: result.kind === "duplicate" ? 1 : 0 });
       // UNRESOLVED U-C17FCA03-03: developer diagnostic only, never credential values or invented failure text.
@@ -50,6 +51,7 @@ function MechanicForm({ repository, mechanic, descriptions, finish }: { reposito
     } catch { setDiagnostic("transport"); }
     finally { pending.current = false; setBusy(false); }
   };
+  const passwordBinding = register("palavra_passe");
   return <WdModal ref={dialog} layout={displayedFormLayout} instance="mechanic-form-frame" testId="WIN_Form_mecanicos" restoreTestId="mechanic-form-restore"
     onClose={() => close()} onKeyDown={event => {
       if (event.key === "Enter" && !(event.target instanceof HTMLButtonElement)) { event.preventDefault(); void save(); }
@@ -57,7 +59,7 @@ function MechanicForm({ repository, mechanic, descriptions, finish }: { reposito
     <div data-testid="SC_Form" style={{ display: "contents" }}>
       <WdEdit control={controlOf(formLayout, "EDT_Codigo")} {...register("Codigo")} integerMask readOnly={mechanic !== null} disabled={busy} />
       <WdEdit control={controlOf(displayedFormLayout, "EDT_Descricao")} {...register("Descricao")} disabled={busy} suggestions={descriptions} onSuggestion={value => setValue("Descricao", value, { shouldDirty: true })} />
-      <WdEdit control={controlOf(formLayout, "EDT_Palavra_passe")} {...register("palavra_passe")} passwordReveal disabled={busy} />
+      <WdEdit control={controlOf(formLayout, "EDT_Palavra_passe")} {...passwordBinding} onChange={event => { passwordEdited.current = true; void passwordBinding.onChange(event); }} passwordReveal placeholder={mechanic?.credentialManaged ? "Manter palavra-passe atual" : undefined} disabled={busy} />
       <WdCheckbox control={controlOf(displayedFormLayout, "CBOX_Inativo")} checked={inactive} onChange={setInactive} disabled={busy} />
     </div>
     <WdButton control={controlOf(formLayout, "BTN_Validar")} disabled={busy} onClick={() => void save()} />

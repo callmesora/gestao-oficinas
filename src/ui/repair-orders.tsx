@@ -102,16 +102,37 @@ export function RepairOrderListScreen({ repositories }: { repositories: Reposito
   const [reading, setReading] = useState(false), [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const [invalidDate, setInvalidDate] = useState<DateName | null>(null), [picker, setPicker] = useState<"customer" | "vehicle" | "mechanic" | null>(null);
   const [details, setDetails] = useState<{ numero: string; resolve: () => void } | null>(null);
-  const information = (numero: string) => new Promise<void>(resolve => setDetails({ numero, resolve }));
   const [editor, setEditor] = useState<{ target: RepairFormTarget; lifetime: number } | null>(null);
   const latest = useRef(draft), currentRows = useRef(rows), selected = useRef(selection), messageRef = useRef(message);
   const owner = useRef(0), lifetime = useRef(0), inFlight = useRef(false), mutating = useRef(false), pickerActive = useRef(false);
+  const informationPending = useRef(false), informationResult = useRef<(() => void) | null>(null);
   const activeQuery = useRef<RepairOrderList | null>(null), headerQuery = useRef<RepairOrderList | null>(null);
   const dateInputs = useRef<Partial<Record<DateName, WdDateEditHandle | null>>>({});
   const plateInput = useRef<HTMLInputElement>(null);
   const orderSettings = useTableLayout(orderTable, "WIN_Ordens_Reparacao/TABLE_QRY_select_ordens_reparacao");
   const stateSettings = useTableLayout(stateTable, "WIN_Ordens_Reparacao/TABLE_Estados_reparacao");
   useLayoutEffect(() => { latest.current = draft; currentRows.current = rows; selected.current = selection; messageRef.current = message; }, [draft, rows, selection, message]);
+  useEffect(() => () => { informationResult.current?.(); informationResult.current = null; }, []);
+  const information = async (numero: string) => {
+    if (informationPending.current || details !== null || (!editor && (mutating.current || inFlight.current))) return;
+    informationPending.current = true; const alive = lifetime.current, ownsBusy = !editor;
+    if (ownsBusy) { mutating.current = true; pickerActive.current = true; setBusy(true); }
+    try {
+      const result = await repositories.labor.checkInformation({ numero });
+      if (alive !== lifetime.current) return;
+      if (result.kind === "in_use") { await message({ title: "", text: "Ordem de reparação em uso por outro utilizador", type: 0 }); return; }
+      if (result.kind !== "ready") { setDiagnostic(result.kind); return; }
+      setDiagnostic("");
+      // ADR006: the short server check is already closed; no connection spans this awaited modal.
+      await new Promise<void>(resolve => { informationResult.current = resolve; setDetails({ numero, resolve }); });
+    } catch { if (alive === lifetime.current) setDiagnostic("transport"); }
+    finally {
+      if (alive === lifetime.current) {
+        informationPending.current = false; informationResult.current = null;
+        if (ownsBusy) { mutating.current = false; pickerActive.current = false; setBusy(false); }
+      }
+    }
+  };
   const read = useCallback(async (query: RepairOrderList, entry = false, header?: { key: NonNullable<RepairOrderList["sort"]>; term?: string }) => {
     const request = ++owner.current, previous = selected.current, previousNumero = currentRows.current.find(row => row.id === previous)?.numero ?? "0";
     inFlight.current = true; setReading(true); setDiagnostic("");

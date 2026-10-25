@@ -254,4 +254,20 @@ Node24 ESM entry points import JSON with explicit `with {type:"json"}` attribute
 
 Keep query-specific reads separate when source eligibility differs: Time's numero/mechanic query reads raw ordered time rows, including orphans; the details table's mechanic INNER JOIN remains explicit. Reuse formatting and DTO fields without substituting one query for the other (ADR006).
 
+Time state choices execute their independent tipo3/4/5 query; other-order start consents preserve repeated raw times under the actual unique order-number schema (ADR006). Known report Auto.Resiz controls use CSS intrinsic band flow with source minimum geometry; Paged.js handles wrapping/pagination, and impossible indivisible page overflow stays typed unresolved (ADR005).
+
 Paged.js generic running bands declare all four page margins and only actual source margin boxes. Keep common band CSS separate from the initial templates' default footer rule: Paged.js0.4.3 otherwise replaces partial margin maps and propagates content:none visibility into later boxes. Assert repeated headers on every real PDF page, source counters and retained totals; no custom pagination.
+
+Persistent recovery reuses explicit matching PostgreSQL dump/restore tools and existing owned-profile helpers. Export consistent data/migration checks, restore only a fresh isolated target, verify before publication, then invalidate copied bearer sessions without resetting credentials/enrollment (ADR017/004). Passwords travel only through a private temporary pgpass file, never argv/logs; no ordinary-start download or PATH fallback.
+
+After Paged.js has applied source page rules, the immutable print snapshot retains generated physical page size/margin0 rules only. Reapplying source @page:first margins would shift the PDF a second time; assert actual PDF text coordinates against paginated preview geometry (ADR005).
+
+For soma_horas, split at the source colon, parse the full hour prefix and exactly the next two minute characters on each operand, then format and reparse the accumulator for the next call. Keep the source single carry and existing row-duration rounding; a numeric accumulator changes negative multi-digit-minute behavior (ADR002/005).
+
+Information callers perform a short protected NOWAIT order preflight before opening the shared details dialog and use the exact source in-use Info on contention. Release before the modal; lock/editor lifetime remains U03 rather than an invented long-lived lease (ADR006).
+
+Report Open company-global assignment is supplied centrally by optional validated WORKSHOP_REPORT_COMPANY at the protected report operation, before rendering any family. Override only context.company when configured; preserve date, parameters and actual live-table rows. Keep private business literals outside Git and caller input unchanged (ADR005).
+
+Legacy skin URLs remain /skin/<inventory PNG>. The persistent frontend serves those checked built files explicitly; never rely on Vite public-file behavior. Frames retain an opaque sampled fallback when an image fails. Verify composed ordinary production windows and actual asset responses in addition to isolated designer comparisons (ADR003/017).
+
+Generic desktop pointer drag/resize uses the controlled react-rnd adapter with documented parent bounds; the workspace retains stacking, persistence and source control anchoring on a scrollable minimum-size surface. Large WdTable views retain the full TanStack model and use TanStack Virtual only above500rows; selection/search/report inputs remain complete (ADR003). Delegate native offset observation to the library and ignore hidden zero-offset notifications so minimized tables retain their visible range.

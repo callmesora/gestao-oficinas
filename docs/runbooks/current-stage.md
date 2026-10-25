@@ -1,13 +1,7 @@
-# Current stage — complete and verify screen families
+# Current stage — shared native-dialog interactions
 
-MIG12/13/14 follow-through on main over e7d26c7, macOS arm64. Root owns shared tracking/integration and native probes; no push. All51 windows/28reports have initial paths, with whole-window/native/U acceptance still open. Persistent authenticated startup, local setup/start, report runtime/output and repair caller fixes are integrated; final gates precede the next commit. Isolated writers continue repair/labor, scanner/report integration and access/mechanic credentials.
+MIG5/7/14 follow-through on main after the usable-desktop delivery; root integrates shared tracking, macOS arm64. No push. Owner prioritizes a usable replacement for one or two users and mature open-source primitives under a thin Media Player theme. Preserve the persistent3210 demo; tests use owned profiles/ports/assets.
 
-Next bounded work follows actual defects and existing U/spec obligations:
+Next bounded batch: frozen modal3 from the stock worker, reusing the public react-rnd adapter inside native HTML dialog. Keep top-layer ownership, focus/Tab/Esc/results, source frame/control geometry, saved state and nested caller lifetime. Its28 focused checks pass, including16Date cases. Main adoption must crop the source frame in the existing visual harness, retain every floor/caption assertion, then check actual nested business/native paths before commit. The optional public user-select flag avoids the library clearing source input selection; no focus replay or internals.
 
-- Complete source continuations, NULL editing, live reads and keyboard behavior using existing controls; promote only exact source events after the five parity criteria.
-- Exercise the full demo through real menu workflows; fix reproducible data/layout/cancellation failures without silently changing source quirks. Document unresolved differences in existing specs.
-- Complete ADR004 mechanic credential transition using explicit resets; persistent user access/session/enrollment and ordinary local restart already pass actual browser/native business checks. Keep updater/INI/native gates named.
-- Packaged Chromium/fonts, native preview/download/printing, scanner configured-path/encoding and Windows/macOS device/window acceptance need their actual host/runtime evidence.
-- Resolve report source/designer/Resumo assumptions and repair Information locking from evidence; no invented behavior or automatic parity promotion. Reconcile 17 historical table aggregate/per-unit differences separately.
-
-Owner prioritizes implementation and fixes over independent review rounds (ADR007). Coordinator runs meaningful integration checks and commits tested batches. Preserve originals/backup/playbook, source IDs/seed, existing visual floors, guards and the unowned handoff swap. No additional per-agent runbooks.
+Retain source IDs/seed/first8 fields and17 historical aggregate/unit differences. No automatic parity promotion or whole-window acceptance. Keep native printing/devices, Windows, official HFSQL fidelity, updater/INI and source/designer U gates open. Reuse existing ADRs/history/handoff; no per-agent runbooks. Coordinator self-review under ADR007; tested local commits on main, then continue.

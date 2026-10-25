@@ -32,22 +32,28 @@
     "native:check": "npm run tauri -- build --debug --no-bundle && node scripts/native-smoke.mjs",
     "native:probe": "npm run build && node scripts/native-startup-probe.mjs",
     "native:business": "node --import tsx scripts/native-business-probe.mjs",
-    "db:dry-run": "tsx apps/server/src/db/dry-run.ts"
+    "db:dry-run": "tsx apps/server/src/db/dry-run.ts",
+    "local:reports": "node --import tsx apps/server/src/local/reports.ts",
+    "native:scanner": "npm run build && node scripts/native-startup-probe.mjs --scanner",
+    "local:backup": "node --import tsx apps/server/src/local/backup.ts",
+    "local:restore": "node --import tsx apps/server/src/local/restore.ts"
   },
   "dependencies": {
     "@fastify/cors": "11.3.1",
+    "@fontsource/noto-sans": "5.3.0",
     "@tanstack/react-table": "8.21.3",
+    "@tanstack/react-virtual": "3.14.22",
     "@tauri-apps/api": "2.12.4",
     "decimal.js": "10.6.0",
     "fastify": "5.12.7",
+    "pagedjs": "0.4.3",
     "pg": "8.23.1",
+    "playwright-core": "1.64.1",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "react-hook-form": "7.91.0",
-    "zod": "4.6.7",
-    "pagedjs": "0.4.3",
-    "playwright-core": "1.64.1",
-    "@fontsource/noto-sans": "5.3.0"
+    "react-rnd": "10.5.3",
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
@@ -77,9 +83,9 @@
     "apps/server"
   ],
   "optionalDependencies": {
-    "@embedded-postgres/windows-x64": "18.4.0-beta.17",
     "@embedded-postgres/darwin-arm64": "18.4.0-beta.17",
-    "@embedded-postgres/darwin-x64": "18.4.0-beta.17"
+    "@embedded-postgres/darwin-x64": "18.4.0-beta.17",
+    "@embedded-postgres/windows-x64": "18.4.0-beta.17"
   },
   "allowScripts": {
     "esbuild@0.28.2": true,

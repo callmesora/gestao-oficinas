@@ -1,13 +1,14 @@
 import Decimal from "decimal.js";
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
-import { nextStockLine, parseScannerText, type StockLine, type StockListRow, type StockDocumentType, type StockMechanic, type StockReadResult, type StockArticle, type ScannerRow, type ScannerResult, type StockList } from "../../packages/domain/src/stock";
+import { nextStockLine, parseScannerText, type StockLine, type StockListRow, type StockDocumentType, type StockMechanic, type StockReadResult, type StockArticle, type ScannerRow, type ScannerResult, type StockList, type StockFailure } from "../../packages/domain/src/stock";
 import { dateEntryInitial, dateEntryResult, dateEntryDisplay } from "../../packages/domain/src/date-entry";
 import type { StockRepository } from "../application/stock";
 import type { ArticleRepository } from "../application/articles";
 import type { DocumentTypeRepository } from "../application/document-types";
 import type { MechanicRepository } from "../application/mechanics";
 import { isolatedStockRepository } from "../infrastructure/stock";
+import { nativeScannerFileAvailable, readTerminalScannerFile } from "../infrastructure/scanner-file";
 import { isolatedArticleRepository } from "../infrastructure/articles";
 import { isolatedDocumentTypeRepository } from "../infrastructure/document-types";
 import { isolatedMechanicRepository } from "../infrastructure/mechanics";
@@ -274,20 +275,37 @@ export function StockUnknownScannerDialog({ rows, finish }: { rows: ScannerRow[]
     <StockTable layout={unknownLayout} name="TABLE_Leitura" rows={rows.map((row, index) => ({ ...row, index }))} id={r => String(r.index)} selection={selection} select={setSelection} cell={(row, column) => column.name === "COL_cod_barras" ? row.barcode : row.quantity} />
   </WdModal>;
 }
-export function StockScannerDialog({ repository, sourceText, finish }: { repository: StockRepository; sourceText: string; finish: (result: Extract<ScannerResult, { kind: "partitioned" }> | "fechou") => void }) {
+export function StockScannerDialog({ repository, sourceText, finish }: { repository: StockRepository; sourceText?: string; finish: (result: Extract<ScannerResult, { kind: "partitioned" }> | "fechou") => void }) {
   const dialog = useRef<WdModalHandle>(null), pending = useRef(false), active = useRef(true), [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const [rows, setRows] = useState<ScannerRow[]>([]), [ready, setReady] = useState(false), [selection, setSelection] = useState<string | null>(null);
+  const finished = useRef(finish); useEffect(() => { finished.current = finish; }, [finish]);
+  const initialRead = useRef<{ repository: StockRepository; sourceText?: string; request: Promise<{ kind: "loaded"; rows: ScannerRow[] } | StockFailure> } | null>(null);
   const { message } = useDialogs();
   useEffect(() => { active.current = true; return () => { active.current = false; }; }, []);
   useEffect(() => { let current = true;
-    void repository.scannerConfig().then(result => {
+    // One launch owns one read, including StrictMode replay. The source identity is
+    // Postos1→Terminais; only a native-owned grant can supply a host path/decoder.
+    if (!initialRead.current || initialRead.current.repository !== repository || initialRead.current.sourceText !== sourceText) {
+      initialRead.current = { repository, sourceText, request: repository.scannerConfig().then(async result => {
+        if (!active.current) return { kind: "failed" as const };
+        if (result.kind !== "loaded") return result;
+        return { kind: "loaded", rows: parseScannerText(sourceText === undefined ? await readTerminalScannerFile(result.config) : sourceText, result.config) };
+      }) };
+    }
+    void initialRead.current.request.then(result => {
       if (!current || !active.current) return;
-      if (result.kind === "loaded") { try { setRows(parseScannerText(sourceText, result.config)); setReady(true); } catch { setDiagnostic("unresolved"); } }
+      if (result.kind === "loaded") { setRows(result.rows); setReady(true); }
       else setDiagnostic(result.kind);
-    }).catch(() => { if (current && active.current) setDiagnostic("transport"); });
+    }).catch(async () => {
+      if (!current || !active.current) return;
+      setDiagnostic("file");
+      // Source416–419: failed open displays Info, then returns exact fechou.
+      await message({ title: scannerLayout.window.title, text: "A leitura do ficheiro falhou, verifique o caminho", type: 0 });
+      if (current && active.current) { dialog.current?.close(); finished.current("fechou"); }
+    });
     return () => { current = false; };
-  }, [repository, sourceText]);
-  const close = (result: Extract<ScannerResult, { kind: "partitioned" }> | "fechou" = "fechou") => { if (!pending.current) { dialog.current?.close(); finish(result); } };
+  }, [repository, sourceText, message]);
+  const close = (result: Extract<ScannerResult, { kind: "partitioned" }> | "fechou" = "fechou") => { if (!pending.current) { dialog.current?.close(); finished.current(result); } };
   const confirm = async () => { if (!ready || pending.current) return; pending.current = true; setBusy(true); try { const result = await repository.scannerPartition(rows); if (active.current) { if (result.kind === "partitioned") { pending.current = false; close(result); } else setDiagnostic(result.kind); } } catch { if (active.current) { setDiagnostic("transport"); await message({ title: scannerLayout.window.title, text: "A leitura do ficheiro falhou, verifique o caminho", type: 0 }); } } finally { pending.current = false; if (active.current) setBusy(false); } };
   return <WdModal ref={dialog} layout={scannerLayout} instance="stock-scanner" testId="WIN_Leitor_cod_barras" restoreTestId="stock-scanner-restore" onClose={() => close()}>
     <WdRadControls layout={scannerLayout} bindings={[...staticCaptions(scannerLayout), { name: "BTN_Confirmar", kind: "button", props: { disabled: busy || !ready, onClick: () => void confirm() } }, { name: "BTN_Cancelar", kind: "button", props: { disabled: busy, onClick: () => close() } }]} />
@@ -321,13 +339,15 @@ export function StockStatementDialog({ services, onPreview, finish }: { services
 function StockLaunchers({ services, mode, onPreview }: { services: Services; mode: "documents" | "inventory" | "rebuild" | "scanner" | "statement"; onPreview?: StockReportPreview }) {
   const { open } = useWorkspace(), [dialog, setDialog] = useState<"inventoryPrompt" | "inventory" | "rebuild" | "statement" | null>(null);
   const [sourceText, setSourceText] = useState<string | null>(null), [partition, setPartition] = useState<Extract<ScannerResult, { kind: "partitioned" }> | null>(null), [unknown, setUnknown] = useState(false), [diagnostic, setDiagnostic] = useState("");
+  const [nativeScannerOpen, setNativeScannerOpen] = useState(false);
   const { message } = useDialogs();
   return <>
     {mode === "documents" && <button data-testid="stock-open" onClick={() => open({ layout: listLayout, content: <StockListScreen services={services} /> })}>Movimentos de Stocks</button>}
     {mode === "inventory" && <button data-testid="inventory-open" onClick={() => setDialog("inventoryPrompt")}>Inventário</button>}
     {mode === "rebuild" && <button data-testid="stock-rebuild-open" onClick={() => setDialog("rebuild")}>Reconstrução de Stocks</button>}
     {mode === "statement" && <button data-testid="stock-statement-open" onClick={() => setDialog("statement")}>Extrato de Artigos</button>}
-    {mode === "scanner" && <label>Ficheiro do leitor <input type="file" data-testid="stock-scanner-file" onChange={event => {
+    {mode === "scanner" && nativeScannerFileAvailable() && <button data-testid="stock-scanner-open" onClick={() => { setPartition(null); setNativeScannerOpen(true); }}>Códigos de barras</button>}
+    {mode === "scanner" && !nativeScannerFileAvailable() && <label>Ficheiro do leitor <input type="file" data-testid="stock-scanner-file" onChange={event => {
       const file = event.currentTarget.files?.[0]; if (!file) return;
       // U-WAFCFDF-01/05: explicit selected UTF-8 file bridge; configured native path/device remains open.
       void file.arrayBuffer().then(bytes => new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes)).then(text => { setPartition(null); setSourceText(text); }).catch(() => { setDiagnostic("file"); void message({ title: scannerLayout.window.title, text: "A leitura do ficheiro falhou, verifique o caminho", type: 0 }); });
@@ -336,7 +356,7 @@ function StockLaunchers({ services, mode, onPreview }: { services: Services; mod
     {dialog === "inventory" && <StockInventoryDialog repository={services.stock} finish={() => setDialog(null)} onPreview={onPreview} />}
     {dialog === "rebuild" && <StockReconstructionDialog repository={services.stock} finish={() => setDialog(null)} />}
     {dialog === "statement" && <StockStatementDialog services={services} onPreview={onPreview} finish={() => setDialog(null)} />}
-    {sourceText !== null && <StockScannerDialog repository={services.stock} sourceText={sourceText} finish={result => { setSourceText(null); if (result !== "fechou") { setPartition(result); setUnknown(result.unknown.length > 0); } }} />}
+    {(nativeScannerOpen || sourceText !== null) && <StockScannerDialog repository={services.stock} sourceText={sourceText ?? undefined} finish={result => { setNativeScannerOpen(false); setSourceText(null); if (result !== "fechou") { setPartition(result); setUnknown(result.unknown.length > 0); } }} />}
     {unknown && partition && <StockUnknownScannerDialog rows={partition.unknown} finish={() => setUnknown(false)} />}
     {partition && <output data-testid="stock-scanner-returned">{JSON.stringify(partition)}</output>}
     {diagnostic && <output data-testid="stock-launcher-diagnostic">{diagnostic}</output>}

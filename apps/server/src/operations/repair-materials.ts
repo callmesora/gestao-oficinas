@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import type { Client } from "pg";
+import type { MechanicCredentialPolicy } from "../security/mechanics";
 import { connectOperationClient, rollbackAfterFailure, closeOperationClient, type DatabaseConnection } from "../db/connection";
 import { repairMaterialsReadSchema, repairMaterialsListSchema, repairMaterialsArticleSchema, repairMaterialsMechanicSchema, repairMaterialsSaveSchema,
   type RepairMaterialsListResult, type RepairMaterialsOrder, type RepairMaterialsMechanic, type RepairMaterialsReadResult, type RepairMaterialLine,
@@ -78,27 +79,33 @@ export async function lookupRepairMaterialArticle(connect: DatabaseConnection, i
   finally { await closeOperationClient(client); }
 }
 
-async function authenticateMechanic(client: Client, code: number | null, password: string): Promise<RepairMaterialsMechanicResult> {
+async function authenticateMechanic(client: Client, code: number | null, password: string, credentials?: MechanicCredentialPolicy, revision?: string, revalidate = false): Promise<RepairMaterialsMechanicResult> {
   // Verified source284–308/758–783: source case-sensitive equality, no trim/upper/hash conversion.
-  const record = (await client.query<RepairMaterialsMechanic & { palavra_passe: string | null }>('SELECT "Codigo","Descricao","inativo","palavra_passe" FROM app."mecanicos" WHERE "Codigo"=$1 ORDER BY _row_id LIMIT 1', [code])).rows[0];
+  const record = (await client.query<RepairMaterialsMechanic & { id: string; palavra_passe?: string | null }>(`SELECT _row_id::text AS id,"Codigo","Descricao","inativo"${credentials ? "" : ',"palavra_passe"'} FROM app."mecanicos" WHERE "Codigo"=$1 ORDER BY _row_id LIMIT 1`, [code])).rows[0];
   if (!record) return { kind: "missing" };
   if (record.inativo === true) return { kind: "inactive" };
   if (password === "") return { kind: "cancelled", mechanic: { Codigo: record.Codigo, Descricao: record.Descricao, inativo: record.inativo } };
-  if (record.palavra_passe === null || password !== record.palavra_passe) return { kind: "incorrect" };
-  return { kind: "authenticated", mechanic: { Codigo: record.Codigo, Descricao: record.Descricao, inativo: record.inativo } };
+  const checked = credentials ? await credentials.verify(client, record.id, password, revision, revalidate) : { valid: record.palavra_passe !== null && password === record.palavra_passe };
+  if (!checked.valid) return { kind: "incorrect" };
+  return { kind: "authenticated", mechanic: { Codigo: record.Codigo, Descricao: record.Descricao, inativo: record.inativo }, ...("revision" in checked && checked.revision ? { credentialRevision: checked.revision } : {}) };
 }
 
-export async function authenticateRepairMaterialMechanic(connect: DatabaseConnection, input: unknown): Promise<RepairMaterialsMechanicResult> {
+export async function authenticateRepairMaterialMechanic(connect: DatabaseConnection, input: unknown, credentials?: MechanicCredentialPolicy): Promise<RepairMaterialsMechanicResult> {
   const parsed = repairMaterialsMechanicSchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
   const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
-  try { return await authenticateMechanic(client, parsed.data.code, parsed.data.password); }
-  catch { return { kind: "failed" }; }
+  try {
+    if (credentials) { await client.query("BEGIN"); await credentials.lock(client, false); }
+    const result = await authenticateMechanic(client, parsed.data.code, parsed.data.password, credentials);
+    if (credentials) await client.query("COMMIT");
+    return result;
+  }
+  catch { await rollbackAfterFailure(client); return { kind: "failed" }; }
   finally { await closeOperationClient(client); }
 }
 
-export async function saveRepairMaterials(connect: DatabaseConnection, input: unknown): Promise<RepairMaterialsSaveResult> {
+export async function saveRepairMaterials(connect: DatabaseConnection, input: unknown, credentials?: MechanicCredentialPolicy): Promise<RepairMaterialsSaveResult> {
   const parsed = repairMaterialsSaveSchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
   const command = parsed.data, ids = command.rows.flatMap(row => row.id === null ? [] : [row.id]);
@@ -107,6 +114,7 @@ export async function saveRepairMaterials(connect: DatabaseConnection, input: un
   if (!client) return { kind: "failed" };
   try {
     await client.query("BEGIN");
+    if (credentials) await credentials.lock(client, true);
     // ADR-006 MIG-9/ADR-011: order first; articles precede materials, matching article deletion.
     const order = (await client.query<Order>(`SELECT ${orderFields} FROM app."ordem_reparacao" WHERE _row_id=$1 FOR UPDATE NOWAIT`, [command.orderId])).rows[0];
     if (!order) { await client.query("ROLLBACK"); return { kind: "missing" }; }
@@ -120,12 +128,15 @@ export async function saveRepairMaterials(connect: DatabaseConnection, input: un
       if (next && (next.data_hora !== row.data_hora || next.mecanico !== row.mecanico || next.artigo !== row.artigo || next.lancado === true && row.lancado !== true)) { await client.query("ROLLBACK"); return { kind: "invalid" }; }
     }
     if (ids.some(id => !old.some(row => row.id === id))) { await client.query("ROLLBACK"); return { kind: "invalid" }; }
+    const authenticatedCodes = new Set<number | null>();
     for (const row of command.rows.filter(row => row.id === null)) {
       if (row.lancado !== false) { await client.query("ROLLBACK"); return { kind: "invalid" }; }
       const proof = command.proofs.find(value => value.code === row.mecanico);
       if (!proof) { await client.query("ROLLBACK"); return { kind: "incorrect" }; }
-      const authenticated = await authenticateMechanic(client, proof.code, proof.password);
+      if (authenticatedCodes.has(row.mecanico)) continue;
+      const authenticated = await authenticateMechanic(client, proof.code, proof.password, credentials, proof.credentialRevision, true);
       if (authenticated.kind !== "authenticated") { await client.query("ROLLBACK"); return { kind: authenticated.kind === "inactive" ? "inactive" : "incorrect" }; }
+      authenticatedCodes.add(row.mecanico);
     }
     let nextIdentity = BigInt((await client.query<{ maximum: string }>('SELECT GREATEST(COALESCE(MAX("material_reparacaoID"),0),0)::text AS maximum FROM app."material_reparacao"')).rows[0].maximum);
     if (nextIdentity + BigInt(command.rows.filter(row => row.id === null).length) > 9223372036854775807n) { await client.query("ROLLBACK"); return { kind: "failed" }; }

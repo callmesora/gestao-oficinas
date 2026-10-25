@@ -1,6 +1,6 @@
 import { readFile, stat } from "node:fs/promises";
 import { isAbsolute } from "node:path";
-export type ServiceConfiguration = { databaseUrl: string; host: "127.0.0.1"; port: number; origins: string[]; setupToken?: string };
+export type ServiceConfiguration = { databaseUrl: string; host: "127.0.0.1"; port: number; origins: string[]; setupToken?: string; reportCompany?: string };
 export class ServiceConfigurationError extends Error { constructor(readonly code: string) { super(`Workshop service configuration: ${code}`); } }
 const nativeOrigins = ["tauri://localhost", "http://tauri.localhost", "https://tauri.localhost"];
 export async function readServiceConfiguration(environment: NodeJS.ProcessEnv = process.env): Promise<ServiceConfiguration> {
@@ -10,6 +10,11 @@ export async function readServiceConfiguration(environment: NodeJS.ProcessEnv = 
   if (environment.WORKSHOP_HOST && environment.WORKSHOP_HOST !== "127.0.0.1") throw new ServiceConfigurationError("loopback_host_required");
   const port = Number(environment.WORKSHOP_PORT ?? "3210");
   if (!Number.isInteger(port) || port < 1 || port > 65535) throw new ServiceConfigurationError("port_invalid");
+  // ADR005 supplies the source project global from trusted deployment configuration.
+  // Preserve explicit blank and all text; validation never returns a normalized value.
+  const reportCompany = environment.WORKSHOP_REPORT_COMPANY;
+  if (reportCompany !== undefined && (reportCompany.includes("\0") || Buffer.byteLength(reportCompany, "utf8") > 4096
+    || Buffer.from(reportCompany, "utf8").toString("utf8") !== reportCompany)) throw new ServiceConfigurationError("report_company_invalid");
   const origins = [...nativeOrigins];
   for (const value of (environment.WORKSHOP_ALLOWED_ORIGINS ?? "").split(",").filter(Boolean)) {
     try { const url = new URL(value); if ((url.protocol !== "https:" && !(url.protocol === "http:" && ["127.0.0.1", "localhost"].includes(url.hostname))) || url.username || url.password || url.origin !== value) throw new Error(); origins.push(value); }
@@ -25,5 +30,5 @@ export async function readServiceConfiguration(environment: NodeJS.ProcessEnv = 
       if (!/^[a-f0-9]{64}$/.test(setupToken)) throw new Error();
     } catch { throw new ServiceConfigurationError("setup_file_invalid"); }
   }
-  return { databaseUrl, host: "127.0.0.1", port, origins: [...new Set(origins)], ...(setupToken ? { setupToken } : {}) };
+  return { databaseUrl, host: "127.0.0.1", port, origins: [...new Set(origins)], ...(setupToken ? { setupToken } : {}), ...(reportCompany === undefined ? {} : { reportCompany }) };
 }

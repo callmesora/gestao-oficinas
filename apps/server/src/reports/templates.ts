@@ -1,7 +1,7 @@
 import { orderReportPriority, type OrderReportRequest, type ReportContext, type StatementGroup, type ReportId } from "../../../../packages/domain/src/reports";
 
 export type ReportDocument = { reportId: ReportId; html: string; css: string; unresolved: string[] };
-type Control = { name: string; x: number; y?: number; width: number; height: number; value: string | null; border?: string; title?: boolean; auto?: boolean };
+type Control = { name: string; x: number; y?: number; width: number; height: number; value: string | null; border?: string; title?: boolean; auto?: boolean; divisible?: boolean };
 const width = 175.9;
 export function escapeReportText(value: string | null): string {
   return (value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;");
@@ -12,6 +12,31 @@ export function band(name: string, height: number, controls: Control[], kind = "
     const border = [["T", "top"], ["B", "bottom"], ["L", "left"], ["R", "right"]].filter(([edge]) => edges.includes(edge)).map(([, side]) => `border-${side}:0.1mm solid white`).join(";");
     return `<div data-control="${control.name}" class="control${control.title ? " title" : ""}${control.auto ? " auto" : ""}" style="display:block;left:${control.x}mm;top:${control.y ?? 0}mm;width:${control.width}mm;height:${control.height}mm;${border}">${escapeReportText(control.value)}</div>`;
   }).join("")}</div>`;
+}
+/** ADR005: only evidenced auto-height consumers opt in. Chromium sizes text; source
+ * intersecting rectangles share a flow section and keep their original offsets.
+ * Later sections retain the original gaps, moving down when preceding content grows.
+ */
+export function intrinsicBand(name: string, height: number, controls: Control[], kind: string): string {
+  const sections: { top: number; bottom: number; controls: Control[] }[] = [];
+  for (const control of [...controls].sort((first, last) => (first.y ?? 0) - (last.y ?? 0))) {
+    const top = control.y ?? 0, bottom = top + control.height, previous = sections.at(-1);
+    if (previous && top < previous.bottom - 0.00001) { previous.bottom = Math.max(previous.bottom, bottom); previous.controls.push(control); }
+    else sections.push({ top, bottom, controls: [control] });
+  }
+  const divisible = controls.some(control => control.auto && control.divisible);
+  let previousBottom = 0;
+  const content = sections.map(section => {
+    const gap = section.top - previousBottom; previousBottom = section.bottom;
+    const split = section.controls.length === 1 && section.controls[0].auto && section.controls[0].divisible;
+    const inner = section.controls.map(control => {
+      const edges = control.border ?? "";
+      const border = [["T", "top"], ["B", "bottom"], ["L", "left"], ["R", "right"]].filter(([edge]) => edges.includes(edge)).map(([, side]) => `border-${side}:0.1mm solid white`).join(";");
+      return `<div data-control="${control.name}" class="control flow-control${control.title ? " title" : ""}" style="margin-left:${control.x}mm;margin-top:${(control.y ?? 0) - section.top}mm;width:${control.width}mm;${control.auto ? `min-height:${control.height}mm;height:auto` : `height:${control.height}mm`};${border}">${escapeReportText(control.value)}</div>`;
+    }).join("");
+    return `<div class="flow-section${split ? " divisible" : ""}"${split ? "" : " data-report-indivisible"} style="min-height:${section.bottom - section.top}mm;margin-top:${gap}mm">${inner}</div>`;
+  }).join("");
+  return `<div data-band="${name}" class="band intrinsic-band ${kind}${divisible ? " divisible" : ""}"${divisible ? "" : " data-report-indivisible"} style="min-height:${height}mm;padding-bottom:${Math.max(0, height - previousBottom)}mm">${content}</div>`;
 }
 function start(context: ReportContext, title: { x: number; width: number; value: string }): string {
   return band("START_OF_DOCUMENT", 20, [
@@ -48,6 +73,10 @@ export const reportBodyCss = `
 .report { width:${width}mm; } .band { width:${width}mm; position:relative; break-inside:avoid; }
 .control { position:absolute; padding:0.6mm 0.3mm; white-space:pre-wrap; overflow:hidden; overflow-wrap:anywhere; }
 .control.auto { height:auto !important; min-height:inherit; } .title { border:0.1mm solid #314653; border-radius:3mm; background:white; font-size:16pt; font-weight:700; text-align:center; }
+.intrinsic-band { display:flow-root; } .flow-section { display:grid; break-inside:avoid; }
+.flow-control { position:relative; grid-area:1/1; align-self:start; min-width:0; }
+.intrinsic-band.divisible,.flow-section.divisible { break-inside:auto; } .flow-section.divisible { display:block; }
+.flow-section.divisible > .flow-control { position:static; overflow:visible; box-decoration-break:clone; }
 table { border-collapse:collapse; width:${width}mm; table-layout:fixed; } thead { display:table-row-group; } td,th { padding:0; border:0; font-weight:normal; text-align:left; }
 tr { break-inside:avoid; } .page-header { background:#819fb4; } .detail { background:#d4e3ed; }
 .document-start,.document-end { background:linear-gradient(#fafafa,#e1e1e1); } .group-header { break-after:avoid; } .group-footer { break-before:avoid; }

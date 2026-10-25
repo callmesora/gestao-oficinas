@@ -61,12 +61,21 @@ export function createReportRenderer(options: ReportRendererOptions = {}): Repor
         + `@font-face{font-family:ReportSans;src:url(data:font/woff2;base64,${files.fontBold}) format('woff2');font-weight:700;}\n` + report.css;
       // Real font loading must finish before Paged.js measures source bands.
       await page.addStyleTag({ content: css });
-      await page.evaluate(async ({ html, stylesheet }) => {
+      const overflow = await page.evaluate(async ({ html, stylesheet }) => {
         const source = document.querySelector("#source")!;
         source.innerHTML = html;
         await document.fonts.load("8pt ReportSans");
         await document.fonts.load("700 16pt ReportSans");
         await document.fonts.ready;
+        const report = source.querySelector<HTMLElement>("[data-report-page-height]");
+        if (report) {
+          const capacity = document.createElement("div");
+          capacity.style.height = `${report.dataset.reportPageHeight}mm`; source.append(capacity);
+          const height = capacity.getBoundingClientRect().height; capacity.remove();
+          // The browser measures intrinsic text and actual CSS millimetres after fonts load.
+          // Never clip an evidenced indivisible source block to manufacture a successful PDF.
+          if ([...report.querySelectorAll("[data-report-indivisible]")].some(block => block.getBoundingClientRect().height > height + 0.5)) return report.dataset.reportOverflow!;
+        }
         const api = window as unknown as { Paged: { Previewer: new () => { preview(source: Element, styles: Record<string, string>[], target: Element): Promise<{ total: number }> } } };
         const previewer = new api.Paged.Previewer();
         const result = await Promise.race([
@@ -74,10 +83,26 @@ export function createReportRenderer(options: ReportRendererOptions = {}): Repor
           new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Report pagination timeout")), 30_000)),
         ]);
         document.documentElement.dataset.reportPages = String(result.total);
+        if (report) {
+          for (const block of document.querySelectorAll("#pages [data-report-indivisible]")) {
+            const area = block.closest(".pagedjs_area"), rect = block.getBoundingClientRect();
+            if (!area) return report.dataset.reportOverflow!;
+            const bounds = area.getBoundingClientRect();
+            if (rect.top < bounds.top - 0.5 || rect.bottom > bounds.bottom + 0.5) return report.dataset.reportOverflow!;
+          }
+        }
         source.remove();
+        return null;
       }, { html: report.html, stylesheet: css });
+      if (overflow) return { kind: "unresolved", unresolved: [overflow + ": indivisible report content exceeds the printable page"] };
       const snapshot = await page.evaluate(() => {
-        const styles = Array.from(document.styleSheets).flatMap(sheet => Array.from(sheet.cssRules).map(rule => rule.cssText)).join("\n");
+        const rules = Array.from(document.styleSheets).flatMap(sheet => Array.from(sheet.cssRules));
+        // Paged.js has already materialized source margins/headers into each page.
+        // Its final @page owns physical paper size and zero print margins. Retaining
+        // source pseudo-page rules would add a second first-page margin in Chromium.
+        const physicalPage = rules.filter(rule => rule.type === CSSRule.PAGE_RULE).at(-1) as CSSPageRule | undefined;
+        if (!physicalPage?.style.getPropertyValue("size") || physicalPage.style.margin !== "0px") throw new Error("Report physical page rule missing");
+        const styles = rules.filter(rule => rule.type !== CSSRule.PAGE_RULE).map(rule => rule.cssText).concat(physicalPage.cssText).join("\n");
         return { pages: Number(document.documentElement.dataset.reportPages), styles, content: document.querySelector("#pages")!.innerHTML,
           fontReady: document.fonts.check("8pt ReportSans") && document.fonts.check("700 16pt ReportSans") };
       });

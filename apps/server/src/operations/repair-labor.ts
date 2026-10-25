@@ -1,7 +1,8 @@
 import type { Client } from "pg";
+import type { MechanicCredentialPolicy } from "../security/mechanics";
 import { connectOperationClient, rollbackAfterFailure, closeOperationClient, type DatabaseConnection } from "../db/connection";
-import { repairLaborAuthenticateSchema, repairLaborInitialiseSchema, repairLaborListSchema, repairLaborMaterialSaveSchema, repairLaborNumberSchema, repairLaborPrepareSchema, repairLaborStateSchema, repairLaborTickSchema, repairLaborToggleSchema,
-  type RepairLaborAuthenticateResult, type RepairLaborDetail, type RepairLaborInitialiseResult, type RepairLaborListResult, type RepairLaborMaterial, type RepairLaborMaterialCheckResult, type RepairLaborOrder, type RepairLaborPrepareResult, type RepairLaborProof, type RepairLaborReadResult, type RepairLaborRow, type RepairLaborSettings, type RepairLaborWriteResult } from "../../../../packages/domain/src/repair-labor";
+import { repairLaborAuthenticateSchema, repairLaborInitialiseSchema, repairLaborListSchema, repairLaborMaterialSaveSchema, repairLaborNumberSchema, repairLaborPrepareSchema, repairLaborStateChoicesSchema, repairLaborStateSchema, repairLaborTickSchema, repairLaborTimeReadSchema, repairLaborToggleSchema,
+  type RepairLaborAuthenticateResult, type RepairLaborDetail, type RepairLaborInformationCheckResult, type RepairLaborInitialiseResult, type RepairLaborListResult, type RepairLaborMaterial, type RepairLaborMaterialCheckResult, type RepairLaborOrder, type RepairLaborPrepareResult, type RepairLaborProof, type RepairLaborReadResult, type RepairLaborRow, type RepairLaborSettings, type RepairLaborStateChoicesResult, type RepairLaborTimeReadResult, type RepairLaborTimeRow, type RepairLaborWriteResult } from "../../../../packages/domain/src/repair-labor";
 import type { RepairOrderMechanic, RepairOrderStateFilter } from "../../../../packages/domain/src/repair-orders";
 import { OPEN_LABOR_FINISH, laborDateTimeMilliseconds, laborStateHistory, laborWithinClosure } from "../../../../packages/domain/src/repair-labor-time";
 import { dateTimeComparisonKey } from "../../../../packages/domain/src/date-time";
@@ -22,11 +23,13 @@ async function detail(client: Client, numero: string) { return (await client.que
 async function materialRows(client: Client, numero: string) { return (await client.query<RepairLaborMaterial>(`SELECT ${materialColumns} FROM app."material_reparacao" WHERE "numero"=$1 ORDER BY "data_hora" ASC NULLS LAST,_row_id`, [numero])).rows; }
 async function rawLabor(client: Client, numero: string) { return (await client.query<Omit<RepairLaborRow, "Descricao">>(`SELECT ${laborColumns} FROM app."tempos_reparacao" t WHERE t."numero"=$1 ORDER BY t."tempos_reparacaoID" ASC NULLS LAST,t._row_id`, [numero])).rows; }
 async function stateRows(client: Client) { return (await client.query<RepairOrderStateFilter>(`SELECT ${stateColumns} FROM app."estados_reparacao" ORDER BY "tipo" ASC NULLS LAST,_row_id`)).rows; }
-async function authenticate(client: Client, proof: RepairLaborProof): Promise<RepairOrderMechanic | null> {
+async function authenticate(client: Client, proof: RepairLaborProof, credentials?: MechanicCredentialPolicy, revalidate = false): Promise<{ mechanic: RepairOrderMechanic; credentialRevision?: string } | null> {
   // WIN_Tempos_Reparacao_Tempo241–279/304–326: exact case-sensitive compare, no inactive rule.
   if (proof.password === "") return null;
-  const row = (await client.query<RepairOrderMechanic & { matches: boolean }>('SELECT _row_id::text AS id,"Codigo","Descricao",("palavra_passe"=$2) AS matches FROM app."mecanicos" WHERE "Codigo"=$1 ORDER BY _row_id LIMIT 1', [proof.mechanic, proof.password])).rows[0];
-  return row?.matches === true ? { id: row.id, Codigo: row.Codigo, Descricao: row.Descricao } : null;
+  const row = (await client.query<RepairOrderMechanic & { matches?: boolean }>(`SELECT _row_id::text AS id,"Codigo","Descricao"${credentials ? "" : ',("palavra_passe"=$2) AS matches'} FROM app."mecanicos" WHERE "Codigo"=$1 ORDER BY _row_id LIMIT 1`, credentials ? [proof.mechanic] : [proof.mechanic, proof.password])).rows[0];
+  if (!row) return null;
+  const checked = credentials ? await credentials.verify(client, row.id, proof.password, proof.credentialRevision, revalidate) : { valid: row.matches === true };
+  return checked.valid ? { mechanic: { id: row.id, Codigo: row.Codigo, Descricao: row.Descricao }, ...("revision" in checked && checked.revision ? { credentialRevision: checked.revision } : {}) } : null;
 }
 function inUse(error: unknown): boolean { return typeof error === "object" && error !== null && "code" in error && error.code === "55P03"; }
 async function lock(client: Client, tables: string[]) {
@@ -93,6 +96,39 @@ export async function readRepairLabor(connect: DatabaseConnection, input: unknow
     await client.query("COMMIT"); return { kind: "loaded", order, labor, materials, baseline: baseline(order, raw, choices), materialBaseline: JSON.stringify(materials), choices };
   } catch { await rollbackAfterFailure(client); return { kind: "failed" }; } finally { await closeOperationClient(client); }
 }
+// QRY_select_tempos_Reparacao_numero_mecanico: no mechanic/order join or open-only predicate.
+// ADR006: this source query differs from the descriptions table's INNER JOIN.
+export async function readRepairLaborTime(connect: DatabaseConnection, input: unknown): Promise<RepairLaborTimeReadResult> {
+  const parsed = repairLaborTimeReadSchema.safeParse(input); if (!parsed.success) return { kind: "invalid" };
+  const client = await connectOperationClient(connect); if (!client) return { kind: "failed" };
+  try {
+    const labor = (await client.query<RepairLaborTimeRow>(`SELECT ${laborColumns} FROM app."tempos_reparacao" t WHERE t."numero"=$1 AND t."mecanico"=$2 ORDER BY t."tempos_reparacaoID" ASC NULLS LAST,t._row_id`, [parsed.data.numero, parsed.data.mechanic])).rows;
+    return { kind: "loaded", labor };
+  } catch { return { kind: "failed" }; }
+  finally { await closeOperationClient(client); }
+}
+// WIN_Table_estado_reparacao_tipo3: the modal has no order argument and queries only these types.
+export async function readRepairLaborStateChoices(connect: DatabaseConnection, input: unknown): Promise<RepairLaborStateChoicesResult> {
+  if (!repairLaborStateChoicesSchema.safeParse(input).success) return { kind: "invalid" };
+  const client = await connectOperationClient(connect); if (!client) return { kind: "failed" };
+  try {
+    const choices = (await client.query<RepairOrderStateFilter>(`SELECT ${stateColumns} FROM app."estados_reparacao" WHERE "tipo" IN (3,4,5) ORDER BY "tipo" ASC,_row_id`)).rows;
+    return { kind: "loaded", choices };
+  } catch { return { kind: "failed" }; }
+  finally { await closeOperationClient(client); }
+}
+// Information list1337–1362/form1181–1206. ADR006: immediate contention only; release before Open.
+export async function checkRepairLaborInformation(connect: DatabaseConnection, input: unknown): Promise<RepairLaborInformationCheckResult> {
+  const parsed = repairLaborNumberSchema.safeParse(input); if (!parsed.success) return { kind: "invalid" };
+  const client = await connectOperationClient(connect); if (!client) return { kind: "failed" };
+  try {
+    await client.query("BEGIN");
+    const locked = (await client.query('SELECT _row_id FROM app."ordem_reparacao" WHERE "numero"=$1 ORDER BY _row_id LIMIT 1 FOR UPDATE NOWAIT', [parsed.data.numero])).rows[0];
+    if (!locked) { await client.query("ROLLBACK"); return { kind: "missing" }; }
+    await client.query("COMMIT"); return { kind: "ready" };
+  } catch (error) { await rollbackAfterFailure(client); return { kind: inUse(error) ? "in_use" : "failed" }; }
+  finally { await closeOperationClient(client); }
+}
 // WIN_Table_Tempos_materiais_Descricoes721–753: fresh seek/lock/state flag before Open.
 // ADR006/U03: this check releases its connection before the modal; no native lock lifetime claim.
 export async function checkRepairLaborMaterials(connect: DatabaseConnection, input: unknown): Promise<RepairLaborMaterialCheckResult> {
@@ -112,29 +148,36 @@ export async function checkRepairLaborMaterials(connect: DatabaseConnection, inp
   } catch (error) { await rollbackAfterFailure(client); return { kind: inUse(error) ? "in_use" : "failed" }; }
   finally { await closeOperationClient(client); }
 }
-export async function authenticateRepairLabor(connect: DatabaseConnection, input: unknown): Promise<RepairLaborAuthenticateResult> {
+export async function authenticateRepairLabor(connect: DatabaseConnection, input: unknown, credentials?: MechanicCredentialPolicy): Promise<RepairLaborAuthenticateResult> {
   const parsed = repairLaborAuthenticateSchema.safeParse(input); if (!parsed.success) return { kind: "invalid" };
   const client = await connectOperationClient(connect); if (!client) return { kind: "failed" };
-  try { const mechanic = await authenticate(client, parsed.data); return mechanic ? { kind: "authenticated", mechanic } : { kind: "denied" }; }
-  catch { return { kind: "failed" }; } finally { await closeOperationClient(client); }
+  try {
+    if (credentials) { await client.query("BEGIN"); await credentials.lock(client, false); }
+    const authenticated = await authenticate(client, parsed.data, credentials);
+    if (credentials) await client.query("COMMIT");
+    return authenticated ? { kind: "authenticated", ...authenticated } : { kind: "denied" };
+  }
+  catch { await rollbackAfterFailure(client); return { kind: "failed" }; } finally { await closeOperationClient(client); }
 }
-export async function prepareRepairLabor(connect: DatabaseConnection, input: unknown): Promise<RepairLaborPrepareResult> {
+export async function prepareRepairLabor(connect: DatabaseConnection, input: unknown, credentials?: MechanicCredentialPolicy): Promise<RepairLaborPrepareResult> {
   const parsed = repairLaborPrepareSchema.safeParse(input); if (!parsed.success) return { kind: "invalid" };
   const client = await connectOperationClient(connect); if (!client) return { kind: "failed" };
   try {
-    await client.query("BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY");
-    if (!await authenticate(client, parsed.data.proof)) { await client.query("ROLLBACK"); return { kind: "denied" }; }
+    await client.query(`BEGIN ISOLATION LEVEL REPEATABLE READ${credentials ? "" : " READ ONLY"}`);
+    if (credentials) await credentials.lock(client, false);
+    if (!await authenticate(client, parsed.data.proof, credentials, true)) { await client.query("ROLLBACK"); return { kind: "denied" }; }
     const plan = await laborPlan(client, parsed.data.numero, parsed.data.proof.mechanic); await client.query("COMMIT");
     return plan ? { kind: "prepared", baseline: plan.baseline, finish: plan.finish, stateAllowed: plan.stateAllowed, others: plan.others.map(({ numero, matricula }) => ({ numero, matricula })) } : { kind: "missing" };
   } catch { await rollbackAfterFailure(client); return { kind: "failed" }; } finally { await closeOperationClient(client); }
 }
-export async function toggleRepairLabor(connect: DatabaseConnection, input: unknown): Promise<RepairLaborWriteResult> {
+export async function toggleRepairLabor(connect: DatabaseConnection, input: unknown, credentials?: MechanicCredentialPolicy): Promise<RepairLaborWriteResult> {
   const parsed = repairLaborToggleSchema.safeParse(input); if (!parsed.success) return { kind: "invalid" };
   const client = await connectOperationClient(connect); if (!client) return { kind: "failed" };
   try {
     const command = parsed.data;
-    await client.query("BEGIN"); await lock(client, ["mecanicos", "estados_reparacao", "ordem_reparacao", "tempos_reparacao"]);
-    if (!await authenticate(client, command.proof)) { await client.query("ROLLBACK"); return { kind: "denied" }; }
+    await client.query("BEGIN"); if (credentials) await credentials.lock(client, true);
+    await lock(client, ["mecanicos", "estados_reparacao", "ordem_reparacao", "tempos_reparacao"]);
+    if (!await authenticate(client, command.proof, credentials, true)) { await client.query("ROLLBACK"); return { kind: "denied" }; }
     const plan = await laborPlan(client, command.numero, command.proof.mechanic);
     if (!plan) { await client.query("ROLLBACK"); return { kind: "missing" }; }
     if (plan.baseline !== command.baseline) { await client.query("ROLLBACK"); return { kind: "stale" }; }

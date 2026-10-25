@@ -36,6 +36,24 @@
   "visuals": {}
  },
  {
+  "name": "QRY_select_tempos_Reparacao_numero_mecanico",
+  "kind": "query",
+  "total": 3,
+  "done": 1,
+  "stage": "building",
+  "spec": false,
+  "assumed": 0,
+  "statuses": {
+   "verified": 1,
+   "excluded": 0,
+   "implemented": 0,
+   "specified": 0,
+   "unmapped": 2
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
   "name": "QRY_select_viatura_matricula",
   "kind": "query",
   "total": 3,
@@ -1023,8 +1041,8 @@
   "statuses": {
    "verified": 1,
    "excluded": 0,
-   "implemented": 1,
-   "specified": 19,
+   "implemented": 3,
+   "specified": 17,
    "unmapped": 5
   },
   "looks": null,
@@ -1154,8 +1172,8 @@
   "statuses": {
    "verified": 0,
    "excluded": 0,
-   "implemented": 21,
-   "specified": 69,
+   "implemented": 22,
+   "specified": 68,
    "unmapped": 5
   },
   "looks": null,
@@ -1177,8 +1195,8 @@
   "statuses": {
    "verified": 5,
    "excluded": 0,
-   "implemented": 13,
-   "specified": 47,
+   "implemented": 14,
+   "specified": 46,
    "unmapped": 5
   },
   "looks": null,
@@ -1314,8 +1332,8 @@
   "looks": null,
   "visuals": {
    "darwin": {
-    "pixel": 98.2,
-    "layout": 91.6
+    "pixel": 98.4,
+    "layout": 91.9
    }
   }
  },
@@ -1362,8 +1380,8 @@
     "layout": 92.2
    },
    "darwin": {
-    "pixel": 98.3,
-    "layout": 91.8
+    "pixel": 98.5,
+    "layout": 92.2
    }
   }
  },
@@ -1426,8 +1444,8 @@
   "looks": null,
   "visuals": {
    "darwin": {
-    "pixel": 98.5,
-    "layout": 92.8
+    "pixel": 98.6,
+    "layout": 93.1
    }
   }
  },
@@ -1660,8 +1678,8 @@
   "statuses": {
    "verified": 4,
    "excluded": 0,
-   "implemented": 1,
-   "specified": 41,
+   "implemented": 2,
+   "specified": 40,
    "unmapped": 4
   },
   "looks": null,
@@ -1689,15 +1707,15 @@
   "name": "WIN_Tempos_Reparacao_Tempo",
   "kind": "screen",
   "total": 26,
-  "done": 0,
+  "done": 1,
   "stage": "building",
   "spec": true,
   "assumed": 0,
   "statuses": {
-   "verified": 0,
+   "verified": 1,
    "excluded": 0,
-   "implemented": 1,
-   "specified": 20,
+   "implemented": 2,
+   "specified": 18,
    "unmapped": 5
   },
   "looks": null,
@@ -2533,24 +2551,6 @@
  },
  {
   "name": "QRY_select_ordens_reparacao_tempos",
-  "kind": "query",
-  "total": 3,
-  "done": 0,
-  "stage": "mapped",
-  "spec": false,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 1,
-   "unmapped": 2
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "QRY_select_tempos_Reparacao_numero_mecanico",
   "kind": "query",
   "total": 3,
   "done": 0,

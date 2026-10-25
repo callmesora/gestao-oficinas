@@ -1,5 +1,6 @@
 import { getCoreRowModel, useReactTable, type ColumnSizingState } from "@tanstack/react-table";
-import { useEffect, useMemo, useRef, useState, type DragEvent, type MouseEvent, type ReactNode } from "react";
+import { observeElementOffset, useVirtualizer } from "@tanstack/react-virtual";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type DragEvent, type MouseEvent, type ReactNode } from "react";
 import { controlBox, type LegacyColumn, type LegacyControl } from "./layout";
 import "./skin.css";
 import { useAnchoredControl } from "./anchors";
@@ -30,11 +31,10 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
   if (!control.columns) throw new Error(`Table columns unresolved: ${control.path}`);
   const sourceColumns = control.columns;
   const container = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    container.current?.querySelector('tr[aria-selected="true"]')?.scrollIntoView({ block: "nearest", inline: "nearest" });
-  }, [selectedId, rows]);
-  const ids = rows.map(rowId);
-  if (new Set(ids).size !== ids.length) throw new Error(`Duplicate table row identity: ${control.path}`);
+  const duplicateIds = useMemo(() => {
+    const ids = rows.map(rowId); return new Set(ids).size !== ids.length;
+  }, [rows, rowId]);
+  if (duplicateIds) throw new Error(`Duplicate table row identity: ${control.path}`);
   const columns = useMemo(() => sourceColumns.filter(column => column.flags?.Visible !== false).map(column => {
     if (column.width == null) throw new Error(`Column width unresolved: ${column.path}`);
     return { id: column.path, size: column.width, minSize: Math.min(24, column.width),
@@ -55,6 +55,56 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
   // ADR-013: dossier height is content without margin; source images show an additional 1px row border.
   const sourceRowHeight = options?.row_height && /^[0-9]+$/.test(options.row_height) ? Number(options.row_height) + 1 : undefined;
   const effectiveRowHeight = rowHeight ?? sourceRowHeight;
+  // ADR-003: keep the complete model; only large lists change their rendered range.
+  const virtualized = displayed.length > 500;
+  const header = useRef<HTMLTableSectionElement>(null), [measuredHeaderHeight, setMeasuredHeaderHeight] = useState(23);
+  const firstRow = useRef<HTMLTableRowElement>(null);
+  const requestedRowHeight = effectiveRowHeight ?? 19;
+  const [measuredRowHeight, setMeasuredRowHeight] = useState<{ requested: number; actual: number } | null>(null);
+  const itemHeight = measuredRowHeight?.requested === requestedRowHeight ? measuredRowHeight.actual : requestedRowHeight;
+  const headerHeight = showHeaders ? measuredHeaderHeight : 0;
+  useLayoutEffect(() => {
+    const element = header.current;
+    if (!virtualized || !showHeaders || !element) return;
+    const update = () => setMeasuredHeaderHeight(element.getBoundingClientRect().height);
+    update();
+    const observer = new ResizeObserver(update); observer.observe(element);
+    return () => observer.disconnect();
+  }, [virtualized, showHeaders]);
+  const itemKey = useCallback((index: number) => displayed[index].id, [displayed]);
+  // Hidden hosts report zero offsets without changing their retained native scroll position.
+  const observeOffset = useCallback<typeof observeElementOffset>((instance, notify) => observeElementOffset(instance, (offset, scrolling) => {
+    if (instance.scrollElement && instance.scrollElement.clientHeight > 0) notify(offset, scrolling);
+  }), []);
+  const virtualizer = useVirtualizer({ count: displayed.length, getScrollElement: () => container.current,
+    estimateSize: () => itemHeight, getItemKey: itemKey, enabled: virtualized,
+    overscan: 8, paddingStart: headerHeight, scrollPaddingStart: headerHeight, useFlushSync: false, observeElementOffset: observeOffset });
+  const virtualRows = virtualizer.getVirtualItems();
+  const rendered = virtualized ? virtualRows.map(item => displayed[item.index]) : displayed;
+  const topSpace = virtualized && virtualRows.length ? virtualRows[0].start - headerHeight : 0;
+  // Keep the full scroll extent while observers initialize or a window is restored.
+  const bottomSpace = virtualized ? virtualizer.getTotalSize() - (virtualRows.at(-1)?.end ?? headerHeight) : 0;
+  const firstRenderedId = rendered[0]?.id;
+  useLayoutEffect(() => {
+    const element = firstRow.current;
+    if (!virtualized || !element) return;
+    const update = () => {
+      const actual = element.getBoundingClientRect().height;
+      if (actual > 0) setMeasuredRowHeight(previous => previous?.requested === requestedRowHeight && previous.actual === actual ? previous : { requested: requestedRowHeight, actual });
+    };
+    update();
+    const observer = new ResizeObserver(update); observer.observe(element);
+    return () => observer.disconnect();
+  }, [virtualized, requestedRowHeight, firstRenderedId]);
+  useLayoutEffect(() => {
+    if (virtualized) virtualizer.measure();
+  }, [virtualized, virtualizer, itemHeight]);
+  useEffect(() => {
+    if (virtualized) {
+      const index = displayed.findIndex(row => row.id === selectedId);
+      if (index >= 0) virtualizer.scrollToIndex(index, { align: "auto" });
+    } else container.current?.querySelector('tr[aria-selected="true"]')?.scrollIntoView({ block: "nearest", inline: "nearest" });
+  }, [selectedId, rows, displayed, virtualized, virtualizer, headerHeight, itemHeight]);
   const scrollbarMode = (value: string | undefined) => value === "Always visible" ? "scroll" as const : value === "Automatic" ? "auto" as const : undefined;
   const columnOf = (id: string) => sourceColumns.find(column => column.path === id)!;
   const moveColumn = (from: string, to: string) => {
@@ -95,9 +145,9 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
     <div className="wd-table-grid" aria-hidden="true" style={{ width: table.getTotalSize(), top: showHeaders ? undefined : 0 }}>
       {table.getVisibleLeafColumns().map(column => <span key={column.id} style={{ width: column.getSize() }} />)}
     </div>
-    <table aria-label={control.caption ?? control.name} style={{ width: table.getTotalSize() }}>
+    <table aria-label={control.caption ?? control.name} aria-rowcount={virtualized ? displayed.length + (showHeaders ? 1 : 0) : undefined} style={{ width: table.getTotalSize() }}>
       <colgroup>{table.getVisibleLeafColumns().map(column => <col key={column.id} style={{ width: column.getSize() }} />)}</colgroup>
-      <thead hidden={!showHeaders}>{table.getHeaderGroups().map(group => <tr key={group.id}>{group.headers.map(header => {
+      <thead ref={header} hidden={!showHeaders}>{table.getHeaderGroups().map(group => <tr key={group.id}>{group.headers.map(header => {
         const column = header.column;
         const source = columnOf(column.id);
         const movable = source.flags?.Movable === true && source.flags?.["Fixed left"] !== true;
@@ -149,7 +199,9 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
             }} />}
         </th>;
       })}</tr>)}</thead>
-      <tbody>{displayed.map(row => <tr key={row.id} aria-selected={row.id === selectedId}
+      <tbody>{topSpace > 0 && <tr aria-hidden="true"><td colSpan={table.getVisibleLeafColumns().length} style={{ height: topSpace, padding: 0, border: 0 }} /></tr>}
+      {rendered.map((row, index) => <tr key={row.id} ref={virtualized && index === 0 ? firstRow : undefined} aria-selected={row.id === selectedId}
+        aria-rowindex={virtualized ? virtualRows[index].index + (showHeaders ? 2 : 1) : undefined}
         onClick={() => { container.current?.focus(); onSelect(row.id); }} onDoubleClick={() => onActivate?.(row.id)}>
         {row.getVisibleCells().map(value => {
           const source = columnOf(value.column.id);
@@ -160,7 +212,8 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
               else element.removeAttribute("title");
             }} onMouseLeave={event => event.currentTarget.removeAttribute("title")}>{cell(row.original, source)}</td>;
         })}
-      </tr>)}</tbody>
+      </tr>)}
+      {bottomSpace > 0 && <tr aria-hidden="true"><td colSpan={table.getVisibleLeafColumns().length} style={{ height: bottomSpace, padding: 0, border: 0 }} /></tr>}</tbody>
     </table>
   </div>;
 }

@@ -1,6 +1,7 @@
 /* MediaPlayer measurements from the guide and project images. Colors marked sampled remain visual-acceptance inputs. */
 .wd-frame { position: relative; box-sizing: border-box; font: 10.67px "Trebuchet MS", Tahoma, sans-serif; color: #000; overflow: hidden; }
 .wd-frame::before { content: ""; position: absolute; inset: 0; box-sizing: border-box; border: solid;
+  background: #eef3fa; background-clip: padding-box; border-color: #606a84; /* sampled fallback; ADR-003 */
   border-width: 25px 8px 8px; border-image: var(--wd-frame) 25 8 8 8 fill stretch; pointer-events: none; }
 .wd-client { position: absolute; inset: 0; }
 .wd-title { position: absolute; color: white; font-size: 12px; line-height: 18px; white-space: nowrap; overflow: hidden; }

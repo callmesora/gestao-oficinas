@@ -12,14 +12,16 @@ export const mechanicIdentitySchema = z.strictObject({
 });
 export const mechanicSaveSchema = z.discriminatedUnion("mode", [
   z.strictObject({ mode: z.literal("create"), values: mechanicValuesSchema }),
-  z.strictObject({ mode: z.literal("update"), id: mechanicIdentitySchema.shape.id, values: mechanicValuesSchema }),
+  z.strictObject({ mode: z.literal("update"), id: mechanicIdentitySchema.shape.id, values: mechanicValuesSchema, passwordUnchanged: z.boolean().optional() }),
 ]);
+// ADR004: public revision binds a volatile proof to one current managed credential; it grants no access.
+export const mechanicCredentialRevisionSchema = z.string().max(39).regex(/^[1-9][0-9]{0,18}:[1-9][0-9]{0,18}(?![\s\S])/);
 export const mechanicListSchema = z.strictObject({ sort: z.enum(["Codigo", "Descricao", "inativo"]).optional(), descending: z.boolean().optional() });
 export type MechanicValues = z.infer<typeof mechanicValuesSchema>;
 export type MechanicSave = z.infer<typeof mechanicSaveSchema>;
 export type MechanicList = z.infer<typeof mechanicListSchema>;
 export type MechanicListRow = Omit<MechanicValues, "palavra_passe"> & { id: string };
-export type MechanicRecord = MechanicListRow & { mecanicosID: string | null; palavra_passe: string | null };
+export type MechanicRecord = MechanicListRow & { mecanicosID: string | null; palavra_passe: string | null; credentialManaged?: boolean };
 export type MechanicListResult = { kind: "loaded"; mechanics: MechanicListRow[] } | { kind: "invalid" | "failed" };
 export type MechanicReadResult = { kind: "loaded"; mechanic: MechanicRecord } | { kind: "invalid" | "missing" | "failed" };
 export type MechanicSaveResult = { kind: "saved"; mechanic: MechanicListRow } | { kind: "required" | "duplicate"; message: string } | { kind: "invalid" | "missing" | "codeLocked" | "failed" };
@@ -27,10 +29,10 @@ export type MechanicDeleteResult = { kind: "deleted" | "invalid" | "missing" | "
 
 // Verified text/order: legacy/GestaoOficinas_TesteIA/WIN_Form_mecanicos.wdw:38–49.
 // ADR-008: numeric empty-string comparison uses the explicit assumed zero/NULL required default.
-export function mechanicRequiredMessage(values: MechanicValues): string | null {
+export function mechanicRequiredMessage(values: MechanicValues, passwordUnchanged = false): string | null {
   if (values.Codigo === null || values.Codigo === 0) return "Falta indicar o código";
   if (values.Descricao === null || values.Descricao === "") return "Falta preencher a descrição";
-  return values.palavra_passe === null || values.palavra_passe === "" ? "Falta indicar a palavra-passe" : null;
+  return !passwordUnchanged && (values.palavra_passe === null || values.palavra_passe === "") ? "Falta indicar a palavra-passe" : null;
 }
 
 // Verified: WIN_Form_mecanicos.wdw:57/67; numeric unique Codigo key.

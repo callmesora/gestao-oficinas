@@ -204,6 +204,8 @@ nHoraIni = nHoraIni + nHoraSoma
 RESULT NumToString(nHoraIni, "02d")+":"+NumToString(nMinutosIni, "02d")
 ```
 
+Literal string-sum follow-through (ADR-002/005/006): `laborSumHours` reads the full hour prefix and exactly two minute characters from both operands at each addition, including the previously rendered accumulator. It preserves one positive minute carry without normalizing negative minutes. Under the existing literal row-rounding default, a negative half-hour displays `00:-29`; five such rows produce `00:-10`, and a sixth re-reads `-1` from that accumulator and produces `00:-3`. The inner footer resets the row accumulator and adds its already displayed subtotal into the outer accumulator; this additional source call re-reads the two-character minute prefix. `apps/server/src/reports/labor-events.test.ts` runs actual PostgreSQL and offline PDFs twice per family, checking signed totals, separate groups, zero17, full 100-hour prefixes and unchanged raw dates. Native negative/coercion/overflow, by-reference and designer/group acceptance remain U-R27-02/03/04; these tests do not close them.
+
 ## Data edge cases
 
 | Case | Legacy behavior | Evidence or U-id |

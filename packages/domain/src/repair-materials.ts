@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { mechanicCredentialRevisionSchema } from "./mechanics";
 
 const identity = z.string().regex(/^[1-9][0-9]*(?![\s\S])/).max(19).refine(value => value.length < 19 || value.length === 19 && value <= "9223372036854775807");
 const unsigned64 = z.string().regex(/^[0-9]+(?![\s\S])/).max(20).refine(value => value.length < 20 || value.length === 20 && value <= "18446744073709551615");
@@ -13,7 +14,7 @@ export const repairMaterialLineSchema = z.strictObject({
 export const repairMaterialsReadSchema = z.union([z.strictObject({ orderId: identity }), z.strictObject({ numero: unsigned64 })]);
 export const repairMaterialsListSchema = z.strictObject({ restricted: z.boolean(), mechanic: mechanicCode.optional() });
 export const repairMaterialsArticleSchema = z.strictObject({ value: z.string(), barcodeFirst: z.boolean() });
-export const repairMaterialsMechanicSchema = z.strictObject({ code: mechanicCode, password: z.string() });
+export const repairMaterialsMechanicSchema = z.strictObject({ code: mechanicCode, password: z.string(), credentialRevision: mechanicCredentialRevisionSchema.optional() });
 export const repairMaterialsSaveSchema = z.strictObject({
   orderId: identity, numero: unsigned64, baseline: z.string(), state: z.string().nullable(),
   rows: z.array(repairMaterialLineSchema), proofs: z.array(repairMaterialsMechanicSchema),
@@ -28,7 +29,7 @@ export type RepairMaterialsDocument = { orderId: string; numero: string; matricu
 export type RepairMaterialsReadResult = { kind: "loaded"; document: RepairMaterialsDocument } | { kind: "invalid" | "missing" | "failed" | "inUse" };
 export type RepairMaterialsArticle = { Codigo: string | null; Descricao: string | null; preco: string | null };
 export type RepairMaterialsArticleResult = { kind: "loaded"; article: RepairMaterialsArticle } | { kind: "invalid" | "missing" | "failed" };
-export type RepairMaterialsMechanicResult = { kind: "authenticated" | "cancelled"; mechanic: RepairMaterialsMechanic } | { kind: "inactive" | "incorrect" | "missing" | "invalid" | "failed" };
+export type RepairMaterialsMechanicResult = { kind: "authenticated"; mechanic: RepairMaterialsMechanic; credentialRevision?: string } | { kind: "cancelled"; mechanic: RepairMaterialsMechanic } | { kind: "inactive" | "incorrect" | "missing" | "invalid" | "failed" };
 export type RepairMaterialsSaveResult = { kind: "saved" } | { kind: "invalid" | "missing" | "failed" | "stale" | "inUse" | "launched" | "inactive" | "incorrect" };
 
 /** Verified WIN_Material_reparacao_form.wdw:971–979/1003–1012/1088–1127. */

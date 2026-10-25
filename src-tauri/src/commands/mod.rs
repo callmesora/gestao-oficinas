@@ -1,9 +1,11 @@
 pub mod repair_state_color;
 pub mod report_output;
+pub mod scanner_file;
 pub mod startup;
 pub mod terminal_folder;
 pub use repair_state_color::SELECT_REPAIR_STATE_COLOR_COMMAND;
 pub use report_output::{PRINT_REPORT_PDF_COMMAND, SAVE_REPORT_PDF_COMMAND};
+pub use scanner_file::READ_TERMINAL_SCANNER_FILE_COMMAND;
 pub use startup::{READ_STARTUP_ARGUMENTS_COMMAND, TERMINATE_APPLICATION_COMMAND};
 pub use terminal_folder::SELECT_TERMINAL_FOLDER_COMMAND;
 

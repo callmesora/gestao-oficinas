@@ -198,7 +198,9 @@ async function laborReport(client: Client, request: FamilyReportRequest, params:
       outerTotals.push(laborSumHours(times));
       innerIndex = innerEnd;
     }
-    if (!order) body.push(sourceBand(request.reportId, "BREAK_FOOTER1", { STC_total_horas1: laborSumHours(outerTotals) }));
+    // Resumo BODY287–288 assigns this accumulator directly; footer338 only resets.
+    // Detailed mechanic/vehicle footer2 explicitly calls soma_horas on each subtotal.
+    if (!order) body.push(sourceBand(request.reportId, "BREAK_FOOTER1", { STC_total_horas1: summary ? outerTotals[0] : laborSumHours(outerTotals) }));
     index = end;
   }
   return fixedReportDocument(request.reportId, request.context, body, rows.length);

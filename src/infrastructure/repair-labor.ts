@@ -3,5 +3,5 @@ import type { RepairLaborRepository } from "../application/repair-labor";
 
 export async function isolatedRepairLaborRepository(): Promise<RepairLaborRepository> {
   const post = await isolatedWorkflowPost("repair-labor", "Repair labor request failed");
-  return { initialise: input => post("initialise", input), list: input => post("list", input), read: input => post("read", input), checkMaterials: input => post("check-materials", input), authenticate: input => post("authenticate", input), prepare: input => post("prepare", input), toggle: input => post("toggle", input), state: input => post("state", input), tick: input => post("tick", input), saveMaterials: input => post("save-materials", input) };
+  return { initialise: input => post("initialise", input), list: input => post("list", input), read: input => post("read", input), readTime: input => post("read-time", input), readStateChoices: () => post("state-choices", {}), checkInformation: input => post("check-information", input), checkMaterials: input => post("check-materials", input), authenticate: input => post("authenticate", input), prepare: input => post("prepare", input), toggle: input => post("toggle", input), state: input => post("state", input), tick: input => post("tick", input), saveMaterials: input => post("save-materials", input) };
 }

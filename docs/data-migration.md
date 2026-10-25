@@ -22,6 +22,20 @@ All tables have an internal _row_id; _import_id/_source_row identify the origina
 
 Every imported field is compared against source provenance, with exact numeric equality and typed row hashes checked against the manifest. The rehearsal stops PostgreSQL, backs up the complete cluster including WAL, restores a separate copy, restarts and reconciles it. It also runs scripts/compare_exports.py against all 17 CSV pairs: typed cell tags distinguish NULL/empty/binary; numeric notation is canonicalized exactly, with no rounding; every column sets trim=false. Raw CSV/config/cluster files stay ignored. Public count-only results are docs/data/postgres-reconciliation.json and postgres-csv-comparison.json.
 
+For an existing persistent local service, ADR-017 adds explicit backup/restore commands. Stop `local:start` first. Supply canonical, regular PostgreSQL **18.4** executables via `--tools`; commands never download or search `PATH`. This host’s ignored `analysis-local/toolchain/postgres-clients-18.4/` records provisioning/source hashes.
+
+```sh
+npm run local:backup -- --profile /absolute/existing-profile --out /absolute/new-backup --tools /absolute/postgres-18.4/bin
+npm run local:restore -- --backup /absolute/existing-backup --profile /absolute/new-profile --database-port 54330 --api-port 3211 --tools /absolute/postgres-18.4/bin
+npm run local:start -- --profile /absolute/new-profile
+```
+
+Backup takes the exclusive runner lock and starts/stops only its owned cluster. It creates a fresh private directory; archive and verification share one exported snapshot. The manifest records archive/tool hashes, table hashes/counts across application/auth/audit/migrations, schema, sequence gaps and large-object hashes. Current migration checksums must match; recovery never silently upgrades. Temporary private `PGPASSFILE` files are removed; secrets/copied values are excluded from output. Keep backups private and outside Git.
+
+Restore requires a fresh separate profile and distinct ports, with new UUID/random database credentials and no copied ownership/ACLs. It restores transactionally, verifies restoration and stops its server before publishing `profile.json`. Only target bearer sessions are revoked; password hashes, revisions and enrollment remain. Users log in again; unconsumed enrollment gets a new private operator-token file, never a copied/printed value.
+
+Source, backup and existing profiles remain unchanged. Failures stop only owned processes and leave unpublished private directories; retry at a fresh destination. Reports/scanner inputs require separate provisioning. These local checks do not close Windows permissions or production acceptance.
+
 ## Remaining acceptance
 
-Schema/import, synthetic edge cases, restart/restore and reconciliation are tested by db/legacy-import.test.ts and the real-data rehearsal. The only release is schema v1; upgrades from a future release still need that version's test. Business calculations, concurrency/authorization, runtime collation, golden scenarios, native hardware and production cutover remain later stages. No production access is authorized.
+Schema/import, synthetic edge cases, restart/restore and reconciliation are tested by db/legacy-import.test.ts and the real-data rehearsal. Persistent recovery is tested by local/backup-store.test.ts and local/backup-node-loader.test.ts against the current immutable migrations; upgrades from a future release still need that version's test. Workflow parity, runtime collation, golden scenarios, native hardware and production cutover retain their individual acceptance gates. No production access is authorized.

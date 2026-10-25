@@ -78,8 +78,24 @@ it("unresolved reconstruction refuses orphan movement before zeroing any stock",
 });
 it("scanner resolves actual postos1 terminal, partitions barcode rows without writing permanent records", async () => {
   await database.query('INSERT INTO app."postos" ("Codigo","terminal") VALUES (1,$1)', ["T"]);
-  await database.query('INSERT INTO app."Terminais" ("Codigo","codbarras_inicio","codbarras_fim","quant_inicio","quant_fim","nome_ficheiro") VALUES ($1,1,3,5,4,$2)', ["T", "scanner.txt"]);
-  expect((await post("scanner-config", {})).config).toEqual({ barcodeStart: 1, barcodeLength: 3, quantityStart: 5, quantityLength: 4, filename: "scanner.txt" });
+  await database.query('INSERT INTO app."Terminais" ("Codigo","codbarras_inicio","codbarras_fim","quant_inicio","quant_fim","pasta_localizacao","nome_ficheiro") VALUES ($1,1,3,5,4,$2,$3)', ["T", "C:\\Synthetic d'água", "scanner.txt"]);
+  expect((await post("scanner-config", {})).config).toEqual({ barcodeStart: 1, barcodeLength: 3, quantityStart: 5, quantityLength: 4, terminalCode: "T", folder: "C:\\Synthetic d'água", filename: "scanner.txt" });
   const result = await post("scanner-partition", { rows: [{ barcode: "123", quantity: "2.25" }, { barcode: "unrecognized", quantity: "opaque" }] });
   expect(result.kind).toBe("partitioned"); expect(result.known).toEqual([{ barcode: "123", quantity: "2.25", code: "A", description: "Artigo d'água", price: "3.12345678901234567890123456789" }]); expect(result.unknown).toEqual([{ barcode: "unrecognized", quantity: "opaque" }]); expect(await stock()).toBe("10");
+});
+it("scanner config selects only Postos1 and retains NULL/blank source path identity without interpreting a host path", async () => {
+  await database.query('INSERT INTO app."postos" ("Codigo","terminal") VALUES (1,$1),(2,$2)', ["T", "OTHER"]);
+  await database.query('INSERT INTO app."Terminais" ("Codigo","codbarras_inicio","codbarras_fim","quant_inicio","quant_fim","pasta_localizacao","nome_ficheiro") VALUES ($1,2,3,6,4,NULL,NULL),($2,1,99,100,9,$3,$4)', ["T", "OTHER", "/unrelated/host/folder", "other.txt"]);
+  expect((await post("scanner-config", {})).config).toEqual({ terminalCode: "T", folder: null, filename: null, barcodeStart: 2, barcodeLength: 3, quantityStart: 6, quantityLength: 4 });
+  await database.query('UPDATE app."Terminais" SET "pasta_localizacao"=$1,"nome_ficheiro"=$2 WHERE "Codigo"=$3', ["", "scan d'água.txt", "T"]);
+  expect((await post("scanner-config", {})).config).toMatchObject({ terminalCode: "T", folder: "", filename: "scan d'água.txt" });
+  expect((await post("scanner-config", { path: "/untrusted" })).kind).toBe("invalid");
+});
+it("missing and ambiguous scanner joins retain typed unresolved without guessing a terminal from client context", async () => {
+  expect((await post("scanner-config", {})).kind).toBe("unresolved");
+  await database.query('INSERT INTO app."postos" ("Codigo","terminal") VALUES (1,$1)', ["T"]);
+  expect((await post("scanner-config", {})).kind).toBe("unresolved");
+  await database.query('INSERT INTO app."Terminais" ("Codigo","codbarras_inicio","codbarras_fim","quant_inicio","quant_fim") VALUES ($1,1,3,5,4),($1,1,3,5,4)', ["T"]);
+  expect((await post("scanner-config", {})).kind).toBe("unresolved");
+  expect(await stock()).toBe("10");
 });

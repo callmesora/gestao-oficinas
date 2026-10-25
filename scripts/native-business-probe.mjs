@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { spawn, spawnSync } from "node:child_process";
 import { randomBytes } from "node:crypto";
-import { mkdtemp, realpath, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, realpath, rm, writeFile, readFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, URL } from "node:url";
@@ -9,14 +9,14 @@ import { setTimeout, clearTimeout } from "node:timers";
 import { startIsolatedPostgres } from "../apps/server/test-support/postgres.ts";
 import { createBusinessApp } from "../apps/server/src/business-app.ts";
 import { readServiceConfiguration } from "../apps/server/src/configuration.ts";
+import { build as buildFrontend } from "vite";
 
 if (!["darwin", "win32"].includes(process.platform)) throw new Error("Native business probe requires Windows/macOS");
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const syntheticCustomerCount = 1001;
 assert.ok(process.env.npm_execpath, "Run through npm run native:business");
-const build = spawnSync(process.execPath, [process.env.npm_execpath, "run", "build"], { cwd: root, encoding: "utf8", timeout: 180_000, env: { ...process.env, VITE_WORKSHOP_API_BASE: "http://127.0.0.1:3210" } });
+const build = spawnSync(process.execPath, [process.env.npm_execpath, "run", "typecheck"], { cwd: root, encoding: "utf8", timeout: 180_000 });
 assert.equal(build.status, 0, build.stderr || "Frontend build failed");
-const native = spawnSync("cargo", ["build", "--locked", "--manifest-path", "src-tauri/Cargo.toml", "--features", "tauri/custom-protocol,development-tools", "--bin", "native-probe"], { cwd: root, encoding: "utf8", timeout: 180_000 });
-assert.equal(native.status, 0, native.stderr || "Native build failed");
 const engine = await startIsolatedPostgres(), profile = await mkdtemp(join(await realpath(tmpdir()), "gestao-native-business-"));
 let database, app, child;
 try {
@@ -25,9 +25,23 @@ try {
   const token = randomBytes(32).toString("hex"), tokenFile = join(engine.directory, "synthetic-native-operator-token");
   await writeFile(tokenFile, token, { mode: 0o600, flag: "wx" });
   app = await createBusinessApp(await readServiceConfiguration({ WORKSHOP_DATABASE_URL: url.href, WORKSHOP_SETUP_TOKEN_FILE: tokenFile }));
+  // Owned empty database only, before any enrollment or UI access; no imported customer records.
+  await database.query(`INSERT INTO app."Clientes" ("ClientesID","Codigo","Descricao","observacao")
+    SELECT 9000000+n,99999+n,'Native virtual synthetic '||lpad(n::text,4,'0'),'Native virtual memo '||lpad(n::text,4,'0')
+    FROM generate_series(1,$1::int) AS fixture(n)`, [syntheticCustomerCount]);
+  assert.equal((await database.query('SELECT count(*)::int AS count FROM app."Clientes"')).rows[0].count, syntheticCustomerCount);
   let developmentRequests = 0;
   app.addHook("onRequest", async request => { if (request.url.startsWith("/api/development/")) developmentRequests++; });
-  await app.listen({ host: "127.0.0.1", port: 3210 });
+  await app.listen({ host: "127.0.0.1", port: 0 });
+  const address = app.server.address(); assert.ok(address && typeof address !== "string");
+  assert.notEqual(address.port, 3210, "Native probe must not use the owner's service port");
+  const origin = `http://127.0.0.1:${address.port}`;
+  // Separate assets/port leave the owner's persistent demo available during development.
+  await buildFrontend({ root, logLevel: "silent", define: { "import.meta.env.VITE_WORKSHOP_API_BASE": JSON.stringify(origin) }, build: { outDir: join(root, "analysis-local/native-business-dist") } });
+  const desktop = JSON.parse(await readFile(join(root, "src-tauri/tauri.conf.json"), "utf8"));
+  const nativeConfiguration = { build: { frontendDist: "../analysis-local/native-business-dist" }, app: { security: { csp: desktop.app.security.csp.replace("http://127.0.0.1:3210", origin) } } };
+  const native = spawnSync("cargo", ["build", "--locked", "--manifest-path", "src-tauri/Cargo.toml", "--features", "tauri/custom-protocol,development-tools", "--bin", "native-probe"], { cwd: root, encoding: "utf8", timeout: 180_000, env: { ...process.env, TAURI_CONFIG: JSON.stringify(nativeConfiguration) } });
+  assert.equal(native.status, 0, native.stderr || "Native build failed");
   const executable = join(root, "src-tauri/target/debug", `native-probe${process.platform === "win32" ? ".exe" : ""}`);
   let stdout = "", stderr = "";
   child = spawn(executable, [], { cwd: root, windowsHide: true, stdio: ["ignore", "pipe", "pipe"], env: { ...process.env, GESTAO_NATIVE_PROBE_MODE: "business", GESTAO_NATIVE_PROBE_SETUP_TOKEN: token, GESTAO_NATIVE_PROBE_DATA_DIRECTORY: profile } });
@@ -37,15 +51,22 @@ try {
     child.once("error", error => { clearTimeout(timeout); reject(error); }); child.once("exit", code => { clearTimeout(timeout); done(code); });
   });
   assert.equal(exitCode, 0, stderr || "Native business probe failed");
-  const line = stdout.split(/\r?\n/).find(value => value.startsWith("NATIVE_PROBE ")); assert.ok(line, "Native result missing");
+  const line = stdout.split(/\r?\n/).find(value => value.startsWith("NATIVE_PROBE "));
+  assert.ok(line, "Native result missing: " + stderr.split(/\r?\n/).filter(value => value.startsWith("NATIVE_PROBE ")).join("; "));
   const result = JSON.parse(line.slice("NATIVE_PROBE ".length)); assert.equal(result.passed, true);
   assert.deepEqual(result.result.business, { enrolled: true, customerSaved: true, loggedOut: true, loggedInAgain: true });
   const customers = (await database.query('SELECT count(*)::int AS count FROM app."Clientes" WHERE "Codigo"=771 AND "Descricao"=$1', ["Native synthetic customer"])).rows[0].count;
+  const totalCustomers = (await database.query('SELECT count(*)::int AS count FROM app."Clientes"')).rows[0].count;
+  const retainedSyntheticCustomers = (await database.query(`SELECT count(*)::int AS count FROM app."Clientes"
+    WHERE "ClientesID" BETWEEN 9000001 AND 9001001 AND "Codigo"="ClientesID"-8900001
+      AND "Descricao"='Native virtual synthetic '||lpad(("ClientesID"-9000000)::text,4,'0')
+      AND "observacao"='Native virtual memo '||lpad(("ClientesID"-9000000)::text,4,'0')`)).rows[0].count;
   const sessions = (await database.query("SELECT count(*)::int AS count FROM auth.sessions")).rows[0].count;
-  assert.equal(customers, 1); assert.equal(sessions, 0); assert.equal(developmentRequests, 0);
+  assert.equal(customers, 1); assert.equal(totalCustomers, syntheticCustomerCount + 1); assert.equal(retainedSyntheticCustomers, syntheticCustomerCount);
+  assert.equal(sessions, 0); assert.equal(developmentRequests, 0);
   const commit = spawnSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }); assert.equal(commit.status, 0);
-  await writeFile(join(root, "analysis-local/native-business-probe.json"), JSON.stringify({ platform: process.platform, architecture: process.arch, baseCommit: commit.stdout.trim(), workingTree: true, passed: true, customerRows: customers, remainingSessions: sessions, developmentRequests, native: result, limits: "Synthetic actual native business path only; no print-device or other-host acceptance." }, null, 2) + "\n");
-  console.log(`Native business probe passed on ${process.platform}/${process.arch}: enrollment, customer save, logout/login; real database effects and zero DEV requests.`);
+  await writeFile(join(root, "analysis-local/native-business-probe.json"), JSON.stringify({ platform: process.platform, architecture: process.arch, baseCommit: commit.stdout.trim(), workingTree: true, passed: true, customerRows: customers, seededCustomers: syntheticCustomerCount, retainedSyntheticCustomers, totalCustomers, nativeLargeCustomerList: { fullModelCount: syntheticCustomerCount, renderedRowsLessThan: 100, offscreenLastSelected: true, savedCustomerSelected: true }, remainingSessions: sessions, developmentRequests, native: result, limits: "Synthetic actual native business path and large-list DOM/selection only; report preview/font/raster, save/print OS panels, physical devices and other-host acceptance remain separate." }, null, 2) + "\n");
+  console.log(`Native business probe passed on ${process.platform}/${process.arch}: ${syntheticCustomerCount} synthetic customers, bounded native DOM and offscreen source search; enrollment, customer save, logout/login, real database effects and zero DEV requests.`);
 } finally {
   if (child && child.exitCode === null && child.signalCode === null) child.kill();
   try { await app?.close(); } finally { try { await database?.end(); } finally { await engine.stop(); } }

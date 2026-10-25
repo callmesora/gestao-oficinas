@@ -22,10 +22,12 @@ const statementSql = `SELECT l."documento_numero"::text AS numero,l."artigo",l."
  WHERE m."artigo" BETWEEN $1 AND $2
  ORDER BY artigo ASC, data ASC, branch,line_id,header_id,type_id`;
 
-export async function renderReport(connect: DatabaseConnection | undefined, renderer: ReportRenderer, input: unknown): Promise<ReportRenderResult> {
+export async function renderReport(connect: DatabaseConnection | undefined, renderer: ReportRenderer, input: unknown, configuredCompany?: string): Promise<ReportRenderResult> {
   const parsed = reportRequestSchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
-  const request = parsed.data;
+  // My_GestaoOficinas.wdp697 / every report Open: use the initialized project global.
+  // ADR005 keeps caller dates/live rows intact and never mutates the submitted context.
+  const request = configuredCompany === undefined ? parsed.data : { ...parsed.data, context: { ...parsed.data.context, company: configuredCompany } };
   // A table-sourced report consumes ONLY the explicit live-table snapshot. No DB read substitutes it.
   if (request.reportId === "RPT_Ordens_Reparacao") return renderer(orderReportDocument(request));
   if (!connect) return { kind: "unavailable" };

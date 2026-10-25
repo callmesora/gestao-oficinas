@@ -1,12 +1,15 @@
 import { z } from "zod";
+import { mechanicCredentialRevisionSchema } from "./mechanics";
 import { laborDateTimeMilliseconds } from "./repair-labor-time";
 import type { RepairOrderMechanic, RepairOrderStateFilter } from "./repair-orders";
 
 const u64 = z.string().refine(value => /^(?:0|[1-9][0-9]{0,19})$/.test(value) && BigInt(value) <= 18446744073709551615n);
 const identity = z.string().regex(/^[1-9][0-9]*$/);
 const clock = z.string().refine(value => /^[0-9]{17}$/.test(value) && laborDateTimeMilliseconds(value) !== null);
-const proof = z.strictObject({ mechanic: z.number().int().min(0).max(255), password: z.string() });
+const proof = z.strictObject({ mechanic: z.number().int().min(0).max(255), password: z.string(), credentialRevision: mechanicCredentialRevisionSchema.optional() });
 export const repairLaborNumberSchema = z.strictObject({ numero: u64 });
+export const repairLaborTimeReadSchema = z.strictObject({ numero: u64, mechanic: z.number().int().min(0).max(255) });
+export const repairLaborStateChoicesSchema = z.strictObject({});
 export const repairLaborInitialiseSchema = z.strictObject({ now: clock });
 export const repairLaborOrderSortSchema = z.enum(["numero", "Descricao_me", "matricula", "marcamodelo", "recepcao_prioridade", "Descricao", "reparacao_mecanico", "reparacao_estado"]);
 export const repairLaborListSchema = z.strictObject({ mechanic: z.number().int().min(0).max(255).nullable(), states: z.array(z.string().nullable()), sort: repairLaborOrderSortSchema.optional(), descending: z.boolean().optional() });
@@ -26,14 +29,18 @@ export type RepairLaborMaterialSave = z.infer<typeof repairLaborMaterialSaveSche
 export type RepairLaborSettings = { Tempo_tempos: string | null; encerrar_tempos1: string | null; encerrar_tempos2: string | null };
 export type RepairLaborOrder = { id: string; orderId: string; numero: string | null; matricula: string | null; marcamodelo: string | null; reparacao_mecanico: number | null; reparacao_estado: string | null; Descricao_me: string | null; Descricao: string | null; tipo: number | null; Cor: number | null; recepcao_prioridade: number | null; reparacao_estado_data: string | null; reparacao_estado_obs: string | null; reparacao_servico: string | null };
 export type RepairLaborRow = { id: string; numero: string | null; mecanico: number | null; inicio: string | null; fim: string | null; Inicio_reparacao_estado: string | null; fim_reparacao_estado: string | null; tempos_reparacaoID: string | null; Descricao: string | null };
+export type RepairLaborTimeRow = Omit<RepairLaborRow, "Descricao">;
 export type RepairLaborMaterial = { id: string; numero: string | null; artigo: string | null; descricao_artigo: string | null; quantidade: string | null; data_hora: string | null; preco: string | null; lancado: boolean | null; extra: boolean | null };
 export type RepairLaborDetail = { id: string; numero: string | null; matricula: string | null; marcamodelo: string | null; reparacao_mecanico: number | null; reparacao_estado: string | null; reparacao_estado_historico: string | null; reparacao_servico: string | null; recepcao_servico: string | null; recepcao_obs: string | null; recepacao_contatos: string | null; cliente: string | null };
 export type RepairLaborFailure = { kind: "invalid" | "failed" | "missing" | "stale" | "unsupported" | "denied" | "in_use" };
 export type RepairLaborInitialiseResult = { kind: "loaded"; settings: RepairLaborSettings; mechanics: RepairOrderMechanic[]; states: RepairOrderStateFilter[] } | RepairLaborFailure;
 export type RepairLaborListResult = { kind: "loaded"; orders: RepairLaborOrder[] } | RepairLaborFailure;
 export type RepairLaborReadResult = { kind: "loaded"; order: RepairLaborDetail; labor: RepairLaborRow[]; materials: RepairLaborMaterial[]; baseline: string; materialBaseline: string; choices: RepairOrderStateFilter[] } | RepairLaborFailure;
+export type RepairLaborTimeReadResult = { kind: "loaded"; labor: RepairLaborTimeRow[] } | RepairLaborFailure;
+export type RepairLaborStateChoicesResult = { kind: "loaded"; choices: RepairOrderStateFilter[] } | RepairLaborFailure;
+export type RepairLaborInformationCheckResult = { kind: "ready" } | RepairLaborFailure;
 export type RepairLaborMaterialCheckResult = { kind: "ready"; order: RepairLaborDetail } | { kind: "blocked"; message: "Não pode ser inserido material nesta ordem de reparação" } | { kind: "skip" } | RepairLaborFailure;
-export type RepairLaborAuthenticateResult = { kind: "authenticated"; mechanic: RepairOrderMechanic } | RepairLaborFailure;
+export type RepairLaborAuthenticateResult = { kind: "authenticated"; mechanic: RepairOrderMechanic; credentialRevision?: string } | RepairLaborFailure;
 export type RepairLaborPlan = { kind: "prepared"; baseline: string; finish: boolean; stateAllowed: boolean; others: { numero: string; matricula: string | null }[] };
 export type RepairLaborPrepareResult = RepairLaborPlan | RepairLaborFailure;
 export type RepairLaborWriteResult = { kind: "saved" } | RepairLaborFailure;

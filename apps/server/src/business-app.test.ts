@@ -36,7 +36,7 @@ it("ADR004 actual loopback browser CORS preflight is exact and unknown origins c
   const denied = await app.inject({ method: "POST", url: "/api/auth/status", headers: { origin: "http://untrusted.invalid" }, payload: {} }); expect(denied.statusCode).toBe(403); expect(denied.headers["access-control-allow-origin"]).toBeUndefined();
 });
 
-it("ADR004 migration0002 upgrades the actual previous release schema without adopting or altering copied credentials/business rows", async () => {
+it("ADR004 migrations0002/0003 upgrade the actual previous release schema without adopting or altering copied credentials/business rows", async () => {
   const previous = await engine.database();
   try {
     const sql = await readFile(new URL("../migrations/0001_legacy_values.sql", import.meta.url), "utf8"), hash = createHash("sha256").update(sql).digest("hex");
@@ -45,6 +45,6 @@ it("ADR004 migration0002 upgrades the actual previous release schema without ado
     await migrate(previous); await migrate(previous);
     expect((await previous.query('SELECT "Codigo","Descricao","palavra_passe" FROM app."utilizadores"')).rows).toEqual([{ Codigo: 9, Descricao: "Previous release synthetic", palavra_passe: "OLD-SYNTHETIC" }]);
     expect((await previous.query("SELECT count(*)::text AS count FROM auth.credentials")).rows[0].count).toBe("0"); expect((await previous.query("SELECT consumed FROM auth.enrollment")).rows).toEqual([{ consumed: false }]);
-    expect((await previous.query("SELECT sha256 FROM public.schema_migrations WHERE name='0001_legacy_values.sql'")).rows).toEqual([{ sha256: hash }]); expect((await previous.query("SELECT count(*)::text AS count FROM public.schema_migrations")).rows[0].count).toBe("2");
+    expect((await previous.query("SELECT sha256 FROM public.schema_migrations WHERE name='0001_legacy_values.sql'")).rows).toEqual([{ sha256: hash }]); expect((await previous.query("SELECT count(*)::text AS count FROM public.schema_migrations")).rows[0].count).toBe("3");
   } finally { await previous.end(); }
 });

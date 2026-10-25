@@ -96,6 +96,8 @@ HCancelDeclaration(QRY_select_ordens_reparacao_numero)
 
 ## Data edge cases
 
+Implemented auto-height follow-through (ADR-005): `ITEM_Servico_Avaria`, `ITEM_Observacao`, `ITEM_Cliente` and `ITEM_Contactos` use CSS intrinsic height with their listed source minimum heights. Source-overlapping controls share a section; later sections retain their original gaps and move below growing text. This source-order flow is an explicit target adaptation pending native output, not a resolved wrapping/anchoring golden. Fixed controls retain their dimensions and clipping. The existing Paged.js engine keeps the body indivisible; content exceeding the actual A5 printable page returns typed unresolved rather than a clipped PDF. Source `NULL`/empty data remains unchanged. `apps/server/src/reports/long-text.test.ts` exercises actual PostgreSQL, offline PDF text/positions, short/empty values and oversized refusal. U-R23-01/02/03 remain open.
+
 | Case | Legacy behavior | Evidence or U-id |
 |---|---|---|
 | No rows | No custom empty-result handler; report engine/bands need a golden sample | U-R23-02 |

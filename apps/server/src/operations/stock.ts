@@ -142,11 +142,11 @@ export async function stockScannerConfig(connect: DatabaseConnection, input: unk
   if (!empty.safeParse(input).success) return { kind: "invalid" };
   const client = await connectOperationClient(connect); if (!client) return { kind: "failed" };
   try {
-    const result = await client.query<{ barcodeStart: number | null; barcodeLength: number | null; quantityStart: number | null; quantityLength: number | null; filename: string | null }>(`SELECT t."codbarras_inicio" AS "barcodeStart",t."codbarras_fim" AS "barcodeLength",t."quant_inicio" AS "quantityStart",t."quant_fim" AS "quantityLength",t."nome_ficheiro" AS filename FROM app."postos" p JOIN app."Terminais" t ON t."Codigo"=p."terminal" WHERE p."Codigo"=1 ORDER BY p._row_id,t._row_id`);
+    const result = await client.query<{ barcodeStart: number | null; barcodeLength: number | null; quantityStart: number | null; quantityLength: number | null; terminalCode: string; folder: string | null; filename: string | null }>(`SELECT t."codbarras_inicio" AS "barcodeStart",t."codbarras_fim" AS "barcodeLength",t."quant_inicio" AS "quantityStart",t."quant_fim" AS "quantityLength",t."Codigo" AS "terminalCode",t."pasta_localizacao" AS folder,t."nome_ficheiro" AS filename FROM app."postos" p JOIN app."Terminais" t ON t."Codigo"=p."terminal" WHERE p."Codigo"=1 ORDER BY p._row_id,t._row_id`);
     if (result.rowCount !== 1) return { kind: "unresolved" };
     const c = result.rows[0];
     if (c.barcodeStart === null || c.barcodeLength === null || c.quantityStart === null || c.quantityLength === null || c.barcodeStart < 1 || c.quantityStart < 1 || c.barcodeLength < 0 || c.quantityLength < 0) return { kind: "unresolved" };
-    return { kind: "loaded", config: { barcodeStart: c.barcodeStart, barcodeLength: c.barcodeLength, quantityStart: c.quantityStart, quantityLength: c.quantityLength, filename: c.filename } };
+    return { kind: "loaded", config: { barcodeStart: c.barcodeStart, barcodeLength: c.barcodeLength, quantityStart: c.quantityStart, quantityLength: c.quantityLength, terminalCode: c.terminalCode, folder: c.folder, filename: c.filename } };
   } catch { return { kind: "failed" }; } finally { await closeOperationClient(client); }
 }
 export async function partitionStockScanner(connect: DatabaseConnection, input: unknown): Promise<ScannerResult> {

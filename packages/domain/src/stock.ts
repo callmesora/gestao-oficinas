@@ -24,7 +24,7 @@ export type StockDeleteResult = { kind: "deleted" } | StockFailure;
 export type StockInventoryResult = { kind: "loaded"; articles: StockArticle[] } | StockFailure;
 export type StockRebuildResult = { kind: "rebuilt"; articles: string } | StockFailure;
 export type StockLookupResult = { kind: "found"; article: StockArticle } | StockFailure;
-export interface ScannerConfig { barcodeStart: number; barcodeLength: number; quantityStart: number; quantityLength: number; filename: string | null }
+export interface ScannerConfig { barcodeStart: number; barcodeLength: number; quantityStart: number; quantityLength: number; terminalCode: string; folder: string | null; filename: string | null }
 export interface ScannerRow { barcode: string; quantity: string }
 export interface ScannerKnown extends ScannerRow { code: string | null; description: string | null; price: string | null }
 export type ScannerResult = { kind: "partitioned"; known: ScannerKnown[]; unknown: ScannerRow[] } | StockFailure;

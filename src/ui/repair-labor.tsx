@@ -2,7 +2,7 @@ import { useReportPreview } from "./reports";
 import { reportContext } from "./report-callers";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type PointerEventHandler } from "react";
 import Decimal from "decimal.js";
-import type { RepairLaborDetail, RepairLaborMaterial, RepairLaborOrder, RepairLaborOrderSort, RepairLaborPlan, RepairLaborProof, RepairLaborReadResult, RepairLaborRow } from "../../packages/domain/src/repair-labor";
+import type { RepairLaborDetail, RepairLaborMaterial, RepairLaborOrder, RepairLaborOrderSort, RepairLaborPlan, RepairLaborProof, RepairLaborReadResult, RepairLaborRow, RepairLaborTimeRow } from "../../packages/domain/src/repair-labor";
 import { repairLaborMemorySort, type RepairLaborTableValue } from "../../packages/domain/src/repair-labor-table";
 import { OPEN_LABOR_FINISH, laborDuration, laborDurationDisplay, laborSumHours } from "../../packages/domain/src/repair-labor-time";
 import { repairOrderPriorityLabel, repairOrderTimerMilliseconds, type RepairOrderMechanic, type RepairOrderStateFilter } from "../../packages/domain/src/repair-orders";
@@ -136,10 +136,14 @@ export function RepairLaborStatePicker({ choices, finish }: { choices: RepairOrd
 }
 export function RepairLaborStateDialog({ repository, descriptiveRepository, numero, finish }: { repository: RepairLaborRepository; descriptiveRepository?: DescriptiveStateRepository; numero: string; finish: () => void }) {
   const modal = useRef<WdModalHandle>(null), calendar = useRef<WdDateEditHandle>(null), history = useRef<HTMLDivElement>(null), pending = useRef(false), lifetime = useRef(0);
-  const [description, setDescription] = useState(""), [service, setService] = useState<string | null>(""), [when, setWhen] = useState(() => dateTimeEntryInitial(repairLaborWorkstationClock()));
+  const [description, setDescription] = useState(""), [service, setService] = useState<string | null>(""), [when, setWhen] = useState(() => dateTimeEntryInitial(""));
   const [selection, setSelection] = useState<string | null>(null), [busy, setBusy] = useState(false), [picker, setPicker] = useState(false), [invalid, setInvalid] = useState(false);
   const [keyboard, setKeyboard] = useState<{ field: "description" | "service"; request: TouchKeyboardRequest } | null>(null);
-  const { loaded, diagnostic, setDiagnostic } = useRead(repository, numero, value => { setService(value.order.reparacao_servico); setSelection(value.choices.find(state => state.Codigo !== null && state.Codigo === value.order.reparacao_estado)?.id ?? null); });
+  const { loaded, diagnostic, setDiagnostic } = useRead(repository, numero, value => {
+    setService(value.order.reparacao_servico); setSelection(value.choices.find(state => state.Codigo !== null && state.Codigo === value.order.reparacao_estado)?.id ?? null);
+    // Source723–735 assigns SysDateTime only after the order/vehicle reads complete.
+    setWhen(dateTimeEntryInitial(repairLaborWorkstationClock()));
+  });
   const table = controlOf(stateLayout, "TABLE_Estados_reparacao"), settings = useTableLayout(table, "WIN_Tempos_Reparacao_Estado/TABLE_Estados_reparacao");
   useEffect(() => { const counter = lifetime; counter.current++; return () => { counter.current++; }; }, []);
   useLayoutEffect(() => {
@@ -170,11 +174,11 @@ export function RepairLaborStateDialog({ repository, descriptiveRepository, nume
     {memo(stateLayout, "EDT_matricula_marca_modelo", loaded ? `${loaded.order.matricula ?? ""}      ${loaded.order.marcamodelo ?? ""}` : "")}
     <WdTable control={table} rows={loaded?.choices ?? []} rowId={row => row.id} selectedId={selection} onSelect={id => { if (!busy) setSelection(id); }} {...settings} designerOptions configureColumns onResetColumns={settings.resetLayout} showHeaders={false}
       cell={(row, column) => column.name === "COL_imagem" ? <ColorCell value={row.Cor} /> : column.name === "COL_Descricao" ? row.Descricao : ""} />
-    <WdDateTimeEdit ref={calendar} control={controlOf(stateLayout, "EDT_Data_Hora")} draft={when} onChange={value => { setWhen(value); setInvalid(false); }} invalid={invalid} disabled={busy} />
-    {memo(stateLayout, "EDT_descricao", description, setDescription, busy, { onPointerDown: openKeyboard("description") })}
+    <WdDateTimeEdit ref={calendar} control={controlOf(stateLayout, "EDT_Data_Hora")} draft={when} onChange={value => { setWhen(value); setInvalid(false); }} invalid={invalid} disabled={busy || !loaded} />
+    {memo(stateLayout, "EDT_descricao", description, setDescription, busy || !loaded, { onPointerDown: openKeyboard("description") })}
     <div ref={history}><WdMemo control={controlOf(stateLayout, "EDT_historico")} value={loaded?.order.reparacao_estado_historico ?? ""} /></div>
-    {memo(stateLayout, "EDT_obs_servico", service, setService, busy, { onPointerDown: openKeyboard("service") })}
-    <Buttons layout={stateLayout} actions={{ BTN_Confirmar: { disabled: busy || !loaded, onClick: () => void save() }, BTN_Cancelar: { disabled: busy, onClick: close }, BTN_NoName1: { disabled: busy || !descriptiveRepository, onClick: () => setPicker(true) }, BTN_anterior: { disabled: busy, onClick: () => setSelection(move(loaded?.choices ?? [], selection, -1)) }, BTN_seguinte: { disabled: busy, onClick: () => setSelection(move(loaded?.choices ?? [], selection, 1)) } }} />
+    {memo(stateLayout, "EDT_obs_servico", service, setService, busy || !loaded, { onPointerDown: openKeyboard("service") })}
+    <Buttons layout={stateLayout} actions={{ BTN_Confirmar: { disabled: busy || !loaded, onClick: () => void save() }, BTN_Cancelar: { disabled: busy, onClick: close }, BTN_NoName1: { disabled: busy || !loaded || !descriptiveRepository, onClick: () => setPicker(true) }, BTN_anterior: { disabled: busy, onClick: () => setSelection(move(loaded?.choices ?? [], selection, -1)) }, BTN_seguinte: { disabled: busy, onClick: () => setSelection(move(loaded?.choices ?? [], selection, 1)) } }} />
     {picker && descriptiveRepository && <DescriptiveStatePicker repository={descriptiveRepository} origin="" finish={value => { setDescription(value); setPicker(false); }} />}
     {keyboard && <TouchKeyboardDialog request={keyboard.request} finish={(value, outcome) => {
       if (outcome.confirmed && outcome.edited) { if (keyboard.field === "description") setDescription(value); else setService(value); }
@@ -184,46 +188,89 @@ export function RepairLaborStateDialog({ repository, descriptiveRepository, nume
   </WdModal>;
 }
 
-export function RepairLaborTimeDialog({ repository, mechanicRepository, numero, mechanic, mechanics, finish }: { repository: RepairLaborRepository; mechanicRepository?: MechanicRepository; numero: string; mechanic: number; mechanics: RepairOrderMechanic[]; finish: () => void }) {
+export function RepairLaborTimeDialog({ repository, mechanicRepository, numero: initialNumero, mechanic: initialMechanic, mechanics, finish }: { repository: RepairLaborRepository; mechanicRepository?: MechanicRepository; numero: string; mechanic: number; mechanics: RepairOrderMechanic[]; finish: () => void }) {
+  const [{ numero, mechanic }] = useState(() => ({ numero: initialNumero, mechanic: initialMechanic }));
   const modal = useRef<WdModalHandle>(null), pending = useRef(false), alive = useRef(true), proof = useRef<RepairLaborProof | null>(null);
   const { loaded, diagnostic, setDiagnostic } = useRead(repository, numero), { message } = useDialogs();
   const [activeMechanic, setActiveMechanic] = useState(mechanic), [activeName, setActiveName] = useState(() => mechanics.find(row => row.Codigo === mechanic)?.Descricao ?? ""), [busy, setBusy] = useState(false), [mechanicPicker, setMechanicPicker] = useState(false), [password, setPassword] = useState<number | null>(null), [statePicker, setStatePicker] = useState(false);
   const [stateChoices, setStateChoices] = useState<RepairOrderStateFilter[]>([]);
+  const [captionLabor, setCaptionLabor] = useState<RepairLaborTimeRow[]>([]), [timeReady, setTimeReady] = useState(false), [mechanicReady, setMechanicReady] = useState(!mechanicRepository);
   const passwordResult = useRef<((value: string | null) => void) | null>(null), stateResult = useRef<((value: RepairOrderStateFilter | null) => void) | null>(null);
   useEffect(() => { alive.current = true; return () => { alive.current = false; proof.current = null; passwordResult.current?.(null); stateResult.current?.(null); }; }, []);
+  useEffect(() => {
+    if (!mechanicRepository) return;
+    let current = true;
+    // Source479–487 queries the argument mechanic afresh, not the parent's earlier list.
+    void mechanicRepository.list({ sort: "Codigo", descending: false }).then(result => {
+      if (!current) return;
+      if (result.kind !== "loaded") { setDiagnostic(result.kind); return; }
+      const found = result.mechanics.find(row => row.Codigo === mechanic);
+      if (!found) { setDiagnostic("missing"); return; }
+      setActiveName(found.Descricao ?? ""); setMechanicReady(true);
+    }).catch(() => { if (current) setDiagnostic("transport"); });
+    return () => { current = false; };
+  }, [mechanicRepository, mechanic, setDiagnostic]);
+  useEffect(() => {
+    let current = true;
+    void repository.readTime({ numero, mechanic }).then(result => {
+      if (!current) return;
+      if (result.kind === "loaded") { setCaptionLabor(result.labor); setTimeReady(true); }
+      else setDiagnostic(result.kind);
+    }).catch(() => { if (current) setDiagnostic("transport"); });
+    return () => { current = false; };
+  }, [repository, numero, mechanic, setDiagnostic]);
   const close = () => { if (pending.current || password !== null || mechanicPicker || statePicker) return; proof.current = null; modal.current?.close(); finish(); };
   const askPassword = (code: number) => new Promise<string | null>(resolve => { passwordResult.current = resolve; setPassword(code); });
   const askState = async () => {
     // This source window runs its own query on every Open; keep the prepared write baseline unchanged.
-    const current = await repository.read({ numero });
+    const current = await repository.readStateChoices();
     if (!alive.current) return null;
     if (current.kind !== "loaded") { setDiagnostic(current.kind); return null; }
     setStateChoices(current.choices);
     return new Promise<RepairOrderStateFilter | null>(resolve => { stateResult.current = resolve; setStatePicker(true); });
   };
-  const authenticate = async (code: number, required: boolean) => {
-    if (proof.current?.mechanic === code) return proof.current;
-    const entered = await askPassword(code); if (!alive.current) return null;
-    if ((entered === null || entered === "") && !required) return null;
+  const authenticate = async (code: number, required: boolean): Promise<{ kind: "accepted"; proof: RepairLaborProof } | { kind: "cancelled" | "refused" }> => {
+    if (proof.current?.mechanic === code) return { kind: "accepted", proof: proof.current };
+    const entered = await askPassword(code); if (!alive.current) return { kind: "refused" };
+    if ((entered === null || entered === "") && !required) return { kind: "cancelled" };
     const candidate = { mechanic: code, password: entered ?? "" }, result = await repository.authenticate(candidate);
-    if (!alive.current) return null;
+    if (!alive.current) return { kind: "refused" };
     if (result.kind !== "authenticated") {
       if (result.kind === "denied") await message({ title: "Tempo", text: "Palavra-passe incorreta", type: 0 }); else setDiagnostic(result.kind);
-      return null;
+      return { kind: "refused" };
     }
-    proof.current = candidate; setActiveMechanic(code); setActiveName(result.mechanic.Descricao ?? ""); return candidate;
+    const authenticated = { ...candidate, ...(result.credentialRevision ? { credentialRevision: result.credentialRevision } : {}) };
+    proof.current = authenticated; setActiveMechanic(code); setActiveName(result.mechanic.Descricao ?? ""); return { kind: "accepted", proof: authenticated };
   };
-  const chooseMechanic = async (code: number) => {
+  const chooseMechanic = async (code: number | null) => {
     if (pending.current) return; pending.current = true; setBusy(true);
-    try { await authenticate(code, false); } catch { if (alive.current) setDiagnostic("transport"); }
+    try {
+      if (code !== null) {
+        if (!mechanicRepository) return;
+        const result = await mechanicRepository.list({ sort: "Codigo", descending: false }); if (!alive.current) return;
+        if (result.kind !== "loaded") { setDiagnostic(result.kind); return; }
+        const found = result.mechanics.find(row => row.Codigo === code);
+        if (!found) { setDiagnostic("missing"); return; }
+        if (proof.current?.mechanic === code) setActiveName(found.Descricao ?? "");
+        const authenticated = await authenticate(code, false);
+        // Source256–258 returns before the caption query on an incorrect password.
+        if (!alive.current || authenticated.kind === "refused") return;
+      }
+      // Source264–279 also queries after an empty picker result or cancelled password.
+      const current = await repository.readTime({ numero, mechanic: proof.current?.mechanic ?? mechanic }); if (!alive.current) return;
+      if (current.kind === "loaded") { setCaptionLabor(current.labor); setDiagnostic(""); }
+      else setDiagnostic(current.kind);
+    } catch { if (alive.current) setDiagnostic("transport"); }
     finally { if (alive.current) { pending.current = false; setBusy(false); } }
   };
   const toggle = async () => {
-    if (pending.current || !loaded) return; pending.current = true; setBusy(true);
+    if (pending.current || !loaded || !mechanicReady || !timeReady) return; pending.current = true; setBusy(true);
     try {
-      const selectedProof = proof.current ?? await authenticate(activeMechanic, true); if (!selectedProof || !alive.current) return;
+      let selectedProof = proof.current;
+      if (!selectedProof) { const authenticated = await authenticate(activeMechanic, true); if (authenticated.kind !== "accepted") return; selectedProof = authenticated.proof; }
+      if (!alive.current) return;
       const prepared = await repository.prepare({ numero, proof: selectedProof }); if (!alive.current) return;
-      if (prepared.kind !== "prepared") { setDiagnostic(prepared.kind); return; }
+      if (prepared.kind !== "prepared") { if (prepared.kind === "denied") proof.current = null; setDiagnostic(prepared.kind); return; }
       const plan: RepairLaborPlan = prepared, closeOthers: string[] = [];
       for (const other of plan.others) {
         const response = await message({ title: "Tempo", text: `Terminar a reparação de ${other.matricula ?? ""} ?`, type: 2, defaultButton: 2 });
@@ -233,12 +280,12 @@ export function RepairLaborTimeDialog({ repository, mechanicRepository, numero, 
       if (!alive.current || (!plan.finish && !plan.stateAllowed && state === null)) return;
       const result = await repository.toggle({ numero, proof: selectedProof, baseline: plan.baseline, now: repairLaborWorkstationClock(), closeOthers, state: state?.id ?? null });
       if (!alive.current) return;
-      if (result.kind === "saved") { pending.current = false; close(); } else setDiagnostic(result.kind);
+      if (result.kind === "saved") { pending.current = false; close(); } else { if (result.kind === "denied") proof.current = null; setDiagnostic(result.kind); }
     } catch { if (alive.current) setDiagnostic("transport"); }
     finally { if (alive.current) { pending.current = false; setBusy(false); } }
   };
   // Caption uses latest source-ID, not the displayed open-row query's current selection.
-  const currentLabor = loaded?.labor.filter(row => row.mecanico === activeMechanic).sort((left, right) => {
+  const currentLabor = captionLabor.filter(row => row.mecanico === activeMechanic).sort((left, right) => {
     if (left.tempos_reparacaoID === null) return right.tempos_reparacaoID === null ? 0 : 1;
     if (right.tempos_reparacaoID === null) return -1;
     const a = BigInt(left.tempos_reparacaoID), b = BigInt(right.tempos_reparacaoID); return a < b ? -1 : a > b ? 1 : 0;
@@ -247,8 +294,8 @@ export function RepairLaborTimeDialog({ repository, mechanicRepository, numero, 
   return <WdModal ref={modal} layout={timeLayout} instance="repair-labor-time" testId="WIN_Tempos_Reparacao_Tempo" restoreTestId="repair-labor-time-restore" onClose={close}>
     {memo(timeLayout, "EDT_matricula_marca_modelo", loaded ? `${loaded.order.matricula ?? ""}\r\n${loaded.order.marcamodelo ?? ""}` : "")}
     {memo(timeLayout, "EDT_mecanico", activeName)}
-    <Buttons layout={timeLayout} actions={{ BTN_Iniciar: { caption, disabled: busy || !loaded, onClick: () => void toggle() }, BTN_Cancelar: { disabled: busy, onClick: close }, BTN_NoName1: { disabled: busy || !mechanicRepository, onClick: () => setMechanicPicker(true) } }} />
-    {mechanicPicker && mechanicRepository && <MechanicPicker repository={mechanicRepository} origin="" finish={value => { setMechanicPicker(false); if (value !== "") void chooseMechanic(Number(value)); }} />}
+    <Buttons layout={timeLayout} actions={{ BTN_Iniciar: { caption, disabled: busy || !loaded || !mechanicReady || !timeReady, onClick: () => void toggle() }, BTN_Cancelar: { disabled: busy, onClick: close }, BTN_NoName1: { disabled: busy || !mechanicRepository || !mechanicReady || !timeReady, onClick: () => setMechanicPicker(true) } }} />
+    {mechanicPicker && mechanicRepository && <MechanicPicker repository={mechanicRepository} origin="" finish={value => { setMechanicPicker(false); void chooseMechanic(value === "" ? null : Number(value)); }} />}
     {password !== null && <RepairMaterialPrompt mode="password" value="" finish={value => { setPassword(null); const resolve = passwordResult.current; passwordResult.current = null; resolve?.(value); }} />}
     {statePicker && <RepairLaborStatePicker choices={stateChoices} finish={value => { setStatePicker(false); const resolve = stateResult.current; stateResult.current = null; resolve?.(value); }} />}
     {diagnostic && <output data-testid="repair-labor-time-diagnostic">{diagnostic}</output>}

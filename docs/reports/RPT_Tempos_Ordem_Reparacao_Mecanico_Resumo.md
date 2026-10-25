@@ -180,6 +180,8 @@ nMinutos is numeric  = RoundUp((nParteDecimal * 59.99999999999)/0.99999999999999
 RESULT NumToString(IntegerPart(MyDuration..InHours),"02d")+":"+NumToString(nMinutos,"02d")
 ```
 
+Literal string-sum follow-through (ADR-002/005/006): `laborSumHours` reads the full hour prefix and exactly two minute characters from both operands at each addition, including the previously rendered accumulator. It preserves one positive minute carry without normalizing negative minutes. Under the existing literal row-rounding default, a negative half-hour displays `00:-29`; five such rows produce `00:-10`, and a sixth re-reads `-1` from that accumulator and produces `00:-3`. The BODY assignment supplies `STC_total_horas1` directly; BREAK_FOOTER1 resets the accumulator without another sum call. `apps/server/src/reports/labor-events.test.ts` runs actual PostgreSQL and offline PDFs twice per family, checking signed totals, separate groups, zero17, full 100-hour prefixes and unchanged raw dates. Native negative/coercion/overflow, by-reference and designer/group acceptance remain U-R26-02/03/04; these tests do not close them.
+
 ## Data edge cases
 
 | Case | Legacy behavior | Evidence or U-id |

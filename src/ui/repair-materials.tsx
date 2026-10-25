@@ -27,6 +27,7 @@ import { StockScannerDialog, StockUnknownScannerDialog } from "./stock";
 import { isolatedStockRepository } from "../infrastructure/stock";
 import type { StockRepository } from "../application/stock";
 import type { ScannerResult, ScannerRow } from "../../packages/domain/src/stock";
+import { nativeScannerFileAvailable } from "../infrastructure/scanner-file";
 
 const corrected = (layout: LegacyLayout): LegacyLayout => ({ ...layout, window: { ...layout.window, title: "Materiais de Reparação" }, controls: layout.controls.map(control => ({ ...control,
   ...(control.name === "RADTitle" ? { caption: "Materiais de Reparação" } : control.name === "BTN_Descricao" ? { caption: "Descrição" } : {}),
@@ -39,7 +40,7 @@ type DraftLine = RepairMaterialLine & { key: string };
 type Prompt = { mode: RepairMaterialPromptMode; value: string | null; resolve: (value: string | null) => void };
 type ScannerOutcome = Extract<ScannerResult, { kind: "partitioned" }> | "fechou";
 type ScannerChild = { kind: "file"; resolve: (value: string | null) => void }
-  | { kind: "scanner"; repository: StockRepository; text: string; resolve: (value: ScannerOutcome) => void }
+  | { kind: "scanner"; repository: StockRepository; text?: string; resolve: (value: ScannerOutcome) => void }
   | { kind: "unknown"; rows: ScannerRow[]; resolve: () => void };
 
 /** U-WAFCFDF-01/05: explicit selected UTF8-file bridge until configured native device access exists. */
@@ -99,7 +100,7 @@ function MaterialEditor({ repository, document, articleRepository, mechanicRepos
   const setDescriptionValue = (value: string) => { descriptionDraft.current = value; setDescription(value); };
   const latestPrompt = useRef<Prompt | null>(null), { message, resource } = useDialogs();
   const settings = useTableLayout(materialTable, "WIN_Material_reparacao_form/TABLE_material"), delta = useContext(FrameDeltaContext);
-  useEffect(() => { alive.current = true; return () => { alive.current = false; const current = latestPrompt.current; current?.resolve(current.value);
+  useEffect(() => { alive.current = true; return () => { alive.current = false; proofs.current = []; const current = latestPrompt.current; current?.resolve(current.value);
     const child = latestScannerChild.current; if (child?.kind === "file") child.resolve(null); else if (child?.kind === "scanner") child.resolve("fechou"); else child?.resolve(); }; }, []);
   const info = (text: string) => message({ title: "Materiais de Reparação", text, type: 0 });
   const ask = (mode: RepairMaterialPromptMode, value: string | null) => new Promise<string | null>(resolve => { const request = { mode, value, resolve }; latestPrompt.current = request; setPrompt(request); });
@@ -124,7 +125,7 @@ function MaterialEditor({ repository, document, articleRepository, mechanicRepos
     if (result.kind === "incorrect") { await info("Palavra-passe incorreta"); return null; }
     if (result.kind === "inactive") { await info("Mecânico inativo"); return null; }
     if (result.kind !== "authenticated") { setDiagnostic(result.kind); return null; }
-    proofs.current = [...proofs.current.filter(value => value.code !== code), { code, password }];
+    proofs.current = [...proofs.current.filter(value => value.code !== code), { code, password, ...(result.credentialRevision ? { credentialRevision: result.credentialRevision } : {}) }];
     setActor(result.mechanic); return result.mechanic;
   };
   const reset = () => { lookupOwner.current++; setArticleValue(""); setDescriptionValue(""); setQuantity(decimalMaskDisplay(quantityMask, "1")); };
@@ -159,7 +160,7 @@ function MaterialEditor({ repository, document, articleRepository, mechanicRepos
     if (!alive.current || !mechanic) return;
     const stock = await isolatedStockRepository();
     if (!alive.current) return;
-    const text = await new Promise<string | null>(resolve => { const child = { kind: "file" as const, resolve }; latestScannerChild.current = child; setScannerChild(child); });
+    const text = nativeScannerFileAvailable() ? undefined : await new Promise<string | null>(resolve => { const child = { kind: "file" as const, resolve }; latestScannerChild.current = child; setScannerChild(child); });
     if (!alive.current || text === null) return;
     const result = await new Promise<ScannerOutcome>(resolve => { const child = { kind: "scanner" as const, repository: stock, text, resolve }; latestScannerChild.current = child; setScannerChild(child); });
     if (!alive.current || result === "fechou") return;
@@ -176,7 +177,7 @@ function MaterialEditor({ repository, document, articleRepository, mechanicRepos
     if (result.kind === "saved") { proofs.current = []; finish(); }
     else if (result.kind === "inUse") await info("Ordem de reparação em uso por outro utilizador");
     else if (result.kind === "inactive") await info("Mecânico inativo");
-    else if (result.kind === "incorrect") await info("Palavra-passe incorreta");
+    else if (result.kind === "incorrect") { proofs.current = []; setActor(null); await info("Palavra-passe incorreta"); }
     else setDiagnostic(result.kind);
   });
   useEffect(() => { saveRef.current = () => { void save(); }; return () => { saveRef.current = null; }; });

@@ -31,16 +31,22 @@ export function laborDurationDisplay(duration: LaborDuration | null): string {
   const minutes = hours.minus(integral).times("59.99999999999").div("0.99999999999999").ceil();
   return `${two(integral.toFixed(0))}:${two(minutes.toFixed(0))}`;
 }
-/** Source1114–1141 sums displayed HH:mm, not raw elapsed milliseconds. */
+/** Source1114–1141 / RPT_Tempos_Ordem_Reparacao582–596: each call parses
+ * the full hour prefix but only two minute characters from BOTH rendered strings.
+ * ADR002 retains the source negative-prefix truncation and one carry per call.
+ */
 export function laborSumHours(values: readonly string[]): string {
-  let hours = 0n, minutes = 0n;
+  let total = "00:00";
   for (const value of values) {
     const match = /^(-?[0-9]+):(-?[0-9]+)$/.exec(value);
     if (!match) continue;
-    hours += BigInt(match[1]); minutes += BigInt(match[2]);
+    const previous = /^(-?[0-9]+):(-?[0-9]+)$/.exec(total)!;
+    let hours = BigInt(previous[1]) + BigInt(match[1]);
+    let minutes = BigInt(previous[2].slice(0, 2)) + BigInt(match[2].slice(0, 2));
     if (minutes >= 60n) { hours += 1n; minutes -= 60n; }
+    total = `${two(hours.toString())}:${two(minutes.toString())}`;
   }
-  return `${two(hours.toString())}:${two(minutes.toString())}`;
+  return total;
 }
 /** Source353–358: cached history and exact four-space/date/CR concatenation. NULL stays unresolved. */
 export function laborStateHistory(history: string | null, when: string, state: string | null, description: string | null): string | null {

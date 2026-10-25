@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
 import { nextStockLine, parseScannerText, stockSaveSchema, type StockLine } from "./stock";
 it("scanner uses one-based starts and lengths, removes literal spaces and stops at the first empty row", () => {
-  expect(parseScannerText(" 123 004.5\r\nABCD  002\r\n\r\nIGNORED", { barcodeStart: 1, barcodeLength: 5, quantityStart: 6, quantityLength: 5, filename: null })).toEqual([{ barcode: "123", quantity: "004.5" }, { barcode: "ABCD", quantity: "002" }]);
+  expect(parseScannerText(" 123 004.5\r\nABCD  002\r\n\r\nIGNORED", { barcodeStart: 1, barcodeLength: 5, quantityStart: 6, quantityLength: 5, terminalCode: "T01", folder: null, filename: null })).toEqual([{ barcode: "123", quantity: "004.5" }, { barcode: "ABCD", quantity: "002" }]);
 });
 it("source line counter starts at zero and keeps integers above the JavaScript boundary exact", () => {
   const row = (linha: string | null): StockLine => ({ linha, artigo: "A", descricao_artigo: "", quantidade: "1", preco: "0" });

@@ -12,6 +12,6 @@ export async function createBusinessApp(configuration: ServiceConfiguration, rep
   try { await migrate(migration); } finally { await migration.end(); }
   const initialized = await initialiseStartup(connect, {});
   if (initialized.kind !== "ready") throw new Error("Workshop system defaults unavailable");
-  return createApp({ security: createSessionSecurity(connect, { setupToken: configuration.setupToken }), origins: configuration.origins,
+  return createApp({ security: createSessionSecurity(connect, { setupToken: configuration.setupToken }), origins: configuration.origins, reportCompany: configuration.reportCompany,
     customerConnect: connect, vehicleConnect: connect, unitConnect: connect, descriptiveStateConnect: connect, terminalConnect: connect, postoConnect: connect, mechanicsConnect: connect, repairStateConnect: connect, documentTypeConnect: connect, articleConnect: connect, userConnect: connect, repairOrderConnect: connect, repairMaterialsConnect: connect, repairLaborConnect: connect, startupConnect: connect, stockConnect: connect, reportFilterConnect: connect, reportConnect: connect, reportRenderer });
 }

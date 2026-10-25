@@ -2,6 +2,7 @@ import { reassignReceptionCustomers } from "./operations/startup-utilities";
 import cors from "@fastify/cors";
 import type { SessionSecurity } from "./security/sessions";
 import { readSecureUser, saveSecureUser, deleteSecureUser } from "./security/users";
+import { readSecureMechanic, saveSecureMechanic, deleteSecureMechanic, createMechanicCredentials } from "./security/mechanics";
 import { listSalesReportStates } from "./operations/report-filters";
 import { initialiseStartup, checkStartupAccess, readSystem, saveSystem } from "./operations/startup";
 import { listStock, readStock, nextStockNumber, lookupStockArticle, saveStock, deleteStock, stockInventory, rebuildStock, stockScannerConfig, partitionStockScanner } from "./operations/stock";
@@ -27,15 +28,16 @@ import { initialiseRepairOrderForm, resolveRepairOrderVehicle, lookupRepairOrder
 
 import { listRepairMaterials, readRepairMaterials, lookupRepairMaterialArticle, authenticateRepairMaterialMechanic, saveRepairMaterials } from "./operations/repair-materials";
 
-import { initialiseRepairLabor, listRepairLabor, readRepairLabor, authenticateRepairLabor, prepareRepairLabor, toggleRepairLabor, saveRepairLaborState, tickRepairLabor, saveRepairLaborMaterials, checkRepairLaborMaterials } from "./operations/repair-labor";
+import { initialiseRepairLabor, listRepairLabor, readRepairLabor, readRepairLaborTime, readRepairLaborStateChoices, authenticateRepairLabor, prepareRepairLabor, toggleRepairLabor, saveRepairLaborState, tickRepairLabor, saveRepairLaborMaterials, checkRepairLaborMaterials, checkRepairLaborInformation } from "./operations/repair-labor";
 
 import { renderReport } from "./operations/reports";
 import type { ReportRenderer } from "./reports/renderer";
 
-export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; terminalConnect?: DatabaseConnection; postoConnect?: DatabaseConnection; mechanicsConnect?: DatabaseConnection; repairStateConnect?: DatabaseConnection; documentTypeConnect?: DatabaseConnection; articleConnect?: DatabaseConnection; userConnect?: DatabaseConnection; repairOrderConnect?: DatabaseConnection; repairMaterialsConnect?: DatabaseConnection; repairLaborConnect?: DatabaseConnection; startupConnect?: DatabaseConnection; stockConnect?: DatabaseConnection; reportFilterConnect?: DatabaseConnection; reportConnect?: DatabaseConnection; reportRenderer?: ReportRenderer; security?: SessionSecurity; origins?: readonly string[]; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
+export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; terminalConnect?: DatabaseConnection; postoConnect?: DatabaseConnection; mechanicsConnect?: DatabaseConnection; repairStateConnect?: DatabaseConnection; documentTypeConnect?: DatabaseConnection; articleConnect?: DatabaseConnection; userConnect?: DatabaseConnection; repairOrderConnect?: DatabaseConnection; repairMaterialsConnect?: DatabaseConnection; repairLaborConnect?: DatabaseConnection; startupConnect?: DatabaseConnection; stockConnect?: DatabaseConnection; reportFilterConnect?: DatabaseConnection; reportConnect?: DatabaseConnection; reportRenderer?: ReportRenderer; reportCompany?: string; security?: SessionSecurity; origins?: readonly string[]; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
   const app = Fastify({ logger: false });
   app.get("/health/live", async () => ({ service: "gestao-oficinas-api", status: "alive" }));
   const authenticate = options.authenticate ?? options.security?.authenticate ?? options.development?.authenticate;
+  const managedMechanics = options.security ? createMechanicCredentials() : undefined;
   if (options.security) {
     const origins = new Set(options.origins ?? []);
     void app.register(cors, { origin: (origin, callback) => callback(null, origin === undefined || origins.has(origin)), methods: ["POST", "GET"], allowedHeaders: ["Content-Type", "Authorization"], credentials: false });
@@ -59,7 +61,7 @@ export function createApp(options: { customerConnect?: DatabaseConnection; vehic
     reply.header("Cache-Control", "no-store");
     if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
     if (!options.reportRenderer) return reply.code(503).send({ kind: "unavailable" });
-    return renderReport(options.reportConnect, options.reportRenderer, request.body);
+    return renderReport(options.reportConnect, options.reportRenderer, request.body, options.reportCompany);
   });
   if (options.development) app.post("/api/development/session", async (request, reply) => {
     if (request.headers.origin !== options.development!.origin || request.headers["x-isolated-development"] !== "1") return reply.code(403).send({ kind: "denied" });
@@ -123,7 +125,7 @@ export function createApp(options: { customerConnect?: DatabaseConnection; vehic
       return operation(options.postoConnect, request.body);
     });
   }
-  for (const [action, operation] of Object.entries({ list: listMechanics, read: readMechanic, save: saveMechanic, delete: deleteMechanic })) {
+  for (const [action, operation] of Object.entries({ list: listMechanics, read: options.security ? readSecureMechanic : readMechanic, save: options.security ? saveSecureMechanic : saveMechanic, delete: options.security ? deleteSecureMechanic : deleteMechanic })) {
     app.post(`/api/mechanics/${action}`, async (request, reply) => {
       if (action === "read") reply.header("Cache-Control", "no-store");
       if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
@@ -175,15 +177,15 @@ export function createApp(options: { customerConnect?: DatabaseConnection; vehic
       reply.header("Cache-Control", "no-store");
       if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
       if (!options.repairMaterialsConnect) return reply.code(503).send({ kind: "unavailable" });
-      return operation(options.repairMaterialsConnect, request.body);
+      return operation(options.repairMaterialsConnect, request.body, managedMechanics?.(request.ip));
     });
   }
-  for (const [action, operation] of Object.entries({ initialise: initialiseRepairLabor, list: listRepairLabor, read: readRepairLabor, authenticate: authenticateRepairLabor, prepare: prepareRepairLabor, toggle: toggleRepairLabor, state: saveRepairLaborState, tick: tickRepairLabor, "save-materials": saveRepairLaborMaterials, "check-materials": checkRepairLaborMaterials })) {
+  for (const [action, operation] of Object.entries({ initialise: initialiseRepairLabor, list: listRepairLabor, read: readRepairLabor, "read-time": readRepairLaborTime, "state-choices": readRepairLaborStateChoices, authenticate: authenticateRepairLabor, prepare: prepareRepairLabor, toggle: toggleRepairLabor, state: saveRepairLaborState, tick: tickRepairLabor, "save-materials": saveRepairLaborMaterials, "check-materials": checkRepairLaborMaterials, "check-information": checkRepairLaborInformation })) {
     app.post(`/api/repair-labor/${action}`, async (request, reply) => {
       reply.header("Cache-Control", "no-store");
       if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
       if (!options.repairLaborConnect) return reply.code(503).send({ kind: "unavailable" });
-      return operation(options.repairLaborConnect, request.body);
+      return operation(options.repairLaborConnect, request.body, managedMechanics?.(request.ip));
     });
   }
   for (const [action, operation] of Object.entries({ list: listStock, read: readStock, next: nextStockNumber, lookup: lookupStockArticle, save: saveStock, delete: deleteStock, inventory: stockInventory, rebuild: rebuildStock, "scanner-config": stockScannerConfig, "scanner-partition": partitionStockScanner })) {

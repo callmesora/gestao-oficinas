@@ -58,6 +58,8 @@ python -m unittest discover -s tests -v
 python scripts/unit_evidence.py WIN_Form_Clientes --out analysis-local/units/WIN_Form_Clientes.json
 ```
 
+Fresh test hosts explicitly provision PostgreSQL18.4 clients with `python setup/provision-backup-test-tools.py --directory analysis-local/toolchain/postgres-clients-18.4`; existing directories are refused. The script documents Windows build prerequisites and prints the canonical `WORKSHOP_TEST_BACKUP_TOOLS` path. CI provisions this before the unchanged `npm run verify`; normal startup never builds/downloads tools. Actual Windows source-build acceptance remains open.
+
 Use `setup/Enter-Prerequisites.ps1` on Windows. Follow its existing prerequisite documentation and exact Node/npm/Rust pins before `npm ci`, `npm run verify` or native build commands.
 
 ## Run imported workflows on macOS
@@ -129,4 +131,4 @@ npm run local:start
 
 Omit `--snapshot` for an empty demo. Setup refuses existing state and prints only the private operator-token file path; use its contents in **Definir acesso**, select an imported account and set a new password. Never reuse legacy credentials. Ordinary `local:start` preserves data and sessions and requires free ports3210/54329; Ctrl+C stops only its owned service. Open `http://127.0.0.1:3210/` or build/open the Mac app with `npm run build:mac` and `open 'src-tauri/target/debug/bundle/macos/Gestao Oficinas.app'`. The native client expects this running API; the DEV launcher remains disposable.
 
-Actual macOS arm64 checks over e7d26c7 plus the persistent-startup tree passed native enrollment/customer save/logout/login and four native argument/exit cases. The ordinary built-browser flow also passed full PostgreSQL/API restart persistence and reload/login, with no Vite or DEV-session requests. OS save/print dialogs, physical devices, Windows and official HFSQL fidelity remain separate. Reports require the explicit offline runtime provisioning in [README](../README.md#offline-report-runtime-on-the-api-host).
+Actual macOS arm64 checks over e7d26c7 plus the persistent-startup tree passed native enrollment/customer save/logout/login and four native argument/exit cases. The ordinary built-browser flow also passed full PostgreSQL/API restart persistence and reload/login, with no Vite or DEV-session requests. OS save/print dialogs, physical devices, Windows and official HFSQL fidelity remain separate. For reports, stop the service and run `npm run local:reports -- --executable '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'` once, then restart normally. Existing pins require explicit `--replace`; full provisioning details are in [README](../README.md#offline-report-runtime-on-the-api-host).

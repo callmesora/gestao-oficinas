@@ -13,6 +13,8 @@ Follow bounded stages in dependency order: implement, verify, review/fix, synchr
 
 Use subagents for useful investigation, implementation and review. The owner's current breadth-first phase prioritizes isolated implementation workers over independent reviewers: coordinator self-review and focused integration checks suffice for initial deliveries; document known gaps and retain final acceptance gates. One coordinator integrates shared tracking; one writer per file. Use separate worktrees for concurrent writers, and serialize heavy checks per checkout.
 
+The owner prioritizes a usable everyday replacement for one or two users, with a thin Media Player theme over mature open-source/framework primitives. Reuse those for generic tables, reports, window interactions, dialogs/focus and inputs; custom code owns source business/data contracts. Fix composed production usability before expanding edge-case coverage.
+
 The owner additionally requests ambitious parallel initial implementations across remaining screen/report families. Fill available isolated writer slots with bounded modules while the coordinator verifies/integrates earlier dependencies; draft work does not close parity or bypass review/cleanup. Reuse existing tracking and rotate idle/checkpointed agents instead of creating a runbook per worker.
 
 Tested local commits may go directly to main; no mandatory codex branch or PR. Never push: the owner will publish when ready. Do not rewrite history, bypass guards or modify hooks/runtime agent settings.

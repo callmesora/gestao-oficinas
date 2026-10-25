@@ -105,6 +105,8 @@ STC_Total_material=gsTotais
 
 ## Data edge cases
 
+Implemented auto-height follow-through (ADR-005): `STC_informacao` and `STC_Total_material` use CSS intrinsic height with their listed source minimum geometry; following bands/footer controls move below growing text with the original gaps. This source-order flow is an explicit target adaptation pending native output. The information block retains its evidenced indivisibility and returns typed unresolved if it exceeds the actual A5 printable page. The total retains `Divisible=True` and can continue across Paged.js pages before the final counter/footer. Live table rows/order and the exact caller-provided total remain the only material input; no database material substitution or total recalculation is introduced. `apps/server/src/reports/long-text.test.ts` proves physical repeated headers, all 70 live rows, all lines of a 100-line caller total, source minimum heights and oversized information refusal. U-R19-01/02/03 remain open.
+
 | Case | Legacy behavior | Evidence or U-id |
 |---|---|---|
 | No rows | No custom empty-result handler; report engine/bands need a golden sample | U-R19-02 |

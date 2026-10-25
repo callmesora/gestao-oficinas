@@ -6,7 +6,7 @@ import { migrate } from "../db/migrate";
 import { SqliteLegacySource, importLegacy, type ImportResult } from "../db/legacy-import";
 import { readServiceConfiguration } from "../configuration";
 import { createBusinessApp } from "../business-app";
-import { createConfiguredReportRenderer } from "../reports/runtime";
+import { createLocalReportRenderer } from "./report-runtime";
 import { mountLocalFrontend, validateLocalFrontend } from "./frontend";
 import { defaultLocalDirectory, newProfile, privateFile, profilePaths, readLocalProfile, databaseUrl, LocalServiceError } from "./profile";
 import { acquireRunner, assertPortFree, connectLocal, installedPostgres, postgresCommand, startOwnedPostgres } from "./postgres";
@@ -49,10 +49,11 @@ export async function startLocalService(options: { directory?: string; frontend?
   // Validate built output/configuration before starting any process. Normal startup never initializes/imports.
   const frontend = await validateLocalFrontend(options.frontend ?? defaultFrontend);
   const configuration = await readServiceConfiguration({ ...environment, WORKSHOP_DATABASE_URL: databaseUrl(profile), WORKSHOP_HOST: "127.0.0.1", WORKSHOP_PORT: String(profile.apiPort), WORKSHOP_ALLOWED_ORIGINS: [environment.WORKSHOP_ALLOWED_ORIGINS ?? "", `http://127.0.0.1:${profile.apiPort}`, `http://localhost:${profile.apiPort}`].filter(Boolean).join(","), ...(await access(paths.token).then(() => true, () => false) ? { WORKSHOP_SETUP_TOKEN_FILE: paths.token } : { WORKSHOP_SETUP_TOKEN_FILE: undefined }) });
-  const binaries = await installedPostgres(), renderer = await createConfiguredReportRenderer(environment); await assertPortFree(profile.apiPort);
+  await assertPortFree(profile.apiPort);
   const release = await acquireRunner(paths.directory, profile.id); let postgres: Awaited<ReturnType<typeof startOwnedPostgres>> | undefined, app: Awaited<ReturnType<typeof createBusinessApp>> | undefined, closed: Promise<void> | undefined;
   const close = () => closed ??= (async () => { try { await app?.close(); } finally { try { await postgres?.stop(); } finally { await release(); } } })();
   try {
+    const renderer = await createLocalReportRenderer(paths.directory, environment), binaries = await installedPostgres();
     postgres = await startOwnedPostgres(paths.directory, profile, binaries);
     const check = await connectLocal(profile); try { if ((await check.query('SELECT 1 FROM public.schema_migrations LIMIT 1')).rowCount !== 1) throw new LocalServiceError("initialized_database_required"); } finally { await check.end(); }
     app = await createBusinessApp(configuration, renderer); await mountLocalFrontend(app, frontend); await app.listen({ host: configuration.host, port: configuration.port });

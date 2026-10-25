@@ -27,7 +27,7 @@ export const test = base.extend<{ authenticationDatabase: Client }, { authentica
     } finally { try { await vite?.close(); } finally { try { await app?.close(); } finally { try { await database?.end(); } finally { await engine.stop(); } } } }
   }, { scope: "worker", timeout: 90000 }],
   authenticationDatabase: [async ({ authenticationServer }, use) => {
-    await authenticationServer.database.query('TRUNCATE auth.sessions,auth.credentials,app."sistema",app."utilizadores",app."Clientes" RESTART IDENTITY');
+    await authenticationServer.database.query('TRUNCATE auth.mechanic_credentials,auth.sessions,auth.credentials,app."sistema",app."utilizadores",app."Clientes" RESTART IDENTITY');
     await authenticationServer.database.query('UPDATE auth.enrollment SET consumed=false');
     await authenticationServer.database.query('TRUNCATE app."material_reparacao",app."tempos_reparacao",app."ordem_reparacao",app."Viaturas",app."mecanicos",app."estados_reparacao",app."artigos",app."unidades" RESTART IDENTITY');
     await authenticationServer.restart();
