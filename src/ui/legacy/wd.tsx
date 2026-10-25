@@ -1,4 +1,4 @@
-import { useCallback, useId, useImperativeHandle, useLayoutEffect, useMemo, useRef, type ButtonHTMLAttributes, type ChangeEvent, type ClipboardEvent, type ComponentPropsWithRef, type CSSProperties, type FocusEvent, type KeyboardEvent, type ReactNode, type TextareaHTMLAttributes } from "react";
+import { useCallback, useId, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState, type ButtonHTMLAttributes, type ChangeEvent, type ClipboardEvent, type ComponentPropsWithRef, type CSSProperties, type FocusEvent, type KeyboardEvent, type ReactNode, type TextareaHTMLAttributes } from "react";
 import { buttonSkin, controlBox, controlOf, skinImage, type LegacyControl, type LegacyLayout } from "./layout";
 import "./skin.css";
 import { activateMnemonic, mnemonicCaption } from "./mnemonics";
@@ -20,6 +20,27 @@ export function WdButton({ control: source, chrome = false, interpretAmpersand =
     {!chrome && <span>{!interpretAmpersand ? control.caption : <>{caption.before}{caption.letter && <u>{caption.letter}</u>}{caption.after}</>}</span>}
     {control.image && <span className="wd-button-icon" aria-hidden="true" />}
   </button>;
+}
+
+// ADR-003/U-C17FCA03-01: supplied 13px sprite cells; exact native state mapping remains assumed.
+// The owning table cell supplies accessible read-only semantics; this mark cannot receive input.
+export function WdCheckMark({ checked }: { checked: boolean | null }) {
+  return <span className="wd-check-mark" aria-hidden="true" data-checked={checked === true}
+    style={{ backgroundImage: `url("${skinImage("MediaPlayer_Cbox_Anim.gif")}")` }} />;
+}
+
+export function WdCheckbox({ control: source, checked, onChange, disabled }: {
+  control: LegacyControl; checked: boolean | null; onChange: (value: boolean) => void; disabled?: boolean;
+}) {
+  const control = useAnchoredControl(source);
+  return <label className="wd-checkbox" hidden={control.visible === false || control.flags?.Visible === false}
+    data-control-path={control.path} style={controlBox(control)}>
+    <input type="checkbox" data-testid={control.name} checked={checked === true} disabled={disabled}
+      aria-label={control.caption || control.name}
+      tabIndex={control.flags?.["TAB Key"] === false || String(control.tab_order) === "-1" ? -1 : undefined}
+      onChange={event => onChange(event.currentTarget.checked)} />
+    <WdCheckMark checked={checked} /><span>{control.caption}</span>
+  </label>;
 }
 
 export function WdFrame({ layout, instance, children, width, height, onClose, onMinimize, onToggleMaximize }: {
@@ -137,13 +158,30 @@ function useIntegerEntry(mask: IntegerMask | null, props: EditInputProps) {
   };
 }
 
-export function WdEdit({ control: source, automaticErase, integerMask = false, suggestions, onSuggestion, ...props }: {
-  control: LegacyControl; automaticErase?: boolean; integerMask?: boolean;
+export function WdEdit({ control: source, automaticErase, integerMask = false, passwordReveal = false, suggestions, onSuggestion, ...props }: {
+  control: LegacyControl; automaticErase?: boolean; integerMask?: boolean; passwordReveal?: boolean;
   suggestions?: readonly string[]; onSuggestion?: (value: string) => void;
 } & EditInputProps) {
   const control = useAnchoredControl(source);
   const mask = useMemo(() => integerMask ? integerMaskOf(control.input_mask) : null, [integerMask, control.input_mask]);
   const numeric = useIntegerEntry(mask, props);
+  const field = useRef<HTMLDivElement>(null);
+  const [revealed, setRevealed] = useState(false);
+  const revealSelection = useRef<{ start: number; end: number; direction: "forward" | "backward" | "none" } | null>(null);
+  const revealEnabled = passwordReveal && control.flags?.Password === true;
+  useLayoutEffect(() => {
+    const input = field.current?.querySelector("input"), saved = revealSelection.current;
+    if (input && saved) {
+      input.setSelectionRange(saved.start, saved.end, saved.direction);
+      revealSelection.current = null;
+    }
+  }, [revealed]);
+  const toggleReveal = () => {
+    const input = field.current?.querySelector("input");
+    if (!input || input.disabled || !revealEnabled) return;
+    revealSelection.current = { start: input.selectionStart ?? 0, end: input.selectionEnd ?? 0, direction: input.selectionDirection ?? "none" };
+    setRevealed(previous => !previous);
+  };
   const id = useId();
   const maxLength = props.maxLength ?? (control.input_type === "Text" && (control.input_size ?? 0) > 0 ? control.input_size : undefined);
   const readOnly = props.readOnly ?? control.state === "Read-only";
@@ -153,10 +191,10 @@ export function WdEdit({ control: source, automaticErase, integerMask = false, s
     testId: `${control.name}__suggestions`, label: props["aria-label"] ?? control.caption ?? control.name });
   const selection = useInputSelection(automaticErase ?? control.flags?.["Automatic erase"], { ...props, onFocus: assistance.onFocus });
   const captionWidth = control.caption_width ?? 0;
-  return <div className="wd-field" hidden={props.hidden ?? control.visible === false} data-control-path={control.path} style={controlBox(control)}>
+  return <div ref={field} className="wd-field" hidden={props.hidden ?? control.visible === false} data-control-path={control.path} style={controlBox(control)}>
     {captionWidth > 0 && <label htmlFor={id} style={{ width: captionWidth - 2 }}>{control.caption}</label>}
     <input {...props} {...numeric} {...selection} {...assistance.attributes} onChange={assistance.onChange} onBlur={assistance.onBlur} onKeyDown={assistance.onKeyDown}
-      id={id} type={control.flags?.Password === true ? "password" : "text"}
+      id={id} type={control.flags?.Password === true && !(revealEnabled && revealed) ? "password" : "text"}
       inputMode={mask ? "numeric" : props.inputMode}
       value={mask && props.value !== undefined ? integerMaskDisplay(mask, String(props.value)) : props.value}
       defaultValue={mask && props.defaultValue !== undefined ? integerMaskDisplay(mask, String(props.defaultValue)) : props.defaultValue}
@@ -164,7 +202,14 @@ export function WdEdit({ control: source, automaticErase, integerMask = false, s
       tabIndex={props.tabIndex ?? (control.flags?.["TAB Key"] === false || String(control.tab_order) === "-1" ? -1 : undefined)} data-testid={control.name} className="wd-edit"
       readOnly={readOnly}
       aria-label={captionWidth ? undefined : props["aria-label"] ?? control.caption ?? control.name}
-      style={{ left: captionWidth, width: (control.width ?? 0) - captionWidth, textAlign: control.h_align === "Right" ? "right" : "left" } as CSSProperties} />
+      style={{ left: captionWidth, width: (control.width ?? 0) - captionWidth, textAlign: control.h_align === "Right" ? "right" : "left", paddingRight: revealEnabled ? 23 : undefined } as CSSProperties} />
+    {revealEnabled && <button type="button" className="wd-password-reveal" data-testid={`${control.name}__reveal`}
+      aria-label={revealed ? "Ocultar palavra-passe" : "Mostrar palavra-passe"} aria-pressed={revealed} aria-controls={id}
+      disabled={props.disabled} tabIndex={-1}
+      onPointerDown={event => event.preventDefault()}
+      onKeyDown={event => { if (event.key === "Enter" || event.key === " ") event.stopPropagation(); }} onClick={toggleReveal}>
+      <span className="wd-password-eye" aria-hidden="true" />
+    </button>}
     {assistance.popup}
   </div>;
 }

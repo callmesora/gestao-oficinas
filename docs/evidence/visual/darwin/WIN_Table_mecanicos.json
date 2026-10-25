@@ -1,0 +1,12 @@
+{
+ "pixel_similarity": 98.5,
+ "edge_overlap": 92.4,
+ "size": [
+  711,
+  600
+ ],
+ "legacy": "docs/evidence/images/WIN_Table_mecanicos.jpg",
+ "new": "ui-report/WIN_Table_mecanicos.png",
+ "side_by_side": "ui-report/WIN_Table_mecanicos.compare.png",
+ "date": "2026-10-25"
+}

@@ -1,0 +1,3 @@
+# GS-MECHANICS-001
+
+Spec-derived, not legacy-recorded: actual API creates code77, selected-record read proves exact synthetic password, then the same selected record is updated with exact accented/trailing-space description, inactive=true and changed synthetic password. A duplicate code is rejected. Compare Codigo, Descricao and inativo only. Internal/source identities and exact synthetic password are asserted separately in the real API/PostgreSQL test; credential columns are deliberately absent from artifacts under ADR-004/008. Source WIN_Form_mecanicos.wdw:38–74. No native/HFSQL/locale acceptance claim.

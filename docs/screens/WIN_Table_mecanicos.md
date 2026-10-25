@@ -1,6 +1,6 @@
 # Screen spec — WIN_Table_mecanicos
 
-Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Table_mecanicos.wdw`, `dossier: WIN_Table_mecanicos`, `docs/mapping/WIN_Table_mecanicos.md`. Step 0 specification only.
+Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Table_mecanicos.wdw`, `dossier: WIN_Table_mecanicos`, `docs/mapping/WIN_Table_mecanicos.md`. Source specification; bounded implementation notes below.
 
 ## Contract
 
@@ -178,3 +178,9 @@ Delete resource CASE 1 deletes and CASE 2 makes no change when present. Default/
 ## Data edge cases and acceptance checks
 
 Blank strings are compared exactly by source, with no trimming; absent NULL coercion rules and number/text locale boundaries belong to U-C44F7892-03. Required controls are those guarded explicitly in mapping, never inferred from a caption. Observe mask/size above and compare schema types. Keyboard-only test: open, traverse by container tab order, trigger mandatory validation, select/change/cancel, then repeat with an empty filter result and first/last row. Visual approval is outstanding under U-C44F7892-01. Runtime writes must be performed only against a preserved scratch data copy.
+
+## MIG-7H.1 bounded implementation
+
+src/ui/mechanics.tsx uses real protected API/PostgreSQL list/form/delete and the reusable actual selector. Source sorting by inativo and distinct refresh sequences remain explicit; no active-only filter or relation-delete guard. Public list/picker/save DTOs omit credentials and hidden automatic identifier (ADR-004/008). Header search/configuration/raw scrolling options use ADR-012/013; inactive width is inferred from the available viewport/JPG, not extracted metadata. Read-only checkbox cells cannot mutate records or receive Tab focus. Printing RPT_List_mecanicos remains MIG-13 and UMC remains unexcluded.
+
+Non-legacy identifiers: mechanics-open, mechanics-select-open, mechanics-returned, mechanics-returned-kind, mechanic-picker, mechanic-picker-frame, mechanic-picker-restore, mechanic-list-diagnostic and shared table-derived header/search/column/reset/resize helpers. The DEV selector launcher proves the component contract only; repair/material/time/stock/report-filter callers remain with their real consuming stages. Numeric Codigo selection and exact number|string origin cancellation retain type; unknown no-selection/NULL/tie/shared-HFSQL effects remain U02. Native/human visual/key behavior remains U01.

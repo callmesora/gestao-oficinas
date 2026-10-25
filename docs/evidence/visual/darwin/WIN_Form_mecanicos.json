@@ -1,0 +1,12 @@
+{
+ "pixel_similarity": 98.8,
+ "edge_overlap": 96.7,
+ "size": [
+  500,
+  160
+ ],
+ "legacy": "docs/evidence/images/WIN_Form_mecanicos.jpg",
+ "new": "ui-report/WIN_Form_mecanicos.png",
+ "side_by_side": "ui-report/WIN_Form_mecanicos.compare.png",
+ "date": "2026-10-25"
+}

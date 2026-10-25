@@ -10,6 +10,7 @@ import DescriptiveStatesWorkflow from "./ui/descriptive-states";
 import TerminalsWorkflow from "./ui/terminals";
 import UnitsWorkflow from "./ui/units";
 import PostosWorkflow from "./ui/postos";
+import MechanicsWorkflow from "./ui/mechanics";
 
 export default function App({ preview }: { preview: boolean }) {
   const [info, setInfo] = useState<NativeInfo | null>(null);
@@ -29,6 +30,7 @@ export default function App({ preview }: { preview: boolean }) {
   if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "descriptive-states") return <DescriptiveStatesWorkflow />;
   if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "terminals") return <TerminalsWorkflow />;
   if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "postos") return <PostosWorkflow />;
+  if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "mechanics") return <MechanicsWorkflow />;
   return <main>
     {preview && <aside role="status" data-testid="foundation-preview">Browser preview — dados simulados; não verifica o ambiente nativo.</aside>}
     <h1>Gestão de Oficinas</h1>
@@ -41,6 +43,7 @@ export default function App({ preview }: { preview: boolean }) {
     {import.meta.env.DEV && <p><a data-testid="descriptive-states-launcher" href="/?workflow=descriptive-states">Estados descritivos</a></p>}
     {import.meta.env.DEV && <p><a data-testid="terminals-launcher" href="/?workflow=terminals">Terminais</a></p>}
     {import.meta.env.DEV && <p><a data-testid="postos-launcher" href="/?workflow=postos">Postos</a></p>}
+    {import.meta.env.DEV && <p><a data-testid="mechanics-launcher" href="/?workflow=mechanics">Mecânicos</a></p>}
     <button data-testid="foundation-inspect" aria-disabled={pending} aria-busy={pending} onClick={() => void inspect()}>Verificar ambiente</button>
     {pending && <p role="status">A verificar…</p>}
     {failed && <p role="alert">Não foi possível verificar o ambiente. Tente novamente.</p>}

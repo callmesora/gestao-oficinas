@@ -1,6 +1,6 @@
 # ROADMAP — Gestao Oficinas
 
-Local setup note (2026-10-25): ADR-017 and `docs/runbooks/stage-local-macos.md` add macOS development and temporary SQLite snapshot use. See `setup/LOCAL-WORKSPACE.md` for checks. MIG-7C2 scheduled target work and MIG-7G.1 Postos core are delivered; next implementation is the Mecânicos list/form and selector needed by repair orders. Full parent/native/runtime gates remain open.
+Local setup note (2026-10-25): ADR-017 and `docs/runbooks/stage-local-macos.md` add macOS development and temporary SQLite snapshot use. See `setup/LOCAL-WORKSPACE.md` for checks. MIG-7C2 scheduled target work and MIG-7G.1 Postos core are delivered; Mecânicos core is delivered; next is the bounded C3 reliability cleanup, then remaining repair dependencies. Full parent/native/runtime gates remain open.
 
 Order follows templates/ROADMAP.template.md and accepted ADR-007. Step 0 commits: 7d3a5c7 and 637fc6b. Framing must close before foundation. The database/import and shared UI foundations and a usable customer workflow exist. Customer designer/native/report parity remains open; its core delivery and follow-up are tracked separately below.
 
@@ -56,6 +56,9 @@ Each group below must be split into bounded stage briefs for individual workflow
 | 6a.3 | Slice | Postos list/form and actual terminal caller | MIG-7G | WIN_Table_postos; WIN_Form_postos | root + isolated implementers + 2 independent reviews | docs/runbooks/stage-12-postos.md | selected numeric key writes, hidden field preservation, captured terminal NewRecord context and actual nested picker | 6a.C2 | In progress |
 | 6a.3a | Slice delivery | Usable Postos core and actual terminal caller | MIG-7G.1 | 22 event/designer/domain rows implemented; U/UMC/raw new-line retained | root + isolated implementers + 2 independent reviews, macOS arm64 | docs/runbooks/stage-12-postos.md | 118 TS/DB, 3 Rust, 104 browser; sixth spec-derived golden; visual checks and debug macOS bundle | 6a.C2 | Done |
 | 6a.3b | Consumer follow-up | Postos native/runtime and hardware caller | MIG-7G.2 | retained U/designer/raw new-line/UMC obligations | implementer + owner | docs/runbooks/stage-12-postos.md | exact HFSQL/NewRecord/native behavior and later hardware consumer; no exclusions | 6a.3a | To do |
+| 6a.4 | Slice | Mecânicos list/form and code selector | MIG-7H | WIN_Table_mecanicos; WIN_Form_mecanicos | root + isolated implementers + 2 independent reviews | docs/runbooks/stage-13-mechanics.md | actual protected persistence, nullable inactive checkbox, masked selected-record read and source selector/refresh/sort | 6a.3a | In progress |
+| 6a.4a | Slice delivery | Usable Mecânicos core and selector | MIG-7H.1 | 28 event/designer/domain rows implemented; U/report/UMC retained | root + isolated implementers + 2 independent reviews, macOS arm64 | docs/runbooks/stage-13-mechanics.md | 133 TS/DB,3 Rust,112 browser, seventh spec-derived golden; original11 public projection, visual checks and debug macOS bundle | 6a.3a | Done |
+| 6a.4b | Consumer follow-up | Mecânicos actual callers, authorization and native/runtime | MIG-7H.2 | retained U/designer/report/query/caller obligations | implementer + owner | docs/runbooks/stage-13-mechanics.md | repair/material/labor/stock/report-filter callers at consuming stages; query/access and report/native gates retained | 6a.4a | To do |
 | 7 | Slice | Repair order list/form and caller contracts | MIG-8 | assigned units below | implementer + 2 reviews | templates/prompt-stage.md | complete workflow; persistence; concurrent/failure paths | 6, 6a | To do |
 | 8 | Slice | Repair materials and quantity/password workflows | MIG-9 | assigned units below | implementer + 2 reviews | templates/prompt-stage.md | material writes, stock effects and caller results | 7 | To do |
 | 9 | Slice | Labor timers, state transitions and descriptions | MIG-10 | assigned units below | implementer + 2 reviews | templates/prompt-stage.md | clock/state/locking workflows and duration checks | 7, 8 | To do |
@@ -162,7 +165,7 @@ All 143 per-unit CSVs retain their seed IDs. This assignment is a scheduling ind
 | WIN_Form_documentos | MIG-7 |
 | WIN_Form_estados_descritivos | MIG-7 |
 | WIN_Form_estados_reparacao | MIG-7 |
-| WIN_Form_mecanicos | MIG-7 |
+| WIN_Form_mecanicos | MIG-7H |
 | WIN_Form_postos | MIG-7G |
 | WIN_Form_unidades | MIG-7 |
 | WIN_Form_utilizadores | MIG-7 |
@@ -190,7 +193,7 @@ All 143 per-unit CSVs retain their seed IDs. This assignment is a scheduling ind
 | WIN_Table_estado_reparacao_tipo3 | MIG-7 |
 | WIN_Table_estados_descritivos | MIG-7 |
 | WIN_Table_estados_reparacao | MIG-7 |
-| WIN_Table_mecanicos | MIG-7 |
+| WIN_Table_mecanicos | MIG-7H |
 | WIN_Table_postos | MIG-7G |
 | WIN_Table_unidades | MIG-7 |
 | WIN_Table_utilizadores | MIG-7 |

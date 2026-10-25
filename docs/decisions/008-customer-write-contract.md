@@ -20,3 +20,9 @@ The source's nonduplicate failure fallthrough is U-C286277B-03, not evidence of 
 ## Verification
 
 Use actual PostgreSQL for validation/no-write, exact strings/nulls, create/update, duplicates, immutable edit codes, rollback, concurrent identifier allocation, relationship-protected deletion and restart persistence. UI, golden and native tests are separately required. Retain existing U items and print/UMC gaps.
+
+## Mecânicos consumer (MIG-7H, before translation)
+
+WIN_Form_mecanicos.wdw:38–74/382–393 binds Codigo, Descricao, palavra_passe and inativo, locks code on existing records and preserves password case. Apply the same selected internal-id transaction, guarded signed8-byte automatic mecanicosID allocation and typed rollback boundary. Preserve source identity/provenance on update; reject supplied automatic IDs/extra properties. No business-code suggestion or relationship delete guard exists (list286–297). Byte API range remains0..255, mask99 is only live entry. Source compares numeric EDT_Codigo="", not<=0: assumed safe conversion is empty draft→0, NULL/0 required before exact-empty description then password. This is not recovered numeric coercion; U-C17FCA03-03 remains. Read anomalies unchanged; do not unlock or repair them.
+
+Under ADR-004, list/picker/save replies contain only internal id, Codigo, Descricao and inativo. An authenticated selected-id read alone additionally returns mecanicosID and palavra_passe for masked FileToScreen editing, with Cache-Control:no-store and no request/response logging. Save accepts exact nullable password≤15 and description≤100; no trim/uppercase/rehash. Do not put original credentials in goldens/screenshots/logs. Authentication comparisons/query and supported password transition remain with their real consumer/access stage.

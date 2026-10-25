@@ -67,7 +67,7 @@ Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Table_mecanicos.wdw:253-261`. If a 
 
 ### WIN_Table_mecanicos/BTN_Delete — Click (raw 18)
 
-Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Table_mecanicos.wdw:286-297`. Reject no selection first. Run the relationship checks shown below; a positive count displays the exact message and aborts. Dialog result 1 performs deletion and refresh; result 2 makes no change. No explicit transaction or delete-result check is present.
+Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Table_mecanicos.wdw:286-297`. Reject no selection first. There is no relationship guard in this source. Dialog result 1 performs deletion, refresh and inactive sort; result 2 makes no change. No explicit transaction or delete-result check is present.
 
 ```wlanguage
          IF TableSelect(TABLE_mecanicos) = -1 THEN RETURN

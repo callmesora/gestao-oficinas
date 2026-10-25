@@ -74,6 +74,23 @@
   }
  },
  {
+  "name": "WIN_Form_mecanicos",
+  "kind": "screen",
+  "total": 14,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 10,
+   "specified": 1,
+   "unmapped": 3
+  },
+  "looks": null
+ },
+ {
   "name": "WIN_Form_postos",
   "kind": "screen",
   "total": 15,
@@ -189,6 +206,23 @@
    "pixel": 98.5,
    "layout": 92.2
   }
+ },
+ {
+  "name": "WIN_Table_mecanicos",
+  "kind": "screen",
+  "total": 23,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 18,
+   "specified": 2,
+   "unmapped": 3
+  },
+  "looks": null
  },
  {
   "name": "WIN_Table_postos",
@@ -1900,23 +1934,6 @@
   "looks": null
  },
  {
-  "name": "WIN_Form_mecanicos",
-  "kind": "screen",
-  "total": 14,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 11,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
   "name": "WIN_Form_utilizadores",
   "kind": "screen",
   "total": 15,
@@ -2270,23 +2287,6 @@
    "implemented": 0,
    "specified": 64,
    "unmapped": 5
-  },
-  "looks": null
- },
- {
-  "name": "WIN_Table_mecanicos",
-  "kind": "screen",
-  "total": 23,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 20,
-   "unmapped": 3
   },
   "looks": null
  },

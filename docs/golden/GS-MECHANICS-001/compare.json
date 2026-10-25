@@ -1,0 +1,28 @@
+{
+  "legacy": {
+    "delimiter": ",",
+    "encoding": "utf-8"
+  },
+  "target": {
+    "delimiter": ",",
+    "encoding": "utf-8"
+  },
+  "tables": {
+    "mecanicos": {
+      "key": [
+        "Codigo"
+      ],
+      "columns": {
+        "Codigo": {
+          "trim": false
+        },
+        "Descricao": {
+          "trim": false
+        },
+        "inativo": {
+          "trim": false
+        }
+      }
+    }
+  }
+}

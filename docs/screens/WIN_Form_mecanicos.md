@@ -1,6 +1,6 @@
 # Screen spec — WIN_Form_mecanicos
 
-Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Form_mecanicos.wdw`, `dossier: WIN_Form_mecanicos`, `docs/mapping/WIN_Form_mecanicos.md`. Step 0 specification only.
+Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Form_mecanicos.wdw`, `dossier: WIN_Form_mecanicos`, `docs/mapping/WIN_Form_mecanicos.md`. Source specification; bounded implementation notes below.
 
 ## Contract
 
@@ -107,3 +107,9 @@ Delete resource CASE 1 deletes and CASE 2 makes no change when present. Default/
 ## Data edge cases and acceptance checks
 
 Blank strings are compared exactly by source, with no trimming; absent NULL coercion rules and number/text locale boundaries belong to U-C17FCA03-03. Required controls are those guarded explicitly in mapping, never inferred from a caption. Observe mask/size above and compare schema types. Keyboard-only test: open, traverse by container tab order, trigger mandatory validation, select/change/cancel, then repeat with an empty filter result and first/last row. Visual approval is outstanding under U-C17FCA03-01. Runtime writes must be performed only against a preserved scratch data copy.
+
+## MIG-7H.1 bounded implementation
+
+Actual source list opens this form through src/ui/mechanics.tsx and protected selected-record API/PostgreSQL, with read-only existing Codigo, ordered required/duplicate messages and four bound values only. ADR-008 labels numeric-empty/zero conversion; ADR-004/008 keep original credentials out of list/picker/save replies and artifacts. Description assistance uses actual loaded eligible strings; password never supplies suggestions. Nullable inativo displays unchecked without changing NULL until a deliberate toggle (ADR-003). The JPG-backed eye is an explicit target toggle default; exact native interaction remains U01.
+
+Non-legacy identifiers: mechanic-form-frame, mechanic-form-restore, mechanic-form-diagnostic, EDT_Palavra_passe__reveal and WdModal-derived resize handles. WdCheckbox/WdCheckMark are maintained skin helpers; CBOX_Inativo itself is the source input name. Caption overrides Descrição/Inativo follow JPG/ADR-003; generated metadata is unchanged. Native/human/default/coercion/shared-runtime U rows remain open, with no full-window completion claim.

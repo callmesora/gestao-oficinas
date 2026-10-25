@@ -10,8 +10,9 @@ import { listDescriptiveStates, saveDescriptiveState, deleteDescriptiveState } f
 
 import { listTerminals, saveTerminal, deleteTerminal, prepareTerminalFolder } from "./operations/terminals";
 import { listPostos, savePosto, deletePosto } from "./operations/postos";
+import { listMechanics, readMechanic, saveMechanic, deleteMechanic } from "./operations/mechanics";
 
-export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; terminalConnect?: DatabaseConnection; postoConnect?: DatabaseConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
+export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; terminalConnect?: DatabaseConnection; postoConnect?: DatabaseConnection; mechanicsConnect?: DatabaseConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
   const app = Fastify({ logger: false });
   app.get("/health/live", async () => ({ service: "gestao-oficinas-api", status: "alive" }));
   const authenticate = options.authenticate ?? options.development?.authenticate;
@@ -75,6 +76,14 @@ export function createApp(options: { customerConnect?: DatabaseConnection; vehic
       if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
       if (!options.postoConnect) return reply.code(503).send({ kind: "unavailable" });
       return operation(options.postoConnect, request.body);
+    });
+  }
+  for (const [action, operation] of Object.entries({ list: listMechanics, read: readMechanic, save: saveMechanic, delete: deleteMechanic })) {
+    app.post(`/api/mechanics/${action}`, async (request, reply) => {
+      if (action === "read") reply.header("Cache-Control", "no-store");
+      if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
+      if (!options.mechanicsConnect) return reply.code(503).send({ kind: "unavailable" });
+      return operation(options.mechanicsConnect, request.body);
     });
   }
   return app;

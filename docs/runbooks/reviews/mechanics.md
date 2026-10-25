@@ -1,0 +1,10 @@
+# MIG-7H.1 review — macOS arm64, base5a74343
+
+Two fresh independent read-only reviewers followed skills/review/SKILL.md against complete source/schema/spec/map/parity/JPGs, accepted ADRs and changed files/tests. Separate isolated writers delivered domain/server, actual UI/browser and checkbox/password primitives; root integrated shared files, fixes and executed checks. Reviewers did not run heavy/native suites.
+
+- Both reviews found the selector next implementation hid the known source upper-bound-only predicate behind an early no-selection return. The final code explicitly computes source 1-based requests before safely ignoring unrepresentable request0 under U02; no unknown native outcome is pinned. Porting records the repeated source-predicate pattern for cleanup of the older descriptive selector.
+- Review B requested real touch gestures beyond the initial CSS assertion. The final actual overflowing Mecânicos table proves source panning is blocked and the same CDP gesture pans with the gating removed. Root also strengthened source Tab, positive sort-row presence and delayed-response completion checks.
+- The new no-horizontal-overflow assertion failed by1px before root contained the final shared header resize handle. Known source column widths remain61/440; only missing inactive width is inferred from viewport/JPG under ADR-003/U01. Both reviewers reread that fix; visual floors unchanged.
+- Private selected-record read/auth/no-store, public list/picker/save projections, exact synthetic password handling, nullable inactive preservation, selected identity/provenance, signed8 allocation/locking, duplicate/rollback/deletion contracts were reviewed without remaining concrete code findings. No original password appears in fixtures/artifacts; no legacy runtime/native interactive/human acceptance is claimed.
+
+Root focused15 domain/real PG/API plus strengthened8 browser/window cases passed. Full133 TS/DB,3 Rust,112 browser, debug macOS bundle and original11 public projection results are recorded in handoff. Both reviewers reread final fixes/tracking/progress and closed with no remaining finding; native/runtime/human gates remain open.
