@@ -13,8 +13,8 @@ export async function listDocumentTypes(connect: DatabaseConnection, input: unkn
   const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
-    const sort = parsed.data.sort === "stock" ? stockDisplay : `"${parsed.data.sort ?? "documentosID"}"`;
-    const result = await client.query<DocumentType>(`SELECT ${returning} FROM app."documentos" ORDER BY ${sort} ${parsed.data.descending ? "DESC" : "ASC"} NULLS LAST,_row_id`);
+    const sort = parsed.data.sort === "stock" ? stockDisplay : `d."${parsed.data.sort ?? "documentosID"}"`;
+    const result = await client.query<DocumentType>(`SELECT ${returning} FROM app."documentos" d ORDER BY ${sort} ${parsed.data.descending ? "DESC" : "ASC"} NULLS LAST,d._row_id`);
     return { kind: "loaded", documentTypes: result.rows };
   } catch { return { kind: "failed" }; }
   finally { await closeOperationClient(client); }

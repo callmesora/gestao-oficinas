@@ -12,11 +12,11 @@ export async function listCustomers(connect: DatabaseConnection, input: unknown)
   const fields = { todos: [], codigo: ["Codigo"], descricao: ["Descricao"], morada: ["Morada1", "Morada2"], codigopostal: ["codpostal"], telefone: ["Telefone1", "Telemovel"] }[filter.mode];
   const expressions = filter.term === "" ? [] : fields.map(field => `strpos(lower(COALESCE("${field}"::text,'')),lower($1))>0`);
   const where = expressions.length ? `WHERE (${expressions.join(" OR ")})` : "";
-  const order = filter.sort ? `"${filter.sort}" ${filter.descending ? "DESC" : "ASC"},_row_id` : '"ClientesID",_row_id';
+  const order = filter.sort ? `c."${filter.sort}" ${filter.descending ? "DESC" : "ASC"},c._row_id` : 'c."ClientesID",c._row_id';
   const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
-    const result = await client.query<Customer>(`SELECT ${returning} FROM app."Clientes" ${where} ORDER BY ${order}`, expressions.length ? [filter.term] : []);
+    const result = await client.query<Customer>(`SELECT ${returning} FROM app."Clientes" c ${where} ORDER BY ${order}`, expressions.length ? [filter.term] : []);
     // Source FOR EACH respects the active file filter; no code reservation occurs here.
     const maximum = result.rows.reduce((max, row) => row.Codigo !== null && BigInt(row.Codigo) > max ? BigInt(row.Codigo) : max, 0n);
     return { kind: "loaded", customers: result.rows, nextCode: String(maximum + 1n) };

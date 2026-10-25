@@ -10,7 +10,7 @@ export async function listDescriptiveStates(connect: DatabaseConnection, input: 
   const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
-    const result = await client.query<DescriptiveState>(`SELECT ${returning} FROM app."estados_descritivos" ORDER BY "${parsed.data.sort ?? "estados_descritivosID"}" ${parsed.data.descending ? "DESC" : "ASC"},_row_id`);
+    const result = await client.query<DescriptiveState>(`SELECT ${returning} FROM app."estados_descritivos" d ORDER BY d."${parsed.data.sort ?? "estados_descritivosID"}" ${parsed.data.descending ? "DESC" : "ASC"},d._row_id`);
     return { kind: "loaded", descriptiveStates: result.rows };
   } catch { return { kind: "failed" }; }
   finally { await closeOperationClient(client); }

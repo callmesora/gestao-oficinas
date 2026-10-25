@@ -11,7 +11,7 @@ export async function listUnits(connect: DatabaseConnection, input: unknown): Pr
   const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
-    const result = await client.query<Unit>(`SELECT ${returning} FROM app."unidades" ORDER BY "${parsed.data.sort ?? "unidadesID"}" ${parsed.data.descending ? "DESC" : "ASC"},_row_id`);
+    const result = await client.query<Unit>(`SELECT ${returning} FROM app."unidades" u ORDER BY u."${parsed.data.sort ?? "unidadesID"}" ${parsed.data.descending ? "DESC" : "ASC"},u._row_id`);
     return { kind: "loaded", units: result.rows };
   } catch { return { kind: "failed" }; }
   finally { await closeOperationClient(client); }

@@ -14,8 +14,8 @@ export async function listRepairStates(connect: DatabaseConnection, input: unkno
   const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
-    const sort = parsed.data.sort === "tipo" ? typeDisplay : `"${parsed.data.sort ?? "estados_reparacaoID"}"`;
-    const result = await client.query<RepairState>(`SELECT ${returning} FROM app."estados_reparacao" ORDER BY ${sort} ${parsed.data.descending ? "DESC" : "ASC"} NULLS LAST,_row_id`);
+    const sort = parsed.data.sort === "tipo" ? typeDisplay : `r."${parsed.data.sort ?? "estados_reparacaoID"}"`;
+    const result = await client.query<RepairState>(`SELECT ${returning} FROM app."estados_reparacao" r ORDER BY ${sort} ${parsed.data.descending ? "DESC" : "ASC"} NULLS LAST,r._row_id`);
     return { kind: "loaded", repairStates: result.rows };
   } catch { return { kind: "failed" }; }
   finally { await closeOperationClient(client); }
