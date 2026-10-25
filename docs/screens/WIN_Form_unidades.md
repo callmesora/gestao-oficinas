@@ -96,4 +96,6 @@ Delete resource CASE 1 deletes and CASE 2 makes no change when present. Default/
 
 ## Data edge cases and acceptance checks
 
+MIG-7D uses the real UnitRepository/API/PostgreSQL path and generated RADTitle.caption (window title is absent, not an empty invented label). New developer identifiers unit-form-frame, unit-form-restore and unit-form-diagnostic are non-legacy. Unchanged nullable description is preserved; blank description and code text 0 are allowed. ADR-011 governs identity/failure/text-key defaults; U-C77806F9-* and exact masks/default keys/native behavior remain open.
+
 Blank strings are compared exactly by source, with no trimming; absent NULL coercion rules and number/text locale boundaries belong to U-C77806F9-03. Required controls are those guarded explicitly in mapping, never inferred from a caption. Observe mask/size above and compare schema types. Keyboard-only test: open, traverse by container tab order, trigger mandatory validation, select/change/cancel, then repeat with an empty filter result and first/last row. Visual approval is outstanding under U-C77806F9-01. Runtime writes must be performed only against a preserved scratch data copy.

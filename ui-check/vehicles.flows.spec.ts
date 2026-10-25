@@ -32,6 +32,7 @@ test("SRC-0c045cf25e actual vehicle form validates in order, awaits real custome
   await form.getByTestId("BTN_VISION").click();
   await picker.getByTestId("BTN_descricao").click();
   await picker.getByTestId("EDT_termo_pesquisa").fill(client.Descricao);
+  await expect(picker.getByTestId("BTN_selecionar")).toBeEnabled();
   await picker.getByTestId("TABLE_Clientes").getByRole("row").filter({ hasText: client.Descricao }).dblclick();
   await expect(picker).toHaveCount(0);
   await expect(form.getByTestId("COMBO_Codigo")).toHaveValue(client.Codigo);
@@ -45,6 +46,7 @@ test("SRC-0c045cf25e actual vehicle form validates in order, awaits real custome
   await validate.click(); await expect(form).toHaveCount(0);
   await list.getByTestId("BTN_matricula").click(); await list.getByTestId("EDT_termo_pesquisa").fill(registration);
   const row = list.getByTestId("TABLE_Viaturas").getByRole("row").filter({ hasText: registration });
+  await expect(list.getByTestId("BTN_Modificar")).toBeEnabled();
   await row.dblclick(); await expect(form.getByTestId("EDT_Matricula")).toHaveAttribute("readonly", "");
   await form.getByTestId("EDT_Modelo").fill("Cancelado"); await form.getByTestId("BTN_Cancelar").click();
   await expect(row).not.toContainText("Cancelado");
@@ -100,6 +102,7 @@ test("SRC-a61ff747bb picker returns actual registration and both close routes re
   expect((await (await request.post("/api/vehicles/save", { headers: client.headers, data: { mode: "create", values: { matricula: registration, Cliente: client.Codigo, marca: "Pick", modelo: "Pick", Ano: 0, mes: 0 } } })).json()).kind).toBe("saved");
   await page.goto("/?workflow=vehicles&origin=ORIGINAL"); await page.getByTestId("vehicles-select-open").click();
   await page.getByTestId("BTN_matricula").click(); await page.getByTestId("EDT_termo_pesquisa").fill(registration);
+  await expect(page.getByTestId("BTN_selecionar")).toBeEnabled();
   await page.getByTestId("TABLE_Viaturas").getByRole("row").filter({ hasText: registration }).dblclick();
   await expect(page.getByTestId("vehicle-return")).toHaveText(registration);
   await page.getByTestId("vehicles-select-open").click(); await page.getByTestId("BTN_Fechar").click(); await expect(page.getByTestId("vehicle-return")).toHaveText("ORIGINAL");

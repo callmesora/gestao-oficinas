@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-24T23:49:57.044Z",
+  "evidence": "Read-only official-driver export compared with actual authenticated API over isolated imported PostgreSQL",
+  "sourceUnits": 4,
+  "matchedOriginalUnits": 4,
+  "comparedFields": [
+    "unidadesID",
+    "Codigo",
+    "Descricao"
+  ],
+  "linkedArticleCheck": true,
+  "originalMutations": false
+}

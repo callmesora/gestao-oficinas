@@ -3,8 +3,9 @@ import type { FastifyRequest } from "fastify";
 import { checkCustomerDelete, deleteCustomer, listCustomers, saveCustomer, type CustomerConnection } from "./operations/customers";
 import type { developmentSessions } from "./development-sessions";
 import { checkVehicleDelete, deleteVehicle, listVehicles, lookupVehicle, saveVehicle } from "./operations/vehicles";
+import { checkUnitDelete, deleteUnit, listUnits, saveUnit } from "./operations/units";
 
-export function createApp(options: { customerConnect?: CustomerConnection; vehicleConnect?: CustomerConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
+export function createApp(options: { customerConnect?: CustomerConnection; vehicleConnect?: CustomerConnection; unitConnect?: CustomerConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
   const app = Fastify({ logger: false });
   app.get("/health/live", async () => ({ service: "gestao-oficinas-api", status: "alive" }));
   const authenticate = options.authenticate ?? options.development?.authenticate;
@@ -40,6 +41,13 @@ export function createApp(options: { customerConnect?: CustomerConnection; vehic
       if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
       if (!options.vehicleConnect) return reply.code(503).send({ kind: "unavailable" });
       return operation(options.vehicleConnect, request.body);
+    });
+  }
+  for (const [action, operation] of Object.entries({ list: listUnits, save: saveUnit, delete: deleteUnit, "check-delete": checkUnitDelete })) {
+    app.post(`/api/units/${action}`, async (request, reply) => {
+      if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
+      if (!options.unitConnect) return reply.code(503).send({ kind: "unavailable" });
+      return operation(options.unitConnect, request.body);
     });
   }
   return app;

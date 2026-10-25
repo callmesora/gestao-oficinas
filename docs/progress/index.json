@@ -54,6 +54,26 @@
   }
  },
  {
+  "name": "WIN_Form_unidades",
+  "kind": "screen",
+  "total": 13,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 9,
+   "specified": 1,
+   "unmapped": 3
+  },
+  "looks": {
+   "pixel": 98.6,
+   "layout": 96.9
+  }
+ },
+ {
   "name": "WIN_Form_Viaturas",
   "kind": "screen",
   "total": 17,
@@ -91,6 +111,26 @@
   "looks": {
    "pixel": 98.6,
    "layout": 94.0
+  }
+ },
+ {
+  "name": "WIN_Table_unidades",
+  "kind": "screen",
+  "total": 18,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 10,
+   "specified": 5,
+   "unmapped": 3
+  },
+  "looks": {
+   "pixel": 98.8,
+   "layout": 95.6
   }
  },
  {
@@ -1814,23 +1854,6 @@
   "looks": null
  },
  {
-  "name": "WIN_Form_unidades",
-  "kind": "screen",
-  "total": 13,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 10,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
   "name": "WIN_Form_utilizadores",
   "kind": "screen",
   "total": 15,
@@ -2268,23 +2291,6 @@
    "excluded": 0,
    "implemented": 0,
    "specified": 17,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
-  "name": "WIN_Table_unidades",
-  "kind": "screen",
-  "total": 18,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 15,
    "unmapped": 3
   },
   "looks": null

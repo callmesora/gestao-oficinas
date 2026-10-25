@@ -84,6 +84,27 @@
       },
       "open": ["vehicles-launcher", "vehicles-open", "Btn_New"]
     },
+    "WIN_Table_unidades": {
+      "ignore": {
+        "COL_UnidadesID": "Source hidden technical column retained in data and generated layout.",
+        "BTN_SYST_MINIMIZE": "Owned by enclosing workspace frame.",
+        "IMG_BTN_Syst_Restore": "Source off-canvas image; workspace chrome owns restore.",
+        "SC_SCSystemButtons": "Source container; owning frame renders actual controls.",
+        "BTN_SYST_FERMER": "Owned by enclosing workspace frame.",
+        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
+        "RADTitle": "Owning frame reads the source-generated title."
+      },
+      "open": ["units-launcher", "units-open"]
+    },
+    "WIN_Form_unidades": {
+      "ignore": {
+        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "SC_SCSystemButtons": "Source container; frame renders actual chrome.",
+        "IMG_BTN_Syst_Restore": "Source off-canvas image; frame owns restore."
+      },
+      "open": ["units-launcher", "units-open", "Btn_New"]
+    },
     "WIN_Form_Clientes": {
       "ignore": {
         "BTN_UMC": "Source hidden; UMC remains unresolved, no approved exclusion.",

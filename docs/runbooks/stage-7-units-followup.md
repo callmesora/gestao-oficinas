@@ -1,0 +1,7 @@
+# MIG-7D.2 — units designer follow-up after six usable windows
+
+After MIG-7C, audit RULE-CCB16084-014 and RULE-C77806F9-010 with the same actual unit/API/PostgreSQL path. Source enables column search/configuration, sortable/movable/adjustable columns, scrollbar properties and automatic input metadata. Existing width/order/save behavior is shared; remaining search/visibility/scrollbar/default keys and exact tab/native behavior must be implemented or assigned to their precise existing U items, never erased by a broad deferral. Preserve the source read-only table; the recorded new-row GR_ACTION events stay visible until their runtime reachability is established, without fabricating input rows.
+
+Retain taCurrentFirst/taCurrentSelection, vanished record, shared HFSQL/context and text-key locale cases under U-CCB16084-* / U-C77806F9-*. No guessed collation/selection/default is verified by pinning a chosen outcome. Printing/RPT_List_unidades stays MIG-13, UMC has no exclusion, native/framework-dialog/human acceptance stays MIG-15. Parent MIG-7D remains in progress while these obligations remain.
+
+Follow full evidence reads, review skill/two sequential passes, real browser/database/golden checks, unchanged visual floors and applicable native check. Update parity, roadmap, handoff/progress and commit/push explicit files. This brief and the retained customer/vehicle follow-ups gate remaining leaf workflows.

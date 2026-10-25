@@ -44,6 +44,7 @@ test("SRC-51085948c6 real customer form validates, saves, edits, cancels and per
   await form.getByTestId("EDT_Descricao").fill("Alteração cancelada");
   await form.getByTestId("BTN_Cancelar").click();
   await expect(row).toBeVisible();
+  await expect(page.getByTestId("BTN_Modificar")).toBeEnabled();
   await row.dblclick();
   await form.getByTestId("EDT_Descricao").fill(edited);
   await form.getByTestId("BTN_Validar").click();
@@ -88,6 +89,7 @@ test("SRC-284e9feb26 real list search modes reset/focus and duplicate save keeps
     const search = page.getByTestId("EDT_termo_pesquisa");
     await expect(search).toHaveValue(""); await expect(search).toBeFocused();
     await search.fill(term);
+    await expect(page.getByTestId("BTN_Modificar")).toBeEnabled();
     await expect(page.getByTestId("TABLE_Clientes").getByRole("row")).toHaveCount(2);
     await expect(page.getByTestId("TABLE_Clientes").getByRole("row").filter({ hasText: description })).toBeVisible();
   }

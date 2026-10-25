@@ -12,6 +12,8 @@ Open http://localhost:1431/?workflow=customers and click the customer-list title
 
 The same runner now serves http://localhost:1431/?workflow=vehicles (Viaturas). Open its list title, use Novo, choose a real customer from COMBO_Codigo or BTN_VISION, fill registration/make/model and validate. BTN_VISION awaits the same actual customer list/form and returns Codigo; cancel leaves the vehicle form alive. The vehicle selector development button exercises registration/origin return; the production repair-order caller remains MIG-8. Both workflows use actual authenticated HTTP operations and PostgreSQL, not mocks. ADR-010 governs vehicle writes/text-key defaults; reports, complete designer/native parity and U items remain open.
 
+Unidades is at http://localhost:1431/?workflow=units: open the list, Novo, enter a text code of at most three characters and validate. Description may be blank. Select a row and Modificar to edit its description; code stays locked. Delete rejects units used by articles before asking for confirmation. ADR-011 governs exact text keys and the transactional selected-record boundary. These three real pairs are the initial six usable windows; their designer/report/native follow-ups remain scheduled. For publishable screenshots use a fresh empty runner or synthetic scenario data, keeping imported-original captures ignored.
+
 To exercise the imported demo copy instead of an empty database:
 
 ```powershell
