@@ -366,6 +366,14 @@
       },
       "open": ["users-launcher", "users-open", "Btn_New"]
     },
+    "WIN_Mudar_Estado": {
+      "ignore": {
+        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "SCSystemButtons": "Source container; actual custom chrome rendered by the modal frame.",
+        "BTN_Syst_Restore": "Source off-canvas restore image; modal frame owns actual maximize/restore."
+      },
+      "open": ["repair-confirmation-launcher", "repair-confirmation-open"]
+    },
     "WIN_Form_documentos": {
       "ignore": {
         "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",

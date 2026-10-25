@@ -50,8 +50,10 @@
     "Default animation": false
    },
    "anchoring": "Width",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Center"
   },
   {
    "name": "BTN_Syst_Restore",
@@ -380,8 +382,10 @@
     "Default animation": false
    },
    "anchoring": "Right, height and width",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Center"
   },
   {
    "name": "BTN_Estado",

@@ -185,8 +185,10 @@
     "Default animation": false
    },
    "anchoring": "<None>",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Top"
   },
   {
    "name": "RADIO_NoName1",
@@ -418,8 +420,10 @@
     "Default animation": false
    },
    "anchoring": "Width",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Center"
   },
   {
    "name": "SC_SCSystemButtons",

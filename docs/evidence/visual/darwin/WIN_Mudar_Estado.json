@@ -1,0 +1,12 @@
+{
+ "pixel_similarity": 97.9,
+ "edge_overlap": 83.2,
+ "size": [
+  302,
+  186
+ ],
+ "legacy": "docs/evidence/images/WIN_Mudar_Estado.jpg",
+ "new": "ui-report/WIN_Mudar_Estado.png",
+ "side_by_side": "ui-report/WIN_Mudar_Estado.compare.png",
+ "date": "2026-10-25"
+}

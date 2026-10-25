@@ -50,8 +50,10 @@
     "Default animation": false
    },
    "anchoring": "Width",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Center"
   },
   {
    "name": "BTN_Syst_Restore",
@@ -366,8 +368,10 @@
     "Default animation": false
    },
    "anchoring": "Right and bottom",
+   "h_align": "Right",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Top"
   },
   {
    "name": "TABLE_materiais",
@@ -609,8 +613,10 @@
     "Default animation": false
    },
    "anchoring": "Right and bottom, width",
+   "h_align": "Right",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Center"
   },
   {
    "name": "BTN_Material",
@@ -745,8 +751,10 @@
     "Default animation": false
    },
    "anchoring": "<None>",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Center"
   },
   {
    "name": "STC_Observação",
@@ -838,8 +846,10 @@
     "Default animation": false
    },
    "anchoring": "<None>",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Center"
   },
   {
    "name": "BTN_Sair",
@@ -881,8 +891,10 @@
     "Default animation": false
    },
    "anchoring": "<None>",
+   "h_align": "Right",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Center"
   }
  ],
  "assets": [

@@ -1,0 +1,3 @@
+# GS-STATE-CONFIRM-001
+
+Spec-derived standalone UI scenario, not legacy-recorded. Source WIN_Mudar_Estado198–202/283–287 constructs the exact prompt, refuses a non-leading letter through awaited Info, returns0 on cancellation and1 after a case-insensitive leading match. Browser exercises the actual dialog/controls and numeric returns using scenario.json. It has no source-local data operation, so no CSV/business-state export is invented. Existing eleven database goldens remain separate. Empty-prefix/NULL/locale/native focus/default/character-count boundaries remain explicit ADR003/006/U gates; actual repair/labor caller continuation is not implied by this development consumer.

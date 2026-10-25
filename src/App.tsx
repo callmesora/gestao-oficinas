@@ -15,6 +15,7 @@ import RepairStatesWorkflow from "./ui/repair-states";
 import DocumentTypesWorkflow from "./ui/document-types";
 import ArticlesWorkflow from "./ui/articles";
 import UsersWorkflow from "./ui/users";
+import RepairStateConfirmationWorkflow from "./ui/repair-state-confirmation";
 
 export default function App({ preview }: { preview: boolean }) {
   const [info, setInfo] = useState<NativeInfo | null>(null);
@@ -39,6 +40,7 @@ export default function App({ preview }: { preview: boolean }) {
   if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "document-types") return <DocumentTypesWorkflow />;
   if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "articles") return <ArticlesWorkflow />;
   if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "users") return <UsersWorkflow />;
+  if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "repair-state-confirmation") return <RepairStateConfirmationWorkflow />;
   return <main>
     {preview && <aside role="status" data-testid="foundation-preview">Browser preview — dados simulados; não verifica o ambiente nativo.</aside>}
     <h1>Gestão de Oficinas</h1>
@@ -56,6 +58,7 @@ export default function App({ preview }: { preview: boolean }) {
     {import.meta.env.DEV && <p><a data-testid="document-types-launcher" href="/?workflow=document-types">Documentos</a></p>}
     {import.meta.env.DEV && <p><a data-testid="articles-launcher" href="/?workflow=articles">Artigos</a></p>}
     {import.meta.env.DEV && <p><a data-testid="users-launcher" href="/?workflow=users">Utilizadores</a></p>}
+    {import.meta.env.DEV && <p><a data-testid="repair-confirmation-launcher" href="/?workflow=repair-state-confirmation">WIN_Mudar_Estado</a></p>}
     <button data-testid="foundation-inspect" aria-disabled={pending} aria-busy={pending} onClick={() => void inspect()}>Verificar ambiente</button>
     {pending && <p role="status">A verificar…</p>}
     {failed && <p role="alert">Não foi possível verificar o ambiente. Tente novamente.</p>}

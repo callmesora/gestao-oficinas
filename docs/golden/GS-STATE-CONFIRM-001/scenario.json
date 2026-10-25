@@ -1,0 +1,9 @@
+{
+  "state": "Em Reparação",
+  "prompt": "Mudar estado da reparação para 'Em Reparação'?",
+  "refusedLetter": "R",
+  "acceptedLetter": "e",
+  "message": "Verifique o carater de validação",
+  "cancelResult": 0,
+  "confirmResult": 1
+}

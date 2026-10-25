@@ -9,6 +9,119 @@ from dossier_extract import collect
 from screen_layout import control_paths, layout, source_window_size, table_options
 
 
+class CaptionAlignmentChecks(unittest.TestCase):
+    def render(self, controls, source=None):
+        summaries = '\n'.join(f"{control['name']} 10 20 120 28 0 {control.get('row', '')}"
+                              for control in controls)
+        details = '\n'.join(f"{control['kind']} : {control['name']}\n" + '\n'.join(control.get('raw', []))
+                            for control in controls)
+        page = ('Part 3 WINDEV window\x9bWIN_captions\x9bInformation on controls\n'
+                '25/10/2026 1Synthetic\n' + summaries + '\n' + details)
+        dossier = collect([page])['WINDEV window']['WIN_captions']
+        for control in controls:
+            dossier['controls'][control['name']].update(control.get('parsed', {}))
+        if source is None:
+            source = 'window :\n controls :\n' + ''.join(
+                f"  -\n    name : {control['name']}\n" for control in controls)
+        identities = control_paths(source)
+        inspected = {'name': 'WIN_captions', 'path': 'WIN_captions.wdw', 'layout': [
+            {'name': identity['name'], 'kind': 'control', 'x': 10 + index, 'y': 20 + index,
+             'width': 120, 'height': 28} for index, identity in enumerate(identities)]}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'legacy').mkdir()
+            (root / 'legacy/WIN_captions.wdw').write_text(source, encoding='utf-8')
+            (root / 'inspect/code').mkdir(parents=True)
+            (root / 'inspect/code/WIN_captions.wdw.json').write_text(json.dumps(inspected), encoding='utf-8')
+            (root / 'dossier/windev-window').mkdir(parents=True)
+            (root / 'dossier/windev-window/WIN_captions.json').write_text(json.dumps(dossier), encoding='utf-8')
+            return layout('WIN_captions', {key: str(root / key) for key in ('legacy', 'inspect', 'dossier')}, 'PT')
+
+    def test_complete_caption_summaries_retain_literal_horizontal_and_vertical_alignment(self):
+        # The actual Mudar/Data prompt summaries are Active Center Center; existing RAD captions use Left Top.
+        cases = [('STC_Prompt', 'Active Center Center', 'Center', 'Center'),
+                 ('STC_Stock', 'Active Left Top', 'Left', 'Top'),
+                 ('STC_Closed', 'Inactive Right Bottom', 'Right', 'Bottom'),
+                 ('STC_Readonly', 'Read-only Justified Center', 'Justified', 'Center')]
+        result = self.render([{'name': name, 'kind': 'Caption', 'row': row} for name, row, _, _ in cases])
+        for index, (control, (name, _, horizontal, vertical)) in enumerate(zip(result['controls'], cases)):
+            with self.subTest(name=name):
+                self.assertEqual((control.get('h_align'), control.get('v_align')), (horizontal, vertical))
+                self.assertEqual((control['x'], control['y'], control['width'], control['height']),
+                                 (10 + index, 20 + index, 120, 28))
+
+    def test_explicit_and_named_caption_alignment_precede_summary_independently_per_axis(self):
+        result = self.render([
+            {'name': 'STC_Explicit', 'kind': 'Caption', 'row': 'Active Center Center',
+             'raw': ['Horz. alignment Left', 'Vert. alignment Top'],
+             'parsed': {'h_align': 'Right', 'v_align': 'Bottom'}},
+            {'name': 'STC_Named', 'kind': 'Caption', 'row': 'Active Center Center',
+             'raw': ['Horz. alignment Left', 'Vert. alignment Top']},
+            {'name': 'STC_Mixed', 'kind': 'Caption', 'row': 'Active Center Center',
+             'parsed': {'h_align': 'Right'}},
+            {'name': 'STC_NamedOnly', 'kind': 'Caption', 'row': 'Active Center',
+             'raw': ['Vert. alignment Bottom']},
+        ])
+        self.assertEqual([(control.get('h_align'), control.get('v_align')) for control in result['controls']],
+                         [('Right', 'Bottom'), ('Left', 'Top'), ('Right', 'Center'), (None, 'Bottom')])
+
+    def test_incomplete_or_unrecognized_caption_summaries_do_not_guess_either_axis(self):
+        rows = ['', 'Center Center', 'Active Center', 'Active Center Unknown', 'Active Unknown Top',
+                'Unknown Left Top', 'Active Left Top Text', 'Active Left Top extra', 'Inactive',
+                'prefix Active Left Top']
+        result = self.render([{'name': f'STC_Unknown{index}', 'kind': 'Caption', 'row': row}
+                              for index, row in enumerate(rows)])
+        for control in result['controls']:
+            with self.subTest(name=control['name']):
+                self.assertNotIn('h_align', control)
+                self.assertNotIn('v_align', control)
+
+    def test_caption_fallback_does_not_reinterpret_edit_shape_or_table_summaries(self):
+        result = self.render([
+            {'name': 'EDT_Value', 'kind': 'Edit control', 'row': 'Active Center Center'},
+            {'name': 'SHA_Preview', 'kind': 'Shape', 'row': 'Active Center Center',
+             'raw': ['Vert. alignment Bottom'], 'parsed': {'v_align': 'Top'}},
+            {'name': 'TABLE_Rows', 'kind': 'Table', 'row': 'Active Center Center'},
+            {'name': 'EDT_Named', 'kind': 'Edit control', 'row': 'Active Center Center',
+             'raw': ['Horz. alignment Right']},
+        ])
+        for control in result['controls']:
+            with self.subTest(name=control['name']):
+                self.assertNotIn('v_align', control)
+                if control['name'] == 'EDT_Named':
+                    self.assertEqual(control['h_align'], 'Right')
+                else:
+                    self.assertNotIn('h_align', control)
+
+    def test_duplicate_caption_names_keep_paths_and_source_geometry_without_borrowed_alignment(self):
+        source = '''window :
+ controls :
+  -
+    name : GROUP_A
+    controls :
+     -
+       name : STC_Same
+  -
+    name : GROUP_B
+    controls :
+     -
+       name : STC_Same
+'''
+        result = self.render([
+            {'name': 'STC_Same', 'kind': 'Caption', 'row': 'Active Center Center',
+             'raw': ['Horz. alignment Right', 'Vert. alignment Bottom'],
+             'parsed': {'h_align': 'Left', 'v_align': 'Top'}},
+        ], source)
+        captions = [control for control in result['controls'] if control['name'] == 'STC_Same']
+        self.assertEqual([(control['path'], control['x'], control['y']) for control in captions],
+                         [('GROUP_A.STC_Same', 11, 21), ('GROUP_B.STC_Same', 13, 23)])
+        for control in captions:
+            self.assertNotIn('h_align', control)
+            self.assertNotIn('v_align', control)
+        self.assertTrue(any('duplicate names have ambiguous dossier metadata' in unknown and 'STC_Same' in unknown
+                            for unknown in result['unknown']))
+
+
 class ScopedLayoutChecks(unittest.TestCase):
     def test_named_table_options_do_not_infer_missing_values_or_confuse_distinct_scrollbar_fields(self):
         self.assertEqual(table_options(['Display/Scrollbar', 'Vert. scrollbar Always visible',

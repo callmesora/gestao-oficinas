@@ -50,8 +50,10 @@
     "Default animation": false
    },
    "anchoring": "Width",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Center"
   },
   {
    "name": "BTN_Syst_Restore",
@@ -250,8 +252,10 @@
     "Default animation": false
    },
    "anchoring": "<None>",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Center"
   },
   {
    "name": "STC_Descricao",
@@ -270,8 +274,10 @@
     "Default animation": false
    },
    "anchoring": "Right",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Top"
   },
   {
    "name": "EDT_descricao",
@@ -407,8 +413,10 @@
     "Default animation": false
    },
    "anchoring": "<None>",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Center"
   },
   {
    "name": "TABLE_lin_Stocks",
@@ -601,8 +609,10 @@
     "Default animation": false
    },
    "anchoring": "Bottom",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Top"
   },
   {
    "name": "EDT_codigo",
@@ -738,8 +748,10 @@
     "Default animation": false
    },
    "anchoring": "Bottom",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Top"
   },
   {
    "name": "EDT_preco",
@@ -792,8 +804,10 @@
     "Default animation": false
    },
    "anchoring": "Bottom",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Top"
   },
   {
    "name": "BTN_NoName1",
@@ -959,8 +973,10 @@
     "Default animation": false
    },
    "anchoring": "Right",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Center"
   },
   {
    "name": "BTN_Adicionar1",

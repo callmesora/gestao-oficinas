@@ -12,7 +12,7 @@ export interface LegacyControl {
   caption_width?: number; visible?: boolean; state?: string;
   tab_order?: number | string; image?: string; background_image?: string;
   input_size?: number; input_type?: string; input_mask?: string;
-  h_align?: string;
+  h_align?: string; v_align?: string;
   flags?: Partial<Record<string, boolean>>;
   anchoring?: string;
   anchorRates?: { right?: number; bottom?: number; width?: number; height?: number };

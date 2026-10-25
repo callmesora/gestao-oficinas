@@ -9,7 +9,7 @@
 Playbook chapters 04–06/10 and stage templates define the workflow. The owner requests unattended progress through the full migration, useful subagents, local commits on main and owner-managed pushing.
 
 ## Decision
-Follow bounded stages in dependency order: implement, verify, review/fix, update existing parity/roadmap/handoff/progress, commit explicit files, then continue. Do not stop for routine stage approval. Retain human-only acceptance as an open gate without blocking independent implementation.
+Follow bounded stages in dependency order: implement, verify, review/fix, synchronize aggregate and affected per-unit parity CSVs, update roadmap/handoff/progress, commit explicit files, then continue. Final tracking review compares exact row IDs and unchanged evidence/confidence fields. Do not stop for routine stage approval. Retain human-only acceptance as an open gate without blocking independent implementation.
 
 Use subagents for useful independent investigation, implementation and review. Prefer an independent reviewer per stage and two reviews for risky work; disclose self-review if delegation is unavailable. One coordinator integrates shared tracking; one writer per file. Use separate worktrees for concurrent writers, and serialize heavy checks per checkout.
 

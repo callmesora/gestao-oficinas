@@ -324,6 +324,29 @@
   }
  },
  {
+  "name": "WIN_Mudar_Estado",
+  "kind": "screen",
+  "total": 25,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 16,
+   "specified": 5,
+   "unmapped": 4
+  },
+  "looks": null,
+  "visuals": {
+   "darwin": {
+    "pixel": 97.9,
+    "layout": 83.2
+   }
+  }
+ },
+ {
   "name": "WIN_Table_artigos",
   "kind": "screen",
   "total": 36,
@@ -2443,24 +2466,6 @@
    "implemented": 0,
    "specified": 58,
    "unmapped": 5
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Mudar_Estado",
-  "kind": "screen",
-  "total": 25,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 21,
-   "unmapped": 4
   },
   "looks": null,
   "visuals": {}

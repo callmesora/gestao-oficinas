@@ -11,7 +11,7 @@ export type WdRadBinding = { name: string } & (
   | { kind: "radio"; props: Omit<ComponentProps<typeof WdRadio>, "control"> }
   | { kind: "combo"; props: Omit<ComponentProps<typeof WdCombo>, "control"> }
   | { kind: "button"; props: Omit<ComponentProps<typeof WdButton>, "control"> }
-  | { kind: "caption"; props?: never }
+  | { kind: "caption"; props?: { text?: string } }
   | { kind: "shape"; props: { backgroundColor: CSSProperties["backgroundColor"] } }
 );
 const sourceKinds = { edit: "Edit control", checkbox: "Check Box", radio: "RadioButton", combo: "Combo Box", button: "Button", caption: "Caption", shape: "Shape" } as const;
@@ -27,10 +27,15 @@ export function resolveRadBindings(layout: LegacyLayout, bindings: readonly WdRa
   });
 }
 
-function RadStatic({ source, kind, backgroundColor }: { source: LegacyControl; kind: "caption" | "shape"; backgroundColor?: CSSProperties["backgroundColor"] }) {
+function RadStatic({ source, kind, backgroundColor, text }: { source: LegacyControl; kind: "caption" | "shape"; backgroundColor?: CSSProperties["backgroundColor"]; text?: string }) {
   const control = useAnchoredControl(source);
+  const alignment: CSSProperties = kind === "caption" ? {
+    display: control.visible === false ? "none" : "grid",
+    textAlign: ({ Left: "left", Right: "right", Center: "center", Justified: "justify" } as const)[control.h_align ?? "Left"],
+    alignItems: ({ Top: "start", Center: "center", Bottom: "end" } as const)[control.v_align ?? "Top"],
+  } : {};
   return <div className={`wd-rad-${kind}`} data-testid={control.name} data-control-path={control.path}
-    hidden={control.visible === false} style={{ ...controlBox(control), backgroundColor }}>{kind === "caption" ? control.caption : null}</div>;
+    hidden={control.visible === false} style={{ ...controlBox(control), backgroundColor, ...alignment }}>{kind === "caption" ? text ?? control.caption : null}</div>;
 }
 
 export function WdRadControls({ layout, bindings }: { layout: LegacyLayout; bindings: readonly WdRadBinding[] }) {
@@ -41,7 +46,7 @@ export function WdRadControls({ layout, bindings }: { layout: LegacyLayout; bind
       case "radio": return <WdRadio key={control.path} control={control} {...binding.props} />;
       case "combo": return <WdCombo key={control.path} control={control} {...binding.props} />;
       case "button": return <WdButton key={control.path} control={control} {...binding.props} />;
-      case "caption": return <RadStatic key={control.path} source={control} kind="caption" />;
+      case "caption": return <RadStatic key={control.path} source={control} kind="caption" text={binding.props?.text} />;
       case "shape": return <RadStatic key={control.path} source={control} kind="shape" {...binding.props} />;
     }
   });

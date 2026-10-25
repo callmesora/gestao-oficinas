@@ -51,6 +51,15 @@ def table_options(raw):
     return {key: value for key, name in names.items() if (value := raw_value(raw, name)) is not None}
 
 
+def caption_summary_alignment(details):
+    """Recover only complete literal Caption summaries; do not infer missing axes or control kinds."""
+    if details.get('kind') != 'Caption':
+        return {}
+    summary = re.fullmatch(r'(?:Active|Read-only|Read-onl|Grayed|Inactive) '
+                           r'(Left|Right|Center|Justified) (Top|Center|Bottom)', details.get('row') or '')
+    return {'h_align': summary[1], 'v_align': summary[2]} if summary else {}
+
+
 def control_paths(text):
     """Preserve scoped identities when two tables use the same column name."""
     lines = text.splitlines()
@@ -108,6 +117,7 @@ def layout(unit, latest, language=None):
     for item, identity in zip(source.get('layout', []), paths):
         details = (described.get(item['name']) or {}) if item['name'] not in repeated else {}
         raw = details.get('raw', [])
+        caption_alignment = caption_summary_alignment(details)
         image = basename(pick(details.get('image'), language))
         background = basename(pick(details.get('background_image'), language))
         assets.update(a for a in (image, background) if a)
@@ -116,11 +126,14 @@ def layout(unit, latest, language=None):
                  'caption': pick(details.get('caption') or details.get('title'), language),
                  'visible': (details.get('flags') or {}).get('Visible'), 'state': details.get('state'), 'flags': details.get('flags'),
                  'anchoring': details.get('anchoring'), 'tab_order': details.get('tab_order'),
-                 'button_type': details.get('button_type'), 'h_align': details.get('h_align') or raw_value(raw, 'Horz. alignment'),
+                 'button_type': details.get('button_type'),
+                 'h_align': details.get('h_align') or raw_value(raw, 'Horz. alignment') or caption_alignment.get('h_align'),
                  'input_mask': pick(details.get('input_mask'), language), 'input_size': details.get('input_size'), 'input_type': details.get('input_type'), 'image': image,
                  'image_states': raw_value(raw, 'Nb. image states'),
                  'background_image': background, 'background_states': raw_value(raw, 'Nb. background states'),
                  'background_stretch': raw_value(raw, 'Stretch background image')}
+        if entry['kind'] == 'Caption':
+            entry['v_align'] = details.get('v_align') or raw_value(raw, 'Vert. alignment') or caption_alignment.get('v_align')
         inside = raw_value(raw, 'Inside width')
         if inside and inside.isdigit() and entry['width'] and entry['caption']:
             # Edits, combos, lists: the caption is drawn left of the input box, which is the last `Inside width`.

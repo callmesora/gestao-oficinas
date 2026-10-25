@@ -239,7 +239,7 @@ export function WdEdit({ control: source, automaticErase, integerMask = false, d
       tabIndex={props.tabIndex ?? (control.flags?.["TAB Key"] === false || String(control.tab_order) === "-1" ? -1 : undefined)} data-testid={control.name} className="wd-edit"
       readOnly={readOnly}
       aria-label={captionWidth ? undefined : props["aria-label"] ?? control.caption ?? control.name}
-      style={{ left: captionWidth, width: (control.width ?? 0) - captionWidth, textAlign: control.h_align === "Right" ? "right" : "left", paddingRight: revealEnabled ? 23 : undefined } as CSSProperties} />
+      style={{ left: captionWidth, width: (control.width ?? 0) - captionWidth, textAlign: control.h_align === "Right" ? "right" : control.h_align === "Center" ? "center" : "left", paddingRight: revealEnabled ? 23 : undefined } as CSSProperties} />
     {revealEnabled && <button type="button" className="wd-password-reveal" data-testid={`${control.name}__reveal`}
       aria-label={revealed ? "Ocultar palavra-passe" : "Mostrar palavra-passe"} aria-pressed={revealed} aria-controls={id}
       disabled={props.disabled} tabIndex={-1}

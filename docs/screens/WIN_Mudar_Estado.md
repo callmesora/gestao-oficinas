@@ -1,5 +1,11 @@
 # Screen spec — WIN_Mudar_Estado
 
+## Target implementation — MIG-10P.1
+
+The reusable `RepairStateConfirmationDialog` consumes the generated layout through WdModal/WdRadControls, including actual Center letter and Center/Center runtime prompt. Source default result0, leading case-insensitive comparison, exact awaited Info and success1 are explicit; no trim/accent folding or draft conversion. ADR003/006 retain assumed focus/keys/message title and conservative empty-prefix/NULL refusal under existing U items. Normal edit Enter does not auto-confirm; nested Info owns focus and parent close stays guarded. Custom minimize/maximize preserve the mounted draft; no resize/saved geometry. Actual repair running-labor/restore continuation remains its consuming stage.
+
+Non-legacy development IDs: repair-confirmation-launcher/open, repair-confirmation-frame/restore and repair-confirmation-returned/returned-kind. They demonstrate typed numeric returns, not a migrated repair caller. GS-STATE-CONFIRM-001 is spec-derived UI evidence only; this source has no local data/write path. Stage22 records executed checks and retained native/runtime/human/UMC gates; no whole-window or verified promotion.
+
 Evidence `legacy/GestaoOficinas_TesteIA/WIN_Mudar_Estado.wdw`, `dossier: WIN_Mudar_Estado`, `docs/mapping/WIN_Mudar_Estado.md`. Step 0 only.
 
 ## Contract

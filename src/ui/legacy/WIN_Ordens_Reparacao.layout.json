@@ -50,8 +50,10 @@
     "Default animation": false
    },
    "anchoring": "Width",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Center"
   },
   {
    "name": "BTN_Syst_Restore",
@@ -579,8 +581,10 @@
     "Default animation": false
    },
    "anchoring": "<None>",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Top"
   },
   {
    "name": "EDT_data_entrada_fim",
@@ -918,8 +922,10 @@
     "Default animation": false
    },
    "anchoring": "Right",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Top"
   },
   {
    "name": "STC_Prioridade",
@@ -938,8 +944,10 @@
     "Default animation": false
    },
    "anchoring": "Right",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Top"
   },
   {
    "name": "RADIO_prioridade",
@@ -1014,8 +1022,10 @@
     "RTF format": false,
     "Default animation": false
    },
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Center"
   },
   {
    "name": "STC_Mecânico",
@@ -1034,8 +1044,10 @@
     "Default animation": false
    },
    "anchoring": "Right and bottom, height",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Center"
   },
   {
    "name": "COMBO_mecanico",
@@ -1468,8 +1480,10 @@
     "Default animation": false
    },
    "anchoring": "Right and bottom, height and width",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Center"
   },
   {
    "name": "BTN_VISION5",

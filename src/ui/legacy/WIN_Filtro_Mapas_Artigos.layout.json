@@ -721,8 +721,10 @@
     "Default animation": false
    },
    "anchoring": "<None>",
+   "h_align": "Left",
    "input_mask": "0",
-   "input_type": "Text"
+   "input_type": "Text",
+   "v_align": "Center"
   },
   {
    "name": "EDT_Ao_artigo2",

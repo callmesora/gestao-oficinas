@@ -101,7 +101,9 @@ test("RULE-CE3323C9-011 existing eye preserves selection, consumes pointer Enter
     expect(await password.evaluate(node => [(node as HTMLInputElement).selectionStart, (node as HTMLInputElement).selectionEnd])).toEqual(selected);
     await eye.click(); await expect(password).toHaveAttribute("type", "password"); await eye.focus(); await eye.press("Enter"); await expect(password).toHaveAttribute("type", "text"); await eye.focus(); await eye.press("Space"); await expect(password).toHaveAttribute("type", "password");
     await expect(form).toBeVisible(); expect(writes).toBe(0); await password.focus(); await password.press("Tab"); await expect(form.getByTestId("BTN_Validar")).toBeFocused();
-    await eye.click(); await form.getByTestId("BTN_Cancelar").click(); await expect(form).toHaveCount(0); await row.dblclick(); await expect(password).toHaveAttribute("type", "password"); await form.getByTestId("BTN_Cancelar").click();
+    await eye.click(); await form.getByTestId("BTN_Cancelar").click(); await expect(form).toHaveCount(0);
+    await expect(list.getByTestId("Btn_New")).toBeEnabled();
+    await row.dblclick(); await expect(password).toHaveAttribute("type", "password"); await form.getByTestId("BTN_Cancelar").click();
   } finally { await cleanup(request, headers, [original.id]); }
 });
 
