@@ -2,7 +2,7 @@
 
 ## Current stage
 
-Full migration goal remains active. First six real windows are usable (customers, vehicles and units list/form), not complete parity. Cleanup MIG-7C ec9599e and customer header search/visibility MIG-7A.2a ecc4fe9 are pushed. Current bounded MIG-7A.2b is implemented, reviewed and checked, ready for explicit commit/push. Next independent leaf: MIG-7E, stage-9-descriptive-states.md. ADR-014 schedules mandatory MIG-7C2 after two additional leaf workflows, before a third; it retains customer/vehicle/unit modal geometry, numeric entry, exact menu/scrollbar tooltip and caller/context obligations. Full parents remain In progress; no exclusions or status promotions.
+Full migration goal remains active. First six real windows are usable (customers, vehicles and units list/form), not complete parity. Cleanup MIG-7C ec9599e and customer header search/visibility MIG-7A.2a ecc4fe9 are pushed. Bounded MIG-7A.2b is implemented, reviewed, checked and pushed as 0c3576f; the accompanying generated progress JSON is included in this closure update. Next independent leaf: MIG-7E, stage-9-descriptive-states.md. ADR-014 schedules mandatory MIG-7C2 after two additional leaf workflows, before a third; it retains customer/vehicle/unit modal geometry, numeric entry, exact menu/scrollbar tooltip and caller/context obligations. Full parents remain In progress; no exclusions or status promotions.
 
 ## Delivered and opening
 
@@ -29,7 +29,7 @@ No guard installed at checked boundary: scripts/guard.py, .githooks/pre-commit, 
 
 ## Next actions and limits
 
-1. Close bounded MIG-7A.2b commit/push and confirm clean boundary. Read current roadmap and stage-9-descriptive-states.md before implementation.
+1. MIG-7A.2b 0c3576f pushed; git pull --ff-only reported already up to date. Closure also retains the generated docs/progress/index.json visual scores. Read current roadmap and stage-9-descriptive-states.md before implementation.
 2. MIG-7E: full maps already read; full specs/parity/original source/images/caller/schema still required before code. Selector returns Descricao, not Codigo; 30px rows/previous-next and source mode rules retained. Record write/identity/failure defaults in an ADR first. No schema migration expected. Inspect source image for corrupted extracted field captions rather than silently normalizing them. Later real labor caller stays with its consumer, report MIG-13. No leaf implementation code yet.
 3. Then one additional evidenced leaf, mandatory MIG-7C2, remaining orders/material/labor/stock/navigation/reports/acceptance. Do not stop at another milestone.
 
@@ -38,3 +38,5 @@ No blocking owner decision. Known target gaps are scheduled work, not native-onl
 ## Read audit
 
 All 34 read-only playbook Markdown files fully read/re-audited previously; ignored hash inventory analysis-local/playbook-read-state.json. Do not repeat unless changed. Customer full maps/specs/parity/source and generator/tests read; raw dossier rechecked and unit evidence before/after identical (17 blocks, 8 encoded actions, 22 seeds); actual customer CSV has 32 rows. Truncated combined outputs never count as whole reads. Whole states maps read in bounded outputs; continue remaining evidence. Root/nearest AGENTS, relevant ADRs and porting patterns govern every slice. Preserve all seed/U IDs, no secrets or raw legacy material published.
+
+MIG-7E read continuation: combined specs/source outputs truncated, so do not count those as whole reads. Table spec lines 1–90 were read in a bounded output; remaining lines must be read separately. Form spec and both parity CSVs were visible in the earlier combined output, but use separate bounded reads before coding. No leaf code changed.
