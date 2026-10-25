@@ -1,4 +1,4 @@
-import type { DatabaseConnection } from "../db/connection";
+import { connectOperationClient, rollbackAfterFailure, closeOperationClient, type DatabaseConnection } from "../db/connection";
 import { terminalIdentitySchema, terminalListSchema, terminalSaveSchema, terminalFolderSchema, terminalRequiredMessage, terminalDuplicateMessage,
   type Terminal, type TerminalListResult, type TerminalSaveResult, type TerminalDeleteResult, type TerminalFolderResult } from "../../../../packages/domain/src/terminals";
 
@@ -8,27 +8,27 @@ const returning = `_row_id::text AS id,${fields.map(key => `"${key}"`).join(",")
 export async function listTerminals(connect: DatabaseConnection, input: unknown): Promise<TerminalListResult> {
   const parsed = terminalListSchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     const result = await client.query<Terminal>(`SELECT ${returning} FROM app."Terminais" ORDER BY "${parsed.data.sort ?? "Codigo"}" ${parsed.data.descending ? "DESC" : "ASC"},_row_id`);
     return { kind: "loaded", terminals: result.rows };
   } catch { return { kind: "failed" }; }
-  finally { await client.end(); }
+  finally { await closeOperationClient(client); }
 }
 
 // SRC-1589c564c4: explicit current-buffer result, not merely a path lookup.
 export async function prepareTerminalFolder(connect: DatabaseConnection, input: unknown): Promise<TerminalFolderResult> {
   const parsed = terminalFolderSchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     // ADR-016/U-CDF1C34F-02: generic prefix read; unmatched/greater-key/locale buffer outcomes remain unresolved.
     const result = await client.query<Terminal>(`SELECT ${returning} FROM app."Terminais" WHERE left("Codigo",length($1))=$1 ORDER BY "Codigo",_row_id LIMIT 1`, [parsed.data.code]);
     return { kind: "positioned", terminal: result.rows[0] ?? null };
   } catch { return { kind: "failed" }; }
-  finally { await client.end(); }
+  finally { await closeOperationClient(client); }
 }
 
 export async function saveTerminal(connect: DatabaseConnection, input: unknown): Promise<TerminalSaveResult> {
@@ -36,7 +36,7 @@ export async function saveTerminal(connect: DatabaseConnection, input: unknown):
   if (!parsed.success) return { kind: "invalid" };
   const command = parsed.data, values = command.values, required = terminalRequiredMessage(values);
   if (required) return { kind: "required", message: required };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     await client.query("BEGIN");
@@ -58,16 +58,16 @@ export async function saveTerminal(connect: DatabaseConnection, input: unknown):
     await client.query("COMMIT");
     return { kind: "saved", terminal: result.rows[0] };
   } catch {
-    await client.query("ROLLBACK");
+    await rollbackAfterFailure(client);
     // UNRESOLVED U-CDF1C34F-03: rollback, no invented error text or false success.
     return { kind: "failed" };
-  } finally { await client.end(); }
+  } finally { await closeOperationClient(client); }
 }
 
 export async function deleteTerminal(connect: DatabaseConnection, input: unknown): Promise<TerminalDeleteResult> {
   const parsed = terminalIdentitySchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     await client.query("BEGIN");
@@ -76,6 +76,6 @@ export async function deleteTerminal(connect: DatabaseConnection, input: unknown
     if (!result.rowCount) { await client.query("ROLLBACK"); return { kind: "missing" }; }
     await client.query("COMMIT"); return { kind: "deleted" };
   } catch {
-    await client.query("ROLLBACK"); return { kind: "failed" };
-  } finally { await client.end(); }
+    await rollbackAfterFailure(client); return { kind: "failed" };
+  } finally { await closeOperationClient(client); }
 }

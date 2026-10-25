@@ -1,4 +1,4 @@
-import type { DatabaseConnection } from "../db/connection";
+import { connectOperationClient, rollbackAfterFailure, closeOperationClient, type DatabaseConnection } from "../db/connection";
 import { mechanicIdentitySchema, mechanicListSchema, mechanicSaveSchema, mechanicRequiredMessage, mechanicDuplicateMessage,
   type MechanicListRow, type MechanicRecord, type MechanicListResult, type MechanicReadResult, type MechanicSaveResult, type MechanicDeleteResult } from "../../../../packages/domain/src/mechanics";
 
@@ -9,26 +9,26 @@ const recordFields = `${publicFields},"mecanicosID"::text,"palavra_passe"`;
 export async function listMechanics(connect: DatabaseConnection, input: unknown): Promise<MechanicListResult> {
   const parsed = mechanicListSchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     // ADR-012: source explicitly sorts inactive; NULL placement/internal-id ties remain target defaults under U02.
     const result = await client.query<MechanicListRow>(`SELECT ${publicFields} FROM app."mecanicos" ORDER BY "${parsed.data.sort ?? "inativo"}" ${parsed.data.descending ? "DESC" : "ASC"} NULLS LAST,_row_id`);
     return { kind: "loaded", mechanics: result.rows };
   } catch { return { kind: "failed" }; }
-  finally { await client.end().catch(() => undefined); }
+  finally { await closeOperationClient(client); }
 }
 
 export async function readMechanic(connect: DatabaseConnection, input: unknown): Promise<MechanicReadResult> {
   const parsed = mechanicIdentitySchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     const result = await client.query<MechanicRecord>(`SELECT ${recordFields} FROM app."mecanicos" WHERE _row_id=$1`, [parsed.data.id]);
     return result.rowCount ? { kind: "loaded", mechanic: result.rows[0] } : { kind: "missing" };
   } catch { return { kind: "failed" }; }
-  finally { await client.end().catch(() => undefined); }
+  finally { await closeOperationClient(client); }
 }
 
 export async function saveMechanic(connect: DatabaseConnection, input: unknown): Promise<MechanicSaveResult> {
@@ -36,7 +36,7 @@ export async function saveMechanic(connect: DatabaseConnection, input: unknown):
   if (!parsed.success) return { kind: "invalid" };
   const command = parsed.data, values = command.values, required = mechanicRequiredMessage(values);
   if (required) return { kind: "required", message: required };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     await client.query("BEGIN");
@@ -59,16 +59,16 @@ export async function saveMechanic(connect: DatabaseConnection, input: unknown):
     await client.query("COMMIT");
     return { kind: "saved", mechanic: result.rows[0] };
   } catch {
-    await client.query("ROLLBACK").catch(() => undefined);
+    await rollbackAfterFailure(client);
     // UNRESOLVED U-C17FCA03-03: explicit rollback/typed failure, no invented message or false success.
     return { kind: "failed" };
-  } finally { await client.end().catch(() => undefined); }
+  } finally { await closeOperationClient(client); }
 }
 
 export async function deleteMechanic(connect: DatabaseConnection, input: unknown): Promise<MechanicDeleteResult> {
   const parsed = mechanicIdentitySchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     await client.query("BEGIN");
@@ -79,7 +79,7 @@ export async function deleteMechanic(connect: DatabaseConnection, input: unknown
     await client.query("COMMIT");
     return { kind: "deleted" };
   } catch {
-    await client.query("ROLLBACK").catch(() => undefined);
+    await rollbackAfterFailure(client);
     return { kind: "failed" };
-  } finally { await client.end().catch(() => undefined); }
+  } finally { await closeOperationClient(client); }
 }

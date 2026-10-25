@@ -1,4 +1,4 @@
-import type { DatabaseConnection } from "../db/connection";
+import { connectOperationClient, rollbackAfterFailure, closeOperationClient, type DatabaseConnection } from "../db/connection";
 import { z } from "zod";
 import { customerDuplicateMessage, customerRequiredMessage, customerSaveSchema, customerFilterSchema, type Customer, type CustomerSaveResult, type CustomerListResult } from "../../../../packages/domain/src/customers";
 
@@ -13,7 +13,7 @@ export async function listCustomers(connect: DatabaseConnection, input: unknown)
   const expressions = filter.term === "" ? [] : fields.map(field => `strpos(lower(COALESCE("${field}"::text,'')),lower($1))>0`);
   const where = expressions.length ? `WHERE (${expressions.join(" OR ")})` : "";
   const order = filter.sort ? `"${filter.sort}" ${filter.descending ? "DESC" : "ASC"},_row_id` : '"ClientesID",_row_id';
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     const result = await client.query<Customer>(`SELECT ${returning} FROM app."Clientes" ${where} ORDER BY ${order}`, expressions.length ? [filter.term] : []);
@@ -21,7 +21,7 @@ export async function listCustomers(connect: DatabaseConnection, input: unknown)
     const maximum = result.rows.reduce((max, row) => row.Codigo !== null && BigInt(row.Codigo) > max ? BigInt(row.Codigo) : max, 0n);
     return { kind: "loaded", customers: result.rows, nextCode: String(maximum + 1n) };
   } catch { return { kind: "failed" }; }
-  finally { await client.end(); }
+  finally { await closeOperationClient(client); }
 }
 
 export async function saveCustomer(connect: DatabaseConnection, input: unknown): Promise<CustomerSaveResult> {
@@ -30,7 +30,7 @@ export async function saveCustomer(connect: DatabaseConnection, input: unknown):
   const command = parsed.data, values = command.values;
   const required = customerRequiredMessage(values);
   if (required) return { kind: "required", message: required };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     await client.query("BEGIN");
@@ -53,13 +53,13 @@ export async function saveCustomer(connect: DatabaseConnection, input: unknown):
     await client.query("COMMIT");
     return { kind: "saved", customer: result.rows[0] };
   } catch (error) {
-    await client.query("ROLLBACK");
+    await rollbackAfterFailure(client);
     if (error && typeof error === "object" && "code" in error && error.code === "23505" && "constraint" in error && error.constraint === "ix_4f4b84259e533b8d") {
       return { kind: "duplicate", message: customerDuplicateMessage(values.Codigo) };
     }
     // UNRESOLVED U-C286277B-03: no invented failure message or false persisted-success result.
     return { kind: "failed" };
-  } finally { await client.end(); }
+  } finally { await closeOperationClient(client); }
 }
 
 const customerIdentitySchema = z.strictObject({ id: z.string().regex(/^[1-9][0-9]*$/).max(19) });
@@ -68,20 +68,20 @@ export type CustomerDeleteResult = { kind: "deleted" | "missing" | "invalid" | "
 export async function checkCustomerDelete(connect: DatabaseConnection, input: unknown): Promise<CustomerDeleteResult | { kind: "ready" }> {
   const parsed = customerIdentitySchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     const result = await client.query<{ associated: boolean }>(`SELECT EXISTS(SELECT 1 FROM app."Viaturas" v WHERE v."Cliente"=c."Codigo") AS associated FROM app."Clientes" c WHERE c._row_id=$1`, [parsed.data.id]);
     if (!result.rowCount) return { kind: "missing" };
     return result.rows[0].associated ? { kind: "associated", message: "Cliente com viaturas associadas, não pode ser eliminado" } : { kind: "ready" };
   } catch { return { kind: "failed" }; }
-  finally { await client.end(); }
+  finally { await closeOperationClient(client); }
 }
 
 export async function deleteCustomer(connect: DatabaseConnection, input: unknown): Promise<CustomerDeleteResult> {
   const parsed = customerIdentitySchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     await client.query("BEGIN");
@@ -99,8 +99,8 @@ export async function deleteCustomer(connect: DatabaseConnection, input: unknown
     await client.query("COMMIT");
     return { kind: "deleted" };
   } catch {
-    await client.query("ROLLBACK");
+    await rollbackAfterFailure(client);
     // UNRESOLVED U-CC16AB27-03: database error presentation is not recovered.
     return { kind: "failed" };
-  } finally { await client.end(); }
+  } finally { await closeOperationClient(client); }
 }

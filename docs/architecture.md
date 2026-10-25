@@ -23,7 +23,7 @@ An explicit source cross-file dependency is retained narrowly: the actual Postos
 
 ## Delivery and verification
 
-ROADMAP.md owns dependencies. Each bounded stage follows templates/prompt-stage.md. Customer, vehicle and unit list/form flows have executed real API/PostgreSQL, browser and spec-derived golden checks through the opt-in development runner. DatabaseConnection in apps/server/src/db/connection.ts supplies a connected client per operation; each operation retains its own lock order, transaction and cleanup. No generic transaction/CRUD abstraction changes their different identity predicates.
+ROADMAP.md owns dependencies. Each bounded stage follows templates/prompt-stage.md. Customer, vehicle and unit list/form flows have executed real API/PostgreSQL, browser and spec-derived golden checks through the opt-in development runner. DatabaseConnection in apps/server/src/db/connection.ts supplies a connected client per operation; each operation retains its own lock order and transaction. C3 shares only operation-owned connection error handling and best-effort failure rollback/close; query promises preserve typed outcomes and original duplicate classification. Lost COMMIT acknowledgement remains unresolved and never triggers an automatic retry. No generic transaction/CRUD abstraction changes their different identity predicates.
 
 Foundation checks cover TypeScript, Rust, bindings, parity, generated layouts and browser flows. Native IPC metadata has separate built WebView2 evidence; native business persistence, installer, printing, devices and full legacy parity remain separate acceptance gates. See docs/runbooks/handoff.md for executed checks and retained limits.
 

@@ -1,4 +1,4 @@
-import type { DatabaseConnection } from "../db/connection";
+import { connectOperationClient, rollbackAfterFailure, closeOperationClient, type DatabaseConnection } from "../db/connection";
 import { unitIdentitySchema, unitListSchema, unitSaveSchema, unitRequiredMessage, unitDuplicateMessage,
   type Unit, type UnitListResult, type UnitSaveResult, type UnitDeleteResult } from "../../../../packages/domain/src/units";
 
@@ -8,13 +8,13 @@ const associatedMessage = "Unidade usada em artigos, não pode ser eliminada";
 export async function listUnits(connect: DatabaseConnection, input: unknown): Promise<UnitListResult> {
   const parsed = unitListSchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     const result = await client.query<Unit>(`SELECT ${returning} FROM app."unidades" ORDER BY "${parsed.data.sort ?? "unidadesID"}" ${parsed.data.descending ? "DESC" : "ASC"},_row_id`);
     return { kind: "loaded", units: result.rows };
   } catch { return { kind: "failed" }; }
-  finally { await client.end(); }
+  finally { await closeOperationClient(client); }
 }
 
 export async function saveUnit(connect: DatabaseConnection, input: unknown): Promise<UnitSaveResult> {
@@ -22,7 +22,7 @@ export async function saveUnit(connect: DatabaseConnection, input: unknown): Pro
   if (!parsed.success) return { kind: "invalid" };
   const command = parsed.data, values = command.values, required = unitRequiredMessage(values);
   if (required) return { kind: "required", message: required };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     await client.query("BEGIN");
@@ -44,29 +44,29 @@ export async function saveUnit(connect: DatabaseConnection, input: unknown): Pro
     await client.query("COMMIT");
     return { kind: "saved", unit: result.rows[0] };
   } catch {
-    await client.query("ROLLBACK");
+    await rollbackAfterFailure(client);
     // UNRESOLVED U-C77806F9-03: rollback, no invented failure message/success fallthrough.
     return { kind: "failed" };
-  } finally { await client.end(); }
+  } finally { await closeOperationClient(client); }
 }
 
 export async function checkUnitDelete(connect: DatabaseConnection, input: unknown): Promise<UnitDeleteResult | { kind: "ready" }> {
   const parsed = unitIdentitySchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     const result = await client.query<{ associated: boolean }>(`SELECT EXISTS(SELECT 1 FROM app."artigos" a WHERE a."unidade"=u."Codigo") AS associated FROM app."unidades" u WHERE u._row_id=$1`, [parsed.data.id]);
     if (!result.rowCount) return { kind: "missing" };
     return result.rows[0].associated ? { kind: "associated", message: associatedMessage } : { kind: "ready" };
   } catch { return { kind: "failed" }; }
-  finally { await client.end(); }
+  finally { await closeOperationClient(client); }
 }
 
 export async function deleteUnit(connect: DatabaseConnection, input: unknown): Promise<UnitDeleteResult> {
   const parsed = unitIdentitySchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     await client.query("BEGIN");
@@ -79,8 +79,8 @@ export async function deleteUnit(connect: DatabaseConnection, input: unknown): P
     await client.query("COMMIT");
     return { kind: "deleted" };
   } catch {
-    await client.query("ROLLBACK");
+    await rollbackAfterFailure(client);
     // UNRESOLVED U-CCB16084-03: failure presentation remains unrecovered.
     return { kind: "failed" };
-  } finally { await client.end(); }
+  } finally { await closeOperationClient(client); }
 }

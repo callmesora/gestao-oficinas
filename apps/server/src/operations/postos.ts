@@ -1,4 +1,4 @@
-import type { DatabaseConnection } from "../db/connection";
+import { connectOperationClient, rollbackAfterFailure, closeOperationClient, type DatabaseConnection } from "../db/connection";
 import { postoIdentitySchema, postoListSchema, postoSaveSchema, postoRequiredMessage, postoDuplicateMessage,
   type Posto, type PostoListResult, type PostoSaveResult, type PostoDeleteResult } from "../../../../packages/domain/src/postos";
 
@@ -7,13 +7,13 @@ const returning = '_row_id::text AS id,"Codigo","Descricao","terminal","teste"';
 export async function listPostos(connect: DatabaseConnection, input: unknown): Promise<PostoListResult> {
   const parsed = postoListSchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     const result = await client.query<Posto>(`SELECT ${returning} FROM app."postos" ORDER BY "${parsed.data.sort ?? "Codigo"}" ${parsed.data.descending ? "DESC" : "ASC"},_row_id`);
     return { kind: "loaded", postos: result.rows };
   } catch { return { kind: "failed" }; }
-  finally { await client.end().catch(() => undefined); }
+  finally { await closeOperationClient(client); }
 }
 
 export async function savePosto(connect: DatabaseConnection, input: unknown): Promise<PostoSaveResult> {
@@ -21,7 +21,7 @@ export async function savePosto(connect: DatabaseConnection, input: unknown): Pr
   if (!parsed.success) return { kind: "invalid" };
   const command = parsed.data, values = command.values, required = postoRequiredMessage(values);
   if (required) return { kind: "required", message: required };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     await client.query("BEGIN");
@@ -40,16 +40,16 @@ export async function savePosto(connect: DatabaseConnection, input: unknown): Pr
     await client.query("COMMIT");
     return { kind: "saved", posto: result.rows[0] };
   } catch {
-    await client.query("ROLLBACK").catch(() => undefined);
+    await rollbackAfterFailure(client);
     // UNRESOLVED U-CD4F0FE3-03: typed rollback/failure, never an invented message or false saved result.
     return { kind: "failed" };
-  } finally { await client.end().catch(() => undefined); }
+  } finally { await closeOperationClient(client); }
 }
 
 export async function deletePosto(connect: DatabaseConnection, input: unknown): Promise<PostoDeleteResult> {
   const parsed = postoIdentitySchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     await client.query("BEGIN");
@@ -60,7 +60,7 @@ export async function deletePosto(connect: DatabaseConnection, input: unknown): 
     await client.query("COMMIT");
     return { kind: "deleted" };
   } catch {
-    await client.query("ROLLBACK").catch(() => undefined);
+    await rollbackAfterFailure(client);
     return { kind: "failed" };
-  } finally { await client.end().catch(() => undefined); }
+  } finally { await closeOperationClient(client); }
 }

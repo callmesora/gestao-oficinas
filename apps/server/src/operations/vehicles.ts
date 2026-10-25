@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { DatabaseConnection } from "../db/connection";
+import { connectOperationClient, rollbackAfterFailure, closeOperationClient, type DatabaseConnection } from "../db/connection";
 import { vehicleFilterSchema, vehicleSaveSchema, vehicleRequiredMessage, vehicleDuplicateMessage,
   type Vehicle, type VehicleListRow, type VehicleListResult, type VehicleLookupResult,
   type VehicleSaveResult, type VehicleDeleteResult } from "../../../../packages/domain/src/vehicles";
@@ -17,7 +17,7 @@ export async function listVehicles(connect: DatabaseConnection, input: unknown):
   const expressions = filter.term === "" ? [] : fields.map(field => `strpos(lower(COALESCE(${field},'')),lower($1))>0`);
   const where = expressions.length ? `WHERE (${expressions.join(" OR ")})` : "";
   const sort = filter.sort === "Descricao" ? 'c."Descricao"' : `v."${filter.sort ?? "matricula"}"`;
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     const result = await client.query<VehicleListRow>(`SELECT v._row_id::text AS id,v."ViaturasID"::text,v."matricula",v."Cliente"::text,v."marca",v."modelo",v."Ano",v."mes",c."Descricao"
@@ -25,20 +25,20 @@ export async function listVehicles(connect: DatabaseConnection, input: unknown):
       ORDER BY ${sort} ${filter.descending ? "DESC" : "ASC"},v._row_id`, expressions.length ? [filter.term] : []);
     return { kind: "loaded", vehicles: result.rows };
   } catch { return { kind: "failed" }; }
-  finally { await client.end(); }
+  finally { await closeOperationClient(client); }
 }
 
 export async function lookupVehicle(connect: DatabaseConnection, input: unknown): Promise<VehicleLookupResult> {
   const parsed = registrationSchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     // Source HReadFirst has no defined duplicate ordering; deterministic interim tie per ADR-010.
     const result = await client.query<Vehicle>(`SELECT ${returning} FROM app."Viaturas" WHERE "matricula"=$1 ORDER BY _row_id LIMIT 1`, [parsed.data.registration]);
     return result.rowCount ? { kind: "loaded", vehicle: result.rows[0] } : { kind: "missing" };
   } catch { return { kind: "failed" }; }
-  finally { await client.end(); }
+  finally { await closeOperationClient(client); }
 }
 
 export async function saveVehicle(connect: DatabaseConnection, input: unknown): Promise<VehicleSaveResult> {
@@ -50,7 +50,7 @@ export async function saveVehicle(connect: DatabaseConnection, input: unknown): 
   if (command.mode === "update" && values.matricula !== command.originalRegistration) return { kind: "registrationLocked" };
   const registration = values.matricula.toLocaleUpperCase("pt-PT");
   if (registration.length > 15) return { kind: "invalid" };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     await client.query("BEGIN");
@@ -76,29 +76,29 @@ export async function saveVehicle(connect: DatabaseConnection, input: unknown): 
     await client.query("COMMIT");
     return { kind: "saved", vehicles: result.rows };
   } catch {
-    await client.query("ROLLBACK");
+    await rollbackAfterFailure(client);
     // UNRESOLVED U-C9675195-03: failure presentation; never claim unchecked persisted success.
     return { kind: "failed" };
-  } finally { await client.end(); }
+  } finally { await closeOperationClient(client); }
 }
 
 export async function checkVehicleDelete(connect: DatabaseConnection, input: unknown): Promise<VehicleDeleteResult | { kind: "ready" }> {
   const parsed = registrationSchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     const result = await client.query<{ associated: boolean }>(`SELECT EXISTS(SELECT 1 FROM app."ordem_reparacao" r WHERE r."matricula"=v."matricula") AS associated FROM app."Viaturas" v WHERE v."matricula"=$1 LIMIT 1`, [parsed.data.registration]);
     if (!result.rowCount) return { kind: "missing" };
     return result.rows[0].associated ? { kind: "associated", message: associatedMessage } : { kind: "ready" };
   } catch { return { kind: "failed" }; }
-  finally { await client.end(); }
+  finally { await closeOperationClient(client); }
 }
 
 export async function deleteVehicle(connect: DatabaseConnection, input: unknown): Promise<VehicleDeleteResult> {
   const parsed = registrationSchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     await client.query("BEGIN");
@@ -111,8 +111,8 @@ export async function deleteVehicle(connect: DatabaseConnection, input: unknown)
     await client.query("COMMIT");
     return { kind: "deleted" };
   } catch {
-    await client.query("ROLLBACK");
+    await rollbackAfterFailure(client);
     // UNRESOLVED U-C039C545-03: no invented failure dialog.
     return { kind: "failed" };
-  } finally { await client.end(); }
+  } finally { await closeOperationClient(client); }
 }

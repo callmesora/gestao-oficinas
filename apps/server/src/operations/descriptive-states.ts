@@ -1,4 +1,4 @@
-import type { DatabaseConnection } from "../db/connection";
+import { connectOperationClient, rollbackAfterFailure, closeOperationClient, type DatabaseConnection } from "../db/connection";
 import { descriptiveStateIdentitySchema, descriptiveStateListSchema, descriptiveStateSaveSchema, descriptiveStateRequiredMessage, descriptiveStateDuplicateMessage,
   type DescriptiveState, type DescriptiveStateListResult, type DescriptiveStateSaveResult, type DescriptiveStateDeleteResult } from "../../../../packages/domain/src/descriptive-states";
 
@@ -7,13 +7,13 @@ const returning = `_row_id::text AS id,"estados_descritivosID"::text,"Codigo","D
 export async function listDescriptiveStates(connect: DatabaseConnection, input: unknown): Promise<DescriptiveStateListResult> {
   const parsed = descriptiveStateListSchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     const result = await client.query<DescriptiveState>(`SELECT ${returning} FROM app."estados_descritivos" ORDER BY "${parsed.data.sort ?? "estados_descritivosID"}" ${parsed.data.descending ? "DESC" : "ASC"},_row_id`);
     return { kind: "loaded", descriptiveStates: result.rows };
   } catch { return { kind: "failed" }; }
-  finally { await client.end(); }
+  finally { await closeOperationClient(client); }
 }
 
 export async function saveDescriptiveState(connect: DatabaseConnection, input: unknown): Promise<DescriptiveStateSaveResult> {
@@ -21,7 +21,7 @@ export async function saveDescriptiveState(connect: DatabaseConnection, input: u
   if (!parsed.success) return { kind: "invalid" };
   const command = parsed.data, values = command.values, required = descriptiveStateRequiredMessage(values);
   if (required) return { kind: "required", message: required };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     await client.query("BEGIN");
@@ -43,16 +43,16 @@ export async function saveDescriptiveState(connect: DatabaseConnection, input: u
     await client.query("COMMIT");
     return { kind: "saved", descriptiveState: result.rows[0] };
   } catch {
-    await client.query("ROLLBACK");
+    await rollbackAfterFailure(client);
     // UNRESOLVED U-CB7C31CC-03: rollback, no invented failure message/success fallthrough.
     return { kind: "failed" };
-  } finally { await client.end(); }
+  } finally { await closeOperationClient(client); }
 }
 
 export async function deleteDescriptiveState(connect: DatabaseConnection, input: unknown): Promise<DescriptiveStateDeleteResult> {
   const parsed = descriptiveStateIdentitySchema.safeParse(input);
   if (!parsed.success) return { kind: "invalid" };
-  const client = await connect().catch(() => null);
+  const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {
     await client.query("BEGIN");
@@ -63,8 +63,8 @@ export async function deleteDescriptiveState(connect: DatabaseConnection, input:
     await client.query("COMMIT");
     return { kind: "deleted" };
   } catch {
-    await client.query("ROLLBACK");
+    await rollbackAfterFailure(client);
     // UNRESOLVED U-CC5618D6-03: failure presentation remains unrecovered.
     return { kind: "failed" };
-  } finally { await client.end(); }
+  } finally { await closeOperationClient(client); }
 }

@@ -105,10 +105,11 @@ export function DescriptiveStateListScreen({ repository, selecting = false, fini
   const move = (direction: -1 | 1) => {
     if (!ready || pending.current) return;
     const index = rows.findIndex(row => row.id === selection);
-    // UNRESOLVED U-CC5618D6-02: invalid source index/no-selection has no captured engine outcome.
-    if (index < 0) return;
-    const next = index + direction;
-    if (next >= 0 && next < rows.length) setSelection(rows[next].id);
+    const currentIndex = index < 0 ? -1 : index + 1;
+    const requested = direction === 1 ? currentIndex < rows.length ? currentIndex + 1 : null : currentIndex > 1 ? currentIndex - 1 : null;
+    if (requested === null) return;
+    // UNRESOLVED U-CC5618D6-02: source next requests0 from no selection; native effects stay unpinned.
+    if (requested >= 1 && requested <= rows.length) setSelection(rows[requested - 1].id);
   };
   return <div ref={screen} data-testid="WIN_Table_estados_descritivos" style={{ position: "absolute", inset: 0, pointerEvents: "none" }} onKeyDown={event => {
     if (event.key === "Escape" && !form && !(event.target instanceof Element && event.target.closest("dialog"))) close();
