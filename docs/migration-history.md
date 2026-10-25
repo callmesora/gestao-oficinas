@@ -1,0 +1,79 @@
+# Migration history
+
+Compact index of historical stage and review reports, archived before consolidation at `8188064`. Recover any complete original with `git show 8188064:docs/runbooks/<report>`; the row labels below retain its filename. Current requirements remain in the roadmap, ADRs, per-unit mappings/specifications, parity and golden tests. This ledger records past checks, not new executions or complete migration acceptance.
+
+W = historical Windows work; M = macOS arm64. V = final reported TypeScript/database / Rust / browser counts; — means the narrative did not enumerate that count. P = Python passes; “skip” is the existing Windows-junction test unavailable on Mac. S = same-agent/context sequential self-review; pass counts are not implied; I2 = two fresh independent reviewers. Independent source-mapping review is labelled separately. Reviewers generally inspected root-executed results rather than rerunning central checks.
+
+Unless noted, Windows native results cover metadata/IPC/reload; Mac bundles expose the foundation entry. Synthetic goldens are spec-derived. Official HFSQL fidelity, legacy recordings, native interaction, human approval, UMC, reports/devices and persistent startup retain current owners. Historical publication instructions do not change current local-main/no-push authorization.
+
+| Archived report | Ticket; parent/base→delivery | Reported checks | Review / disposition | Retained scope |
+|---|---|---|---|---|
+| <a id="guide-alignment"></a>`guide-alignment.md` | MIG-2; 637fc6b→13fb9b3 | Docs/template audit. | Independent framing fixes closed. | Scaffold-era statuses superseded. |
+| <a id="stage-1"></a>`stage-1.md` | MIG-2; 637fc6b→13fb9b3 | Docs/parity framing. | Independent. | No application checks existed. |
+| <a id="stage-2"></a>`stage-2.md` | MIG-3; 13fb9b3→d45c8b2 | W V4/—/2; native metadata. | S. | Hosted CDP remains open; later fixes through a40ccde. |
+| <a id="stage-3"></a>`stage-3.md` | MIG-4; a40ccde→db441ba | W V13/—/2; 159,668-row import/restore. | S. | Import preservation only; current Mac input differs. |
+| <a id="stage-4"></a>`stage-4.md` | MIG-5; 2c1b916→99e098f | W V40/2/41; 53 layouts/154 PNGs. | S. | Foundation parent open; source/native U-SKIN acceptance. |
+| <a id="stage-5"></a>`stage-5.md` | MIG-7A.1; b97e3c3→b646e15 | W V49/2/47; 2,165 imported customers. | S. | Designer/caller/report parent remains open. |
+| <a id="stage-5-followup"></a>`stage-5-followup.md` | MIG-7A.2; retained | No standalone closure; C2 delivered target work. | See C2. | Native/runtime U, reports and UMC remain. |
+| <a id="stage-5-table-details"></a>`stage-5-table-details.md` | MIG-7A.2a; ec9599e→ecc4fe9 | W V70/2/58; real header seek/reset. | S. | Broader designer/native parent open. |
+| <a id="stage-5-designer-audit"></a>`stage-5-designer-audit.md` | MIG-7A.2b; ecc4fe9→0c3576f | W V70/2/61; final focused 20/native metadata. | S. | Raw metadata delivered; parent U gates retained. |
+| <a id="stage-6-vehicles"></a>`stage-6-vehicles.md` | MIG-7B.1; b646e15→42763c2 | W V58/2/52; 4,544 imported vehicles. | S. | Real repair-form continuation remains MIG-8. |
+| <a id="stage-6-vehicles-followup"></a>`stage-6-vehicles-followup.md` | MIG-7B.2; retained | C2 geometry/table/customer caller delivered. | See C2. | Repair caller, Q21/Q22, native/runtime remain. |
+| <a id="stage-7-units"></a>`stage-7-units.md` | MIG-7D.1; 42763c2→95c4794 | W V67/2/56; four imported units. | S. | Dormant input-row events remain specified. |
+| <a id="stage-7-units-followup"></a>`stage-7-units-followup.md` | MIG-7D.2; retained | C2 target work delivered. | See C2. | taCurrentFirst/Selection, vanished/shared-buffer and native U remain. |
+| <a id="stage-8-cleanup"></a>`stage-8-cleanup.md` | MIG-7C; 95c4794→ec9599e | W V69/2/56; signed-ID exhaustion. | S. | No parity promotion; business predicates retained. |
+| <a id="stage-9-descriptive-states"></a>`stage-9-descriptive-states.md` | MIG-7E.1; 6f9e90d→782abe8 | W V78/2/67; five imported states. | S. | Actual labor description caller remains MIG-10. |
+| <a id="stage-9-descriptive-states-followup"></a>`stage-9-descriptive-states-followup.md` | MIG-7E.2; retained | C2 assistance/geometry delivered. | See C2. | NULL/no-selection/shared buffers and labor caller remain. |
+| <a id="stage-10-terminals"></a>`stage-10-terminals.md` | MIG-7F.1; 782abe8→335a44d | W V87/3/71; actual native folder/save. | S. | Original table empty; hardware/import/native edges remain. |
+| <a id="stage-10-terminals-followup"></a>`stage-10-terminals-followup.md` | MIG-7F.2; retained | C2 target work; actual Postos caller delivered. | See C2/Postos. | Unmatched seek/NewRecord/native and hardware remain; no source print. |
+| <a id="stage-11-designer-checkpoint"></a>`stage-11-designer-checkpoint.md` | MIG-7C2.1–4; 1a3cce4→a00ff2d | M V101/3/96; bundle; four bounded passes. | I2 each. | Native/U acceptance checklist remains at original path. |
+| <a id="stage-12-postos"></a>`stage-12-postos.md` | MIG-7G.1; a00ff2d→a823a13 | M V118/3/104; golden 6. | I2; late terminal owner fixed. | Raw new-line/UMC, native context/hardware remain. |
+| <a id="stage-13-mechanics"></a>`stage-13-mechanics.md` | MIG-7H.1; 5a74343→01b808c | M V133/3/112; eleven public projections. | I2. | Real callers/access, native/password and report gates remain. |
+| <a id="stage-14-reliability-checkpoint"></a>`stage-14-reliability-checkpoint.md` | MIG-7C3; 01b808c→8dcaa12 | M V169/3/112; 36 real failure cases. | I2. | Lost-COMMIT acknowledgement remains uncertain; no retries. |
+| <a id="stage-15-repair-states"></a>`stage-15-repair-states.md` | MIG-7I.1; 8dcaa12→83deb81 | M V194/9/122; eleven imported states. | I2. | Interactive chooser and distinct types 3/4/5 caller remain. |
+| <a id="stage-16-column-metadata"></a>`stage-16-column-metadata.md` | MIG-7J.0; 83deb81→5727e5d | M V194/9/122; P15+skip; ten columns. | I2. | 63px/Center recovered; qualified duplicates later resolved at MIG-8.1. |
+| <a id="stage-17-document-types"></a>`stage-17-document-types.md` | MIG-7J.1; 5727e5d→50d55f6 | M V213/9/130; four imported documents. | I2. | Actual stock caller differences remain MIG-11. |
+| <a id="stage-18-selection-checkpoint"></a>`stage-18-selection-checkpoint.md` | MIG-7C4; 50d55f6→143541c | M V217/9/132; P18+skip; stale-result mutants. | I2. | Separate OS visual histories; no parity promotion. |
+| <a id="stage-19-typed-order"></a>`stage-19-typed-order.md` | MIG-7C4.3; 143541c→0129e56 | M V223/9/133; six reproduced SQL-order failures. | I2. | Numeric order fixed before string transport; native U retained. |
+| <a id="stage-20-articles"></a>`stage-20-articles.md` | MIG-7K.1; 0129e56→d738b35 | M V257/9/145; 15,558 imported articles. | I2; two failures fixed. | Virtual keyboard, material/stock callers and quarantine remain. |
+| <a id="stage-21-users"></a>`stage-21-users.md` | MIG-7L.1; d738b35→fe92145 | M V280/9/155; one public projection. | I2. | Repair/access/menu callers; zero original credential API reads. |
+| <a id="stage-22-state-confirmation"></a>`stage-22-state-confirmation.md` | MIG-10P.1; fe92145→4031356 | M V283/9/165; P23+skip; UI scenario. | I2. | Actual running-labor/cached-state continuation remains consuming work. |
+| <a id="stage-23-date-prompt"></a>`stage-23-date-prompt.md` | MIG-7M.1; 4031356→0062d9d | M V292/9/182; P29+skip; 16 Date flows. | I2. | No local DB; actual repair Date continuation remains. |
+| <a id="stage-24-repair-list"></a>`stage-24-repair-list.md` | MIG-8.1; 0062d9d→8188064 | M V327/9/197; P34+skip; golden 12. | I2. | MIG-8.2 form/New/Edit/Delete; native/timer U remain. |
+| <a id="stage-local-macos"></a>`stage-local-macos.md` | MIG-SETUP; 335a44d→8d55e48 | M V87/3/71; imported customer smoke/bundle. | S. | Provisional snapshot; 23,615 stock rows quarantined. |
+| <a id="framing"></a>`reviews/framing.md` | MIG-2; 637fc6b→13fb9b3 | Docs only. | Independent; three fixes closed. | Duration, concrete porting and recurring cleanup recorded. |
+| <a id="foundation"></a>`reviews/foundation.md` | MIG-3; e4db858→a40ccde | W common/native metadata passes. | S; manifest/clean-checkout fixes. | Hosted CDP still failed; no hosted native pass. |
+| <a id="database"></a>`reviews/database.md` | MIG-4; a40ccde→db441ba | W V13/—/2; P4; import/restore. | S; ANSI/NUL/lifecycle fixes. | Seventeen verified rows cover import preservation only. |
+| <a id="skin"></a>`reviews/skin.md` | MIG-5; 2c1b916→99e098f | W checkpoints through V40/2/41. | S; multiple bounded fixes. | Foundation/native/full-window gates retained. |
+| <a id="screen-prerequisite"></a>`reviews/screen-prerequisite.md` | MIG-5b.1; 99e098f→b97e3c3 | Scheduling audit only. | S; ownership clarified. | Consumer/native obligations retained; no behavior completion. |
+| <a id="customers"></a>`reviews/customers.md` | MIG-7A.1; b97e3c3→b646e15 | W V49/2/47; imported count/check. | S; NULL/Escape/CRLF/stale actions fixed. | Four narrow source events verified; broader parent open. |
+| <a id="customer-table-details"></a>`reviews/customer-table-details.md` | MIG-7A.2a; ec9599e→ecc4fe9 | W V70/2/58; focused 6. | S; pending seek/reset fixed. | Native menu/selection defaults remain U. |
+| <a id="customer-designer-mapping"></a>`reviews/customer-designer-mapping.md` | MIG-7A.2b; ecc4fe9→0c3576f | W 32-row evidence gate. | Sequential self mapping review. | Scrollbar flag distinction corrected; no runtime proof. |
+| <a id="customer-designer-implementation"></a>`reviews/customer-designer-implementation.md` | MIG-7A.2b; ecc4fe9→0c3576f | W V70/2/61; focused 20/native metadata. | S; hidden-scrollbar/dialog/magnifier fixes. | Parent/native appearance still open. |
+| <a id="vehicles"></a>`reviews/vehicles.md` | MIG-7B.1; b646e15→42763c2 | W V58/2/52; imported seven-field projection. | S; nested/racing reads fixed. | Two narrow events verified; real repair caller remains. |
+| <a id="units"></a>`reviews/units.md` | MIG-7D.1; 42763c2→95c4794 | W V67/2/56; restore rechecked. | S; exhaustion/test readiness/serialization fixed. | No unit verified promotion; dormant events retained. |
+| <a id="cleanup"></a>`reviews/cleanup.md` | MIG-7C; 95c4794→ec9599e | W V69/2/56; focused 23. | S; no residual finding. | Allocation/transport extraction only; native metadata scope. |
+| <a id="descriptive-states"></a>`reviews/descriptive-states.md` | MIG-7E.1; 6f9e90d→782abe8 | W V78/2/67; imported 5. | S; selector/source fixes. | Description result and real labor continuation remain distinct. |
+| <a id="terminals"></a>`reviews/terminals.md` | MIG-7F.1; 782abe8→335a44d | W V87/3/71; real folder cancel/select/save. | S; prefix/identity corrected. | Empty originals prove no positive record projection. |
+| <a id="local-macos"></a>`reviews/local-macos.md` | MIG-SETUP; 335a44d→8d55e48 | M V87/3/71; decoder 11/native build. | S; portability fixes. | No Mac ODBC/interactive native acceptance. |
+| <a id="designer-checkpoint"></a>`reviews/designer-checkpoint.md` | MIG-7C2.1–4; 1a3cce4→a00ff2d | M V101/3/96 at final pass. | I2 each; geometry/paste/touch/stale fixes. | Browser clipboard is handler evidence only. |
+| <a id="postos"></a>`reviews/postos.md` | MIG-7G.1; a00ff2d→a823a13 | M V118/3/104; focused 17. | I2; late context update fixed. | Captured terminal NewRecord retained; native initial context unknown. |
+| <a id="mechanics"></a>`reviews/mechanics.md` | MIG-7H.1; 5a74343→01b808c | M V133/3/112; focused 15. | I2; predicates/touch/overflow fixed. | Inferred 66px superseded by literal 63px at MIG-7J.0. |
+| <a id="reliability-checkpoint"></a>`reviews/reliability-checkpoint.md` | MIG-7C3; 01b808c→8dcaa12 | M V169/3/112; 17 failures→36 passes. | I2; no residual finding. | Lost-COMMIT result remains unknown. |
+| <a id="repair-states"></a>`reviews/repair-states.md` | MIG-7I.1; 8dcaa12→83deb81 | M V194/9/122; teardown 0. | I2; radio/title/runner fixes. | Native adapter boundary checks do not prove picker interaction. |
+| <a id="column-metadata"></a>`reviews/column-metadata.md` | MIG-7J.0; 83deb81→5727e5d | M V194/9/122; P15+skip. | I2; width/path/Center fixes. | Pure Windows paths are not Windows execution. |
+| <a id="document-types"></a>`reviews/document-types.md` | MIG-7J.1; 5727e5d→50d55f6 | M V213/9/130; imported 4. | I2; two-row fixture fixed. | Stock caller semantics remain separate; no production defect found. |
+| <a id="selection-checkpoint"></a>`reviews/selection-checkpoint.md` | MIG-7C4; 50d55f6→143541c | M V217/9/132; P18+skip; mutants. | I2; no residual finding. | No native/status promotion. |
+| <a id="typed-order"></a>`reviews/typed-order.md` | MIG-7C4.3; 143541c→0129e56 | M V223/9/133; six failures→passes. | I2; grouped-display test corrected. | NULL/tie/runtime outcomes remain scoped. |
+| <a id="articles"></a>`reviews/articles.md` | MIG-7K.1; 0129e56→d738b35 | M V257/9/145; imported 15,558. | I2; NULL-price/header regressions fixed. | Quarantined original stock guard not claimed. |
+| <a id="users"></a>`reviews/users.md` | MIG-7L.1; d738b35→fe92145 | M V280/9/155; public-only original smoke. | I2; no residual finding. | Uppercase/private-read proof uses synthetic credentials. |
+| <a id="state-confirmation"></a>`reviews/state-confirmation.md` | MIG-10P.1; fe92145→4031356 | M V283/9/165; two Center failures fixed. | I2; unit CSV synchronized. | Real repair caller/native/runtime gates retained. |
+| <a id="date-prompt"></a>`reviews/date-prompt.md` | MIG-7M.1; 4031356→0062d9d | M V292/9/182; native-segment browser regressions. | I2; partial/NULL-clear fixes. | WKWebView/WebView2 acceptance remains separate. |
+| <a id="repair-list"></a>`reviews/repair-list.md` | MIG-8.1; 0062d9d→8188064 | M V327/9/197; imported 15,667 joined rows. | I2; busy/owner/filter/viewport fixes. | Full form and native/runtime gates retained. |
+| <a id="crud-review"></a>`reviews/crud-review.md` | STEP0; b5054ea→7d3a5c7 | W source audit; 23 gates/442 rows. | Independent; seven groups corrected/rechecked. | No runtime/application execution. |
+| <a id="data-query-project-review"></a>`reviews/data-query-project-review.md` | STEP0; b5054ea→7d3a5c7 | W 62 gates/29 exact SQL bodies. | Independent; six groups corrected/rechecked. | Code 28/link provenance, QRY_noname and runtime U retained. |
+| <a id="extraction-data-review"></a>`reviews/extraction-data-review.md` | STEP0; b5054ea→7d3a5c7 | W converter 3/typed-hash/count checks. | Independent; warning/hash/lifetime fixes. | Driver chunking/encoding/link semantics remain unproved. |
+| <a id="reports-review"></a>`reviews/reports-review.md` | STEP0; b5054ea→7d3a5c7 | W 28 report gates/69 seeds. | Independent; three groups corrected. | Forty-one image captions inferred; no runtime PDF proof. |
+| <a id="reports-export-second-review"></a>`reviews/reports-export-second-review.md` | STEP0; b5054ea→7d3a5c7 | W 28 gates/typed hashes/converter 3. | Independent; containment/geometry fixes verified separately. | Printer geometry/driver fidelity remain limited. |
+| <a id="windows-second-review"></a>`reviews/windows-second-review.md` | STEP0; b5054ea→7d3a5c7 | W 53 gates/513 source blocks. | Independent; three findings corrected/rechecked. | Other-order state, chooser 3/4/5 and bindings preserved. |
+| <a id="workflows-review"></a>`reviews/workflows-review.md` | STEP0; b5054ea→7d3a5c7 | W 30 gates/361 blocks. | Independent; two documentation fixes. | Exact branch ledgers/U applicability retained; no runtime proof. |

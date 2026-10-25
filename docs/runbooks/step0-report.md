@@ -1,45 +1,16 @@
-# Step 0 — results
+# Historical Step 0 evidence — 23 October 2026
 
-23 October 2026. **Extraction and reviewed mapping work. No application implementation or architecture decisions have started.**
+This records source inspection/export evidence from the original Windows stage, before implementation. It is not a current-host test or an instruction to restart the migration. Current delivery is in [handoff](handoff.md).
 
-## What was processed
+| Evidence | Historical result |
+| --- | --- |
+| Dossier/source | 2,303 pages;51 application windows;29 query definitions;135 keyed analysis fields;128 source fingerprints |
+| Mapping/specs | 143 units,53 window specs,28 report specs;877 source-seed behaviors preserved |
+| Images | 106 dossier images and53 layout drawings; one report and both WDFAA windows lack dossier references |
+| Driver export | 17 tables/159,668 rows from a scratch copy; repeated counts/typed hashes matched historical manifest, including16,979NULL/23,615BLOB cells;35 source files unchanged |
+| Initial parity | 2,273 rows:1,792specified/481unmapped,326 assumed-confidence rows; zero target implementation or acceptance at that stage |
+| Checks | 143 unit checks, source-seed/U lints, schema syntax,4 export/path tests and75 playbook tests passed; no legacy/native/target workflow replay |
 
-| Input/output | Result |
-|---|---|
-| Technical dossier | All 2,303 pages processed; 51 application windows; 29 query SQL definitions; 135 analysis fields with key properties. |
-| Source evidence | 128 fingerprinted source files; 877 generated source-seed behaviors retained exactly. |
-| Visual evidence | 106 dossier images and 53 source layout drawings. 27 of the 28 report units have a dossier image. |
-| Mapping | 143 source/table/template units; 53 window specs and 28 report specs. |
-| Data | 17 tables, 159,668 rows read from a scratch copy through the official HFSQL driver; SQLite, CSVs and manifest available locally. |
-| Consolidated parity | 2,273 rows: 1,792 specified and 481 explicitly unresolved/unmapped. Zero implemented, verified-as-target or excluded rows. |
-| Review | Independent first reviews and second adversarial window/report/export reviews; all actionable documentation/tool findings corrected. |
+Canonical evidence: [validation JSON](step0-validation.json), [export verification](../data/export-verification.json), [mapping index](../mapping/README.md), [legacy inventory](../legacy-inventory.md), [question summary](../evidence/question-summary.md) and [answer sheet](../evidence/encoded-actions.md). Full original report is recoverable from Git8188064.
 
-The 481 unresolved rows are recorded questions about runtime, designer, import and binary-template behavior, not 481 extraction crashes. The 326 assumed-confidence rows cite explicit proposals; they are not promoted to observed legacy facts. The [mapping index](../mapping/README.md) and [validation JSON](step0-validation.json) give exact coverage.
-
-## Verification
-
-- All 143 per-unit parity checks and mapping/spec U-item lints pass. The consolidated parity gate passes with every source seed retained and evidence-file checks enabled.
-- All 17 source table counts agree before and after reads. A second hardened driver read reproduced each table's first-export hash.
-- Actual SQLite counts, parsed CSV counts, typed row hashes, 16,979 NULL values and 23,615 BLOB values agree with the manifest and independent verification. All 35 scratch FIC/NDX/MMO files remain unchanged after reads.
-- The draft schema loads into an in-memory SQLite database with 17 tables. This is a syntax/structure check, not a target database migration.
-- Four local export/conversion/path-containment tests pass. The playbook's 75 toolkit tests pass; its existing Pillow deprecation/resource warnings are nonfatal and remain upstream issues.
-- No native application, printer, scanner, legacy runtime scenario or target import was executed. No npm/Tauri project was scaffolded.
-
-## Important remaining evidence
-
-Exact question counts and their overlap: [question summary](../evidence/question-summary.md). Step 0 deliverables being complete does not mean that all legacy behavior is already confirmed.
-
-1. Nine list reports use embedded query SQL that the dossier does not print. Compiler data establishes selected items; conditions/sort proposals remain assumed.
-2. QRY_noname has no dossier SQL or established caller. Fourteen binary MediaPlayer template files remain unmapped pending design-only/inherited-behavior classification.
-3. One report lacks a dossier image. The two WDFAA dialog/message skin windows lack dossier entries. Some captions/flags need image or runtime evidence.
-4. Twelve runtime questions and seventeen encoded-action groups are recorded in the [answer sheet](../evidence/encoded-actions.md). The dialog skin contains a potentially destructive Escape/default-button interaction; a safe proposal is not proof of the legacy result.
-5. The data profile records duplicate labor IDs, orphan references, sentinel/empty values and unused totals/link fields. No source values were repaired. The official driver returns empty BLOBs for a generated composite/link field; use component keys for later interpretation.
-6. ANSI text is the official driver-reported Windows-1252 view, not proof of undocumented storage encoding. Native-driver large-payload chunking beyond this dataset remains untested.
-
-Full gap groups and source-backed risk descriptions: [legacy inventory](../legacy-inventory.md).
-
-## What the next stage should decide
-
-Review the source-observed stock/delete, labor-state, CRUD failure and delete-dialog behavior before deciding preserve versus fix. Confirm actual local/shared/server deployment, device/printer requirements and which old features remain in scope. The project has an optional HFSQL Client/Server branch; copied local data does not establish the production topology.
-
-The owner may now review this evidence before authorizing framing or a bounded kickoff. Do not blindly restart extraction: use the handoff, existing maps and explicit current dossier/compile-folder paths. No application code should be written while the current Step 0-only instruction remains in force.
+Retain embedded-report SQL proposals, QRY_noname uncertainty,14 binary templates,12 runtime questions/17encoded-action groups, data anomalies and driver encoding/payload limitations in those canonical sources. Generated composite/link cells do not establish business-key encoding; use evidenced component keys. Current Mac input is the separate provisional SQLite projection described in setup/LOCAL-WORKSPACE.md, with23,615stock rows quarantined; historical export evidence does not establish current whole-export fidelity.

@@ -15,7 +15,7 @@ Use subagents for useful independent investigation, implementation and review. P
 
 Tested local commits may go directly to main; no mandatory codex branch or PR. Never push: the owner will publish when ready. Do not rewrite history, bypass guards or modify hooks/runtime agent settings.
 
-Keep instructions lean: update the existing applicable ADR rather than adding an ADR or runbook for each process preference. Preserve concise current decisions, necessary evidence and a usable handoff.
+Keep instructions lean: update the existing applicable ADR rather than adding an ADR or runbook for each process preference. Preserve concise current decisions, necessary evidence and a usable handoff. The owner-requested consolidation follows guide04: handoff is the latest closed stage only, one reusable current-stage brief owns active work, and a concise migration-history ledger plus Git retains completed delivery/review history. Do not duplicate past reports across handoff, stage notes and review files. Preserve canonical source/spec/parity/golden/visual evidence and current operational procedures; document consolidation must not change behavior or parity.
 
 ## Consequences and verification
 The final gate requires every parity row verified or excluded by ADR, full reconciliation, golden scenarios and native/install/restore evidence. Unavailable checks remain explicit. Step 0 validation stays an evidence snapshot and is not substituted for target verification.

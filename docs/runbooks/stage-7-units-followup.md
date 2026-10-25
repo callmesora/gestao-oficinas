@@ -1,9 +1,0 @@
-# MIG-7D.2 — units designer follow-up after six usable windows
-
-After MIG-7C, audit RULE-CCB16084-014 and RULE-C77806F9-010 with the same actual unit/API/PostgreSQL path. Source enables column search/configuration, sortable/movable/adjustable columns, scrollbar properties and automatic input metadata. Existing width/order/save behavior is shared; remaining search/visibility/scrollbar/default keys and exact tab/native behavior must be implemented or assigned to their precise existing U items, never erased by a broad deferral. Preserve the source read-only table; the recorded new-row GR_ACTION events stay visible until their runtime reachability is established, without fabricating input rows.
-
-Retain taCurrentFirst/taCurrentSelection, vanished record, shared HFSQL/context and text-key locale cases under U-CCB16084-* / U-C77806F9-*. No guessed collation/selection/default is verified by pinning a chosen outcome. Printing/RPT_List_unidades stays MIG-13, UMC has no exclusion, native/framework-dialog/human acceptance stays MIG-15. Parent MIG-7D remains in progress while these obligations remain.
-
-Follow full evidence reads, review skill/two independent reviews, real browser/database/golden checks, unchanged visual floors and applicable native check. Update parity, roadmap, handoff/progress and local commit explicit files. This brief and the retained customer/vehicle follow-ups gate remaining leaf workflows.
-
-MIG-7C2 delivered the scheduled real modal geometry, source-gated numeric entry, table header/configuration/raw options and eligible text assistance; actual customer→vehicle edit/select/cancel/reload and positive registration reselect are covered. See stage-11-designer-checkpoint.md/reviews/designer-checkpoint.md for checks and precise scope. This parent remains open for its existing native/runtime/U, report, later real caller and UMC obligations. ADR-014's checkpoint replaces the older blanket leaf gate; no behavior is excluded. No push.

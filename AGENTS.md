@@ -110,7 +110,7 @@ npm run native:check
 ## Work tracking
 
 Ticket and current slice: `ROADMAP.md`; commits start with the ticket. Local main commits are allowed; separate branches/worktrees are optional for concurrent writers. Complete dependencies in order; useful independent subagent work may run in parallel. One writer per file; no pushes.
-Each stage has `docs/runbooks/stage-N.md`, verification, review/fixes, parity/roadmap/handoff updates and regenerated progress. Never advance past an unfinished dependency.
+Use one reusable `docs/runbooks/current-stage.md` for the active bounded brief. Keep only the latest closed stage in `docs/runbooks/handoff.md`; record concise delivery/review history in `docs/migration-history.md`, with full reports recoverable from Git. Keep current decisions in their applicable ADR/spec and operational procedures in runbooks. Verification, review/fixes, parity/roadmap updates and regenerated progress remain required. Never advance past an unfinished dependency.
 
 ## Pointers
 

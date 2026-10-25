@@ -10,6 +10,8 @@ MODIFICAR loads existing and disables plate typing; NOVO max(numero)+1/current d
 
 Caller arguments/results and native buffer changes: mapping entry/event ledger.
 
+Implementation resume constraints (source273–336,943–1125,1424–1478): gnCliente starts0 and is captured by vehicle resolution, including edit initialization; save rereads the vehicle/customer display without reassigning it. Restore stored contacts after edit initialization resolves the vehicle. Required delivery validation precedes the delivery/payment Date prompts; cancellation preserves the original argument and continues, and later blank/zero prompt results are not revalidated. The18 assigned write fields must stay separate from the8 commented query parameters/current database values; decide target creation defaults and concurrency in ADR006 before translation. Source370–381 movement SQL is an ambiguous cross join, not an established material-OR-labor predicate.
+
 ## Window/layout
 
 | Field | Extracted value |

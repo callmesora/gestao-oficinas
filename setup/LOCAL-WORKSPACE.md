@@ -26,7 +26,7 @@ python scripts/prepare_evidence.py --legacy legacy --analysis analysis-local \
 
 ## Resume point
 
-The migration already includes ten usable windows and accepted Windows/shared TypeScript API/PostgreSQL architecture. The next implementation in the cloned handoff is **MIG-7C2**, `docs/runbooks/stage-11-designer-checkpoint.md`. Read the full current handoff, roadmap and applicable ADRs. Do not restart mapping/framing, scaffold over the app or add another leaf workflow first.
+The cloned handoff originally identified MIG-7C2; its scheduled target work is now delivered. The retained `docs/runbooks/stage-11-designer-checkpoint.md` lists remaining designer/native acceptance. Resume from the current handoff and roadmap, with the accepted shared API/PostgreSQL architecture. This setup report records historical local checks; do not restart mapping/framing or scaffold over the application.
 
 Windows and macOS Codex agents collaborate on this project. Read `docs/runbooks/cross-platform-agents.md` for stage/file ownership, separate branches/worktrees, integration of shared tracking and OS/commit-labelled test evidence. Do not reuse the earlier Windows session/process handles on this Mac.
 
@@ -107,6 +107,6 @@ The Mac workflow config opens Clientes initially; the existing Windows terminal-
 
 Business behavior, schema/migrations, parity statuses and roadmap ordering are unchanged. Shared Windows/Mac instructions are in AGENTS and the coordination runbook; no guard/hooks or runtime agent settings were installed/changed. Run Git inside the application or playbook checkout; the parent inherits an unrelated ancestor repository. Kickoff prompts are supplied in chat, not maintained as another repository document.
 
-Review mode: two disclosed sequential self-review passes in the same context under ADR-007 and `skills/review/SKILL.md`; see `docs/runbooks/reviews/local-macos.md`. No independent reviewer claim. Owner-requested shared Windows/Mac collaboration instructions live in `docs/runbooks/cross-platform-agents.md` and are linked from both AGENTS files and the handoff.
+Review mode: two disclosed sequential self-review passes in the same context under ADR-007 and `skills/review/SKILL.md`; see `docs/migration-history.md#local-macos`. No independent reviewer claim. Owner-requested shared Windows/Mac collaboration instructions live in `docs/runbooks/cross-platform-agents.md` and are linked from both AGENTS files and the handoff.
 
 Final launch smoke: `npm run dev:local` imported the provisional data and served the real API; `npm run desktop:mac` built and started `target/debug/gestao-oficinas` against the customer workflow without a startup error. Native interactive controls/picker were not automated. Both owned development processes were then stopped with Ctrl+C; restart with the commands above. Source and copied SQLite hashes were rechecked and remain identical. Other machines can obtain the setup branch through authorized Git sharing; private snapshots, extracts and environments remain local and must be provisioned separately.
