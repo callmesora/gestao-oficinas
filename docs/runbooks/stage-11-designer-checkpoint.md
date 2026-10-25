@@ -19,4 +19,10 @@ Pass 1 implements the five real forms and existing customer/descriptive-state/te
 
 Checks/review and delivery state are recorded in handoff and `reviews/designer-checkpoint.md`. Next bounded pass is numeric masks, including preventing malformed vehicle drafts becoming JSON null; then vehicle/unit table features and actual caller audit. C2 still gates another leaf.
 
+## MIG-7C2.2 — numeric entry
+
+Base `01205f7`, root integrates main consumers/tests/docs; shared numeric control implementer owns only wd.tsx/layout.ts/new numeric-entry files in isolated `codex/c2-numeric` worktree. Source masks from complete form specs/generated layouts: customer code `9 999 999 999`, year `9999`, month/four terminal positions `99`. Three terminal controls lack extracted Numeric type but have explicit masks/unsigned-byte bindings; use explicit consumer opt-in, never invent source metadata. Normal/invalid paste, grouping/caret/automatic erase, mask boundary, cleared drafts, bound oversized/NULL preservation and real persisted/reloaded values need tests. Fix malformed vehicle→NaN→JSON null before transport while keeping exact required-message order. Pure application conversion tests plus actual browser/API/DB paths; existing API ranges/large-ID tests remain unchanged. Broad rows/U gates remain implemented. Two fresh independent reviews, full verify and local explicit commit before next pass.
+
 Checkpoint finishes when the known scheduled target work is actually implemented/tested and the remaining native/runtime/human-only questions have precise evidence/U owners. Then select the next dependency-aware leaf (postos now has the terminal picker); full migration remains active.
+
+C2.2 closure: full macOS verify passed98 TS/DB,3 Rust and83 browser cases; debug native bundle built. Two independent reviews and fix rereads are in reviews/designer-checkpoint.md. Actual source/schema assistance audit found four eligible text-key consumers (customer/unit/descriptive-state Descricao and terminal Codigo), all with End of automatic input=false; retain these as known C2 target work alongside table/caller passes. No numeric or nonkey suggestions are implied.

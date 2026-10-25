@@ -1,9 +1,10 @@
-import { useId, type ButtonHTMLAttributes, type CSSProperties, type InputHTMLAttributes, type ReactNode, type TextareaHTMLAttributes } from "react";
+import { useCallback, useId, useImperativeHandle, useLayoutEffect, useMemo, useRef, type ButtonHTMLAttributes, type ChangeEvent, type ClipboardEvent, type ComponentPropsWithRef, type CSSProperties, type FocusEvent, type KeyboardEvent, type ReactNode, type TextareaHTMLAttributes } from "react";
 import { buttonSkin, controlBox, controlOf, skinImage, type LegacyControl, type LegacyLayout } from "./layout";
 import "./skin.css";
 import { activateMnemonic, mnemonicCaption } from "./mnemonics";
 import { FrameDeltaContext, useAnchoredControl } from "./anchors";
 import { useInputSelection } from "./input-selection";
+import { integerMaskDeletionRange, integerMaskDisplay, integerMaskEdit, integerMaskOf, type IntegerMask } from "./numeric-entry";
 
 type ButtonProps = { control: LegacyControl; chrome?: boolean; interpretAmpersand?: boolean; style?: CSSProperties } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "type">;
 export function WdButton({ control: source, chrome = false, interpretAmpersand = true, style, className = "", tabIndex, ...props }: ButtonProps) {
@@ -50,14 +51,104 @@ export function WdFrame({ layout, instance, children, width, height, onClose, on
   </section>;
 }
 
-export function WdEdit({ control: source, automaticErase, ...props }: { control: LegacyControl; automaticErase?: boolean } & Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "style" | "className" | "id">) {
+type EditInputProps = Omit<ComponentPropsWithRef<"input">, "type" | "style" | "className" | "id">;
+
+function useIntegerEntry(mask: IntegerMask | null, props: EditInputProps) {
+  const input = useRef<HTMLInputElement | null>(null);
+  const accepted = useRef({ value: "", start: 0, end: 0 });
+  const capture = useCallback((node: HTMLInputElement) => {
+    accepted.current = { value: node.value, start: node.selectionStart ?? 0, end: node.selectionEnd ?? 0 };
+  }, []);
+  const ref = useCallback((node: HTMLInputElement | null) => {
+    input.current = node;
+    if (!node) return;
+    const beforeInput = (event: InputEvent) => {
+      if (!mask) return;
+      capture(node); // Includes a recent programmatic setValue before the actual user edit.
+      if (node.disabled || node.readOnly) { event.preventDefault(); return; }
+      let start = node.selectionStart ?? 0, end = node.selectionEnd ?? start;
+      if (mask.separators.length && (event.inputType === "deleteContentBackward" || event.inputType === "deleteContentForward")) {
+        const range = integerMaskDeletionRange(node.value, start, end, event.inputType === "deleteContentBackward");
+        if (range) { start = range.start; end = range.end; node.setSelectionRange(start, end); }
+      }
+      if (event.inputType.startsWith("insert") && event.data !== null) {
+        const candidate = node.value.slice(0, start) + event.data + node.value.slice(end);
+        if (!integerMaskEdit(mask, node.value, candidate)) event.preventDefault();
+      }
+    };
+    if (mask) {
+      const display = integerMaskDisplay(mask, node.value);
+      if (display !== node.value) node.value = display;
+      capture(node);
+      node.addEventListener("beforeinput", beforeInput);
+    }
+    return () => {
+      node.removeEventListener("beforeinput", beforeInput);
+      input.current = null;
+    };
+  }, [mask, capture]);
+  // React owns callback/object-ref assignment and cleanup; expose the actual input to RHF.
+  useImperativeHandle(mask ? props.ref : undefined, () => input.current!, []);
+  useLayoutEffect(() => {
+    if (mask && input.current) {
+      const display = integerMaskDisplay(mask, input.current.value);
+      if (display !== input.current.value) input.current.value = display;
+      capture(input.current);
+    }
+  });
+  return !mask ? { ref: props.ref, onFocus: props.onFocus, onKeyDown: props.onKeyDown, onPaste: props.onPaste, onChange: props.onChange } : {
+    ref,
+    onFocus: (event: FocusEvent<HTMLInputElement>) => {
+      if (mask) capture(event.currentTarget);
+      props.onFocus?.(event);
+    },
+    onKeyDown: (event: KeyboardEvent<HTMLInputElement>) => {
+      props.onKeyDown?.(event);
+      if (!mask || event.defaultPrevented || event.currentTarget.readOnly || event.currentTarget.disabled) return;
+      const node = event.currentTarget;
+      capture(node);
+      if (mask.separators.length && !event.ctrlKey && !event.altKey && !event.metaKey && (event.key === "Backspace" || event.key === "Delete")) {
+        const range = integerMaskDeletionRange(node.value, node.selectionStart ?? 0, node.selectionEnd ?? 0, event.key === "Backspace");
+        if (range) node.setSelectionRange(range.start, range.end);
+      }
+    },
+    onPaste: (event: ClipboardEvent<HTMLInputElement>) => {
+      props.onPaste?.(event);
+      if (event.defaultPrevented) return;
+      const node = event.currentTarget;
+      capture(node);
+      const start = node.selectionStart ?? 0, end = node.selectionEnd ?? start;
+      // Check the original paste before the browser's text-input newline removal.
+      const candidate = node.value.slice(0, start) + event.clipboardData.getData("text") + node.value.slice(end);
+      if (node.readOnly || node.disabled || !integerMaskEdit(mask, node.value, candidate)) event.preventDefault();
+    },
+    onChange: (event: ChangeEvent<HTMLInputElement>) => {
+      if (!mask) { props.onChange?.(event); return; }
+      const node = event.currentTarget;
+      const edit = !node.readOnly && !node.disabled && integerMaskEdit(mask, accepted.current.value, node.value, node.selectionStart ?? node.value.length, node.selectionEnd ?? node.value.length);
+      const next = edit || accepted.current;
+      node.value = next.value;
+      node.setSelectionRange(next.start, next.end);
+      if (!edit) return;
+      capture(node);
+      props.onChange?.(event);
+    },
+  };
+}
+
+export function WdEdit({ control: source, automaticErase, integerMask = false, ...props }: { control: LegacyControl; automaticErase?: boolean; integerMask?: boolean } & EditInputProps) {
   const control = useAnchoredControl(source);
-  const selection = useInputSelection(automaticErase ?? control.flags?.["Automatic erase"], props);
+  const mask = useMemo(() => integerMask ? integerMaskOf(control.input_mask) : null, [integerMask, control.input_mask]);
+  const numeric = useIntegerEntry(mask, props);
+  const selection = useInputSelection(automaticErase ?? control.flags?.["Automatic erase"], { ...props, onFocus: numeric.onFocus });
   const id = useId();
   const captionWidth = control.caption_width ?? 0;
   return <div className="wd-field" hidden={props.hidden ?? control.visible === false} data-control-path={control.path} style={controlBox(control)}>
     {captionWidth > 0 && <label htmlFor={id} style={{ width: captionWidth - 2 }}>{control.caption}</label>}
-    <input {...props} {...selection} id={id} type={control.flags?.Password === true ? "password" : "text"}
+    <input {...props} {...numeric} {...selection} id={id} type={control.flags?.Password === true ? "password" : "text"}
+      inputMode={mask ? "numeric" : props.inputMode}
+      value={mask && props.value !== undefined ? integerMaskDisplay(mask, String(props.value)) : props.value}
+      defaultValue={mask && props.defaultValue !== undefined ? integerMaskDisplay(mask, String(props.defaultValue)) : props.defaultValue}
       maxLength={props.maxLength ?? (control.input_type === "Text" && (control.input_size ?? 0) > 0 ? control.input_size : undefined)}
       tabIndex={props.tabIndex ?? (control.flags?.["TAB Key"] === false || String(control.tab_order) === "-1" ? -1 : undefined)} data-testid={control.name} className="wd-edit"
       readOnly={props.readOnly ?? control.state === "Read-only"}

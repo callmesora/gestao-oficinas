@@ -1,9 +1,10 @@
 import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import { useForm, useWatch } from "react-hook-form";
-import type { Vehicle, VehicleFilter, VehicleListRow, VehicleValues } from "../../packages/domain/src/vehicles";
+import type { Vehicle, VehicleFilter, VehicleListRow } from "../../packages/domain/src/vehicles";
 import type { Customer } from "../../packages/domain/src/customers";
 import type { VehicleRepository } from "../application/vehicles";
 import type { CustomerRepository } from "../application/customers";
+import { vehicleFormValues, type VehicleFormText } from "../application/vehicle-form";
 import { isolatedVehicleRepository } from "../infrastructure/vehicles";
 import { isolatedCustomerRepository } from "../infrastructure/customers";
 import { CustomerPicker } from "./customers";
@@ -19,7 +20,6 @@ import { WdWorkspace, useWorkspace, useWorkspaceClose } from "./legacy/workspace
 import { WdModal, type WdModalHandle } from "./legacy/modal";
 
 type Repositories = { vehicles: VehicleRepository; customers: CustomerRepository };
-type FormText = { matricula: string; Cliente: string; marca: string; modelo: string; Ano: string; mes: string };
 const fields = ["matricula", "marca", "modelo", "Ano", "mes"] as const;
 const inputNames = { matricula: "EDT_Matricula", marca: "EDT_Marca", modelo: "EDT_Modelo", Ano: "EDT_Ano", mes: "EDT_Mes" };
 const modes = ["todos", "matricula", "cliente", "marca_modelo"] as const;
@@ -44,8 +44,8 @@ function VehicleForm({ repositories, vehicle, finish }: { repositories: Reposito
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const [customers, setCustomers] = useState<Customer[]>([]), [picker, setPicker] = useState(false);
   const { message } = useDialogs();
-  const defaults: FormText = { matricula: vehicle?.matricula ?? "", Cliente: vehicle?.Cliente ?? "", marca: vehicle?.marca ?? "", modelo: vehicle?.modelo ?? "", Ano: String(vehicle?.Ano ?? 0), mes: String(vehicle?.mes ?? 0) };
-  const { register, getValues, setValue, control, formState: { dirtyFields } } = useForm<FormText>({ defaultValues: defaults });
+  const defaults: VehicleFormText = { matricula: vehicle?.matricula ?? "", Cliente: vehicle?.Cliente ?? "", marca: vehicle?.marca ?? "", modelo: vehicle?.modelo ?? "", Ano: String(vehicle?.Ano ?? 0), mes: String(vehicle?.mes ?? 0) };
+  const { register, getValues, setValue, control, formState: { dirtyFields } } = useForm<VehicleFormText>({ defaultValues: defaults });
   const selectedCustomer = useWatch({ control, name: "Cliente" });
   useEffect(() => {
     let active = true;
@@ -60,14 +60,10 @@ function VehicleForm({ repositories, vehicle, finish }: { repositories: Reposito
     if (pending.current || picker) return;
     pending.current = true; setBusy(true); setDiagnostic("");
     try {
-      const text = getValues();
-      const values: VehicleValues = {
-        matricula: text.matricula, Cliente: vehicle && !dirtyFields.Cliente ? vehicle.Cliente : text.Cliente || "0",
-        marca: vehicle && !dirtyFields.marca ? vehicle.marca : text.marca,
-        modelo: vehicle && !dirtyFields.modelo ? vehicle.modelo : text.modelo,
-        Ano: vehicle && !dirtyFields.Ano ? vehicle.Ano : /^\d*$/.test(text.Ano) ? Number(text.Ano || "0") : Number.NaN,
-        mes: vehicle && !dirtyFields.mes ? vehicle.mes : /^\d*$/.test(text.mes) ? Number(text.mes || "0") : Number.NaN,
-      };
+      const draft = vehicleFormValues(getValues(), vehicle, dirtyFields);
+      if (draft.kind === "required") { await message({ title: formLayout.window.title, text: draft.message, type: 0 }); return; }
+      if (draft.kind === "invalid_numeric") { setDiagnostic(draft.kind); return; }
+      const values = draft.values;
       const result = await repositories.vehicles.save(vehicle ? { mode: "update", originalRegistration: vehicle.matricula!, values } : { mode: "create", values });
       if (result.kind === "saved") { pending.current = false; close(true); }
       else if (result.kind === "required" || result.kind === "duplicate") await message({ title: formLayout.window.title, text: result.message, type: result.kind === "duplicate" ? 1 : 0 });
@@ -98,7 +94,7 @@ function VehicleForm({ repositories, vehicle, finish }: { repositories: Reposito
         {fields.slice(0, 3).map(field => <WdEdit key={field} control={controlOf(formLayout, inputNames[field])} {...register(field)} disabled={busy} readOnly={field === "matricula" && vehicle !== null} />)}
         <CustomerCombo customers={customers} value={selectedCustomer} change={code => setValue("Cliente", code, { shouldDirty: true })} disabled={busy} />
         <WdButton control={controlOf(formLayout, "BTN_VISION")} disabled={busy} onClick={() => setPicker(true)} />
-        {fields.slice(3).map(field => <WdEdit key={field} control={controlOf(formLayout, inputNames[field])} {...register(field)} disabled={busy} />)}
+        {fields.slice(3).map(field => <WdEdit key={field} control={controlOf(formLayout, inputNames[field])} {...register(field)} disabled={busy} integerMask />)}
       </div>
       <WdButton control={controlOf(formLayout, "BTN_Validar")} disabled={busy} onClick={() => void save()} />
       <WdButton control={controlOf(formLayout, "BTN_Cancelar")} disabled={busy} onClick={() => close()} />

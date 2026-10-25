@@ -111,7 +111,7 @@ test("SRC-a61ff747bb picker returns actual registration and both close routes re
 
 
 test("SRC-a29b466a64 actual new customer picker refreshes the vehicle combo and does not leak its filter", async ({ page, request }) => {
-  const previous = await customer(request), Codigo = String(Date.now()) + "77", Descricao = `New picker ${Codigo}`;
+  const previous = await customer(request), Codigo = String(Date.now() % 10000000000), Descricao = `New picker ${Codigo}`;
   await page.goto("/?workflow=vehicles"); await page.getByTestId("vehicles-open").click(); await page.getByTestId("Btn_New").click();
   const vehicle = page.getByTestId("WIN_Form_Viaturas");
   await vehicle.getByTestId("BTN_VISION").click(); const picker = page.getByTestId("customer-picker");

@@ -74,7 +74,7 @@ function TerminalForm({ repository, terminal, finish }: { repository: TerminalRe
       if (event.key === "Enter" && !(event.target instanceof HTMLButtonElement)) { event.preventDefault(); void save(); }
     }}>
       <div data-testid="SC_Form" style={{ display: "contents" }}>
-        {(Object.keys(fieldControls) as (keyof TerminalValues)[]).map(key => <WdEdit key={key} control={controlOf(displayedFormLayout, fieldControls[key])} {...register(key)} readOnly={key === "pasta_localizacao" || (key === "Codigo" && terminal !== null)} disabled={busy} />)}
+        {(Object.keys(fieldControls) as (keyof TerminalValues)[]).map(key => <WdEdit key={key} control={controlOf(displayedFormLayout, fieldControls[key])} {...register(key)} readOnly={key === "pasta_localizacao" || (key === "Codigo" && terminal !== null)} disabled={busy} integerMask={positionFields.includes(key as typeof positionFields[number])} />)}
         <WdButton control={controlOf(formLayout, "BTN_procurar_pasta")} disabled={busy} onClick={() => void chooseFolder()} />
       </div>
       <WdButton control={controlOf(formLayout, "BTN_Validar")} disabled={busy} onClick={() => void save()} />

@@ -14,7 +14,7 @@ test("SRC-51085948c6 real customer form validates, saves, edits, cancels and per
   await form.getByTestId("BTN_Validar").click();
   await expect(page.getByTestId("LIB_INFO")).toHaveText("Falta indicar o código");
   await page.getByTestId("WINDEVMESSAGEBOX").getByTestId("BTN_OK").click();
-  const code = String(Date.now());
+  const code = String(Date.now() % 10000000000); // Source user-entry mask has ten digits; imported larger codes are exercised separately.
   const description = `Cliente sintético d'Água ${code}`, edited = `Cliente sintético editado ${code}`;
   await form.getByTestId("EDT_Codigo").fill(code);
   await form.getByTestId("BTN_Validar").click();
@@ -80,7 +80,7 @@ test("SRC-0bb0e89335 real delete dialog cancels safely and explicit Sim removes 
 test("SRC-284e9feb26 real list search modes reset/focus and duplicate save keeps the form open", async ({ page, request }) => {
   const session = await request.post("/api/development/session", { headers: { Origin: "http://localhost:1431", "X-Isolated-Development": "1" } });
   const { token } = await session.json(), headers = { Authorization: `Bearer ${token}` };
-  const Codigo = String(Date.now()), description = `Pesquisa ${Codigo}`;
+  const Codigo = String(Date.now() % 10000000000), description = `Pesquisa ${Codigo}`;
   const values = { Codigo, Descricao: description, Morada1: `Rua ${Codigo}`, Morada2: `Lugar ${Codigo}`, codpostal: `CP ${Codigo}`, Telefone1: `Tel ${Codigo}`, Telemovel: `Mov ${Codigo}`, observacao: "Nota de pesquisa" };
   expect((await (await request.post("/api/customers/save", { headers, data: { mode: "create", values } })).json()).kind).toBe("saved");
   await page.goto("/?workflow=customers"); await page.getByTestId("customers-open").click();
@@ -238,12 +238,17 @@ test("RULE-CC16AB27-028 raw designer scroll and truncated tooltip options reach 
 
 test("RULE-C286277B-011 actual customer keyboard path keeps exact grouped code and source field traversal; list chrome retains data", async ({ page, request }) => {
   const marker = String(Date.now()), Codigo = String(9007199254740993n + BigInt(marker)), Descricao = `Keyboard ${marker}`;
+  const session = await request.post("/api/development/session", { headers: { Origin: "http://localhost:1431", "X-Isolated-Development": "1" } });
+  const headers = { Authorization: `Bearer ${(await session.json()).token}` };
+  // Source MAX+1 may bind a value beyond the entry mask: preserve it exactly rather than truncate it.
+  const seeded = await request.post("/api/customers/save", { headers, data: { mode: "create", values: { Codigo: String(BigInt(Codigo) - 1n), Descricao: `Seed ${marker}`, Morada1: "", Morada2: "", codpostal: "", Telefone1: "", Telemovel: "", observacao: "" } } });
+  expect((await seeded.json()).kind).toBe("saved");
   await page.goto("/?workflow=customers"); await page.getByTestId("customers-open").click();
   const table = page.getByTestId("TABLE_Clientes");
   await page.getByTestId("Btn_New").click(); const form = page.getByTestId("WIN_Form_Clientes");
   await expect(form.getByTestId("EDT_Descricao")).toBeFocused();
   await page.keyboard.press("Shift+Tab"); await expect(form.getByTestId("EDT_Codigo")).toBeFocused();
-  await form.getByTestId("EDT_Codigo").fill(Codigo.replace(/\B(?=(\d{3})+(?!\d))/g, " "));
+  await expect(form.getByTestId("EDT_Codigo")).toHaveValue(Codigo.replace(/\B(?=(\d{3})+(?!\d))/g, " "));
   await page.keyboard.press("Tab"); await expect(form.getByTestId("EDT_Descricao")).toBeFocused();
   await form.getByTestId("EDT_Descricao").fill(Descricao); await expect(form.getByTestId("EDT_Descricao")).toHaveAttribute("maxlength", "100");
   for (const name of ["EDT_Morada1", "EDT_Morada2", "EDT_Codpostal", "EDT_Telefone1", "EDT_Telemovel", "EDT_Observacao"]) {
@@ -252,8 +257,7 @@ test("RULE-C286277B-011 actual customer keyboard path keeps exact grouped code a
   await form.getByTestId("EDT_Observacao").fill("Memo"); await page.keyboard.press("Enter"); await expect(form).toBeVisible();
   await expect(form.getByTestId("EDT_Observacao")).toHaveValue("Memo\n");
   await form.getByTestId("EDT_Descricao").focus(); await page.keyboard.press("Enter"); await expect(form).toHaveCount(0);
-  const session = await request.post("/api/development/session", { headers: { Origin: "http://localhost:1431", "X-Isolated-Development": "1" } });
-  const result = await request.post("/api/customers/list", { headers: { Authorization: `Bearer ${(await session.json()).token}` }, data: { mode: "codigo", term: Codigo } });
+  const result = await request.post("/api/customers/list", { headers, data: { mode: "codigo", term: Codigo } });
   expect((await result.json()).customers).toMatchObject([{ Codigo, Descricao, observacao: "Memo\r\n" }]);
   const width = (await table.boundingBox())!.width;
   await page.getByTestId("BTN_Syst_Maximize").click();

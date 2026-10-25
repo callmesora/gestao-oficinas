@@ -55,7 +55,7 @@ function CustomerForm({ repository, customer, nextCode, finish }: { repository: 
         <div data-testid="SC_Form" style={{ display: "contents" }}>
           {fields.map((field, index) => field === "observacao" ?
             <WdMemo key={field} control={controlOf(formLayout, controls[index])} {...register(field)} disabled={busy} /> :
-            <WdEdit key={field} control={controlOf(formLayout, controls[index])} {...register(field)} readOnly={field === "Codigo" && !!customer} disabled={busy} />)}
+            <WdEdit key={field} control={controlOf(formLayout, controls[index])} {...register(field)} readOnly={field === "Codigo" && !!customer} disabled={busy} integerMask={field === "Codigo"} />)}
         </div>
         <WdButton control={controlOf(formLayout, "BTN_Validar")} disabled={busy} onClick={() => void save()} />
         <WdButton control={controlOf(formLayout, "BTN_Cancelar")} disabled={busy} onClick={() => close()} />
