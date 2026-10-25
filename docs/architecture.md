@@ -19,6 +19,8 @@ A user save becomes one API operation and one transaction. State-dependent invar
 
 Generate every screen layout from evidence, preserve legacy control names/captions and use the shared skin kit. Independent window state replaces HFSQL current-record buffers. Modal calls and messages are awaited. The API owns authorization. Native commands restrict paths/actions; CSP and capabilities are deliberate. See ADRs 003–005.
 
+An explicit source cross-file dependency is retained narrowly: the actual Postos caller reads a client-owned TerminalFileContext when opening its form (ADR-016). Terminal reset/explicit positioning updates that small state; forms retain their own drafts/save identities. This is not a generic HFSQL buffer emulator or server-global session state.
+
 ## Delivery and verification
 
 ROADMAP.md owns dependencies. Each bounded stage follows templates/prompt-stage.md. Customer, vehicle and unit list/form flows have executed real API/PostgreSQL, browser and spec-derived golden checks through the opt-in development runner. DatabaseConnection in apps/server/src/db/connection.ts supplies a connected client per operation; each operation retains its own lock order, transaction and cleanup. No generic transaction/CRUD abstraction changes their different identity predicates.

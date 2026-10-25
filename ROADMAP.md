@@ -1,6 +1,6 @@
 # ROADMAP — Gestao Oficinas
 
-Local setup note (2026-10-25): ADR-017 and `docs/runbooks/stage-local-macos.md` add macOS development and temporary SQLite snapshot use. See `setup/LOCAL-WORKSPACE.md` for checks. Business stage ordering and parity statuses below are unchanged; next implementation remains MIG-7C2.
+Local setup note (2026-10-25): ADR-017 and `docs/runbooks/stage-local-macos.md` add macOS development and temporary SQLite snapshot use. See `setup/LOCAL-WORKSPACE.md` for checks. MIG-7C2 scheduled target work and MIG-7G.1 Postos core are delivered; next implementation is the Mecânicos list/form and selector needed by repair orders. Full parent/native/runtime gates remain open.
 
 Order follows templates/ROADMAP.template.md and accepted ADR-007. Step 0 commits: 7d3a5c7 and 637fc6b. Framing must close before foundation. The database/import and shared UI foundations and a usable customer workflow exist. Customer designer/native/report parity remains open; its core delivery and follow-up are tracked separately below.
 
@@ -47,12 +47,15 @@ Each group below must be split into bounded stage briefs for individual workflow
 | 6a.1b | Consumer follow-up | Descriptive-state designer and real labor caller | MIG-7E.2 | retained U/designer/report/caller obligations | implementer + owner | docs/runbooks/stage-9-descriptive-states-followup.md | known modal/input work at C2, actual labor continuation MIG-10 and report MIG-13; exact native/runtime U gates | 6a.1a | To do |
 | 6a.2 | Slice | Terminais list/form and code selector | MIG-7F | WIN_Table_Terminais; WIN_Form_Terminais | implementer + 2 reviews | docs/runbooks/stage-10-terminals.md | real terminal core delivered; full retained designer/caller obligations remain | 6a.1a | In progress |
 | 6a.2a | Slice delivery | Usable terminal list/form, selector and actual native folder | MIG-7F.1 | 22 event/designer rows implemented; U rows retained | implementer + 2 reviews | docs/runbooks/stage-10-terminals.md | 87 TS/DB, 71 browser, 3 Rust, metadata native plus actual WebView2/API/DB/native folder save; original terminal copy empty | 6a.1a | Done |
-| 6a.2b | Consumer follow-up | Terminal designer and actual postos caller | MIG-7F.2 | retained terminal designer/U/caller rows | implementer + owner | docs/runbooks/stage-10-terminals-followup.md | masks/modal geometry at C2; real postos continuation and precise native/runtime U gates | 6a.2a | To do |
+| 6a.2b | Consumer follow-up | Terminal designer and actual postos caller | MIG-7F.2 | retained terminal designer/U/caller rows | implementer + owner | docs/runbooks/stage-10-terminals-followup.md | C2 masks/geometry and actual Postos caller delivered; precise native/runtime U gates retained | 6a.2a | In progress |
 | 6a.C2 | Scheduled cleanup | Designer/caller checkpoint after two additional leaf workflows | MIG-7C2 | retained customer/vehicle/unit/descriptive-state/terminal designer/U rows | implementer + 2 reviews | docs/runbooks/stage-11-designer-checkpoint.md | modal geometry, numeric entry, exact menu/scrollbar tooltip and caller/context work; full parents remain open | 6a.1a and 6a.2a | Done — scheduled target work; full parents/U gates remain open |
 | 6a.C2.1 | Bounded checkpoint | Real modal geometry and key ownership | MIG-7C2.1 | eight broad designer rows retained implemented | Codex root + 2 independent reviewers, macOS arm64 | docs/runbooks/stage-11-designer-checkpoint.md | five forms/three pickers, mounted drafts, source anchors, saved geometry and vehicle intra-container Tab order; native U gates retained | 6a.1a and 6a.2a | Done |
 | 6a.C2.2 | Bounded checkpoint | Live numeric masks and safe vehicle conversion | MIG-7C2.2 | customer/vehicle/terminal designer rows remain implemented | root integration + isolated implementer + 2 independent reviewers, macOS arm64 | docs/runbooks/stage-11-designer-checkpoint.md | seven real numeric fields, exact strings/loaded overflow/NULL preservation, ordered required checks and no NaN-to-null transport | 6a.C2.1 | Done |
 | 6a.C2.3 | Bounded checkpoint | Real vehicle/unit table designer options | MIG-7C2.3 | vehicle/unit/terminal broad designer rows remain implemented | root + 2 independent reviewers, macOS arm64 | docs/runbooks/stage-11-designer-checkpoint.md | fixed header seek with effective filter, saved columns, source scrolling/row height/truncation and positive terminal audit | 6a.C2.2 | Done |
 | 6a.C2.4 | Bounded checkpoint | Eligible text-key assistance and actual customer caller | MIG-7C2.4 | four form designer rows and three actual vehicle caller events retain status | root + isolated implementers + 2 independent reviewers, macOS arm64 | docs/runbooks/stage-11-designer-checkpoint.md | exact filtered candidates/dirty acceptance/local keys; real edit/select/cancel refresh, stale result/failure ownership and positive registration reselect | 6a.C2.3 | Done |
+| 6a.3 | Slice | Postos list/form and actual terminal caller | MIG-7G | WIN_Table_postos; WIN_Form_postos | root + isolated implementers + 2 independent reviews | docs/runbooks/stage-12-postos.md | selected numeric key writes, hidden field preservation, captured terminal NewRecord context and actual nested picker | 6a.C2 | In progress |
+| 6a.3a | Slice delivery | Usable Postos core and actual terminal caller | MIG-7G.1 | 22 event/designer/domain rows implemented; U/UMC/raw new-line retained | root + isolated implementers + 2 independent reviews, macOS arm64 | docs/runbooks/stage-12-postos.md | 118 TS/DB, 3 Rust, 104 browser; sixth spec-derived golden; visual checks and debug macOS bundle | 6a.C2 | Done |
+| 6a.3b | Consumer follow-up | Postos native/runtime and hardware caller | MIG-7G.2 | retained U/designer/raw new-line/UMC obligations | implementer + owner | docs/runbooks/stage-12-postos.md | exact HFSQL/NewRecord/native behavior and later hardware consumer; no exclusions | 6a.3a | To do |
 | 7 | Slice | Repair order list/form and caller contracts | MIG-8 | assigned units below | implementer + 2 reviews | templates/prompt-stage.md | complete workflow; persistence; concurrent/failure paths | 6, 6a | To do |
 | 8 | Slice | Repair materials and quantity/password workflows | MIG-9 | assigned units below | implementer + 2 reviews | templates/prompt-stage.md | material writes, stock effects and caller results | 7 | To do |
 | 9 | Slice | Labor timers, state transitions and descriptions | MIG-10 | assigned units below | implementer + 2 reviews | templates/prompt-stage.md | clock/state/locking workflows and duration checks | 7, 8 | To do |
@@ -160,7 +163,7 @@ All 143 per-unit CSVs retain their seed IDs. This assignment is a scheduling ind
 | WIN_Form_estados_descritivos | MIG-7 |
 | WIN_Form_estados_reparacao | MIG-7 |
 | WIN_Form_mecanicos | MIG-7 |
-| WIN_Form_postos | MIG-7 |
+| WIN_Form_postos | MIG-7G |
 | WIN_Form_unidades | MIG-7 |
 | WIN_Form_utilizadores | MIG-7 |
 | WIN_Inserir_quantidade_password | MIG-7 |
@@ -188,7 +191,7 @@ All 143 per-unit CSVs retain their seed IDs. This assignment is a scheduling ind
 | WIN_Table_estados_descritivos | MIG-7 |
 | WIN_Table_estados_reparacao | MIG-7 |
 | WIN_Table_mecanicos | MIG-7 |
-| WIN_Table_postos | MIG-7 |
+| WIN_Table_postos | MIG-7G |
 | WIN_Table_unidades | MIG-7 |
 | WIN_Table_utilizadores | MIG-7 |
 | WIN_Teclado_Alfa | MIG-7 |

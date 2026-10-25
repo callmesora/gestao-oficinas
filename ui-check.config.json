@@ -201,6 +201,39 @@
         "EDT_Posicao_Final_da_Quantidade": "ADR-016: source JPG shows Portuguese caption; generated encoded spelling retained. Image-backed presentation, human/native U-CDF1C34F-01 remains.",
         "EDT_Localizacao_da_pasta": "ADR-016: source JPG shows Portuguese caption; generated encoded spelling retained. Image-backed presentation, human/native U-CDF1C34F-01 remains."
       }
+    },
+    "WIN_Table_postos": {
+      "ignore": {
+        "BTN_SYST_MINIMIZE": "Owned by enclosing workspace frame.",
+        "IMG_BTN_Syst_Restore": "Source off-canvas image; workspace chrome owns restore.",
+        "SC_SCSystemButtons": "Source container; owning frame renders actual controls.",
+        "BTN_SYST_FERMER": "Owned by enclosing workspace frame.",
+        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
+        "RADTitle": "Owning frame reads the source-generated title."
+      },
+      "open": [
+        "postos-launcher",
+        "postos-open"
+      ],
+      "tableRows": {
+        "TABLE_postos": 1
+      }
+    },
+    "WIN_Form_postos": {
+      "ignore": {
+        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "SC_SCSystemButtons": "Source container; frame renders actual chrome.",
+        "IMG_BTN_Syst_Restore": "Source off-canvas image; frame owns restore."
+      },
+      "open": [
+        "postos-launcher",
+        "postos-open",
+        "Btn_New"
+      ],
+      "captionIgnore": {
+        "EDT_Descricao": "ADR-016: source JPG visibly reads Descrição; extracted spelling is retained in generated metadata. Positive actual browser caption assertion; native/human U-CD4F0FE3-01 remains."
+      }
     }
   }
 }

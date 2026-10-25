@@ -4,7 +4,7 @@ Stage 0 only. No behavior implemented or runtime verified. Source read in full: 
 
 ## Purpose
 
-Browse, maintain or select postos. {"PT": "Tabela de postos"}
+Maintain postos through the bound list and modal form. {"PT": "Tabela de postos"}. The complete source has no selector parameter/button/return contract or print control; the earlier generic selection wording does not apply.
 
 ## Entry and exit
 
@@ -64,7 +64,7 @@ Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Table_postos.wdw:191-194`. If a row
 
 ### WIN_Table_postos/BTN_Delete — Click (raw 18)
 
-Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Table_postos.wdw:219-236`. Reject no selection first. Run the relationship checks shown below; a positive count displays the exact message and aborts. Dialog result 1 performs deletion and refresh; result 2 makes no change. No explicit transaction or delete-result check is present.
+Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Table_postos.wdw:219-236`. Reject no selection first. There is no relationship check. Dialog result1 deletes the selected bound record and refreshes taCurrentFirst; result2 makes no change. No explicit transaction or delete-result check is present. This corrects generic mapping prose against the literal source below; the seed ID and source behavior remain unchanged.
 
 ```wlanguage
          IF TableSelect(TABLE_postos) = -1 THEN RETURN

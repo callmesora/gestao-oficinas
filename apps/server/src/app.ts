@@ -9,8 +9,9 @@ import { checkUnitDelete, deleteUnit, listUnits, saveUnit } from "./operations/u
 import { listDescriptiveStates, saveDescriptiveState, deleteDescriptiveState } from "./operations/descriptive-states";
 
 import { listTerminals, saveTerminal, deleteTerminal, prepareTerminalFolder } from "./operations/terminals";
+import { listPostos, savePosto, deletePosto } from "./operations/postos";
 
-export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; terminalConnect?: DatabaseConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
+export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; terminalConnect?: DatabaseConnection; postoConnect?: DatabaseConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
   const app = Fastify({ logger: false });
   app.get("/health/live", async () => ({ service: "gestao-oficinas-api", status: "alive" }));
   const authenticate = options.authenticate ?? options.development?.authenticate;
@@ -67,6 +68,13 @@ export function createApp(options: { customerConnect?: DatabaseConnection; vehic
       if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
       if (!options.terminalConnect) return reply.code(503).send({ kind: "unavailable" });
       return operation(options.terminalConnect, request.body);
+    });
+  }
+  for (const [action, operation] of Object.entries({ list: listPostos, save: savePosto, delete: deletePosto })) {
+    app.post(`/api/postos/${action}`, async (request, reply) => {
+      if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
+      if (!options.postoConnect) return reply.code(503).send({ kind: "unavailable" });
+      return operation(options.postoConnect, request.body);
     });
   }
   return app;

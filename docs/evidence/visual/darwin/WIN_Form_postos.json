@@ -1,0 +1,12 @@
+{
+ "pixel_similarity": 97.5,
+ "edge_overlap": 95.4,
+ "size": [
+  500,
+  133
+ ],
+ "legacy": "docs/evidence/images/WIN_Form_postos.jpg",
+ "new": "ui-report/WIN_Form_postos.png",
+ "side_by_side": "ui-report/WIN_Form_postos.compare.png",
+ "date": "2026-10-25"
+}

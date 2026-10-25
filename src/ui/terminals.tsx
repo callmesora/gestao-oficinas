@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useForm } from "react-hook-form";
 import { terminalPosition, terminalRequiredMessage, type Terminal, type TerminalList, type TerminalValues } from "../../packages/domain/src/terminals";
 import type { TerminalRepository } from "../application/terminals";
+import { TerminalFileContext } from "../application/terminal-file-context";
 import { selectTerminalFolder } from "../infrastructure/terminal-folder";
 import { isolatedTerminalRepository } from "../infrastructure/terminals";
 import listLayout from "./legacy/WIN_Table_Terminais.layout.json";
@@ -22,7 +23,7 @@ const fieldControls = { Codigo: "EDT_Codigo", Descricao: "EDT_Descricao", codbar
 const positionFields = ["codbarras_inicio", "codbarras_fim", "quant_inicio", "quant_fim"] as const;
 type FormText = Record<keyof TerminalValues, string>;
 
-function TerminalForm({ repository, terminal, codes, finish }: { repository: TerminalRepository; terminal: Terminal | null; codes: readonly string[]; finish: (saved: boolean) => void }) {
+export function TerminalForm({ repository, fileContext, terminal, codes, finish }: { repository: TerminalRepository; fileContext: TerminalFileContext; terminal: Terminal | null; codes: readonly string[]; finish: (saved: boolean) => void }) {
   const dialog = useRef<WdModalHandle>(null), pending = useRef(false);
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const { message } = useDialogs();
@@ -49,7 +50,7 @@ function TerminalForm({ repository, terminal, codes, finish }: { repository: Ter
       }
       const record = buffer.current;
       const result = await repository.save(record ? { mode: afterSeek.current ? "after-folder-seek" : "update", id: record.id, values } : { mode: "create", values });
-      if (result.kind === "saved") { pending.current = false; close(true); }
+      if (result.kind === "saved") { fileContext.position(result.terminal.id); pending.current = false; close(true); }
       else if (result.kind === "required" || result.kind === "duplicate") await message({ title: formTitle, text: result.message, type: result.kind === "duplicate" ? 1 : 0 });
       // UNRESOLVED U-CDF1C34F-03: developer diagnostic only; no invented legacy failure text.
       else setDiagnostic(result.kind);
@@ -62,7 +63,7 @@ function TerminalForm({ repository, terminal, codes, finish }: { repository: Ter
     try {
       const positioned = await repository.prepareFolder(getValues().Codigo);
       if (positioned.kind !== "positioned") { setDiagnostic(positioned.kind); return; }
-      if (positioned.terminal) { buffer.current = positioned.terminal; afterSeek.current = true; }
+      if (positioned.terminal) { buffer.current = positioned.terminal; afterSeek.current = true; fileContext.position(positioned.terminal.id); }
       const selected = await selectTerminalFolder(buffer.current?.pasta_localizacao ?? "");
       setValue("pasta_localizacao", selected, { shouldDirty: true });
     } catch (error) { setDiagnostic(error instanceof Error && error.message === "native_only" ? "native_only" : "folder_failed"); }
@@ -84,13 +85,15 @@ function TerminalForm({ repository, terminal, codes, finish }: { repository: Ter
   </WdModal>;
 }
 
-export function TerminalListScreen({ repository, selecting = false, finish }: { repository: TerminalRepository; selecting?: boolean; finish?: (code?: string) => void }) {
+export function TerminalListScreen({ repository, fileContext, selecting = false, finish }: { repository: TerminalRepository; fileContext: TerminalFileContext; selecting?: boolean; finish?: (code?: string) => void }) {
   const close = useWorkspaceClose(finish ? () => finish() : undefined), { resource } = useDialogs();
   const [query, setQuery] = useState<TerminalList>({}), [refresh, setRefresh] = useState(0);
   const [rows, setRows] = useState<Terminal[]>([]), [selection, setSelection] = useState<string | null>(null);
   const [loaded, setLoaded] = useState<{ query: TerminalList; refresh: number } | null>(null);
   const [form, setForm] = useState<{ terminal: Terminal | null } | null>(null), [diagnostic, setDiagnostic] = useState("");
   const pending = useRef(false), [busy, setBusy] = useState(false);
+  const mounted = useRef(false);
+  useEffect(() => { mounted.current = true; return () => { mounted.current = false; }; }, []);
   const tableSource = controlOf(listLayout, "TABLE_Terminais");
   const table = { ...tableSource, columns: tableSource.columns?.map(column => column.name === "COL_Descricao" ? { ...column, title: "Descrição" } : column) };
   const columnSearch = useRef<{ key: NonNullable<TerminalList["sort"]>; term: string } | null>(null);
@@ -118,7 +121,7 @@ export function TerminalListScreen({ repository, selecting = false, finish }: { 
       const answer = await resource({ title: listLayout.window.title, text: "Deseja apagar o registo?", buttons: [{ label: "Sim", value: 1 }, { label: "Não", value: 2 }], defaultIndex: 2, cancelIndex: 2, destructive: true, safeIndex: 2 });
       if (answer.result !== 1) return;
       const result = await repository.remove(current.id);
-      if (result.kind === "deleted") setRefresh(value => value + 1);
+      if (result.kind === "deleted") { fileContext.deleted(current.id); setRefresh(value => value + 1); }
       else setDiagnostic(result.kind);
     } catch { setDiagnostic("transport"); }
     finally { pending.current = false; setBusy(false); }
@@ -128,12 +131,13 @@ export function TerminalListScreen({ repository, selecting = false, finish }: { 
     pending.current = true; setBusy(true);
     try {
       const result = await repository.list(query);
+      if (!mounted.current) return;
       if (result.kind !== "loaded") { setDiagnostic(result.kind); return; }
       setRows(result.terminals);
       const record = result.terminals.find(row => row.id === id);
-      if (record) setForm({ terminal: record });
-    } catch { setDiagnostic("transport"); }
-    finally { pending.current = false; setBusy(false); }
+      if (record) { fileContext.position(record.id); setForm({ terminal: record }); }
+    } catch { if (mounted.current) setDiagnostic("transport"); }
+    finally { pending.current = false; if (mounted.current) setBusy(false); }
   };
   const sort = (column: LegacyColumn) => {
     if (pending.current) return;
@@ -141,7 +145,7 @@ export function TerminalListScreen({ repository, selecting = false, finish }: { 
     const key = column.name.slice(4) as NonNullable<TerminalList["sort"]>;
     setQuery(previous => ({ sort: key, descending: previous.sort === key ? !previous.descending : false }));
   };
-  const choose = (row: Terminal) => { if (row.Codigo !== null) finish?.(row.Codigo); };
+  const choose = (row: Terminal) => { if (row.Codigo !== null) { fileContext.position(row.id); finish?.(row.Codigo); } };
   return <div data-testid="WIN_Table_Terminais" style={{ position: "absolute", inset: 0, pointerEvents: "none" }} onKeyDown={event => {
     if (event.key === "Escape" && !form && !(event.target instanceof Element && event.target.closest("dialog"))) close();
   }}><div style={{ display: "contents", pointerEvents: "auto" }}>
@@ -154,39 +158,40 @@ export function TerminalListScreen({ repository, selecting = false, finish }: { 
         if (term) setQuery({ sort: key, descending: false });
       }}
       cell={(row, column) => column.name === "COL_Codigo" ? row.Codigo ?? "" : column.name === "COL_Descricao" ? row.Descricao ?? "" : ""} />
-    <WdButton control={controlOf(listLayout, "Btn_New")} disabled={!ready || busy} onClick={() => setForm({ terminal: null })} />
+    <WdButton control={controlOf(listLayout, "Btn_New")} disabled={!ready || busy} onClick={() => { fileContext.reset(); setForm({ terminal: null }); }} />
     <WdButton control={controlOf(listLayout, "BTN_Modificar")} disabled={!ready || busy} onClick={() => { if (current) void modify(current.id); }} />
     <WdButton control={controlOf(listLayout, "BTN_Delete")} disabled={!ready || busy} onClick={() => void remove()} />
     <WdButton control={controlOf(listLayout, "BTN_Fechar")} onClick={close} />
     <WdButton control={{ ...controlOf(listLayout, "BTN_selecionar"), visible: selecting }} disabled={!ready || busy} onClick={() => { if (current) choose(current); }} />
-    {form && <TerminalForm repository={repository} terminal={form.terminal} codes={rows.flatMap(row => row.Codigo === null ? [] : [row.Codigo])} finish={saved => { const editing = form.terminal !== null; setForm(null); if (saved || editing) setRefresh(value => value + 1); }} />}
+    {form && <TerminalForm repository={repository} fileContext={fileContext} terminal={form.terminal} codes={rows.flatMap(row => row.Codigo === null ? [] : [row.Codigo])} finish={saved => { const editing = form.terminal !== null; setForm(null); if (saved || editing) setRefresh(value => value + 1); }} />}
     {diagnostic && <output data-testid="terminal-list-diagnostic">{diagnostic}</output>}
   </div></div>;
 }
 
-// WIN_Form_postos.wdw:239 consumes the actual Codigo result when its real workflow is ported.
-export function TerminalPicker({ repository, origin, finish }: { repository: TerminalRepository; origin: string; finish: (code: string) => void }) {
+// WIN_Form_postos.wdw:239 awaits this actual Codigo result; closing retains origin.
+export function TerminalPicker({ repository, fileContext, origin, finish }: { repository: TerminalRepository; fileContext: TerminalFileContext; origin: string; finish: (code: string) => void }) {
   const dialog = useRef<WdModalHandle>(null);
   const close = (code = origin) => { dialog.current?.close(); finish(code); };
   return <WdModal ref={dialog} layout={listLayout} instance="terminal-picker-frame" testId="terminal-picker" restoreTestId="terminal-picker-restore" onClose={() => close()}>
-      <TerminalListScreen repository={repository} selecting finish={close} />
+      <TerminalListScreen repository={repository} fileContext={fileContext} selecting finish={close} />
   </WdModal>;
 }
 
-function TerminalLauncher({ repository }: { repository: TerminalRepository }) {
+export function TerminalLauncher({ repository, fileContext }: { repository: TerminalRepository; fileContext: TerminalFileContext }) {
   const { open } = useWorkspace();
-  return <button data-testid="terminals-open" onClick={() => open({ layout: listLayout, content: <TerminalListScreen repository={repository} /> })}>{listLayout.window.title}</button>;
+  return <button data-testid="terminals-open" onClick={() => open({ layout: listLayout, content: <TerminalListScreen repository={repository} fileContext={fileContext} /> })}>{listLayout.window.title}</button>;
 }
 
 export default function TerminalsWorkflow() {
+  const [fileContext] = useState(() => new TerminalFileContext());
   const [repository, setRepository] = useState<TerminalRepository | null>(null), [failed, setFailed] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false), [returned, setReturned] = useState<string | null>(null);
   const params = new URLSearchParams(window.location.search), directSelector = params.get("selecting") === "1";
   useEffect(() => { let active = true; void isolatedTerminalRepository().then(value => { if (active) setRepository(value); }).catch(() => { if (active) setFailed(true); }); return () => { active = false; }; }, []);
   return <DialogProvider><main className="workspace-fixture customer-workflow" style={{ "--customer-workspace-height": `${listLayout.window.size.height}px` } as CSSProperties}>
     <aside data-testid="workflow-environment">Desenvolvimento isolado — API e PostgreSQL reais. {failed && "dev:workflows indisponível"}</aside>
-    <WdWorkspace>{repository && (directSelector ? <button data-testid="terminals-select-open" onClick={() => setPickerOpen(true)}>{listLayout.window.title}</button> : <TerminalLauncher repository={repository} />)}
-      {repository && pickerOpen && <TerminalPicker repository={repository} origin={params.get("origin") ?? ""} finish={value => { setReturned(value); setPickerOpen(false); }} />}
+    <WdWorkspace>{repository && (directSelector ? <button data-testid="terminals-select-open" onClick={() => setPickerOpen(true)}>{listLayout.window.title}</button> : <TerminalLauncher repository={repository} fileContext={fileContext} />)}
+      {repository && pickerOpen && <TerminalPicker repository={repository} fileContext={fileContext} origin={params.get("origin") ?? ""} finish={value => { setReturned(value); setPickerOpen(false); }} />}
     </WdWorkspace>
     {returned !== null && <output data-testid="terminals-returned">{returned}</output>}
   </main></DialogProvider>;

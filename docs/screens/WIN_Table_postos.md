@@ -138,3 +138,9 @@ Delete resource CASE 1 deletes and CASE 2 makes no change when present. Default/
 ## Data edge cases and acceptance checks
 
 Blank strings are compared exactly by source, with no trimming; absent NULL coercion rules and number/text locale boundaries belong to U-CF0B8FA5-03. Required controls are those guarded explicitly in mapping, never inferred from a caption. Observe mask/size above and compare schema types. Keyboard-only test: open, traverse by container tab order, trigger mandatory validation, select/change/cancel, then repeat with an empty filter result and first/last row. Visual approval is outstanding under U-CF0B8FA5-01. Runtime writes must be performed only against a preserved scratch data copy.
+
+## MIG-7G.1 implementation scope
+
+Actual list/sort/save/delete uses PostoRepository/API/PostgreSQL and source refresh order (new onlytrue, edit real read before/after any result). Source numeric unique Codigo is not auto-allocated; selected internal identity survives permitted code changes. No selector, print control, search textbox, editable row or relation-delete guard is invented. Fixed Codigo/Descricao header seek and actual saved columns/raw options reuse ADR-012/013; scoped JPG Descrição presentation retains source metadata. Raw new-line GR_ACTION events remain specified with precise U02 reachability, and hidden UMC is unexcluded.
+
+Nonlegacy developer identifiers: postos-launcher/open, posto-list-diagnostic and derived COL_<field>__search/__resize/TABLE_postos__columns helpers; WdWorkspace owns source-derived frame title/chrome/geometry. The development page also mounts the actual TerminalLauncher using the same client TerminalFileContext, outside the legacy window; production menu/navigation remains MIG-12. Native/default-key/scrollbar/menu/human U01, HFSQL selection/context U02 and failure U03 remain open. Original imported postos had0rows; all positive workflow evidence is synthetic/spec-derived.

@@ -1,0 +1,31 @@
+{
+  "legacy": {
+    "delimiter": ",",
+    "encoding": "utf-8"
+  },
+  "target": {
+    "delimiter": ",",
+    "encoding": "utf-8"
+  },
+  "tables": {
+    "postos": {
+      "key": [
+        "Codigo"
+      ],
+      "columns": {
+        "Codigo": {
+          "trim": false
+        },
+        "Descricao": {
+          "trim": false
+        },
+        "terminal": {
+          "trim": false
+        },
+        "teste": {
+          "trim": false
+        }
+      }
+    }
+  }
+}
