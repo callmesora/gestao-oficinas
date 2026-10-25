@@ -346,6 +346,26 @@
         "CBOX_Inativo": "ADR003: JPG Inativo capitalized; exact real browser caption assertion, native/human U01 retained."
       }
     },
+    "WIN_Table_utilizadores": {
+      "ignore": {
+        "BTN_SYST_MINIMIZE": "Owned by enclosing workspace frame.",
+        "IMG_BTN_Syst_Restore": "Source off-canvas image; workspace chrome owns restore.",
+        "SC_SCSystemButtons": "Source container; owning frame renders actual controls.",
+        "BTN_SYST_FERMER": "Owned by enclosing workspace frame.",
+        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
+        "RADTitle": "Owning frame reads source-generated title."
+      },
+      "open": ["users-launcher", "users-open"]
+    },
+    "WIN_Form_utilizadores": {
+      "ignore": {
+        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "SC_SCSystemButtons": "Source container; frame renders actual chrome.",
+        "IMG_BTN_Syst_Restore": "Source off-canvas image; frame owns restore."
+      },
+      "open": ["users-launcher", "users-open", "Btn_New"]
+    },
     "WIN_Form_documentos": {
       "ignore": {
         "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",

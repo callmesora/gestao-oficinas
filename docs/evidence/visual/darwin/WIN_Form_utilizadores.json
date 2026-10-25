@@ -1,0 +1,12 @@
+{
+ "pixel_similarity": 97.4,
+ "edge_overlap": 95.4,
+ "size": [
+  500,
+  135
+ ],
+ "legacy": "docs/evidence/images/WIN_Form_utilizadores.jpg",
+ "new": "ui-report/WIN_Form_utilizadores.png",
+ "side_by_side": "ui-report/WIN_Form_utilizadores.compare.png",
+ "date": "2026-10-25"
+}

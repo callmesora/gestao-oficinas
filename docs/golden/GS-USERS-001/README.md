@@ -1,0 +1,3 @@
+# GS-USERS-001
+
+Spec-derived, not legacy-recorded: the actual protected API creates synthetic code77, then updates the same selected user to name `Final d'Água  ` (two trailing spaces). A duplicate is refused. Compare only Codigo/Descricao, without trimming. Exact synthetic password uppercase, required precedence, signed source/internal identity and preservation are asserted separately by real API/PostgreSQL tests; no credential is exported into artifacts (ADR004/008). Source WIN_Form_utilizadores.wdw:34–71. This is maintenance evidence, not full access/bootstrap/native/HFSQL/locale acceptance.

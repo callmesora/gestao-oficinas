@@ -271,6 +271,29 @@
   }
  },
  {
+  "name": "WIN_Form_utilizadores",
+  "kind": "screen",
+  "total": 15,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 11,
+   "specified": 1,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {
+   "darwin": {
+    "pixel": 97.4,
+    "layout": 95.4
+   }
+  }
+ },
+ {
   "name": "WIN_Form_Viaturas",
   "kind": "screen",
   "total": 17,
@@ -532,6 +555,29 @@
    "darwin": {
     "pixel": 98.9,
     "layout": 96.4
+   }
+  }
+ },
+ {
+  "name": "WIN_Table_utilizadores",
+  "kind": "screen",
+  "total": 21,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 16,
+   "specified": 2,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {
+   "darwin": {
+    "pixel": 98.7,
+    "layout": 92.8
    }
   }
  },
@@ -2240,24 +2286,6 @@
   "visuals": {}
  },
  {
-  "name": "WIN_Form_utilizadores",
-  "kind": "screen",
-  "total": 15,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 12,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
   "name": "WIN_Inserir_quantidade_password",
   "kind": "screen",
   "total": 29,
@@ -2577,24 +2605,6 @@
    "implemented": 0,
    "specified": 49,
    "unmapped": 5
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Table_utilizadores",
-  "kind": "screen",
-  "total": 21,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 18,
-   "unmapped": 3
   },
   "looks": null,
   "visuals": {}

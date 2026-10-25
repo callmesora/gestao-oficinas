@@ -1,0 +1,12 @@
+{
+ "pixel_similarity": 98.7,
+ "edge_overlap": 92.8,
+ "size": [
+  712,
+  600
+ ],
+ "legacy": "docs/evidence/images/WIN_Table_utilizadores.jpg",
+ "new": "ui-report/WIN_Table_utilizadores.png",
+ "side_by_side": "ui-report/WIN_Table_utilizadores.compare.png",
+ "date": "2026-10-25"
+}

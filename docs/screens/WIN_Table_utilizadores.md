@@ -1,6 +1,10 @@
 # Screen spec — WIN_Table_utilizadores
 
-Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Table_utilizadores.wdw`, `dossier: WIN_Table_utilizadores`, `docs/mapping/WIN_Table_utilizadores.md`. Step 0 specification only.
+Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Table_utilizadores.wdw`, `dossier: WIN_Table_utilizadores`, `docs/mapping/WIN_Table_utilizadores.md`. Source specification preserved; bounded implementation contract below, delivery checks tracked separately.
+
+## MIG-7L.1 bounded contract
+
+Stage21/ADR004/008/003/012 retain generated712×600, two source columns76Right/489Left, typed source-ID default browse before transport, source options/header search/saved configuration and no password/hidden-autoID column. Public DTO=id/Codigo/Descricao. New refreshes only aftertrue; narrow selected credential read precedes edit without a preliminary list refresh, then every edit return refreshes while retaining manual sort. Delete has no relationship/self/last-user guard, with safeNão default under ADR006. Selector returns numeric code/exact origin, hidesCRUD/print, rows30, closeY506×38, arrows/focusSelect/literal bounds; native invalid-index effect remains U02. Non-legacy development IDs: users-launcher/users-open/users-select-open/users-returned/users-returned-kind/user-picker/user-picker-frame/user-picker-restore/user-list-diagnostic. Actual repair combo/access/menu continuations remain their consuming stages, distinct from DEV component evidence. U/native/HFSQL/report/UMC and whole-window gates stay open.
 
 ## Contract
 

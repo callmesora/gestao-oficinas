@@ -1,6 +1,10 @@
 # Screen spec — WIN_Form_utilizadores
 
-Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Form_utilizadores.wdw`, `dossier: WIN_Form_utilizadores`, `docs/mapping/WIN_Form_utilizadores.md`. Step 0 specification only.
+Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Form_utilizadores.wdw`, `dossier: WIN_Form_utilizadores`, `docs/mapping/WIN_Form_utilizadores.md`. Source specification preserved; bounded implementation contract below, delivery checks tracked separately.
+
+## MIG-7L.1 bounded contract
+
+Stage21/ADR004/008/003/012 retain generated500×135, Código/Nome/Palavra-passe, explicit field1/2/3 before source buttons, integer mask/byte255 and existing password eye default. Existing code stays readonly, including NULL anomalies. Only authenticated selected-record read loads the masked password; list/picker/save replies omit it and the source autoID. Required code→name→password precedes unconditional uppercase in both visible draft/server, even untouched loaded values. Exact spaces stay; pt-PT case and expanded-length typed refusal remain U03, no trim/truncation/new text. Uses actual WdRadControls edit/button bindings, real eligible name assistance and saved modal behavior. Non-legacy development IDs: user-form-frame/user-form-restore/user-form-diagnostic; no source control is renamed. Six pair U rows/native/access/caller/print/UMC gates are retained; this is not whole-window acceptance.
 
 ## Contract
 

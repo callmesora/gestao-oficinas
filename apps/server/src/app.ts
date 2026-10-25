@@ -14,8 +14,9 @@ import { listMechanics, readMechanic, saveMechanic, deleteMechanic } from "./ope
 import { listRepairStates, saveRepairState, checkRepairStateDelete, deleteRepairState } from "./operations/repair-states";
 import { listDocumentTypes, saveDocumentType, checkDocumentTypeDelete, deleteDocumentType } from "./operations/document-types";
 import { listArticles, saveArticle, checkArticleDelete, deleteArticle } from "./operations/articles";
+import { listUsers, readUser, saveUser, deleteUser } from "./operations/users";
 
-export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; terminalConnect?: DatabaseConnection; postoConnect?: DatabaseConnection; mechanicsConnect?: DatabaseConnection; repairStateConnect?: DatabaseConnection; documentTypeConnect?: DatabaseConnection; articleConnect?: DatabaseConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
+export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; terminalConnect?: DatabaseConnection; postoConnect?: DatabaseConnection; mechanicsConnect?: DatabaseConnection; repairStateConnect?: DatabaseConnection; documentTypeConnect?: DatabaseConnection; articleConnect?: DatabaseConnection; userConnect?: DatabaseConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
   const app = Fastify({ logger: false });
   app.get("/health/live", async () => ({ service: "gestao-oficinas-api", status: "alive" }));
   const authenticate = options.authenticate ?? options.development?.authenticate;
@@ -108,6 +109,14 @@ export function createApp(options: { customerConnect?: DatabaseConnection; vehic
       if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
       if (!options.articleConnect) return reply.code(503).send({ kind: "unavailable" });
       return operation(options.articleConnect, request.body);
+    });
+  }
+  for (const [action, operation] of Object.entries({ list: listUsers, read: readUser, save: saveUser, delete: deleteUser })) {
+    app.post(`/api/users/${action}`, async (request, reply) => {
+      if (action === "read") reply.header("Cache-Control", "no-store");
+      if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
+      if (!options.userConnect) return reply.code(503).send({ kind: "unavailable" });
+      return operation(options.userConnect, request.body);
     });
   }
   return app;
