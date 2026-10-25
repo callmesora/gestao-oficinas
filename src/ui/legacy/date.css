@@ -1,0 +1,12 @@
+/* ADR-003: JPG-backed calendar affordance; original field geometry remains in WdEdit. */
+.wd-date-calendar-button { position: absolute; right: 2px; top: 4px; width: 16px; height: calc(100% - 8px);
+  margin: 0; padding: 0; border: 0; background: white; color: #507777; display: grid; place-items: center; }
+.wd-date-calendar-button:focus-visible { outline: 1px dotted #444; }
+.wd-date-calendar-icon { position: relative; box-sizing: border-box; width: 13px; height: 15px;
+  border: 1px solid #879b9b; background: repeating-linear-gradient(90deg, transparent 0 2px, #a4b6b6 2px 3px) 2px 5px / 8px 7px no-repeat,
+    repeating-linear-gradient(0deg, transparent 0 2px, #a4b6b6 2px 3px) 2px 5px / 8px 7px no-repeat, white; }
+.wd-date-calendar-icon::before { content: ""; position: absolute; left: 1px; right: 1px; top: 2px; border-top: 2px solid #719a9a; }
+.wd-date-calendar-input { position: absolute; top: 2px; height: calc(100% - 4px); box-sizing: border-box; margin: 0;
+  padding: 0 1px; border: 1px solid #7d8899; background: white; color: inherit; font: inherit; text-align: right; }
+.wd-field:has(> .wd-date-calendar-button) > .wd-edit[aria-invalid="true"] { outline: 1px solid #b62929; outline-offset: -1px; }
+.wd-date-calendar-input[aria-invalid="true"] { outline: 1px solid #b62929; outline-offset: -1px; }

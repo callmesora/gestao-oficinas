@@ -379,7 +379,11 @@
    "h_align": "Right",
    "input_mask": "UseSystemMask",
    "input_size": 0,
-   "input_type": "Date"
+   "input_type": "Date",
+   "return_format": "AAAAMMJJ",
+   "calendar_button": "Yes",
+   "calculator_button": "Yes",
+   "blocking_validation": "Yes"
   },
   {
    "name": "STC_Número",

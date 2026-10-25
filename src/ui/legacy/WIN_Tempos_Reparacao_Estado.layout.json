@@ -217,6 +217,10 @@
    "input_mask": "DD/MM/YYYY HH:mm",
    "input_size": 0,
    "input_type": "Date",
+   "return_format": "YYYYMMDDHHmmSS",
+   "calendar_button": "No",
+   "calculator_button": "No",
+   "blocking_validation": "Yes",
    "caption_width": 92
   },
   {

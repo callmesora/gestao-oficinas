@@ -27,6 +27,7 @@ Runtime and data edge cases without evidence receive U-UNIT-nn identifiers. No r
 | Construct | Concrete boundary / shape to establish before use | Owner |
 |---|---|---|
 | Pure strings/arrays/date/rounding helpers | packages/domain/src/wl/: named 1-based middle/position helpers, injected clock and exact decimal conversions; one implementation per helper | MIG-6 |
+| WIN_Data Date/UseSystemMask/AAAAMMJJ | packages/domain/src/date-entry.ts keeps original/live display/lifetime edit and explicit compact Gregorian conversions; src/ui/legacy/date.tsx uses WdEdit/native calendar adapter; src/ui/date-prompt.tsx returns original on cancel and has no API writes | MIG-7M.1 |
 | Money, quantity, duration, IDs | packages/domain/src/values.ts: decimal strings, string IDs and exact integer duration with unit tag per ADR-002; per-operation rounding from evidence | MIG-4 / MIG-6 |
 | HFSQL reads/current buffers/query filters | apps/server/src/repositories/: explicit query result DTOs and parameterized filters; src/application holds per-window records/selection | MIG-4 / MIG-6 |
 | HAdd/HModify/HDelete and transaction invariants | apps/server/src/operations/: one named operation per business save, one PostgreSQL transaction including all dependent writes | MIG-7 onward |

@@ -9,7 +9,7 @@ from dossier_extract import collect
 from screen_layout import control_paths, layout, source_window_size, table_options
 
 
-class CaptionAlignmentChecks(unittest.TestCase):
+class DossierLayoutFixture(unittest.TestCase):
     def render(self, controls, source=None):
         summaries = '\n'.join(f"{control['name']} 10 20 120 28 0 {control.get('row', '')}"
                               for control in controls)
@@ -37,6 +37,102 @@ class CaptionAlignmentChecks(unittest.TestCase):
             (root / 'dossier/windev-window/WIN_captions.json').write_text(json.dumps(dossier), encoding='utf-8')
             return layout('WIN_captions', {key: str(root / key) for key in ('legacy', 'inspect', 'dossier')}, 'PT')
 
+
+class DateEditOptionsChecks(DossierLayoutFixture):
+    option_keys = ('return_format', 'calendar_button', 'calculator_button', 'blocking_validation')
+
+    def test_date_edit_retains_all_literal_named_options_and_source_geometry(self):
+        # WIN_Data/EDT_Data names all four options; the return format differs from its display mask.
+        result = self.render([{'name': 'EDT_Data', 'kind': 'Edit control', 'row': 'Active Date', 'raw': [
+            'Input mask PT: UseSystemMask', 'Return format AAAAMMJJ', 'Calendar button Yes',
+            'Calculator button Yes', 'Blocking validation Yes', 'Horz. alignment Right',
+        ]}])
+        control = result['controls'][0]
+        self.assertEqual({key: control.get(key) for key in self.option_keys}, {
+            'return_format': 'AAAAMMJJ', 'calendar_button': 'Yes',
+            'calculator_button': 'Yes', 'blocking_validation': 'Yes'})
+        self.assertEqual((control['input_type'], control['input_mask'], control['h_align']),
+                         ('Date', 'UseSystemMask', 'Right'))
+        self.assertEqual((control['path'], control['x'], control['y'], control['width'], control['height']),
+                         ('EDT_Data', 10, 20, 120, 28))
+
+    def test_date_edit_absent_options_remain_absent_independently(self):
+        result = self.render([
+            {'name': 'EDT_None', 'kind': 'Edit control', 'row': 'Active Date'},
+            {'name': 'EDT_One', 'kind': 'Edit control', 'row': 'Active Date',
+             'raw': ['Calendar button No']},
+        ])
+        self.assertTrue(all(key not in result['controls'][0] for key in self.option_keys))
+        self.assertEqual(result['controls'][1].get('calendar_button'), 'No')
+        self.assertTrue(all(key not in result['controls'][1] for key in self.option_keys
+                            if key != 'calendar_button'))
+
+    def test_date_edit_unknown_values_are_retained_without_interpreting_or_prefix_matches(self):
+        result = self.render([{'name': 'EDT_Unknown', 'kind': 'Edit control', 'row': 'Active Date', 'raw': [
+            'Return format display AAAAMMJJ', 'Calendar buttons Yes', 'Calculator button <Unknown>',
+            'Blocking validation <None>',
+        ]}])
+        control = result['controls'][0]
+        self.assertEqual(control.get('return_format'), 'display AAAAMMJJ')
+        self.assertNotIn('calendar_button', control)
+        self.assertEqual(control.get('calculator_button'), '<Unknown>')
+        self.assertEqual(control.get('blocking_validation'), '<None>')
+
+    def test_date_named_options_do_not_leak_to_other_input_types_or_control_kinds(self):
+        raw = ['Return format AAAAMMJJ', 'Calendar button Yes', 'Calculator button Yes',
+               'Blocking validation Yes']
+        cases = [('EDT_Text', 'Edit control', 'Active Text'),
+                 ('EDT_Time', 'Edit control', 'Active Time'),
+                 ('EDT_Unknown', 'Edit control', 'Active'),
+                 ('STC_Date', 'Caption', 'Active Date'),
+                 ('TABLE_Date', 'Table', 'Active Date')]
+        result = self.render([{'name': name, 'kind': kind, 'row': row, 'raw': raw}
+                              for name, kind, row in cases] + [
+            {'name': 'EDT_OtherType', 'kind': 'Edit control', 'row': 'Active',
+             'raw': [*raw, 'Input type Date and Time']},
+        ])
+        for control in result['controls']:
+            with self.subTest(name=control['name']):
+                self.assertTrue(all(key not in control for key in self.option_keys))
+
+    def test_date_edit_retains_date8_and_date14_return_formats_without_normalization(self):
+        result = self.render([
+            {'name': 'EDT_Plain', 'kind': 'Edit control', 'row': 'Active Date',
+             'raw': ['Return format AAAAMMJJ']},
+            {'name': 'EDT_Timestamp', 'kind': 'Edit control', 'row': 'Active Date',
+             'raw': ['Return format YYYYMMDDHHmmSS']},
+        ])
+        self.assertEqual([control.get('return_format') for control in result['controls']],
+                         ['AAAAMMJJ', 'YYYYMMDDHHmmSS'])
+
+    def test_duplicate_date_edit_names_keep_paths_and_geometry_without_borrowed_options(self):
+        source = '''window :
+ controls :
+  -
+    name : GROUP_A
+    controls :
+     -
+       name : EDT_Same
+  -
+    name : GROUP_B
+    controls :
+     -
+       name : EDT_Same
+'''
+        result = self.render([{'name': 'EDT_Same', 'kind': 'Edit control', 'row': 'Active Date', 'raw': [
+            'Return format AAAAMMJJ', 'Calendar button Yes', 'Calculator button Yes',
+            'Blocking validation Yes',
+        ]}], source)
+        controls = [control for control in result['controls'] if control['name'] == 'EDT_Same']
+        self.assertEqual([(control['path'], control['x'], control['y']) for control in controls],
+                         [('GROUP_A.EDT_Same', 11, 21), ('GROUP_B.EDT_Same', 13, 23)])
+        for control in controls:
+            self.assertTrue(all(key not in control for key in self.option_keys))
+        self.assertTrue(any('duplicate names have ambiguous dossier metadata' in unknown and 'EDT_Same' in unknown
+                            for unknown in result['unknown']))
+
+
+class CaptionAlignmentChecks(DossierLayoutFixture):
     def test_complete_caption_summaries_retain_literal_horizontal_and_vertical_alignment(self):
         # The actual Mudar/Data prompt summaries are Active Center Center; existing RAD captions use Left Top.
         cases = [('STC_Prompt', 'Active Center Center', 'Center', 'Center'),

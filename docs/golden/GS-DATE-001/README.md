@@ -1,0 +1,3 @@
+# GS-DATE-001
+
+Spec-derived standalone UI scenario, not legacy-recorded or a database export. WIN_Data102/123–126 supplies the exact runtime title/date/original return and Confirm copies the field; close follows proposedA-2b6ca2. Raw Date return format AAAAMMJJ is separate from UseSystemMask. Actual UI scenario uses a leap-date edit/Confirm and original-on-cancel, retaining ADR002/003/006/U boundaries. Native calendar selection/manual fallback and invalid/NULL/zero/opaque cases have separate positive browser checks; browser evidence does not establish WKWebView/WebView2/legacy acceptance. No local data/write path exists, so the eleven existing DB goldens remain separate and no artificial CSV is created. Actual repair save continuation remains its consuming stage.

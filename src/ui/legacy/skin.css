@@ -92,6 +92,7 @@
 .wd-dialog-host::backdrop { background: transparent; }
 .wd-modal { position: fixed; margin: 0; }
 .wd-modal .wd-title { touch-action: none; cursor: move; user-select: none; }
+.wd-modal[data-wd-movable-title="false"] .wd-title { touch-action: auto; cursor: default; }
 .wd-message-text { position: absolute; display: flex; align-items: center; white-space: pre-wrap; overflow: visible; overflow-wrap: anywhere; }
 /* proposed: Q-12, standard symbols; no legacy icon image available. */
 .wd-message-icon { position: absolute; border-radius: 50%; background: #2f6fcf; color: white; display: flex;

@@ -17,6 +17,7 @@ export function WdModal({ ref, layout, instance, testId, restoreTestId, onClose,
   const size = layout.window.size;
   if (!size) throw new Error(`Modal geometry unresolved: ${layout.window.name}`);
   const resizable = layout.window.flags?.Resizable === true;
+  const movableTitle = layout.window.flags?.["Title bar"] !== false || layout.window.flags?.["Move/Background"] !== false;
   const title = controlOf(layout, "RADTitle").caption ?? layout.window.title ?? undefined;
   const dialog = useRef<HTMLDialogElement>(null);
   const [geometry, setGeometry] = useState<WindowGeometry>(() => {
@@ -61,7 +62,7 @@ export function WdModal({ ref, layout, instance, testId, restoreTestId, onClose,
   }, [minimized]);
   const width = geometry.maximized ? Math.max(size.width, extent.width - 40) : geometry.width;
   const height = geometry.maximized ? Math.max(size.height, extent.height - 40) : geometry.height;
-  return <dialog ref={dialog} className="wd-dialog-host wd-modal" data-testid={testId} aria-label={title}
+  return <dialog ref={dialog} className="wd-dialog-host wd-modal" data-testid={testId} aria-label={title} data-wd-movable-title={movableTitle}
     style={{ left: geometry.maximized ? 20 : geometry.x, top: geometry.maximized ? 20 : geometry.y }}
     onCancel={event => { event.preventDefault(); event.stopPropagation(); if (event.target === event.currentTarget) onClose(); }}
     onKeyDown={event => {
@@ -72,7 +73,7 @@ export function WdModal({ ref, layout, instance, testId, restoreTestId, onClose,
       if (event.target instanceof HTMLElement && event.target.closest("dialog") === dialog.current && event.target.closest(".wd-frame")?.closest("dialog") === dialog.current && !event.target.closest(".wd-chrome-button,.wd-workspace-edge")) focused.current = event.target;
     }}
     onPointerDown={event => {
-      if (event.button !== 0 || !(event.target instanceof Element) || event.target.closest("dialog") !== event.currentTarget || !event.target.closest(".wd-title")) return;
+      if (!movableTitle || event.button !== 0 || !(event.target instanceof Element) || event.target.closest("dialog") !== event.currentTarget || !event.target.closest(".wd-title")) return;
       event.preventDefault(); event.stopPropagation();
       if (geometry.maximized) return;
       event.currentTarget.setPointerCapture(event.pointerId);

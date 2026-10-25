@@ -95,7 +95,7 @@ export function WdFrame({ layout, instance, children, width, height, onClose, on
     className="wd-frame" style={{ ...skin, width: frameWidth, height: frameHeight }}>
     <div className="wd-client">
       <div className="wd-title" data-testid={title.name} style={{ ...controlBox(title), width: (title.width ?? 0) + frameWidth - size.width }}>{title.caption}</div>
-      {buttons.map(button => {
+      {buttons.filter(button => layout.controls.some(control => control.name === button.name || control.path === button.name)).map(button => {
         const control = controlOf(layout, button.name);
         return <WdButton key={control.path} control={control} chrome aria-label={button.label} onClick={button.action}
           style={{ left: undefined, right: size.width - control.x - (control.width ?? 0) }} />;
@@ -194,8 +194,9 @@ function useNumericEntry(mask: IntegerMask | null, props: EditInputProps, decima
   };
 }
 
-export function WdEdit({ control: source, automaticErase, integerMask = false, decimalMask = false, passwordReveal = false, suggestions, onSuggestion, ...props }: {
+export function WdEdit({ control: source, automaticErase, integerMask = false, decimalMask = false, passwordReveal = false, adornment, suggestions, onSuggestion, ...props }: {
   control: LegacyControl; automaticErase?: boolean; integerMask?: boolean; decimalMask?: boolean; passwordReveal?: boolean;
+  adornment?: { width: number; content: ReactNode };
   suggestions?: readonly string[]; onSuggestion?: (value: string) => void;
 } & EditInputProps) {
   const control = useAnchoredControl(source);
@@ -239,7 +240,7 @@ export function WdEdit({ control: source, automaticErase, integerMask = false, d
       tabIndex={props.tabIndex ?? (control.flags?.["TAB Key"] === false || String(control.tab_order) === "-1" ? -1 : undefined)} data-testid={control.name} className="wd-edit"
       readOnly={readOnly}
       aria-label={captionWidth ? undefined : props["aria-label"] ?? control.caption ?? control.name}
-      style={{ left: captionWidth, width: (control.width ?? 0) - captionWidth, textAlign: control.h_align === "Right" ? "right" : control.h_align === "Center" ? "center" : "left", paddingRight: revealEnabled ? 23 : undefined } as CSSProperties} />
+      style={{ left: captionWidth, width: (control.width ?? 0) - captionWidth, textAlign: control.h_align === "Right" ? "right" : control.h_align === "Center" ? "center" : "left", paddingRight: Math.max(revealEnabled ? 23 : 0, adornment?.width ?? 0) || undefined } as CSSProperties} />
     {revealEnabled && <button type="button" className="wd-password-reveal" data-testid={`${control.name}__reveal`}
       aria-label={revealed ? "Ocultar palavra-passe" : "Mostrar palavra-passe"} aria-pressed={revealed} aria-controls={id}
       disabled={props.disabled} tabIndex={-1}
@@ -247,6 +248,7 @@ export function WdEdit({ control: source, automaticErase, integerMask = false, d
       onKeyDown={event => { if (event.key === "Enter" || event.key === " ") event.stopPropagation(); }} onClick={toggleReveal}>
       <span className="wd-password-eye" aria-hidden="true" />
     </button>}
+    {adornment?.content}
     {assistance.popup}
   </div>;
 }

@@ -366,6 +366,12 @@
       },
       "open": ["users-launcher", "users-open", "Btn_New"]
     },
+    "WIN_Data": {
+      "ignore": {
+        "BTN_Syst_Restore": "Source off-canvas restore image; no actual chrome/minimize/maximize exists in this window."
+      },
+      "open": ["date-prompt-launcher", "date-prompt-open"]
+    },
     "WIN_Mudar_Estado": {
       "ignore": {
         "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",

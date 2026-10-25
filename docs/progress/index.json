@@ -36,6 +36,29 @@
   "visuals": {}
  },
  {
+  "name": "WIN_Data",
+  "kind": "screen",
+  "total": 13,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 7,
+   "specified": 3,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {
+   "darwin": {
+    "pixel": 96.1,
+    "layout": 84.0
+   }
+  }
+ },
+ {
   "name": "WIN_Form_artigos",
   "kind": "screen",
   "total": 14,
@@ -2232,24 +2255,6 @@
    "implemented": 0,
    "specified": 23,
    "unmapped": 5
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Data",
-  "kind": "screen",
-  "total": 13,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 10,
-   "unmapped": 3
   },
   "looks": null,
   "visuals": {}

@@ -3,6 +3,7 @@ import { useAnchoredControl } from "./anchors";
 import { controlBox, controlOf, type LegacyControl, type LegacyLayout } from "./layout";
 import { WdButton, WdCheckbox, WdEdit, WdRadio } from "./wd";
 import { WdCombo } from "./combo";
+import { WdDateEdit } from "./date";
 
 /** Structure is metadata-driven; callers explicitly own field values, events and traversal order. */
 export type WdRadBinding = { name: string } & (
@@ -10,11 +11,12 @@ export type WdRadBinding = { name: string } & (
   | { kind: "checkbox"; props: Omit<ComponentProps<typeof WdCheckbox>, "control"> }
   | { kind: "radio"; props: Omit<ComponentProps<typeof WdRadio>, "control"> }
   | { kind: "combo"; props: Omit<ComponentProps<typeof WdCombo>, "control"> }
+  | { kind: "date"; props: Omit<ComponentProps<typeof WdDateEdit>, "control"> }
   | { kind: "button"; props: Omit<ComponentProps<typeof WdButton>, "control"> }
   | { kind: "caption"; props?: { text?: string } }
   | { kind: "shape"; props: { backgroundColor: CSSProperties["backgroundColor"] } }
 );
-const sourceKinds = { edit: "Edit control", checkbox: "Check Box", radio: "RadioButton", combo: "Combo Box", button: "Button", caption: "Caption", shape: "Shape" } as const;
+const sourceKinds = { edit: "Edit control", date: "Edit control", checkbox: "Check Box", radio: "RadioButton", combo: "Combo Box", button: "Button", caption: "Caption", shape: "Shape" } as const;
 
 export function resolveRadBindings(layout: LegacyLayout, bindings: readonly WdRadBinding[]) {
   const seen = new Set<string>();
@@ -45,6 +47,7 @@ export function WdRadControls({ layout, bindings }: { layout: LegacyLayout; bind
       case "checkbox": return <WdCheckbox key={control.path} control={control} {...binding.props} />;
       case "radio": return <WdRadio key={control.path} control={control} {...binding.props} />;
       case "combo": return <WdCombo key={control.path} control={control} {...binding.props} />;
+      case "date": return <WdDateEdit key={control.path} control={control} {...binding.props} />;
       case "button": return <WdButton key={control.path} control={control} {...binding.props} />;
       case "caption": return <RadStatic key={control.path} source={control} kind="caption" text={binding.props?.text} />;
       case "shape": return <RadStatic key={control.path} source={control} kind="shape" {...binding.props} />;

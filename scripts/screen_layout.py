@@ -60,6 +60,16 @@ def caption_summary_alignment(details):
     return {'h_align': summary[1], 'v_align': summary[2]} if summary else {}
 
 
+def date_edit_options(details):
+    """Retain literal named Date edit details; display masks and return formats are independent."""
+    if details.get('kind') != 'Edit control' or details.get('input_type') != 'Date':
+        return {}
+    names = {'return_format': 'Return format', 'calendar_button': 'Calendar button',
+             'calculator_button': 'Calculator button', 'blocking_validation': 'Blocking validation'}
+    return {key: value for key, name in names.items()
+            if (value := raw_value(details.get('raw', []), name)) is not None}
+
+
 def control_paths(text):
     """Preserve scoped identities when two tables use the same column name."""
     lines = text.splitlines()
@@ -134,6 +144,7 @@ def layout(unit, latest, language=None):
                  'background_stretch': raw_value(raw, 'Stretch background image')}
         if entry['kind'] == 'Caption':
             entry['v_align'] = details.get('v_align') or raw_value(raw, 'Vert. alignment') or caption_alignment.get('v_align')
+        entry.update(date_edit_options(details))
         inside = raw_value(raw, 'Inside width')
         if inside and inside.isdigit() and entry['width'] and entry['caption']:
             # Edits, combos, lists: the caption is drawn left of the input box, which is the last `Inside width`.

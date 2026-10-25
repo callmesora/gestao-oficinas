@@ -1,6 +1,6 @@
 # Screen spec — WIN_Data
 
-Evidence `legacy/GestaoOficinas_TesteIA/WIN_Data.wdw`, `dossier: WIN_Data`, `docs/mapping/WIN_Data.md`. Step 0 only.
+Evidence `legacy/GestaoOficinas_TesteIA/WIN_Data.wdw`, `dossier: WIN_Data`, `docs/mapping/WIN_Data.md`. Source contract; target implementation scope below.
 
 ## Contract
 
@@ -72,3 +72,11 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | Trigger/source | Exact argument/resource | Kind and buttons | Default/Esc |
 | --- | --- | --- | --- |
 | — | No explicit message calls in this unit | Framework calls may originate in callees | U-W16C5A7-04 |
+
+## MIG-7M.1 implementation scope
+
+`src/ui/date-prompt.tsx` implements the exact runtime prompt/original-on-cancel/Confirm return using shared WdModal/WdRadControls/WdDateEdit. ADR002/003/006 separate raw nullable original, pt-PT display and lifetime editing: untouched Confirm preserves raw anomalies; deliberate blank returns empty, zero returns00000000, valid Gregorian dates returnAAAAMMJJ. Invalid edits block without a new Info/required rule. A native calendar is a separate ISO adapter, never a raw-value binding; actual partial segments and partial→keyboard-clear retain their proper invalid/edited-empty distinction. Opening/navigation/dismissal alone preserve the original. Normal text Enter retains the dialog; Tab date1→Confirm2 and conservative cancel are explicit target defaults/U02.
+
+Generated199×173 geometry, Right date, Center/Center runtime caption and source Normal button remain. No source Cancel/three chrome controls exist; no drag/resize/persisted position. The offcanvas restore remains specified, while native popup appearance/keyboard/mask/Calculator behavior remains U01/02/05. Browser results cannot establish WKWebView/WebView2/legacy or human acceptance. Actual repair save/date-time persistence is separate and cancellation does not abort that caller save.
+
+Non-legacy demonstration IDs: date-prompt-launcher/open/frame/restore/returned/returned-kind; workflow=date-prompt; fixture title/value/kind URL arguments only. Calendar adapter IDs append __calendar/__calendar-input to the actual EDT_Data. Golden GS-DATE-001 is source-derived UI evidence only; no local database scenario exists. Delivery/checks/reviews are recorded in stage-23-date-prompt.md and reviews/date-prompt.md; no verified/whole-window promotion.
