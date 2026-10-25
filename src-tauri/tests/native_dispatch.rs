@@ -12,7 +12,7 @@ fn foundation_dispatches_catalog_command_through_real_handler_on_mock_runtime() 
             cmd: gestao_oficinas_lib::commands::NATIVE_INFO_COMMAND.into(),
             callback: tauri::ipc::CallbackFn(0),
             error: tauri::ipc::CallbackFn(1),
-            url: "http://tauri.localhost".parse().unwrap(),
+            url: webview.url().unwrap(),
             body: tauri::ipc::InvokeBody::default(),
             headers: Default::default(),
             invoke_key: tauri::test::INVOKE_KEY.to_owned(),

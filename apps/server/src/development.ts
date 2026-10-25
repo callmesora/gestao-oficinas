@@ -1,4 +1,5 @@
 import { resolve } from "node:path";
+import { writeFile } from "node:fs/promises";
 import { createServer } from "vite";
 import { startIsolatedPostgres } from "../test-support/postgres";
 import { migrate } from "./db/migrate";
@@ -15,7 +16,13 @@ try {
   await migrate(database);
   if (process.argv[2]) {
     const source = new SqliteLegacySource(resolve(process.argv[2]));
-    try { await importLegacy(database, source); } finally { source.close(); }
+    try {
+      const report = await importLegacy(database, source);
+      await writeFile(resolve(engine.directory, "import-report.json"), JSON.stringify(report, null, 2) + "\n");
+      console.log(JSON.stringify({ imported: Object.values(report.tables).reduce((sum, table) => sum + table.imported, 0),
+        quarantined: Object.values(report.tables).reduce((sum, table) => sum + table.quarantined, 0),
+        report: resolve(engine.directory, "import-report.json") }));
+    } finally { source.close(); }
   }
   const name = (await database.query<{ name: string }>("SELECT current_database() AS name")).rows[0].name;
   app = createApp({ customerConnect: () => engine.connect(name), vehicleConnect: () => engine.connect(name), unitConnect: () => engine.connect(name), descriptiveStateConnect: () => engine.connect(name), terminalConnect: () => engine.connect(name), development: developmentSessions("http://localhost:1431") });

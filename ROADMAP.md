@@ -1,5 +1,7 @@
 # ROADMAP — Gestao Oficinas
 
+Local setup note (2026-10-25): ADR-017 and `docs/runbooks/stage-local-macos.md` add macOS development and temporary SQLite snapshot use. See `setup/LOCAL-WORKSPACE.md` for checks. Business stage ordering and parity statuses below are unchanged; next implementation remains MIG-7C2.
+
 Order follows templates/ROADMAP.template.md and accepted ADR-007. Step 0 commits: 7d3a5c7 and 637fc6b. Framing must close before foundation. The database/import and shared UI foundations and a usable customer workflow exist. Customer designer/native/report parity remains open; its core delivery and follow-up are tracked separately below.
 
 ## Trajectory guardrails

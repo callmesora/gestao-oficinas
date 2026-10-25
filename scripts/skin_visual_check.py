@@ -1,6 +1,7 @@
 """Compare implemented skin component regions, without claiming whole-window parity."""
 import argparse
 import json
+import sys
 from pathlib import Path
 from PIL import Image
 from visual_compare import compare
@@ -24,7 +25,10 @@ def main():
     target = Image.open(args.screenshot).convert('RGB')
     if reference.size != target.size:
         raise ValueError('Component fixture must match the source frame size; no resizing')
-    output = Path('docs/evidence/visual/skin-table-components.json' if args.fixture == 'table' else 'docs/evidence/visual/skin-components.json')
+    visual_dir = Path('docs/evidence/visual')
+    if sys.platform == 'darwin':
+        visual_dir /= 'darwin'
+    output = visual_dir / ('skin-table-components.json' if args.fixture == 'table' else 'skin-components.json')
     previous = json.loads(output.read_text(encoding='utf-8')) if output.exists() else {}
     results = {}
     for name, bounds in regions.items():

@@ -10,6 +10,9 @@
     "tauri": "tauri",
     "dev:server": "tsx apps/server/src/main.ts",
     "dev:workflows": "tsx apps/server/src/development.ts",
+    "dev:local": "tsx apps/server/src/development.ts analysis-local/sqlite-development/data.sqlite",
+    "desktop:mac": "tauri dev --no-watch --config src-tauri/tauri.macos.conf.json --config src-tauri/tauri.macos-workflows.conf.json",
+    "build:mac": "tauri build --debug --config src-tauri/tauri.macos.conf.json --bundles app",
     "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.tools.json",
     "lint": "eslint .",
     "test": "vitest run",
@@ -38,7 +41,6 @@
     "zod": "4.6.7"
   },
   "devDependencies": {
-    "@embedded-postgres/windows-x64": "18.4.0-beta.17",
     "@eslint/js": "10.0.1",
     "@playwright/test": "1.64.1",
     "@tauri-apps/cli": "2.12.4",
@@ -65,8 +67,15 @@
     "packages/domain",
     "apps/server"
   ],
+  "optionalDependencies": {
+    "@embedded-postgres/windows-x64": "18.4.0-beta.17",
+    "@embedded-postgres/darwin-arm64": "18.4.0-beta.17",
+    "@embedded-postgres/darwin-x64": "18.4.0-beta.17"
+  },
   "allowScripts": {
     "esbuild@0.28.2": true,
-    "@embedded-postgres/windows-x64@18.4.0-beta.17": true
+    "@embedded-postgres/windows-x64@18.4.0-beta.17": true,
+    "@embedded-postgres/darwin-arm64@18.4.0-beta.17": true,
+    "@embedded-postgres/darwin-x64@18.4.0-beta.17": true
   }
 }

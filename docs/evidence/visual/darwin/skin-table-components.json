@@ -1,0 +1,43 @@
+{
+  "scope": "component regions only; not whole-window parity",
+  "layout": "src/ui/legacy/WIN_Table_Clientes.layout.json",
+  "reference": "docs/evidence/images/WIN_Table_Clientes.jpg",
+  "screenshot": "ui-report/skin-table.png",
+  "floors": {
+    "pixel_similarity": 90,
+    "edge_overlap": 60
+  },
+  "regions": {
+    "TABLE_Clientes": {
+      "pixel_similarity": 98.7,
+      "edge_overlap": 94.3,
+      "size": [
+        678,
+        386
+      ],
+      "bounds": [
+        14,
+        119,
+        692,
+        505
+      ],
+      "passed": true
+    },
+    "EDT_Observacao": {
+      "pixel_similarity": 99.6,
+      "edge_overlap": 97.9,
+      "size": [
+        677,
+        79
+      ],
+      "bounds": [
+        14,
+        511,
+        691,
+        590
+      ],
+      "passed": true
+    }
+  },
+  "passed": true
+}

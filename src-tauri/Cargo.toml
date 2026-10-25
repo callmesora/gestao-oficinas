@@ -29,5 +29,5 @@ opt-level = 3
 panic = "abort"
 strip = true
 
-[target.'cfg(target_os = "windows")'.dependencies]
+[target.'cfg(any(target_os = "windows", target_os = "macos"))'.dependencies]
 rfd = { version = "=0.17.2", default-features = false }

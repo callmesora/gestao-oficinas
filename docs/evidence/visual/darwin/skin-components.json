@@ -1,0 +1,88 @@
+{
+  "scope": "component regions only; not whole-window parity",
+  "layout": "src/ui/legacy/WIN_Form_Clientes.layout.json",
+  "reference": "docs/evidence/images/WIN_Form_Clientes.jpg",
+  "screenshot": "ui-report/skin-frame.png",
+  "floors": {
+    "pixel_similarity": 90,
+    "edge_overlap": 60
+  },
+  "regions": {
+    "header": {
+      "pixel_similarity": 97.5,
+      "edge_overlap": 81.9,
+      "size": [
+        500,
+        25
+      ],
+      "bounds": [
+        0,
+        0,
+        500,
+        25
+      ],
+      "passed": true
+    },
+    "BTN_Validar": {
+      "pixel_similarity": 92.4,
+      "edge_overlap": 89.7,
+      "size": [
+        80,
+        24
+      ],
+      "bounds": [
+        406,
+        31,
+        486,
+        55
+      ],
+      "passed": true
+    },
+    "BTN_Cancelar": {
+      "pixel_similarity": 95.7,
+      "edge_overlap": 96.9,
+      "size": [
+        80,
+        24
+      ],
+      "bounds": [
+        406,
+        63,
+        486,
+        87
+      ],
+      "passed": true
+    },
+    "EDT_Descricao": {
+      "pixel_similarity": 98.7,
+      "edge_overlap": 96.1,
+      "size": [
+        380,
+        25
+      ],
+      "bounds": [
+        14,
+        62,
+        394,
+        87
+      ],
+      "passed": true
+    },
+    "EDT_Observacao": {
+      "pixel_similarity": 98.5,
+      "edge_overlap": 76.3,
+      "size": [
+        380,
+        170
+      ],
+      "bounds": [
+        14,
+        248,
+        394,
+        418
+      ],
+      "passed": true
+    }
+  },
+  "passed": true
+}

@@ -5,11 +5,12 @@ import { cp, mkdir, mkdtemp, unlink, writeFile } from "node:fs/promises";
 import { createServer } from "node:net";
 import { resolve } from "node:path";
 import { setTimeout, clearTimeout } from "node:timers";
-import { initdb, pg_ctl } from "@embedded-postgres/windows-x64";
 import pg from "pg";
 
 export async function startIsolatedPostgres() {
-  if (process.platform !== "win32") throw new Error("This project currently targets Windows");
+  // Optional dependencies keep incompatible native binaries off each host.
+  // The cluster lifecycle and isolation are identical on Windows and macOS.
+  const { initdb, pg_ctl } = await postgresBinaries();
   const parent = resolve("analysis-local"); await mkdir(parent, { recursive: true });
   const directory = await mkdtemp(resolve(parent, "postgres-test-"));
   let data = resolve(directory, "cluster"), running = false;
@@ -63,4 +64,16 @@ export async function startIsolatedPostgres() {
       data = restored; await start();
     },
   };
+}
+
+async function postgresBinaries(): Promise<{ initdb: string; pg_ctl: string }> {
+  const packages: Record<string, string> = {
+    "win32/x64": "@embedded-postgres/windows-x64",
+    "darwin/arm64": "@embedded-postgres/darwin-arm64",
+    "darwin/x64": "@embedded-postgres/darwin-x64",
+  };
+  const name = packages[`${process.platform}/${process.arch}`];
+  if (!name) throw new Error(`No development PostgreSQL binaries configured for ${process.platform}/${process.arch}`);
+  // Resolve only the package installed for this host; other optional packages are absent.
+  return import(name) as Promise<{ initdb: string; pg_ctl: string }>;
 }

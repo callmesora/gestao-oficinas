@@ -1,5 +1,19 @@
 # Handoff — Gestao Oficinas
 
+## Local macOS setup update — 25 October 2026
+
+Windows and Mac Codex agents are expected to collaborate; read `docs/runbooks/cross-platform-agents.md` for branches/worktrees, ownership and OS-labelled evidence. This setup was verified on `codex/local-macos-setup`, based on `335a44d`, on macOS arm64. The owner subsequently authorized committing and pushing this branch; Git history identifies the delivery commit.
+
+Read `setup/LOCAL-WORKSPACE.md`, ADR-017 and `docs/runbooks/stage-local-macos.md` before using this checkout. The original application and separate current playbook were cloned; legacy sources match all 128 committed fingerprints, the Python environment and pinned Node/npm/Rust toolchains are installed, and evidence is regenerated under ignored `analysis-local/` without replacing tracked mapping/schema/answers/parity.
+
+Development PostgreSQL now selects matching Windows x64/macOS arm64/x64 binaries. macOS uses the same real API/database/workflow tests and an equivalent actual-C#-method decoder harness; the original Windows PowerShell test remains. The native folder picker also compiles on macOS, with a separate app/dmg bundle config. Mac visual history is separate with identical floors/reference images.
+
+The existing SQLite snapshot was located inside the legacy backup (also identical in Downloads), integrity-checked and adapted read-only into `analysis-local/sqlite-development/data.sqlite`. All 17 business tables/159,668 rows are accounted for: 136,053 imported into isolated PostgreSQL; 23,615 stock rows quarantined because their source link cells are text where the authoritative mapping requires binary. Values are preserved, no encoding is guessed, and this is provisional development data rather than official HFSQL parity. The real customer UI/API was checked with 2,165 imported customers. `npm run dev:local` starts a new database each run; `npm run desktop:mac` uses that running server.
+
+Exact local check results and launch instructions live in the setup report. Earlier Windows process/session handles below belong to another machine and are not running here. The packaged app still exposes the existing foundation diagnostic; real workflows remain development routes. Windows native/WebView2, printers/devices, official export and production acceptance remain separate gates. No parity row status or business ordering changed: the next migration implementation is still MIG-7C2. No guard/settings change was made; commit/push is now explicitly authorized by the owner.
+
+Local full `npm run verify` passed on macOS arm64: 87 TS/domain/API/PostgreSQL tests, 3 Rust tests, bindings/parity/UI-input checks and 71 browser cases; native executable and debug `.app` also built. Existing TanStack lint warning only. `npm run desktop:mac` compiled/launched the actual native development executable with the imported local runner; this confirms startup, not automated native UI/picker acceptance. Component visual output routing was subsequently separated per OS with focused comparator/browser rechecks. Details/logs are in the setup report; reviews were two sequential self-review passes, not independent context.
+
 ## Current state
 
 Full migration goal remains active; no production cutover. Ten real usable windows: customers, vehicles, units, descriptive states and Terminais list/form. Whole-window parity remains incomplete (0/53 wholly done), no feature excluded. Main branch; previous cores b646e15/42763c2/95c4794, cleanup ec9599e, customer table 0c3576f/6f9e90d and descriptive-state 782abe8 are pushed. This handoff accompanies MIG-7F.1 delivery; identity is in git log. Commits/pushes authorized, explicit owned files only.

@@ -5,6 +5,7 @@ Replaces My_GestaoOficinas (WINDEV 28/HFSQL), retaining Portuguese controls and 
 Owner authorizes the full guide through completion, defaults/assumptions, commits and pushes; this supersedes Step 0 only. Follow the ordered stages, not a single unreviewed implementation pass.
 
 Read `docs/runbooks/handoff.md`, `ROADMAP.md` and the ADRs touching your slice before changing anything. Read whole unit mapping/spec/parity files too.
+Windows and macOS Codex agents collaborate here. Follow `docs/runbooks/cross-platform-agents.md`: separate writing branches/worktrees, one stage/file owner and shared tracking integrator, OS/commit-labelled results, and native acceptance on each OS. Read `setup/LOCAL-WORKSPACE.md` for this Mac's runtimes/data/commands (ADR-017); historical Windows handles/results are not local state.
 Keep this file short (about 100 lines). Details live in `docs/`; local rules live in the nearest `AGENTS.md`.
 
 ## Repository map

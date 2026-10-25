@@ -18,7 +18,7 @@ pub async fn select_terminal_folder<R: tauri::Runtime>(
     request: TerminalFolderRequest,
 ) -> Result<String, String> {
     validate(&request)?;
-    #[cfg(target_os = "windows")]
+    #[cfg(any(target_os = "windows", target_os = "macos"))]
     {
         let mut dialog = rfd::AsyncFileDialog::new()
             .set_parent(&window)
@@ -35,7 +35,7 @@ pub async fn select_terminal_folder<R: tauri::Runtime>(
             None => Ok(String::new()),
         }
     }
-    #[cfg(not(target_os = "windows"))]
+    #[cfg(not(any(target_os = "windows", target_os = "macos")))]
     {
         let _ = window;
         Err("unsupported_platform".into())

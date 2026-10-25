@@ -45,6 +45,8 @@ config.inspectDir ??= latest.inspect;
 config.dossierDir ??= latest.dossier;
 config.legacyScreenshots ??= "docs/evidence/images";
 config.visualDir ??= "docs/evidence/visual";
+// Keep each OS's rasterization history; both still use the same legacy reference and floors.
+if (process.platform === "darwin") config.visualDir = join(config.visualDir, "darwin");
 for (const [key, path] of Object.entries({ inspectDir: config.inspectDir, dossierDir: config.dossierDir,
   legacyScreenshots: config.legacyScreenshots })) {
   // Evidence of another checkout would be compared silently: every path stays inside this repository.
