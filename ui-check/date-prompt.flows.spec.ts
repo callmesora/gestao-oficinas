@@ -222,7 +222,7 @@ test("RULE-W16C5A7-1002 actual native out-of-range input blocks Confirm until a 
 test("RULE-W16C5A7-1004 source geometry Center caption and Right date stay fixed without drag resize or saved position", async ({ page }) => {
   const form = await open(page), frame = page.getByTestId("date-prompt-frame"), before = (await frame.boundingBox())!;
   const viewport = page.viewportSize()!;
-  expect(before).toEqual({ x: (viewport.width - 199) / 2, y: (viewport.height - 173) / 2, width: 199, height: 173 });
+  expect(before).toEqual({ x: Math.round((viewport.width - 199) / 2), y: Math.round((viewport.height - 173) / 2), width: 199, height: 173 });
   for (const [name, expected] of [["EDT_Data", { x: 49, y: 74, width: 100, height: 27 }], ["STC_Data", { x: 19, y: 36, width: 161, height: 28 }], ["BTN_Confirmar", { x: 42, y: 114, width: 114, height: 38 }]] as const) {
     const control = form.locator(`[data-control-path="${name}"]`), box = (await control.boundingBox())!;
     expect({ x: box.x - before.x, y: box.y - before.y, width: box.width, height: box.height }).toEqual(expected);

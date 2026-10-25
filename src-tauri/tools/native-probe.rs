@@ -61,7 +61,6 @@ fn main() {
             });
             tauri::WebviewWindowBuilder::new(app, "main", tauri::WebviewUrl::App(if business { "index.html" } else { "index.html?diagnostics=foundation" }.into()))
                 .title("Gestao Oficinas native startup probe")
-                .visible(false)
                 .incognito(true)
                 .data_directory(profile)
                 .build()?;

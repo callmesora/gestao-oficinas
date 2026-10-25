@@ -1,7 +1,9 @@
-# Current stage — shared native-dialog interactions
+# Current stage — native report output
 
-MIG5/7/14 follow-through on main after the usable-desktop delivery; root integrates shared tracking, macOS arm64. No push. Owner prioritizes a usable replacement for one or two users and mature open-source primitives under a thin Media Player theme. Preserve the persistent3210 demo; tests use owned profiles/ports/assets.
+MIG-13/14 follow-through, macOS arm64 main after the shared-dialog delivery; root owns integration/tracking. No push. Preserve the owner's port 3210 demo/data; tests use owned profiles/ports/assets.
 
-Next bounded batch: frozen modal3 from the stock worker, reusing the public react-rnd adapter inside native HTML dialog. Keep top-layer ownership, focus/Tab/Esc/results, source frame/control geometry, saved state and nested caller lifetime. Its28 focused checks pass, including16Date cases. Main adoption must crop the source frame in the existing visual harness, retain every floor/caption assertion, then check actual nested business/native paths before commit. The optional public user-select flag avoids the library clearing source input selection; no focus replay or internals.
+Shared workspace/modal react-rnd adoption is delivered: 103 isolated and 61 integrated browser checks, all 30 configured visual windows, plus final diagnostic and uninstrumented WK business paths pass. Source geometry, fractional saved bounds, focus/results and original floors remain intact. Mac app rebuilt; no parity promotions. Earlier native search stalls remain in ignored proof without an asserted cause.
 
-Retain source IDs/seed/first8 fields and17 historical aggregate/unit differences. No automatic parity promotion or whole-window acceptance. Keep native printing/devices, Windows, official HFSQL fidelity, updater/INI and source/designer U gates open. Reuse existing ADRs/history/handoff; no per-agent runbooks. Coordinator self-review under ADR007; tested local commits on main, then continue.
+Next bounded target: actual packaged Mac report preview for a list and grouped multipage family, using the existing Paged.js/Chromium adapter and synthetic data. Keep preview/font checks, PDF export, native save/print panels and physical printing distinct. Reuse the existing probe; avoid a new diagnostic framework. Record unavailable panel/device/Windows checks precisely and continue independent source work.
+
+Retain source IDs/seed/first eight fields, 17 historical aggregate/unit differences and HFSQL/updater/INI/designer gates. Keep tracking in existing ADRs/history/handoff; coordinator self-review under ADR-007.

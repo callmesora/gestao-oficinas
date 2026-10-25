@@ -136,8 +136,9 @@ for (const [window, settings] of Object.entries(config.windows)) {
     for (const id of settings.open) await page.getByTestId(id).first().click();
     const view = page.getByTestId(window).first();
     await expect(view).toBeVisible();
+    const capture = await view.evaluate(element => element.matches("dialog.wd-modal")) ? view.locator(".wd-frame").first() : view;
     if (settings.viewport) {
-      const windowBounds = await view.boundingBox();
+      const windowBounds = await capture.boundingBox();
       const workspaceBounds = await view.locator("xpath=ancestor::*[contains(@class,'wd-workspace-canvas')]").boundingBox();
       expect(windowBounds).not.toBeNull(); expect(workspaceBounds).not.toBeNull();
       expect(windowBounds!.x).toBeGreaterThanOrEqual(workspaceBounds!.x);
@@ -165,7 +166,7 @@ for (const [window, settings] of Object.entries(config.windows)) {
     }
     mkdirSync(resolve(root, config.report), { recursive: true });
     const screenshot = resolve(root, config.report, `${window}.png`);
-    await view.screenshot({ path: screenshot });
+    await capture.screenshot({ path: screenshot });
     const [score, previous] = visualScore(window, screenshot);
     if (!score) expect(settings.visualUnavailableReason, `${window}: missing visual reference requires an explicit evidence gap`).toBeTruthy();
     results.push({ window, missing, ignored: Object.keys(settings.ignore).length, total: expected.length, captions, score });

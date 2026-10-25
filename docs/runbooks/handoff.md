@@ -1,17 +1,15 @@
 # Handoff — Gestao Oficinas
 
-## Latest delivery — usable desktop and everyday workflows
+## Latest delivery — shared window interactions
 
-macOS arm64, tested local main tree over `163d994`; delivery commit is in Git. No push. Preserve originals/backup/playbook, guards and unowned `.handoff.md.swp`.
+macOS arm64, tested main tree over `6d5ce7e`; delivery commit is in Git. No push. Preserve originals/backup/playbook, guards and unowned `.handoff.md.swp`.
 
-Fixed delivery of 154 skin PNGs, opaque surfaces and window reachability. Shared react-rnd interactions and TanStack Virtual preserve geometry, records, drafts, selection and minimized scroll. Articles DOM nodes fall from 108,956 to 269 for 15,558 records. Delivered managed mechanic reset, native scanner, labor reads/state choices/clock/Information, report flow/margins/totals/company/runtime pins and fresh-profile recovery. The actual repair→materials→labor→completion/payment journey passes.
+Forms and pickers now share the react-rnd adapter used by workspace windows. Native HTML dialog retains focus, Tab/Esc, caller results and lifetime; source frames remain reachable on narrow screens. New default centers round to whole pixels; saved fractional coordinates and source control geometry remain exact. Public enableUserSelectHack=false preserves input selection. The visual harness measures the source frame, retaining all assertions/floors. Earlier skin/table/business delivery is in [history](../migration-history.md#stage-30-usable-desktop).
 
-Checks: full run 570/571 TS, then 4 CLI positives after fixing its refusal code; 27 Rust; 346/351 browser, then 13 repair, 18 visual/window and 26 final window/table positives cover all five failures and added cases. Visual floors retained; three scores improve. Types/lint/bindings/parity, Python 37 pass/1 Windows skip, source reproduction and original/projection hashes pass. Native scanner passes. Earlier WK business passes; the final 1,001-customer rerun stalls after save and is being diagnosed before closure. Clean Mac client builds and seven recovery tests pass; Windows source build is unrun. Logs: ignored `analysis-local/usability-*` and worker manifests. Mac debug app: 30.42 MiB, application executable only.
+Checks: isolated 103/103 browser, integrated main 61/61 (30 visual, 16 Date, four nested/modal, 11 workspace), types/full lint/fmt and parity pass. Eight visual scores improve. Mac debug app rebuilt, 30.42 MiB, application executable only; current frontend asset names verified in the executable. Existing TanStack compiler lint warning remains. Logs/manifests: ignored `analysis-local/modal-adoption/`.
 
-Parity: 367/2,273 verified (16.1%), 396 implemented, 1,029 specified, 481 unmapped, zero excluded; two new verified/six specified→implemented, 63 verified assumptions. Source fields/seed IDs and 17 historical aggregate/unit differences remain. No whole-window acceptance. Coordinator self-review under ADR-007.
+Native: final-source diagnostic and uninstrumented WK business checks both pass: offscreen last-row search, save/first-row search, logout/login, 1,001 retained plus one new customer, zero sessions/DEV requests. Earlier stalls remain recorded; their cause is not established. Probe default visibility was restored separately. This does not establish report/device/other-host acceptance.
 
-## Continue
+Parity unchanged: 367/2,273 verified, 396 implemented, 1,029 specified, 481 unmapped, zero excluded; 63 verified assumptions. No whole-window closure. Coordinator self-review under ADR-007.
 
-Finish the native save/search diagnosis, then use [current stage](current-stage.md) for the frozen dialog adapter. Tests own separate profiles/ports/assets. The owner's demo uses port 3210; the updated build retains older assets for open tabs. Restart its service to load the fixed image route.
-
-Native save/print panels/devices, Windows, official HFSQL fidelity, updater/INI and unresolved source/designer gates remain open. Keep tracking lean in this handoff, the rolling brief, existing ADRs and history.
+Use [current stage](current-stage.md). The owner's port 3210 demo/data remain untouched; older assets are retained. Restart `npm run local:start` and refresh to load the skin-serving fix. Native save/print panels/devices, Windows, official HFSQL fidelity, updater/INI and source/designer gates remain open.

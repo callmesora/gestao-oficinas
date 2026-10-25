@@ -629,8 +629,8 @@
   "looks": null,
   "visuals": {
    "darwin": {
-    "pixel": 96.1,
-    "layout": 84.0
+    "pixel": 97.8,
+    "layout": 84.8
    }
   }
  },
@@ -736,8 +736,8 @@
     "layout": 94.3
    },
    "darwin": {
-    "pixel": 98.3,
-    "layout": 94.9
+    "pixel": 98.9,
+    "layout": 96.4
    }
   }
  },
@@ -812,8 +812,8 @@
   "looks": null,
   "visuals": {
    "darwin": {
-    "pixel": 98.1,
-    "layout": 93.1
+    "pixel": 98.4,
+    "layout": 93.3
    }
   }
  },
@@ -858,8 +858,8 @@
   "looks": null,
   "visuals": {
    "darwin": {
-    "pixel": 97.5,
-    "layout": 95.4
+    "pixel": 98.8,
+    "layout": 97.0
    }
   }
  },
@@ -888,8 +888,8 @@
     "layout": 94.9
    },
    "darwin": {
-    "pixel": 98.1,
-    "layout": 95.5
+    "pixel": 98.4,
+    "layout": 95.9
    }
   }
  },
@@ -941,8 +941,8 @@
   "looks": null,
   "visuals": {
    "darwin": {
-    "pixel": 97.4,
-    "layout": 95.4
+    "pixel": 98.7,
+    "layout": 96.8
    }
   }
  },
@@ -1515,8 +1515,8 @@
     "layout": 93.5
    },
    "darwin": {
-    "pixel": 98.2,
-    "layout": 92.7
+    "pixel": 98.3,
+    "layout": 93.6
    }
   }
  },
@@ -1644,8 +1644,8 @@
   "looks": null,
   "visuals": {
    "darwin": {
-    "pixel": 95.7,
-    "layout": 84.7
+    "pixel": 96.5,
+    "layout": 86.3
    }
   }
  },

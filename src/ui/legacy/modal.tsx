@@ -4,10 +4,9 @@ import { windowGeometryStore } from "../../infrastructure/window-geometry";
 import { trapDialogTab } from "./dialog-keyboard";
 import { controlOf, type LegacyLayout } from "./layout";
 import { WdFrame } from "./wd";
+import { WindowInteraction } from "./window-interaction";
 
 export interface WdModalHandle { close(): void }
-type Edge = "n" | "e" | "s" | "w" | "ne" | "nw" | "se" | "sw";
-const edges: Edge[] = ["n", "e", "s", "w", "ne", "nw", "se", "sw"];
 
 /** The real forms/pickers share ADR-003 geometry; business state remains with each caller. */
 export function WdModal({ ref, layout, instance, testId, restoreTestId, onClose, onKeyDown, children }: {
@@ -24,14 +23,13 @@ export function WdModal({ ref, layout, instance, testId, restoreTestId, onClose,
     const saved = layout.window.flags?.["Save position"] === true ? windowGeometryStore.load(layout.window.name) : null;
     const width = resizable && saved ? Math.max(size.width, Math.min(saved.width, innerWidth - 16)) : size.width;
     const height = resizable && saved ? Math.max(size.height, Math.min(saved.height, innerHeight - 16)) : size.height;
-    return { width, height, x: Math.max(0, Math.min(saved?.x ?? (innerWidth - width) / 2, innerWidth - width)),
-      y: Math.max(0, Math.min(saved?.y ?? (innerHeight - height) / 2, innerHeight - height)),
+    return { width, height, x: Math.max(0, Math.min(saved?.x ?? Math.round((innerWidth - width) / 2), innerWidth - width)),
+      y: Math.max(0, Math.min(saved?.y ?? Math.round((innerHeight - height) / 2), innerHeight - height)),
       maximized: saved?.maximized === true && layout.window.flags?.["Maximize icon"] === true };
   });
   const [extent, setExtent] = useState({ width: innerWidth, height: innerHeight });
   const [minimized, setMinimized] = useState(false);
   const latest = useRef(geometry), focused = useRef<HTMLElement | null>(null), restoreFocus = useRef(false);
-  const drag = useRef<{ pointer: number; edge?: Edge; clientX: number; clientY: number; bounds: WindowGeometry } | null>(null);
   useEffect(() => { latest.current = geometry; }, [geometry]);
   const persist = () => {
     if (layout.window.flags?.["Save position"] === true) windowGeometryStore.save(layout.window.name, latest.current);
@@ -39,8 +37,10 @@ export function WdModal({ ref, layout, instance, testId, restoreTestId, onClose,
   useImperativeHandle(ref, () => ({ close() { persist(); dialog.current?.close(); } }));
   useEffect(() => {
     const element = dialog.current!;
-    element.showModal();
-    return () => element.close();
+    // A closed, invisible host provides layout for Rnd's initial measurement.
+    // Keep the existing effect order so native focus follows child input setup.
+    element.style.removeProperty("visibility"); element.showModal(); element.style.removeProperty("display");
+    return () => { element.close(); element.style.display = "block"; element.style.visibility = "hidden"; };
   }, []);
   useEffect(() => {
     const save = () => {
@@ -48,7 +48,7 @@ export function WdModal({ ref, layout, instance, testId, restoreTestId, onClose,
     };
     const resize = () => {
       setExtent({ width: innerWidth, height: innerHeight });
-      setGeometry(previous => ({ ...previous, x: Math.max(0, Math.min(previous.x, innerWidth - 80)), y: Math.max(0, Math.min(previous.y, innerHeight - 25)) }));
+      setGeometry(previous => ({ ...previous, x: Math.max(0, Math.min(previous.x, Math.max(innerWidth, previous.width) - previous.width)), y: Math.max(0, Math.min(previous.y, Math.max(innerHeight, previous.height) - previous.height)) }));
     };
     window.addEventListener("pagehide", save); window.addEventListener("resize", resize);
     return () => { window.removeEventListener("pagehide", save); window.removeEventListener("resize", resize); };
@@ -63,7 +63,7 @@ export function WdModal({ ref, layout, instance, testId, restoreTestId, onClose,
   const width = geometry.maximized ? Math.max(size.width, extent.width - 40) : geometry.width;
   const height = geometry.maximized ? Math.max(size.height, extent.height - 40) : geometry.height;
   return <dialog ref={dialog} className="wd-dialog-host wd-modal" data-testid={testId} aria-label={title} data-wd-movable-title={movableTitle}
-    style={{ left: geometry.maximized ? 20 : geometry.x, top: geometry.maximized ? 20 : geometry.y }}
+    style={{ left: 0, top: 0, margin: 0, width: "100vw", height: "100vh", maxWidth: "none", maxHeight: "none", overflow: "auto", pointerEvents: "auto", display: "block", visibility: "hidden" }}
     onCancel={event => { event.preventDefault(); event.stopPropagation(); if (event.target === event.currentTarget) onClose(); }}
     onKeyDown={event => {
       if (event.target instanceof Element && event.target.closest("dialog") !== event.currentTarget) return;
@@ -73,48 +73,24 @@ export function WdModal({ ref, layout, instance, testId, restoreTestId, onClose,
       if (event.target instanceof HTMLElement && event.target.closest("dialog") === dialog.current && event.target.closest(".wd-frame")?.closest("dialog") === dialog.current && !event.target.closest(".wd-chrome-button,.wd-workspace-edge")) focused.current = event.target;
     }}
     onPointerDown={event => {
-      if (!movableTitle || event.button !== 0 || !(event.target instanceof Element) || event.target.closest("dialog") !== event.currentTarget || !event.target.closest(".wd-title")) return;
-      event.preventDefault(); event.stopPropagation();
-      if (geometry.maximized) return;
-      event.currentTarget.setPointerCapture(event.pointerId);
-      drag.current = { pointer: event.pointerId, clientX: event.clientX, clientY: event.clientY, bounds: geometry };
+      // Native child dialogs must never start an owning workspace/dialog title drag.
+      if (event.target instanceof Element && event.target.closest("dialog") === event.currentTarget
+        && event.target.closest(".wd-title,.wd-workspace-edge")) event.stopPropagation();
     }}
-    onPointerMove={event => {
-      const start = drag.current;
-      if (!start || start.pointer !== event.pointerId) return;
-      const dx = event.clientX - start.clientX, dy = event.clientY - start.clientY, prior = start.bounds;
-      let { x, y, width, height } = prior;
-      if (!start.edge) { x = Math.max(0, Math.min(prior.x + dx, extent.width - 80)); y = Math.max(0, Math.min(prior.y + dy, extent.height - 25)); }
-      else {
-        if (start.edge.includes("e")) width = Math.max(size.width, prior.width + dx);
-        if (start.edge.includes("s")) height = Math.max(size.height, prior.height + dy);
-        if (start.edge.includes("w")) { width = Math.min(prior.x + prior.width, Math.max(size.width, prior.width - dx)); x = prior.x + prior.width - width; }
-        if (start.edge.includes("n")) { height = Math.min(prior.y + prior.height, Math.max(size.height, prior.height - dy)); y = prior.y + prior.height - height; }
-      }
-      setGeometry({ ...prior, x, y, width, height });
-    }}
-    onPointerUp={event => { if (drag.current?.pointer === event.pointerId) drag.current = null; }}
-    onPointerCancel={event => { if (drag.current?.pointer === event.pointerId) drag.current = null; }}
-    onLostPointerCapture={event => { if (drag.current?.pointer === event.pointerId) drag.current = null; }}>
-    {minimized && <button data-testid={restoreTestId} onClick={() => { restoreFocus.current = true; setMinimized(false); }}>{title}</button>}
-    <div hidden={minimized}><WdFrame layout={layout} instance={instance} width={width} height={height}
-      onClose={onClose} onMinimize={() => setMinimized(true)} onToggleMaximize={() => setGeometry(previous => ({ ...previous, maximized: !previous.maximized }))}>
-      {children}
-      {resizable && !geometry.maximized && edges.map(edge => <button key={edge} type="button" tabIndex={-1}
-        className={`wd-workspace-edge wd-workspace-edge-${edge}${edge === "se" && layout.window.flags?.["With grip"] === true ? " wd-workspace-grip" : ""}`}
-        data-testid={`${instance}-resize-${edge}`} aria-label={`Redimensionar janela (${edge})`}
-        onPointerDown={event => {
-          if (event.button !== 0) return;
-          event.preventDefault(); event.stopPropagation(); event.currentTarget.setPointerCapture(event.pointerId);
-          drag.current = { pointer: event.pointerId, edge, clientX: event.clientX, clientY: event.clientY, bounds: geometry };
-        }}
-        onKeyDown={event => {
-          if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key) || event.altKey || event.ctrlKey || event.metaKey) return;
-          event.preventDefault(); event.stopPropagation();
-          const step = event.shiftKey ? 1 : 8;
-          setGeometry(previous => ({ ...previous, width: Math.max(size.width, previous.width + (event.key === "ArrowRight" ? step : event.key === "ArrowLeft" ? -step : 0)),
-            height: Math.max(size.height, previous.height + (event.key === "ArrowDown" ? step : event.key === "ArrowUp" ? -step : 0)) }));
-        }} />)}
-    </WdFrame></div>
+    >
+    <div style={{ position: "relative", width: minimized ? extent.width : Math.max(extent.width, width, geometry.width),
+      height: minimized ? extent.height : Math.max(extent.height, height, geometry.height) }}>
+      {minimized && <button data-testid={restoreTestId} style={{ position: "absolute", left: geometry.x, top: geometry.y }}
+        onClick={() => { restoreFocus.current = true; setMinimized(false); }}>{title}</button>}
+      <WindowInteraction hidden={minimized} bounds={{ x: geometry.maximized ? 20 : geometry.x, y: geometry.maximized ? 20 : geometry.y, width, height }}
+        minimum={size} movable={movableTitle} resizable={resizable} maximized={geometry.maximized} enableUserSelectHack={false}
+        showGrip={layout.window.flags?.["With grip"] === true} handleTestId={`${instance}-resize`} cornerTestId={`${instance}-resize-se`}
+        keyboardResize="all" resizeTabIndex={-1} onBoundsChange={next => setGeometry(previous => ({ ...previous, ...next }))}>
+        <WdFrame layout={layout} instance={instance} width={width} height={height}
+          onClose={onClose} onMinimize={() => setMinimized(true)} onToggleMaximize={() => setGeometry(previous => ({ ...previous, maximized: !previous.maximized }))}>
+          {children}
+        </WdFrame>
+      </WindowInteraction>
+    </div>
   </dialog>;
 }

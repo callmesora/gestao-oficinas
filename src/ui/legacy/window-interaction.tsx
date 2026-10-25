@@ -14,6 +14,7 @@ export interface WindowInteractionProps extends RootProps {
   resizable?: boolean;
   maximized?: boolean;
   showGrip?: boolean;
+  enableUserSelectHack?: boolean;
   /** Existing resize-control ids remain stable for callers. */
   handleTestId: string;
   cornerTestId?: string;
@@ -29,7 +30,7 @@ export interface WindowInteractionProps extends RootProps {
  * stacking, persistence and focus; native modal dialogs keep their existing top layer.
  */
 export function WindowInteraction({ bounds, minimum, movable = true, resizable = false, maximized = false,
-  showGrip = false, handleTestId, cornerTestId, keyboardResize = "corner", resizeTabIndex = 0, rootRef,
+  showGrip = false, enableUserSelectHack, handleTestId, cornerTestId, keyboardResize = "corner", resizeTabIndex = 0, rootRef,
   onBoundsChange, children, style, hidden, ...root }: WindowInteractionProps) {
   const content = useRef<HTMLDivElement>(null);
   useImperativeHandle(rootRef, () => content.current!, []);
@@ -66,7 +67,7 @@ export function WindowInteraction({ bounds, minimum, movable = true, resizable =
     minWidth={minimum.width} minHeight={minimum.height}
     style={{ ...style, position: "absolute", left: 0, top: 0, ...(hidden ? { display: "none" } : {}) }}
     dragHandleClassName="wd-title" cancel=".wd-chrome-button,input,textarea,select,button" bounds="parent"
-    disableDragging={!canMove} enableResizing={canResize} resizeHandleComponent={handles} resizeHandleStyles={handleStyles}
+    disableDragging={!canMove} enableUserSelectHack={enableUserSelectHack} enableResizing={canResize} resizeHandleComponent={handles} resizeHandleStyles={handleStyles}
     onDragStart={event => {
       if (!canMove || !ownTarget(event.target)) return false;
       event.preventDefault(); event.stopPropagation();
