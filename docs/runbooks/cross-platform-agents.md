@@ -2,14 +2,14 @@
 
 Windows and Mac Codex agents work on the same migration. Both follow the shared ADRs, roadmap, parity matrix and handoff. Local environments, legacy copies, databases and process handles are separate.
 
-ADR-018 explicitly permits useful subagents and independent review. The coordinator can delegate bounded work without repeated permission; this does not automatically create/access an agent on another physical machine. Use actual available tools and OS-labelled evidence. Historical sequential-review notes do not prohibit future delegation.
+ADR-007 permits useful subagents and independent review. Delegation does not grant access to another physical machine. Use available tools and OS-labelled evidence; historical sequential-review notes do not restrict future delegation.
 
 ## Ownership and integration
 
 1. Read `AGENTS.md`, `ROADMAP.md`, `docs/runbooks/handoff.md`, the stage's ADRs and local setup notes. Check actual Git status/log and remote state; never assume the other machine's latest work is present.
-2. Use a separate checkout/worktree and `codex/<ticket>-<description>` branch per writing session. Claim one bounded stage and its files; agree on distinct files before simultaneous work. Record owner, OS, branch, base commit and intended files in its brief/handoff. A local note alone is not a shared lock.
+2. Tested local commits on main are allowed; no mandatory codex branch or PR. Isolate simultaneous writers with separate checkouts/worktrees when needed. Claim a bounded stage/files and record owner, OS and base commit in the existing brief/handoff. A local note alone is not a shared lock.
 3. One integration owner consolidates `ROADMAP.md`, handoff, parity and generated progress after the code/reviews. Preserve every valid contribution; do not regenerate shared tracking from a stale checkout.
-4. Share explicit commits/branches/PRs when authorized by the current user instruction. This document does not grant push/message/production permission. Never overwrite another agent's work or reset, stash, clean, force-push or rebase it away.
+4. Keep commits local; the owner will push when ready. Coordinate local integration without overwriting other agents' changes. No push, history rewrite, production operation or unsolicited inter-chat messaging.
 
 ## Platform responsibilities
 

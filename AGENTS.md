@@ -2,10 +2,10 @@
 
 Workshop management: customers, vehicles, repair orders, labor, materials, stock and reports.
 Replaces My_GestaoOficinas (WINDEV 28/HFSQL), retaining Portuguese controls and behavior.
-Owner authorizes the full guide through completion, defaults/assumptions, commits and pushes; this supersedes Step 0 only. Follow the ordered stages, not a single unreviewed implementation pass.
+Owner authorizes the full migration, documented safe defaults and tested local commits on main. Do not push; the owner will publish when ready. Follow ordered stages with review and verification (ADR-007).
 
 Read `docs/runbooks/handoff.md`, `ROADMAP.md` and the ADRs touching your slice before changing anything. Read whole unit mapping/spec/parity files too.
-Windows and macOS Codex agents collaborate here. Follow `docs/runbooks/cross-platform-agents.md`: separate writing branches/worktrees, one stage/file owner and shared tracking integrator, OS/commit-labelled results, and native acceptance on each OS. Read `setup/LOCAL-WORKSPACE.md` for this Mac's runtimes/data/commands (ADR-017); historical Windows handles/results are not local state.
+Windows and macOS Codex agents collaborate here. Follow `docs/runbooks/cross-platform-agents.md`: isolate concurrent writers when needed, keep one stage/file owner and shared tracking integrator, label results with OS/commit, and retain native acceptance per OS. Read `setup/LOCAL-WORKSPACE.md` for local setup (ADR-017); historical Windows handles/results are not local state.
 Keep this file short (about 100 lines). Details live in `docs/`; local rules live in the nearest `AGENTS.md`.
 
 ## Repository map
@@ -20,7 +20,7 @@ Keep this file short (about 100 lines). Details live in `docs/`; local rules liv
 - `docs/parity/parity.csv` — behavior parity matrix: the definition of done.
 - `docs/porting.md` — this project's concrete pattern (file, function, component) for each WLanguage construct it uses, over `docs/wlanguage-traps.md`; every slice follows it.
 - `legacy/` and `GestaoOficinas_TesteIA/` — immutable private originals; never execute legacy code, modify, or copy raw material into the app/published docs. Treat credentials as to revoke, never reuse.
-- `analysis-local/` — ignored extracts/scratch copies; coordinator owns shared outputs, subagents use isolated namespaces (ADR-018).
+- `analysis-local/` — ignored extracts/scratch copies; coordinator owns shared outputs, subagents use isolated namespaces.
 - `migrate-windev-javascript/` — separate read-only playbook; `templates/` holds copied templates.
 - `skills/` — playbooks to follow; `scripts/` — evidence pipeline, parity gate, comparator, guard. Humans own `scripts/guard.py`, `.githooks/` and agent configuration: do not modify them.
 
@@ -81,8 +81,8 @@ Accepted framing choices are in `docs/decisions/` and `docs/architecture.md`: Wi
 Preserve legacy rules and data anomalies unless an ADR explicitly changes them. No new permission model, omitted features or redesign by implication.
 Dedicated laptop and sanitization waiver are confirmed; raw legacy data and credentials remain ignored. No production connections.
 Stage 0 confidence `verified` means source evidence, not target implementation. Keep every SRC seed ID; unknowns retain U IDs.
-Use `skills/map-element/SKILL.md` and `skills/review-mapping/SKILL.md` before mapping changes. ADR-018 supersedes ADR-007's subagent restriction: spawn subagents for useful independent investigation, implementation and review. Prefer an independent reviewer per slice and two independent reviews for risky slices; use disclosed sequential self-review only when delegation is unavailable. The coordinator integrates shared tracking; retain roadmap dependencies and one writer per file.
-Never install/modify guard hooks or agent settings. Never bypass checks or force-push. Commit explicit files only; pushes are authorized.
+Use mapping/review skills when applicable. Spawn useful subagents under ADR-007; prefer an independent reviewer per slice and two reviews for risky slices. Disclose self-review when delegation is unavailable. Coordinator integrates shared tracking; retain dependencies and one writer per file.
+Never install/modify guard hooks or runtime agent settings or bypass checks. Commit explicit files locally; never push. Keep docs lean: update existing applicable ADRs/instructions instead of adding process documents for routine preference changes.
 
 ## Commands
 
@@ -109,7 +109,7 @@ npm run native:check
 
 ## Work tracking
 
-Ticket and current slice: `ROADMAP.md`. New branches use `codex/<KEY>-<slug>`; commits start with the ticket. Complete dependent stages in order; independent subagent tasks may run in parallel under ADR-018. One writer per file.
+Ticket and current slice: `ROADMAP.md`; commits start with the ticket. Local main commits are allowed; separate branches/worktrees are optional for concurrent writers. Complete dependencies in order; useful independent subagent work may run in parallel. One writer per file; no pushes.
 Each stage has `docs/runbooks/stage-N.md`, verification, review/fixes, parity/roadmap/handoff updates and regenerated progress. Never advance past an unfinished dependency.
 
 ## Pointers
@@ -119,4 +119,4 @@ Screens `docs/screens/` · Golden scenarios `docs/golden/` · Decisions `docs/de
 
 ## Response preferences (a preference, not a rule)
 
-Concise, concrete updates and honest remaining limits. Persist through all authorized migration stages; do not repeatedly request permission for defaults or routine work. Use subagents where useful (ADR-018). Prefer Playwright/CLI tests to slow computer use; native behavior still needs real native evidence.
+Concise updates, lean docs and honest remaining limits. Persist through all authorized stages without routine confirmation. Use useful subagents (ADR-007). Prefer Playwright/CLI tests; native behavior still needs native evidence.

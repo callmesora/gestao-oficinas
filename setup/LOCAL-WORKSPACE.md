@@ -2,6 +2,8 @@
 
 This report supplements the existing roadmap/handoff with facts about this newly prepared Mac. Historical Windows test results and running process handles in the handoff belong to the previous machine; they are not local running services or checks rerun here.
 
+Current delivery policy: follow ADR-007, commit tested work locally on main, use helpful subagents, and leave all pushing to the owner. Earlier branch/publication notes below describe setup history.
+
 ## Checkouts and source copy
 
 - Application: `https://github.com/callmesora/gestao-oficinas`, main at `335a44dfff97e4e667d24ce3fbd40e353a18ea1e`.
@@ -103,7 +105,7 @@ The Mac workflow config opens Clientes initially; the existing Windows terminal-
 - `legacy/data/` still lacks the previous official HFSQL export/CSV/manifest. The temporary snapshot supports development while that is recovered or exported on Windows from a scratch copy with the correct driver. Never reuse an old production DSN; use a fresh output directory and validate counts/hashes.
 - `scripts/verify_step0.py` is historical: it asserts zero implemented/verified parity rows. It is not a valid current-state acceptance command and additionally needs the missing export. Use the ongoing parity gate above.
 
-Business behavior, schema/migrations, parity statuses and roadmap ordering are unchanged. The owner explicitly requested shared Windows/Mac agent instructions, now in AGENTS and the coordination runbook; no guard/hooks or runtime agent settings were installed/changed. The owner subsequently requested commit/push of the setup branch. Run Git inside the application or playbook checkout; the parent inherits an unrelated ancestor repository. A portable next-session prompt is in `setup/RESUME-MIGRATION.md`.
+Business behavior, schema/migrations, parity statuses and roadmap ordering are unchanged. Shared Windows/Mac instructions are in AGENTS and the coordination runbook; no guard/hooks or runtime agent settings were installed/changed. Run Git inside the application or playbook checkout; the parent inherits an unrelated ancestor repository. Kickoff prompts are supplied in chat, not maintained as another repository document.
 
 Review mode: two disclosed sequential self-review passes in the same context under ADR-007 and `skills/review/SKILL.md`; see `docs/runbooks/reviews/local-macos.md`. No independent reviewer claim. Owner-requested shared Windows/Mac collaboration instructions live in `docs/runbooks/cross-platform-agents.md` and are linked from both AGENTS files and the handoff.
 

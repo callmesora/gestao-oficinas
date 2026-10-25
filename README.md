@@ -4,8 +4,6 @@ WINDEV/HFSQL workshop application migration workspace.
 
 Local development now supports Windows and macOS. For this Mac's prepared source evidence, exact runtimes, temporary SQLite data and launch commands, read [setup/LOCAL-WORKSPACE.md](setup/LOCAL-WORKSPACE.md). Current migration status is in the handoff; the early foundation summary below is historical.
 
-For an unattended end-to-end migration run, use [the autonomous kickoff prompt](setup/RESUME-MIGRATION.md). [ADR-018](docs/decisions/018-autonomous-delivery-and-subagents.md) supersedes the old subagent-avoidance preference; useful delegation and independent reviewers are now authorized.
-
 **Step 0 evidence/mapping complete; full migration authorized. Framing is recorded; foundation has local verification and native IPC smoke evidence. Business slices remain unmigrated.**
 
 - [Step 0 results and remaining questions](docs/runbooks/step0-report.md)

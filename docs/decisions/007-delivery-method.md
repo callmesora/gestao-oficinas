@@ -1,16 +1,21 @@
 # ADR-007 — Ordered stages and evidence gates
 
 - Date: 2026-10-23
-- Status: Accepted (owner may supersede with a new ADR)
-- Update 2026-10-25: ADR-018 supersedes the sequential-only/subagent-avoidance preference below. Its staged delivery and evidence requirements remain active; historical wording is retained as decision history.
-- Decided by: default
+- Status: Accepted; updated 2026-10-25
+- Decided by: human (delivery, subagents and Git policy); guide (evidence gates)
 - Parity rows affected: no status changes during framing; affected units retain their existing IDs.
 
 ## Context and evidence
-Playbook README, chapters 04–06/10, templates/AGENTS.template.md, templates/ROADMAP.template.md and templates/prompt-stage.md define the workflow. The owner now requests all steps, templates and structure and permits commits/pushes.
+Playbook chapters 04–06/10 and stage templates define the workflow. The owner requests unattended progress through the full migration, useful subagents, local commits on main and owner-managed pushing.
 
 ## Decision
-Follow the template structure and staged loop: framing, scaffold/verification/bindings, complete schema/import/reconciliation, skin kit, leaf screens towards workflows, periodic cleanup, then native acceptance and cutover rehearsal. Each slice has a bounded brief, implementation, actual verification, review/fixes, parity/roadmap/handoff/progress and explicit-file commit/push. Work sequentially. The owner explicitly permits separate self-review passes and asks to avoid review subagents unless they would substantially improve success; this overrides the skill preference for a separate agent. Follow its evidence/checklist discipline, disclose review mode, and make two passes for risky slices. Never modify/install guards or agent settings.
+Follow bounded stages in dependency order: implement, verify, review/fix, update existing parity/roadmap/handoff/progress, commit explicit files, then continue. Do not stop for routine stage approval. Retain human-only acceptance as an open gate without blocking independent implementation.
+
+Use subagents for useful independent investigation, implementation and review. Prefer an independent reviewer per stage and two reviews for risky work; disclose self-review if delegation is unavailable. One coordinator integrates shared tracking; one writer per file. Use separate worktrees for concurrent writers, and serialize heavy checks per checkout.
+
+Tested local commits may go directly to main; no mandatory codex branch or PR. Never push: the owner will publish when ready. Do not rewrite history, bypass guards or modify hooks/runtime agent settings.
+
+Keep instructions lean: update the existing applicable ADR rather than adding an ADR or runbook for each process preference. Preserve concise current decisions, necessary evidence and a usable handoff.
 
 ## Consequences and verification
 The final gate requires every parity row verified or excluded by ADR, full reconciliation, golden scenarios and native/install/restore evidence. Unavailable checks remain explicit. Step 0 validation stays an evidence snapshot and is not substituted for target verification.
