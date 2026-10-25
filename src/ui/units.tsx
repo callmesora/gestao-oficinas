@@ -16,11 +16,11 @@ import { WdModal, type WdModalHandle } from "./legacy/modal";
 const formTitle = controlOf(formLayout, "RADTitle").caption!;
 const unitColumnKeys: Record<string, NonNullable<UnitList["sort"]>> = { COL_Codigo: "Codigo", COL_Descricao: "Descricao" };
 
-function UnitForm({ repository, unit, finish }: { repository: UnitRepository; unit: Unit | null; finish: (saved: boolean) => void }) {
+function UnitForm({ repository, unit, descriptions, finish }: { repository: UnitRepository; unit: Unit | null; descriptions: readonly string[]; finish: (saved: boolean) => void }) {
   const dialog = useRef<WdModalHandle>(null), pending = useRef(false);
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const { message } = useDialogs();
-  const { register, getValues, formState: { dirtyFields } } = useForm<{ Codigo: string; Descricao: string }>({ defaultValues: { Codigo: unit?.Codigo ?? "", Descricao: unit?.Descricao ?? "" } });
+  const { register, getValues, setValue, formState: { dirtyFields } } = useForm<{ Codigo: string; Descricao: string }>({ defaultValues: { Codigo: unit?.Codigo ?? "", Descricao: unit?.Descricao ?? "" } });
   const close = (saved = false) => { if (!pending.current) { dialog.current?.close(); finish(saved); } };
   const save = async () => {
     if (pending.current) return;
@@ -43,7 +43,7 @@ function UnitForm({ repository, unit, finish }: { repository: UnitRepository; un
     }}>
       <div data-testid="SC_Form" style={{ display: "contents" }}>
         <WdEdit control={controlOf(formLayout, "EDT_Codigo")} {...register("Codigo")} readOnly={unit !== null} disabled={busy} />
-        <WdEdit control={controlOf(formLayout, "EDT_Descricao")} {...register("Descricao")} disabled={busy} />
+        <WdEdit control={controlOf(formLayout, "EDT_Descricao")} {...register("Descricao")} disabled={busy} suggestions={descriptions} onSuggestion={value => setValue("Descricao", value, { shouldDirty: true })} />
       </div>
       <WdButton control={controlOf(formLayout, "BTN_Validar")} disabled={busy} onClick={() => void save()} />
       <WdButton control={controlOf(formLayout, "BTN_Cancelar")} disabled={busy} onClick={() => close()} />
@@ -116,7 +116,7 @@ function UnitListScreen({ repository }: { repository: UnitRepository }) {
     <WdButton control={controlOf(listLayout, "BTN_Delete")} disabled={!ready || busy} onClick={() => void remove()} />
     <WdButton control={controlOf(listLayout, "BTN_Fechar")} onClick={close} />
     <WdButton control={controlOf(listLayout, "BTN_Imprimir")} disabled title="MIG-13" />
-    {form && <UnitForm repository={repository} unit={form.unit} finish={saved => { const editing = form.unit !== null; setForm(null); if (saved || editing) setRefresh(value => value + 1); }} />}
+    {form && <UnitForm repository={repository} unit={form.unit} descriptions={rows.flatMap(row => row.Descricao === null ? [] : [row.Descricao])} finish={saved => { const editing = form.unit !== null; setForm(null); if (saved || editing) setRefresh(value => value + 1); }} />}
     {diagnostic && <output data-testid="unit-list-diagnostic">{diagnostic}</output>}
   </div></div>;
 }

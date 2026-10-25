@@ -22,7 +22,7 @@ const fieldControls = { Codigo: "EDT_Codigo", Descricao: "EDT_Descricao", codbar
 const positionFields = ["codbarras_inicio", "codbarras_fim", "quant_inicio", "quant_fim"] as const;
 type FormText = Record<keyof TerminalValues, string>;
 
-function TerminalForm({ repository, terminal, finish }: { repository: TerminalRepository; terminal: Terminal | null; finish: (saved: boolean) => void }) {
+function TerminalForm({ repository, terminal, codes, finish }: { repository: TerminalRepository; terminal: Terminal | null; codes: readonly string[]; finish: (saved: boolean) => void }) {
   const dialog = useRef<WdModalHandle>(null), pending = useRef(false);
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const { message } = useDialogs();
@@ -74,7 +74,8 @@ function TerminalForm({ repository, terminal, finish }: { repository: TerminalRe
       if (event.key === "Enter" && !(event.target instanceof HTMLButtonElement)) { event.preventDefault(); void save(); }
     }}>
       <div data-testid="SC_Form" style={{ display: "contents" }}>
-        {(Object.keys(fieldControls) as (keyof TerminalValues)[]).map(key => <WdEdit key={key} control={controlOf(displayedFormLayout, fieldControls[key])} {...register(key)} readOnly={key === "pasta_localizacao" || (key === "Codigo" && terminal !== null)} disabled={busy} integerMask={positionFields.includes(key as typeof positionFields[number])} />)}
+        {(Object.keys(fieldControls) as (keyof TerminalValues)[]).map(key => <WdEdit key={key} control={controlOf(displayedFormLayout, fieldControls[key])} {...register(key)} readOnly={key === "pasta_localizacao" || (key === "Codigo" && terminal !== null)} disabled={busy} integerMask={positionFields.includes(key as typeof positionFields[number])}
+          suggestions={key === "Codigo" ? codes : undefined} onSuggestion={key === "Codigo" ? value => setValue("Codigo", value, { shouldDirty: true }) : undefined} />)}
         <WdButton control={controlOf(formLayout, "BTN_procurar_pasta")} disabled={busy} onClick={() => void chooseFolder()} />
       </div>
       <WdButton control={controlOf(formLayout, "BTN_Validar")} disabled={busy} onClick={() => void save()} />
@@ -158,7 +159,7 @@ export function TerminalListScreen({ repository, selecting = false, finish }: { 
     <WdButton control={controlOf(listLayout, "BTN_Delete")} disabled={!ready || busy} onClick={() => void remove()} />
     <WdButton control={controlOf(listLayout, "BTN_Fechar")} onClick={close} />
     <WdButton control={{ ...controlOf(listLayout, "BTN_selecionar"), visible: selecting }} disabled={!ready || busy} onClick={() => { if (current) choose(current); }} />
-    {form && <TerminalForm repository={repository} terminal={form.terminal} finish={saved => { const editing = form.terminal !== null; setForm(null); if (saved || editing) setRefresh(value => value + 1); }} />}
+    {form && <TerminalForm repository={repository} terminal={form.terminal} codes={rows.flatMap(row => row.Codigo === null ? [] : [row.Codigo])} finish={saved => { const editing = form.terminal !== null; setForm(null); if (saved || editing) setRefresh(value => value + 1); }} />}
     {diagnostic && <output data-testid="terminal-list-diagnostic">{diagnostic}</output>}
   </div></div>;
 }

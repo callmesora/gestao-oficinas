@@ -5,6 +5,7 @@ import { activateMnemonic, mnemonicCaption } from "./mnemonics";
 import { FrameDeltaContext, useAnchoredControl } from "./anchors";
 import { useInputSelection } from "./input-selection";
 import { integerMaskDeletionRange, integerMaskDisplay, integerMaskEdit, integerMaskOf, type IntegerMask } from "./numeric-entry";
+import { useInputSuggestions } from "./input-suggestions";
 
 type ButtonProps = { control: LegacyControl; chrome?: boolean; interpretAmpersand?: boolean; style?: CSSProperties } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "type">;
 export function WdButton({ control: source, chrome = false, interpretAmpersand = true, style, className = "", tabIndex, ...props }: ButtonProps) {
@@ -136,24 +137,35 @@ function useIntegerEntry(mask: IntegerMask | null, props: EditInputProps) {
   };
 }
 
-export function WdEdit({ control: source, automaticErase, integerMask = false, ...props }: { control: LegacyControl; automaticErase?: boolean; integerMask?: boolean } & EditInputProps) {
+export function WdEdit({ control: source, automaticErase, integerMask = false, suggestions, onSuggestion, ...props }: {
+  control: LegacyControl; automaticErase?: boolean; integerMask?: boolean;
+  suggestions?: readonly string[]; onSuggestion?: (value: string) => void;
+} & EditInputProps) {
   const control = useAnchoredControl(source);
   const mask = useMemo(() => integerMask ? integerMaskOf(control.input_mask) : null, [integerMask, control.input_mask]);
   const numeric = useIntegerEntry(mask, props);
-  const selection = useInputSelection(automaticErase ?? control.flags?.["Automatic erase"], { ...props, onFocus: numeric.onFocus });
   const id = useId();
+  const maxLength = props.maxLength ?? (control.input_type === "Text" && (control.input_size ?? 0) > 0 ? control.input_size : undefined);
+  const readOnly = props.readOnly ?? control.state === "Read-only";
+  const assistance = useInputSuggestions({ enabled: !mask && control.input_type === "Text" && control.flags?.["File assisted input"] === true
+    && suggestions !== undefined && onSuggestion !== undefined && !readOnly && !props.disabled && !(props.hidden ?? control.visible === false),
+    values: suggestions, maxLength, onSuggestion, handlers: { ...numeric, onBlur: props.onBlur }, id,
+    testId: `${control.name}__suggestions`, label: props["aria-label"] ?? control.caption ?? control.name });
+  const selection = useInputSelection(automaticErase ?? control.flags?.["Automatic erase"], { ...props, onFocus: assistance.onFocus });
   const captionWidth = control.caption_width ?? 0;
   return <div className="wd-field" hidden={props.hidden ?? control.visible === false} data-control-path={control.path} style={controlBox(control)}>
     {captionWidth > 0 && <label htmlFor={id} style={{ width: captionWidth - 2 }}>{control.caption}</label>}
-    <input {...props} {...numeric} {...selection} id={id} type={control.flags?.Password === true ? "password" : "text"}
+    <input {...props} {...numeric} {...selection} {...assistance.attributes} onChange={assistance.onChange} onBlur={assistance.onBlur} onKeyDown={assistance.onKeyDown}
+      id={id} type={control.flags?.Password === true ? "password" : "text"}
       inputMode={mask ? "numeric" : props.inputMode}
       value={mask && props.value !== undefined ? integerMaskDisplay(mask, String(props.value)) : props.value}
       defaultValue={mask && props.defaultValue !== undefined ? integerMaskDisplay(mask, String(props.defaultValue)) : props.defaultValue}
-      maxLength={props.maxLength ?? (control.input_type === "Text" && (control.input_size ?? 0) > 0 ? control.input_size : undefined)}
+      maxLength={maxLength}
       tabIndex={props.tabIndex ?? (control.flags?.["TAB Key"] === false || String(control.tab_order) === "-1" ? -1 : undefined)} data-testid={control.name} className="wd-edit"
-      readOnly={props.readOnly ?? control.state === "Read-only"}
+      readOnly={readOnly}
       aria-label={captionWidth ? undefined : props["aria-label"] ?? control.caption ?? control.name}
       style={{ left: captionWidth, width: (control.width ?? 0) - captionWidth, textAlign: control.h_align === "Right" ? "right" : "left" } as CSSProperties} />
+    {assistance.popup}
   </div>;
 }
 

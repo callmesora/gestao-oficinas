@@ -19,12 +19,12 @@ const modes = ["todos", "codigo", "descricao", "morada", "codigopostal", "telefo
 type FormText = Record<typeof fields[number], string>;
 const codeText = (value: string | null) => value?.replace(/\B(?=(\d{3})+(?!\d))/g, " ") ?? "0";
 
-function CustomerForm({ repository, customer, nextCode, finish }: { repository: CustomerRepository; customer: Customer | null; nextCode: string; finish: (saved: boolean) => void }) {
+function CustomerForm({ repository, customer, nextCode, descriptions, finish }: { repository: CustomerRepository; customer: Customer | null; nextCode: string; descriptions: readonly string[]; finish: (saved: boolean) => void }) {
   const dialog = useRef<WdModalHandle>(null), pending = useRef(false);
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const { message } = useDialogs();
   const defaults = Object.fromEntries(fields.map(field => [field, field === "Codigo" ? codeText(customer ? customer.Codigo : nextCode) : customer?.[field] ?? ""])) as FormText;
-  const { register, getValues, setFocus, formState: { dirtyFields } } = useForm<FormText>({ defaultValues: defaults });
+  const { register, getValues, setFocus, setValue, formState: { dirtyFields } } = useForm<FormText>({ defaultValues: defaults });
   useEffect(() => {
     // Verified new-mode focus: WIN_Form_Clientes.wdw:481. Edit focus remains U-C286277B-01.
     if (!customer) setFocus("Descricao");
@@ -55,7 +55,8 @@ function CustomerForm({ repository, customer, nextCode, finish }: { repository: 
         <div data-testid="SC_Form" style={{ display: "contents" }}>
           {fields.map((field, index) => field === "observacao" ?
             <WdMemo key={field} control={controlOf(formLayout, controls[index])} {...register(field)} disabled={busy} /> :
-            <WdEdit key={field} control={controlOf(formLayout, controls[index])} {...register(field)} readOnly={field === "Codigo" && !!customer} disabled={busy} integerMask={field === "Codigo"} />)}
+            <WdEdit key={field} control={controlOf(formLayout, controls[index])} {...register(field)} readOnly={field === "Codigo" && !!customer} disabled={busy} integerMask={field === "Codigo"}
+              {...(field === "Descricao" ? { suggestions: descriptions, onSuggestion: (value: string) => setValue("Descricao", value, { shouldDirty: true }) } : {})} />)}
         </div>
         <WdButton control={controlOf(formLayout, "BTN_Validar")} disabled={busy} onClick={() => void save()} />
         <WdButton control={controlOf(formLayout, "BTN_Cancelar")} disabled={busy} onClick={() => close()} />
@@ -138,7 +139,7 @@ function CustomerList({ repository, selecting = false, origin = "", selected, cl
     <WdButton control={controlOf(listLayout, "BTN_selecionar")} disabled={!ready} hidden={!selecting} onClick={() => { if (ready && current) choose(current); }} />
     {/* SRC-4883adab32: report remains assigned to MIG-13, visibly unavailable, never a no-op. */}
     <WdButton control={controlOf(listLayout, "BTN_Imprimir")} disabled title="MIG-13" />
-    {form && <CustomerForm repository={repository} customer={form.customer} nextCode={nextCode} finish={saved => { const editing = form.customer !== null; setForm(null); if (saved || editing) setRefresh(value => value + 1); }} />}
+    {form && <CustomerForm repository={repository} customer={form.customer} nextCode={nextCode} descriptions={rows.flatMap(row => row.Descricao === null ? [] : [row.Descricao])} finish={saved => { const editing = form.customer !== null; setForm(null); if (saved || editing) setRefresh(value => value + 1); }} />}
     {diagnostic && <output data-testid="customer-list-diagnostic">{diagnostic}</output>}
   </div></div>;
 }

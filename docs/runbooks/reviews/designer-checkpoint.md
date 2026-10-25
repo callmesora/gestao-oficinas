@@ -31,3 +31,14 @@ Two independent read-only reviews checked complete consumer/shared changes again
 - Row height uses the source content height plus observed1px border under ADR-013; the explicit30px runtime override takes priority. Native scrollbar-tooltip content/skin remain precise U obligations, distinct from the implemented truncated-cell value tooltip.
 
 Both reviewers re-read fixes and reported no remaining concrete finding. Three final focused real API/PostgreSQL/browser cases passed. Full final verification/native bundle results belong in handoff, not a reviewer test claim.
+
+## Pass 4 — text assistance and actual caller (macOS arm64, basea96bd46)
+
+Two fresh independent read-only reviewers followed the review skill against complete changes/source/schema/spec/parity and applicable ADRs. Shared assistance and actual caller tests were prepared by separate isolated implementers; root integrated consumers, fixes and tracking.
+
+- Four source Text/key/File opt-ins, exact/current filtered candidates, dirty setters, NULL/free-text preservation, ref composition and top-layer local keys agreed with source and accepted defaults. New derived suggestion identifiers were documented in each actual form spec; a copied filter parenthetical was removed from noncustomer specs.
+- Both reviewers found the real initial-customer-read race: a late initial result/failure could replace the post-picker refreshed combo. Form-owned customerRead sequencing now supersedes both paths on nonempty return, retaining empty-origin initialization. The regression failed before the fix and passed after it. Holding only StrictMode's discarded first request initially passed vacuously; root changed it to retain every initial snapshot, await actual response/failure completion and assert fresh labels afterward.
+- One test tried reopening dismissed suggestions by filling an identical value, which emits no change. Root replaced that action with a real Backspace/space edit and a positive popup-visible precondition; all acceptance/raw-text/persistence assertions remain.
+- Prior-registration tests replace the owned synthetic record's internal identity through the actual API before refresh. Source registration seek is required to pass; generic selected-ID retention cannot satisfy them. Separate-page draft tests establish separate application-instance behavior, not simultaneous workspace modals or HFSQL buffer equivalence.
+
+Final fix rereads found no remaining runtime finding. Root inspected the real unit popup capture and ran focused cases, including stale result/failure delivery; full verification/native results remain root-owned in handoff. No native/human/legacy-recorded acceptance is claimed.

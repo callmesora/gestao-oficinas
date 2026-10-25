@@ -19,6 +19,8 @@ All write failures roll back and return typed failure rather than claiming sourc
 
 Read filtering uses literal parameterized substrings with the ADR-009 lowercase interim comparison, never SQL interpolation. Maintain visible search mode/text separately from the effective query filter: non-todos source buttons deactivate Viaturas, not QRY_select_viaturas; todos or an actual empty text modification removes the query filter. Join/orphan/duplicate behavior and source registration ordering are preserved; deterministic tie order is only an interim default.
 
+The asynchronous customer combo initialization and actual picker-return reload share one form-owned read sequence. A nonempty return supersedes older initialization responses and failures, preserving the source's later ListDisplay/ListSeek result. Empty-origin cancellation retains the initial read. Drafts and busy guards remain local; this does not emulate shared HFSQL buffers or invent vanished/no-match outcomes.
+
 ## Checks required
 
 Real PostgreSQL/API tests for ordered validation/no-write, exact IDs/nulls/text, duplicate allocation races, edit/delete predicate scope, orphan retention, repair-order protection and rollback. Actual browser tests must cover nested customer selection/cancel, both filter states and stale-read protection. Golden, visual and native evidence remain separate gates; no U item is resolved by this ADR.

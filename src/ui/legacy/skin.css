@@ -26,6 +26,12 @@
 .wd-edit { position: absolute; top: 2px; height: calc(100% - 4px); box-sizing: border-box; margin: 0; padding: 2px 4px;
   font: inherit; color: inherit; border: 1px solid #a7adb8; background: white; } /* sampled */
 .wd-edit:focus { outline: none; border-color: #7d8899; } /* sampled */
+/* ADR-003 reversible input-assistance list; source frames and edit geometry stay unchanged. */
+.wd-input-suggestions { position: fixed; inset: auto; box-sizing: border-box; margin: 0; padding: 0; overflow: auto;
+  border: 1px solid #a7adb8; background: white; color: #000; font: 10.67px "Trebuchet MS", Tahoma, sans-serif; }
+.wd-input-suggestions [role="option"] { box-sizing: border-box; height: 20px; padding: 2px 4px; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; cursor: default; }
+.wd-input-suggestions [role="option"]:hover, .wd-input-suggestions [aria-selected="true"] { background: #cfe3fb; }
 /* Single-line field's 2px vertical inset measured on WIN_Form_Clientes.jpg. */
 .wd-frame [hidden] { display: none !important; }
 .wd-memo { resize: none; overflow: auto; }

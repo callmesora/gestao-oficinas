@@ -17,11 +17,11 @@ import { WdModal, type WdModalHandle } from "./legacy/modal";
 const displayedFormLayout = { ...formLayout, controls: formLayout.controls.map(control => control.name === "EDT_Descricao" ? { ...control, caption: "Descrição" } : control) };
 const formTitle = controlOf(formLayout, "RADTitle").caption!;
 
-function DescriptiveStateForm({ repository, descriptiveState, finish }: { repository: DescriptiveStateRepository; descriptiveState: DescriptiveState | null; finish: (saved: boolean) => void }) {
+function DescriptiveStateForm({ repository, descriptiveState, descriptions, finish }: { repository: DescriptiveStateRepository; descriptiveState: DescriptiveState | null; descriptions: readonly string[]; finish: (saved: boolean) => void }) {
   const dialog = useRef<WdModalHandle>(null), pending = useRef(false);
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const { message } = useDialogs();
-  const { register, getValues, formState: { dirtyFields } } = useForm<{ Codigo: string; Descricao: string }>({ defaultValues: { Codigo: descriptiveState?.Codigo ?? "", Descricao: descriptiveState?.Descricao ?? "" } });
+  const { register, getValues, setValue, formState: { dirtyFields } } = useForm<{ Codigo: string; Descricao: string }>({ defaultValues: { Codigo: descriptiveState?.Codigo ?? "", Descricao: descriptiveState?.Descricao ?? "" } });
   const close = (saved = false) => { if (!pending.current) { dialog.current?.close(); finish(saved); } };
   const save = async () => {
     if (pending.current) return;
@@ -44,7 +44,7 @@ function DescriptiveStateForm({ repository, descriptiveState, finish }: { reposi
     }}>
       <div data-testid="SC_Form" style={{ display: "contents" }}>
         <WdEdit control={controlOf(formLayout, "EDT_Codigo")} {...register("Codigo")} readOnly={descriptiveState !== null} disabled={busy} />
-        <WdEdit control={controlOf(displayedFormLayout, "EDT_Descricao")} {...register("Descricao")} disabled={busy} />
+        <WdEdit control={controlOf(displayedFormLayout, "EDT_Descricao")} {...register("Descricao")} disabled={busy} suggestions={descriptions} onSuggestion={value => setValue("Descricao", value, { shouldDirty: true })} />
       </div>
       <WdButton control={controlOf(formLayout, "BTN_Validar")} disabled={busy} onClick={() => void save()} />
       <WdButton control={controlOf(formLayout, "BTN_Cancelar")} disabled={busy} onClick={() => close()} />
@@ -130,7 +130,7 @@ export function DescriptiveStateListScreen({ repository, selecting = false, fini
     <WdButton control={{ ...controlOf(listLayout, "BTN_selecionar"), visible: selecting }} disabled={!ready || busy} onClick={() => { if (current) choose(current); }} />
     <WdButton control={{ ...controlOf(listLayout, "BTN_seguinte"), visible: selecting }} disabled={!ready || busy} onClick={() => move(1)} />
     <WdButton control={{ ...controlOf(listLayout, "BTN_anterior"), visible: selecting }} disabled={!ready || busy} onClick={() => move(-1)} />
-    {form && <DescriptiveStateForm repository={repository} descriptiveState={form.descriptiveState} finish={saved => { const editing = form.descriptiveState !== null; setForm(null); if (saved || editing) setRefresh(value => value + 1); }} />}
+    {form && <DescriptiveStateForm repository={repository} descriptiveState={form.descriptiveState} descriptions={rows.flatMap(row => row.Descricao === null ? [] : [row.Descricao])} finish={saved => { const editing = form.descriptiveState !== null; setForm(null); if (saved || editing) setRefresh(value => value + 1); }} />}
     {diagnostic && <output data-testid="descriptiveState-list-diagnostic">{diagnostic}</output>}
   </div></div>;
 }

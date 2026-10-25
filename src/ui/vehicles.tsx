@@ -41,7 +41,7 @@ function CustomerCombo({ customers, value, change, disabled }: { customers: Cust
 }
 
 function VehicleForm({ repositories, vehicle, finish }: { repositories: Repositories; vehicle: Vehicle | null; finish: (saved: boolean) => void }) {
-  const dialog = useRef<WdModalHandle>(null), pending = useRef(false);
+  const dialog = useRef<WdModalHandle>(null), pending = useRef(false), customerRead = useRef(0);
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const [customers, setCustomers] = useState<Customer[]>([]), [picker, setPicker] = useState(false);
   const { message } = useDialogs();
@@ -49,11 +49,13 @@ function VehicleForm({ repositories, vehicle, finish }: { repositories: Reposito
   const { register, getValues, setValue, control, formState: { dirtyFields } } = useForm<VehicleFormText>({ defaultValues: defaults });
   const selectedCustomer = useWatch({ control, name: "Cliente" });
   useEffect(() => {
+    const sequence = ++customerRead.current;
     let active = true;
     void repositories.customers.list({ mode: "todos", term: "" }).then(result => {
-      if (active && result.kind === "loaded") setCustomers(result.customers);
-      else if (active) setDiagnostic(result.kind);
-    }).catch(() => { if (active) setDiagnostic("transport"); });
+      if (!active || sequence !== customerRead.current) return;
+      if (result.kind === "loaded") setCustomers(result.customers);
+      else setDiagnostic(result.kind);
+    }).catch(() => { if (active && sequence === customerRead.current) setDiagnostic("transport"); });
     return () => { active = false; };
   }, [repositories]);
   const close = (saved = false) => { if (!pending.current && !picker) { dialog.current?.close(); finish(saved); } };
@@ -75,15 +77,17 @@ function VehicleForm({ repositories, vehicle, finish }: { repositories: Reposito
   const picked = async (code: string) => {
     setPicker(false);
     if (code === "") return;
+    const sequence = ++customerRead.current;
     pending.current = true; setBusy(true);
     try {
       const result = await repositories.customers.list({ mode: "todos", term: "" });
+      if (sequence !== customerRead.current) return;
       if (result.kind === "loaded") {
         setCustomers(result.customers);
         if (result.customers.some(customer => customer.Codigo === code)) setValue("Cliente", code, { shouldDirty: true });
         // UNRESOLVED U-C9675195-02: a vanished ListSeek result does not invent a replacement.
       } else setDiagnostic(result.kind);
-    } catch { setDiagnostic("transport"); }
+    } catch { if (sequence === customerRead.current) setDiagnostic("transport"); }
     finally { pending.current = false; setBusy(false); }
   };
   return <WdModal ref={dialog} layout={formLayout} instance="vehicle-form-frame" testId="WIN_Form_Viaturas" restoreTestId="vehicle-form-restore"
