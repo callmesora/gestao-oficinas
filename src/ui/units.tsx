@@ -14,6 +14,7 @@ import { WdWorkspace, useWorkspace, useWorkspaceClose } from "./legacy/workspace
 import { WdModal, type WdModalHandle } from "./legacy/modal";
 
 const formTitle = controlOf(formLayout, "RADTitle").caption!;
+const unitColumnKeys: Record<string, NonNullable<UnitList["sort"]>> = { COL_Codigo: "Codigo", COL_Descricao: "Descricao" };
 
 function UnitForm({ repository, unit, finish }: { repository: UnitRepository; unit: Unit | null; finish: (saved: boolean) => void }) {
   const dialog = useRef<WdModalHandle>(null), pending = useRef(false);
@@ -57,6 +58,7 @@ function UnitListScreen({ repository }: { repository: UnitRepository }) {
   const [loaded, setLoaded] = useState<{ query: UnitList; refresh: number } | null>(null);
   const [form, setForm] = useState<{ unit: Unit | null } | null>(null), [diagnostic, setDiagnostic] = useState("");
   const pending = useRef(false), [busy, setBusy] = useState(false);
+  const columnSearch = useRef<{ key: NonNullable<UnitList["sort"]>; term: string } | null>(null);
   const table = controlOf(listLayout, "TABLE_unidades"), settings = useTableLayout(table, "WIN_Table_unidades/TABLE_unidades");
   useEffect(() => {
     let active = true;
@@ -65,7 +67,10 @@ function UnitListScreen({ repository }: { repository: UnitRepository }) {
       if (result.kind !== "loaded") { setDiagnostic(result.kind); return; }
       setRows(result.units); setLoaded({ query, refresh }); setDiagnostic("");
       // UNRESOLVED U-CCB16084-02: preserve an explicit existing selection; no guessed fallback row.
-      setSelection(previous => result.units.some(row => row.id === previous) ? previous : null);
+      const sought = columnSearch.current;
+      const match = sought && result.units.find(row => String(row[sought.key] ?? "").toLocaleLowerCase("pt-PT").startsWith(sought.term.toLocaleLowerCase("pt-PT")));
+      columnSearch.current = null;
+      setSelection(previous => match ? match.id : result.units.some(row => row.id === previous) ? previous : null);
     }).catch(() => { if (active) setDiagnostic("transport"); });
     return () => { active = false; };
   }, [repository, query, refresh]);
@@ -89,13 +94,22 @@ function UnitListScreen({ repository }: { repository: UnitRepository }) {
   };
   const sort = (column: LegacyColumn) => {
     if (pending.current) return;
-    const key = (column.name === "COL_UnidadesID" ? "unidadesID" : column.name.slice(4)) as NonNullable<UnitList["sort"]>;
+    columnSearch.current = null;
+    const key = unitColumnKeys[column.name];
+    if (!key) return;
     setQuery(previous => ({ sort: key, descending: previous.sort === key ? !previous.descending : false }));
   };
   return <div data-testid="WIN_Table_unidades" style={{ position: "absolute", inset: 0, pointerEvents: "none" }} onKeyDown={event => {
     if (event.key === "Escape" && !form && !(event.target instanceof Element && event.target.closest("dialog"))) close();
   }}><div style={{ display: "contents", pointerEvents: "auto" }}>
-    <WdTable control={table} rows={rows} rowId={row => row.id} selectedId={selection} onSelect={id => { if (!pending.current) setSelection(id); }} onSort={sort} {...settings}
+    <WdTable control={table} rows={rows} rowId={row => row.id} selectedId={selection} onSelect={id => { if (!pending.current) setSelection(id); }} onSort={sort} {...settings} configureColumns designerOptions onResetColumns={settings.resetLayout}
+      onColumnSearch={(column, term) => {
+        if (pending.current) return;
+        const key = unitColumnKeys[column.name];
+        if (!key) return;
+        columnSearch.current = term ? { key, term } : null;
+        if (term) setQuery({ sort: key, descending: false });
+      }}
       cell={(row, column) => column.name === "COL_Codigo" ? row.Codigo ?? "" : column.name === "COL_Descricao" ? row.Descricao ?? "" : row.unidadesID ?? ""} />
     <WdButton control={controlOf(listLayout, "Btn_New")} disabled={!ready || busy} onClick={() => setForm({ unit: null })} />
     <WdButton control={controlOf(listLayout, "BTN_Modificar")} disabled={!ready || busy} onClick={() => { if (current) setForm({ unit: current }); }} />

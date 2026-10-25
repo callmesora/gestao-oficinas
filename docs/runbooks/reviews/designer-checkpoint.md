@@ -21,3 +21,13 @@ Shared numeric implementation used a separate worktree; root integrated consumer
 - A speculative regex-newline finding was retracted after checking the actual JS engine; explicit invalid-character validation and newline tests remain. Unproven drag/drop sanitization was not reported as a confirmed finding.
 
 Final full verify passed98 TS/DB,3 Rust and83 browser cases with existing visual floors; only existing TanStack warning. No remaining concrete review finding. Native/runtime U gates and four eligible text-key assistance controls remain open target work as stated in handoff/stage11.
+
+## Pass 3 — table consumers (macOS arm64, base2a31815)
+
+Two independent read-only reviews checked complete consumer/shared changes against source/spec/ADRs. Root owns checks/tracking. Fixed source/API keys, effective vehicle filter and delayed reads, hidden unit ID and saved layout agree with ADR-010/012/013.
+
+- Numeric vehicle and unit-description seek tests initially sought already-selected records. Root changed each to start from a different explicit selection, so removal of the feature fails the assertion.
+- Review caught raw Touch scrolling=No unconsumed by the shared table. Explicit No now disables content panning; absent metadata adds no default. Actual CDP touch gestures include an enabled-panning positive control; mouse/per-pixel scrolling remains tested. Audit every named raw option on consumer opt-in.
+- Row height uses the source content height plus observed1px border under ADR-013; the explicit30px runtime override takes priority. Native scrollbar-tooltip content/skin remain precise U obligations, distinct from the implemented truncated-cell value tooltip.
+
+Both reviewers re-read fixes and reported no remaining concrete finding. Three final focused real API/PostgreSQL/browser cases passed. Full final verification/native bundle results belong in handoff, not a reviewer test claim.

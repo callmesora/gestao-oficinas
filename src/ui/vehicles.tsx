@@ -23,6 +23,7 @@ type Repositories = { vehicles: VehicleRepository; customers: CustomerRepository
 const fields = ["matricula", "marca", "modelo", "Ano", "mes"] as const;
 const inputNames = { matricula: "EDT_Matricula", marca: "EDT_Marca", modelo: "EDT_Modelo", Ano: "EDT_Ano", mes: "EDT_Mes" };
 const modes = ["todos", "matricula", "cliente", "marca_modelo"] as const;
+const vehicleColumnKeys: Record<string, NonNullable<VehicleFilter["sort"]>> = { COL_Matricula: "matricula", COL_Cliente: "Descricao", COL_Marca: "marca", COL_Modelo: "modelo", COL_Ano: "Ano", COL_Mes: "mes" };
 
 function CustomerCombo({ customers, value, change, disabled }: { customers: Customer[]; value: string; change: (value: string) => void; disabled: boolean }) {
   const control = useAnchoredControl(controlOf(formLayout, "COMBO_Codigo"));
@@ -112,6 +113,7 @@ function VehicleList({ repositories, selecting = false, origin = "", selected }:
   const [form, setForm] = useState<{ vehicle: Vehicle | null; prior: string } | null>(null), [diagnostic, setDiagnostic] = useState("");
   const [busy, setBusy] = useState(false);
   const search = useRef<HTMLInputElement>(null), returned = useRef(origin), pending = useRef(false), reselect = useRef<string | null>(null);
+  const columnSearch = useRef<{ key: NonNullable<VehicleFilter["sort"]>; term: string } | null>(null);
   const callback = useRef(selected);
   useEffect(() => { callback.current = selected; }, [selected]);
   useEffect(() => () => { callback.current?.(returned.current); }, []);
@@ -122,8 +124,11 @@ function VehicleList({ repositories, selecting = false, origin = "", selected }:
       if (!active) return;
       if (result.kind !== "loaded") { setDiagnostic(result.kind); return; }
       setRows(result.vehicles); setLoaded({ filter, refresh }); setDiagnostic("");
+      const sought = columnSearch.current;
+      const match = sought && result.vehicles.find(row => String(row[sought.key] ?? "").toLocaleLowerCase("pt-PT").startsWith(sought.term.toLocaleLowerCase("pt-PT")));
+      columnSearch.current = null;
       const prior = reselect.current; reselect.current = null;
-      setSelection(previous => prior !== null ? result.vehicles.find(row => row.matricula === prior)?.id ?? null : result.vehicles.some(row => row.id === previous) ? previous : null);
+      setSelection(previous => match ? match.id : prior !== null ? result.vehicles.find(row => row.matricula === prior)?.id ?? null : result.vehicles.some(row => row.id === previous) ? previous : null);
     }).catch(() => { if (active) setDiagnostic("transport"); });
     return () => { active = false; };
   }, [repositories, filter, refresh]);
@@ -159,18 +164,27 @@ function VehicleList({ repositories, selecting = false, origin = "", selected }:
   };
   const sort = (column: LegacyColumn) => {
     if (pending.current) return;
-    const key = (column.name === "COL_Cliente" ? "Descricao" : column.name === "COL_Matricula" ? "matricula" : column.name === "COL_Marca" ? "marca" : column.name === "COL_Modelo" ? "modelo" : column.name === "COL_Mes" ? "mes" : "Ano") as NonNullable<VehicleFilter["sort"]>;
+    columnSearch.current = null;
+    const key = vehicleColumnKeys[column.name];
+    if (!key) return;
     setFilter(previous => ({ ...previous, sort: key, descending: previous.sort === key ? !previous.descending : false }));
   };
   return <div data-testid="WIN_Table_Viaturas" style={{ position: "absolute", inset: 0, pointerEvents: "none" }} onKeyDown={event => {
     if (event.key === "Escape" && !form && !(event.target instanceof Element && event.target.closest("dialog"))) closeWindow();
   }}><div style={{ display: "contents", pointerEvents: "auto" }}>
-    <WdTable control={table} rows={rows} rowId={row => row.id} selectedId={selection} onSelect={id => { if (!pending.current) setSelection(id); }} onSort={sort} {...settings}
+    <WdTable control={table} rows={rows} rowId={row => row.id} selectedId={selection} onSelect={id => { if (!pending.current) setSelection(id); }} onSort={sort} {...settings} configureColumns designerOptions onResetColumns={settings.resetLayout}
+      onColumnSearch={(column, term) => {
+        if (pending.current) return;
+        const key = vehicleColumnKeys[column.name];
+        if (!key) return;
+        columnSearch.current = term ? { key, term } : null;
+        if (term) setFilter(previous => ({ ...previous, sort: key, descending: false }));
+      }}
       cell={(row, column) => String(({ COL_Matricula: row.matricula, COL_Cliente: row.Descricao, COL_Marca: row.marca, COL_Modelo: row.modelo, COL_Ano: row.Ano, COL_Mes: row.mes } as Record<string, unknown>)[column.name] ?? "")}
       onActivate={id => { const row = rows.find(value => value.id === id); if (ready && !pending.current && row) { if (selecting) choose(row); else void modify(row); } }} />
-    <WdEdit control={controlOf(listLayout, "EDT_termo_pesquisa")} disabled={busy} {...{ ref: search }} value={term} onChange={event => { setTerm(event.target.value); setFilter(previous => ({ ...previous, mode, term: event.target.value })); }} />
+    <WdEdit control={controlOf(listLayout, "EDT_termo_pesquisa")} disabled={busy} {...{ ref: search }} value={term} onChange={event => { columnSearch.current = null; setTerm(event.target.value); setFilter(previous => ({ ...previous, mode, term: event.target.value })); }} />
     {modes.map(value => <WdButton key={value} disabled={busy} control={controlOf(listLayout, `BTN_${value}`)} style={{ fontWeight: mode === value ? "bold" : "normal", textDecoration: mode === value ? "underline" : "none", color: mode === value ? "darkblue" : "black" }}
-      onClick={() => { setMode(value); setTerm(""); if (value === "todos") setFilter(previous => ({ ...previous, mode: "todos", term: "" })); else setRefresh(previous => previous + 1); search.current?.focus(); }} />)}
+      onClick={() => { columnSearch.current = null; setMode(value); setTerm(""); if (value === "todos") setFilter(previous => ({ ...previous, mode: "todos", term: "" })); else setRefresh(previous => previous + 1); search.current?.focus(); }} />)}
     <WdButton control={controlOf(listLayout, "Btn_New")} disabled={!ready || busy} onClick={() => setForm({ vehicle: null, prior: current?.matricula ?? "" })} />
     <WdButton control={controlOf(listLayout, "BTN_Modificar")} disabled={!ready || busy} onClick={() => void modify()} />
     <WdButton control={controlOf(listLayout, "BTN_Delete")} disabled={!ready || busy} onClick={() => void remove()} />

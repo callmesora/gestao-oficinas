@@ -51,6 +51,7 @@ Each group below must be split into bounded stage briefs for individual workflow
 | 6a.C2 | Scheduled cleanup | Designer/caller checkpoint after two additional leaf workflows | MIG-7C2 | retained customer/vehicle/unit/descriptive-state/terminal designer/U rows | implementer + 2 reviews | docs/runbooks/stage-11-designer-checkpoint.md | modal geometry, numeric entry, exact menu/scrollbar tooltip and caller/context work; full parents remain open | 6a.1a and 6a.2a | In progress — gates a third leaf |
 | 6a.C2.1 | Bounded checkpoint | Real modal geometry and key ownership | MIG-7C2.1 | eight broad designer rows retained implemented | Codex root + 2 independent reviewers, macOS arm64 | docs/runbooks/stage-11-designer-checkpoint.md | five forms/three pickers, mounted drafts, source anchors, saved geometry and vehicle intra-container Tab order; native U gates retained | 6a.1a and 6a.2a | Done |
 | 6a.C2.2 | Bounded checkpoint | Live numeric masks and safe vehicle conversion | MIG-7C2.2 | customer/vehicle/terminal designer rows remain implemented | root integration + isolated implementer + 2 independent reviewers, macOS arm64 | docs/runbooks/stage-11-designer-checkpoint.md | seven real numeric fields, exact strings/loaded overflow/NULL preservation, ordered required checks and no NaN-to-null transport | 6a.C2.1 | Done |
+| 6a.C2.3 | Bounded checkpoint | Real vehicle/unit table designer options | MIG-7C2.3 | vehicle/unit/terminal broad designer rows remain implemented | root + 2 independent reviewers, macOS arm64 | docs/runbooks/stage-11-designer-checkpoint.md | fixed header seek with effective filter, saved columns, source scrolling/row height/truncation and positive terminal audit | 6a.C2.2 | Done |
 | 7 | Slice | Repair order list/form and caller contracts | MIG-8 | assigned units below | implementer + 2 reviews | templates/prompt-stage.md | complete workflow; persistence; concurrent/failure paths | 6, 6a | To do |
 | 8 | Slice | Repair materials and quantity/password workflows | MIG-9 | assigned units below | implementer + 2 reviews | templates/prompt-stage.md | material writes, stock effects and caller results | 7 | To do |
 | 9 | Slice | Labor timers, state transitions and descriptions | MIG-10 | assigned units below | implementer + 2 reviews | templates/prompt-stage.md | clock/state/locking workflows and duration checks | 7, 8 | To do |
@@ -213,7 +214,7 @@ All 143 per-unit CSVs retain their seed IDs. This assignment is a scheduling ind
 
 ## Stage closure
 
-Follow templates/prompt-stage.md: read handoff/instructions/ADRs; synchronize safely; bounded behavior and evidence; implement; actual verify/UI/golden/native checks; independent review/fixes (two for risky slices); update parity, roadmap, handoff and progress; commit explicit files and push. Do not overwrite a dirty checkout to synchronize.
+Follow templates/prompt-stage.md: read handoff/instructions/ADRs; synchronize safely; bounded behavior and evidence; implement; actual verify/UI/golden/native checks; independent review/fixes (two for risky slices); update parity, roadmap, handoff and progress; commit explicit files locally. Do not push or overwrite a dirty checkout to synchronize. Continue the next ready slice without routine approval (ADR-007).
 
 
 ## Recurring cleanup checkpoints

@@ -52,6 +52,9 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
     } });
   const displayed = table.getRowModel().rows;
   const options = designerOptions ? control.table_options : undefined;
+  // ADR-013: dossier height is content without margin; source images show an additional 1px row border.
+  const sourceRowHeight = options?.row_height && /^[0-9]+$/.test(options.row_height) ? Number(options.row_height) + 1 : undefined;
+  const effectiveRowHeight = rowHeight ?? sourceRowHeight;
   const scrollbarMode = (value: string | undefined) => value === "Always visible" ? "scroll" as const : value === "Automatic" ? "auto" as const : undefined;
   const columnOf = (id: string) => sourceColumns.find(column => column.path === id)!;
   const moveColumn = (from: string, to: string) => {
@@ -61,7 +64,7 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
     next.splice(start, 1); next.splice(end, 0, from); table.setColumnOrder(next); return true;
   };
   return <div ref={container} data-testid={control.name} data-control-path={control.path} className={`wd-table${designerOptions ? " wd-table-designer" : ""}`}
-    hidden={control.visible === false} style={{ ...controlBox(control), ...(rowHeight ? { backgroundImage: `repeating-linear-gradient(to bottom, transparent 0 ${rowHeight - 1}px, #e0e2e4 ${rowHeight - 1}px ${rowHeight}px)` } : {}), overflowY: scrollbarMode(options?.vertical_scrollbar), overflowX: scrollbarMode(options?.horizontal_scrollbar) }} tabIndex={String(control.tab_order) === "-1" ? -1 : 0}
+    hidden={control.visible === false} style={{ ...controlBox(control), ...(effectiveRowHeight ? { backgroundImage: `repeating-linear-gradient(to bottom, transparent 0 ${effectiveRowHeight - 1}px, #e0e2e4 ${effectiveRowHeight - 1}px ${effectiveRowHeight}px)` } : {}), overflowY: scrollbarMode(options?.vertical_scrollbar), overflowX: scrollbarMode(options?.horizontal_scrollbar), touchAction: options?.touch_scrolling === "No" ? "none" : undefined }} tabIndex={String(control.tab_order) === "-1" ? -1 : 0}
     onKeyDown={event => {
       if (event.target !== event.currentTarget) return;
       const index = displayed.findIndex(row => row.id === selectedId);
@@ -140,7 +143,7 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
         onClick={() => { container.current?.focus(); onSelect(row.id); }} onDoubleClick={() => onActivate?.(row.id)}>
         {row.getVisibleCells().map(value => {
           const source = columnOf(value.column.id);
-          return <td key={value.id} style={{ height: rowHeight, textAlign: source.h_align === "Right" ? "right" : "left" }}
+          return <td key={value.id} style={{ height: effectiveRowHeight, textAlign: source.h_align === "Right" ? "right" : "left" }}
             onMouseEnter={event => {
               const element = event.currentTarget;
               if (options?.truncated_tooltip === "Yes" && element.scrollWidth > element.clientWidth) element.title = element.textContent ?? "";
