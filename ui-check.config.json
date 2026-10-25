@@ -303,6 +303,32 @@
         "CBOX_NoName4": "ADR-003: source JPG supplies the visible caption/options where parsed designer text is encoded/generic; actual browser assertions preserve these labels. Native/human U-CE554DEA-01 remains.",
         "CBOX_NoName5": "ADR-003: source JPG supplies the visible caption/options where parsed designer text is encoded/generic; actual browser assertions preserve these labels. Native/human U-CE554DEA-01 remains."
       }
+    },
+    "WIN_Table_documentos": {
+      "ignore": {
+        "COL_DocumentosID": "Source-hidden technical column unavailable in configuration.",
+        "BTN_SYST_MINIMIZE": "Owned by enclosing workspace frame.",
+        "IMG_BTN_Syst_Restore": "Source off-canvas image; workspace chrome owns restore.",
+        "SC_SCSystemButtons": "Source container; owning frame renders actual controls.",
+        "BTN_SYST_FERMER": "Owned by enclosing workspace frame.",
+        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
+        "RADTitle": "Owning frame reads source-generated title."
+      },
+      "open": ["document-types-launcher", "document-types-open"]
+    },
+    "WIN_Form_documentos": {
+      "ignore": {
+        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "SC_SCSystemButtons": "Source container; frame renders actual chrome.",
+        "IMG_BTN_Syst_Restore": "Source off-canvas image; frame owns restore."
+      },
+      "open": ["document-types-launcher", "document-types-open", "Btn_New"],
+      "captionIgnore": {
+        "EDT_Descricao": "ADR-003: source JPG reads Descrição; generated extraction retained. Exact real caption assertion, U-C5CA4D83-01/native/human remains.",
+        "CBOX_Obriga_macanico": "ADR-003: source JPG reads Obriga a identificar mecânico; generated generic caption retained. Exact real caption assertion, U-C5CA4D83-01/native/human remains.",
+        "RADIO_NoName1": "ADR-003: source JPG supplies Entrada/Saída options instead of generic Selector. Exact real option assertions, U-C5CA4D83-01/native/human remains."
+      }
     }
   }
 }

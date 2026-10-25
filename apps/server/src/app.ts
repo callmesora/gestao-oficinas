@@ -12,8 +12,9 @@ import { listTerminals, saveTerminal, deleteTerminal, prepareTerminalFolder } fr
 import { listPostos, savePosto, deletePosto } from "./operations/postos";
 import { listMechanics, readMechanic, saveMechanic, deleteMechanic } from "./operations/mechanics";
 import { listRepairStates, saveRepairState, checkRepairStateDelete, deleteRepairState } from "./operations/repair-states";
+import { listDocumentTypes, saveDocumentType, checkDocumentTypeDelete, deleteDocumentType } from "./operations/document-types";
 
-export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; terminalConnect?: DatabaseConnection; postoConnect?: DatabaseConnection; mechanicsConnect?: DatabaseConnection; repairStateConnect?: DatabaseConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
+export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; terminalConnect?: DatabaseConnection; postoConnect?: DatabaseConnection; mechanicsConnect?: DatabaseConnection; repairStateConnect?: DatabaseConnection; documentTypeConnect?: DatabaseConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
   const app = Fastify({ logger: false });
   app.get("/health/live", async () => ({ service: "gestao-oficinas-api", status: "alive" }));
   const authenticate = options.authenticate ?? options.development?.authenticate;
@@ -92,6 +93,13 @@ export function createApp(options: { customerConnect?: DatabaseConnection; vehic
       if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
       if (!options.repairStateConnect) return reply.code(503).send({ kind: "unavailable" });
       return operation(options.repairStateConnect, request.body);
+    });
+  }
+  for (const [action, operation] of Object.entries({ list: listDocumentTypes, save: saveDocumentType, "check-delete": checkDocumentTypeDelete, delete: deleteDocumentType })) {
+    app.post(`/api/document-types/${action}`, async (request, reply) => {
+      if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
+      if (!options.documentTypeConnect) return reply.code(503).send({ kind: "unavailable" });
+      return operation(options.documentTypeConnect, request.body);
     });
   }
   return app;

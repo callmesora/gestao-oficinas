@@ -1,8 +1,14 @@
 # Screen spec — WIN_Form_documentos
 
-Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Form_documentos.wdw`, `dossier: WIN_Form_documentos`, `docs/mapping/WIN_Form_documentos.md`. Step 0 specification only.
+Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Form_documentos.wdw`, `dossier: WIN_Form_documentos`, `docs/mapping/WIN_Form_documentos.md`. Bounded implementation: MIG-7J.1; full runtime/native acceptance remains open.
 
 ## Contract
+
+MIG-7J.1 uses the shared metadata-driven `WdRadControls` and `WdRadio` with explicit source-order bindings. New stock=1/checkbox=false; only exact empty Codigo is required, existing Codigo is immutable, Descricao is optional and exact text/spaces are retained. Untouched nullable description/byte/checkbox values survive unrelated saves; byte0/255/NULL remain unselected until an actual radio choice. Save code is non-null text3; nullable imported read code remains visible without silent repair. ADR003/011 define these boundary defaults; source automatic ID/provenance stay intact under selected internal identity. No mechanic-required business guard is inferred from the caption.
+
+JPG-backed displayed labels are Codigo, Descrição, Stock, Entrada, Saída and Obriga a identificar mecânico. Checkbox Tab3 precedes radio Tab4 despite visual order. Known geometry, anchors, mounted drafts, local radio keys, description-only input assistance and shared window chrome use existing components. Developer-only failure kinds retain U03 rather than inventing a legacy error message. Native/locale/shared-buffer/UMC/visual-human gates remain U01–03; browser/spec-derived evidence does not resolve them.
+
+Non-legacy instrumentation: `document-type-form-frame`, its resize handles, `document-type-form-restore`, `document-type-form-diagnostic`; eligible description suggestions use the shared `__suggestions` suffix. All actual controls retain source names. Real authenticated API/PostgreSQL and browser tests: `packages/domain/src/document-types.test.ts`, `apps/server/src/operations/document-types.test.ts`, `ui-check/document-types.flows.spec.ts`; ninth spec-derived scenario `docs/golden/GS-DOCUMENT-TYPES-001` is not a legacy recording.
 
 | Direction | Contract | Evidence |
 |---|---|---|

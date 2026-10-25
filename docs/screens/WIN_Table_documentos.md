@@ -1,8 +1,14 @@
 # Screen spec — WIN_Table_documentos
 
-Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Table_documentos.wdw`, `dossier: WIN_Table_documentos`, `docs/mapping/WIN_Table_documentos.md`. Step 0 specification only.
+Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Table_documentos.wdw`, `dossier: WIN_Table_documentos`, `docs/mapping/WIN_Table_documentos.md`. Bounded implementation: MIG-7J.1; full runtime/native acceptance remains open.
 
 ## Contract
+
+MIG-7J.1 delivers the real ordinary list, persistent CRUD and exact string-code selector. New cancellation does not refresh; new success does. Edit opens the current selected row immediately, without a preliminary read, then refreshes after every return. Delete checks `cab_stocks.documento_codigo` against current Codigo before confirmation and again inside the locked transaction, preserving the exact association message. It does not invent a header automatic-ID/line guard or stock mutation. Destructive confirmation uses source Sim1/Não2 and safe Não default ADR006; NULL/ties/invalid-index/engine effects retain U02–03.
+
+Generated visible widths79/244/93/102 and the last column's Center alignment are consumed directly. Source table settings, real label/Boolean header seeks, saved visible column configuration and read-only checkbox presentation use shared components (ADR012/013). Stock1→Entrada and2→Saída; raw out-of-option bytes/NULL survive (ADR012). Selector hides CRUD/print, uses30px rows and source Fechar y503/height38, shows arrows and initially focuses Selecionar. Return preserves exact Codigo or the caller's original string on cancellation. Literal previous/next predicates do not wrap; native request0 remains U02.
+
+Non-legacy DEV instrumentation: `document-types-launcher`, `document-types-open`, `document-types-select-open`, `document-types-returned`, `document-type-list-diagnostic`, `document-type-picker`, `document-type-picker-frame`, its resize handles and `document-type-picker-restore`. Source controls retain their own names. Actual menu singleton/focus and stock callers remain MIG12/MIG11: Lin_Stocks257–258 always continues selection processing even after cancellation, while Cab_Stocks483–503 rebuilds its filter; no fabricated caller completes these rows. Print RPT_List_documentos stays MIG13; both UMC actions and all six paired-window U rows remain open. See stage-17-document-types.md for executed evidence and limits.
 
 | Direction | Contract | Evidence |
 |---|---|---|

@@ -1,0 +1,3 @@
+# GS-DOCUMENT-TYPES-001
+
+Spec-derived, not legacy-recorded: the actual API creates text code D'1 with empty optional description, stock1 and obriga_macanico=true, then updates the same selected record to exact Saída d'Água plus two trailing spaces, stock2 and false. An exact duplicate create is rejected. Compare the four bound business values without trimming; automatic/internal identity and provenance are asserted separately in real PostgreSQL tests. Source WIN_Form_documentos.wdw:38–66/383–397 and schema; immutable code/transaction/failure boundaries ADR011/008. NULL/out-of-option byte preservation has direct persistence checks. Real stock callers, HFSQL/runtime/locale/native/human acceptance remain separate.

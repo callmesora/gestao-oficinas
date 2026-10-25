@@ -47,5 +47,7 @@ MIG-7J.0 source recovery supersedes the earlier Mecânicos residual-width defaul
 
 MIG-7J.0 consumer follow-through: recovered Center is literal column evidence, not an inferred skin choice. WdTable must map it to centered cell content, retaining existing Right and Left/fallback behavior. Verify the real Mecânicos checkbox cell as well as its63px header; an available generated property alone does not establish that a primitive consumes it. Native appearance remains U01.
 
+Documentos RAD consumer (MIG-7J.1, before translation): reuse WdRadControls/WdRadio/WdCheckbox with existing generated geometry and the two JPG-backed Entrada/Saída options. Override only encoded/generic form Descrição/Obriga a identificar mecânico and the table Descrição; form Codigo has no accent, table Código does. Source checkboxTab3 precedes radioTab4 despite visual order, following the existing explicit container traversal default. New stock1; NULL/0/other bytes remain unselected and lossless until deliberate radio input; checkbox NULL retains the existing two-state policy. Source description assistance is eligible, code assistance false. Reuse full modal/table geometry/keys and actual102px centered checkbox metadata; no new primitive or native chooser.
+
 ## Consequences and verification
 Skin kit precedes business screens. Every opened window/dialog needs control/caption checks, keyboard flows, image-load checks and recorded visual scores. Human visual acceptance remains pending; no score or browser mock proves native parity. Test multiple windows and cancellation explicitly.

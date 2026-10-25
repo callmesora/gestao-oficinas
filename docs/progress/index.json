@@ -54,6 +54,23 @@
   }
  },
  {
+  "name": "WIN_Form_documentos",
+  "kind": "screen",
+  "total": 15,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 11,
+   "specified": 1,
+   "unmapped": 3
+  },
+  "looks": null
+ },
+ {
   "name": "WIN_Form_estados_descritivos",
   "kind": "screen",
   "total": 14,
@@ -203,6 +220,23 @@
    "pixel": 98.4,
    "layout": 93.8
   }
+ },
+ {
+  "name": "WIN_Table_documentos",
+  "kind": "screen",
+  "total": 25,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 20,
+   "specified": 2,
+   "unmapped": 3
+  },
+  "looks": null
  },
  {
   "name": "WIN_Table_estados_descritivos",
@@ -1934,23 +1968,6 @@
   "looks": null
  },
  {
-  "name": "WIN_Form_documentos",
-  "kind": "screen",
-  "total": 15,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 12,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
   "name": "WIN_Form_utilizadores",
   "kind": "screen",
   "total": 15,
@@ -2236,23 +2253,6 @@
    "implemented": 0,
    "specified": 40,
    "unmapped": 5
-  },
-  "looks": null
- },
- {
-  "name": "WIN_Table_documentos",
-  "kind": "screen",
-  "total": 25,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 22,
-   "unmapped": 3
   },
   "looks": null
  },
