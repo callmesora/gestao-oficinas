@@ -1,0 +1,20 @@
+.startup-workflow { max-width: none; margin: 0; padding: 8px; border: 0; box-sizing: border-box; background: transparent; font: 13px Tahoma, sans-serif; }
+.startup-workflow > aside { padding: 0 0 8px; }
+.startup-entry { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.startup-entry p { flex-basis: 100%; }
+.startup-workflow > .wd-frame { max-width: none; }
+.startup-desktop { position: absolute; inset: 25px 8px 8px; }
+.startup-desktop > .wd-workspace { height: 100%; }
+.startup-desktop .wd-workspace-launcher { height: 106px; padding: 0; }
+.startup-desktop .wd-workspace-canvas { height: calc(100% - 144px); background: transparent; }
+.startup-desktop .wd-workspace-tasks { height: 28px; padding: 4px 0 0; }
+.startup-menu-bar { position: absolute; display: flex; gap: 12px; top: 4px; left: 2px; z-index: 100; pointer-events: auto; }
+.startup-menu-bar details { position: relative; }
+.startup-menu-bar summary { cursor: pointer; list-style: none; padding: 3px 5px; }
+.startup-menu-bar details > div { position: absolute; display: grid; min-width: 220px; padding: 4px; background: #eef3f8; border: 1px solid #8395a4; box-shadow: 1px 2px 4px #777; }
+.startup-menu-bar button { text-align: left; padding: 6px; white-space: nowrap; border: 0; background: transparent; color: #111; }
+.startup-menu-bar button:hover { background: #bdd6ed; }
+.startup-quick-bar { position: absolute; left: 2px; right: 2px; height: 79px; border: 1px solid #8395a4; background: #c3dbee; transform: translateY(-25px); pointer-events: auto; }
+.startup-module .wd-workspace-launcher { height: 0; }
+.startup-module .wd-workspace-canvas { height: calc(100% - 36px); }
+.startup-module-host { position: relative; height: calc(100vh - 52px); min-height: 600px; }

@@ -1,3 +1,4 @@
+import { useListReportPreview } from "./report-callers";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useForm } from "react-hook-form";
 import type { Customer, CustomerFilter, CustomerValues } from "../../packages/domain/src/customers";
@@ -64,7 +65,8 @@ function CustomerForm({ repository, customer, nextCode, descriptions, finish }: 
   </WdModal>;
 }
 
-function CustomerList({ repository, selecting = false, origin = "", selected, closeOverride }: { repository: CustomerRepository; selecting?: boolean; origin?: string; selected?: (code: string) => void; closeOverride?: (code: string) => void }) {
+export function CustomerList({ repository, selecting = false, origin = "", selected, closeOverride }: { repository: CustomerRepository; selecting?: boolean; origin?: string; selected?: (code: string) => void; closeOverride?: (code: string) => void }) {
+  const report = useListReportPreview("RPT_List_Clientes");
   const returned = useRef(origin);
   const closeWindow = useWorkspaceClose(closeOverride ? () => closeOverride(returned.current) : undefined), { resource, message } = useDialogs();
   const [filter, setFilter] = useState<CustomerFilter>({ mode: "todos", term: "" });
@@ -137,8 +139,8 @@ function CustomerList({ repository, selecting = false, origin = "", selected, cl
     <WdButton control={controlOf(listLayout, "BTN_Delete")} disabled={!ready} onClick={() => void remove()} />
     <WdButton control={controlOf(listLayout, "BTN_Fechar")} onClick={closeWindow} />
     <WdButton control={controlOf(listLayout, "BTN_selecionar")} disabled={!ready} hidden={!selecting} onClick={() => { if (ready && current) choose(current); }} />
-    {/* SRC-4883adab32: report remains assigned to MIG-13, visibly unavailable, never a no-op. */}
-    <WdButton control={controlOf(listLayout, "BTN_Imprimir")} disabled title="MIG-13" />
+    <WdButton control={controlOf(listLayout, "BTN_Imprimir")} disabled={report.busy} onClick={report.preview} />
+    {report.element}
     {form && <CustomerForm repository={repository} customer={form.customer} nextCode={nextCode} descriptions={rows.flatMap(row => row.Descricao === null ? [] : [row.Descricao])} finish={saved => { const editing = form.customer !== null; setForm(null); if (saved || editing) setRefresh(value => value + 1); }} />}
     {diagnostic && <output data-testid="customer-list-diagnostic">{diagnostic}</output>}
   </div></div>;

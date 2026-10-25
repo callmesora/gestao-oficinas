@@ -225,3 +225,5 @@ Before MIG12 initial translation: startup/system operations remain protected by 
 MIG10 caller composition: repair-details.tsx awaits the genuine materials editor from RepairDescriptionsDialog; repair list/form Information opens that same dialog. No connection spans the nested modal. Initial open does not yet reproduce source record-lock lifetime/other-editor detection; keep U03 and do not promote that complete source event.
 
 DateTime CalendarNo consumer uses the same text-draft/date validation with no calendar adornment or AltDown adapter; preserve generated source options (ADR003).
+
+buttonSkin uses extracted sprite state counts: existing five-cell strips stay unchanged; source two-cell keyboard strip uses the explicit ADR003/U01 mapping, never requests a nonexistent frame.

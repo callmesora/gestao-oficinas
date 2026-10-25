@@ -1,3 +1,5 @@
+import { useReportPreview } from "./reports";
+import { reportContext } from "./report-callers";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import Decimal from "decimal.js";
 import type { RepairLaborDetail, RepairLaborMaterial, RepairLaborOrder, RepairLaborPlan, RepairLaborProof, RepairLaborReadResult, RepairLaborRow } from "../../packages/domain/src/repair-labor";
@@ -213,7 +215,7 @@ function materialTotals(rows: RepairLaborMaterial[]): string | null {
 }
 export function RepairDescriptionsDialog({ repository, numero, finish, onMaterial, printMaterials, printService }: {
   repository: RepairLaborRepository; numero: string; finish: () => void; onMaterial?: (order: RepairLaborDetail) => Promise<void>;
-  printMaterials?: (numero: string, total: string) => void; printService?: (numero: string) => void;
+  printMaterials?: (numero: string, total: string, rows: readonly RepairLaborMaterial[]) => void; printService?: (numero: string) => void;
 }) {
   const modal = useRef<WdModalHandle>(null), pending = useRef(false), alive = useRef(true);
   const [page, setPage] = useState(0), [rows, setRows] = useState<RepairLaborMaterial[]>([]), [busy, setBusy] = useState(false);
@@ -266,7 +268,7 @@ export function RepairDescriptionsDialog({ repository, numero, finish, onMateria
     <div hidden={page !== 1}>
       <WdTable control={materialTable} rows={rows} rowId={row => row.id} selectedId={selection} onSelect={setSelection} {...materialSettings} designerOptions configureColumns onResetColumns={materialSettings.resetLayout} cell={materialCell} />
       <WdRadControls layout={descriptionsLayout} bindings={[{ name: "TAB_principal.STC_total_material", kind: "caption", props: { text: total ?? "" } }]} />
-      <Buttons layout={descriptionsLayout} actions={{ "TAB_principal.BTN_Material": { disabled: busy || !loaded || !onMaterial, onClick: () => void material() }, "TAB_principal.BTN_Imprimir": { disabled: !printMaterials || total === null, onClick: () => { if (total !== null) printMaterials?.(numero, total); } } }} />
+      <Buttons layout={descriptionsLayout} actions={{ "TAB_principal.BTN_Material": { disabled: busy || !loaded || !onMaterial, onClick: () => void material() }, "TAB_principal.BTN_Imprimir": { disabled: !printMaterials || total === null, onClick: () => { if (total !== null) printMaterials?.(numero, total, rows); } } }} />
     </div>
     <div hidden={page !== 2}>
       <WdRadControls layout={descriptionsLayout} bindings={[{ name: "TAB_principal.STC_Serviço_Avaria", kind: "caption" }, { name: "TAB_principal.STC_Observação", kind: "caption" }]} />
@@ -292,6 +294,7 @@ function laborOrderCell(row: RepairLaborOrder, column: LegacyColumn) {
   return String(row[keys[column.name]] ?? "");
 }
 export function RepairLaborScreen({ repositories }: { repositories: Repositories }) {
+  const reports = useReportPreview();
   const { message } = useDialogs(), close = useWorkspaceClose();
   // React StrictMode replays effects; the source startup closure must run once per window instance.
   const initialise = useRef<ReturnType<RepairLaborRepository["initialise"]> | null>(null);
@@ -372,9 +375,10 @@ export function RepairLaborScreen({ repositories }: { repositories: Repositories
     <WdTable control={orderTable} rows={orders} rowId={row => row.id} selectedId={selection} onSelect={id => { if (!busy) setSelection(id); }} {...orderSettings} designerOptions configureColumns onResetColumns={orderSettings.resetLayout} cell={laborOrderCell} />
     <WdTable control={laborTable} rows={selected?.numero ? labor : []} rowId={row => row.id} selectedId={laborSelection} onSelect={setLaborSelection} {...laborSettings} designerOptions configureColumns onResetColumns={laborSettings.resetLayout} cell={(row, column) => column.name === "COL_Mecanico" ? row.Descricao : dateTimeEntryDisplay(row.inicio)} />
     <Buttons layout={listLayout} actions={{ BTN_Fechar: { disabled: busy, onClick: close }, BTN_todos: { disabled: busy, onClick: () => { setMechanic(null); void read(null); } }, BTN_Estado: { disabled: busy || !selected?.numero, onClick: () => void open("state") }, BTN_Informacao: { disabled: busy || !selected?.numero, onClick: () => void open("info") }, BTN_Tempos: { disabled: busy || !selected?.numero, onClick: () => void open("time") }, BTN_anterior: { disabled: busy, onClick: () => setSelection(move(orders, selection, -1)) }, BTN_seguinte: { disabled: busy, onClick: () => setSelection(move(orders, selection, 1)) }, BTN_anterior1: { disabled: busy, onClick: () => setStateSelection(move(states, stateSelection, -1)) }, BTN_seguinte1: { disabled: busy, onClick: () => setStateSelection(move(states, stateSelection, 1)) }, BTN_anterior2: { disabled: busy, onClick: () => setLaborSelection(move(labor, laborSelection, -1)) }, BTN_seguinte2: { disabled: busy, onClick: () => setLaborSelection(move(labor, laborSelection, 1)) } }} />
-    {selected?.numero && child === "info" && <RepairLaborInformationDialog repository={repositories.labor} numero={selected.numero} finish={finishChild} />}
+    {selected?.numero && child === "info" && <RepairLaborInformationDialog repository={repositories.labor} numero={selected.numero} finish={finishChild} print={numero => { void reports.preview({ reportId: "RPT_Servico_Avaria", context: reportContext(), source: { kind: "programmatic", orderNumber: numero } }); }} />}
     {selected?.numero && child === "state" && <RepairLaborStateDialog repository={repositories.labor} descriptiveRepository={repositories.descriptions} numero={selected.numero} finish={finishChild} />}
     {selected?.numero && child === "time" && <RepairLaborTimeDialog repository={repositories.labor} mechanicRepository={repositories.mechanics} numero={selected.numero} mechanic={selectedLabor?.mecanico ?? selected.reparacao_mecanico ?? 0} mechanics={initial?.mechanics ?? []} finish={finishChild} />}
+    {reports.element}
     {diagnostic && <output data-testid="repair-labor-diagnostic">{diagnostic}</output>}
   </div>;
 }

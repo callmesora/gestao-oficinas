@@ -1,3 +1,6 @@
+import { listSalesReportStates } from "./operations/report-filters";
+import { initialiseStartup, checkStartupAccess, readSystem, saveSystem } from "./operations/startup";
+import { listStock, readStock, nextStockNumber, lookupStockArticle, saveStock, deleteStock, stockInventory, rebuildStock, stockScannerConfig, partitionStockScanner } from "./operations/stock";
 import type { DatabaseConnection } from "./db/connection";
 import Fastify from "fastify";
 import type { FastifyRequest } from "fastify";
@@ -22,10 +25,25 @@ import { listRepairMaterials, readRepairMaterials, lookupRepairMaterialArticle, 
 
 import { initialiseRepairLabor, listRepairLabor, readRepairLabor, authenticateRepairLabor, prepareRepairLabor, toggleRepairLabor, saveRepairLaborState, tickRepairLabor, saveRepairLaborMaterials } from "./operations/repair-labor";
 
-export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; terminalConnect?: DatabaseConnection; postoConnect?: DatabaseConnection; mechanicsConnect?: DatabaseConnection; repairStateConnect?: DatabaseConnection; documentTypeConnect?: DatabaseConnection; articleConnect?: DatabaseConnection; userConnect?: DatabaseConnection; repairOrderConnect?: DatabaseConnection; repairMaterialsConnect?: DatabaseConnection; repairLaborConnect?: DatabaseConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
+import { renderReport } from "./operations/reports";
+import type { ReportRenderer } from "./reports/renderer";
+
+export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; terminalConnect?: DatabaseConnection; postoConnect?: DatabaseConnection; mechanicsConnect?: DatabaseConnection; repairStateConnect?: DatabaseConnection; documentTypeConnect?: DatabaseConnection; articleConnect?: DatabaseConnection; userConnect?: DatabaseConnection; repairOrderConnect?: DatabaseConnection; repairMaterialsConnect?: DatabaseConnection; repairLaborConnect?: DatabaseConnection; startupConnect?: DatabaseConnection; stockConnect?: DatabaseConnection; reportFilterConnect?: DatabaseConnection; reportConnect?: DatabaseConnection; reportRenderer?: ReportRenderer; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
   const app = Fastify({ logger: false });
   app.get("/health/live", async () => ({ service: "gestao-oficinas-api", status: "alive" }));
   const authenticate = options.authenticate ?? options.development?.authenticate;
+  app.post("/api/report-filters/states", async (request, reply) => {
+    reply.header("Cache-Control", "no-store");
+    if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
+    if (!options.reportFilterConnect) return reply.code(503).send({ kind: "unavailable" });
+    return listSalesReportStates(options.reportFilterConnect, request.body);
+  });
+  app.post("/api/reports/render", { bodyLimit: 32 * 1024 * 1024 }, async (request, reply) => {
+    reply.header("Cache-Control", "no-store");
+    if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
+    if (!options.reportRenderer) return reply.code(503).send({ kind: "unavailable" });
+    return renderReport(options.reportConnect, options.reportRenderer, request.body);
+  });
   if (options.development) app.post("/api/development/session", async (request, reply) => {
     if (request.headers.origin !== options.development!.origin || request.headers["x-isolated-development"] !== "1") return reply.code(403).send({ kind: "denied" });
     reply.header("Cache-Control", "no-store");
@@ -149,6 +167,22 @@ export function createApp(options: { customerConnect?: DatabaseConnection; vehic
       if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
       if (!options.repairLaborConnect) return reply.code(503).send({ kind: "unavailable" });
       return operation(options.repairLaborConnect, request.body);
+    });
+  }
+  for (const [action, operation] of Object.entries({ list: listStock, read: readStock, next: nextStockNumber, lookup: lookupStockArticle, save: saveStock, delete: deleteStock, inventory: stockInventory, rebuild: rebuildStock, "scanner-config": stockScannerConfig, "scanner-partition": partitionStockScanner })) {
+    app.post(`/api/stock/${action}`, async (request, reply) => {
+      reply.header("Cache-Control", "no-store");
+      if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
+      if (!options.stockConnect) return reply.code(503).send({ kind: "unavailable" });
+      return operation(options.stockConnect, request.body);
+    });
+  }
+  for (const [action, operation] of Object.entries({ initialise: initialiseStartup, access: checkStartupAccess, "system-read": readSystem, "system-save": saveSystem })) {
+    app.post(`/api/startup/${action}`, async (request, reply) => {
+      reply.header("Cache-Control", "no-store");
+      if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
+      if (!options.startupConnect) return reply.code(503).send({ kind: "unavailable" });
+      return operation(options.startupConnect, request.body);
     });
   }
   return app;

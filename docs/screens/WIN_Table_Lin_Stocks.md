@@ -199,3 +199,10 @@ Resource metadata from original source (localized labels retained):
 }
 ```
 Cancellation field is metadata; resource-to-runtime mapping remains U-W7E91C1-04.
+
+
+## Initial MIG11 implementation and retained gaps
+
+Initial implementation supplies source document/mechanic/article pickers, real barcode-before-code lookup, line addition/deletion and editable quantities/prices. Save performs source old-line reversal → replacement → new-line application → header update in one short transaction; stock1 adds, every other stock value subtracts (legacy/GestaoOficinas_TesteIA/WIN_Table_Lin_Stocks.wdw:853–931). No mechanic-required/nonnegative-stock rule is invented. Readonly date/type and current nullable/raw values are preserved.
+
+U-W7E91C1-03: a read baseline must still match before replacement; a new number collision, missing/ambiguous document lookup or duplicate header scope refuses the write. IDs use guarded signed8 allocation; existing provenance on the header survives. U02 retains native grid sort/keyboard/refresh edges and the temporary nested article-maintenance modal adaptation to source OpenChild. U04 uses source resource text/labels with conservative Não dismissal/default. U05 retains native quantity/price/date/NULL coercion; untouched exact decimals are never rounded. Inline cell inputs use non-legacy test IDs COL_Quant-{index}/COL_Preco-{index}; other stock-* diagnostics/restores/launchers are non-legacy. Report/whole-window/native acceptance remains open.

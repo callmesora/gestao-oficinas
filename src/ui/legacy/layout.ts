@@ -57,7 +57,10 @@ export function buttonSkin(control: LegacyControl): CSSProperties {
   const result: Record<string, string> = {};
   for (const [prefix, asset] of [["background", control.background_image], ["icon", control.image]] as const) {
     if (!asset) continue;
-    for (let state = 0; state < 5; state++) result[`--wd-${prefix}-${state}`] = `url("${skinImage(asset, state)}")`;
+    const count = assets.get(asset.toLowerCase())?.states;
+    // Two-state touch-keyboard sprites: normal/hover, pressed shares hover; U-SKIN-01.
+    // Existing five-state assets keep their exact state mapping.
+    for (let state = 0; state < 5; state++) result[`--wd-${prefix}-${state}`] = `url("${skinImage(asset, count === 2 ? [0, 1, 1, 0, 0][state] : state)}")`;
   }
   return result as CSSProperties;
 }

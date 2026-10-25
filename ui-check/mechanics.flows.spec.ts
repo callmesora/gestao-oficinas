@@ -179,7 +179,7 @@ test("RULE-C44F7892-019 actual mechanic numeric/text/Boolean header seeks, saved
   try {
     for (const [index, Codigo] of available.entries()) owned.push((await seed(request, headers, { Codigo, Descricao: `${index === 31 ? "Z" : "A"}${marker} ` + "longo ".repeat(10), palavra_passe: "Synthetic", inativo: index === 31 })).id);
     await open(page); const list = page.getByTestId("WIN_Table_mecanicos"), table = list.getByTestId("TABLE_mecanicos"), form = page.getByTestId("WIN_Form_mecanicos"), count = (await rows(request, headers)).length;
-    await expect(list.getByTestId("BTN_Imprimir")).toBeDisabled(); await expect(table.getByTestId("COL_MecanicosID")).toHaveCount(0);
+    await expect(list.getByTestId("BTN_Imprimir")).toBeEnabled(); await expect(table.getByTestId("COL_MecanicosID")).toHaveCount(0);
     expect((await table.getByTestId("COL_inativo").boundingBox())!.width).toBe(63);
     await expect(table.locator("tbody tr").first().locator("td").nth(2)).toHaveCSS("text-align", "center");
     for (const [column, term] of [["COL_Codigo", String(available[31])], ["COL_Descricao", `Z${marker}`]]) {

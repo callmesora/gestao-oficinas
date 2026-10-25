@@ -1,3 +1,4 @@
+import { useListReportPreview } from "./report-callers";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useForm } from "react-hook-form";
 import { repairStateTypeLabel, type RepairState, type RepairStateList, type RepairStateValues } from "../../packages/domain/src/repair-states";
@@ -108,6 +109,7 @@ function RepairStateForm({ repository, repairState, descriptions, chooser, finis
 export function RepairStateListScreen({ repository, selecting = false, chooser = selectRepairStateColor, finish }: {
   repository: RepairStateRepository; selecting?: boolean; chooser?: RepairStateColorChooser; finish?: (code?: string) => void;
 }) {
+  const report = useListReportPreview("RPT_List_estados_reparacao");
   const close = useWorkspaceClose(finish ? () => finish() : undefined), { resource, message } = useDialogs();
   const [query, setQuery] = useState<RepairStateList>({}), [refresh, setRefresh] = useState(0);
   const [rows, setRows] = useState<RepairState[]>([]), [selection, setSelection] = useState<string | null>(null);
@@ -181,7 +183,8 @@ export function RepairStateListScreen({ repository, selecting = false, chooser =
     <WdButton control={controlOf(listLayout, "Btn_New")} disabled={!ready || busy} onClick={() => setForm({ repairState: null })} />
     <WdButton control={controlOf(listLayout, "BTN_Modificar")} disabled={!ready || busy} onClick={() => { if (current) void modify(current.id); }} />
     <WdButton control={controlOf(listLayout, "BTN_Delete")} disabled={!ready || busy} onClick={() => void remove()} />
-    <WdButton control={controlOf(listLayout, "BTN_Imprimir")} disabled title="MIG-13" />
+    <WdButton control={controlOf(listLayout, "BTN_Imprimir")} disabled={report.busy} onClick={report.preview} />
+    {report.element}
     <WdButton control={controlOf(listLayout, "BTN_Fechar")} disabled={busy} onClick={close} />
     <WdButton control={{ ...controlOf(listLayout, "BTN_selecionar"), visible: selecting }} disabled={!ready || busy} onClick={() => { if (current) choose(current); }} />
     {form && <RepairStateForm repository={repository} repairState={form.repairState} chooser={chooser} descriptions={rows.flatMap(row => row.Descricao === null ? [] : [row.Descricao])}

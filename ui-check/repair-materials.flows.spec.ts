@@ -14,7 +14,7 @@ async function open(page: Page, origin: string) {
 test("SRC-eb5a859599 actual modal quantity edit stays in memory then Sair commits10+2-3=9 with preserved identity", async ({ page, materialServer, materialDatabase }) => {
   const form = await open(page, materialServer.origin);
   await expect(form.getByTestId("EDT_quant")).toHaveValue("1,000");
-  await expect(form.getByTestId("BTN_Leitor")).toBeDisabled();
+  await expect(form.getByTestId("BTN_Leitor")).toBeEnabled();
   await form.getByTestId("TABLE_material").getByRole("cell", { name: "Original", exact: true }).click();
   await form.getByTestId("BTN_Quantidade").click();
   const prompt = page.getByTestId("WIN_Inserir_quantidade_password");

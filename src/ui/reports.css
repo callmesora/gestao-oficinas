@@ -1,0 +1,6 @@
+.report-preview { width: min(95vw, 1050px); height: 92vh; padding: 0; border: 1px solid #526778; }
+.report-preview-toolbar { display: flex; gap: 16px; align-items: center; padding: 8px; background: #e2e7eb; }
+.report-preview-toolbar span { flex: 1; }
+.report-preview iframe { border: 0; width: 100%; height: calc(100% - 44px); background: #ddd; }
+.report-development form { display: grid; gap: 8px; max-width: 600px; }
+.report-development label { display: grid; grid-template-columns: 150px 1fr; }

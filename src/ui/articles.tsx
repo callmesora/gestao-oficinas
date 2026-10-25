@@ -1,3 +1,4 @@
+import { useListReportPreview } from "./report-callers";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { articleRequiredMessage, type Article, type ArticleList, type ArticleValues } from "../../packages/domain/src/articles";
@@ -94,6 +95,7 @@ function ArticleForm({ repository, article, descriptions, finish }: {
 }
 
 export function ArticleListScreen({ repository, selecting = false, finish }: { repository: ArticleRepository; selecting?: boolean; finish?: (code?: string) => void }) {
+  const report = useListReportPreview("RPT_List_artigos");
   const close = useWorkspaceClose(finish ? () => finish() : undefined), { resource, message } = useDialogs();
   const [mode, setMode] = useState<ArticleList["mode"]>("todos"), [term, setTerm] = useState(""), [active, setActive] = useState(true), [inactive, setInactive] = useState(false);
   const [query, setQuery] = useState<ArticleList>({ mode: "todos", term: "", active: true, inactive: false }), [refresh, setRefresh] = useState(0);
@@ -161,7 +163,8 @@ export function ArticleListScreen({ repository, selecting = false, finish }: { r
     <WdButton control={controlOf(listLayout, "Btn_New")} hidden={selecting} disabled={!ready || busy} onClick={() => setForm({ article: null })} />
     <WdButton control={controlOf(listLayout, "BTN_Modificar")} hidden={selecting} disabled={!ready || busy} onClick={() => { if (current) modify(current); }} />
     <WdButton control={controlOf(listLayout, "BTN_Delete")} hidden={selecting} disabled={!ready || busy} onClick={() => void remove()} />
-    <WdButton control={controlOf(listLayout, "BTN_Imprimir")} hidden={selecting} disabled title="MIG-13" />
+    <WdButton control={controlOf(listLayout, "BTN_Imprimir")} hidden={selecting} disabled={report.busy} onClick={report.preview} />
+    {report.element}
     <WdButton control={{ ...controlOf(listLayout, "BTN_Fechar"), ...(selecting ? { y: 503, height: 38 } : {}) }} disabled={busy} onClick={close} />
     {modeButton("todos")}
     <WdEdit control={controlOf(listLayout, "EDT_termo_pesquisa")} ref={search} disabled={busy} value={term} onChange={event => applyChange(event.currentTarget.value)} />

@@ -7,6 +7,8 @@ import { importLegacy, SqliteLegacySource } from "./db/legacy-import";
 import { developmentSessions } from "./development-sessions";
 import { createApp } from "./app";
 
+import { createReportRenderer } from "./reports/renderer";
+
 // Explicit opt-in, isolated destination only. Never accepts a database URL (ADR-009).
 const engine = await startIsolatedPostgres();
 const database = await engine.database();
@@ -32,7 +34,7 @@ try {
     } finally { source.close(); }
   }
   const name = (await database.query<{ name: string }>("SELECT current_database() AS name")).rows[0].name;
-  app = createApp({ customerConnect: () => engine.connect(name), vehicleConnect: () => engine.connect(name), unitConnect: () => engine.connect(name), descriptiveStateConnect: () => engine.connect(name), terminalConnect: () => engine.connect(name), postoConnect: () => engine.connect(name), mechanicsConnect: () => engine.connect(name), repairStateConnect: () => engine.connect(name), documentTypeConnect: () => engine.connect(name), articleConnect: () => engine.connect(name), userConnect: () => engine.connect(name), repairOrderConnect: () => engine.connect(name), repairMaterialsConnect: () => engine.connect(name), repairLaborConnect: () => engine.connect(name), development: developmentSessions("http://localhost:1431") });
+  app = createApp({ customerConnect: () => engine.connect(name), vehicleConnect: () => engine.connect(name), unitConnect: () => engine.connect(name), descriptiveStateConnect: () => engine.connect(name), terminalConnect: () => engine.connect(name), postoConnect: () => engine.connect(name), mechanicsConnect: () => engine.connect(name), repairStateConnect: () => engine.connect(name), documentTypeConnect: () => engine.connect(name), articleConnect: () => engine.connect(name), userConnect: () => engine.connect(name), repairOrderConnect: () => engine.connect(name), repairMaterialsConnect: () => engine.connect(name), repairLaborConnect: () => engine.connect(name), startupConnect: () => engine.connect(name), stockConnect: () => engine.connect(name), reportFilterConnect: () => engine.connect(name), reportConnect: () => engine.connect(name), reportRenderer: createReportRenderer(), development: developmentSessions("http://localhost:1431") });
   await app.listen({ host: "127.0.0.1", port: 0 });
   const address = app.server.address();
   if (!address || typeof address === "string") throw new Error("Development API address unavailable");

@@ -88,3 +88,10 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | Trigger/source | Exact argument/resource | Kind and buttons | Default/Esc |
 | --- | --- | --- | --- |
 | — | No explicit message calls in this unit | Framework calls may originate in callees | U-W450C10-04 |
+
+
+## Initial MIG11 implementation and retained gaps
+
+Initial implementation reads actual artigos Codigo/Descricao/stock through the protected API and retains exact decimal strings and NULL. The menu continuation is represented by Inventory mode in the stock workflow: reconstruction prompt closes first, then inventory opens regardless of decline, matching legacy/GestaoOficinas_TesteIA/WIN_MENU.wdw:802–803. Preview is an explicit RPT_inventario callback owned by MIG13.
+
+U-W450C10-01/02/05 retain full visual/native grid sorting/keyboard/input acceptance; the current table supports existing saved column layout/search/selection without claiming full-window parity. JPG-backed Inventário/Descrição text fixes extraction typography locally. Development route `?workflow=inventory` does not establish production menu/access behavior.

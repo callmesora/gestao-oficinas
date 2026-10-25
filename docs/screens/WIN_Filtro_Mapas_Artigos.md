@@ -1,12 +1,14 @@
 # Screen spec — WIN_Filtro_Mapas_Artigos
 
-Evidence `legacy/GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Artigos.wdw`, `dossier: WIN_Filtro_Mapas_Artigos`, `docs/mapping/WIN_Filtro_Mapas_Artigos.md`. Step 0 only.
+Evidence `legacy/GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Artigos.wdw`, `dossier: WIN_Filtro_Mapas_Artigos`, `docs/mapping/WIN_Filtro_Mapas_Artigos.md`. Source contract; initial implementation below.
 
 ## Contract
 
 Preview material consumption reports.
 
 tipo_report selects resumo plane1, descriminado plane3, resumo_viatura/descriminado_viatura plane2. Dates today, upper article zzzzzzzzzz. Checkbox 1/0 orders,1/1 combined,0/1 exits,0/0 no print. Detailed receives description; vehicle receives vehicle bounds. Expand dates 00:00:00..23:59:59. Nonempty lower picker copies upper.
+
+Initial implementation: `src/ui/report-filters.tsx` uses the four source planes, existing article/vehicle pickers and shared report preview/PDF. Scoped overlays retain accented source identities/geometry while using matching dossier typo aliases for preview-button/description metadata; base date type is inferred from DateSys/AAAAMMJJ/calendar properties (U-WCD4890-01). `CBOX_doc[1]`/`[2]` identify source indexed options. Summary caller still has four positional arguments; target query receives explicit `ParamDescricao:null` for its omitted argument (U-WCD4890-05). Blank/zero date-to-datetime coercion, native keyboard/printing and source PDF goldens remain open. Non-legacy diagnostics/launchers are `report-filter-diagnostic`, `report-filters-launcher`, `report-filter-material-*`. Pure, actual PostgreSQL and installed-Chrome/PDF checks cover all eight report branches; this is initial delivery, not parity completion.
 
 Caller arguments/results and native buffer changes: mapping entry/event ledger.
 

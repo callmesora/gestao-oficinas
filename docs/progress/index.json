@@ -54,6 +54,528 @@
   "visuals": {}
  },
  {
+  "name": "RPT_Consumo_Material_Descriminado_Ordens",
+  "kind": "report",
+  "total": 11,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 5,
+   "unmapped": 5
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_Consumo_Material_Descriminado_ordens_saidas",
+  "kind": "report",
+  "total": 10,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 4,
+   "unmapped": 5
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_Consumo_Material_Descriminado_Saidas",
+  "kind": "report",
+  "total": 10,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 5,
+   "unmapped": 4
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_Consumo_Material_Resumo_ordem_saidas",
+  "kind": "report",
+  "total": 10,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 5,
+   "unmapped": 4
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_Consumo_Material_Resumo_ordens",
+  "kind": "report",
+  "total": 8,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 3,
+   "unmapped": 4
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_Consumo_Material_Resumo_Saidas",
+  "kind": "report",
+  "total": 8,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 3,
+   "unmapped": 4
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_Consumo_Material_Viatura_Descriminado",
+  "kind": "report",
+  "total": 8,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 4,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_Consumo_Material_Viatura_Resumo",
+  "kind": "report",
+  "total": 8,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 4,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_Extrato_artigos",
+  "kind": "report",
+  "total": 13,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 7,
+   "unmapped": 5
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_inventario",
+  "kind": "report",
+  "total": 8,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 4,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_List_artigos",
+  "kind": "report",
+  "total": 9,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 5,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_List_Clientes",
+  "kind": "report",
+  "total": 9,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 5,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_List_documentos",
+  "kind": "report",
+  "total": 9,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 5,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_List_estados_descritivos",
+  "kind": "report",
+  "total": 9,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 5,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_List_estados_reparacao",
+  "kind": "report",
+  "total": 9,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 5,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_List_mecanicos",
+  "kind": "report",
+  "total": 9,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 5,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_List_unidades",
+  "kind": "report",
+  "total": 9,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 5,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_List_utilizadores",
+  "kind": "report",
+  "total": 9,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 5,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_List_Viaturas",
+  "kind": "report",
+  "total": 9,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 5,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_Materiais",
+  "kind": "report",
+  "total": 7,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 3,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_Ordens_Reparacao",
+  "kind": "report",
+  "total": 10,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 5,
+   "unmapped": 4
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_Ordens_Reparacao_DataEntrega",
+  "kind": "report",
+  "total": 10,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 5,
+   "unmapped": 4
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_Ordens_Reparacao_DataPag",
+  "kind": "report",
+  "total": 10,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 5,
+   "unmapped": 4
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_Servico_Avaria",
+  "kind": "report",
+  "total": 6,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 2,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_Tempos_Ordem_Reparacao",
+  "kind": "report",
+  "total": 14,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 9,
+   "unmapped": 4
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_Tempos_Ordem_Reparacao_Mecanico",
+  "kind": "report",
+  "total": 15,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 10,
+   "unmapped": 4
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo",
+  "kind": "report",
+  "total": 14,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 9,
+   "unmapped": 4
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "RPT_Tempos_Ordem_Reparacao_viatura",
+  "kind": "report",
+  "total": 16,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 11,
+   "unmapped": 4
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "WIN_Acesso",
+  "kind": "screen",
+  "total": 28,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 22,
+   "unmapped": 5
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
   "name": "WIN_Data",
   "kind": "screen",
   "total": 13,
@@ -75,6 +597,60 @@
     "layout": 84.0
    }
   }
+ },
+ {
+  "name": "WIN_Extrato_Artigos",
+  "kind": "screen",
+  "total": 28,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 24,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "WIN_Filtro_Mapas_Artigos",
+  "kind": "screen",
+  "total": 54,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 50,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "WIN_Filtro_Mapas_Tempos",
+  "kind": "screen",
+  "total": 36,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 32,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Form_artigos",
@@ -375,9 +951,99 @@
   "statuses": {
    "verified": 0,
    "excluded": 0,
+   "implemented": 4,
+   "specified": 22,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "WIN_Inventario",
+  "kind": "screen",
+  "total": 25,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 21,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "WIN_Inventario_Reconstrucao",
+  "kind": "screen",
+  "total": 22,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 16,
+   "unmapped": 5
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "WIN_Leitor_cod_barras",
+  "kind": "screen",
+  "total": 26,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 20,
+   "unmapped": 5
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "WIN_Leitor_cod_barras_desconhecidos",
+  "kind": "screen",
+  "total": 23,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 19,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "WIN_Mapa_Vendas",
+  "kind": "screen",
+  "total": 30,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
    "implemented": 1,
    "specified": 25,
-   "unmapped": 3
+   "unmapped": 4
   },
   "looks": null,
   "visuals": {}
@@ -411,7 +1077,25 @@
   "statuses": {
    "verified": 0,
    "excluded": 0,
-   "implemented": 8,
+   "implemented": 9,
+   "specified": 56,
+   "unmapped": 5
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "WIN_MENU",
+  "kind": "screen",
+  "total": 63,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
    "specified": 57,
    "unmapped": 5
   },
@@ -488,6 +1172,42 @@
   }
  },
  {
+  "name": "WIN_Reconstrucao_Stocks",
+  "kind": "screen",
+  "total": 19,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 13,
+   "unmapped": 5
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "WIN_sistema",
+  "kind": "screen",
+  "total": 30,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 25,
+   "unmapped": 4
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
   "name": "WIN_Table_artigos",
   "kind": "screen",
   "total": 36,
@@ -509,6 +1229,24 @@
     "layout": 93.9
    }
   }
+ },
+ {
+  "name": "WIN_Table_cab_stocks",
+  "kind": "screen",
+  "total": 45,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 39,
+   "unmapped": 5
+  },
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Table_Clientes",
@@ -633,6 +1371,24 @@
     "layout": 94.9
    }
   }
+ },
+ {
+  "name": "WIN_Table_Lin_Stocks",
+  "kind": "screen",
+  "total": 69,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 63,
+   "unmapped": 5
+  },
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Table_mecanicos",
@@ -810,6 +1566,42 @@
     "layout": 94.7
    }
   }
+ },
+ {
+  "name": "WIN_Teclado_Alfa",
+  "kind": "screen",
+  "total": 150,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 146,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {}
+ },
+ {
+  "name": "WIN_Teclado_numerico",
+  "kind": "screen",
+  "total": 43,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 1,
+   "specified": 38,
+   "unmapped": 4
+  },
+  "looks": null,
+  "visuals": {}
  },
  {
   "name": "WIN_Tempos_Reparacao",
@@ -1941,798 +2733,6 @@
    "implemented": 0,
    "specified": 1,
    "unmapped": 2
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_Consumo_Material_Descriminado_Ordens",
-  "kind": "report",
-  "total": 11,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 6,
-   "unmapped": 5
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_Consumo_Material_Descriminado_ordens_saidas",
-  "kind": "report",
-  "total": 10,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 5,
-   "unmapped": 5
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_Consumo_Material_Descriminado_Saidas",
-  "kind": "report",
-  "total": 10,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 6,
-   "unmapped": 4
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_Consumo_Material_Resumo_ordem_saidas",
-  "kind": "report",
-  "total": 10,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 6,
-   "unmapped": 4
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_Consumo_Material_Resumo_ordens",
-  "kind": "report",
-  "total": 8,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 4,
-   "unmapped": 4
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_Consumo_Material_Resumo_Saidas",
-  "kind": "report",
-  "total": 8,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 4,
-   "unmapped": 4
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_Consumo_Material_Viatura_Descriminado",
-  "kind": "report",
-  "total": 8,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 5,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_Consumo_Material_Viatura_Resumo",
-  "kind": "report",
-  "total": 8,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 5,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_Extrato_artigos",
-  "kind": "report",
-  "total": 13,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 8,
-   "unmapped": 5
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_inventario",
-  "kind": "report",
-  "total": 8,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 5,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_List_artigos",
-  "kind": "report",
-  "total": 9,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 6,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_List_Clientes",
-  "kind": "report",
-  "total": 9,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 6,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_List_documentos",
-  "kind": "report",
-  "total": 9,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 6,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_List_estados_descritivos",
-  "kind": "report",
-  "total": 9,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 6,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_List_estados_reparacao",
-  "kind": "report",
-  "total": 9,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 6,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_List_mecanicos",
-  "kind": "report",
-  "total": 9,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 6,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_List_unidades",
-  "kind": "report",
-  "total": 9,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 6,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_List_utilizadores",
-  "kind": "report",
-  "total": 9,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 6,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_List_Viaturas",
-  "kind": "report",
-  "total": 9,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 6,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_Materiais",
-  "kind": "report",
-  "total": 7,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 4,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_Ordens_Reparacao",
-  "kind": "report",
-  "total": 10,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 6,
-   "unmapped": 4
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_Ordens_Reparacao_DataEntrega",
-  "kind": "report",
-  "total": 10,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 6,
-   "unmapped": 4
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_Ordens_Reparacao_DataPag",
-  "kind": "report",
-  "total": 10,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 6,
-   "unmapped": 4
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_Servico_Avaria",
-  "kind": "report",
-  "total": 6,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 3,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_Tempos_Ordem_Reparacao",
-  "kind": "report",
-  "total": 14,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 10,
-   "unmapped": 4
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_Tempos_Ordem_Reparacao_Mecanico",
-  "kind": "report",
-  "total": 15,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 11,
-   "unmapped": 4
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo",
-  "kind": "report",
-  "total": 14,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 10,
-   "unmapped": 4
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "RPT_Tempos_Ordem_Reparacao_viatura",
-  "kind": "report",
-  "total": 16,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 12,
-   "unmapped": 4
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Acesso",
-  "kind": "screen",
-  "total": 28,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 23,
-   "unmapped": 5
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Extrato_Artigos",
-  "kind": "screen",
-  "total": 28,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 25,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Filtro_Mapas_Artigos",
-  "kind": "screen",
-  "total": 54,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 51,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Filtro_Mapas_Tempos",
-  "kind": "screen",
-  "total": 36,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 33,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Inventario",
-  "kind": "screen",
-  "total": 25,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 22,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Inventario_Reconstrucao",
-  "kind": "screen",
-  "total": 22,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 17,
-   "unmapped": 5
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Leitor_cod_barras",
-  "kind": "screen",
-  "total": 26,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 21,
-   "unmapped": 5
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Leitor_cod_barras_desconhecidos",
-  "kind": "screen",
-  "total": 23,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 20,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Mapa_Vendas",
-  "kind": "screen",
-  "total": 30,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 26,
-   "unmapped": 4
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_MENU",
-  "kind": "screen",
-  "total": 63,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 58,
-   "unmapped": 5
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Reconstrucao_Stocks",
-  "kind": "screen",
-  "total": 19,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 14,
-   "unmapped": 5
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_sistema",
-  "kind": "screen",
-  "total": 30,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 26,
-   "unmapped": 4
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Table_cab_stocks",
-  "kind": "screen",
-  "total": 45,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 40,
-   "unmapped": 5
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Table_Lin_Stocks",
-  "kind": "screen",
-  "total": 69,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 64,
-   "unmapped": 5
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Teclado_Alfa",
-  "kind": "screen",
-  "total": 150,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 147,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Teclado_numerico",
-  "kind": "screen",
-  "total": 43,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 39,
-   "unmapped": 4
   },
   "looks": null,
   "visuals": {}

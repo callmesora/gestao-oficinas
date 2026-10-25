@@ -21,7 +21,7 @@ export const test = base.extend<{ materialDatabase: Client }, { materialServer: 
     try {
       database = await engine.database(); await migrate(database);
       const name = (await database.query<{ name: string }>("SELECT current_database() AS name")).rows[0].name, connect = () => engine.connect(name);
-      app = createApp({ repairMaterialsConnect: connect, articleConnect: connect, unitConnect: connect, mechanicsConnect: connect, development: developmentSessions(origin) });
+      app = createApp({ repairMaterialsConnect: connect, stockConnect: connect, articleConnect: connect, unitConnect: connect, mechanicsConnect: connect, development: developmentSessions(origin) });
       await app.listen({ host: "127.0.0.1", port: 0 });
       const address = app.server.address(); if (!address || typeof address === "string") throw new Error("Synthetic material API address unavailable");
       vite = await createServer({ root: fileURLToPath(new URL("../../", import.meta.url)), cacheDir: resolve(engine.directory, "vite-materials"),

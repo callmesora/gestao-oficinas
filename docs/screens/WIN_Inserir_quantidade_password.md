@@ -88,3 +88,5 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | — | No explicit message calls in this unit | Framework calls may originate in callees | U-W7DB208-04 |
 
 Initial MIG9 target: repair-materials.tsx and shared RepairMaterialPrompt use real authenticated API/atomic stock writes; focused PG and actual browser flows cover quantity, Add/password, launched guards, cancel and stale edits. Scanner/touch keyboards, header sort/search, full resize typography and native acceptance remain U01/U02/U03; no whole-window completion. Nonlegacy IDs: repair-materials-open, repair-materials-list-diagnostic, repair-material-form-diagnostic, repair-material-form-frame/restore and repair-material-prompt-restore.
+
+Initial scanner/keyboard continuation: active prompt fields open the actual alpha/numeric keyboards; commented material-field handlers remain no-ops. Scanner authenticates before explicit fatal-UTF8 file selection, appends known rows, shows unknown rows and writes only on Sair. Common inactive-mechanic refusal differs from this source branch (temporary U03); native device/path/encoding remain open.

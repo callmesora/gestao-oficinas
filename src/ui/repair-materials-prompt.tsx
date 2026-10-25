@@ -2,6 +2,8 @@ import { useRef, useState } from "react";
 import sourceLayout from "./legacy/WIN_Inserir_quantidade_password.layout.json";
 import { WdModal, type WdModalHandle } from "./legacy/modal";
 import { WdRadControls, type WdRadBinding } from "./legacy/rad-controls";
+import { controlOf } from "./legacy/layout";
+import { TouchKeyboardDialog, type TouchKeyboardRequest } from "./touch-keyboard";
 import { decimalMaskDisplay, decimalMaskOf, decimalMaskValue } from "./legacy/decimal-entry";
 
 export type RepairMaterialPromptMode = "quantidade" | "preco" | "password" | "descricao";
@@ -20,7 +22,19 @@ export function RepairMaterialPrompt({ mode, value, finish }: {
       ...(mode === "descricao" ? { width: control.width! + 200 } : {}) } : control.name === "RADTitle" ? { ...control, caption: title } : control.name === "BTN_Cancelar" && mode === "descricao" ? { ...control, x: control.x! + 200 } : control) };
   const modal = useRef<WdModalHandle>(null), input = useRef<HTMLInputElement>(null), edited = useRef(false);
   const [draft, setDraft] = useState(() => mode === "password" ? "" : numeric ? decimalMaskDisplay(mask, value) : value ?? "");
-  const [invalid, setInvalid] = useState(false);
+  const [invalid, setInvalid] = useState(false), [keyboard, setKeyboard] = useState<TouchKeyboardRequest | null>(null);
+  const openKeyboard = () => {
+    if (keyboard) return;
+    const control = controlOf(layout, name);
+    if (numeric) {
+      const canonical = decimalMaskValue(mask, draft);
+      // U-W7DB208-05: native empty/NULL coercion is unavailable; keep an invalid draft visible.
+      if (canonical === undefined) { setInvalid(true); input.current?.focus(); return; }
+      // Source319–321 uses these exact options even in price mode.
+      setKeyboard({ kind: "numeric", options: { title: "Quantidade", value: canonical, decimals: 3, lower: "0", upper: "999999" } });
+    } else setKeyboard({ kind: "alpha", options: { title: mode === "password" ? "Palavra-passe" : "Descricao", value: draft,
+      inputMask: control.input_mask, maxLength: control.input_size, password: mode === "password" } });
+  };
   const close = (result: string | null) => { modal.current?.close(); finish(result); };
   const confirm = () => {
     // ADR-002: untouched NULL/precision stays distinct from an accepted edit.
@@ -29,13 +43,17 @@ export function RepairMaterialPrompt({ mode, value, finish }: {
     close(result);
   };
   const bindings: WdRadBinding[] = [
-    { name, kind: "edit", props: { ref: input, value: draft, decimalMask: numeric, "aria-invalid": invalid, onChange: event => { edited.current = true; setInvalid(false); setDraft(event.currentTarget.value); } } },
+    { name, kind: "edit", props: { ref: input, value: draft, decimalMask: numeric, "aria-invalid": invalid, onMouseDown: event => { if (event.button === 0) { event.preventDefault(); openKeyboard(); } }, onChange: event => { edited.current = true; setInvalid(false); setDraft(event.currentTarget.value); } } },
     { name: "BTN_Confirmar", kind: "button", props: { onClick: confirm } },
     { name: "BTN_Cancelar", kind: "button", props: { onClick: () => close(value) } },
   ];
   return <WdModal ref={modal} layout={layout} instance={`repair-material-${mode}-prompt`} testId="WIN_Inserir_quantidade_password" restoreTestId="repair-material-prompt-restore"
-    onClose={() => close(value)} onKeyDown={event => { if (event.key === "Enter" && !(event.target instanceof HTMLButtonElement)) { event.preventDefault(); confirm(); } }}>
+    onClose={() => close(value)} onKeyDown={event => { if (keyboard || event.defaultPrevented) return; if (event.key === "Enter" && !(event.target instanceof HTMLButtonElement)) { event.preventDefault(); confirm(); } }}>
     <WdRadControls layout={layout} bindings={bindings} />
-    {/* UNRESOLVED U-W7DB208-02: separate source touch keyboards remain an owning workflow. */}
+    {keyboard && <TouchKeyboardDialog request={keyboard} finish={result => {
+      // Both source keyboards return their exact argument on cancel; an unchanged result preserves nullable baselines.
+      if (result !== keyboard.options.value) { edited.current = true; setInvalid(false); setDraft(numeric ? decimalMaskDisplay(mask, result) : result); }
+      setKeyboard(null); input.current?.focus();
+    }} />}
   </WdModal>;
 }

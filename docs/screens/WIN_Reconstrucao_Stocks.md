@@ -78,3 +78,10 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | Trigger/source | Exact argument/resource | Kind and buttons | Default/Esc |
 | --- | --- | --- | --- |
 | legacy/GestaoOficinas_TesteIA/WIN_Reconstrucao_Stocks.wdw:259 | "Reconstrução terminada" | Info | U-W541EAA-04; exact branch result in mapping event ledger |
+
+
+## Initial MIG11 implementation and retained gaps
+
+Initial implementation provides the actual protected rebuild command: incoming stock1 quantities minus outgoing stock2 quantities minus every repair-material quantity, including launched/extra rows; other movement values contribute zero (legacy/GestaoOficinas_TesteIA/WIN_Reconstrucao_Stocks.wdw:197–260). It shows the exact source Reconstrução terminada only after commit, then closes.
+
+U-W541EAA-03/05: before destructive zero/recompute, refuse missing/ambiguous/empty document lookup or NULL quantities as typed unresolved under ADR006. This preserves current stock instead of guessing the source HFound(line-query)/document-buffer bug. Missing articles do not gain a fabricated relationship. Native/designer/message U01/02/04 and production/device acceptance remain open. Development route `?workflow=stock-rebuild`; no production reconstruction was performed.

@@ -79,7 +79,7 @@ function PostoForm({ repository, terminalRepository, fileContext, opening, finis
   </WdModal>;
 }
 
-function PostoListScreen({ repository, terminalRepository, fileContext }: { repository: PostoRepository; terminalRepository: TerminalRepository; fileContext: TerminalFileContext }) {
+export function PostoListScreen({ repository, terminalRepository, fileContext }: { repository: PostoRepository; terminalRepository: TerminalRepository; fileContext: TerminalFileContext }) {
   const close = useWorkspaceClose(), { resource } = useDialogs();
   const [query, setQuery] = useState<PostoList>({}), [refresh, setRefresh] = useState(0);
   const [rows, setRows] = useState<Posto[]>([]), [selection, setSelection] = useState<string | null>(null);

@@ -90,3 +90,7 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | Trigger/source | Exact argument/resource | Kind and buttons | Default/Esc |
 | --- | --- | --- | --- |
 | legacy/GestaoOficinas_TesteIA/WIN_Acesso.wdw:378 | "Utilizador e/ou palavra-passe incorreto(s)" | Info | U-W9D7053-04; exact branch result in mapping event ledger |
+
+## Initial implementation checkpoint
+
+MIG12 initial development implementation: `StartupAccessDialog` uses the real public UserPicker, exact selected-code continuation, masked password/reveal, unconditional `userUppercase`, source incorrect-password Info and silent missing-user result. `checkStartupAccess` compares only the selected stored credential inside an already protected isolated-development context and returns public identity/continuar; it does not issue a production session or adopt a legacy password hash (ADR004/009). Cancel returns cancelar and ends the development shell. Touch entry is enabled only for modulo t/m. Production credential transition/reset/bootstrap/session support remains MIG12, along with U01/U02/U03/U04/U05 native/Unicode/NULL boundaries. Synthetic-only tests exercise success, failure, direct API denial and the actual picker; original credentials are never read in tests.

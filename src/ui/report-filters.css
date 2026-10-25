@@ -1,0 +1,5 @@
+.report-filter-body { position: absolute; inset: 0; pointer-events: none; }
+.report-filter-controls { display: contents; pointer-events: auto; }
+.report-filter-cell-check { display: inline-grid; place-content: center; vertical-align: middle; width: 15px; height: 15px; border: 0; padding: 0; background: transparent; }
+.report-filter-cell-check:focus-visible { outline: 1px dotted #222; outline-offset: 1px; }
+.report-filter-body output { position: absolute; bottom: 2px; left: 4px; }

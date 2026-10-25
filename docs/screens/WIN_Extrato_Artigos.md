@@ -92,3 +92,10 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | Trigger/source | Exact argument/resource | Kind and buttons | Default/Esc |
 | --- | --- | --- | --- |
 | — | No explicit message calls in this unit | Framework calls may originate in callees | U-W13F458-04 |
+
+
+## Initial MIG11 implementation and retained gaps
+
+Initial implementation retains today/today and upper zzzzzzzzzz defaults, both actual article pickers and lower-nonempty→upper continuation. Preview sends source Date8 start00:00:00/end23:59:59 and article bounds through an explicit RPT_Extrato_artigos callback owned by MIG13; there is no reversed-range guard (legacy/GestaoOficinas_TesteIA/WIN_Extrato_Artigos.wdw:197/303–306/412–446).
+
+U-W13F458-01/02/05 retain the partly missing preview-button metadata, native date coercion/locale and full-window/keyboard acceptance. Visible preview caption/kind is a local JPG-backed projection without changing generated metadata. Development route `?workflow=stock-statement` is not production navigation.

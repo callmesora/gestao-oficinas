@@ -1,6 +1,6 @@
 {
   "build": {
     "beforeDevCommand": "",
-    "devUrl": "http://localhost:1431/?workflow=customers"
+    "devUrl": "http://localhost:1431/?workflow=menu"
   }
 }

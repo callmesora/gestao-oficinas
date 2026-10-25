@@ -22,6 +22,10 @@ import { WdWorkspace, useWorkspace, useWorkspaceClose } from "./legacy/workspace
 import { ArticlePicker } from "./articles";
 import { MechanicPicker } from "./mechanics";
 import { RepairMaterialPrompt, type RepairMaterialPromptMode } from "./repair-materials-prompt";
+import { StockScannerDialog, StockUnknownScannerDialog } from "./stock";
+import { isolatedStockRepository } from "../infrastructure/stock";
+import type { StockRepository } from "../application/stock";
+import type { ScannerResult, ScannerRow } from "../../packages/domain/src/stock";
 
 const corrected = (layout: LegacyLayout): LegacyLayout => ({ ...layout, window: { ...layout.window, title: "Materiais de Reparação" }, controls: layout.controls.map(control => ({ ...control,
   ...(control.name === "RADTitle" ? { caption: "Materiais de Reparação" } : control.name === "BTN_Descricao" ? { caption: "Descrição" } : {}),
@@ -32,6 +36,28 @@ const quantityMask = decimalMaskOf(controlOf(formLayout, "EDT_quant").input_mask
 const sourceRowHeight = Number(materialTable.table_options?.row_height ?? "30") + 1;
 type DraftLine = RepairMaterialLine & { key: string };
 type Prompt = { mode: RepairMaterialPromptMode; value: string | null; resolve: (value: string | null) => void };
+type ScannerOutcome = Extract<ScannerResult, { kind: "partitioned" }> | "fechou";
+type ScannerChild = { kind: "file"; resolve: (value: string | null) => void }
+  | { kind: "scanner"; repository: StockRepository; text: string; resolve: (value: ScannerOutcome) => void }
+  | { kind: "unknown"; rows: ScannerRow[]; resolve: () => void };
+
+/** U-WAFCFDF-01/05: explicit selected UTF8-file bridge until configured native device access exists. */
+function MaterialScannerFileBridge({ finish }: { finish: (text: string | null) => void }) {
+  const dialog = useRef<HTMLDialogElement>(null), alive = useRef(true), [busy, setBusy] = useState(false), { message } = useDialogs();
+  useEffect(() => { alive.current = true; const element = dialog.current!; element.showModal(); return () => { alive.current = false; element.close(); }; }, []);
+  const close = (text: string | null = null) => { dialog.current?.close(); finish(text); };
+  return <dialog ref={dialog} data-testid="repair-material-scanner-file" aria-label="Ficheiro do leitor" onCancel={event => { event.preventDefault(); close(); }}>
+    <label>Ficheiro do leitor <input type="file" data-testid="repair-material-scanner-upload" disabled={busy} onChange={event => {
+      const file = event.currentTarget.files?.[0]; if (!file || busy) return; setBusy(true);
+      void file.arrayBuffer().then(bytes => new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes)).then(text => { if (alive.current) close(text); }).catch(async () => {
+        if (!alive.current) return;
+        await message({ title: "Códigos de barras", text: "A leitura do ficheiro falhou, verifique o caminho", type: 0 });
+        if (alive.current) close();
+      });
+    }} /></label>
+    <button type="button" onClick={() => close()}>Cancelar</button>
+  </dialog>;
+}
 
 // SysDateTime is read once when Add is accepted; no timezone conversion touches imported dates.
 function workstationDateTime() {
@@ -54,6 +80,7 @@ function MaterialEditor({ repository, document, articleRepository, mechanicRepos
   const [rows, setRows] = useState<DraftLine[]>(() => document.rows.map(row => ({ ...row, key: `stored:${row.id}` })));
   const [selected, setSelected] = useState<string | null>(null), [article, setArticle] = useState(""), [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(() => decimalMaskDisplay(quantityMask, "1")), [actor, setActor] = useState<RepairMaterialsMechanic | null>(null);
+  const [scannerChild, setScannerChild] = useState<ScannerChild | null>(null), latestScannerChild = useRef<ScannerChild | null>(null);
   const [prompt, setPrompt] = useState<Prompt | null>(null), [picker, setPicker] = useState<"article" | "mechanic" | null>(null);
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const pending = useRef(false), alive = useRef(true), counter = useRef(0), proofs = useRef<RepairMaterialProof[]>([]), input = useRef<HTMLInputElement>(null);
@@ -62,7 +89,8 @@ function MaterialEditor({ repository, document, articleRepository, mechanicRepos
   const setDescriptionValue = (value: string) => { descriptionDraft.current = value; setDescription(value); };
   const latestPrompt = useRef<Prompt | null>(null), { message, resource } = useDialogs();
   const settings = useTableLayout(materialTable, "WIN_Material_reparacao_form/TABLE_material"), delta = useContext(FrameDeltaContext);
-  useEffect(() => { alive.current = true; return () => { alive.current = false; const current = latestPrompt.current; current?.resolve(current.value); }; }, []);
+  useEffect(() => { alive.current = true; return () => { alive.current = false; const current = latestPrompt.current; current?.resolve(current.value);
+    const child = latestScannerChild.current; if (child?.kind === "file") child.resolve(null); else if (child?.kind === "scanner") child.resolve("fechou"); else child?.resolve(); }; }, []);
   const info = (text: string) => message({ title: "Materiais de Reparação", text, type: 0 });
   const ask = (mode: RepairMaterialPromptMode, value: string | null) => new Promise<string | null>(resolve => { const request = { mode, value, resolve }; latestPrompt.current = request; setPrompt(request); });
   const run = async (work: () => Promise<void>) => {
@@ -113,6 +141,22 @@ function MaterialEditor({ repository, document, articleRepository, mechanicRepos
       artigo: code, descricao_artigo: descriptionValue, quantidade: amount, preco: found.article.preco, lancado: false }]);
     setSelected(key); reset(); input.current?.focus();
   });
+  const scanner = () => run(async () => {
+    // Source908–929: authenticate before opening the reader; retain the existing service inactive refusal (U03).
+    const mechanic = actor ?? await authenticate(document.mechanic?.Codigo ?? null);
+    if (!alive.current || !mechanic) return;
+    const stock = await isolatedStockRepository();
+    if (!alive.current) return;
+    const text = await new Promise<string | null>(resolve => { const child = { kind: "file" as const, resolve }; latestScannerChild.current = child; setScannerChild(child); });
+    if (!alive.current || text === null) return;
+    const result = await new Promise<ScannerOutcome>(resolve => { const child = { kind: "scanner" as const, repository: stock, text, resolve }; latestScannerChild.current = child; setScannerChild(child); });
+    if (!alive.current || result === "fechou") return;
+    // Source930–936: append returned known rows verbatim, including reader quantity/price; Sair owns persistence.
+    const added: DraftLine[] = result.known.map(row => ({ key: `new:${++counter.current}`, id: null, data_hora: workstationDateTime(), mecanico: mechanic.Codigo,
+      mechanicDescription: mechanic.Descricao, artigo: row.code, descricao_artigo: row.description, quantidade: row.quantity, preco: row.price, lancado: false }));
+    setRows(current => [...current, ...added]);
+    if (result.unknown.length) await new Promise<void>(resolve => { const child = { kind: "unknown" as const, rows: result.unknown, resolve }; latestScannerChild.current = child; setScannerChild(child); });
+  });
   const save = () => run(async () => {
     const result = await repository.save({ orderId: document.orderId, numero: document.numero, baseline: document.baseline, state: document.state,
       rows: rows.map(linePayload), proofs: proofs.current });
@@ -161,7 +205,7 @@ function MaterialEditor({ repository, document, articleRepository, mechanicRepos
     { name: "BTN_seguinte", kind: "button", props: { disabled: busy, onClick: () => move(1) } },
     { name: "BTN_NoName1", kind: "button", props: { disabled: busy || !mechanicRepository, onClick: () => setPicker("mechanic") } },
     { name: "BTN_NoName2", kind: "button", props: { disabled: busy || !articleRepository, onClick: () => setPicker("article") } },
-    { name: "BTN_Leitor", kind: "button", props: { disabled: true, title: "MIG-9: leitor de códigos de barras" } },
+    { name: "BTN_Leitor", kind: "button", props: { disabled: busy, onClick: () => void scanner() } },
   ];
   return <>
     <WdRadControls layout={formLayout} bindings={bindings} />
@@ -172,6 +216,9 @@ function MaterialEditor({ repository, document, articleRepository, mechanicRepos
     {prompt && <RepairMaterialPrompt mode={prompt.mode} value={prompt.value} finish={value => { latestPrompt.current = null; setPrompt(null); prompt.resolve(value); }} />}
     {picker === "article" && articleRepository && <ArticlePicker repository={articleRepository} origin={article} finish={value => { setPicker(null); if (value !== "") { setArticleValue(value); void run(() => verifyArticle(value, false)); } }} />}
     {picker === "mechanic" && mechanicRepository && <MechanicPicker repository={mechanicRepository} origin="" finish={value => { setPicker(null); if (value !== "") void run(async () => { const code = typeof value === "number" ? value : Number(value); if (actor?.Codigo === code) return; await authenticate(code); }); }} />}
+    {scannerChild?.kind === "file" && <MaterialScannerFileBridge finish={text => { latestScannerChild.current = null; setScannerChild(null); scannerChild.resolve(text); }} />}
+    {scannerChild?.kind === "scanner" && <StockScannerDialog repository={scannerChild.repository} sourceText={scannerChild.text} finish={result => { latestScannerChild.current = null; setScannerChild(null); scannerChild.resolve(result); }} />}
+    {scannerChild?.kind === "unknown" && <StockUnknownScannerDialog rows={scannerChild.rows} finish={() => { latestScannerChild.current = null; setScannerChild(null); scannerChild.resolve(); }} />}
     {diagnostic && <output data-testid="repair-material-form-diagnostic">{diagnostic}</output>}
   </>;
 }
@@ -193,7 +240,7 @@ export function RepairMaterialsDialog({ repository, orderId, numero, articleRepo
   </WdModal>;
 }
 
-function MaterialsList({ repository, articleRepository, mechanicRepository, restricted }: {
+export function MaterialsList({ repository, articleRepository, mechanicRepository, restricted }: {
   repository: RepairMaterialsRepository; articleRepository: ArticleRepository; mechanicRepository: MechanicRepository; restricted: boolean;
 }) {
   const close = useWorkspaceClose(), { message } = useDialogs(), delta = useContext(FrameDeltaContext);

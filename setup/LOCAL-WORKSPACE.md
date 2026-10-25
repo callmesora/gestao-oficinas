@@ -79,14 +79,14 @@ source setup/Enter-Prerequisites.sh
 npm run dev:local
 ```
 
-After the import completes, open `http://localhost:1431/?workflow=customers` (also `vehicles`, `units`, `descriptive-states`, `terminals`). Terminal 2 for the real desktop development window:
+After the import completes, open `http://localhost:1431/?workflow=menu` and choose the explicit development entry. Direct routes such as `customers`, `vehicles`, `units`, `descriptive-states` and `terminals` remain available. Terminal 2 for the real desktop development window:
 
 ```sh
 source setup/Enter-Prerequisites.sh
 npm run desktop:mac
 ```
 
-The Mac workflow config opens Clientes initially; the existing Windows terminal-test config remains unchanged. Browser route links above open the other workflows. `dev:local` always creates a new isolated PostgreSQL database and writes an import summary in that cluster's `analysis-local/postgres-test-*/import-report.json`. Restarting it starts a fresh database; older scratch clusters remain on disk. Stop it with Ctrl+C. Never run browser golden tests against a manually populated server: stop it first so Playwright starts a clean synthetic runner.
+The Mac workflow config opens the development menu; the existing Windows terminal-test config remains unchanged. `dev:local` always creates a new isolated PostgreSQL database and writes an import summary in that cluster's `analysis-local/postgres-test-*/import-report.json`. Restarting it starts a fresh database; older scratch clusters remain on disk. Stop it with Ctrl+C. Never run browser golden tests against a manually populated server: stop it first so Playwright starts a clean synthetic runner.
 
 `npm run build:mac` builds a local debug `.app` under `src-tauri/target/debug/bundle/macos/`. The packaged app still exposes the existing foundation diagnostic; business routes are development-only. Use the two-terminal development commands for working screens. This setup does not implement production navigation/access or release signing/notarization.
 
@@ -110,3 +110,9 @@ Business behavior, schema/migrations, parity statuses and roadmap ordering are u
 Review mode: two disclosed sequential self-review passes in the same context under ADR-007 and `skills/review/SKILL.md`; see `docs/migration-history.md#local-macos`. No independent reviewer claim. Owner-requested shared Windows/Mac collaboration instructions live in `docs/runbooks/cross-platform-agents.md` and are linked from both AGENTS files and the handoff.
 
 Final launch smoke: `npm run dev:local` imported the provisional data and served the real API; `npm run desktop:mac` built and started `target/debug/gestao-oficinas` against the customer workflow without a startup error. Native interactive controls/picker were not automated. Both owned development processes were then stopped with Ctrl+C; restart with the commands above. Source and copied SQLite hashes were rechecked and remain identical. Other machines can obtain the setup branch through authorized Git sharing; private snapshots, extracts and environments remain local and must be provisioned separately.
+
+## Initial full-screen demo
+
+The stock derivative is already prepared on this Mac. Run `npm run dev:local:stock`, then `npm run desktop:mac` in a second prepared terminal, or open `http://localhost:1431/?workflow=menu`. Choose **Abrir ambiente de desenvolvimento**; real legacy credentials are unnecessary for that entry. Each restart recreates the disposable database.
+
+On a fresh machine only, prepare a fresh derivative with `python scripts/prepare_local_sqlite.py legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/GestaoOficinas.sqlite --out analysis-local/sqlite-development-stock --stock-development-derivative`. An existing output is deliberately refused. Exact fingerprint/count/hash gates are ADR017; originals and ordinary projection stay unchanged. Disposable import:159668rows/0quarantine/0mismatch; official full-database fidelity remains open. Production authentication/packaged persistence/native printing remain gates.

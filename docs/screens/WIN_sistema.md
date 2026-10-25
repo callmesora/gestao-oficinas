@@ -96,3 +96,7 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | Trigger/source | Exact argument/resource | Kind and buttons | Default/Esc |
 | --- | --- | --- | --- |
 | — | No explicit message calls in this unit | Framework calls may originate in callees | U-W3BC89B-04 |
+
+## Initial implementation checkpoint
+
+MIG12 initial development implementation: `SystemDialog` and protected startup system-read/system-save operations load and reread the first internal row, then atomically assign only the six source fields. New defaults remain source15/15/15/7/030000/030000. The existing integer-mask primitive constrains new numeric entry while retaining oversized loaded strings; untouched NULL and opaque time text remain exact. Deliberate time edits require valid hh:mm:ss/six digits (blank remains empty), with no timezone/autocorrection. Existing active windows retain their original timer lifetime. First-row tie/transaction failure adaptations, native mask/coercion and resized appearance remain U03/U05/U01; save closes only after committed success, cancellation writes nothing. Real PG rollback and browser round-trip tests pass on the worker's macOS working tree; no native parity claim.

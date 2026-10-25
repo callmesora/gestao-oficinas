@@ -86,3 +86,10 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | Trigger/source | Exact argument/resource | Kind and buttons | Default/Esc |
 | --- | --- | --- | --- |
 | — | No explicit message calls in this unit | Framework calls may originate in callees | U-WB2879B-04 |
+
+
+## Initial MIG11 implementation and retained gaps
+
+Initial implementation renders the actual partition's unknown barcode/quantity rows with original TABLE_Leitura and Confirmar close; it adds no correction or article creation, matching legacy/GestaoOficinas_TesteIA/WIN_Leitor_cod_barras_desconhecidos.wdw:197/326–329. The memory result has explicit caller ownership instead of a shared dynamic HFSQL source.
+
+U-WB2879B-01/02/05 retain designer/native table/input coercion and actual repair caller acceptance. This screen opens after a real nonempty unknown result from the scanner development bridge; no fixture supplies its rendered rows.

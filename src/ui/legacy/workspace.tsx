@@ -4,7 +4,7 @@ import type { LegacyLayout } from "./layout";
 import type { WindowGeometryStore } from "../../application/window-geometry";
 import { windowGeometryStore } from "../../infrastructure/window-geometry";
 
-interface WindowSpec { layout: LegacyLayout; content: ReactNode }
+export interface WindowSpec { layout: LegacyLayout; content: ReactNode; key?: string; onClose?: () => void }
 interface WindowEntry extends WindowSpec { id: string; x: number; y: number; width: number; height: number; z: number; minimized: boolean; maximized: boolean }
 type ResizeEdge = "n" | "e" | "s" | "w" | "ne" | "nw" | "se" | "sw";
 const resizeEdges: ResizeEdge[] = ["n", "e", "s", "w", "ne", "nw", "se", "sw"];
@@ -73,6 +73,13 @@ export function WdWorkspace({ children, geometryStore = windowGeometryStore }: {
     setWindows(previous => previous.map(entry => entry.id === id ? { ...entry, z } : entry));
   };
   const open: OpenWindow = spec => {
+    const existing = spec.key ? windows.find(entry => entry.key === spec.key) : undefined;
+    if (existing) {
+      const z = ++stack.current;
+      setWindows(previous => previous.map(entry => entry.id === existing.id ? { ...entry, minimized: false, z } : entry));
+      requestFocus(value => value + 1);
+      return;
+    }
     if (!spec.layout.window.size) throw new Error("Workspace window size unresolved");
     const size = spec.layout.window.size, area = canvas.current!;
     const id = `workspace-window-${++sequence.current}`, z = ++stack.current;
@@ -88,7 +95,7 @@ export function WdWorkspace({ children, geometryStore = windowGeometryStore }: {
   };
   const close = (id: string) => {
     const entry = windows.find(item => item.id === id);
-    if (entry) saveGeometry(geometryStore, entry);
+    if (entry) { saveGeometry(geometryStore, entry); entry.onClose?.(); }
     focused.current.delete(id);
     setWindows(previous => previous.filter(entry => entry.id !== id));
     requestFocus(value => value + 1);

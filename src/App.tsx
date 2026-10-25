@@ -1,3 +1,9 @@
+import { additionalWorkshopWindows } from "./ui/workshop-windows";
+import ReportFiltersWorkflow from "./ui/report-filters";
+import StartupWorkflow from "./ui/startup";
+import { TouchKeyboardWorkflow } from "./ui/touch-keyboard";
+import { DialogProvider } from "./ui/legacy/dialogs";
+import StockReportsWorkflow from "./ui/stock-reports";
 import { useState } from "react";
 import { readNativeInfo } from "./infrastructure/native";
 import type { NativeInfo } from "./bindings/native";
@@ -21,6 +27,8 @@ import RepairOrdersWorkflow from "./ui/repair-orders";
 import RepairMaterialsWorkflow from "./ui/repair-materials";
 
 import RepairLaborWorkflow from "./ui/repair-labor";
+
+import ReportsWorkflow from "./ui/reports";
 
 export default function App({ preview }: { preview: boolean }) {
   const [info, setInfo] = useState<NativeInfo | null>(null);
@@ -50,6 +58,15 @@ export default function App({ preview }: { preview: boolean }) {
   if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "repair-orders") return <RepairOrdersWorkflow />;
   if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "repair-materials") return <RepairMaterialsWorkflow />;
   if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "repair-labor") return <RepairLaborWorkflow />;
+  if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "reports") return <ReportsWorkflow />;
+  if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "stock") return <StockReportsWorkflow mode="documents" />;
+  if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "inventory") return <StockReportsWorkflow mode="inventory" />;
+  if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "stock-rebuild") return <StockReportsWorkflow mode="rebuild" />;
+  if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "stock-scanner") return <StockReportsWorkflow mode="scanner" />;
+  if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "stock-statement") return <StockReportsWorkflow mode="statement" />;
+  if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "menu") return <StartupWorkflow additionalWindows={additionalWorkshopWindows} />;
+  if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "touch-keyboards") return <DialogProvider><TouchKeyboardWorkflow /></DialogProvider>;
+  if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "report-filters") return <ReportFiltersWorkflow />;
   return <main>
     {preview && <aside role="status" data-testid="foundation-preview">Browser preview — dados simulados; não verifica o ambiente nativo.</aside>}
     <h1>Gestão de Oficinas</h1>
@@ -72,6 +89,9 @@ export default function App({ preview }: { preview: boolean }) {
     {import.meta.env.DEV && <p><a data-testid="repair-orders-launcher" href="/?workflow=repair-orders">Ordens de Reparação</a></p>}
     {import.meta.env.DEV && <p><a data-testid="repair-materials-launcher" href="/?workflow=repair-materials">Materiais de Reparação</a></p>}
     {import.meta.env.DEV && <p><a data-testid="repair-labor-launcher" href="/?workflow=repair-labor">Tempos de Reparação</a></p>}
+    {import.meta.env.DEV && <p><a data-testid="reports-launcher" href="/?workflow=reports">Relatórios</a></p>}
+    {import.meta.env.DEV && <p><a data-testid="stock-launcher" href="/?workflow=stock">Stocks</a></p>}
+    {import.meta.env.DEV && <p><a data-testid="menu-launcher" href="/?workflow=menu">Gestão de Oficinas — Menu</a></p>}
     <button data-testid="foundation-inspect" aria-disabled={pending} aria-busy={pending} onClick={() => void inspect()}>Verificar ambiente</button>
     {pending && <p role="status">A verificar…</p>}
     {failed && <p role="alert">Não foi possível verificar o ambiente. Tente novamente.</p>}

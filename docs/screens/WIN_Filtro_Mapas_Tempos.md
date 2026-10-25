@@ -1,12 +1,14 @@
 # Screen spec — WIN_Filtro_Mapas_Tempos
 
-Evidence `legacy/GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Tempos.wdw`, `dossier: WIN_Filtro_Mapas_Tempos`, `docs/mapping/WIN_Filtro_Mapas_Tempos.md`. Step 0 only.
+Evidence `legacy/GestaoOficinas_TesteIA/WIN_Filtro_Mapas_Tempos.wdw`, `dossier: WIN_Filtro_Mapas_Tempos`, `docs/mapping/WIN_Filtro_Mapas_Tempos.md`. Source contract; initial implementation below.
 
 ## Contract
 
 Preview labor by order/mechanic/vehicle.
 
 Modes ordem_reparacao plane1, mecanico_descriminado/mecanico_resumo plane2,viatura plane3. Dates today, order1..9999999999. Expand times 00:00:00..23:59:59. Lower nonempty/nonzero choice copies upper. Exact report argument order in ledger.
+
+Initial implementation: `src/ui/report-filters.tsx` opens all four modes with existing mechanic/vehicle pickers and shared report preview/PDF. Matching dossier typo alias supplies only the missing preview-button metadata; generated layout stays intact. Exact numeric strings retain source masks. Mechanic zero defaults, malformed numeric/date coercion and native keyboard/printing remain U-WA6D3FA-01/02/05; no implicit unlimited range is introduced. Non-legacy helpers are `report-filter-diagnostic`, `report-filters-launcher`, `report-filter-labor-*`. Pure and installed-Chrome/PDF checks cover every report branch and lower mechanic cancel/copy behavior; source/native goldens and parity completion remain pending.
 
 Caller arguments/results and native buffer changes: mapping entry/event ledger.
 

@@ -112,3 +112,10 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | Trigger/source | Exact argument/resource | Kind and buttons | Default/Esc |
 | --- | --- | --- | --- |
 | legacy/GestaoOficinas_TesteIA/WIN_Table_cab_stocks.wdw:862 | 0 | YesNo | U-W7C9411-04; exact branch result in mapping event ledger |
+
+
+## Initial MIG11 implementation and retained gaps
+
+Initial implementation uses the real protected API/PostgreSQL list and nested editor, retaining query join multiplicity, max+1 numbering, source refresh and the deletion arithmetic in legacy/GestaoOficinas_TesteIA/WIN_Table_cab_stocks.wdw:860–907. The source HFilter `descricao` resolves to documentos.Descricao in QRY_select_cab_stocks, while the visible description column binds Descricao_ca. Dates trigger the same date-free filter. Deletion intentionally applies stock1 plus/every-other minus, including the source bug; no silent reversal.
+
+U-W7C9411-01/02/03/04/05 retain native/designer/default/order/current-buffer and numeric-boundary acceptance. Atomic parameterized save/delete and table locks follow ADR006; source unchecked partial writes are not reproduced. A vanished/ambiguous/unrepresentable target returns a typed diagnostic without a new business message. Development route `?workflow=stock` is not production navigation. Source JPG captions correct extraction typography locally; generated layouts remain unchanged.

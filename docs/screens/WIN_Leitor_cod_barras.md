@@ -88,3 +88,10 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | Trigger/source | Exact argument/resource | Kind and buttons | Default/Esc |
 | --- | --- | --- | --- |
 | legacy/GestaoOficinas_TesteIA/WIN_Leitor_cod_barras.wdw:418 | "A leitura do ficheiro falhou, verifique o caminho" | Info | U-WAFCFDF-04; exact branch result in mapping event ledger |
+
+
+## Initial MIG11 implementation and retained gaps
+
+Initial implementation obtains actual postos Codigo1→Terminais configuration, parses starts plus lengths with 1-based Middle semantics, removes literal spaces and stops at the first empty line. Confirm partitions each row through real barcode lookup and returns explicit in-memory known/unknown arrays rather than creating dynamic HFSQL scratch files (legacy/GestaoOficinas_TesteIA/WIN_Leitor_cod_barras.wdw:329–430). Cancel returns exact fechou.
+
+U-WAFCFDF-01/03/05: native configured-path/device access and legacy text encoding/text30 coercion remain open. The explicit development bridge accepts a selected UTF8 file, uses fatal decoding and retains original text/codepoints; it never reads arbitrary server paths or silently repairs an encoding. The added stock-scanner-file upload/stock-scanner-returned result controls are non-legacy. Caller StockScannerDialog takes sourceText and returns the real partition; actual repair-material caller/native file adapter remain integration gates. U02/04 retain native/default/message fidelity. Development route `?workflow=stock-scanner`.

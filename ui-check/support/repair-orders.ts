@@ -6,6 +6,7 @@ import { createServer } from "vite";
 import { startIsolatedPostgres } from "../../apps/server/test-support/postgres";
 import { migrate } from "../../apps/server/src/db/migrate";
 import { createApp } from "../../apps/server/src/app";
+import { createReportRenderer } from "../../apps/server/src/reports/renderer";
 import { developmentSessions } from "../../apps/server/src/development-sessions";
 
 type RepairServer = { origin: string; database: Client };
@@ -78,7 +79,7 @@ export const test = base.extend<TestFixtures, WorkerFixtures>({
       database = await engine.database(); await migrate(database);
       const name = (await database.query<{ name: string }>("SELECT current_database() AS name")).rows[0].name;
       const connect = () => engine.connect(name);
-      const options = { repairLaborConnect: connect, repairMaterialsConnect: connect, articleConnect: connect, unitConnect: connect, descriptiveStateConnect: connect, repairOrderConnect: connect, customerConnect: connect, vehicleConnect: connect,
+      const options = { reportConnect: connect, reportRenderer: createReportRenderer(), repairLaborConnect: connect, repairMaterialsConnect: connect, articleConnect: connect, unitConnect: connect, descriptiveStateConnect: connect, repairOrderConnect: connect, customerConnect: connect, vehicleConnect: connect,
         mechanicsConnect: connect, userConnect: connect, development: developmentSessions(origin) };
       app = createApp(options); await app.listen({ host: "127.0.0.1", port: 0 });
       const address = app.server.address();

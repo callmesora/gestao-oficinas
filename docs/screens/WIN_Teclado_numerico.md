@@ -98,3 +98,7 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | Trigger/source | Exact argument/resource | Kind and buttons | Default/Esc |
 | --- | --- | --- | --- |
 | legacy/GestaoOficinas_TesteIA/WIN_Teclado_numerico.wdw:282 | "Valor fora dos limites ("+nLimiteInferior+" - "+nLimiteSuperior+")" | Info | U-W291790-04; exact branch result in mapping event ledger |
+
+## Initial implementation checkpoint
+
+Initial reusable implementation: `NumericTouchKeyboardDialog`/`TouchKeyboardDialog` and pure numeric keyboard state preserve initial16.<decimals> fixed display, first-write0., decimal mode/precision, inclusive per-key bounds, sign toggle, C/physical Backspace clear-all, caption7 and exact original-on-cancel. Source Val result crosses the target boundary as an exact decimal string (ADR002); initial ties use the explicit half-up U05 default. Bounds refusal uses the exact source Info and returns focus to the manual input. Shared title-bar-free geometry/two-cell sprite adaptation follows Alfa's retained U01/U02 defaults. Real touch/physical browser tests preserve values beyond2^53. Native mask/locale/coercion, precise system font and physical encoded key equivalence remain U01/U02/U04/U05; no runtime parity promotion.

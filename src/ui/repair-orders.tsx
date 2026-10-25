@@ -1,3 +1,6 @@
+import { useReportPreview } from "./reports";
+import { reportContext } from "./report-callers";
+import { repairOrderReportSnapshot } from "../application/reports";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { repairOrderInitialFilters, repairOrderPriorityLabel, repairOrderSelect, repairOrderTimerMilliseconds, type RepairOrderList, type RepairOrderListRow, type RepairOrderStateFilter } from "../../packages/domain/src/repair-orders";
 import { dateEntryDisplay, dateEntryInitial, dateEntryResult, type DateEntryDraft } from "../../packages/domain/src/date-entry";
@@ -91,6 +94,8 @@ function RadDate({ name, draft, invalid, disabled, inputRef, onChange }: { name:
 }
 
 export function RepairOrderListScreen({ repositories }: { repositories: Repositories }) {
+  const reports = useReportPreview();
+  const [reportReady, setReportReady] = useState(false);
   const close = useWorkspaceClose(), { message, resource } = useDialogs();
   const [draft, setDraft] = useState<Draft | null>(null), [initial, setInitial] = useState<Initial | null>(null);
   const [rows, setRows] = useState<RepairOrderListRow[]>([]), [selection, setSelection] = useState<string | null>(null), [stateSelection, setStateSelection] = useState<string | null>(null);
@@ -114,7 +119,7 @@ export function RepairOrderListScreen({ repositories }: { repositories: Reposito
       const result = await repositories.orders.list(query);
       if (request !== owner.current) return;
       if (result.kind !== "loaded") { setDiagnostic(result.kind); return; }
-      setRows(result.orders); activeQuery.current = query;
+      setRows(result.orders); activeQuery.current = query; setReportReady(true);
       setSelection(header ? selectAfterTableRead(result.orders, previous, header.term ? { term: header.term, value: row => displayed(row, header.key) } : undefined) : repairOrderSelect(result.orders, previousNumero, entry));
       if (!header && plateInput.current) plateInput.current.setSelectionRange(plateInput.current.value.length, plateInput.current.value.length);
     } catch { if (request === owner.current) setDiagnostic("transport"); }
@@ -281,7 +286,8 @@ export function RepairOrderListScreen({ repositories }: { repositories: Reposito
     <RadButton name="BTN_Alterar" disabled={busy || reading || !rows.some(row => row.id === selection && row.numero !== null)} onClick={() => edit("update")} />
     <RadButton name="BTN_Eliminar" disabled={busy || reading || !rows.some(row => row.id === selection && row.numero !== null)} onClick={() => void remove()} />
     <RadButton name="BTN_informacao" disabled={busy || reading || details !== null || !rows.some(row => row.id === selection && row.numero !== null)} onClick={() => { const numero = rows.find(row => row.id === selection)?.numero; if (numero !== null && numero !== undefined) void information(numero); }} />
-    {rad({ name: "BTN_Imprimir", kind: "button", props: { disabled: true, title: "MIG-13" } })}
+    <RadButton name="BTN_Imprimir" disabled={busy || reading || reports.busy || !reportReady} onClick={() => { if (activeQuery.current) void reports.preview(repairOrderReportSnapshot(currentRows.current, activeQuery.current, reportContext())); }} />
+    {reports.element}
     {editor && <RepairOrderFormDialog repositories={repositories} target={editor.target} finish={finishEditor} onInformation={information} />}
     {details && <RepairDetailsDialog repositories={repositories} numero={details.numero} finish={() => { setDetails(null); details.resolve(); }} />}
     {picker === "customer" && draft && <CustomerPicker repository={repositories.customers} origin={draft.customer.replaceAll(" ", "")} finish={customer => finishPicker({ customer })} />}

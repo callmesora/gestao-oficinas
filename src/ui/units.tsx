@@ -1,3 +1,4 @@
+import { useListReportPreview } from "./report-callers";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useForm } from "react-hook-form";
 import type { Unit, UnitList, UnitValues } from "../../packages/domain/src/units";
@@ -51,7 +52,8 @@ function UnitForm({ repository, unit, descriptions, finish }: { repository: Unit
   </WdModal>;
 }
 
-function UnitListScreen({ repository }: { repository: UnitRepository }) {
+export function UnitListScreen({ repository }: { repository: UnitRepository }) {
+  const report = useListReportPreview("RPT_List_unidades");
   const close = useWorkspaceClose(), { resource, message } = useDialogs();
   const [query, setQuery] = useState<UnitList>({}), [refresh, setRefresh] = useState(0);
   const [rows, setRows] = useState<Unit[]>([]), [selection, setSelection] = useState<string | null>(null);
@@ -115,7 +117,8 @@ function UnitListScreen({ repository }: { repository: UnitRepository }) {
     <WdButton control={controlOf(listLayout, "BTN_Modificar")} disabled={!ready || busy} onClick={() => { if (current) setForm({ unit: current }); }} />
     <WdButton control={controlOf(listLayout, "BTN_Delete")} disabled={!ready || busy} onClick={() => void remove()} />
     <WdButton control={controlOf(listLayout, "BTN_Fechar")} onClick={close} />
-    <WdButton control={controlOf(listLayout, "BTN_Imprimir")} disabled title="MIG-13" />
+    <WdButton control={controlOf(listLayout, "BTN_Imprimir")} disabled={report.busy} onClick={report.preview} />
+    {report.element}
     {form && <UnitForm repository={repository} unit={form.unit} descriptions={rows.flatMap(row => row.Descricao === null ? [] : [row.Descricao])} finish={saved => { const editing = form.unit !== null; setForm(null); if (saved || editing) setRefresh(value => value + 1); }} />}
     {diagnostic && <output data-testid="unit-list-diagnostic">{diagnostic}</output>}
   </div></div>;

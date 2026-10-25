@@ -82,3 +82,10 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | Trigger/source | Exact argument/resource | Kind and buttons | Default/Esc |
 | --- | --- | --- | --- |
 | legacy/GestaoOficinas_TesteIA/WIN_inventario_Reconstrucao.wdw:259 | "Reconstrução terminada" | Info | U-WB2F707-04; exact branch result in mapping event ledger |
+
+
+## Initial MIG11 implementation and retained gaps
+
+Initial implementation reuses the actual protected rebuild operation and source success Info before close; Não/chrome closure continue into inventory because the source menu ignores the dialog result. Source JPG supplies the full two-line advisory and Sim/Não captions. The underlying arithmetic is the WIN_Reconstrucao_Stocks operation.
+
+U-WB2F707-03/05: ADR006 refuses before zeroing stock if movement document lookup is missing/ambiguous/empty or quantity is NULL; no unknown HFSQL buffer/coercion is guessed. All supported quantities rebuild atomically with rollback on failure. Native/designer/message-shell U01/02/04 remain open.

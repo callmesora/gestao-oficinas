@@ -94,3 +94,7 @@ Every SRC event/message has exact arguments,sequence,focus,visibility,refresh an
 | Trigger/source | Exact argument/resource | Kind and buttons | Default/Esc |
 | --- | --- | --- | --- |
 | legacy/GestaoOficinas_TesteIA/WIN_MENU.wdw:911 | "Terminado" | Info | U-WCB13D1-04; exact branch result in mapping event ledger |
+
+## Initial implementation checkpoint
+
+MIG12 initial development implementation: `src/ui/startup.tsx` and `startup-windows.tsx` open the actual existing list/form workflows in one shared workspace; keyed opens restore the same mounted instance. Explicit `artigos=1` and `modulo=t/m` query launch adapters preserve source presentation precedence; native command-line integration remains U01/U02. Source toolbar child layout positions use the JPG's horizontal arrangement because extracted Layout children overlap. Optional root integration supplies material/labor/stock/report definitions. `initialiseStartup` creates only source system defaults; an empty user file reports bootstrapRequired and never copies the source embedded credential. A separate labelled development entry uses the existing authorized ADR009 identity, with no successful source-login claim. Production bootstrap/credential transition, updater/INI/remote connection, native process termination and menu drag/resize/geometry acceptance remain open; source customer-reassignment utility and inventory reconstruction→inventory sequence are not implemented here. No parity promotion from this checkpoint.

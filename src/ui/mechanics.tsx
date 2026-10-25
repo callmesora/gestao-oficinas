@@ -1,3 +1,4 @@
+import { useListReportPreview } from "./report-callers";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useForm } from "react-hook-form";
 import { mechanicCode, mechanicRequiredMessage, type MechanicListRow, type MechanicRecord, type MechanicList, type MechanicValues } from "../../packages/domain/src/mechanics";
@@ -66,6 +67,7 @@ function MechanicForm({ repository, mechanic, descriptions, finish }: { reposito
 }
 
 export function MechanicListScreen({ repository, selecting = false, finish }: { repository: MechanicRepository; selecting?: boolean; finish?: (code?: number) => void }) {
+  const report = useListReportPreview("RPT_List_mecanicos");
   const close = useWorkspaceClose(finish ? () => finish() : undefined), { resource } = useDialogs();
   const [query, setQuery] = useState<MechanicList>({ sort: "inativo", descending: false }), [refresh, setRefresh] = useState(0);
   const [rows, setRows] = useState<MechanicListRow[]>([]), [selection, setSelection] = useState<string | null>(null);
@@ -149,7 +151,8 @@ export function MechanicListScreen({ repository, selecting = false, finish }: { 
     <WdButton control={controlOf(listLayout, "Btn_New")} hidden={selecting} disabled={!ready || busy} onClick={() => setForm({ mechanic: null })} />
     <WdButton control={controlOf(listLayout, "BTN_Modificar")} hidden={selecting} disabled={!ready || busy} onClick={() => { if (current) void modify(current.id); }} />
     <WdButton control={controlOf(listLayout, "BTN_Delete")} hidden={selecting} disabled={!ready || busy} onClick={() => void remove()} />
-    <WdButton control={controlOf(listLayout, "BTN_Imprimir")} hidden={selecting} disabled title="MIG-13" />
+    <WdButton control={controlOf(listLayout, "BTN_Imprimir")} hidden={selecting} disabled={report.busy} onClick={report.preview} />
+    {report.element}
     <WdButton control={{ ...controlOf(listLayout, "BTN_Fechar"), ...(selecting ? { y: 506, height: 38 } : {}) }} disabled={busy} onClick={close} />
     <WdButton control={{ ...controlOf(listLayout, "BTN_selecionar"), visible: selecting }} disabled={!ready || busy} onClick={() => { if (current) choose(current); }} />
     <WdButton control={{ ...controlOf(listLayout, "BTN_anterior"), visible: selecting }} disabled={!ready || busy} onClick={() => move(-1)} />

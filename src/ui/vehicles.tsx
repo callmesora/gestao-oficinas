@@ -1,3 +1,4 @@
+import { useListReportPreview } from "./report-callers";
 import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import type { Vehicle, VehicleFilter, VehicleListRow } from "../../packages/domain/src/vehicles";
@@ -115,7 +116,8 @@ export function VehicleEditor({ repositories, initialRegistration = "", finish }
   return <VehicleForm repositories={repositories} vehicle={null} initialRegistration={initialRegistration} finish={finish} />;
 }
 
-function VehicleList({ repositories, selecting = false, origin = "", selected, closeOverride }: { repositories: Repositories; selecting?: boolean; origin?: string; selected?: (registration: string) => void; closeOverride?: (registration: string) => void }) {
+export function VehicleList({ repositories, selecting = false, origin = "", selected, closeOverride }: { repositories: Repositories; selecting?: boolean; origin?: string; selected?: (registration: string) => void; closeOverride?: (registration: string) => void }) {
+  const report = useListReportPreview("RPT_List_Viaturas");
   const closeWindow = useWorkspaceClose(closeOverride ? () => closeOverride(origin) : undefined), { resource, message } = useDialogs();
   const [mode, setMode] = useState<VehicleFilter["mode"]>("todos"), [term, setTerm] = useState("");
   const [filter, setFilter] = useState<VehicleFilter>({ mode: "todos", term: "" }), [refresh, setRefresh] = useState(0);
@@ -208,7 +210,8 @@ function VehicleList({ repositories, selecting = false, origin = "", selected, c
     <WdButton control={controlOf(listLayout, "BTN_Delete")} disabled={!ready || busy} onClick={() => void remove()} />
     <WdButton control={controlOf(listLayout, "BTN_Fechar")} onClick={closeWindow} />
     <WdButton control={controlOf(listLayout, "BTN_selecionar")} hidden={!selecting} disabled={!ready || busy} onClick={() => { if (ready && !pending.current && current) choose(current); }} />
-    <WdButton control={controlOf(listLayout, "BTN_Imprimir")} disabled title="MIG-13" />
+    <WdButton control={controlOf(listLayout, "BTN_Imprimir")} disabled={report.busy} onClick={report.preview} />
+    {report.element}
     {form && <VehicleForm repositories={repositories} vehicle={form.vehicle} finish={saved => {
       const prior = form.prior, editing = form.vehicle !== null; setForm(null);
       if (saved || editing) { reselect.current = prior; setRefresh(value => value + 1); }
