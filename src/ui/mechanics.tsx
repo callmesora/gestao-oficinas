@@ -13,12 +13,11 @@ import { DialogProvider, useDialogs } from "./legacy/dialogs";
 import { WdWorkspace, useWorkspace, useWorkspaceClose } from "./legacy/workspace";
 import { WdModal, type WdModalHandle } from "./legacy/modal";
 
-// Scoped JPG-backed captions and residual inactive width are inferred under ADR-003/U01.
+// Scoped JPG-backed captions follow ADR-003/U01; column widths come from the generated dossier metadata.
 const captions: Record<string, string> = { EDT_Descricao: "Descrição", CBOX_Inativo: "Inativo" };
 const displayedFormLayout = { ...formLayout, controls: formLayout.controls.map(control => captions[control.name] ? { ...control, caption: captions[control.name] } : control) };
 const tableSource = controlOf(listLayout, "TABLE_mecanicos");
-// Subtract the ADR-013 16px scrollbar and two 1px borders from the source viewport before its known columns.
-const displayedTable = { ...tableSource, columns: tableSource.columns?.map(column => column.name === "COL_Descricao" ? { ...column, title: "Descrição" } : column.name === "COL_inativo" ? { ...column, width: tableSource.width! - 16 - 2 - 61 - 440 } : column) };
+const displayedTable = { ...tableSource, columns: tableSource.columns?.map(column => column.name === "COL_Descricao" ? { ...column, title: "Descrição" } : column) };
 const formTitle = controlOf(formLayout, "RADTitle").caption!;
 const columnKeys: Record<string, NonNullable<MechanicList["sort"]>> = { COL_Codigo: "Codigo", COL_Descricao: "Descricao", COL_inativo: "inativo" };
 const searchValue = (row: MechanicListRow, key: NonNullable<MechanicList["sort"]>) => key === "inativo" ? row.inativo === null ? "" : row.inativo ? "1" : "0" : String(row[key] ?? "");

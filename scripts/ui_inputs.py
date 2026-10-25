@@ -21,6 +21,11 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def ordered_paths(paths):
+    """Order paths consistently for source selection and manifest output."""
+    return sorted(paths, key=lambda path: path.as_posix())
+
+
 def generate(destination):
     latest = screen_layout.load(Path('analysis-local/latest.json'))
     units = sorted(path.stem for path in Path('docs/screens').glob('*.md'))
@@ -46,7 +51,7 @@ def generate(destination):
     stems = defaultdict(list)
     sources = {}
     for name in required:
-        candidates = sorted(files[name.lower()])
+        candidates = ordered_paths(files[name.lower()])
         if not candidates:
             raise ValueError(f'Missing project asset: {name}')
         if len({digest(path) for path in candidates}) != 1:
@@ -74,7 +79,7 @@ def generate(destination):
     if result['missing']:
         raise ValueError('Skin export is incomplete')
     outputs = {}
-    for path in sorted([*layout_dir.glob('*.layout.json'), *skin_dir.glob('*.png')]):
+    for path in ordered_paths([*layout_dir.glob('*.layout.json'), *skin_dir.glob('*.png')]):
         relative = path.relative_to(destination).as_posix()
         entry = {'sha256': digest(path)}
         if path.suffix == '.png':

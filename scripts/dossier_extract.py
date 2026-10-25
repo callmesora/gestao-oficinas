@@ -25,7 +25,7 @@ DETAIL = re.compile(r'^(Button|Edit control|Caption|Image|Supercontrol|Table|Col
 # Control table rows: "EDT_Codigo 14 31 158 25 0 Active Numeric" (windows, pixels) or
 # "STC_Codigo Caption 0.00 0.00 6.09 14.66 0.10 Solid TBL-" (reports, millimetres).
 COLUMN_ROW = re.compile(r'^(\d+) (Active|Read-only|Read-onl|Grayed|Inactive) (Left|Right|Center|Justified) '
-                        r'(Top|Center|Bottom) (.+)$')
+                        r'(Top|Center|Bottom)(?: (.+))?$')
 WINDOW_ROW = re.compile(r'^([A-Za-z_][\w$]*) (-?\d+) (-?\d+) (\d+) (\d+) (\d+)(?: (.*))?$')
 REPORT_ROW = re.compile(r'^([A-Za-z_][\w$]*) ([A-Z][a-z]+(?: [a-z]+)*) (-?\d+\.\d+) (-?\d+\.\d+) (\d+\.\d+) (\d+\.\d+)(?: (.*))?$')
 STATES = ('Active', 'Read-only', 'Read-onl', 'Grayed', 'Inactive')
@@ -243,7 +243,7 @@ def parse_items(lines):
 
 def parse_rows(lines, report=False):
     """Control table rows: position, size, state, input type (windows) or type and bound item (reports), and table
-    column rows ("COL_Codigo" then "80 Active Right Center Numeric": width, state, alignments, input type)."""
+    column rows ("COL_Codigo" then "80 Active Right Center Numeric": width, state, alignments, optional input type)."""
     rows, previous, previous_name = {}, None, None
     for line in lines:
         line = line.strip()
@@ -259,7 +259,9 @@ def parse_rows(lines, report=False):
         column = COLUMN_ROW.match(line)
         if column and previous_name:
             rows[previous_name] = {'width': int(column[1]), 'state': column[2], 'h_align': column[3],
-                                   'v_align': column[4], 'input_type': column[5]}
+                                   'v_align': column[4]}
+            if column[5] is not None:
+                rows[previous_name]['input_type'] = column[5]
             previous_name = None
             continue
         previous_name = line if re.fullmatch(r'COL_\w+|[A-Za-z_]\w*', line) else None

@@ -143,7 +143,7 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
         onClick={() => { container.current?.focus(); onSelect(row.id); }} onDoubleClick={() => onActivate?.(row.id)}>
         {row.getVisibleCells().map(value => {
           const source = columnOf(value.column.id);
-          return <td key={value.id} style={{ height: effectiveRowHeight, textAlign: source.h_align === "Right" ? "right" : "left" }}
+          return <td key={value.id} style={{ height: effectiveRowHeight, textAlign: source.h_align === "Right" ? "right" : source.h_align === "Center" ? "center" : "left" }}
             onMouseEnter={event => {
               const element = event.currentTarget;
               if (options?.truncated_tooltip === "Yes" && element.scrollWidth > element.clientWidth) element.title = element.textContent ?? "";

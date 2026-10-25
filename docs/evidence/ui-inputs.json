@@ -127,7 +127,7 @@
       ]
     },
     "MediaPlayer_Bg_Base.gif": {
-      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Bg_Base.gif",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/MediaPlayer_Bg_Base.gif",
       "sha256": "f4f6d6826b182c7734afc1a201839baa4ef37ef0f6dc4a056f6d55d32806c4bc",
       "states": 1,
       "outputs": [
@@ -135,7 +135,7 @@
       ]
     },
     "MediaPlayer_Btn_Close.gif": {
-      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Btn_Close.gif",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/MediaPlayer_Btn_Close.gif",
       "sha256": "790aec74bbf75d6c1bda180f306c8ea6bb7fa7664492f5170c5b71eae1df5a1d",
       "states": 1,
       "outputs": [
@@ -143,7 +143,7 @@
       ]
     },
     "MediaPlayer_Btn_Close_Anim.gif": {
-      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Btn_Close_Anim.gif",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/MediaPlayer_Btn_Close_Anim.gif",
       "sha256": "51bd7144f30baa479c806ea208c82dd3bdcdc827de7e23d38db6a2f4897d0636",
       "states": 5,
       "outputs": [
@@ -156,7 +156,7 @@
       ]
     },
     "MediaPlayer_Btn_Maximise.gif": {
-      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Btn_Maximise.gif",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/MediaPlayer_Btn_Maximise.gif",
       "sha256": "30e1eecb0e04c76b61d228f2a8ac6df5e697670c4c6993be8c475817e9576203",
       "states": 1,
       "outputs": [
@@ -164,7 +164,7 @@
       ]
     },
     "MediaPlayer_Btn_Maximize_Anim.gif": {
-      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Btn_Maximize_Anim.gif",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/MediaPlayer_Btn_Maximize_Anim.gif",
       "sha256": "ae121f11e45baf359d9b5a9eebb93e931f677dd08934f5a9e90fbec711a4bb92",
       "states": 5,
       "outputs": [
@@ -177,7 +177,7 @@
       ]
     },
     "MediaPlayer_Btn_Minimize.gif": {
-      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Btn_Minimize.gif",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/MediaPlayer_Btn_Minimize.gif",
       "sha256": "880653af52340ee4c968224a77fe8ee05ffc462cce41faae30b171faafec87db",
       "states": 1,
       "outputs": [
@@ -185,7 +185,7 @@
       ]
     },
     "MediaPlayer_Btn_Minimize_Anim.gif": {
-      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Btn_Minimize_Anim.gif",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/MediaPlayer_Btn_Minimize_Anim.gif",
       "sha256": "4b99324c71507a0d727a31b55fca1b2d6659d55968ff6b2d797a84e51ffe7e26",
       "states": 5,
       "outputs": [
@@ -198,7 +198,7 @@
       ]
     },
     "MediaPlayer_Btn_UMC.gif": {
-      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Btn_UMC.gif",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/MediaPlayer_Btn_UMC.gif",
       "sha256": "3d40a37867f949dcc13ec086806d8b5d30bcc50b5b28d0ed3d652e9b2ab10116",
       "states": 1,
       "outputs": [
@@ -206,7 +206,7 @@
       ]
     },
     "MediaPlayer_Btn_UMC_Anim.gif": {
-      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Btn_UMC_Anim.gif",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/MediaPlayer_Btn_UMC_Anim.gif",
       "sha256": "233399a70a5f3d4f90287e7270b494223c83b943c7bb5d67ae1c308cf0748abf",
       "states": 5,
       "outputs": [
@@ -219,7 +219,7 @@
       ]
     },
     "MediaPlayer_Btn_anim.gif": {
-      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Btn_anim.gif",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/MediaPlayer_Btn_anim.gif",
       "sha256": "7f151e9a9f0438fc79a03d6036662450f5bdf4649612765a59f9e68eb4513463",
       "states": 5,
       "outputs": [
@@ -232,7 +232,7 @@
       ]
     },
     "MediaPlayer_Cbox_Anim.gif": {
-      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Cbox_Anim.gif",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/MediaPlayer_Cbox_Anim.gif",
       "sha256": "b6c5bb70a873df0d9acd0164763acc9deb9f72f84e4911066fa4c9b13abfb435",
       "states": 1,
       "outputs": [
@@ -240,7 +240,7 @@
       ]
     },
     "MediaPlayer_Radio_Anim.gif": {
-      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/MediaPlayer_Radio_Anim.gif",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/MediaPlayer_Radio_Anim.gif",
       "sha256": "3648359c2c6d5f0f58d7ef833dc6a0afeff3b52d8997b8cb2ca63a293503299c",
       "states": 1,
       "outputs": [
@@ -248,7 +248,7 @@
       ]
     },
     "VST01050.png": {
-      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/VST01050.png",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/VST01050.png",
       "sha256": "019495012dd7d7f5d83dad7c982a70f25c203fe85216a9f489068c89093e8a77",
       "states": 5,
       "outputs": [
@@ -261,7 +261,7 @@
       ]
     },
     "VST010501.png": {
-      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/VST010501.png",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/VST010501.png",
       "sha256": "2ac651e5c5a308fa33fc11fbebe9a9988cde840c1b84617b095be7047791884f",
       "states": 5,
       "outputs": [
@@ -274,7 +274,7 @@
       ]
     },
     "VST01370.png": {
-      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/VST01370.png",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/VST01370.png",
       "sha256": "636547e06491e2eac40cd1917fff8e455413cfd0fa60b9ba487e9c955508f85d",
       "states": 5,
       "outputs": [
@@ -287,7 +287,7 @@
       ]
     },
     "VST01372.png": {
-      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/VST01372.png",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/VST01372.png",
       "sha256": "84e2f6e9ce2e0af58f157eb4e04b30d3f684672c2daa0f2691a855ffb933d6c7",
       "states": 5,
       "outputs": [
@@ -300,7 +300,7 @@
       ]
     },
     "VST01605.png": {
-      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/VST01605.png",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/VST01605.png",
       "sha256": "494dc74520393c381273ccba32fa6a411b17e84192a1f4eb1ca97800e4d3ae1d",
       "states": 5,
       "outputs": [
@@ -313,7 +313,7 @@
       ]
     },
     "VST01610.png": {
-      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/VST01610.png",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/VST01610.png",
       "sha256": "6182477185654df8115ed30c9410fd2e7374ee330d0e467ce0bf0bdf4d608029",
       "states": 5,
       "outputs": [
@@ -326,7 +326,7 @@
       ]
     },
     "VST01620.png": {
-      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/VST01620.png",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/VST01620.png",
       "sha256": "355dc50a8a47bffc3d31a1421b3ee6a1a021e7d40f08297076ee809c70a6940c",
       "states": 5,
       "outputs": [
@@ -339,7 +339,7 @@
       ]
     },
     "VST016202.png": {
-      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/VST016202.png",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/VST016202.png",
       "sha256": "efff3554ea6aad11dc42129960b72a80931fa34cac4384b77fbe613ce060a0da",
       "states": 5,
       "outputs": [
@@ -352,7 +352,7 @@
       ]
     },
     "VST02110.png": {
-      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/cache.gestion de sources/VST02110.png",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/VST02110.png",
       "sha256": "523677b46d5c9578f9556a30188deb04a04be0a5db73e7ff601be8473cb932a3",
       "states": 1,
       "outputs": [
@@ -360,7 +360,7 @@
       ]
     },
     "barcode_48.gif": {
-      "path": "legacy/GestaoOficinas_TesteIA/barcode_48.gif",
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/barcode_48.gif",
       "sha256": "894009bb2f6b9f6b462e0bd3af7240a697e904ba6a3bbf93eccf42286b0eb406",
       "states": 1,
       "outputs": [
@@ -473,11 +473,6 @@
     }
   },
   "outputs": {
-    "public/skin/barcode_48.png": {
-      "sha256": "b7b08a8a0ed9a1e4f0d70272c31472901f0f0be00f3070421e52d91110fb6a05",
-      "width": 48,
-      "height": 48
-    },
     "public/skin/Btn_Cancel.0.png": {
       "sha256": "0057691afeed14aa1e1a08067079beabcacbb3381d89bd819c02c8867c466276",
       "width": 16,
@@ -748,60 +743,10 @@
       "width": 260,
       "height": 92
     },
-    "public/skin/calculator_16.png": {
-      "sha256": "8b52431759a2e6678bb95ad4cedae4c0e8209a5c4d075d16fa311c6173f3b6f1",
-      "width": 16,
-      "height": 16
-    },
-    "public/skin/clients_32.png": {
-      "sha256": "5359ad0f60e941da24ecd7e8096ea7612b76916cdae1d93582474c9ee2f64bf4",
-      "width": 32,
-      "height": 32
-    },
-    "public/skin/inventory_categories_16.png": {
-      "sha256": "19b4fa1e53e8036317956eed66021f445bfc71f297b627a3f718694afc5656a5",
-      "width": 16,
-      "height": 16
-    },
-    "public/skin/inventory_categories_32.png": {
-      "sha256": "ec1a98b303b781eb1b2479e534cde574053f72c9580b279b34bb04759066b25a",
-      "width": 32,
-      "height": 32
-    },
     "public/skin/MediaPlayer_Bg_Base.png": {
       "sha256": "fc1d15a1f7c19bbff699a689c05370bad90987717acfc5706d856168f9bc252e",
       "width": 198,
       "height": 143
-    },
-    "public/skin/MediaPlayer_Btn_anim.0.png": {
-      "sha256": "4877bcc814ae3ff5ce754828a07813a4f7c24cec085ed72459496204cece89ed",
-      "width": 34,
-      "height": 24
-    },
-    "public/skin/MediaPlayer_Btn_anim.1.png": {
-      "sha256": "c3347ed6f4b1b30907b478a785ce38de8db9e9029dfe37c7169cc4c1d5a14215",
-      "width": 34,
-      "height": 24
-    },
-    "public/skin/MediaPlayer_Btn_anim.2.png": {
-      "sha256": "6da4088ed1187680763224acd60a630b8866613cc532cb4963711ddca22fe4c5",
-      "width": 34,
-      "height": 24
-    },
-    "public/skin/MediaPlayer_Btn_anim.3.png": {
-      "sha256": "b03a26ef30c6d1a407ace6075670a5b265a0ff8794cdc45b3d34709a969ff564",
-      "width": 34,
-      "height": 24
-    },
-    "public/skin/MediaPlayer_Btn_anim.4.png": {
-      "sha256": "8f1d0f1b9cc2d64a7b4018e5b914021f78b8852cfbc43d2bcd5790fbe7ffeef8",
-      "width": 34,
-      "height": 24
-    },
-    "public/skin/MediaPlayer_Btn_anim.png": {
-      "sha256": "1e87cdef930ed222815bbda91525a5bd3f4b3def693d801a83fc7f0bd7f7ca7a",
-      "width": 170,
-      "height": 24
     },
     "public/skin/MediaPlayer_Btn_Close.png": {
       "sha256": "0f59518a95c3abd5ca6ba0dc2ca6790b5ce802a83a7dcafbaf584b9d2238e039",
@@ -943,6 +888,36 @@
       "width": 135,
       "height": 19
     },
+    "public/skin/MediaPlayer_Btn_anim.0.png": {
+      "sha256": "4877bcc814ae3ff5ce754828a07813a4f7c24cec085ed72459496204cece89ed",
+      "width": 34,
+      "height": 24
+    },
+    "public/skin/MediaPlayer_Btn_anim.1.png": {
+      "sha256": "c3347ed6f4b1b30907b478a785ce38de8db9e9029dfe37c7169cc4c1d5a14215",
+      "width": 34,
+      "height": 24
+    },
+    "public/skin/MediaPlayer_Btn_anim.2.png": {
+      "sha256": "6da4088ed1187680763224acd60a630b8866613cc532cb4963711ddca22fe4c5",
+      "width": 34,
+      "height": 24
+    },
+    "public/skin/MediaPlayer_Btn_anim.3.png": {
+      "sha256": "b03a26ef30c6d1a407ace6075670a5b265a0ff8794cdc45b3d34709a969ff564",
+      "width": 34,
+      "height": 24
+    },
+    "public/skin/MediaPlayer_Btn_anim.4.png": {
+      "sha256": "8f1d0f1b9cc2d64a7b4018e5b914021f78b8852cfbc43d2bcd5790fbe7ffeef8",
+      "width": 34,
+      "height": 24
+    },
+    "public/skin/MediaPlayer_Btn_anim.png": {
+      "sha256": "1e87cdef930ed222815bbda91525a5bd3f4b3def693d801a83fc7f0bd7f7ca7a",
+      "width": 170,
+      "height": 24
+    },
     "public/skin/MediaPlayer_Cbox_Anim.png": {
       "sha256": "99f7fa291f1215401a2ac16100292e97c1b4f6480d199c4aaa06560560ae806f",
       "width": 156,
@@ -952,51 +927,6 @@
       "sha256": "dd03150db29417ebeda59428b697d65ccac727b027be4096064a9e3f579b1f31",
       "width": 144,
       "height": 12
-    },
-    "public/skin/modem_32.png": {
-      "sha256": "b98e2ac7c50fac4155990e0553e3d2623f1f73dfcb6bfdc6c7f137f69bf94241",
-      "width": 32,
-      "height": 32
-    },
-    "public/skin/note.png": {
-      "sha256": "d12fc3b2008728ea4e0a83be6eea8a4996eba71101841800c5411b8aa475f898",
-      "width": 16,
-      "height": 16
-    },
-    "public/skin/plan_3_a_48.png": {
-      "sha256": "0561e6f2b2ac4d81e4520d9958fc93b5f86a6936957fa045877a1dc06637009c",
-      "width": 48,
-      "height": 48
-    },
-    "public/skin/raw_material_24.png": {
-      "sha256": "c84a055ad02bc9c5e71d5bbf38149893738ab9bc91ccfb1dfe1cde659699854b",
-      "width": 24,
-      "height": 24
-    },
-    "public/skin/raw_material_32.png": {
-      "sha256": "13a47fbad3a6b6e06f5d87c11db0ccf35c5de22f96d838b295e07237ddc41264",
-      "width": 32,
-      "height": 32
-    },
-    "public/skin/refresh_32.png": {
-      "sha256": "ccb9edd6036a63ccd146068ca8c8681537f2d9ca3fd116a9b18c697b279b6778",
-      "width": 32,
-      "height": 32
-    },
-    "public/skin/time_frame_32.png": {
-      "sha256": "c72a72e08442befdcdc5a11ce5d08f47b5cbf16e24ccf3afaa9fa637588a8132",
-      "width": 32,
-      "height": 32
-    },
-    "public/skin/tool_32.png": {
-      "sha256": "bc661deb9be230b6f99bc14dbde4271853c73fa7fde86ad30a086038aac73339",
-      "width": 32,
-      "height": 32
-    },
-    "public/skin/traffic_lights_32.png": {
-      "sha256": "fcb80ff4376b1e4a34e696c14811e893d608fd34451145f56f9ebf07d1956cd0",
-      "width": 32,
-      "height": 32
     },
     "public/skin/VST01050.0.png": {
       "sha256": "505ea10c198e1448f0252fb623459d6c23f2133ae4a572e400cd909560f44f92",
@@ -1243,6 +1173,82 @@
       "width": 16,
       "height": 16
     },
+    "public/skin/barcode_48.png": {
+      "sha256": "b7b08a8a0ed9a1e4f0d70272c31472901f0f0be00f3070421e52d91110fb6a05",
+      "width": 48,
+      "height": 48
+    },
+    "public/skin/calculator_16.png": {
+      "sha256": "8b52431759a2e6678bb95ad4cedae4c0e8209a5c4d075d16fa311c6173f3b6f1",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/clients_32.png": {
+      "sha256": "5359ad0f60e941da24ecd7e8096ea7612b76916cdae1d93582474c9ee2f64bf4",
+      "width": 32,
+      "height": 32
+    },
+    "public/skin/inventory_categories_16.png": {
+      "sha256": "19b4fa1e53e8036317956eed66021f445bfc71f297b627a3f718694afc5656a5",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/inventory_categories_32.png": {
+      "sha256": "ec1a98b303b781eb1b2479e534cde574053f72c9580b279b34bb04759066b25a",
+      "width": 32,
+      "height": 32
+    },
+    "public/skin/modem_32.png": {
+      "sha256": "b98e2ac7c50fac4155990e0553e3d2623f1f73dfcb6bfdc6c7f137f69bf94241",
+      "width": 32,
+      "height": 32
+    },
+    "public/skin/note.png": {
+      "sha256": "d12fc3b2008728ea4e0a83be6eea8a4996eba71101841800c5411b8aa475f898",
+      "width": 16,
+      "height": 16
+    },
+    "public/skin/plan_3_a_48.png": {
+      "sha256": "0561e6f2b2ac4d81e4520d9958fc93b5f86a6936957fa045877a1dc06637009c",
+      "width": 48,
+      "height": 48
+    },
+    "public/skin/raw_material_24.png": {
+      "sha256": "c84a055ad02bc9c5e71d5bbf38149893738ab9bc91ccfb1dfe1cde659699854b",
+      "width": 24,
+      "height": 24
+    },
+    "public/skin/raw_material_32.png": {
+      "sha256": "13a47fbad3a6b6e06f5d87c11db0ccf35c5de22f96d838b295e07237ddc41264",
+      "width": 32,
+      "height": 32
+    },
+    "public/skin/refresh_32.png": {
+      "sha256": "ccb9edd6036a63ccd146068ca8c8681537f2d9ca3fd116a9b18c697b279b6778",
+      "width": 32,
+      "height": 32
+    },
+    "public/skin/time_frame_32.png": {
+      "sha256": "c72a72e08442befdcdc5a11ce5d08f47b5cbf16e24ccf3afaa9fa637588a8132",
+      "width": 32,
+      "height": 32
+    },
+    "public/skin/tool_32.png": {
+      "sha256": "bc661deb9be230b6f99bc14dbde4271853c73fa7fde86ad30a086038aac73339",
+      "width": 32,
+      "height": 32
+    },
+    "public/skin/traffic_lights_32.png": {
+      "sha256": "fcb80ff4376b1e4a34e696c14811e893d608fd34451145f56f9ebf07d1956cd0",
+      "width": 32,
+      "height": 32
+    },
+    "src/ui/legacy/WINDEVDIALOGBOX.layout.json": {
+      "sha256": "31663ca9542a5de8c9759c8f7a1c5a842f3c95d008b7342b1ba95c7c1b793efa"
+    },
+    "src/ui/legacy/WINDEVMESSAGEBOX.layout.json": {
+      "sha256": "5a9e43ac21efbf9e47843f6e11189ace949dffb9b657b77aaa0fdb3152c11884"
+    },
     "src/ui/legacy/WIN_Acesso.layout.json": {
       "sha256": "85c2154e346ddab10a777d7da5def8024c7c55e5d82c86f63e2abb6835e43d0a"
     },
@@ -1258,11 +1264,17 @@
     "src/ui/legacy/WIN_Filtro_Mapas_Tempos.layout.json": {
       "sha256": "0bfb4f254cae330cb3bd89f3b18c05bd414256a5e46a12bd6aacc7d4a194bd2d"
     },
-    "src/ui/legacy/WIN_Form_artigos.layout.json": {
-      "sha256": "2649e6fa3fa828e49d2d432dd2fd5cbb1a9a127fbd9ae337a886d105177566af"
-    },
     "src/ui/legacy/WIN_Form_Clientes.layout.json": {
       "sha256": "e5a30c4b2a61ae7654aaf64d913d540289b7197d9dfc898757ba763f01d359ab"
+    },
+    "src/ui/legacy/WIN_Form_Terminais.layout.json": {
+      "sha256": "fc0fa3752582270ed4c823f956b643fb55393ae8336f7c3636f424fd2e1f60c4"
+    },
+    "src/ui/legacy/WIN_Form_Viaturas.layout.json": {
+      "sha256": "5a902140c25375743d13a5e7a9d68a6288a82b6b6e91b78a1f72ad50d2669f23"
+    },
+    "src/ui/legacy/WIN_Form_artigos.layout.json": {
+      "sha256": "2649e6fa3fa828e49d2d432dd2fd5cbb1a9a127fbd9ae337a886d105177566af"
     },
     "src/ui/legacy/WIN_Form_documentos.layout.json": {
       "sha256": "447d159550d470affc7c65f7f3a27d96104ac62e258c45711e27ea144c4bd29c"
@@ -1279,17 +1291,11 @@
     "src/ui/legacy/WIN_Form_postos.layout.json": {
       "sha256": "4bfa9d245bc897b18e43b4ec39cc00cbcd966b32422f957ba6c656bb8f64bbca"
     },
-    "src/ui/legacy/WIN_Form_Terminais.layout.json": {
-      "sha256": "fc0fa3752582270ed4c823f956b643fb55393ae8336f7c3636f424fd2e1f60c4"
-    },
     "src/ui/legacy/WIN_Form_unidades.layout.json": {
       "sha256": "6c545c54c73289f681a5fec32ce1a888f9a0e49196b372dd89498117e4075460"
     },
     "src/ui/legacy/WIN_Form_utilizadores.layout.json": {
       "sha256": "be2bd4804824aac84214f01606d3aa5c6c2d91ac36f821b3c6411ef9385e02c5"
-    },
-    "src/ui/legacy/WIN_Form_Viaturas.layout.json": {
-      "sha256": "5a902140c25375743d13a5e7a9d68a6288a82b6b6e91b78a1f72ad50d2669f23"
     },
     "src/ui/legacy/WIN_Inserir_quantidade_password.layout.json": {
       "sha256": "98f1f22aa328d0a017e13daa4ce8a9e99b5beb39c369150e9f1fe3491d5fd420"
@@ -1306,23 +1312,23 @@
     "src/ui/legacy/WIN_Leitor_cod_barras_desconhecidos.layout.json": {
       "sha256": "47a57c9da3e0ad098a81f512e3ebb145ac667e574bfe44cff8a11f3fbee7f562"
     },
+    "src/ui/legacy/WIN_MENU.layout.json": {
+      "sha256": "d5e7fb9fadde47952159a7624c37c12a0c45fcde357f97def6d47b0e6ee95397"
+    },
     "src/ui/legacy/WIN_Mapa_Vendas.layout.json": {
-      "sha256": "7be79447567e9aedc296b66811002faafadb676cfd24eff5e0782967ebf057b0"
+      "sha256": "d22c6a5837f67578f5d9270051f1ca4b477b831c1519a0e105e8f7c33fd6251b"
     },
     "src/ui/legacy/WIN_Material_Reparacao.layout.json": {
       "sha256": "7f2a1497bf8cf6562ff8f986ef231cd379afcfedf620cdd33f85a886d7b9a23d"
     },
     "src/ui/legacy/WIN_Material_reparacao_form.layout.json": {
-      "sha256": "17c5516fb6495a142ae833168836c748704facfbfccfc8e2fa4e722e54ff4871"
-    },
-    "src/ui/legacy/WIN_MENU.layout.json": {
-      "sha256": "d5e7fb9fadde47952159a7624c37c12a0c45fcde357f97def6d47b0e6ee95397"
+      "sha256": "61fce42d48b0d2963608d547f6440f49c44b806a386db0f0e8ea01d1167aa10e"
     },
     "src/ui/legacy/WIN_Mudar_Estado.layout.json": {
       "sha256": "719902e4be57adffa3305a2bb41cd64a127f3782285dec84c49fbe884404ed03"
     },
     "src/ui/legacy/WIN_Ordens_Reparacao.layout.json": {
-      "sha256": "360479534d923dea6aa17cda5ef1c4446015dad17794ba552dd5c2ce58f0ea43"
+      "sha256": "3e7f732947c1b77e6f9c0f13082503b82288eb83a1d3e2116cdd18f78a624f75"
     },
     "src/ui/legacy/WIN_Ordens_Reparacao_Form.layout.json": {
       "sha256": "0c9531cd48a45ad45de5b02b0df29e5477b26f6f67c6bb0f00a2d32ae475fd20"
@@ -1330,20 +1336,29 @@
     "src/ui/legacy/WIN_Reconstrucao_Stocks.layout.json": {
       "sha256": "2ab4fa48fc8e402c71052063c1e5f5a1492d78c3b62aeb3606a22452591c26fd"
     },
-    "src/ui/legacy/WIN_sistema.layout.json": {
-      "sha256": "42c320ef225dca61a5be4ba788593891842db809941774653f586f79550835a2"
+    "src/ui/legacy/WIN_Table_Clientes.layout.json": {
+      "sha256": "b117f02d614b3b51934980a3dd6fa5861886579af75163235989df51d7c10b9c"
+    },
+    "src/ui/legacy/WIN_Table_Lin_Stocks.layout.json": {
+      "sha256": "1e02dcfd27d2e4797aae311d67cd4ab78964158c7f93d58d4b9fe46453bfb85e"
+    },
+    "src/ui/legacy/WIN_Table_Tempos_materiais_Descricoes.layout.json": {
+      "sha256": "7b2f3665dc78b802cc3ec916c77a72f4ed2bdabf1b552545e8844e91a109bb1d"
+    },
+    "src/ui/legacy/WIN_Table_Terminais.layout.json": {
+      "sha256": "d2b60ef9dbdaff515690a805264c85483e2dc31a33bf118b067bf53fd59fb1d0"
+    },
+    "src/ui/legacy/WIN_Table_Viaturas.layout.json": {
+      "sha256": "19702a2180df3e4796953c09e2647cbb69d33e207430c49e1c0100e55a2ab478"
     },
     "src/ui/legacy/WIN_Table_artigos.layout.json": {
-      "sha256": "da92044609a7fb61f501b72dfc47ebdafacad228ae990fc3df8db582d35dc9ae"
+      "sha256": "e6ea0fa16cc2cbe5f46f4ac73044f11d9542d367ce7d048c25b8e0edcdadfca0"
     },
     "src/ui/legacy/WIN_Table_cab_stocks.layout.json": {
       "sha256": "37a20c2f4fbd53a82dedd53be85e5cfdf9836a4b64f1ea0e9101b09ad3b80e66"
     },
-    "src/ui/legacy/WIN_Table_Clientes.layout.json": {
-      "sha256": "b117f02d614b3b51934980a3dd6fa5861886579af75163235989df51d7c10b9c"
-    },
     "src/ui/legacy/WIN_Table_documentos.layout.json": {
-      "sha256": "fe4171fb0de663cbf33549ef2409f3e6950d6a3f870b81976d4599bc007ab25d"
+      "sha256": "bd374846f703deadea6abd6f09294ab629fac526d860fe2b848e229f1dabdd61"
     },
     "src/ui/legacy/WIN_Table_estado_reparacao_tipo3.layout.json": {
       "sha256": "276ac0ef00fe0e5540da8f1460f4bf7db0f2fbca8d1ecb02622e32a316ec2a39"
@@ -1354,29 +1369,17 @@
     "src/ui/legacy/WIN_Table_estados_reparacao.layout.json": {
       "sha256": "1baeaad27b2060418cd06f05ef32ec8c3ad437424b3bfd0031d2d2ae4bcfd59d"
     },
-    "src/ui/legacy/WIN_Table_Lin_Stocks.layout.json": {
-      "sha256": "1e02dcfd27d2e4797aae311d67cd4ab78964158c7f93d58d4b9fe46453bfb85e"
-    },
     "src/ui/legacy/WIN_Table_mecanicos.layout.json": {
-      "sha256": "0607ebaf4d33ebd996c94ec751975d09c8f4322ab23b0baea364ff055c206b0d"
+      "sha256": "7c18e924de07f4e5f4521afac90e77e3e0101d6ce2a84211a5dc1f7589bd7e2d"
     },
     "src/ui/legacy/WIN_Table_postos.layout.json": {
       "sha256": "a1a9062a7e92a6dc7479720f8baab8cf5e35aa83213bed97f1ba8bad36932744"
-    },
-    "src/ui/legacy/WIN_Table_Tempos_materiais_Descricoes.layout.json": {
-      "sha256": "3419cb4e8c9ef5e10dd7b048470f2b3af73167389a3ee0a8450f10f7fe048431"
-    },
-    "src/ui/legacy/WIN_Table_Terminais.layout.json": {
-      "sha256": "d2b60ef9dbdaff515690a805264c85483e2dc31a33bf118b067bf53fd59fb1d0"
     },
     "src/ui/legacy/WIN_Table_unidades.layout.json": {
       "sha256": "c2c63ebcaf9813a541905c9de405da454725167347db4405b6f5376b68600be4"
     },
     "src/ui/legacy/WIN_Table_utilizadores.layout.json": {
       "sha256": "52f48b4c6bff8a8f676465c1e218bcf721160233781e418aff19846b7a2276d8"
-    },
-    "src/ui/legacy/WIN_Table_Viaturas.layout.json": {
-      "sha256": "19702a2180df3e4796953c09e2647cbb69d33e207430c49e1c0100e55a2ab478"
     },
     "src/ui/legacy/WIN_Teclado_Alfa.layout.json": {
       "sha256": "5cb0e12a41f6d7df58d0c6712ef5221a273174cbb0f61a44c7d0afd6b6666187"
@@ -1385,10 +1388,10 @@
       "sha256": "4618491fb5e82cf822a2acebe83b20931432d0c70a4b5f9da5219b2baa016cdb"
     },
     "src/ui/legacy/WIN_Tempos_Reparacao.layout.json": {
-      "sha256": "5e7f1ff673f5bc01e60816c7a4848e5ec9c101039f85c3313eef4f57a4eecc3b"
+      "sha256": "03f42d0574020eb11373e268bfd27f28bd7279d7a170713e5900bda52ec32ced"
     },
     "src/ui/legacy/WIN_Tempos_Reparacao_Estado.layout.json": {
-      "sha256": "13b622aa90029d28e8dbce512a38d781ddc1fceab7ed7bd2b7f901f3308e56ee"
+      "sha256": "45184feff2eaa6a68b543717bc53a2b81f55ff45b6efb01a4ced719a24b0e3ea"
     },
     "src/ui/legacy/WIN_Tempos_Reparacao_Informacao.layout.json": {
       "sha256": "d70632619076f2a82446ec99502c69d865a647ded9a9ecdfe7830f339ec3b939"
@@ -1396,11 +1399,8 @@
     "src/ui/legacy/WIN_Tempos_Reparacao_Tempo.layout.json": {
       "sha256": "b19fbe9714bea0534a8474164b11df3799417e75ddd808a072fd7a7a0d77f65e"
     },
-    "src/ui/legacy/WINDEVDIALOGBOX.layout.json": {
-      "sha256": "31663ca9542a5de8c9759c8f7a1c5a842f3c95d008b7342b1ba95c7c1b793efa"
-    },
-    "src/ui/legacy/WINDEVMESSAGEBOX.layout.json": {
-      "sha256": "5a9e43ac21efbf9e47843f6e11189ace949dffb9b657b77aaa0fdb3152c11884"
+    "src/ui/legacy/WIN_sistema.layout.json": {
+      "sha256": "42c320ef225dca61a5be4ba788593891842db809941774653f586f79550835a2"
     }
   },
   "unknown": {
