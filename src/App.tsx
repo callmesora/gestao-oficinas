@@ -6,6 +6,7 @@ import SkinFixtures from "./ui/legacy/skin-fixtures";
 import WorkspaceFixture from "./ui/legacy/workspace-fixture";
 import CustomersWorkflow from "./ui/customers";
 import VehiclesWorkflow from "./ui/vehicles";
+import DescriptiveStatesWorkflow from "./ui/descriptive-states";
 import UnitsWorkflow from "./ui/units";
 
 export default function App({ preview }: { preview: boolean }) {
@@ -23,6 +24,7 @@ export default function App({ preview }: { preview: boolean }) {
   if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "customers") return <CustomersWorkflow />;
   if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "vehicles") return <VehiclesWorkflow />;
   if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "units") return <UnitsWorkflow />;
+  if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "descriptive-states") return <DescriptiveStatesWorkflow />;
   return <main>
     {preview && <aside role="status" data-testid="foundation-preview">Browser preview — dados simulados; não verifica o ambiente nativo.</aside>}
     <h1>Gestão de Oficinas</h1>
@@ -32,6 +34,7 @@ export default function App({ preview }: { preview: boolean }) {
     {import.meta.env.DEV && <p><a data-testid="customers-launcher" href="/?workflow=customers">Clientes</a></p>}
     {import.meta.env.DEV && <p><a data-testid="vehicles-launcher" href="/?workflow=vehicles">Viaturas</a></p>}
     {import.meta.env.DEV && <p><a data-testid="units-launcher" href="/?workflow=units">Unidades</a></p>}
+    {import.meta.env.DEV && <p><a data-testid="descriptive-states-launcher" href="/?workflow=descriptive-states">Estados descritivos</a></p>}
     <button data-testid="foundation-inspect" aria-disabled={pending} aria-busy={pending} onClick={() => void inspect()}>Verificar ambiente</button>
     {pending && <p role="status">A verificar…</p>}
     {failed && <p role="alert">Não foi possível verificar o ambiente. Tente novamente.</p>}

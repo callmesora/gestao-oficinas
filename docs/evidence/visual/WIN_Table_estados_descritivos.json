@@ -1,0 +1,12 @@
+{
+ "pixel_similarity": 98.5,
+ "edge_overlap": 92.2,
+ "size": [
+  625,
+  600
+ ],
+ "legacy": "docs\\evidence\\images\\WIN_Table_estados_descritivos.jpg",
+ "new": "ui-report\\WIN_Table_estados_descritivos.png",
+ "side_by_side": "ui-report\\WIN_Table_estados_descritivos.compare.png",
+ "date": "2026-10-25"
+}

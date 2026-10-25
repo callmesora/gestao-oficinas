@@ -129,3 +129,9 @@ screen_layout.py/table_options reads exact named raw dossier values into optiona
 
 
 Scrollbar verification must use actual visible tracks: installed Playwright headless Chrome adds --hide-scrollbars, so the UI harness omits that default argument without changing assertions/floors. Empty customer results assert reserved width, not just overflow CSS. The changed harness exposed dialog scrollbar feedback: measured static captions in skin.css use overflow-visible, and ResourceBox keeps initial multiline overflow hidden only until fit is measured, then auto for user edits. This preserves the existing TexteHauteur sizing/result path used by customer SRC-51085948c6 dialogs; no silent clipping, extra timer or test relaxation. Existing long-caption/multiline-input regressions must pass with normal scrollbars.
+
+## Descriptive-state consumer (MIG-7E, before translation)
+
+`packages/domain/src/descriptive-states.ts` owns exact required/duplicate messages and text DTOs; `apps/server/src/operations/descriptive-states.ts` owns selected-record list/save/delete under ADR-015. Reuse explicit transaction/identity patterns without units' article guard. `src/ui/descriptive-states.tsx` maps HReset/FileToScreen and awaited form result/refresh. Source selector returns Descricao, uses 30px rows and source previous/next bounds; invalid no-selection remains U-CC5618D6-02. Screen-only image-backed caption overrides leave generated metadata immutable. Real labor continuation remains with its consumer. Execution evidence pending.
+
+Before selector translation: WdTable exposes optional rowHeight for source dynamic LineHeight; the concrete descriptive-state selector supplies 30. Cell height and empty grid use that same explicit runtime value; default 19px remains unchanged. Source row-height metadata alone is not automatically consumed by other screens.

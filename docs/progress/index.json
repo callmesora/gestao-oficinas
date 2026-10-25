@@ -54,6 +54,26 @@
   }
  },
  {
+  "name": "WIN_Form_estados_descritivos",
+  "kind": "screen",
+  "total": 14,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 7,
+   "specified": 4,
+   "unmapped": 3
+  },
+  "looks": {
+   "pixel": 98.2,
+   "layout": 96.3
+  }
+ },
+ {
   "name": "WIN_Form_unidades",
   "kind": "screen",
   "total": 13,
@@ -111,6 +131,26 @@
   "looks": {
    "pixel": 98.4,
    "layout": 93.8
+  }
+ },
+ {
+  "name": "WIN_Table_estados_descritivos",
+  "kind": "screen",
+  "total": 21,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 13,
+   "specified": 5,
+   "unmapped": 3
+  },
+  "looks": {
+   "pixel": 98.5,
+   "layout": 92.2
   }
  },
  {
@@ -1769,23 +1809,6 @@
   "looks": null
  },
  {
-  "name": "WIN_Form_estados_descritivos",
-  "kind": "screen",
-  "total": 14,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 11,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
   "name": "WIN_Form_estados_reparacao",
   "kind": "screen",
   "total": 15,
@@ -2172,23 +2195,6 @@
    "excluded": 0,
    "implemented": 0,
    "specified": 13,
-   "unmapped": 3
-  },
-  "looks": null
- },
- {
-  "name": "WIN_Table_estados_descritivos",
-  "kind": "screen",
-  "total": 21,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 18,
    "unmapped": 3
   },
   "looks": null

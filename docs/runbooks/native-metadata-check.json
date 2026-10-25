@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "checkedAt": "2026-10-25T07:27:52.785Z",
+  "checkedAt": "2026-10-25T07:46:18.052Z",
   "platform": "win32",
   "webviewVersion": "155.0.4283.62",
   "evidence": "Built Tauri debug executable, actual WebView2 -> invoke -> registered Rust command -> rendered metadata, including reload",

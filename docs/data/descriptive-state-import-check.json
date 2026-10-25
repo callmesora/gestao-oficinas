@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-25T07:47:25.171Z",
+  "evidence": "Read-only official-driver export imported by real importer and compared with authenticated API over isolated PostgreSQL",
+  "sourceDescriptiveStates": 5,
+  "matchedOriginalDescriptiveStates": 5,
+  "comparedFields": [
+    "estados_descritivosID",
+    "Codigo",
+    "Descricao"
+  ],
+  "originalMutations": false
+}

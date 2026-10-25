@@ -1,0 +1,10 @@
+{
+  "legacy": { "delimiter": ",", "encoding": "utf-8" },
+  "target": { "delimiter": ",", "encoding": "utf-8" },
+  "tables": {
+    "estados_descritivos": {
+      "key": ["Codigo"],
+      "columns": { "Codigo": { "trim": false }, "Descricao": { "trim": false } }
+    }
+  }
+}

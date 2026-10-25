@@ -164,3 +164,7 @@ Delete resource CASE 1 deletes and CASE 2 makes no change when present. Default/
 ## Data edge cases and acceptance checks
 
 Blank strings are compared exactly by source, with no trimming; absent NULL coercion rules and number/text locale boundaries belong to U-CC5618D6-03. Required controls are those guarded explicitly in mapping, never inferred from a caption. Observe mask/size above and compare schema types. Keyboard-only test: open, traverse by container tab order, trigger mandatory validation, select/change/cancel, then repeat with an empty filter result and first/last row. Visual approval is outstanding under U-CC5618D6-01. Runtime writes must be performed only against a preserved scratch data copy.
+
+## MIG-7E target implementation notes
+
+ADR-015 retains exact text values and source IDs. The designer JPG visibly reads Código/Descrição; only displayed Descrição overrides the corrupted extracted caption, leaving generated metadata immutable (inferred image evidence, human acceptance remains U-*-01). Non-legacy developer instrumentation: descriptive-states-launcher/open/select-open/returned, descriptiveState-form-frame/restore/diagnostic, descriptiveState-list-diagnostic and descriptive-state-picker/frame/restore. Direct development selector launch uses ?workflow=descriptive-states&selecting=1&origin=... against the real repository; it is not the labor caller. Actual labor continuation remains with WIN_Tempos_Reparacao_Estado at MIG-10. Report/UMC and full native designer acceptance are retained, not excluded.

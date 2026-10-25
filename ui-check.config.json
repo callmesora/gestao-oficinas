@@ -72,9 +72,17 @@
         "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
         "RADTitle": "Owning workspace frame reads the generated source title."
       },
-      "open": ["vehicles-launcher", "vehicles-open", "BTN_matricula"],
-      "fill": { "EDT_termo_pesquisa": "__VISUAL_VEHICLE_EMPTY_CHECKPOINT__" },
-      "tableRows": { "TABLE_Viaturas": 1 }
+      "open": [
+        "vehicles-launcher",
+        "vehicles-open",
+        "BTN_matricula"
+      ],
+      "fill": {
+        "EDT_termo_pesquisa": "__VISUAL_VEHICLE_EMPTY_CHECKPOINT__"
+      },
+      "tableRows": {
+        "TABLE_Viaturas": 1
+      }
     },
     "WIN_Form_Viaturas": {
       "ignore": {
@@ -82,7 +90,11 @@
         "SC_SCSystemButtons": "Source container; frame renders actual chrome directly.",
         "IMG_BTN_Syst_Restore": "Source off-canvas image; frame chrome owns restore."
       },
-      "open": ["vehicles-launcher", "vehicles-open", "Btn_New"]
+      "open": [
+        "vehicles-launcher",
+        "vehicles-open",
+        "Btn_New"
+      ]
     },
     "WIN_Table_unidades": {
       "ignore": {
@@ -95,7 +107,10 @@
         "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
         "RADTitle": "Owning frame reads the source-generated title."
       },
-      "open": ["units-launcher", "units-open"]
+      "open": [
+        "units-launcher",
+        "units-open"
+      ]
     },
     "WIN_Form_unidades": {
       "ignore": {
@@ -103,7 +118,11 @@
         "SC_SCSystemButtons": "Source container; frame renders actual chrome.",
         "IMG_BTN_Syst_Restore": "Source off-canvas image; frame owns restore."
       },
-      "open": ["units-launcher", "units-open", "Btn_New"]
+      "open": [
+        "units-launcher",
+        "units-open",
+        "Btn_New"
+      ]
     },
     "WIN_Form_Clientes": {
       "ignore": {
@@ -116,6 +135,37 @@
         "customers-open",
         "Btn_New"
       ]
+    },
+    "WIN_Table_estados_descritivos": {
+      "ignore": {
+        "BTN_SYST_MINIMIZE": "Owned by enclosing workspace frame.",
+        "IMG_BTN_Syst_Restore": "Source off-canvas image; workspace chrome owns restore.",
+        "SC_SCSystemButtons": "Source container; owning frame renders actual controls.",
+        "BTN_SYST_FERMER": "Owned by enclosing workspace frame.",
+        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
+        "RADTitle": "Owning frame reads the source-generated title.",
+        "COL_Estados_descritivosID": "Source hidden technical column retained in data and generated layout."
+      },
+      "open": [
+        "descriptive-states-launcher",
+        "descriptive-states-open"
+      ]
+    },
+    "WIN_Form_estados_descritivos": {
+      "ignore": {
+        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "SC_SCSystemButtons": "Source container; frame renders actual chrome.",
+        "IMG_BTN_Syst_Restore": "Source off-canvas image; frame owns restore."
+      },
+      "open": [
+        "descriptive-states-launcher",
+        "descriptive-states-open",
+        "Btn_New"
+      ],
+      "captionIgnore": {
+        "EDT_Descricao": "ADR-015: source JPG visibly reads Descrição; extracted Descriçªo is retained in generated metadata. Positive image-backed text assertion in descriptive-states browser flow; human acceptance U-CB7C31CC-01."
+      }
     }
   }
 }

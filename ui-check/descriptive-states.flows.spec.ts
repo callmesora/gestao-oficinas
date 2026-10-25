@@ -1,0 +1,108 @@
+import { expect, test } from "@playwright/test";
+
+test("SRC-0a8d1af823 actual descriptiveState form requires only code, saves blank description, edits, cancels and reloads", async ({ page, request }) => {
+  const session = await request.post("/api/development/session", { headers: { Origin: "http://localhost:1431", "X-Isolated-Development": "1" } });
+  const { token } = await session.json(), headers = { Authorization: `Bearer ${token}` };
+  const code = "Z" + (Date.now() % 1296).toString(36).padStart(2, "0");
+  await page.goto("/?workflow=descriptive-states"); await page.getByTestId("descriptive-states-open").click();
+  const list = page.getByTestId("WIN_Table_estados_descritivos"), form = page.getByTestId("WIN_Form_estados_descritivos");
+  await list.getByTestId("Btn_New").click(); await form.getByTestId("BTN_Validar").click();
+  await expect(page.getByTestId("LIB_INFO")).toHaveText("Falta indicar o código");
+  await page.getByTestId("WINDEVMESSAGEBOX").getByTestId("BTN_OK").click();
+  await form.getByTestId("EDT_Codigo").fill(code);
+  await expect(form.getByTestId("EDT_Descricao")).toHaveValue("");
+  await expect(form.getByText("Descrição", { exact: true })).toBeVisible();
+  await form.getByTestId("BTN_Validar").click(); await expect(form).toHaveCount(0);
+  const row = list.getByTestId("TABLE_estados_descritivos").getByRole("row").filter({ has: page.getByRole("cell", { name: code, exact: true }) });
+  await row.click(); await list.getByTestId("BTN_Modificar").click();
+  await expect(form.getByTestId("EDT_Codigo")).toHaveAttribute("readonly", "");
+  await form.getByTestId("EDT_Descricao").fill("Cancelado"); await page.keyboard.press("Escape");
+  await expect(form).toHaveCount(0); await expect(list).toBeVisible(); await expect(row).not.toContainText("Cancelado");
+  await expect(list.getByTestId("BTN_Modificar")).toBeEnabled(); await list.getByTestId("BTN_Modificar").click();
+  await form.getByTestId("EDT_Descricao").fill("Final d'Água  "); await form.getByTestId("BTN_Validar").click();
+  await expect(form).toHaveCount(0); await expect(row).toContainText("Final d'Água");
+  await page.reload(); await page.getByTestId("descriptive-states-open").click(); await expect(row).toContainText("Final d'Água");
+  const persisted = (await (await request.post("/api/descriptive-states/list", { headers, data: {} })).json()).descriptiveStates.find((descriptiveState: { Codigo: string }) => descriptiveState.Codigo === code);
+  expect(persisted.Descricao).toBe("Final d'Água  ");
+  expect((await (await request.post("/api/descriptive-states/delete", { headers, data: { id: persisted.id } })).json()).kind).toBe("deleted");
+});
+
+test("SRC-ed234689af real descriptiveState duplicate dialog preserves record and explicit delete controls persistence", async ({ page, request }) => {
+  const session = await request.post("/api/development/session", { headers: { Origin: "http://localhost:1431", "X-Isolated-Development": "1" } });
+  const { token } = await session.json(), headers = { Authorization: `Bearer ${token}` };
+  const code = "Y" + (Date.now() % 1296).toString(36).padStart(2, "0"), description = `Synthetic descriptiveState ${Date.now()}`;
+  const created = (await (await request.post("/api/descriptive-states/save", { headers, data: { mode: "create", values: { Codigo: code, Descricao: description } } })).json());
+  expect(created.kind).toBe("saved");
+  await page.goto("/?workflow=descriptive-states"); await page.getByTestId("descriptive-states-open").click(); await page.getByTestId("Btn_New").click();
+  const form = page.getByTestId("WIN_Form_estados_descritivos"), list = page.getByTestId("WIN_Table_estados_descritivos");
+  await form.getByTestId("EDT_Codigo").fill(code); await form.getByTestId("BTN_Validar").click();
+  await expect(page.getByTestId("LIB_INFO")).toHaveText(`Duplicação:  Este registo não pode ser gravado.\nCampo associado ao erro: Codigo\nValor do campo duplicado: ${code}`);
+  await page.getByTestId("WINDEVMESSAGEBOX").getByTestId("BTN_OK").click(); await form.getByTestId("BTN_Cancelar").click();
+  const row = list.getByTestId("TABLE_estados_descritivos").getByRole("row").filter({ hasText: description });
+  await row.click(); await list.getByTestId("BTN_Delete").click();
+  const confirm = page.getByTestId("WINDEVDIALOGBOX");
+  await confirm.getByRole("button", { name: "Não", exact: true }).click(); await expect(row).toBeVisible();
+  await list.getByTestId("BTN_Delete").click(); await confirm.getByRole("button", { name: "Sim", exact: true }).click(); await expect(row).toHaveCount(0);
+  const loaded = (await (await request.post("/api/descriptive-states/list", { headers, data: {} })).json());
+  expect(loaded.descriptiveStates.some((descriptiveState: { id: string }) => descriptiveState.id === created.descriptiveState.id)).toBe(false);
+});
+
+test("SRC-31858cfb4d SRC-b4f27ecae7 SRC-c6c8dfb543 actual selector hides writes, moves within bounds and returns description/origin", async ({ page, request }) => {
+  const session = await request.post("/api/development/session", { headers: { Origin: "http://localhost:1431", "X-Isolated-Development": "1" } });
+  const { token } = await session.json(), headers = { Authorization: `Bearer ${token}` };
+  const suffix = (Date.now() % 1296).toString(36).padStart(2, "0");
+  const created = [];
+  for (const prefix of ["A", "B", "C"]) {
+    const result = (await (await request.post("/api/descriptive-states/save", { headers, data: { mode: "create", values: { Codigo: prefix + suffix, Descricao: `Description ${prefix} ${Date.now()}` } } })).json());
+    expect(result.kind).toBe("saved"); created.push(result.descriptiveState);
+  }
+  const ordered = (await (await request.post("/api/descriptive-states/list", { headers, data: {} })).json()).descriptiveStates;
+  await page.goto("/?workflow=descriptive-states&selecting=1&origin=Original");
+  await page.getByTestId("descriptive-states-select-open").click();
+  const view = page.getByTestId("WIN_Table_estados_descritivos"), table = view.getByTestId("TABLE_estados_descritivos");
+  await expect(view.getByTestId("BTN_selecionar")).toBeFocused();
+  for (const id of ["Btn_New", "BTN_Modificar", "BTN_Delete", "BTN_Imprimir"]) await expect(view.getByTestId(id)).toBeHidden();
+  const rowFor = (description: string) => table.getByRole("row").filter({ has: page.getByRole("cell", { name: description, exact: true }) });
+  const first = rowFor(ordered[0].Descricao), last = rowFor(ordered.at(-1).Descricao);
+  await first.click();
+  expect((await first.boundingBox())!.height).toBe(30);
+  await view.getByTestId("BTN_anterior").click(); await expect(first).toHaveAttribute("aria-selected", "true");
+  await view.getByTestId("BTN_seguinte").click(); await expect(rowFor(ordered[1].Descricao)).toHaveAttribute("aria-selected", "true");
+  await last.click(); await view.getByTestId("BTN_seguinte").click(); await expect(last).toHaveAttribute("aria-selected", "true");
+  await view.getByTestId("BTN_anterior").click(); await expect(rowFor(ordered.at(-2).Descricao)).toHaveAttribute("aria-selected", "true");
+  await view.getByTestId("BTN_selecionar").click();
+  await expect(page.getByTestId("descriptive-states-returned")).toHaveText(ordered.at(-2).Descricao);
+  await page.getByTestId("descriptive-states-select-open").click(); await expect(view.getByTestId("BTN_selecionar")).toBeEnabled();
+  await rowFor(created[2].Descricao).dblclick(); await expect(page.getByTestId("descriptive-states-returned")).toHaveText(created[2].Descricao);
+  await page.getByTestId("descriptive-states-select-open").click(); await view.getByTestId("BTN_Fechar").click();
+  await expect(page.getByTestId("descriptive-states-returned")).toHaveText("Original");
+  await page.getByTestId("descriptive-states-select-open").click(); await page.keyboard.press("Escape");
+  await expect(page.getByTestId("descriptive-state-picker")).toHaveCount(0);
+  await expect(page.getByTestId("descriptive-states-returned")).toHaveText("Original");
+  for (const row of created) expect((await (await request.post("/api/descriptive-states/delete", { headers, data: { id: row.id } })).json()).kind).toBe("deleted");
+});
+
+test("RULE-CC5618D6-017 SRC-b4d4c613b8 actual header seek preserves rows and normal double-click opens the selected form", async ({ page, request }) => {
+  const session = await request.post("/api/development/session", { headers: { Origin: "http://localhost:1431", "X-Isolated-Development": "1" } });
+  const { token } = await session.json(), headers = { Authorization: `Bearer ${token}` };
+  const code = "H" + (Date.now() % 1296).toString(36).padStart(2, "0"), description = `Header state ${Date.now()}`;
+  const created = (await (await request.post("/api/descriptive-states/save", { headers, data: { mode: "create", values: { Codigo: code, Descricao: description } } })).json());
+  expect(created.kind).toBe("saved");
+  await page.goto("/?workflow=descriptive-states"); await page.getByTestId("descriptive-states-open").click();
+  const view = page.getByTestId("WIN_Table_estados_descritivos"), table = view.getByTestId("TABLE_estados_descritivos");
+  await expect(view.getByTestId("Btn_New")).toBeEnabled();
+  const before = (await table.getByRole("row").allTextContents()).slice(1).sort();
+  await table.getByTestId("COL_Descricao__search").click();
+  await table.getByRole("textbox").fill(description);
+  const selected = table.getByRole("row").filter({ hasText: description });
+  await expect(selected).toHaveAttribute("aria-selected", "true");
+  expect((await table.getByRole("row").allTextContents()).slice(1).sort()).toEqual(before);
+  await page.keyboard.press("Escape"); await expect(view).toBeVisible();
+  await expect(view.getByTestId("BTN_Modificar")).toBeEnabled(); await selected.dblclick();
+  const form = page.getByTestId("WIN_Form_estados_descritivos");
+  await expect(form.getByTestId("EDT_Codigo")).toHaveValue(code);
+  await expect(form.getByTestId("EDT_Codigo")).toHaveAttribute("readonly", "");
+  await expect(form.getByTestId("EDT_Descricao")).toHaveValue(description);
+  await form.getByTestId("BTN_Cancelar").click(); await expect(view).toBeVisible();
+  expect((await (await request.post("/api/descriptive-states/delete", { headers, data: { id: created.descriptiveState.id } })).json()).kind).toBe("deleted");
+});

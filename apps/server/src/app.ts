@@ -6,7 +6,9 @@ import type { developmentSessions } from "./development-sessions";
 import { checkVehicleDelete, deleteVehicle, listVehicles, lookupVehicle, saveVehicle } from "./operations/vehicles";
 import { checkUnitDelete, deleteUnit, listUnits, saveUnit } from "./operations/units";
 
-export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
+import { listDescriptiveStates, saveDescriptiveState, deleteDescriptiveState } from "./operations/descriptive-states";
+
+export function createApp(options: { customerConnect?: DatabaseConnection; vehicleConnect?: DatabaseConnection; unitConnect?: DatabaseConnection; descriptiveStateConnect?: DatabaseConnection; authenticate?: (request: FastifyRequest) => Promise<{ userId: string } | null>; development?: ReturnType<typeof developmentSessions> } = {}) {
   const app = Fastify({ logger: false });
   app.get("/health/live", async () => ({ service: "gestao-oficinas-api", status: "alive" }));
   const authenticate = options.authenticate ?? options.development?.authenticate;
@@ -49,6 +51,13 @@ export function createApp(options: { customerConnect?: DatabaseConnection; vehic
       if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
       if (!options.unitConnect) return reply.code(503).send({ kind: "unavailable" });
       return operation(options.unitConnect, request.body);
+    });
+  }
+  for (const [action, operation] of Object.entries({ list: listDescriptiveStates, save: saveDescriptiveState, delete: deleteDescriptiveState })) {
+    app.post(`/api/descriptive-states/${action}`, async (request, reply) => {
+      if (!await authenticate?.(request)) return reply.code(401).send({ kind: "unauthenticated" });
+      if (!options.descriptiveStateConnect) return reply.code(503).send({ kind: "unavailable" });
+      return operation(options.descriptiveStateConnect, request.body);
     });
   }
   return app;
