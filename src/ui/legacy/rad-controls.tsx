@@ -2,17 +2,19 @@ import type { ComponentProps, CSSProperties } from "react";
 import { useAnchoredControl } from "./anchors";
 import { controlBox, controlOf, type LegacyControl, type LegacyLayout } from "./layout";
 import { WdButton, WdCheckbox, WdEdit, WdRadio } from "./wd";
+import { WdCombo } from "./combo";
 
 /** Structure is metadata-driven; callers explicitly own field values, events and traversal order. */
 export type WdRadBinding = { name: string } & (
   | { kind: "edit"; props: Omit<ComponentProps<typeof WdEdit>, "control"> }
   | { kind: "checkbox"; props: Omit<ComponentProps<typeof WdCheckbox>, "control"> }
   | { kind: "radio"; props: Omit<ComponentProps<typeof WdRadio>, "control"> }
+  | { kind: "combo"; props: Omit<ComponentProps<typeof WdCombo>, "control"> }
   | { kind: "button"; props: Omit<ComponentProps<typeof WdButton>, "control"> }
   | { kind: "caption"; props?: never }
   | { kind: "shape"; props: { backgroundColor: CSSProperties["backgroundColor"] } }
 );
-const sourceKinds = { edit: "Edit control", checkbox: "Check Box", radio: "RadioButton", button: "Button", caption: "Caption", shape: "Shape" } as const;
+const sourceKinds = { edit: "Edit control", checkbox: "Check Box", radio: "RadioButton", combo: "Combo Box", button: "Button", caption: "Caption", shape: "Shape" } as const;
 
 export function resolveRadBindings(layout: LegacyLayout, bindings: readonly WdRadBinding[]) {
   const seen = new Set<string>();
@@ -37,6 +39,7 @@ export function WdRadControls({ layout, bindings }: { layout: LegacyLayout; bind
       case "edit": return <WdEdit key={control.path} control={control} {...binding.props} />;
       case "checkbox": return <WdCheckbox key={control.path} control={control} {...binding.props} />;
       case "radio": return <WdRadio key={control.path} control={control} {...binding.props} />;
+      case "combo": return <WdCombo key={control.path} control={control} {...binding.props} />;
       case "button": return <WdButton key={control.path} control={control} {...binding.props} />;
       case "caption": return <RadStatic key={control.path} source={control} kind="caption" />;
       case "shape": return <RadStatic key={control.path} source={control} kind="shape" {...binding.props} />;

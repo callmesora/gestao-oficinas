@@ -5,6 +5,7 @@ import { activateMnemonic, mnemonicCaption } from "./mnemonics";
 import { FrameDeltaContext, useAnchoredControl } from "./anchors";
 import { useInputSelection } from "./input-selection";
 import { integerMaskDeletionRange, integerMaskDisplay, integerMaskEdit, integerMaskOf, type IntegerMask } from "./numeric-entry";
+import { decimalMaskEdit, decimalMaskOf, type DecimalMask } from "./decimal-entry";
 import { useInputSuggestions } from "./input-suggestions";
 
 type ButtonProps = { control: LegacyControl; chrome?: boolean; interpretAmpersand?: boolean; style?: CSSProperties } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "type">;
@@ -106,9 +107,13 @@ export function WdFrame({ layout, instance, children, width, height, onClose, on
 
 type EditInputProps = Omit<ComponentPropsWithRef<"input">, "type" | "style" | "className" | "id">;
 
-function useIntegerEntry(mask: IntegerMask | null, props: EditInputProps) {
+function useNumericEntry(mask: IntegerMask | null, props: EditInputProps, decimal: DecimalMask | null) {
   const input = useRef<HTMLInputElement | null>(null);
   const accepted = useRef({ value: "", start: 0, end: 0 });
+  // Decimal callers supply localized drafts; only initial display is padded outside this hook.
+  const display = useCallback((value: string) => mask && !decimal ? integerMaskDisplay(mask, value) : value, [mask, decimal]);
+  const editValue = useCallback((previous: string, candidate: string, start?: number, end?: number) =>
+    decimal ? decimalMaskEdit(decimal, previous, candidate, start, end) : mask ? integerMaskEdit(mask, previous, candidate, start, end) : null, [mask, decimal]);
   const capture = useCallback((node: HTMLInputElement) => {
     accepted.current = { value: node.value, start: node.selectionStart ?? 0, end: node.selectionEnd ?? 0 };
   }, []);
@@ -126,12 +131,12 @@ function useIntegerEntry(mask: IntegerMask | null, props: EditInputProps) {
       }
       if (event.inputType.startsWith("insert") && event.data !== null) {
         const candidate = node.value.slice(0, start) + event.data + node.value.slice(end);
-        if (!integerMaskEdit(mask, node.value, candidate)) event.preventDefault();
+        if (!editValue(node.value, candidate)) event.preventDefault();
       }
     };
     if (mask) {
-      const display = integerMaskDisplay(mask, node.value);
-      if (display !== node.value) node.value = display;
+      const value = display(node.value);
+      if (value !== node.value) node.value = value;
       capture(node);
       node.addEventListener("beforeinput", beforeInput);
     }
@@ -139,13 +144,13 @@ function useIntegerEntry(mask: IntegerMask | null, props: EditInputProps) {
       node.removeEventListener("beforeinput", beforeInput);
       input.current = null;
     };
-  }, [mask, capture]);
+  }, [mask, capture, display, editValue]);
   // React owns callback/object-ref assignment and cleanup; expose the actual input to RHF.
   useImperativeHandle(mask ? props.ref : undefined, () => input.current!, []);
   useLayoutEffect(() => {
     if (mask && input.current) {
-      const display = integerMaskDisplay(mask, input.current.value);
-      if (display !== input.current.value) input.current.value = display;
+      const value = display(input.current.value);
+      if (value !== input.current.value) input.current.value = value;
       capture(input.current);
     }
   });
@@ -173,12 +178,12 @@ function useIntegerEntry(mask: IntegerMask | null, props: EditInputProps) {
       const start = node.selectionStart ?? 0, end = node.selectionEnd ?? start;
       // Check the original paste before the browser's text-input newline removal.
       const candidate = node.value.slice(0, start) + event.clipboardData.getData("text") + node.value.slice(end);
-      if (node.readOnly || node.disabled || !integerMaskEdit(mask, node.value, candidate)) event.preventDefault();
+      if (node.readOnly || node.disabled || !editValue(node.value, candidate)) event.preventDefault();
     },
     onChange: (event: ChangeEvent<HTMLInputElement>) => {
       if (!mask) { props.onChange?.(event); return; }
       const node = event.currentTarget;
-      const edit = !node.readOnly && !node.disabled && integerMaskEdit(mask, accepted.current.value, node.value, node.selectionStart ?? node.value.length, node.selectionEnd ?? node.value.length);
+      const edit = !node.readOnly && !node.disabled && editValue(accepted.current.value, node.value, node.selectionStart ?? node.value.length, node.selectionEnd ?? node.value.length);
       const next = edit || accepted.current;
       node.value = next.value;
       node.setSelectionRange(next.start, next.end);
@@ -189,13 +194,14 @@ function useIntegerEntry(mask: IntegerMask | null, props: EditInputProps) {
   };
 }
 
-export function WdEdit({ control: source, automaticErase, integerMask = false, passwordReveal = false, suggestions, onSuggestion, ...props }: {
-  control: LegacyControl; automaticErase?: boolean; integerMask?: boolean; passwordReveal?: boolean;
+export function WdEdit({ control: source, automaticErase, integerMask = false, decimalMask = false, passwordReveal = false, suggestions, onSuggestion, ...props }: {
+  control: LegacyControl; automaticErase?: boolean; integerMask?: boolean; decimalMask?: boolean; passwordReveal?: boolean;
   suggestions?: readonly string[]; onSuggestion?: (value: string) => void;
 } & EditInputProps) {
   const control = useAnchoredControl(source);
-  const mask = useMemo(() => integerMask ? integerMaskOf(control.input_mask) : null, [integerMask, control.input_mask]);
-  const numeric = useIntegerEntry(mask, props);
+  const decimal = useMemo(() => decimalMask ? decimalMaskOf(control.input_mask) : null, [decimalMask, control.input_mask]);
+  const mask = useMemo(() => integerMask ? integerMaskOf(control.input_mask) : decimal?.integer ?? null, [integerMask, control.input_mask, decimal]);
+  const numeric = useNumericEntry(mask, props, decimal);
   const field = useRef<HTMLDivElement>(null);
   const [revealed, setRevealed] = useState(false);
   const revealSelection = useRef<{ start: number; end: number; direction: "forward" | "backward" | "none" } | null>(null);
@@ -226,9 +232,9 @@ export function WdEdit({ control: source, automaticErase, integerMask = false, p
     {captionWidth > 0 && <label htmlFor={id} style={{ width: captionWidth - 2 }}>{control.caption}</label>}
     <input {...props} {...numeric} {...selection} {...assistance.attributes} onChange={assistance.onChange} onBlur={assistance.onBlur} onKeyDown={assistance.onKeyDown}
       id={id} type={control.flags?.Password === true && !(revealEnabled && revealed) ? "password" : "text"}
-      inputMode={mask ? "numeric" : props.inputMode}
-      value={mask && props.value !== undefined ? integerMaskDisplay(mask, String(props.value)) : props.value}
-      defaultValue={mask && props.defaultValue !== undefined ? integerMaskDisplay(mask, String(props.defaultValue)) : props.defaultValue}
+      inputMode={decimal ? "decimal" : mask ? "numeric" : props.inputMode}
+      value={mask && !decimal && props.value !== undefined ? integerMaskDisplay(mask, String(props.value)) : props.value}
+      defaultValue={mask && !decimal && props.defaultValue !== undefined ? integerMaskDisplay(mask, String(props.defaultValue)) : props.defaultValue}
       maxLength={maxLength}
       tabIndex={props.tabIndex ?? (control.flags?.["TAB Key"] === false || String(control.tab_order) === "-1" ? -1 : undefined)} data-testid={control.name} className="wd-edit"
       readOnly={readOnly}

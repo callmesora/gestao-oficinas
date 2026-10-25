@@ -317,6 +317,35 @@
       },
       "open": ["document-types-launcher", "document-types-open"]
     },
+    "WIN_Table_artigos": {
+      "ignore": {
+        "BTN_SYST_MINIMIZE": "Owned by enclosing workspace frame.",
+        "IMG_BTN_Syst_Restore": "Source off-canvas image; workspace chrome owns restore.",
+        "SC_SCSystemButtons": "Source container; owning frame renders actual controls.",
+        "BTN_SYST_FERMER": "Owned by enclosing workspace frame.",
+        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
+        "RADTitle": "Owning frame reads source-generated title."
+      },
+      "captionIgnore": {
+        "BTN_descricao": "ADR003: JPG Pesquisar por descrição replaces extraction artifact; exact real browser caption assertion, native/human U01 retained.",
+        "CBOX_ativo": "ADR003: JPG Ativo replaces generic Interruptor; exact real browser caption assertion, native/human U01 retained.",
+        "CBOX_inativo": "ADR003: JPG Inativo replaces generic Interruptor; exact real browser caption assertion, native/human U01 retained."
+      },
+      "open": ["articles-launcher", "articles-open"]
+    },
+    "WIN_Form_artigos": {
+      "ignore": {
+        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "SC_SCSystemButtons": "Source container; frame renders actual chrome.",
+        "IMG_BTN_Syst_Restore": "Source off-canvas image; frame owns restore."
+      },
+      "open": ["articles-launcher", "articles-open", "Btn_New"],
+      "captionIgnore": {
+        "EDT_Descricao": "ADR003: JPG Descrição replaces extraction artifact; exact real browser caption assertion, native/human U01 retained.",
+        "CBOX_Inativo": "ADR003: JPG Inativo capitalized; exact real browser caption assertion, native/human U01 retained."
+      }
+    },
     "WIN_Form_documentos": {
       "ignore": {
         "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",

@@ -1,8 +1,16 @@
 # Screen spec — WIN_Form_artigos
 
-Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Form_artigos.wdw`, `dossier: WIN_Form_artigos`, `docs/mapping/WIN_Form_artigos.md`. Step 0 specification only.
+Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Form_artigos.wdw`, `dossier: WIN_Form_artigos`, `docs/mapping/WIN_Form_artigos.md`. Source specification; bounded implementation contract below.
 
 ## Contract
+
+MIG-7K.1 ordinary core uses the real authenticated Artigos API/PostgreSQL, existing Unidades endpoint and shared WdRadControls. Form entry freezes the current cached row (or new zero-price/stock/false-inactive draft); async options never reset inputs. Existing Codigo is immutable. Save sends exactly six writable fields and the selected internal identity on update, preserving automatic ID/provenance and CURRENT DB stock. Readonly stock never enters the command. Required Code→description→unit precedes nonempty barcode query, then decimal grammar/write; literal update Codigo<> predicate, exact Info/duplicate Error and rollback defaults are ADR002/011. NULL description/unit display blank and remain required; untouched nullable barcode/price/flag stay NULL.
+
+Source500x260 geometry, generated Right/caption widths and Tab Code1→Desc2→barcode3→combo4→price5→inactive6→readonlystock7 precede root buttons. JPG-backed Descrição/Inativo overrides preserve extracted metadata. Actual unit options request Codigo ascending, display/store exact code, begin blank on new and retain an orphan current option; no nested picker, auto-selection or unit-existence guard. WdCombo uses the explicit JPG inset/keyboard default in ADR003; focused Escape is consumed to preserve the draft, while source Cancelar remains available. Native popup/keys/drawing remains U01.
+
+Decimal initial/list/read-only display groups exact strings, uses comma and pads a minimum2(price)/3(stock), retaining extra precision/oversize/sign/NULL. Live price editing separately preserves transient sign/comma/blank drafts, source9 integer/2 fraction new-entry capacity and whole invalid paste/caret/ref behavior. Invalid digitless drafts reach source required/barcode checks before typed invalid; no silent zero/NULL, rounding, Number conversion or new error text. Description alone receives source Text/key assistance; barcode is not a schema key despite its flag. Masks never narrow stored precision/range (ADR002/003).
+
+Non-legacy instrumentation: article-form-frame/restore and resize handles belong to shared modal geometry; article-form-diagnostic is a developer-only typed failure output. Actual browser/API/golden checks live in ui-check/articles.flows.spec.ts, operations/articles.test.ts and GS-ARTICLES-001. Native/Windows/HFSQL/runtime/human/UMC gates stay open; no whole-window completion claim.
 
 | Direction | Contract | Evidence |
 |---|---|---|

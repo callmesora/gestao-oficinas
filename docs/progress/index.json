@@ -36,6 +36,29 @@
   "visuals": {}
  },
  {
+  "name": "WIN_Form_artigos",
+  "kind": "screen",
+  "total": 14,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 10,
+   "specified": 1,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {
+   "darwin": {
+    "pixel": 98.8,
+    "layout": 97.1
+   }
+  }
+ },
+ {
   "name": "WIN_Form_Clientes",
   "kind": "screen",
   "total": 15,
@@ -273,6 +296,29 @@
    },
    "darwin": {
     "pixel": 98.4,
+    "layout": 93.9
+   }
+  }
+ },
+ {
+  "name": "WIN_Table_artigos",
+  "kind": "screen",
+  "total": 36,
+  "done": 0,
+  "stage": "building",
+  "spec": true,
+  "assumed": 0,
+  "statuses": {
+   "verified": 0,
+   "excluded": 0,
+   "implemented": 26,
+   "specified": 7,
+   "unmapped": 3
+  },
+  "looks": null,
+  "visuals": {
+   "darwin": {
+    "pixel": 98.6,
     "layout": 93.9
    }
   }
@@ -2194,24 +2240,6 @@
   "visuals": {}
  },
  {
-  "name": "WIN_Form_artigos",
-  "kind": "screen",
-  "total": 14,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 11,
-   "unmapped": 3
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
   "name": "WIN_Form_utilizadores",
   "kind": "screen",
   "total": 15,
@@ -2477,24 +2505,6 @@
    "implemented": 0,
    "specified": 26,
    "unmapped": 4
-  },
-  "looks": null,
-  "visuals": {}
- },
- {
-  "name": "WIN_Table_artigos",
-  "kind": "screen",
-  "total": 36,
-  "done": 0,
-  "stage": "mapped",
-  "spec": true,
-  "assumed": 0,
-  "statuses": {
-   "verified": 0,
-   "excluded": 0,
-   "implemented": 0,
-   "specified": 33,
-   "unmapped": 3
   },
   "looks": null,
   "visuals": {}

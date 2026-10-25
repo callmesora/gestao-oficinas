@@ -1,5 +1,5 @@
 import { getCoreRowModel, useReactTable, type ColumnSizingState } from "@tanstack/react-table";
-import { useEffect, useMemo, useRef, useState, type DragEvent, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type DragEvent, type MouseEvent, type ReactNode } from "react";
 import { controlBox, type LegacyColumn, type LegacyControl } from "./layout";
 import "./skin.css";
 import { useAnchoredControl } from "./anchors";
@@ -98,6 +98,12 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
         const source = columnOf(column.id);
         const movable = source.flags?.Movable === true && source.flags?.["Fixed left"] !== true;
         const captionProps = { draggable: movable,
+          onMouseEnter: (event: MouseEvent<HTMLElement>) => {
+            const element = event.currentTarget;
+            if (options?.truncated_tooltip === "Yes" && element.scrollWidth > element.clientWidth) element.title = element.textContent ?? "";
+            else element.removeAttribute("title");
+          },
+          onMouseLeave: (event: MouseEvent<HTMLElement>) => event.currentTarget.removeAttribute("title"),
           onDragStart: (event: DragEvent<HTMLElement>) => { draggedColumn.current = column.id; event.dataTransfer.setData("text/plain", column.id); event.dataTransfer.effectAllowed = "move"; },
           onDragEnd: () => { draggedColumn.current = null; } };
         return <th key={column.id} scope="col" data-testid={source.name} data-control-path={source.path}

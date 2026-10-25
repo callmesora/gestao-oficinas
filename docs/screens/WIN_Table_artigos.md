@@ -1,8 +1,18 @@
 # Screen spec — WIN_Table_artigos
 
-Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Table_artigos.wdw`, `dossier: WIN_Table_artigos`, `docs/mapping/WIN_Table_artigos.md`. Step 0 specification only.
+Evidence: `legacy/GestaoOficinas_TesteIA/WIN_Table_artigos.wdw`, `dossier: WIN_Table_artigos`, `docs/mapping/WIN_Table_artigos.md`. Source specification; bounded implementation contract below.
 
 ## Contract
+
+MIG-7K.1 ordinary core uses real authenticated API/PostgreSQL list/save/check-delete/delete and the shared table/selection/RAD primitives. Initialization is active-only; each mode click clears ALL effective filters and search text/focuses search while visible Ativo/Inativo flags remain unchanged. Only real term/checkbox changes reapply flags; todos ignores text, bothtrue includesNULL, active-onlyfalse/inactive-onlytrue. Turning one off forces the other on. Header sort/search retains the current effective filter independently from visible controls. Typed source artigosID/preco sort occurs before exact text transport; price seek uses raw canonical decimal strings and Boolean0/1/empty under ADR012/U02 defaults.
+
+Existing source six widths89/170/148/109/92/49, price Right/checkbox Center, no-touch options, source row sizing, saved column configuration and explicit Tab sequence remain authoritative. JPG-backed Descrição/Ativo/Inativo and Pesquisar por descrição overrides keep generated evidence intact. Cached edit opens immediately, then refreshes after every return; new cancellation does not refresh. Description assistance uses the actual loaded list. Stale list results/failures and detached unit options cannot replace newer state/drafts.
+
+Delete prechecks selected Codigo against material_reparacao.artigo first then lin_stocks.artigo before source Sim1/Não2 confirmation, then rechecks with transaction locks; exact messages and safe Não default remain ADR006/011/U. No quantity/date/sign restriction, header-ID guard or stock movement is invented. Ordinary selector hides CRUD/print, uses30px rows/closeY503×38/arrows/focus, returns exact selected string and retains exact origin on cancellation; literal navigation predicates do not wrap. Invalid native request0/NULL cursor coupling stays U02.
+
+The t/m virtual keyboard, complete source initializer/DOMAIN coverage, both real caller rows, reports and both UMC actions remain specified, with all six U rows unmapped. Material caller retains old code on empty return and reloads description only; stock caller overwrites code before checking and reloads description/price. Neither is implemented by the development selector. Movement/reconstruction/report quirks remain owning-stage work. No full parent/window completion or runtime/native/Windows/HFSQL/human acceptance claim.
+
+Non-legacy instrumentation: articles-launcher/open/select-open/returned are development route/result controls; article-picker/frame/restore and resize handles belong to shared modal geometry, and article-list-diagnostic is developer-only. Exact checks are ui-check/articles.flows.spec.ts, operations/articles.test.ts and GS-ARTICLES-001; source captions/images/control checks remain ui-check.config.json without weakened floors.
 
 | Direction | Contract | Evidence |
 |---|---|---|

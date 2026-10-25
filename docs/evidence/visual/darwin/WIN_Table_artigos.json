@@ -1,0 +1,12 @@
+{
+ "pixel_similarity": 98.6,
+ "edge_overlap": 93.9,
+ "size": [
+  800,
+  600
+ ],
+ "legacy": "docs/evidence/images/WIN_Table_artigos.jpg",
+ "new": "ui-report/WIN_Table_artigos.png",
+ "side_by_side": "ui-report/WIN_Table_artigos.compare.png",
+ "date": "2026-10-25"
+}

@@ -1,0 +1,12 @@
+{
+ "pixel_similarity": 98.8,
+ "edge_overlap": 97.1,
+ "size": [
+  500,
+  260
+ ],
+ "legacy": "docs/evidence/images/WIN_Form_artigos.jpg",
+ "new": "ui-report/WIN_Form_artigos.png",
+ "side_by_side": "ui-report/WIN_Form_artigos.compare.png",
+ "date": "2026-10-25"
+}

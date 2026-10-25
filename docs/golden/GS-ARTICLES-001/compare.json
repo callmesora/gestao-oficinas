@@ -1,0 +1,19 @@
+{
+  "legacy": { "delimiter": ",", "encoding": "utf-8" },
+  "target": { "delimiter": ",", "encoding": "utf-8" },
+  "tables": {
+    "artigos": {
+      "key": ["Codigo"],
+      "columns": {
+        "artigosID": { "trim": false },
+        "Codigo": { "trim": false },
+        "Descricao": { "trim": false },
+        "codbarras": { "trim": false },
+        "unidade": { "trim": false },
+        "preco": { "trim": false },
+        "inativo": { "trim": false },
+        "stock": { "trim": false }
+      }
+    }
+  }
+}

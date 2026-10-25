@@ -26,6 +26,8 @@
 .wd-edit { position: absolute; top: 2px; height: calc(100% - 4px); box-sizing: border-box; margin: 0; padding: 2px 4px;
   font: inherit; color: inherit; border: 1px solid #a7adb8; background: white; } /* sampled */
 .wd-edit:focus { outline: none; border-color: #7d8899; } /* sampled */
+/* ADR-003: Artigos JPG inner inset; source combo frame/anchors stay unchanged. */
+.wd-combo { top: 6px; height: calc(100% - 12px); padding: 0 2px; }
 /* Mecânicos JPG eye; explicit reveal behavior and sprite-frame mapping remain ADR-003/U01 defaults. */
 .wd-password-reveal { position: absolute; right: 1px; top: 3px; height: calc(100% - 6px); width: 21px; box-sizing: border-box;
   margin: 0; padding: 0; border: 0; background: white; color: #444; display: flex; align-items: center; justify-content: center; }
@@ -127,7 +129,7 @@ textarea.wd-resource-edit { resize: none; }
 .wd-column-caption { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
 
 /* ADR-012: source header magnifiers; popup/key details remain assumed pending native capture. */
-.wd-table th button.wd-searchable-caption { width: calc(100% - 16px); margin-right: 16px; }
+.wd-table th button.wd-searchable-caption { width: calc(100% - 16px); margin-right: 16px; overflow: hidden; }
 .wd-table th button.wd-column-search { position: absolute; right: 3px; top: 0; width: 13px; height: 100%; }
 .wd-column-search span { display: block; width: 5px; height: 5px; border: 1px solid currentColor; border-radius: 50%; position: relative; }
 .wd-column-search span::after { content: ""; position: absolute; width: 5px; height: 1px; background: currentColor; left: 4px; top: 5px; transform: rotate(45deg); }
