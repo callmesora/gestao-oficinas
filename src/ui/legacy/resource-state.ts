@@ -1,6 +1,9 @@
 import { skinSourceImage } from "./layout";
 
-export type ResourceInput = { kind: "text"; value: string; maxLength?: number; password?: boolean; automaticErase?: boolean; adaptWidth?: boolean }
+export type ResourceEditType = "text" | "numeric" | "currency" | "date" | "time";
+export function rightAlignedResourceInput(type: ResourceEditType = "text") { return type === "numeric" || type === "currency" || type === "date" || type === "time"; }
+
+export type ResourceInput = { kind: "text"; value: string; maxLength?: number; password?: boolean; automaticErase?: boolean; adaptWidth?: boolean; inputType?: ResourceEditType; inputMask?: string; returnFormat?: string }
   | { kind: "checkbox"; value: boolean; label: string };
 export interface ResourceRequest {
   title: string; text: string; buttons: { label: string; value?: number }[];

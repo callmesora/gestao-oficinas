@@ -551,7 +551,8 @@
     "With focus": false
    },
    "anchoring": "Right",
-   "h_align": "Left"
+   "h_align": "Left",
+   "image": "MediaPlayer_Btn_Restore.gif"
   }
  ],
  "assets": [
@@ -565,6 +566,7 @@
   "MediaPlayer_Btn_Maximize_Anim.gif",
   "MediaPlayer_Btn_Minimize.gif",
   "MediaPlayer_Btn_Minimize_Anim.gif",
+  "MediaPlayer_Btn_Restore.gif",
   "MediaPlayer_Btn_UMC.gif",
   "MediaPlayer_Btn_UMC_Anim.gif",
   "MediaPlayer_Btn_anim.gif",

@@ -5,7 +5,7 @@ import tempfile
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from progress_dashboard import render, summarize
+from progress_dashboard import chart, matrix_rows, render, summarize
 
 
 class PlatformVisualProgressChecks(unittest.TestCase):
@@ -63,8 +63,83 @@ class PlatformVisualProgressChecks(unittest.TestCase):
             self.assertIsNone(unit['looks'])
             self.assertEqual(unit['visuals'], {})
             self.assertIn('<td class="visual">–</td>', page)
-            self.assertEqual(unit['stage'], 'building')
+            self.assertEqual(unit['stage'], 'built')
             self.assertEqual((unit['done'], unit['total']), (0, 1))
+
+
+class BuiltAndProvenProgressChecks(unittest.TestCase):
+    def summary(self, statuses):
+        with tempfile.TemporaryDirectory() as temporary:
+            return summarize([{'element': 'WIN_Example', 'kind': 'window', 'status': status}
+                              for status in statuses], Path(temporary))[0]
+
+    def test_built_excludes_decisions_while_strict_completion_keeps_them(self):
+        unit = self.summary(['implemented', 'implemented', 'verified', 'excluded', 'specified', 'unmapped'])
+        self.assertEqual((unit['built'], unit['built_percent'], unit['proven'], unit['excluded']), (3, 50.0, 1, 1))
+        self.assertEqual((unit['done'], unit['total'], unit['stage']), (2, 6, 'building'))
+        page = render([unit], {'decisions_pending': ['pending-choice'], 'answer_sheet_open': 8,
+                              'answer_sheet_done': 2, 'unresolved_items': 4},
+                      [('2026-10-24', 20.0, 6), ('2026-10-25', 30.0, 6)], [], 'Example', 'fixed')
+        self.assertIn('<div class="hero"><div class="pct">50.0%</div>', page)
+        self.assertIn('3 of 6 behaviors · 2 built, awaiting proof · 1 approved exclusions outside the built count', page)
+        self.assertIn('<div class="big">16.7%</div><div>proven by verification</div>', page)
+        self.assertIn('<div class="big">33.3%</div><div>strict completion</div>', page)
+        self.assertIn('2/6 verified + approved exclusions (1 excluded)', page)
+        self.assertIn('3/6 built', page)
+        self.assertIn('1/6 proven', page)
+        self.assertIn('1 excluded</div>', page)
+        self.assertIn('pending-choice', page)
+        self.assertIn('2 answered · 4 open points', page)
+        self.assertNotIn('rebuilt <b>and proven</b>', page)
+
+    def test_fully_built_is_a_separate_stage_and_unknown_rows_do_not_close_it(self):
+        cases = [(['implemented'], 'built'),
+                 (['implemented', 'verified', 'excluded'], 'built'),
+                 (['implemented', 'specified'], 'building'),
+                 (['verified', 'unmapped'], 'building'),
+                 (['implemented', 'excluded', 'unmapped'], 'building'),
+                 (['verified', 'excluded'], 'done'),
+                 (['excluded'], 'done')]
+        for statuses, expected in cases:
+            with self.subTest(statuses=statuses):
+                unit = self.summary(statuses)
+                self.assertEqual(unit['stage'], expected)
+                self.assertEqual(unit['built'], statuses.count('implemented') + statuses.count('verified'))
+                self.assertEqual(unit['done'], statuses.count('verified') + statuses.count('excluded'))
+        unit = self.summary(['implemented', 'excluded'])
+        self.assertEqual(unit['built_percent'], 50.0)
+
+    def test_excluded_only_and_empty_matrices_never_report_built_work(self):
+        unit = self.summary(['excluded'])
+        self.assertEqual((unit['built'], unit['built_percent'], unit['proven']), (0, 0.0, 0))
+        questions = {'decisions_pending': [], 'answer_sheet_open': 0,
+                     'answer_sheet_done': 0, 'unresolved_items': 0}
+        page = render([unit], questions, [], [], 'Example', 'fixed')
+        self.assertIn('<div class="hero"><div class="pct">0.0%</div>', page)
+        self.assertIn('<div class="big">100.0%</div><div>strict completion</div>', page)
+        empty = render([], questions, [], [], 'Example', 'fixed')
+        self.assertIn('<div class="hero"><div class="pct">0.0%</div>', empty)
+        self.assertIn('0 of 0 behaviors', empty)
+
+    def test_history_retains_original_strict_values_and_correctly_labels_exclusions(self):
+        original_points = [('2026-10-24', 20.0, 10), ('2026-10-25', 30.0, 10)]
+        graphic = chart(original_points)
+        self.assertIn('points="10.0,106.0 630.0,94.0"', graphic)
+        self.assertIn('strict completion over time: verified plus approved exclusions', graphic)
+        self.assertIn('2026-10-25 · 30.0%', graphic)
+        self.assertNotIn('verified share over time', graphic)
+        self.assertEqual(original_points, [('2026-10-24', 20.0, 10), ('2026-10-25', 30.0, 10)])
+
+    def test_aggregate_and_seed_behavior_identity_rules_are_unchanged(self):
+        header = 'id,element,context,event,status\n'
+        rows = matrix_rows({
+            'parity.csv': header + 'current,WIN_Example,WIN_Example/button,18,implemented\n',
+            'WIN_Example.csv': header + 'current,WIN_Example,WIN_Example/button,18,verified\n',
+            'parity-seed.csv': header + 'old,WIN_Example,WIN_Example/button,18,specified\n'
+                                      'missing,WIN_Example,WIN_Example/other,18,unmapped\n',
+        })
+        self.assertEqual([(row['id'], row['status']) for row in rows],
+                         [('current', 'implemented'), ('missing', 'unmapped')])
 
 
 if __name__ == '__main__':

@@ -63,7 +63,10 @@ async function seed(database: Client) {
 export const test = base.extend<TestFixtures, WorkerFixtures>({
   repairServer: [async ({ browserName }, use) => {
     if (browserName !== "chromium") throw new Error("This source-calendar check requires the configured Chrome browser");
-    const origin = "http://localhost:1432", engine = await startIsolatedPostgres();
+    const port = Number(process.env.WORKSHOP_REPAIR_TEST_PORT ?? "1432");
+    const apiPort = Number(process.env.WORKSHOP_REPAIR_TEST_API_PORT ?? "0");
+    if (!Number.isInteger(port) || port < 1 || port > 65535 || !Number.isInteger(apiPort) || apiPort < 0 || apiPort > 65535) throw new Error("Repair test ports invalid");
+    const origin = `http://localhost:${port}`, engine = await startIsolatedPostgres();
     let database: Client | undefined, app: ReturnType<typeof createApp> | undefined;
     let vite: Awaited<ReturnType<typeof createServer>> | undefined, stopped: Promise<void> | undefined;
     let dataStopped: Promise<void> | undefined;
@@ -81,14 +84,14 @@ export const test = base.extend<TestFixtures, WorkerFixtures>({
       const connect = () => engine.connect(name);
       const options = { reportConnect: connect, reportRenderer: createReportRenderer(), repairLaborConnect: connect, repairMaterialsConnect: connect, articleConnect: connect, unitConnect: connect, descriptiveStateConnect: connect, repairOrderConnect: connect, customerConnect: connect, vehicleConnect: connect,
         mechanicsConnect: connect, userConnect: connect, development: developmentSessions(origin) };
-      app = createApp(options); await app.listen({ host: "127.0.0.1", port: 0 });
+      app = createApp(options); await app.listen({ host: "127.0.0.1", port: apiPort });
       const address = app.server.address();
       if (!address || typeof address === "string") throw new Error("Repair test API address unavailable");
       vite = await createServer({ root: fileURLToPath(new URL("../../", import.meta.url)), cacheDir: resolve(engine.directory, "vite-repair"),
         plugins: [{ name: "repair-test-data-lifetime", closeServer: { async handler({ reason }) {
           if (reason === "close") await stopData();
         } } }],
-        server: { host: "localhost", port: 1432, strictPort: true, proxy: { "/api": { target: `http://127.0.0.1:${address.port}` } } } });
+        server: { host: "localhost", port, strictPort: true, proxy: { "/api": { target: `http://127.0.0.1:${address.port}` } } } });
       await vite.listen();
       await use({ origin, database });
     } finally { process.off("SIGINT", onSignal); process.off("SIGTERM", onSignal); await stop(); }

@@ -51,3 +51,10 @@ it("sizes multiline text before frame fitting and applies character-width adapta
     expect(result.inputWidth + result.bodyX + 16).toBe(result.width);
   }
 });
+
+
+it("typed resource input reserves mask digits using zero width instead of the text maximum", () => {
+  const measure = (text: string) => ({ width: text === "W" ? 11 : text === "0" ? 6 : text.length * 7, height: 14 });
+  const geometry = resourceTextInputGeometry({ value: "1,25", inputType: "currency", inputMask: "999,99", maxLength: 1, adaptWidth: true }, { width: 181, height: 22 }, measure, 6, false);
+  expect(geometry.adaptedWidth).toBe(44);
+});

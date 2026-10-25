@@ -1,6 +1,6 @@
 # ROADMAP — Gestao Oficinas
 
-Current local work: persistent business startup and source follow-through on main over e7d26c7; no push. All51 windows/28reports have initial paths;365/2,273behaviors verified (16.1%), with no whole-window acceptance. Local setup/start, managed user access, report runtime/output and repair callers are delivered; isolated writers continue scanner, mechanic credentials and exact Time queries. Historical checks: docs/migration-history.md.
+Current local work: MIG-14 understood-behaviour delivery on main over 27bb487; no push. All 51 application windows/28 reports have initial paths. Aggregate: 1,742/2,273 built (76.6%), 367 verified (16.1%), zero specified, 481 unresolved and 50 owner-excluded macro-editor actions. Initial implementations retain source/native acceptance gaps; no whole-window closure. Evidence and checks: docs/runbooks/handoff.md and docs/migration-history.md.
 
 Order follows templates/ROADMAP.template.md and accepted ADR-007. Step 0 commits: 7d3a5c7 and 637fc6b. Framing must close before foundation. The database/import and shared UI foundations and a usable customer workflow exist. Customer designer/native/report parity remains open; its core delivery and follow-up are tracked separately below.
 
@@ -12,7 +12,7 @@ Order follows templates/ROADMAP.template.md and accepted ADR-007. Step 0 commits
 - Every workflow stage must end with a user-visible route to the real screen, real data/actions for its stated scope, and parity rows/tests that prove those actions. Synthetic fixtures and rendered layouts are not screen implementation.
 - Keep one workflow per brief. Do not build speculative shared abstractions; extract a pattern at the cleanup checkpoint only after at least two real workflows use it. Keep print/report behavior assigned to MIG-13 unless a brief explicitly includes its report and evidence.
 
-Each group below must be split into bounded stage briefs for individual workflows before coding; a group is Done only when every owned unit meets the guide gates. No feature is excluded. Review/fix is part of each slice.
+Each group below must be split into bounded stage briefs for individual workflows before coding; a group is Done only when every owned unit meets the guide gates. Only the 50 hidden macro-editor actions are excluded by owner approval (ADR-007). Review/fix remains part of each slice.
 
 | # | Phase | Slice | Ticket | Parity rows | Owner | Brief/evidence | Deliverable | Depends on | Status |
 |---|---|---|---|---|---|---|---|---|---|
@@ -87,7 +87,7 @@ Each group below must be split into bounded stage briefs for individual workflow
 | 10 | Slice | Stock documents, scanners, inventory and reconstruction | MIG-11 | assigned units below | isolated implementer + coordinator | templates/prompt-stage.md | real document CRUD/stock effects, inventory/rebuild and selected-file scanner | 8, 9 | Configured native file reader delivered — physical device/charset/other-host and U gates retained |
 | 11 | Slice | Startup, access, system, menu and launch modes | MIG-12 | assigned units below | isolated implementer + coordinator | templates/prompt-stage.md | persistent user access/menu, configuration save, launch modes and shared touch keyboards | 5, 7, 8, 9, 10 | Local persistent/native startup and explicit mechanic credentials delivered — updater/INI/other-host gates retained |
 | 12 | Slice | Every report/filter and print destination | MIG-13 | assigned units below | isolated implementer + coordinator | templates/prompt-stage.md | 28 initial data/render paths, three filter screens, offline Paged.js/Chromium preview/PDF and actual callers | 7, 8, 9, 10, 11 | Offline runtime pins, source flow/margins/totals/company delivered — legacy fidelity, host packaging/native printing retained |
-| 13 | Cleanup | Resolve remaining U items and review all parity claims | MIG-14 | all remaining rows | coordinator + isolated writers | docs/runbooks/current-stage.md | exact source-event proofs, concrete fixes, no silent exclusions; assumed choices traced to proposals/ADRs | 12 | In progress — usable built desktop, shared libraries and everyday workflows; no whole-window/native closure |
+| 13 | Cleanup | Resolve remaining U items and review all parity claims | MIG-14 | all remaining rows | coordinator + isolated writers | docs/runbooks/current-stage.md | exact source-event proofs, concrete fixes, no silent exclusions; assumed choices traced to proposals/ADRs | 12 | In progress — all 1,029 understood rows addressed (979 initial implementations, 50 approved exclusions); native/unknown acceptance remains |
 | 14 | Acceptance | Installer, upgrade, restore, devices and full reconciliation | MIG-15 | all plus platform rows | implementer + owner | templates/prompt-stage.md | native Windows acceptance and data reconciliation artifacts | 13 | Local fresh-profile recovery prerequisite delivered; full acceptance to do |
 | 15 | Cutover | Rehearsal and explicit production transition plan | MIG-16 | all | owner + implementer | 08-data-migration.md | complete gate; freeze/rollback plan; owner acceptance | 14 | To do |
 

@@ -41,17 +41,23 @@ export function MenuLaunchers({ windows, mode, system, terminate }: { windows: S
     if (definition) { openedModule.current = true; open({ key: definition.id, layout: definition.layout, content: definition.content, onClose: terminate }); }
   }, [windows, mode, open, terminate]);
   if (mode === "labor" || mode === "materials") return windows.some(item => item.id === (mode === "labor" ? "repair-labor" : "repair-materials")) ? null : <output data-testid="startup-module-unavailable">Módulo indisponível nesta versão de desenvolvimento.</output>;
+  const tab = controlOf(menuLayout, "TAB_NoName1"), group = controlOf(menuLayout, "TAB_NoName1.LAYOUT_NoName1");
   return <><div data-testid="WIN_MENU" style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
     {mode !== "articles" && <nav className="startup-menu-bar" aria-label="Menu principal">
       <details><summary>Menu</summary><div><button disabled={actionBusy} data-testid="OPT_Postos" onClick={() => { const definition = windows.find(item => item.id === "postos"); if (definition) launch(definition); }}>Postos</button><button disabled={actionBusy} data-testid="OPT_Sistema" onClick={system}>Sistema</button><button disabled={actionBusy} data-testid="MENU_OPT_Exit" onClick={terminate}>Sair</button></div></details>
       {([["tables", "Tabelas"], ["movements", "Movimentos"], ["reports", "Mapas"], ["utilities", "Utilitários"]] as const).map(([group, label]) => <details key={group}><summary>{label}</summary><div>{windows.filter(item => item.group === group && item.id !== "postos" && !item.toolbarOnly).map(item => <button key={item.id} disabled={actionBusy} data-testid={item.menuControl ?? `menu-${item.id}`} onClick={() => launch(item)}>{item.label}</button>)}</div></details>)}
     </nav>}
-    <div className="startup-quick-bar" style={{ top: mode === "articles" ? 27 : 53 }}>
-      {quick.filter(([, key]) => mode !== "articles" || key === "articles" || key === "stock-documents").map(([name, key], index) => {
-        const definition = windows.find(item => item.id === key), control = controlOf(menuLayout, name);
+    <div className="startup-quick-bar" data-testid={tab.name} data-control-path={tab.path}
+      role="group" aria-label={tab.caption?.replace("&", "")} hidden={tab.visible === false || tab.flags?.Visible === false}
+      style={{ top: mode === "articles" ? 27 : tab.y, height: tab.height ?? 79 }}>
+      <div data-testid={group.name} data-control-path={group.path} hidden={group.visible === false || group.flags?.Visible === false}
+        style={{ position: "absolute", left: group.x - tab.x, top: group.y - tab.y, width: group.width ?? 770, height: group.height ?? 72 }}>
+      {quick.filter(([, key]) => mode !== "articles" || key === "articles" || key === "stock-documents").map(([name, key], index) => ({ name, key, index, control: controlOf(menuLayout, name) })).sort((left, right) => Number(left.control.tab_order) - Number(right.control.tab_order)).map(({ name, key, index, control }) => {
+        const definition = windows.find(item => item.id === key);
         // Dossier/JPG lays the seven buttons horizontally; the extracted Layout children overlap.
-        return <WdButton key={name} control={{ ...control, x: 6 + index * 83, y: 6 }} disabled={!definition || actionBusy} title={definition ? undefined : "Migração em curso"} onClick={() => { if (definition) launch(definition); }} />;
+        return <WdButton key={name} control={{ ...control, x: 6 + index * 83 - (group.x - tab.x), y: 6 - (group.y - tab.y) }} disabled={!definition || actionBusy} title={definition ? undefined : "Migração em curso"} onClick={() => { if (definition) launch(definition); }} />;
       })}
+      </div>
     </div>
   </div>{dialog?.renderDialog?.(() => setDialog(null))}{actionDiagnostic && <output data-testid="menu-action-diagnostic">{actionDiagnostic}</output>}</>;
 }

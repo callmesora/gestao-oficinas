@@ -50,9 +50,9 @@ export function RepairMaterialPrompt({ mode, value, finish }: {
   return <WdModal ref={modal} layout={layout} instance={`repair-material-${mode}-prompt`} testId="WIN_Inserir_quantidade_password" restoreTestId="repair-material-prompt-restore"
     onClose={() => close(value)} onKeyDown={event => { if (keyboard || event.defaultPrevented) return; if (event.key === "Enter" && !(event.target instanceof HTMLButtonElement)) { event.preventDefault(); confirm(); } }}>
     <WdRadControls layout={layout} bindings={bindings} />
-    {keyboard && <TouchKeyboardDialog request={keyboard} finish={result => {
-      // Both source keyboards return their exact argument on cancel; an unchanged result preserves nullable baselines.
-      if (result !== keyboard.options.value) { edited.current = true; setInvalid(false); setDraft(numeric ? decimalMaskDisplay(mask, result) : result); }
+    {keyboard && <TouchKeyboardDialog request={keyboard} finish={(result, outcome) => {
+      // ADR002: accepted clear is an edit even when its string equals a nullable field's empty display.
+      if (outcome.confirmed && (outcome.edited || result !== keyboard.options.value)) { edited.current = true; setInvalid(false); setDraft(numeric ? decimalMaskDisplay(mask, result) : result); }
       setKeyboard(null); input.current?.focus();
     }} />}
   </WdModal>;

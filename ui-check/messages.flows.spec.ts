@@ -68,3 +68,22 @@ test("queued messages await their own result and safe close resumes the second c
   await next.getByTestId("BTN_SYST_FERMER").click();
   await expect(page.getByTestId("skin-message-result")).toHaveText("1,2");
 });
+
+
+test("message chrome retains the pending result through minimize and maximize", async ({ page }) => {
+  await page.goto("/?skin=controls");
+  await page.getByTestId("skin-message-open").click();
+  const dialog = page.getByTestId("WINDEVMESSAGEBOX"), frame = dialog.getByTestId("message-box-frame");
+  const bounds = (await frame.boundingBox())!;
+  await dialog.getByTestId("BTN_SYST_MINIMIZE").click();
+  await expect(frame).toBeHidden();
+  await expect(page.getByTestId("skin-message-result")).toHaveText("a aguardar");
+  await page.getByTestId("message-box-restore").click();
+  await expect(dialog.getByTestId("BTN_NON")).toBeFocused();
+  await dialog.getByTestId("BTN_Syst_Maximize").click();
+  expect((await frame.boundingBox())!.width).toBeGreaterThan(bounds.width);
+  await dialog.getByTestId("BTN_Syst_Maximize").click();
+  expect((await frame.boundingBox())!.width).toBeCloseTo(bounds.width);
+  await dialog.getByTestId("BTN_NON").click();
+  await expect(page.getByTestId("skin-message-result")).toHaveText("7");
+});

@@ -29,9 +29,9 @@ export function StartupAccessDialog({ repository, users, touch = false, finish }
   };
   const bindings: WdRadBinding[] = [
     { name: "STC_NoName1", kind: "caption" }, { name: "STC_NoName2", kind: "caption" },
-    { name: "EDT_utilizador", kind: "edit", props: { value: description, readOnly: true, "aria-label": "Utilizador" } },
-    { name: "EDT_palavra_passe", kind: "edit", props: { ref: input, value: password, passwordReveal: true, disabled: busy, "aria-label": "Palavra-passe", onChange: event => setPassword(event.target.value), onPointerDown: () => { if (touch && !busy) setKeyboard(true); } } },
     { name: "BTN_NoName1", kind: "button", props: { disabled: busy, onClick: () => setPicker(true) } },
+    { name: "EDT_utilizador", kind: "edit", props: { value: description, readOnly: true, "aria-label": "Utilizador" } },
+    { name: "EDT_palavra_passe", kind: "edit", props: { ref: input, value: password, passwordReveal: true, disabled: busy, "aria-label": "Palavra-passe", onChange: event => setPassword(event.target.value), onPointerDown: event => { if (touch && !busy && !picker && !keyboard && event.button === 0) { event.preventDefault(); setKeyboard(true); } } } },
     { name: "BTN_Confirmar", kind: "button", props: { disabled: busy, onClick: () => void confirm() } },
     { name: "BTN_Cancelar", kind: "button", props: { disabled: busy, onClick: () => close("cancelar") } },
   ];

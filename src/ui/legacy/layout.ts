@@ -4,6 +4,8 @@ import inputs from "../../../docs/evidence/ui-inputs.json";
 export interface LegacyColumn {
   name: string; path: string; title: string | null; width: number | null;
   h_align: string | null; flags?: Record<string, boolean> | null;
+  parent?: string; input_type?: string | null; linked_item?: string | null; index?: number;
+  metadata_unresolved?: boolean;
 }
 
 export interface LegacyControl {

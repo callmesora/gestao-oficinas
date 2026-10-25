@@ -187,6 +187,9 @@ def layout(unit, latest, language=None):
         raw = details.get('raw', [])
         caption_alignment = caption_summary_alignment(details)
         image = basename(pick(details.get('image'), language))
+        # Image controls store their literal asset in Initial value, unlike buttons.
+        if not image and details.get('kind') == 'Image':
+            image = basename(pick(details.get('initial_value'), language))
         background = basename(pick(details.get('background_image'), language))
         assets.update(a for a in (image, background) if a)
         entry = {'name': item['name'], 'path': identity['path'], 'kind': details.get('kind') or item['kind'],

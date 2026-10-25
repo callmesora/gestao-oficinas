@@ -1,4 +1,5 @@
 import { controlOf, type LegacyLayout } from "./layout";
+import { rightAlignedResourceInput, type ResourceEditType } from "./resource-state";
 import { mnemonicCaption } from "./mnemonics";
 
 export type TextMeasure = (text: string, width?: number) => { width: number; height: number };
@@ -37,11 +38,13 @@ export function resourceButtonGeometry(labels: string[], title: string, measure:
 }
 
 // legacy/GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:1094-1155 (text input).
-export function resourceTextInputGeometry(input: { value: string; maxLength?: number; adaptWidth?: boolean },
+export function resourceTextInputGeometry(input: { value: string; maxLength?: number; adaptWidth?: boolean; inputType?: ResourceEditType; inputMask?: string },
   base: { width: number; height: number }, measure: TextMeasure, inset: number, multiline: boolean) {
   const width = multiline ? Math.max(base.width, measure(input.value).width) : base.width;
+  const typed = rightAlignedResourceInput(input.inputType);
+  const count = typed ? input.inputMask?.length : input.maxLength;
   return { width, height: multiline ? measure(input.value, width).height + inset : base.height,
-    adaptedWidth: input.adaptWidth && input.maxLength ? input.maxLength * measure("W").width + 8 : undefined };
+    adaptedWidth: input.adaptWidth && count ? count * measure(typed ? "0" : "W").width + 8 : undefined };
 }
 
 // legacy/GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:738-947.

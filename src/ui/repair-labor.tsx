@@ -1,6 +1,6 @@
 import { useReportPreview } from "./reports";
 import { reportContext } from "./report-callers";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type PointerEventHandler } from "react";
+import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type CSSProperties, type PointerEventHandler } from "react";
 import Decimal from "decimal.js";
 import type { RepairLaborDetail, RepairLaborMaterial, RepairLaborOrder, RepairLaborOrderSort, RepairLaborPlan, RepairLaborProof, RepairLaborReadResult, RepairLaborRow, RepairLaborTimeRow } from "../../packages/domain/src/repair-labor";
 import { repairLaborMemorySort, type RepairLaborTableValue } from "../../packages/domain/src/repair-labor-table";
@@ -56,7 +56,13 @@ const pickerLayout = captions(sourcePicker, "Escolha o tipo de reparação a ser
 type Repositories = { labor: RepairLaborRepository; mechanics: MechanicRepository; descriptions: DescriptiveStateRepository };
 type Loaded = Extract<RepairLaborReadResult, { kind: "loaded" }>;
 function sourceColor(value: number | null) { return value === null || value < 0 || value > 0xffffff ? "#ffffff" : `rgb(${value % 256},${Math.floor(value / 256) % 256},${Math.floor(value / 65536) % 256})`; }
-function ColorCell({ value }: { value: number | null }) { return <span className="repair-labor-color" style={{ backgroundColor: sourceColor(value) }} />; }
+function ColorCell({ value, source, table }: { value: number | null; source: LegacyLayout; table: string }) {
+  const shape = controlOf(source, `${table}.COL_imagem.SHA_cor`);
+  if (shape.kind !== "Shape" || shape.width == null || shape.height == null) throw new Error(`Labor cell shape unresolved: ${shape.path}`);
+  return <span className="repair-labor-color" data-testid={shape.name} data-control-path={shape.path}
+    hidden={shape.visible === false || shape.flags?.Visible === false}
+    style={{ width: shape.width, height: shape.height, backgroundColor: sourceColor(value) }} />;
+}
 function Buttons({ layout, actions }: { layout: LegacyLayout; actions: Record<string, { onClick?: () => void; disabled?: boolean; caption?: string }> }) {
   const adjusted = { ...layout, controls: layout.controls.map(control => { const action = actions[control.path] ?? actions[control.name]; return action?.caption === undefined ? control : { ...control, caption: action.caption }; }) };
   return <WdRadControls layout={adjusted} bindings={Object.entries(actions).map(([name, action]): WdRadBinding => ({ name, kind: "button", props: { disabled: action.disabled, onClick: action.onClick } }))} />;
@@ -173,7 +179,7 @@ export function RepairLaborStateDialog({ repository, descriptiveRepository, nume
     <Captions layout={stateLayout} />
     {memo(stateLayout, "EDT_matricula_marca_modelo", loaded ? `${loaded.order.matricula ?? ""}      ${loaded.order.marcamodelo ?? ""}` : "")}
     <WdTable control={table} rows={loaded?.choices ?? []} rowId={row => row.id} selectedId={selection} onSelect={id => { if (!busy) setSelection(id); }} {...settings} designerOptions configureColumns onResetColumns={settings.resetLayout} showHeaders={false}
-      cell={(row, column) => column.name === "COL_imagem" ? <ColorCell value={row.Cor} /> : column.name === "COL_Descricao" ? row.Descricao : ""} />
+      cell={(row, column) => column.name === "COL_imagem" ? <ColorCell value={row.Cor} source={stateLayout} table={table.path} /> : column.name === "COL_Descricao" ? row.Descricao : column.name === "COL_Codigo" ? row.Codigo : column.name === "COL_Tipo" ? row.tipo : column.name === "COL_cor" ? row.Cor : ""} />
     <WdDateTimeEdit ref={calendar} control={controlOf(stateLayout, "EDT_Data_Hora")} draft={when} onChange={value => { setWhen(value); setInvalid(false); }} invalid={invalid} disabled={busy || !loaded} />
     {memo(stateLayout, "EDT_descricao", description, setDescription, busy || !loaded, { onPointerDown: openKeyboard("description") })}
     <div ref={history}><WdMemo control={controlOf(stateLayout, "EDT_historico")} value={loaded?.order.reparacao_estado_historico ?? ""} /></div>
@@ -316,7 +322,8 @@ export function RepairDescriptionsDialog({ repository, numero, finish, onMateria
   repository: RepairLaborRepository; numero: string; finish: () => void; onMaterial?: (order: RepairLaborDetail) => Promise<void>;
   printMaterials?: (numero: string, total: string, rows: readonly RepairLaborMaterial[]) => void; printService?: (numero: string) => void;
 }) {
-  const modal = useRef<WdModalHandle>(null), pending = useRef(false), alive = useRef(true);
+  const modal = useRef<WdModalHandle>(null), pending = useRef(false), alive = useRef(true), tabs = useRef<HTMLDivElement>(null);
+  const tabIdentity = useId();
   const { message } = useDialogs();
   const [page, setPage] = useState(0), [rows, setRows] = useState<RepairLaborMaterial[]>([]), [busy, setBusy] = useState(false);
   const [laborRows, setLaborRows] = useState<RepairLaborRow[]>([]);
@@ -373,25 +380,36 @@ export function RepairDescriptionsDialog({ repository, numero, finish, onMateria
   };
   const pageNames = ["Tempos", "Materiais", "Descrições/Observações", "Histórico dos estados"];
   return <WdModal ref={modal} layout={descriptionsLayout} instance="repair-descriptions" testId="WIN_Table_Tempos_materiais_Descricoes" restoreTestId="repair-descriptions-restore" onClose={close}>
-    <div className="repair-labor-tabs" style={controlBox(controlOf(descriptionsLayout, "TAB_principal"))} data-testid="TAB_principal" role="tablist">
-      {pageNames.map((name, index) => <button type="button" key={name} role="tab" aria-selected={page === index} disabled={busy} onClick={() => setPage(index)}>{name}</button>)}
+    <div ref={tabs} className="repair-labor-tabs" style={controlBox(controlOf(descriptionsLayout, "TAB_principal"))} data-testid="TAB_principal" role="tablist"
+      onKeyDown={event => {
+        if (busy || event.altKey || event.ctrlKey || event.metaKey) return;
+        // One source TAB control owns one Tab stop; its four mounted pages retain their drafts.
+        // Native arrow/wrap precedence remains U-WBBC9D9-02 under ADR003's target keyboard default.
+        const next = event.key === "ArrowRight" ? (page + 1) % pageNames.length : event.key === "ArrowLeft" ? (page + pageNames.length - 1) % pageNames.length
+          : event.key === "Home" ? 0 : event.key === "End" ? pageNames.length - 1 : null;
+        if (next === null) return;
+        event.preventDefault(); event.stopPropagation(); setPage(next);
+        tabs.current?.querySelectorAll<HTMLButtonElement>('[role="tab"]')[next]?.focus();
+      }}>
+      {pageNames.map((name, index) => <button type="button" key={name} role="tab" id={`${tabIdentity}-tab-${index}`} aria-controls={`${tabIdentity}-page-${index}`}
+        aria-selected={page === index} tabIndex={page === index ? 0 : -1} disabled={busy} onClick={() => setPage(index)}>{name}</button>)}
     </div>
-    <div hidden={page !== 0}>
+    <div role="tabpanel" id={`${tabIdentity}-page-0`} aria-labelledby={`${tabIdentity}-tab-0`} hidden={page !== 0}>
       <WdTable control={laborTable} rows={laborRows} rowId={row => row.id} selectedId={laborSelection} onSelect={setLaborSelection} {...laborSettings} {...laborHeaders} designerOptions configureColumns onResetColumns={laborSettings.resetLayout}
         cell={(row, column) => column.name === "COL_Mecanico" ? row.Descricao : column.name === "COL_Inicio" ? dateTimeEntryDisplay(row.inicio) : column.name === "COL_Fim" ? dateTimeEntryDisplay(row.fim) : laborDurationDisplay(laborDuration(row.inicio, row.fim))} />
       <WdRadControls layout={descriptionsLayout} bindings={[{ name: "TAB_principal.STC_total", kind: "caption", props: { text: `Total: ${laborSumHours(durations)}` } }]} />
     </div>
-    <div hidden={page !== 1}>
+    <div role="tabpanel" id={`${tabIdentity}-page-1`} aria-labelledby={`${tabIdentity}-tab-1`} hidden={page !== 1}>
       <WdTable control={materialTable} rows={rows} rowId={row => row.id} selectedId={selection} onSelect={setSelection} {...materialSettings} {...materialHeaders} designerOptions configureColumns onResetColumns={materialSettings.resetLayout} cell={materialCell} />
       <WdRadControls layout={descriptionsLayout} bindings={[{ name: "TAB_principal.STC_total_material", kind: "caption", props: { text: total ?? "" } }]} />
       <Buttons layout={descriptionsLayout} actions={{ "TAB_principal.BTN_Material": { disabled: busy || !loaded || !onMaterial, onClick: () => void material() }, "TAB_principal.BTN_Imprimir": { disabled: !printMaterials || total === null, onClick: () => { if (total !== null) printMaterials?.(numero, total, rows); } } }} />
     </div>
-    <div hidden={page !== 2}>
+    <div role="tabpanel" id={`${tabIdentity}-page-2`} aria-labelledby={`${tabIdentity}-tab-2`} hidden={page !== 2}>
       <WdRadControls layout={descriptionsLayout} bindings={[{ name: "TAB_principal.STC_Serviço_Avaria", kind: "caption" }, { name: "TAB_principal.STC_Observação", kind: "caption" }]} />
       {memo(descriptionsLayout, "TAB_principal.EDT_servico_avaria", loaded?.order.recepcao_servico ?? "")}{memo(descriptionsLayout, "TAB_principal.EDT_observacao", loaded?.order.recepcao_obs ?? "")}
       <Buttons layout={descriptionsLayout} actions={{ "TAB_principal.BTN_listagem": { disabled: !printService, onClick: () => printService?.(numero) } }} />
     </div>
-    <div hidden={page !== 3}>
+    <div role="tabpanel" id={`${tabIdentity}-page-3`} aria-labelledby={`${tabIdentity}-tab-3`} hidden={page !== 3}>
       <WdRadControls layout={descriptionsLayout} bindings={[{ name: "TAB_principal.STC_Histórico_dos_estados", kind: "caption" }]} />{memo(descriptionsLayout, "TAB_principal.EDT_historico_estado", loaded?.order.reparacao_estado_historico ?? "")}
     </div>
     <WdRadControls layout={descriptionsLayout} bindings={[{ name: "STC_matricula", kind: "caption", props: { text: loaded?.order.matricula ?? "" } }]} />
@@ -404,8 +422,8 @@ export function RepairDescriptionsDialog({ repository, numero, finish, onMateria
 }
 
 function laborOrderCell(row: RepairLaborOrder, column: LegacyColumn) {
-  const keys: Record<string, keyof RepairLaborOrder> = { COL_numero: "numero", COL_mecanico: "Descricao_me", COL_matricula: "matricula", COL_marca_modelo: "marcamodelo", COL_estado: "Descricao" };
-  if (column.name === "COL_imagem") return <ColorCell value={row.Cor} />;
+  const keys: Record<string, keyof RepairLaborOrder> = { COL_numero: "numero", COL_mecanico: "Descricao_me", COL_matricula: "matricula", COL_marca_modelo: "marcamodelo", COL_estado: "Descricao", COL_Tipo: "tipo", COL_mecanico_codigo: "reparacao_mecanico", COL_estado_codigo: "reparacao_estado" };
+  if (column.name === "COL_imagem") return <ColorCell value={row.Cor} source={listLayout} table="TABLE_tempos_reparacao" />;
   if (column.name === "COL_prioridade") return repairOrderPriorityLabel(row.recepcao_prioridade);
   if (column.name === "COL_matricula") return <span className="repair-labor-registration">{row.matricula ?? ""}</span>;
   return String(row[keys[column.name]] ?? "");
@@ -518,7 +536,7 @@ export function RepairLaborScreen({ repositories }: { repositories: Repositories
       if (!busy && event.button === 0 && event.target instanceof Element && event.target.closest("tbody tr") && !event.target.closest('[role="checkbox"]')) void read();
     }}>
     <WdTable control={stateTable} rows={states} rowId={row => row.id} selectedId={stateSelection} onSelect={setStateSelection} {...stateSettings} designerOptions configureColumns onResetColumns={stateSettings.resetLayout} showHeaders={false}
-      cell={(row, column) => column.name === "COL_checkbox" ? <button type="button" className="repair-labor-check" role="checkbox" aria-label={`Selecionar estado ${row.Codigo ?? ""}`} aria-checked={row.checked} tabIndex={-1} disabled={busy} onClick={() => toggleState(row.id)}><WdCheckMark checked={row.checked} /></button> : column.name === "COL_imagem" ? <ColorCell value={row.Cor} /> : column.name === "COL_Descricao" ? row.Descricao : ""} />
+      cell={(row, column) => column.name === "COL_checkbox" ? <button type="button" className="repair-labor-check" role="checkbox" aria-label={`Selecionar estado ${row.Codigo ?? ""}`} aria-checked={row.checked} tabIndex={-1} disabled={busy} onClick={() => toggleState(row.id)}><WdCheckMark checked={row.checked} /></button> : column.name === "COL_imagem" ? <ColorCell value={row.Cor} source={listLayout} table={stateTable.path} /> : column.name === "COL_Descricao" ? row.Descricao : column.name === "COL_Codigo" ? row.Codigo : column.name === "COL_Tipo" ? row.tipo : column.name === "COL_cor" ? row.Cor : ""} />
     </div>
     <WdTable control={orderTable} rows={orders} rowId={row => row.id} selectedId={selection} onSelect={id => { if (!busy) setSelection(id); }} {...orderSettings} onSort={column => sortOrders(column)} onColumnSearch={(column, term) => { if (term) sortOrders(column, term); }} designerOptions configureColumns onResetColumns={orderSettings.resetLayout} cell={laborOrderCell} />
     <WdTable control={laborTable} rows={selected?.numero ? labor : []} rowId={row => row.id} selectedId={laborSelection} onSelect={setLaborSelection} {...laborSettings} {...laborHeaders} designerOptions configureColumns onResetColumns={laborSettings.resetLayout} cell={(row, column) => column.name === "COL_Mecanico" ? row.Descricao : dateTimeEntryDisplay(row.inicio)} />

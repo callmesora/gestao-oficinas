@@ -149,6 +149,17 @@ it("combined material Sair uses exact duplicate predicate, nullable retention an
     expect((await database.query('SELECT to_jsonb(m)::text AS row FROM app."material_reparacao" m ORDER BY _row_id')).rows).toEqual(before);
   } finally { await database.query('DROP TRIGGER fail_labor_material ON app."material_reparacao"; DROP FUNCTION app.fail_labor_material()'); }
 });
+it("replays Sair in the current sorted memory-table order for duplicate source predicates", async () => {
+  await seed();
+  await database.query(`INSERT INTO app."material_reparacao" ("material_reparacaoID","numero","artigo","data_hora","quantidade","preco","lancado","extra") VALUES
+    (1,$1,'DUP','20261025110000000',1,2,false,false),(2,$1,'DUP','20261025110000000',1,3,false,false)`, [numero]);
+  const loaded = await read();
+  // Descending price puts the original first row LAST; that row must win both matching updates.
+  const rows = loaded.materials.slice().reverse().map(row => ({ id: row.id, preco: row.preco, extra: row.extra, lancado: row.id === loaded.materials[0].id }));
+  expect(await saveRepairLaborMaterials(connect, { numero, baseline: loaded.materialBaseline, rows })).toEqual({ kind: "saved" });
+  expect((await database.query('SELECT "preco"::text,"lancado" FROM app."material_reparacao" ORDER BY _row_id')).rows)
+    .toEqual([{ preco: "2", lancado: true }, { preco: "2", lancado: true }]);
+});
 it("rolls other-order closes and a state change back if the final labor insert fails", async () => {
   await seed(); await database.query('UPDATE app."ordem_reparacao" SET "reparacao_estado"=\'E\'; INSERT INTO app."ordem_reparacao" ("ordem_reparacaoID","numero","matricula","reparacao_estado") VALUES (2,20,\'OTHER\',\'R\')'); await labor("1", "20");
   const prepared = await plan(), loaded = await read(), before = await snapshot();

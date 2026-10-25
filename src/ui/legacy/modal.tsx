@@ -1,4 +1,4 @@
-import { useEffect, useImperativeHandle, useRef, useState, type KeyboardEvent, type ReactNode, type Ref } from "react";
+import { useEffect, useImperativeHandle, useRef, useState, type ClipboardEventHandler, type KeyboardEvent, type ReactNode, type Ref } from "react";
 import type { WindowGeometry } from "../../application/window-geometry";
 import { windowGeometryStore } from "../../infrastructure/window-geometry";
 import { trapDialogTab } from "./dialog-keyboard";
@@ -6,12 +6,15 @@ import { controlOf, type LegacyLayout } from "./layout";
 import { WdFrame } from "./wd";
 import { WindowInteraction } from "./window-interaction";
 
-export interface WdModalHandle { close(): void }
+export interface WdModalHandle { close(): void; element(): HTMLDialogElement | null }
 
 /** The real forms/pickers share ADR-003 geometry; business state remains with each caller. */
-export function WdModal({ ref, layout, instance, testId, restoreTestId, onClose, onKeyDown, children }: {
+export function WdModal({ ref, layout, instance, testId, restoreTestId, onClose, onCancel, onKeyDown, onCopy, describedBy, contentSize, children }: {
   ref: Ref<WdModalHandle>; layout: LegacyLayout; instance: string; testId: string; restoreTestId: string;
-  onClose: () => void; onKeyDown?: (event: KeyboardEvent<HTMLDialogElement>) => void; children: ReactNode;
+  onClose: () => void; onCancel?: () => void; onKeyDown?: (event: KeyboardEvent<HTMLDialogElement>) => void;
+  onCopy?: ClipboardEventHandler<HTMLDialogElement>; describedBy?: string;
+  contentSize?: { width: number; height: number };
+  children: ReactNode | ((extent: { width: number; height: number }) => ReactNode);
 }) {
   const size = layout.window.size;
   if (!size) throw new Error(`Modal geometry unresolved: ${layout.window.name}`);
@@ -21,8 +24,8 @@ export function WdModal({ ref, layout, instance, testId, restoreTestId, onClose,
   const dialog = useRef<HTMLDialogElement>(null);
   const [geometry, setGeometry] = useState<WindowGeometry>(() => {
     const saved = layout.window.flags?.["Save position"] === true ? windowGeometryStore.load(layout.window.name) : null;
-    const width = resizable && saved ? Math.max(size.width, Math.min(saved.width, innerWidth - 16)) : size.width;
-    const height = resizable && saved ? Math.max(size.height, Math.min(saved.height, innerHeight - 16)) : size.height;
+    const width = contentSize?.width ?? (resizable && saved ? Math.max(size.width, Math.min(saved.width, innerWidth - 16)) : size.width);
+    const height = contentSize?.height ?? (resizable && saved ? Math.max(size.height, Math.min(saved.height, innerHeight - 16)) : size.height);
     return { width, height, x: Math.max(0, Math.min(saved?.x ?? Math.round((innerWidth - width) / 2), innerWidth - width)),
       y: Math.max(0, Math.min(saved?.y ?? Math.round((innerHeight - height) / 2), innerHeight - height)),
       maximized: saved?.maximized === true && layout.window.flags?.["Maximize icon"] === true };
@@ -34,7 +37,14 @@ export function WdModal({ ref, layout, instance, testId, restoreTestId, onClose,
   const persist = () => {
     if (layout.window.flags?.["Save position"] === true) windowGeometryStore.save(layout.window.name, latest.current);
   };
-  useImperativeHandle(ref, () => ({ close() { persist(); dialog.current?.close(); } }));
+  useImperativeHandle(ref, () => ({ element: () => dialog.current, close() { persist(); dialog.current?.close(); } }));
+  const fittedWidth = contentSize?.width, fittedHeight = contentSize?.height;
+  const [previousFit, setPreviousFit] = useState({ width: fittedWidth, height: fittedHeight });
+  if (previousFit.width !== fittedWidth || previousFit.height !== fittedHeight) {
+    setPreviousFit({ width: fittedWidth, height: fittedHeight });
+    if (fittedWidth !== undefined && fittedHeight !== undefined) setGeometry(previous => ({ ...previous, width: fittedWidth, height: fittedHeight,
+      x: Math.max(0, Math.round((innerWidth - fittedWidth) / 2)), y: Math.max(0, Math.round((innerHeight - fittedHeight) / 2)) }));
+  }
   useEffect(() => {
     const element = dialog.current!;
     // A closed, invisible host provides layout for Rnd's initial measurement.
@@ -62,9 +72,9 @@ export function WdModal({ ref, layout, instance, testId, restoreTestId, onClose,
   }, [minimized]);
   const width = geometry.maximized ? Math.max(size.width, extent.width - 40) : geometry.width;
   const height = geometry.maximized ? Math.max(size.height, extent.height - 40) : geometry.height;
-  return <dialog ref={dialog} className="wd-dialog-host wd-modal" data-testid={testId} aria-label={title} data-wd-movable-title={movableTitle}
+  return <dialog ref={dialog} className="wd-dialog-host wd-modal" data-testid={testId} aria-label={title} aria-describedby={describedBy} onCopy={onCopy} data-wd-movable-title={movableTitle}
     style={{ left: 0, top: 0, margin: 0, width: "100vw", height: "100vh", maxWidth: "none", maxHeight: "none", overflow: "auto", pointerEvents: "auto", display: "block", visibility: "hidden" }}
-    onCancel={event => { event.preventDefault(); event.stopPropagation(); if (event.target === event.currentTarget) onClose(); }}
+    onCancel={event => { event.preventDefault(); event.stopPropagation(); if (event.target === event.currentTarget) (onCancel ?? onClose)(); }}
     onKeyDown={event => {
       if (event.target instanceof Element && event.target.closest("dialog") !== event.currentTarget) return;
       trapDialogTab(event); onKeyDown?.(event);
@@ -83,12 +93,12 @@ export function WdModal({ ref, layout, instance, testId, restoreTestId, onClose,
       {minimized && <button data-testid={restoreTestId} style={{ position: "absolute", left: geometry.x, top: geometry.y }}
         onClick={() => { restoreFocus.current = true; setMinimized(false); }}>{title}</button>}
       <WindowInteraction hidden={minimized} bounds={{ x: geometry.maximized ? 20 : geometry.x, y: geometry.maximized ? 20 : geometry.y, width, height }}
-        minimum={size} movable={movableTitle} resizable={resizable} maximized={geometry.maximized} enableUserSelectHack={false}
+        minimum={contentSize ?? size} movable={movableTitle} resizable={resizable} maximized={geometry.maximized} enableUserSelectHack={false}
         showGrip={layout.window.flags?.["With grip"] === true} handleTestId={`${instance}-resize`} cornerTestId={`${instance}-resize-se`}
         keyboardResize="all" resizeTabIndex={-1} onBoundsChange={next => setGeometry(previous => ({ ...previous, ...next }))}>
         <WdFrame layout={layout} instance={instance} width={width} height={height}
           onClose={onClose} onMinimize={() => setMinimized(true)} onToggleMaximize={() => setGeometry(previous => ({ ...previous, maximized: !previous.maximized }))}>
-          {children}
+          {typeof children === "function" ? children({ width, height }) : children}
         </WdFrame>
       </WindowInteraction>
     </div>

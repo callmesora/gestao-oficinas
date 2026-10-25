@@ -1,3 +1,5 @@
+pub mod message_sound;
+pub use message_sound::PLAY_MESSAGE_SOUND_COMMAND;
 pub mod repair_state_color;
 pub mod report_output;
 pub mod scanner_file;

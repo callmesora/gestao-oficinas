@@ -243,8 +243,10 @@ export async function saveRepairLaborMaterials(connect: DatabaseConnection, inpu
     const rows = await materialRows(client, command.numero);
     if (JSON.stringify(rows) !== command.baseline || rows.length !== command.rows.length || new Set(command.rows.map(row => row.id)).size !== rows.length || command.rows.some(row => !rows.some(current => current.id === row.id))) { await client.query("ROLLBACK"); return { kind: "stale" }; }
     // Source963–969: preserve exact original predicate and ordered overwrite of matching duplicates.
-    for (const original of rows) {
-      const draft = command.rows.find(row => row.id === original.id)!;
+    // FOR EACH ROW follows the user's current memory-table order, including a header sort.
+    // Replaying database order instead changes the last write for duplicate source predicates.
+    for (const draft of command.rows) {
+      const original = rows.find(row => row.id === draft.id)!;
       await client.query('UPDATE app."material_reparacao" SET "lancado"=$4,"extra"=$5,"preco"=$6 WHERE "numero"=$1 AND "artigo"=$2 AND "data_hora"=$3', [command.numero, original.artigo, original.data_hora, draft.lancado, draft.extra, draft.preco]);
     }
     await client.query("COMMIT"); return { kind: "saved" };

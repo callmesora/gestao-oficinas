@@ -1,4 +1,5 @@
 import Decimal from "decimal.js";
+import "./repair-materials.css";
 import { useContext, useEffect, useRef, useState, type CSSProperties } from "react";
 import { repairMaterialEditMessage, type RepairMaterialLine, type RepairMaterialProof, type RepairMaterialsDocument, type RepairMaterialsMechanic, type RepairMaterialsOrder } from "../../packages/domain/src/repair-materials";
 import { dateTimeEntryDisplay } from "../../packages/domain/src/date-time";
@@ -36,6 +37,15 @@ const formLayout = corrected(sourceFormLayout), listLayout = corrected(sourceLis
 const materialTable = controlOf(formLayout, "TABLE_material"), orderTable = controlOf(listLayout, "TABLE_ordens_reparacao");
 const quantityMask = decimalMaskOf(controlOf(formLayout, "EDT_quant").input_mask)!, displayMask = decimalMaskOf("9999999999,999")!;
 const sourceRowHeight = Number(materialTable.table_options?.row_height ?? "30") + 1;
+// The source table/list sits between controls in the same Tab sequence. Preserve that
+// real DOM order without assigning positive tabindex values or altering shared primitives.
+function tabBindings(layout: LegacyLayout, bindings: WdRadBinding[], from: number, until: number) {
+  const order = (binding: WdRadBinding) => Number(controlOf(layout, binding.name).tab_order ?? 0);
+  return bindings.filter(binding => order(binding) >= from && order(binding) < until).sort((a, b) => order(a) - order(b));
+}
+function MaterialTabControls({ layout, bindings, from, until }: { layout: LegacyLayout; bindings: WdRadBinding[]; from: number; until: number }) {
+  return <WdRadControls layout={layout} bindings={tabBindings(layout, bindings, from, until)} />;
+}
 type DraftLine = RepairMaterialLine & { key: string };
 type Prompt = { mode: RepairMaterialPromptMode; value: string | null; resolve: (value: string | null) => void };
 type ScannerOutcome = Extract<ScannerResult, { kind: "partitioned" }> | "fechou";
@@ -100,6 +110,7 @@ function MaterialEditor({ repository, document, articleRepository, mechanicRepos
   const setDescriptionValue = (value: string) => { descriptionDraft.current = value; setDescription(value); };
   const latestPrompt = useRef<Prompt | null>(null), { message, resource } = useDialogs();
   const settings = useTableLayout(materialTable, "WIN_Material_reparacao_form/TABLE_material"), delta = useContext(FrameDeltaContext);
+  const [openingColumnScale] = useState(() => (800 + delta.width) / 800);
   useEffect(() => { alive.current = true; return () => { alive.current = false; proofs.current = []; const current = latestPrompt.current; current?.resolve(current.value);
     const child = latestScannerChild.current; if (child?.kind === "file") child.resolve(null); else if (child?.kind === "scanner") child.resolve("fechou"); else child?.resolve(); }; }, []);
   const info = (text: string) => message({ title: "Materiais de Reparação", text, type: 0 });
@@ -205,7 +216,13 @@ function MaterialEditor({ repository, document, articleRepository, mechanicRepos
     sorting.current = { column: column.name, descending };
     setRows(previous => [...previous].sort((a, b) => compareCell(a[field] ?? null, b[field] ?? null, ["COL_quant", "COL_preco", "COL_mecanico_codigo"].includes(column.name)) * (descending ? -1 : 1)));
   };
-  const move = (direction: -1 | 1) => { const index = rows.findIndex(row => row.key === selected), next = index + direction; if (!pending.current && index >= 0 && next >= 0 && next < rows.length) setSelected(rows[next].key); };
+  const move = (direction: -1 | 1) => {
+    if (pending.current) return;
+    const index = rows.findIndex(row => row.key === selected), currentIndex = index < 0 ? -1 : index + 1;
+    const requested = direction === 1 ? currentIndex < rows.length ? currentIndex + 1 : null : currentIndex > 1 ? currentIndex - 1 : null;
+    // U-W27273E-02: preserve the source predicate; a no-selection next requests0, whose native result remains unknown.
+    if (requested !== null && requested >= 1 && requested <= rows.length) setSelected(rows[requested - 1].key);
+  };
   const bindings: WdRadBinding[] = [
     ...["STC_Viatura", "STC_Mecanico", "STC_Artigo", "STC_Quant"].map(name => ({ name, kind: "caption" as const })),
     { name: "EDT_matricula", kind: "edit", props: { value: document.matricula ?? "", readOnly: true } },
@@ -227,14 +244,15 @@ function MaterialEditor({ repository, document, articleRepository, mechanicRepos
     { name: "BTN_NoName2", kind: "button", props: { disabled: busy || !articleRepository, onClick: () => setPicker("article") } },
     { name: "BTN_Leitor", kind: "button", props: { disabled: busy, onClick: () => void scanner() } },
   ];
-  return <>
-    <WdRadControls layout={formLayout} bindings={bindings} />
+  return <div className="material-source-scaling" style={{ display: "contents", "--material-control-scale": (800 + delta.width) / 800, "--material-column-scale": openingColumnScale } as CSSProperties}>
+    <MaterialTabControls layout={formLayout} bindings={bindings} from={-Infinity} until={Number(materialTable.tab_order)} />
     <WdTable control={materialTable} rows={rows} rowId={row => row.key} selectedId={selected} onSelect={key => { if (!pending.current) setSelected(key); }} onSort={sort}
       onColumnSearch={(column, term) => { if (pending.current || !term) return; const field = materialField(column.name); if (!field) return;
         const found = rows.find(row => String(row[field] ?? "").toLocaleLowerCase("pt-PT").startsWith(term.toLocaleLowerCase("pt-PT"))); if (found) setSelected(found.key); }} {...settings} configureColumns designerOptions onResetColumns={settings.resetLayout}
       rowHeight={sourceRowHeight * (600 + delta.height) / 600}
-      cell={(row, column) => column.name === "COL_data_hora" ? materialDateDisplay(row.data_hora) : column.name === "COL_mecanico_codigo" ? row.mecanico ?? "" : column.name === "COL_mecanico_descricao" ? row.mechanicDescription ?? "" :
-        column.name === "COL_codigo_artigo" ? row.artigo ?? "" : column.name === "COL_descricao_artigo" ? row.descricao_artigo ?? "" : column.name === "COL_quant" ? decimalMaskDisplay(displayMask, row.quantidade) : column.name === "COL_preco" ? decimalMaskDisplay(displayMask, row.preco) : column.name === "COL_Lancado" ? <WdCheckMark checked={row.lancado} /> : ""} />
+      cell={(row, column) => <span className={["COL_data_hora", "COL_mecanico_descricao", "COL_descricao_artigo", "COL_quant", "COL_preco"].includes(column.name) ? "material-opening-column-font" : undefined}>{column.name === "COL_data_hora" ? materialDateDisplay(row.data_hora) : column.name === "COL_mecanico_codigo" ? row.mecanico ?? "" : column.name === "COL_mecanico_descricao" ? row.mechanicDescription ?? "" :
+        column.name === "COL_codigo_artigo" ? row.artigo ?? "" : column.name === "COL_descricao_artigo" ? row.descricao_artigo ?? "" : column.name === "COL_quant" ? decimalMaskDisplay(displayMask, row.quantidade) : column.name === "COL_preco" ? decimalMaskDisplay(displayMask, row.preco) : column.name === "COL_Lancado" ? <WdCheckMark checked={row.lancado} /> : ""}</span>} />
+    <MaterialTabControls layout={formLayout} bindings={bindings} from={Number(materialTable.tab_order)} until={Infinity} />
     {prompt && <RepairMaterialPrompt mode={prompt.mode} value={prompt.value} finish={value => { latestPrompt.current = null; setPrompt(null); prompt.resolve(value); }} />}
     {picker === "article" && articleRepository && <ArticlePicker launchMode={new URLSearchParams(window.location.search).get("modulo") ?? undefined} repository={articleRepository} origin={article} finish={value => { setPicker(null); if (value !== "") { setArticleValue(value); void run(() => verifyArticle(value, false)); } }} />}
     {picker === "mechanic" && mechanicRepository && <MechanicPicker repository={mechanicRepository} origin="" finish={value => { setPicker(null); if (value !== "") void run(async () => { const code = typeof value === "number" ? value : Number(value); await authenticate(code); }); }} />}
@@ -242,7 +260,7 @@ function MaterialEditor({ repository, document, articleRepository, mechanicRepos
     {scannerChild?.kind === "scanner" && <StockScannerDialog repository={scannerChild.repository} sourceText={scannerChild.text} finish={result => { latestScannerChild.current = null; setScannerChild(null); scannerChild.resolve(result); }} />}
     {scannerChild?.kind === "unknown" && <StockUnknownScannerDialog rows={scannerChild.rows} finish={() => { latestScannerChild.current = null; setScannerChild(null); scannerChild.resolve(); }} />}
     {diagnostic && <output data-testid="repair-material-form-diagnostic">{diagnostic}</output>}
-  </>;
+  </div>;
 }
 
 export function RepairMaterialsDialog({ repository, orderId, numero, articleRepository, mechanicRepository, finish }: {
@@ -281,12 +299,16 @@ export function MaterialsList({ repository, articleRepository, mechanicRepositor
   const [diagnostic, setDiagnostic] = useState(""), [tick, setTick] = useState(0), pending = useRef(false);
   const [timer, setTimer] = useState<string | null | undefined>(undefined), reading = useRef(false), timerMessage = useRef(message);
   useEffect(() => { timerMessage.current = message; }, [message]);
+  const mechanicPointerChanged = useRef(false), lifetime = useRef(0);
+  useEffect(() => () => { lifetime.current++; }, []);
   const selectedNumber = useRef<string | null>(null), listSettings = useTableLayout(orderTable, "WIN_Material_Reparacao/TABLE_ordens_reparacao");
   useEffect(() => { let active = true; reading.current = true;
     void repository.list({ restricted, ...(mechanic === undefined ? {} : { mechanic }) }).then(result => {
       if (!active) return;
       if (result.kind !== "loaded") { setDiagnostic(result.kind); return; }
-      setOrders(result.orders); setMechanics(result.mechanics); setTimer(result.timer); setDiagnostic("");
+      setOrders(result.orders); setMechanics(result.mechanics);
+      // WIN_Material_Reparacao679–683 creates its timer once at entry; later refreshes do not replace its interval.
+      setTimer(previous => previous === undefined ? result.timer : previous); setDiagnostic("");
       // Source refresh seeks the prior business key after selecting the last row. Unknown initial selection stays U02.
       setSelected(previous => result.orders.find(row => row.id === previous)?.id ?? (selectedNumber.current !== null ? result.orders.find(row => row.numero === selectedNumber.current)?.id ?? result.orders.at(-1)?.id ?? null : null));
     }).catch(() => { if (active) setDiagnostic("transport"); }).finally(() => { if (active) reading.current = false; });
@@ -305,9 +327,10 @@ export function MaterialsList({ repository, articleRepository, mechanicRepositor
   const open = async () => {
     const current = orders.find(row => row.id === selected);
     if (!current || pending.current) return;
-    pending.current = true;
+    pending.current = true; const owner = lifetime.current;
     try {
       const result = await repository.list({ restricted, ...(mechanic === undefined ? {} : { mechanic }) });
+      if (owner !== lifetime.current) return;
       if (result.kind !== "loaded") { setDiagnostic(result.kind); return; }
       setOrders(result.orders);
       const available = result.orders.find(row => row.numero === current.numero);
@@ -322,18 +345,28 @@ export function MaterialsList({ repository, articleRepository, mechanicRepositor
     sorting.current = { column: column.name, descending };
     setOrders(previous => [...previous].sort((a, b) => compareCell(a[field], b[field], field === "numero") * (descending ? -1 : 1)));
   };
-  const move = (step: -1 | 1) => { const index = orders.findIndex(row => row.id === selected), next = index + step; if (!pending.current && index >= 0 && next >= 0 && next < orders.length) { setSelected(orders[next].id); selectedNumber.current = orders[next].numero; } };
+  const applyMechanic = (code: number | null | undefined) => {
+    if (pending.current) return;
+    setMechanic(code); setTick(value => value + 1);
+  };
+  const move = (step: -1 | 1) => {
+    if (pending.current) return;
+    const index = orders.findIndex(row => row.id === selected), currentIndex = index < 0 ? -1 : index + 1;
+    const requested = step === 1 ? currentIndex < orders.length ? currentIndex + 1 : null : currentIndex > 1 ? currentIndex - 1 : null;
+    // U-WE6E1AD-02: source next permits a requested0 when no row is selected; native invalid-index behavior remains open.
+    if (requested !== null && requested >= 1 && requested <= orders.length) { const row = orders[requested - 1]; setSelected(row.id); selectedNumber.current = row.numero; }
+  };
   const moveMechanic = (step: -1 | 1) => {
     const index = mechanics.findIndex(value => value.Codigo === mechanicSelection); if (index < 0) return;
     const next = index + step, code = mechanics[next >= 0 && next < mechanics.length ? next : index].Codigo;
     // Source603–606/630–633 invokes the filter even when the list cannot move.
-    setMechanicSelection(code); setMechanic(code);
+    setMechanicSelection(code); applyMechanic(code);
   };
   const mechanicControl = anchoredControl(controlOf(listLayout, "LIST_mecanicos"), delta);
   const bindings: WdRadBinding[] = [
     { name: "STC_Ordens_de_Reparacao", kind: "caption", props: { text: "Ordens de Reparação" } },
     { name: "STC_filtro_atual", kind: "caption", props: { text: mechanic === undefined ? "Todos" : mechanics.find(value => value.Codigo === mechanic)?.Descricao ?? "" } },
-    { name: "BTN_todos", kind: "button", props: { onClick: () => setMechanic(undefined) } },
+    { name: "BTN_todos", kind: "button", props: { onClick: () => applyMechanic(undefined) } },
     { name: "BTN_Material", kind: "button", props: { onClick: () => void open() } },
     { name: "BTN_anterior", kind: "button", props: { onClick: () => move(-1) } },
     { name: "BTN_seguinte", kind: "button", props: { onClick: () => move(1) } },
@@ -342,15 +375,22 @@ export function MaterialsList({ repository, articleRepository, mechanicRepositor
     { name: "BTN_Fechar", kind: "button", props: { onClick: close } },
   ];
   return <>
-    <WdRadControls layout={listLayout} bindings={bindings} />
-    <select data-testid="LIST_mecanicos" size={15} aria-label="Mecânicos" value={mechanicSelection === undefined ? "none" : String(mechanicSelection)}
-      style={controlBox(mechanicControl)} onChange={event => { const code = event.currentTarget.value === "null" ? null : Number(event.currentTarget.value); setMechanicSelection(code); setMechanic(code); }}>
-      {mechanics.map((value, index) => <option key={`${value.Codigo}:${index}`} value={String(value.Codigo)}>{value.Descricao ?? ""}</option>)}
-    </select>
+    <MaterialTabControls layout={listLayout} bindings={bindings} from={-Infinity} until={Number(orderTable.tab_order)} />
     <WdTable control={orderTable} rows={orders} rowId={row => row.id} selectedId={selected} onSelect={id => { const row = orders.find(value => value.id === id); setSelected(id); selectedNumber.current = row?.numero ?? null; }} onActivate={() => void open()} onSort={sort}
       onColumnSearch={(column, term) => { if (pending.current || !term) return; const field = orderField(column.name); if (!field) return;
         const found = orders.find(row => String(row[field] ?? "").toLocaleLowerCase("pt-PT").startsWith(term.toLocaleLowerCase("pt-PT"))); if (found) { setSelected(found.id); selectedNumber.current = found.numero; } }} {...listSettings} configureColumns designerOptions onResetColumns={listSettings.resetLayout}
       cell={(row, column) => column.name === "COL_Numero" ? row.numero ?? "" : column.name === "COL_Matricula" ? <span style={{ fontSize: 12, fontWeight: "bold" }}>{row.matricula ?? ""}</span> : column.name === "COL_Marca_Modelo" ? row.marcamodelo ?? "" : ""} />
+    <MaterialTabControls layout={listLayout} bindings={bindings} from={Number(orderTable.tab_order)} until={Number(mechanicControl.tab_order)} />
+    <select data-testid="LIST_mecanicos" data-control-path={mechanicControl.path} className="material-source-mechanics" size={15} aria-label="Mecânicos"
+      hidden={mechanicControl.visible === false || mechanicControl.flags?.Visible === false} disabled={mechanicControl.state === "Grayed"}
+      tabIndex={mechanicControl.flags?.["TAB Key"] === false || String(mechanicControl.tab_order) === "-1" ? -1 : 0}
+      value={mechanicSelection === undefined ? "none" : String(mechanicSelection)} style={{ ...controlBox(mechanicControl), textAlign: mechanicControl.h_align === "Right" ? "right" : mechanicControl.h_align === "Center" ? "center" : "left" }}
+      onPointerDown={() => { mechanicPointerChanged.current = false; }}
+      onPointerUp={event => { if (event.button === 0 && !mechanicPointerChanged.current && event.currentTarget.selectedIndex >= 0) applyMechanic(event.currentTarget.value === "null" ? null : Number(event.currentTarget.value)); }}
+      onChange={event => { mechanicPointerChanged.current = true; const code = event.currentTarget.value === "null" ? null : Number(event.currentTarget.value); setMechanicSelection(code); applyMechanic(code); }}>
+      {mechanics.map((value, index) => <option key={`${value.Codigo}:${index}`} value={String(value.Codigo)}>{value.Descricao ?? ""}</option>)}
+    </select>
+    <MaterialTabControls layout={listLayout} bindings={bindings} from={Number(mechanicControl.tab_order)} until={Infinity} />
     {form && <RepairMaterialsDialog repository={repository} orderId={form} articleRepository={articleRepository} mechanicRepository={mechanicRepository} finish={() => { setForm(null); setTick(value => value + 1); }} />}
     {diagnostic && <output data-testid="repair-materials-list-diagnostic">{diagnostic}</output>}
   </>;

@@ -1,9 +1,7 @@
-# Current stage — native report output
+# Current stage — everyday output acceptance
 
-MIG-13/14 follow-through, macOS arm64 main after the shared-dialog delivery; root owns integration/tracking. No push. Preserve the owner's port 3210 demo/data; tests use owned profiles/ports/assets.
+Root integrates on macOS arm64/main; no push. The understood-behaviour wave addresses all 1,029 aggregate specified rows (979 initial implementations, 50 owner-approved macro-editor exclusions). Keep the existing 481 unresolved rows, source IDs/seed/first eight fields and historical 17 import-copy differences intact. No whole-window/native closure.
 
-Shared workspace/modal react-rnd adoption is delivered: 103 isolated and 61 integrated browser checks, all 30 configured visual windows, plus final diagnostic and uninstrumented WK business paths pass. Source geometry, fractional saved bounds, focus/results and original floors remain intact. Mac app rebuilt; no parity promotions. Earlier native search stalls remain in ignored proof without an asserted cause.
+The implementation batch and focused integration checks are delivered (see handoff/Git). Next use the existing packaged probe for one list and one grouped multipage report: assess preview/fonts, PDF export, native save/print panels and device output separately. Preserve owner port3210/data; use owned profiles, ports and synthetic fixtures. Record unavailable Windows/device checks precisely and continue independent source work.
 
-Next bounded target: actual packaged Mac report preview for a list and grouped multipage family, using the existing Paged.js/Chromium adapter and synthetic data. Keep preview/font checks, PDF export, native save/print panels and physical printing distinct. Reuse the existing probe; avoid a new diagnostic framework. Record unavailable panel/device/Windows checks precisely and continue independent source work.
-
-Retain source IDs/seed/first eight fields, 17 historical aggregate/unit differences and HFSQL/updater/INI/designer gates. Keep tracking in existing ADRs/history/handoff; coordinator self-review under ADR-007.
+Use the existing handoff/history and decisions; no new runbooks. Built coverage and verified acceptance remain separate.

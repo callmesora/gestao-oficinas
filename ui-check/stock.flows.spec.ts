@@ -68,11 +68,16 @@ test("MIG11 actual selected UTF8 scanner file reaches known/unknown original scr
   const posts = await api("postos", "list", {}), original = posts.postos.find(r => r.Codigo === 1);
   const posto = await api("postos", "save", { mode: original ? "update" : "create", ...(original ? { id: original.id } : {}), values: { Codigo: 1, Descricao: "Synthetic stock scanner workstation", terminal: terminalCode } }); expect(posto.kind).toBe("saved");
   try {
-    const content = `${fixture.articleCode.padEnd(30, " ")}2.25\r\n${"unknown".padEnd(30, " ")}1.00\r\n\r\n${"ignored".padEnd(30, " ")}9.00`;
+    const content = `${fixture.articleCode.padEnd(30, " ")}2.25\r\n${fixture.articleCode.padEnd(30, " ")}10.0\r\n${"unknown".padEnd(30, " ")}1.00\r\n\r\n${"ignored".padEnd(30, " ")}9.00`;
     await page.goto("/?workflow=stock-scanner"); await page.getByTestId("stock-scanner-file").setInputFiles({ name: "scanner.txt", mimeType: "text/plain", buffer: Buffer.from(content) });
-    const scanner = page.getByTestId("WIN_Leitor_cod_barras"); await expect(scanner.getByTestId("TABLE_Leitura").getByRole("row")).toHaveCount(3); await scanner.getByTestId("BTN_Confirmar").click();
-    const unknown = page.getByTestId("WIN_Leitor_cod_barras_desconhecidos"); await expect(unknown.getByTestId("TABLE_Leitura").getByRole("cell", { name: "unknown", exact: true })).toBeVisible(); await unknown.getByTestId("BTN_Confirmar").click();
+    const scanner = page.getByTestId("WIN_Leitor_cod_barras"), table = scanner.getByTestId("TABLE_Leitura"); await expect(table.getByRole("row")).toHaveCount(4);
+    await expect(table.getByRole("cell", { name: "2,250", exact: true })).toBeVisible();
+    await table.getByTestId("COL_quantidade").locator(".wd-searchable-caption").click(); await table.getByTestId("COL_quantidade").locator(".wd-searchable-caption").click();
+    await expect(table.locator("tbody tr").first()).toContainText("10,000"); await scanner.getByTestId("BTN_Confirmar").click();
+    const unknown = page.getByTestId("WIN_Leitor_cod_barras_desconhecidos"); await expect(unknown.getByTestId("TABLE_Leitura").getByRole("cell", { name: "unknown", exact: true })).toBeVisible();
+    await expect(unknown.getByTestId("TABLE_Leitura").getByRole("cell", { name: "1,000", exact: true })).toBeVisible(); await unknown.getByTestId("BTN_Confirmar").click();
     await expect(page.getByTestId("stock-scanner-returned")).toContainText(`"code":"${fixture.articleCode}"`); await expect(page.getByTestId("stock-scanner-returned")).not.toContainText("ignored");
+    expect(JSON.parse((await page.getByTestId("stock-scanner-returned").textContent())!).known.map((row: { quantity: string }) => row.quantity)).toEqual(["10.0", "2.25"]);
   } finally {
     if (original) await api("postos", "save", { mode: "update", id: original.id, values: { Codigo: original.Codigo, Descricao: original.Descricao, terminal: original.terminal } }); else await api("postos", "delete", { id: posto.posto.id });
     await api("terminals", "delete", { id: terminal.terminal.id }); await fixture.cleanup();
@@ -153,5 +158,38 @@ test("stock statement actual article pickers hand returned bounds back in source
       await statement.getByTestId(button).click(); await page.getByTestId("WIN_Table_artigos").getByTestId("BTN_Fechar").click();
       await expect(statement.getByTestId("EDT_Do_artigo")).toHaveValue(fixture.articleCode); await expect(statement.getByTestId("EDT_Ao_artigo")).toHaveValue(fixture.articleCode);
     }
+  } finally { await fixture.cleanup(); }
+});
+
+test("stock line masks and deletion preserve surviving edits and untouched nullable lookup prices", async ({ page, request }) => {
+  const api = await apiFor(request), fixture = await fixtures(api);
+  try {
+    const { article } = fixture.article;
+    expect((await api("articles", "save", { mode: "update", id: article.id, values: { Codigo: article.Codigo, Descricao: article.Descricao, codbarras: article.codbarras, unidade: article.unidade, preco: null, inativo: article.inativo } })).kind).toBe("saved");
+    await page.goto("/?workflow=stock"); await page.getByTestId("stock-open").click();
+    const list = page.getByTestId("WIN_Table_cab_stocks"), form = page.getByTestId("WIN_Table_Lin_Stocks");
+    await expect(list.getByTestId("BTN_novo")).toBeEnabled(); await list.getByTestId("BTN_novo").click();
+    await form.getByTestId("COMBO_tipo_doc").selectOption(fixture.code); await expect(form.getByTestId("EDT_Numero")).toHaveValue("1");
+    const add = async () => {
+      await form.getByTestId("EDT_codigo").fill(fixture.articleCode); await form.getByTestId("EDT_quant").focus();
+      await expect(form.getByTestId("EDT_descricao_Artigo")).toHaveValue("Synthetic stock article");
+      await expect(form.getByTestId("EDT_preco")).toHaveValue(""); await form.getByTestId("BTN_Adicionar").click();
+    };
+    await add(); await add(); await add();
+    await form.getByTestId("COL_Preco-0").fill("6,25");
+    await form.getByTestId("COL_Preco-0").press("End"); await form.getByTestId("COL_Preco-0").pressSequentially("a1"); await expect(form.getByTestId("COL_Preco-0")).toHaveValue("6,25");
+    await form.getByTestId("COL_Preco-0").fill("123456789,00"); await form.getByTestId("COL_Preco-0").press("Home"); await form.getByTestId("COL_Preco-0").pressSequentially("0");
+    await expect(form.getByTestId("COL_Preco-0")).toHaveValue("123456789,00"); await form.getByTestId("COL_Preco-0").fill("6,25");
+    await form.getByTestId("COL_Quant-2").fill("10,500"); await form.getByTestId("COL_Preco-2").fill("7,25");
+    const remove = async (index: number) => {
+      await form.getByTestId("TABLE_lin_Stocks").locator("tbody tr").nth(index).click(); await form.getByTestId("BTN_Adicionar1").click();
+      await page.getByTestId("WINDEVDIALOGBOX").getByRole("button", { name: "Sim", exact: true }).click();
+    };
+    await remove(1); await expect(form.getByTestId("COL_Preco-0")).toHaveValue("6,25");
+    await expect(form.getByTestId("COL_Quant-1")).toHaveValue("10,500"); await expect(form.getByTestId("COL_Preco-1")).toHaveValue("7,25");
+    await remove(0); await expect(form.getByTestId("COL_Quant-0")).toHaveValue("10,500"); await expect(form.getByTestId("COL_Preco-0")).toHaveValue("7,25");
+    await add(); await form.getByTestId("BTN_Confirmar").click(); await expect(form).toHaveCount(0);
+    const rows = await api("stock", "list", { document: fixture.code }), saved = await api("stock", "read", { id: rows.rows[0].id });
+    expect(saved.lines.map(row => [row.linha, row.quantidade, row.preco])).toEqual([["3", "10.500", "7.25"], ["4", "1.000", null]]);
   } finally { await fixture.cleanup(); }
 });

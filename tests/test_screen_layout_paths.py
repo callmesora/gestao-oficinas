@@ -38,6 +38,19 @@ class DossierLayoutFixture(unittest.TestCase):
             return layout('WIN_captions', {key: str(root / key) for key in ('legacy', 'inspect', 'dossier')}, 'PT')
 
 
+class InitialImageChecks(DossierLayoutFixture):
+    def test_only_image_controls_use_literal_initial_value_as_asset(self):
+        result = self.render([
+            {'name': 'RESTORE', 'kind': 'Image', 'parsed': {'initial_value': {'PT': r'C:\Project\Restore.gif'}}},
+            {'name': 'TEXT', 'kind': 'Edit control', 'parsed': {'initial_value': {'PT': 'NotAnImage.gif'}}},
+            {'name': 'IMAGE', 'kind': 'Image', 'parsed': {'image': {'PT': 'Explicit.gif'}, 'initial_value': {'PT': 'Other.gif'}}},
+        ])
+        self.assertEqual(result['controls'][0]['image'], 'Restore.gif')
+        self.assertNotIn('image', result['controls'][1])
+        self.assertEqual(result['controls'][2]['image'], 'Explicit.gif')
+        self.assertEqual(set(result['assets']), {'Restore.gif', 'Explicit.gif'})
+
+
 class DateEditOptionsChecks(DossierLayoutFixture):
     option_keys = ('return_format', 'calendar_button', 'calculator_button', 'blocking_validation')
 

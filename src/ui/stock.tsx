@@ -1,5 +1,5 @@
 import Decimal from "decimal.js";
-import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { nextStockLine, parseScannerText, type StockLine, type StockListRow, type StockDocumentType, type StockMechanic, type StockReadResult, type StockArticle, type ScannerRow, type ScannerResult, type StockList, type StockFailure } from "../../packages/domain/src/stock";
 import { dateEntryInitial, dateEntryResult, dateEntryDisplay } from "../../packages/domain/src/date-entry";
@@ -32,7 +32,7 @@ import { WdRadControls, type WdRadBinding } from "./legacy/rad-controls";
 import { WdModal, type WdModalHandle } from "./legacy/modal";
 import { WdWorkspace, useWorkspace } from "./legacy/workspace";
 import { DialogProvider, useDialogs } from "./legacy/dialogs";
-import { decimalMaskOf, decimalMaskDisplay, decimalMaskValue } from "./legacy/decimal-entry";
+import { decimalMaskOf, decimalMaskDisplay, decimalMaskValue, decimalMaskEdit, type DecimalMask } from "./legacy/decimal-entry";
 
 // JPG-backed source text, retaining original geometry/assets. Missing kind is local presentation only (U01).
 function captions(layout: LegacyLayout, replacements: Record<string, string>, title?: string): LegacyLayout {
@@ -46,13 +46,16 @@ const inventoryRebuildLayout = captions(inventoryRebuildSource, { RADTitle: "Rec
 const statementLayout = captions(statementSource, { BTN_Visualizar_impressão: "Visualizar impressão" });
 const qtyMask = decimalMaskOf(controlOf(lineLayout, "EDT_quant").input_mask)!;
 const priceMask = decimalMaskOf(controlOf(lineLayout, "EDT_preco").input_mask)!;
+// Dossier: WIN_Inventario/TABLE_Artigos.COL_Stock and both scanner COL_quantidade.
+// Presentation masks never narrow/round the source decimal string (ADR002/003).
+const inventoryStockMask = decimalMaskOf("+999 999 999 999,999")!;
 const today = () => { const now = new Date(); return `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, "0")}${String(now.getDate()).padStart(2, "0")}`; };
 type Services = { stock: StockRepository; articles: ArticleRepository; documents: DocumentTypeRepository; mechanics: MechanicRepository };
 export type StockReportPreview = (input: { reportId: "RPT_inventario" | "RPT_Extrato_artigos"; from?: string | null; to?: string | null; articleFrom?: string; articleTo?: string }) => void;
 const rowIdentity = (row: StockListRow) => `${row.id}:${row.documentId}`;
 function staticCaptions(layout: LegacyLayout): WdRadBinding[] { return layout.controls.filter(c => c.kind === "Caption" && c.name !== "RADTitle").map(c => ({ name: c.name, kind: "caption" })); }
 
-function StockTable<T>({ layout, name, rows, id, cell, selection, select, activate, sort, value }: { layout: LegacyLayout; name: string; rows: T[]; id: (row: T) => string; cell: (row: T, column: LegacyColumn) => ReactNode; selection: string | null; select: (id: string) => void; activate?: (id: string) => void; sort?: (column: LegacyColumn) => void; value?: (row: T, column: LegacyColumn) => string | number | null }) {
+function StockTable<T>({ layout, name, rows, id, cell, selection, select, activate, sort, value, onDisplay }: { layout: LegacyLayout; name: string; rows: T[]; id: (row: T) => string; cell: (row: T, column: LegacyColumn) => ReactNode; selection: string | null; select: (id: string) => void; activate?: (id: string) => void; sort?: (column: LegacyColumn) => void; value?: (row: T, column: LegacyColumn) => string | number | null; onDisplay?: (rows: T[]) => void }) {
   const table = controlOf(layout, name), settings = useTableLayout(table, `${layout.window.name}/${name}`);
   const [sorting, setSorting] = useState<{ column: LegacyColumn; descending: boolean } | null>(null);
   const cellValue = (row: T, column: LegacyColumn) => { const displayed = cell(row, column); return value ? value(row, column) : typeof displayed === "string" || typeof displayed === "number" ? displayed : null; };
@@ -63,14 +66,30 @@ function StockTable<T>({ layout, name, rows, id, cell, selection, select, activa
     return [...rows].sort((a, b) => {
       const x = raw(a), y = raw(b);
       if (x === null || y === null) return x === y ? 0 : x === null ? 1 : -1;
-      const numeric = (column as LegacyColumn & { input_type?: string }).input_type === "Numeric" && /^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)$/.test(String(x)) && /^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)$/.test(String(y));
+      const numeric = ["Numeric", "High-pre"].includes((column as LegacyColumn & { input_type?: string }).input_type ?? "") && /^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)$/.test(String(x)) && /^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)$/.test(String(y));
       const compared = numeric ? new Decimal(x).comparedTo(y) : String(x).toLocaleLowerCase("pt-PT").localeCompare(String(y).toLocaleLowerCase("pt-PT"), "pt-PT");
       return compared * (descending ? -1 : 1);
     });
   }, [rows, sorting, sort, cell, value]);
+  useLayoutEffect(() => { onDisplay?.(displayedRows); }, [displayedRows, onDisplay]);
   return <WdTable control={table} rows={displayedRows} rowId={id} cell={cell} selectedId={selection} onSelect={select} onActivate={activate} onSort={sort ?? (column => setSorting(previous => ({ column, descending: previous?.column.name === column.name ? !previous.descending : false })))}
     designerOptions configureColumns {...settings} onResetColumns={settings.resetLayout}
     onColumnSearch={(column, term) => { if (term !== "") { const hit = displayedRows.find(row => String(cellValue(row, column) ?? "").toLocaleLowerCase("pt-PT").startsWith(term.toLocaleLowerCase("pt-PT"))); if (hit) select(id(hit)); } }} />;
+}
+
+/** Same decimal-entry adapter as the source entry fields, inside an editable table cell. */
+function StockDecimalCell({ testId, label, value, mask, disabled, change }: { testId: string; label: string; value: string; mask: DecimalMask; disabled: boolean; change: (value: string) => void }) {
+  return <input className="wd-edit" style={{ position: "static", width: "100%", textAlign: "right", border: 0, background: "transparent" }}
+    aria-label={label} data-testid={testId} value={value} disabled={disabled} inputMode="decimal"
+    onPaste={event => {
+      const node = event.currentTarget, start = node.selectionStart ?? 0, end = node.selectionEnd ?? start;
+      if (!decimalMaskEdit(mask, value, value.slice(0, start) + event.clipboardData.getData("text") + value.slice(end))) event.preventDefault();
+    }}
+    onChange={event => {
+      const node = event.currentTarget, edit = decimalMaskEdit(mask, value, node.value, node.selectionStart ?? node.value.length, node.selectionEnd ?? node.value.length);
+      if (!edit) { node.value = value; return; }
+      node.value = edit.value; node.setSelectionRange(edit.start, edit.end); change(edit.value);
+    }} />;
 }
 
 export function StockDocumentDialog({ services, documents: initialDocuments, mechanics: initialMechanics, loaded, finish }: { services: Services; documents: StockDocumentType[]; mechanics: StockMechanic[]; loaded: Extract<StockReadResult, { kind: "loaded" }> | null; finish: () => void }) {
@@ -82,8 +101,11 @@ export function StockDocumentDialog({ services, documents: initialDocuments, mec
   const [mechanic, setMechanic] = useState<string | null>(loaded ? loaded.header.mecanico : null), [date, setDate] = useState(() => dateEntryInitial(loaded ? loaded.header.data : today()));
   const [lines, setLines] = useState<StockLine[]>(loaded?.lines ?? []), [selection, setSelection] = useState<string | null>(null);
   const [cellDrafts, setCellDrafts] = useState<Record<string, string>>({});
+  const displayedLineOrder = useRef<number[] | null>(null);
   const [picker, setPicker] = useState<"article" | "document" | "mechanic" | "createArticle" | null>(null);
   const { register, getValues, setValue, reset } = useForm({ defaultValues: { code: "", description: "", quantity: "1,000", price: "0,00" } });
+  // A query assignment may be NULL; empty presentation is separate from an accepted edit.
+  const articleValues = useRef<{ description: string | null; price: string | null; descriptionEdited: boolean; priceEdited: boolean }>({ description: "", price: "0", descriptionEdited: false, priceEdited: false });
   const { resource, message } = useDialogs();
   useEffect(() => { active.current = true; return () => { active.current = false; }; }, []);
   useEffect(() => {
@@ -101,8 +123,8 @@ export function StockDocumentDialog({ services, documents: initialDocuments, mec
     try {
       const result = await stock.lookup(code, barcode);
       if (!active.current || owner !== lookupOwner.current) return;
-      if (result.kind === "found") { setValue("code", result.article.Codigo ?? ""); setValue("description", result.article.Descricao ?? ""); setValue("price", decimalMaskDisplay(priceMask, result.article.preco)); if (focusQuantity) focus("EDT_quant"); }
-      else if (result.kind === "missing") { await message({ title: lineLayout.window.title ?? "", text: "Artigo não existente", type: 0 }); if (!active.current || owner !== lookupOwner.current) return; setValue("code", ""); setValue("description", ""); setValue("price", "0,00"); focus("EDT_codigo"); }
+      if (result.kind === "found") { articleValues.current = { description: result.article.Descricao, price: result.article.preco, descriptionEdited: false, priceEdited: false }; setValue("code", result.article.Codigo ?? ""); setValue("description", result.article.Descricao ?? ""); setValue("price", decimalMaskDisplay(priceMask, result.article.preco)); if (focusQuantity) focus("EDT_quant"); }
+      else if (result.kind === "missing") { await message({ title: lineLayout.window.title ?? "", text: "Artigo não existente", type: 0 }); if (!active.current || owner !== lookupOwner.current) return; articleValues.current = { description: "", price: "0", descriptionEdited: false, priceEdited: false }; setValue("code", ""); setValue("description", ""); setValue("price", "0,00"); focus("EDT_codigo"); }
       else setDiagnostic(result.kind);
     } catch { if (active.current && owner === lookupOwner.current) setDiagnostic("transport"); }
   };
@@ -110,22 +132,36 @@ export function StockDocumentDialog({ services, documents: initialDocuments, mec
     if (!active.current) return;
     const draft = getValues(); if (draft.code === "" || busy) return;
     lookupOwner.current++;
-    setLines(current => [...current, { linha: nextStockLine(current), artigo: draft.code, descricao_artigo: draft.description, quantidade: decimalMaskValue(qtyMask, draft.quantity) ?? draft.quantity, preco: decimalMaskValue(priceMask, draft.price) ?? draft.price }]);
+    const article = articleValues.current;
+    setLines(current => [...current, { linha: nextStockLine(current), artigo: draft.code, descricao_artigo: article.descriptionEdited ? draft.description : article.description, quantidade: decimalMaskValue(qtyMask, draft.quantity) ?? draft.quantity, preco: article.priceEdited ? decimalMaskValue(priceMask, draft.price) ?? draft.price : article.price }]);
+    articleValues.current = { description: "", price: "0", descriptionEdited: false, priceEdited: false };
     reset({ code: "", description: "", quantity: "1,000", price: "0,00" }); focus("EDT_codigo");
   };
   const remove = async () => {
     if (selection === null || busy) return;
     const result = await resource({ text: "Confirma a eliminação da linha?", buttons: [{ label: "Sim", value: 1 }, { label: "Não", value: 2 }], title: lineLayout.window.title ?? "", defaultIndex: 2, cancelIndex: 2, destructive: true, safeIndex: 2 });
-    if (active.current && result.result === 1) { setLines(current => current.filter((_, index) => String(index) !== selection)); setCellDrafts({}); setSelection(null); }
+    if (active.current && result.result === 1) {
+      const removed = Number(selection);
+      setLines(current => current.filter((_, index) => index !== removed));
+      // Verified: legacy/GestaoOficinas_TesteIA/WIN_Table_Lin_Stocks.wdw:1041–1052.
+      // TableDelete removes only this row. Preserve every surviving accepted cell edit.
+      setCellDrafts(current => Object.fromEntries(Object.entries(current).flatMap(([key, value]) => {
+        const [index, field] = key.split(":"), row = Number(index);
+        return row === removed ? [] : [[`${row > removed ? row - 1 : row}:${field}`, value]];
+      })));
+      setSelection(null);
+    }
   };
   const save = async () => {
     if (pending.current) return;
     const dateResult = dateEntryResult(date); if (dateResult.kind !== "valid") { focus("EDT_Data"); return; }
     pending.current = true; setBusy(true); setDiagnostic("");
     try {
-      const edited = lines.map((row, index) => ({ ...row,
-        quantidade: `${index}:quantidade` in cellDrafts ? decimalMaskValue(qtyMask, cellDrafts[`${index}:quantidade`]) ?? cellDrafts[`${index}:quantidade`] : row.quantidade,
-        preco: `${index}:preco` in cellDrafts ? decimalMaskValue(priceMask, cellDrafts[`${index}:preco`]) ?? cellDrafts[`${index}:preco`] : row.preco }));
+      // Verified: legacy/GestaoOficinas_TesteIA/WIN_Table_Lin_Stocks.wdw:889,915
+      // iterates the actual table rows in their current displayed order.
+      const edited = (displayedLineOrder.current ?? lines.map((_, index) => index)).map(index => ({ ...lines[index],
+        quantidade: `${index}:quantidade` in cellDrafts ? decimalMaskValue(qtyMask, cellDrafts[`${index}:quantidade`]) ?? cellDrafts[`${index}:quantidade`] : lines[index].quantidade,
+        preco: `${index}:preco` in cellDrafts ? decimalMaskValue(priceMask, cellDrafts[`${index}:preco`]) ?? cellDrafts[`${index}:preco`] : lines[index].preco }));
       const result = await stock.save({ mode: loaded ? "update" : "create", ...(loaded ? { id: loaded.header.id, baseline: loaded.baseline } : {}), document, number, description, date: dateResult.value, mechanic, lines: edited });
       if (!active.current) return;
       if (result.kind === "saved") { pending.current = false; close(); }
@@ -149,7 +185,7 @@ export function StockDocumentDialog({ services, documents: initialDocuments, mec
   };
   const visibleMechanic = documents.find(d => d.Codigo === document)?.obriga_macanico !== false;
   const liveLayout = { ...lineLayout, controls: lineLayout.controls.map(c => ["COMBO_mecanico", "BTN_VISION2", "STC_Mecanico"].includes(c.name) ? { ...c, visible: visibleMechanic, flags: { ...c.flags, Visible: visibleMechanic } } : c) };
-  const codeInput = register("code");
+  const codeInput = register("code"), descriptionInput = register("description"), priceInput = register("price");
   const bindings: WdRadBinding[] = [...staticCaptions(liveLayout),
     { name: "COMBO_tipo_doc", kind: "combo", props: { options: documents.map(d => ({ value: d.Codigo ?? "", label: d.Descricao ?? "" })), value: document, onChange: setDocument, disabled: busy || !!loaded, allowNoSelection: true } },
     { name: "EDT_Numero", kind: "edit", props: { value: number, readOnly: true } },
@@ -157,9 +193,9 @@ export function StockDocumentDialog({ services, documents: initialDocuments, mec
     { name: "EDT_descricao", kind: "edit", props: { value: description ?? "", onChange: e => setDescription(e.currentTarget.value), disabled: busy } },
     { name: "COMBO_mecanico", kind: "combo", props: { options: mechanics.map(m => ({ value: m.Codigo ?? "", label: m.Descricao ?? "" })), value: mechanic ?? "", onChange: setMechanic, disabled: busy, allowNoSelection: true } },
     { name: "EDT_codigo", kind: "edit", props: { ...codeInput, onChange: e => { lookupOwner.current++; void codeInput.onChange(e); }, onBlur: e => { void codeInput.onBlur(e); lookupTask.current = lookup(e.currentTarget.value); }, disabled: busy } },
-    { name: "EDT_descricao_Artigo", kind: "edit", props: { ...register("description"), disabled: busy } },
+    { name: "EDT_descricao_Artigo", kind: "edit", props: { ...descriptionInput, onChange: e => { articleValues.current.descriptionEdited = true; void descriptionInput.onChange(e); }, disabled: busy } },
     { name: "EDT_quant", kind: "edit", props: { ...register("quantity"), decimalMask: true, disabled: busy, onBlur: () => focus("EDT_preco") } },
-    { name: "EDT_preco", kind: "edit", props: { ...register("price"), decimalMask: true, disabled: busy } },
+    { name: "EDT_preco", kind: "edit", props: { ...priceInput, onChange: e => { articleValues.current.priceEdited = true; void priceInput.onChange(e); }, decimalMask: true, disabled: busy } },
     { name: "BTN_VISION", kind: "button", props: { disabled: busy || !!loaded, onClick: () => setPicker("document") } },
     { name: "BTN_VISION2", kind: "button", props: { disabled: busy, onClick: () => setPicker("mechanic") } },
     { name: "BTN_NoName1", kind: "button", props: { disabled: busy, onClick: () => setPicker("article") } },
@@ -172,6 +208,7 @@ export function StockDocumentDialog({ services, documents: initialDocuments, mec
   return <WdModal ref={dialog} layout={liveLayout} instance="stock-document" testId="WIN_Table_Lin_Stocks" restoreTestId="stock-document-restore" onClose={() => void confirmCancel()}>
     <WdRadControls layout={liveLayout} bindings={bindings} />
     <StockTable layout={liveLayout} name="TABLE_lin_Stocks" rows={lines.map((row, index) => ({ ...row, index }))} id={row => String(row.index)} selection={selection} select={setSelection}
+      onDisplay={rows => { displayedLineOrder.current = rows.map(row => row.index); }}
       value={(row, column) => {
         if (column.name === "COL_Quant") return `${row.index}:quantidade` in cellDrafts ? decimalMaskValue(qtyMask, cellDrafts[`${row.index}:quantidade`]) ?? cellDrafts[`${row.index}:quantidade`] : row.quantidade;
         if (column.name === "COL_Preco") return `${row.index}:preco` in cellDrafts ? decimalMaskValue(priceMask, cellDrafts[`${row.index}:preco`]) ?? cellDrafts[`${row.index}:preco`] : row.preco;
@@ -181,7 +218,7 @@ export function StockDocumentDialog({ services, documents: initialDocuments, mec
         const field = column.name === "COL_Quant" ? "quantidade" : column.name === "COL_Preco" ? "preco" : null;
         if (!field) return column.name === "COL_Codigo" ? row.artigo : column.name === "COL_Descricao" ? row.descricao_artigo : row.linha;
         const key = `${row.index}:${field}`, mask = field === "quantidade" ? qtyMask : priceMask;
-        return <input className="wd-edit" style={{ position: "static", width: "100%", textAlign: "right", border: 0, background: "transparent" }} aria-label={column.title ?? column.name} data-testid={`${column.name}-${row.index}`} value={cellDrafts[key] ?? decimalMaskDisplay(mask, row[field])} disabled={busy} onChange={e => { const value = e.currentTarget.value; setCellDrafts(old => ({ ...old, [key]: value })); }} />;
+        return <StockDecimalCell label={column.title ?? column.name} testId={`${column.name}-${row.index}`} value={cellDrafts[key] ?? decimalMaskDisplay(mask, row[field])} mask={mask} disabled={busy} change={value => setCellDrafts(old => ({ ...old, [key]: value }))} />;
       }} />
     {picker === "article" && <ArticlePicker launchMode={new URLSearchParams(window.location.search).get("modulo") ?? undefined} repository={services.articles} origin={getValues("code")} finish={code => { setPicker(null); setValue("code", code); void lookup(code, false, false); focus("EDT_codigo"); }} />}
     {picker === "document" && <DocumentTypePicker repository={services.documents} origin={document} finish={code => void refreshPicker("document", code)} />}
@@ -260,7 +297,9 @@ export function StockInventoryDialog({ repository, finish, onPreview }: { reposi
   useEffect(() => { let active = true; void repository.inventory().then(result => { if (!active) return; if (result.kind === "loaded") setRows(result.articles); else setDiagnostic(result.kind); }).catch(() => { if (active) setDiagnostic("transport"); }); return () => { active = false; }; }, [repository]);
   const close = () => { dialog.current?.close(); finish(); };
   return <WdModal ref={dialog} layout={inventoryLayout} instance="stock-inventory" testId="WIN_Inventario" restoreTestId="stock-inventory-restore" onClose={close}>
-    <StockTable layout={inventoryLayout} name="TABLE_Artigos" rows={rows} id={r => r.id} selection={selection} select={setSelection} cell={(row, column) => column.name === "COL_Codigo" ? row.Codigo : column.name === "COL_Descricao" ? row.Descricao : row.stock} />
+    <StockTable layout={inventoryLayout} name="TABLE_Artigos" rows={rows} id={r => r.id} selection={selection} select={setSelection}
+      value={(row, column) => column.name === "COL_Codigo" ? row.Codigo : column.name === "COL_Descricao" ? row.Descricao : row.stock}
+      cell={(row, column) => column.name === "COL_Codigo" ? row.Codigo : column.name === "COL_Descricao" ? row.Descricao : decimalMaskDisplay(inventoryStockMask, row.stock)} />
     <WdButton control={controlOf(inventoryLayout, "BTN_Imprimir")} disabled={!onPreview} title={onPreview ? undefined : "MIG-13"} onClick={() => onPreview?.({ reportId: "RPT_inventario" })} />
     <WdButton control={controlOf(inventoryLayout, "BTN_Sair")} onClick={close} />
     {diagnostic && <output data-testid="stock-inventory-diagnostic">{diagnostic}</output>}
@@ -272,12 +311,15 @@ export function StockUnknownScannerDialog({ rows, finish }: { rows: ScannerRow[]
   const close = () => { dialog.current?.close(); finish(); };
   return <WdModal ref={dialog} layout={unknownLayout} instance="stock-scanner-unknown" testId="WIN_Leitor_cod_barras_desconhecidos" restoreTestId="stock-scanner-unknown-restore" onClose={close}>
     <WdRadControls layout={unknownLayout} bindings={[...staticCaptions(unknownLayout), { name: "BTN_Confirmar", kind: "button", props: { onClick: close } }]} />
-    <StockTable layout={unknownLayout} name="TABLE_Leitura" rows={rows.map((row, index) => ({ ...row, index }))} id={r => String(r.index)} selection={selection} select={setSelection} cell={(row, column) => column.name === "COL_cod_barras" ? row.barcode : row.quantity} />
+    <StockTable layout={unknownLayout} name="TABLE_Leitura" rows={rows.map((row, index) => ({ ...row, index }))} id={r => String(r.index)} selection={selection} select={setSelection}
+      value={(row, column) => column.name === "COL_cod_barras" ? row.barcode : row.quantity}
+      cell={(row, column) => column.name === "COL_cod_barras" ? row.barcode : decimalMaskDisplay(qtyMask, row.quantity)} />
   </WdModal>;
 }
 export function StockScannerDialog({ repository, sourceText, finish }: { repository: StockRepository; sourceText?: string; finish: (result: Extract<ScannerResult, { kind: "partitioned" }> | "fechou") => void }) {
   const dialog = useRef<WdModalHandle>(null), pending = useRef(false), active = useRef(true), [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const [rows, setRows] = useState<ScannerRow[]>([]), [ready, setReady] = useState(false), [selection, setSelection] = useState<string | null>(null);
+  const displayedRows = useRef<ScannerRow[]>([]);
   const finished = useRef(finish); useEffect(() => { finished.current = finish; }, [finish]);
   const initialRead = useRef<{ repository: StockRepository; sourceText?: string; request: Promise<{ kind: "loaded"; rows: ScannerRow[] } | StockFailure> } | null>(null);
   const { message } = useDialogs();
@@ -306,10 +348,18 @@ export function StockScannerDialog({ repository, sourceText, finish }: { reposit
     return () => { current = false; };
   }, [repository, sourceText, message]);
   const close = (result: Extract<ScannerResult, { kind: "partitioned" }> | "fechou" = "fechou") => { if (!pending.current) { dialog.current?.close(); finished.current(result); } };
-  const confirm = async () => { if (!ready || pending.current) return; pending.current = true; setBusy(true); try { const result = await repository.scannerPartition(rows); if (active.current) { if (result.kind === "partitioned") { pending.current = false; close(result); } else setDiagnostic(result.kind); } } catch { if (active.current) { setDiagnostic("transport"); await message({ title: scannerLayout.window.title, text: "A leitura do ficheiro falhou, verifique o caminho", type: 0 }); } } finally { pending.current = false; if (active.current) setBusy(false); } };
+  const confirm = async () => { if (!ready || pending.current) return; pending.current = true; setBusy(true); try {
+    // Verified: legacy/GestaoOficinas_TesteIA/WIN_Leitor_cod_barras.wdw:329–390
+    // iterates the current table, including the user's current sort.
+    const result = await repository.scannerPartition(displayedRows.current.map(row => ({ barcode: row.barcode, quantity: row.quantity })));
+    if (active.current) { if (result.kind === "partitioned") { pending.current = false; close(result); } else setDiagnostic(result.kind); }
+  } catch { if (active.current) { setDiagnostic("transport"); await message({ title: scannerLayout.window.title, text: "A leitura do ficheiro falhou, verifique o caminho", type: 0 }); } } finally { pending.current = false; if (active.current) setBusy(false); } };
   return <WdModal ref={dialog} layout={scannerLayout} instance="stock-scanner" testId="WIN_Leitor_cod_barras" restoreTestId="stock-scanner-restore" onClose={() => close()}>
     <WdRadControls layout={scannerLayout} bindings={[...staticCaptions(scannerLayout), { name: "BTN_Confirmar", kind: "button", props: { disabled: busy || !ready, onClick: () => void confirm() } }, { name: "BTN_Cancelar", kind: "button", props: { disabled: busy, onClick: () => close() } }]} />
-    <StockTable layout={scannerLayout} name="TABLE_Leitura" rows={rows.map((row, index) => ({ ...row, index }))} id={r => String(r.index)} selection={selection} select={setSelection} cell={(row, column) => column.name === "COL_cod_barras" ? row.barcode : row.quantity} />
+    <StockTable layout={scannerLayout} name="TABLE_Leitura" rows={rows.map((row, index) => ({ ...row, index }))} id={r => String(r.index)} selection={selection} select={setSelection}
+      onDisplay={next => { displayedRows.current = next; }}
+      value={(row, column) => column.name === "COL_cod_barras" ? row.barcode : row.quantity}
+      cell={(row, column) => column.name === "COL_cod_barras" ? row.barcode : decimalMaskDisplay(qtyMask, row.quantity)} />
     {diagnostic && <output data-testid="stock-scanner-diagnostic">{diagnostic}</output>}
   </WdModal>;
 }

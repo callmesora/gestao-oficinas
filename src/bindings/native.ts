@@ -35,4 +35,4 @@ export type ScannerFileRequest = { terminalCode: string, sourceFolder: string, s
 
 export type ScannerFileResult = { text: string, };
 
-export const nativeCommands = { nativeInfo: "native_info", selectTerminalFolder: "select_terminal_folder", selectRepairStateColor: "select_repair_state_color", readStartupArguments: "read_startup_arguments", terminateApplication: "terminate_application", saveReportPdf: "save_report_pdf", printReportPdf: "print_report_pdf", readTerminalScannerFile: "read_terminal_scanner_file" } as const;
+export const nativeCommands = { nativeInfo: "native_info", selectTerminalFolder: "select_terminal_folder", selectRepairStateColor: "select_repair_state_color", readStartupArguments: "read_startup_arguments", terminateApplication: "terminate_application", saveReportPdf: "save_report_pdf", printReportPdf: "print_report_pdf", readTerminalScannerFile: "read_terminal_scanner_file", playMessageSound: "play_message_sound" } as const;

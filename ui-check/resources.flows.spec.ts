@@ -156,3 +156,19 @@ test("resource input applies explicit password, length and automatic-selection o
   await input.press("Enter");
   await expect(page.getByTestId("skin-message-result")).toHaveText(JSON.stringify({ result: 1, input: "A".repeat(15) }));
 });
+
+
+test("resource chrome preserves edited input and explicit result through window actions", async ({ page }) => {
+  await page.goto("/?skin=controls");
+  await page.getByTestId("skin-resource-open").click();
+  const dialog = page.getByTestId("WINDEVDIALOGBOX"), input = dialog.getByTestId("SAI_1");
+  await input.fill("  retained  ");
+  await dialog.getByTestId("BTN_SYST_MINIMIZE").click();
+  await page.getByTestId("resource-box-restore").click();
+  await expect(input).toBeFocused();
+  await dialog.getByTestId("BTN_Syst_Maximize").click();
+  await expect(input).toHaveValue("  retained  ");
+  await dialog.getByTestId("BTN_Syst_Maximize").click();
+  await dialog.getByTestId("BTN_1").click();
+  await expect(page.getByTestId("skin-message-result")).toHaveText(JSON.stringify({ result:11, input:"  retained  " }));
+});

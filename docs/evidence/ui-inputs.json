@@ -197,6 +197,14 @@
         "MediaPlayer_Btn_Minimize_Anim.4.png"
       ]
     },
+    "MediaPlayer_Btn_Restore.gif": {
+      "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/MediaPlayer_Btn_Restore.gif",
+      "sha256": "74c9f7d21c460b739d58ff981150e5ecb1b623948a688976bfd580726f5ac6ba",
+      "states": 1,
+      "outputs": [
+        "MediaPlayer_Btn_Restore.png"
+      ]
+    },
     "MediaPlayer_Btn_UMC.gif": {
       "path": "legacy/GestaoOficinas_TesteIA/Bkp_20261022_1405/MediaPlayer_Btn_UMC.gif",
       "sha256": "3d40a37867f949dcc13ec086806d8b5d30bcc50b5b28d0ed3d652e9b2ab10116",
@@ -853,6 +861,11 @@
       "width": 135,
       "height": 19
     },
+    "public/skin/MediaPlayer_Btn_Restore.png": {
+      "sha256": "71cd11398802220291f3e5686ceb0e1715cd9a14dde1942ce08e93a56602d79a",
+      "width": 12,
+      "height": 12
+    },
     "public/skin/MediaPlayer_Btn_UMC.png": {
       "sha256": "5eaec3bee816f25adbffa5b080d58e77ffa6dccbab4d2334b7e7c4ae4c94b5ec",
       "width": 24,
@@ -1250,136 +1263,136 @@
       "sha256": "5a9e43ac21efbf9e47843f6e11189ace949dffb9b657b77aaa0fdb3152c11884"
     },
     "src/ui/legacy/WIN_Acesso.layout.json": {
-      "sha256": "6b1c3818874114c45dd453855fe0dcb6bee9ce0e6d52fac9a5e8de0b7d7bb177"
+      "sha256": "a5d16e3aa58f33c3cb202be57a8351a23f8d68389d556f5c63868d342a56d822"
     },
     "src/ui/legacy/WIN_Data.layout.json": {
-      "sha256": "bebde5dd122f84c5ab45475210d8fc3342a5d02995b3cf2b1792b4a73fd380fb"
+      "sha256": "dec8b33b182d0c510efff327c8d630c504a6de81e6d1fe450b9aebf46b9cb354"
     },
     "src/ui/legacy/WIN_Extrato_Artigos.layout.json": {
-      "sha256": "55086878a54ed5d778b2315e4401a1e500ae0313cefc1fe7db61b05b640fb34d"
+      "sha256": "79fafab03566ef7ea44d93ba4a10a4fd68dfde892c7461a8391a96417d46e380"
     },
     "src/ui/legacy/WIN_Filtro_Mapas_Artigos.layout.json": {
-      "sha256": "cd6231997af00bd50c12d8f99435a7e4caf49e0bec1fe6e681f183e8ca7b63e9"
+      "sha256": "f1dcfbf6063ab583ace18faf5ee79129dea1fc07125647afb897e2bd0beffd51"
     },
     "src/ui/legacy/WIN_Filtro_Mapas_Tempos.layout.json": {
-      "sha256": "67dffa340b43bbd316992b187d75094bf1f1fbcc1da890f6ad01e0cdfa1625bc"
+      "sha256": "49c18e24fe03f2b073ca7d8398a20bb58333b3e194407d242df225290533483e"
     },
     "src/ui/legacy/WIN_Form_Clientes.layout.json": {
-      "sha256": "782563a853ce3f9972a43c81796aeb6db57ffb7c65ce21b864302b609f0270eb"
+      "sha256": "7002e514b4b672b1a8ade1a1d88cb12da8bdfe56ffba26b81eaa525b4ca46da7"
     },
     "src/ui/legacy/WIN_Form_Terminais.layout.json": {
-      "sha256": "2605438bedf39c66fb0d5492669a45b1761926dde0ae9c7368f9e337f3acf3d7"
+      "sha256": "f00ddefc7fe84d0d509d20af6f759c2a3d743214fdaccb932f4d9f4b97e05711"
     },
     "src/ui/legacy/WIN_Form_Viaturas.layout.json": {
-      "sha256": "d536ed1875e48137631d15271788a9c93ffd2a2f2d3219d2e30f185e447bea71"
+      "sha256": "d88c9477054cd963101a95a66c38a5035b946d2be59eb8e3e9f133145c64c6d9"
     },
     "src/ui/legacy/WIN_Form_artigos.layout.json": {
-      "sha256": "fdbf38e501b019774220719fc945ef5d3b5901fa2532cad7c6888389e56c4bac"
+      "sha256": "4efc11cbca1a9095e56b682810e86324d92f29c7a9348c82b831b7891a2858cc"
     },
     "src/ui/legacy/WIN_Form_documentos.layout.json": {
-      "sha256": "2317fada38e9b1ae82407e784242baf259861e8f8467b7adbaedb72b053ff02f"
+      "sha256": "9402d846e149383ccf938bf2a505a4183618fbf19ee94ea9ecd82f0925163a2c"
     },
     "src/ui/legacy/WIN_Form_estados_descritivos.layout.json": {
-      "sha256": "5df12ef9bda214fa413ba2a704e84bbef3172d7ca8ad57186ef9288c3e8a7d87"
+      "sha256": "27dc914da37e3609eb50e0ea81276809c92ed39e3e50f85a2f06ef47c0b77378"
     },
     "src/ui/legacy/WIN_Form_estados_reparacao.layout.json": {
-      "sha256": "70d195a40a2a5fa75946a9db9d694f54ffd51ff8a3cba579d59ef087b476e8d6"
+      "sha256": "179a39bb0508389d658f6f46e5eaac820ee9ab1a65f87cb9c879f41227e48d7b"
     },
     "src/ui/legacy/WIN_Form_mecanicos.layout.json": {
-      "sha256": "7331c9dd8c8bb7de5583a6994f0879ed6128779c62f7817fe7da760b3bcf3b08"
+      "sha256": "a2a37fe4b08e0ab7879505a543ea15f45b747cfd2657969610b2368fe7460969"
     },
     "src/ui/legacy/WIN_Form_postos.layout.json": {
-      "sha256": "1cdf421240e7dbde2efd3be167383d7376408a246d42b03be260ab6eb423e852"
+      "sha256": "dd18f82ff72fe7b58ba16e71f6729eaadca15ea723e36dcf83536579ec53fa3c"
     },
     "src/ui/legacy/WIN_Form_unidades.layout.json": {
-      "sha256": "59f42e7ae2595ca61f362de4f52d5bf6de965caf5627bc5ff0da234e0b6761e1"
+      "sha256": "2e6d7087912102956cc97b43ae81134f4cfcbcc185e82f5f2f89fae02c45bba3"
     },
     "src/ui/legacy/WIN_Form_utilizadores.layout.json": {
-      "sha256": "33c007c523114dc0641b9e7fced2deea9a5fa4e6ae0c36070337bba8090183fb"
+      "sha256": "81c61d4b1a0be344e374946b768b604ab02c98ea4bf20db2f8080699488ce397"
     },
     "src/ui/legacy/WIN_Inserir_quantidade_password.layout.json": {
-      "sha256": "e42d48136cf106998ee280ee3a98810bd76fed9371a2cec4b4de6dba1935696d"
+      "sha256": "ba101e3067413f519c163d16b29b14aeab604de8c9295c95492c4fa56a4b2a68"
     },
     "src/ui/legacy/WIN_Inventario.layout.json": {
-      "sha256": "70ea3d87fd26a4002a86f3e216ec03d9a1a5a6788526efea4ce5bd0ac6d33f3f"
+      "sha256": "462d3a48dc66027134c7e88116a15e6bf9b2a387bc03f69cef1b2b6a8c9c935d"
     },
     "src/ui/legacy/WIN_Inventario_Reconstrucao.layout.json": {
-      "sha256": "88be27ce01c013c7957eb6bfede39cce5e5f331f2e123f6f0ad4311b93426803"
+      "sha256": "3db8521a1a80eaca8309b3c9d3c03e59e642a9644efe15dc44bd129c9f6e33ea"
     },
     "src/ui/legacy/WIN_Leitor_cod_barras.layout.json": {
-      "sha256": "7a086f3bb4d9ab1d05d78e17a6955dd33ab630f3e8a92e085f83144b1b9e13b0"
+      "sha256": "d3c76a7fcb4fb28e2b15b1fc89558db816c4f65d6e63f2c3a089a673a37fc594"
     },
     "src/ui/legacy/WIN_Leitor_cod_barras_desconhecidos.layout.json": {
-      "sha256": "0e6258ed0e8c29bbc9c9b9a8fa0bead9bcbe9475f1e26b33b4eec4397287cd36"
+      "sha256": "fa09e51f09cafbff8afaba5f8d064c19cd709ec9c77d6bc30bd1b6783547460d"
     },
     "src/ui/legacy/WIN_MENU.layout.json": {
-      "sha256": "cd1e3e5a493e67846365806c06dad80e862bad7fda9fd4661c2e428c69139e21"
+      "sha256": "a45dd912bf03c0176745bbd6f63c0cc696cfbb913d798065dee0532a7c4b6a43"
     },
     "src/ui/legacy/WIN_Mapa_Vendas.layout.json": {
-      "sha256": "fc3bec730ae1ffd36d397b0388f0df94eb999ef23df573b80406cb1474801128"
+      "sha256": "e8fdec5abd54d988985ddee603d5f25cbd4628f06bb9c252a988e3dc429d6828"
     },
     "src/ui/legacy/WIN_Material_Reparacao.layout.json": {
-      "sha256": "4489a6689dde7f5caf067ed65721f16c140b3605f596d93909fd9761935f900d"
+      "sha256": "cff2dd2202e694e0b043448ee600376377cb69c20c811864ad2f7e70f3dd66e1"
     },
     "src/ui/legacy/WIN_Material_reparacao_form.layout.json": {
-      "sha256": "9aa4a64a69f6bf092dedb28977aa227573983bcbaf139fa69b5198ee6e3fda14"
+      "sha256": "4f32c930d9ff0295b81c0bb585aada027ae248f645ca8ded6ae7108cb533f1cf"
     },
     "src/ui/legacy/WIN_Mudar_Estado.layout.json": {
-      "sha256": "f45e820ecb6580c62b355cad01a43b1f580a3ffd06772488ed22008f2df1988a"
+      "sha256": "816c17ccba35862e040c83d52d241776d688258f7b5b18155a08d934c3b69249"
     },
     "src/ui/legacy/WIN_Ordens_Reparacao.layout.json": {
-      "sha256": "db4ae622aa2d97cb6221cf1a2c6633611a5ab5b0e62c28100b2cc38aa43e67b6"
+      "sha256": "c1829e3f6a3a87af003d9f251b8ed4378ded505d3cdb96573f03e1629bda047f"
     },
     "src/ui/legacy/WIN_Ordens_Reparacao_Form.layout.json": {
-      "sha256": "2ef062a60ed9aa63021ebbe6646441b3f824a4a779515437ca2f77783827efcd"
+      "sha256": "3cf0f37e902df79fff19b246e2ce62f0cc7dfa9c96f3f0c441ffd983c6ad83b5"
     },
     "src/ui/legacy/WIN_Reconstrucao_Stocks.layout.json": {
-      "sha256": "2382e25bb8252f2025787c673e680ab2c1f7074cd9a2b76c7b3284e89c360364"
+      "sha256": "e490a2b23f57e9886145b088b67477e357bb2ed9e0850c21159add24d64ac30d"
     },
     "src/ui/legacy/WIN_Table_Clientes.layout.json": {
-      "sha256": "688830b02b8ca29fedd4af97d454e272e67aef61c6394d53b2bcc17187dc60a5"
+      "sha256": "cfa0716b43ab366b9408e6bcd9dde22a65de2373aab3f901ed29810bc404eb95"
     },
     "src/ui/legacy/WIN_Table_Lin_Stocks.layout.json": {
-      "sha256": "d9020ca1b46ad36699db7a7ff3d94331c39dd37966e677c7c6295ea83a3aad2d"
+      "sha256": "6a30935acef26da795a3beda96726c39a77c4fd01059c476e56e0228f68c8312"
     },
     "src/ui/legacy/WIN_Table_Tempos_materiais_Descricoes.layout.json": {
-      "sha256": "75e84e2c481e6fe29e161fb29f77bc3b13bca7cadcb04b457f3bb33fd7cbdb8c"
+      "sha256": "85e5605e32095244199eae09fe79e59c275ac7fc6c92e863219975b8106b7ae4"
     },
     "src/ui/legacy/WIN_Table_Terminais.layout.json": {
-      "sha256": "c47e183fad3ccaeffdf247e584dab1e283445654486aae6cd6983f4e63918890"
+      "sha256": "83359229f3dc2adf4d0a186e8f76edc4dd2be6d0f33aa19a970a07caa20b6041"
     },
     "src/ui/legacy/WIN_Table_Viaturas.layout.json": {
-      "sha256": "671c9e981cf3e6d886491c07256270d8b0dc3c0d98f9d3627476a2b5570237ff"
+      "sha256": "bced7cdf255b7735c7fcb6c026ae8d66796e739f8546cffa0b8dd409fd377d6a"
     },
     "src/ui/legacy/WIN_Table_artigos.layout.json": {
-      "sha256": "91299a07825bcc5b0a230ff18d72c8e31e339d2a90f65112abe610fede5f2bdd"
+      "sha256": "6549cc973c9eda8e6fc89f2e8ea476b95025ac2ff99fafe1132edd1dc823041b"
     },
     "src/ui/legacy/WIN_Table_cab_stocks.layout.json": {
-      "sha256": "7b58991e070775647e4942f501acf786472957fa1a28cd2271b5ce1a53273b31"
+      "sha256": "03be6b628f88b630ab435c61283bed219cb530a5dd38b713ee132459d5c352b8"
     },
     "src/ui/legacy/WIN_Table_documentos.layout.json": {
-      "sha256": "8b393a70c65b2e7165b93ddd699c74cef8dc998e75d62f46653e920592a4ecf7"
+      "sha256": "e083abc4397d4af5ef755ca8fdcfa98c9c832bbe66b9fc126e862215301cc335"
     },
     "src/ui/legacy/WIN_Table_estado_reparacao_tipo3.layout.json": {
-      "sha256": "e52c3ee1f7aaf0d512c468e836323cae5149af9fa67b2e2e4022d15498f85bac"
+      "sha256": "954f1b70fcb5e152ed1031c845edf9fcdd7617782a07ab2edc067d200e5e4642"
     },
     "src/ui/legacy/WIN_Table_estados_descritivos.layout.json": {
-      "sha256": "3c8218e2aa882b713d346f484ddec385ff93790f085c7f8d5135bdb91b0eab8d"
+      "sha256": "32c8ab88dfc1bcca72832735978d99fd1145b49d13327be813b4923092ba0d8b"
     },
     "src/ui/legacy/WIN_Table_estados_reparacao.layout.json": {
-      "sha256": "1b968cd3dd64a861e827f5050c9fb4a80b90e254f8fa0f12ceeb4e1e86ec8f01"
+      "sha256": "a48e9fffbc5f6aaaaa3f7d37876c4c1a2a5f1f58054f685887abe9e9c0c97208"
     },
     "src/ui/legacy/WIN_Table_mecanicos.layout.json": {
-      "sha256": "ab32b175c34f05402b530c8c2d7ea272a9f239ad9bf77efcdf093157301db5f0"
+      "sha256": "ed6e35409b0df974408e079d040641ad6edf5b0638355d91349c9099dd409626"
     },
     "src/ui/legacy/WIN_Table_postos.layout.json": {
-      "sha256": "615d958fed57c11e047b62298222f59923118473ff7e9d90cfbaf9d37c0da361"
+      "sha256": "fa7f10f3d1aa100a23ae1c0e742d54bee4cf617a101c6e57d659fa19834c3431"
     },
     "src/ui/legacy/WIN_Table_unidades.layout.json": {
-      "sha256": "4b2704143e534f546488544d4974bba30097b42dda00fdff659aa8a21601cc93"
+      "sha256": "6bb1338451ccad4b8d2ded1c199462c48aeba0afcb298cb4180b026b6a8ef5af"
     },
     "src/ui/legacy/WIN_Table_utilizadores.layout.json": {
-      "sha256": "222f1482a4791bedaeddf0d1a3af359e09f72458974cd1c9aee107df8271120a"
+      "sha256": "dc9f52534097dfceb7427a76164ab4d69fb7f29db630d5f57adee0ae3a0b8e7a"
     },
     "src/ui/legacy/WIN_Teclado_Alfa.layout.json": {
       "sha256": "5cb0e12a41f6d7df58d0c6712ef5221a273174cbb0f61a44c7d0afd6b6666187"
@@ -1388,19 +1401,19 @@
       "sha256": "4618491fb5e82cf822a2acebe83b20931432d0c70a4b5f9da5219b2baa016cdb"
     },
     "src/ui/legacy/WIN_Tempos_Reparacao.layout.json": {
-      "sha256": "714c0bc40862121afa1c275cac26f70996f2a564fc05ca1a16911bbdb4b1c4ac"
+      "sha256": "e0be0ac28c6cbb1127dab2fd5b719e8a76b00c754941f0f0dd263ab95d7c0d25"
     },
     "src/ui/legacy/WIN_Tempos_Reparacao_Estado.layout.json": {
-      "sha256": "cba56fdec8ef071b3e5ab73ea56763e1ce53a0fd84fead03bc022d4e786503de"
+      "sha256": "42e09ec8d7a6c67b2608e3f75cf6898e1efa790aa52ba9b4047e59435f27871d"
     },
     "src/ui/legacy/WIN_Tempos_Reparacao_Informacao.layout.json": {
-      "sha256": "f3dcb33445bdbf3f153657b5741519525c8b1a47082cfb900fe09dfe86d22cdc"
+      "sha256": "de4ee9d49374b343226eefb23b2d2c3b25e9dca74396318eda5c43ba3b4ea8b0"
     },
     "src/ui/legacy/WIN_Tempos_Reparacao_Tempo.layout.json": {
-      "sha256": "67415e5428ec61c71f338d45c1e25ed848cbb14c871142643cb83ee2a51c4e0f"
+      "sha256": "56aceae2c5f89252189d1c314e39cc82950684d4acfe08855a2435aa0187f878"
     },
     "src/ui/legacy/WIN_sistema.layout.json": {
-      "sha256": "ddb8bdfaae34e08e77c273b2fd7ca9f8fbf53d5e61f63ef27725d25cda4ceb30"
+      "sha256": "0f8f5fe9baf07f35534bfd4ba2535ce79bd7b7dd8165bf6e4b6b5ed57842b3f9"
     }
   },
   "unknown": {

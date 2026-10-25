@@ -1,0 +1,16 @@
+/* WIN_Material_reparacao_form.wdw1170–1272: source control fonts scale with width/800.
+   Keep the existing10.67px target skin baseline; absent native font metrics remain U01. */
+.material-source-scaling > :is(
+  [data-control-path="STC_Artigo"], [data-control-path="STC_Mecanico"], [data-control-path="STC_Quant"], [data-control-path="STC_Viatura"],
+  [data-control-path="EDT_matricula"], [data-control-path="EDT_marca_modelo"], [data-control-path="EDT_mecanico"],
+  [data-control-path="EDT_quant"], [data-control-path="EDT_artigo"], [data-control-path="EDT_artigo_descricao"],
+  [data-testid="BTN_NoName1"], [data-testid="BTN_NoName2"], [data-testid="BTN_Sair"], [data-testid="BTN_Adicionar"],
+  [data-testid="BTN_Cancelar"], [data-testid="BTN_Eliminar"], [data-testid="BTN_seguinte"], [data-testid="BTN_anterior"],
+  [data-testid="BTN_Leitor"], [data-testid="BTN_Quantidade"]
+) { font-size: calc(10.67px * var(--material-control-scale)); }
+/* The five column FontSize assignments occur only during initialization; Resize omits them. */
+.material-source-scaling .material-opening-column-font,
+.material-source-scaling [data-testid="TABLE_material"] :is([data-testid="COL_data_hora"], [data-testid="COL_mecanico_descricao"], [data-testid="COL_descricao_artigo"], [data-testid="COL_quant"], [data-testid="COL_preco"]) {
+  font-size: calc(10.67px * var(--material-column-scale));
+}
+.material-source-mechanics { position: absolute; box-sizing: border-box; font: inherit; background: white; color: inherit; }

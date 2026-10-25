@@ -72,7 +72,8 @@
     "With focus": false
    },
    "anchoring": "Right",
-   "h_align": "Left"
+   "h_align": "Left",
+   "image": "MediaPlayer_Btn_Restore.gif"
   },
   {
    "name": "STC_Data",
@@ -161,6 +162,7 @@
  "assets": [
   "Btn_OK.gif",
   "MediaPlayer_Bg_Base.gif",
+  "MediaPlayer_Btn_Restore.gif",
   "MediaPlayer_Btn_anim.gif"
  ],
  "unknown": [

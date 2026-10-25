@@ -15,11 +15,7 @@
         "LIB_TITRE": "Off-canvas alternate layout title; Windows frame uses RADTitle.",
         "INT_1": "Checkbox absent in text fixture; covered in resource input flow.",
         "BTN_MOBILE_1": "Mobile control template; current target is Windows per ADR-001.",
-        "SCSystemButtons": "Source supercontrol container; close rendered directly; other chrome still pending.",
-        "BTN_UMC": "Unresolved UMC feature; no exclusion approved.",
-        "BTN_SYST_MINIMIZE": "Modal minimize not ported yet; U-W0075A5-02.",
-        "BTN_Syst_Maximize": "Modal maximize/restore not ported yet; U-W0075A5-02.",
-        "BTN_Syst_Restore": "Off-canvas restore source; runtime wiring pending."
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007)."
       }
     },
     "WINDEVMESSAGEBOX": {
@@ -33,11 +29,7 @@
         "BTN_ANNULER": "Type 5 uses BTN_NON relabeled Cancelar; type 3 cancellation checked separately.",
         "ICON_INFORMATION": "Only ICON_QUESTION is visible in the type 5 fixture; type 0 icon checked separately.",
         "ICON_ERREUR": "Not visible in type 5; error appearance and native sound remain pending U-W36869F-01/04.",
-        "SCSystemButtons": "Source supercontrol container; close control rendered directly. Minimize/maximize/UMC remain pending.",
-        "BTN_UMC": "Unresolved UMC feature, no exclusion approved; pending, not verified.",
-        "BTN_SYST_MINIMIZE": "Modal minimize not ported yet; pending U-W36869F-02.",
-        "BTN_Syst_Maximize": "Modal maximize/restore not ported yet; pending U-W36869F-02.",
-        "BTN_Syst_Restore": "Off-canvas source image; runtime restore wiring pending U-W36869F-02."
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007)."
       }
     },
     "WIN_Table_Clientes": {
@@ -46,7 +38,7 @@
         "IMG_BTN_Syst_Restore": "Source off-canvas restore image; workspace draws state through its actual chrome.",
         "SC_SCSystemButtons": "Source container; actual system controls are rendered by the owning workspace frame and tested in workspace flows.",
         "BTN_SYST_FERMER": "Owned by enclosing workspace frame; source action checked through workspace chrome.",
-        "BTN_UMC": "Source hidden; unresolved UMC without approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "BTN_Syst_Maximize": "Owned by enclosing workspace frame; source action checked through workspace chrome.",
         "RADTitle": "Owned by enclosing workspace frame; title is drawn from the same generated layout."
       },
@@ -68,7 +60,7 @@
         "IMG_BTN_Syst_Restore": "Source off-canvas restore image; workspace chrome owns restore.",
         "SC_SCSystemButtons": "Source container; owning workspace renders actual controls.",
         "BTN_SYST_FERMER": "Owned by enclosing workspace frame; caller-return flows exercise it.",
-        "BTN_UMC": "Source hidden; UMC unresolved without exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
         "RADTitle": "Owning workspace frame reads the generated source title."
       },
@@ -86,7 +78,7 @@
     },
     "WIN_Form_Viaturas": {
       "ignore": {
-        "BTN_UMC": "Source hidden; UMC unresolved without exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "SC_SCSystemButtons": "Source container; frame renders actual chrome directly.",
         "IMG_BTN_Syst_Restore": "Source off-canvas image; frame chrome owns restore."
       },
@@ -103,7 +95,7 @@
         "IMG_BTN_Syst_Restore": "Source off-canvas image; workspace chrome owns restore.",
         "SC_SCSystemButtons": "Source container; owning frame renders actual controls.",
         "BTN_SYST_FERMER": "Owned by enclosing workspace frame.",
-        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
         "RADTitle": "Owning frame reads the source-generated title."
       },
@@ -114,7 +106,7 @@
     },
     "WIN_Form_unidades": {
       "ignore": {
-        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "SC_SCSystemButtons": "Source container; frame renders actual chrome.",
         "IMG_BTN_Syst_Restore": "Source off-canvas image; frame owns restore."
       },
@@ -126,7 +118,7 @@
     },
     "WIN_Form_Clientes": {
       "ignore": {
-        "BTN_UMC": "Source hidden; UMC remains unresolved, no approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "SC_SCSystemButtons": "Source container; frame renders its actual chrome controls directly.",
         "IMG_BTN_Syst_Restore": "Source off-canvas restore image; maximize/restore uses source frame controls."
       },
@@ -142,7 +134,7 @@
         "IMG_BTN_Syst_Restore": "Source off-canvas image; workspace chrome owns restore.",
         "SC_SCSystemButtons": "Source container; owning frame renders actual controls.",
         "BTN_SYST_FERMER": "Owned by enclosing workspace frame.",
-        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
         "RADTitle": "Owning frame reads the source-generated title.",
         "COL_Estados_descritivosID": "Source hidden technical column retained in data and generated layout."
@@ -154,7 +146,7 @@
     },
     "WIN_Form_estados_descritivos": {
       "ignore": {
-        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "SC_SCSystemButtons": "Source container; frame renders actual chrome.",
         "IMG_BTN_Syst_Restore": "Source off-canvas image; frame owns restore."
       },
@@ -173,7 +165,7 @@
         "IMG_BTN_Syst_Restore": "Source off-canvas image; workspace chrome owns restore.",
         "SC_SCSystemButtons": "Source container; owning frame renders actual controls.",
         "BTN_SYST_FERMER": "Owned by enclosing workspace frame.",
-        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
         "RADTitle": "Owning frame reads the source-generated title."
       },
@@ -184,7 +176,7 @@
     },
     "WIN_Form_Terminais": {
       "ignore": {
-        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "SC_SCSystemButtons": "Source container; frame renders actual chrome.",
         "IMG_BTN_Syst_Restore": "Source off-canvas image; frame owns restore."
       },
@@ -208,7 +200,7 @@
         "IMG_BTN_Syst_Restore": "Source off-canvas image; workspace chrome owns restore.",
         "SC_SCSystemButtons": "Source container; owning frame renders actual controls.",
         "BTN_SYST_FERMER": "Owned by enclosing workspace frame.",
-        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
         "RADTitle": "Owning frame reads the source-generated title."
       },
@@ -222,7 +214,7 @@
     },
     "WIN_Form_postos": {
       "ignore": {
-        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "SC_SCSystemButtons": "Source container; frame renders actual chrome.",
         "IMG_BTN_Syst_Restore": "Source off-canvas image; frame owns restore."
       },
@@ -242,7 +234,7 @@
         "IMG_BTN_Syst_Restore": "Source off-canvas image; workspace chrome owns restore.",
         "SC_SCSystemButtons": "Source container; owning frame renders actual controls.",
         "BTN_SYST_FERMER": "Owned by enclosing workspace frame.",
-        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
         "RADTitle": "Owning frame reads source-generated title."
       },
@@ -253,7 +245,7 @@
     },
     "WIN_Form_mecanicos": {
       "ignore": {
-        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "SC_SCSystemButtons": "Source container; frame renders actual chrome.",
         "IMG_BTN_Syst_Restore": "Source off-canvas image; frame owns restore."
       },
@@ -273,7 +265,7 @@
         "IMG_BTN_Syst_Restore": "Source off-canvas image; workspace chrome owns restore.",
         "SC_SCSystemButtons": "Source container; owning frame renders actual controls.",
         "BTN_SYST_FERMER": "Owned by enclosing workspace frame.",
-        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
         "RADTitle": "Owning workspace reads the generated layout with scoped source-JPG caption override."
       },
@@ -284,7 +276,7 @@
     },
     "WIN_Form_estados_reparacao": {
       "ignore": {
-        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "SC_SCSystemButtons": "Source container; frame renders actual chrome.",
         "IMG_BTN_Syst_Restore": "Source off-canvas image; frame owns restore."
       },
@@ -311,7 +303,7 @@
         "IMG_BTN_Syst_Restore": "Source off-canvas image; workspace chrome owns restore.",
         "SC_SCSystemButtons": "Source container; owning frame renders actual controls.",
         "BTN_SYST_FERMER": "Owned by enclosing workspace frame.",
-        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
         "RADTitle": "Owning frame reads source-generated title."
       },
@@ -326,7 +318,7 @@
         "IMG_BTN_Syst_Restore": "Source off-canvas image; workspace chrome owns restore.",
         "SC_SCSystemButtons": "Source container; owning frame renders actual controls.",
         "BTN_SYST_FERMER": "Owned by enclosing workspace frame.",
-        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
         "RADTitle": "Owning frame reads source-generated title."
       },
@@ -342,7 +334,7 @@
     },
     "WIN_Form_artigos": {
       "ignore": {
-        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "SC_SCSystemButtons": "Source container; frame renders actual chrome.",
         "IMG_BTN_Syst_Restore": "Source off-canvas image; frame owns restore."
       },
@@ -362,7 +354,7 @@
         "IMG_BTN_Syst_Restore": "Source off-canvas image; workspace chrome owns restore.",
         "SC_SCSystemButtons": "Source container; owning frame renders actual controls.",
         "BTN_SYST_FERMER": "Owned by enclosing workspace frame.",
-        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "BTN_Syst_Maximize": "Owned by enclosing workspace frame.",
         "RADTitle": "Owning frame reads source-generated title."
       },
@@ -373,7 +365,7 @@
     },
     "WIN_Form_utilizadores": {
       "ignore": {
-        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "SC_SCSystemButtons": "Source container; frame renders actual chrome.",
         "IMG_BTN_Syst_Restore": "Source off-canvas image; frame owns restore."
       },
@@ -394,7 +386,7 @@
     },
     "WIN_Mudar_Estado": {
       "ignore": {
-        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "SCSystemButtons": "Source container; actual custom chrome rendered by the modal frame.",
         "BTN_Syst_Restore": "Source off-canvas restore image; modal frame owns actual maximize/restore."
       },
@@ -405,7 +397,7 @@
     },
     "WIN_Form_documentos": {
       "ignore": {
-        "BTN_UMC": "Source hidden; UMC unresolved without approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "SC_SCSystemButtons": "Source container; frame renders actual chrome.",
         "IMG_BTN_Syst_Restore": "Source off-canvas image; frame owns restore."
       },
@@ -431,7 +423,7 @@
         "BTN_OK"
       ],
       "ignore": {
-        "BTN_UMC": "Source hidden; UMC remains unresolved without an approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "SCSystemButtons": "Source container; the owning workspace renders actual chrome.",
         "BTN_SYST_MINIMIZE": "Owned by the enclosing workspace frame.",
         "BTN_SYST_FERMER": "Owned by the enclosing workspace frame; real flows exercise closing.",
@@ -460,7 +452,7 @@
         "BTN_Novo"
       ],
       "ignore": {
-        "BTN_UMC": "Source hidden; UMC remains unresolved without an approved exclusion.",
+        "BTN_UMC": "Source hidden; only the WINDEV macro editor action is excluded by owner approval (ADR-007).",
         "SCSystemButtons": "Source container; actual source chrome is rendered by the modal.",
         "BTN_Syst_Restore": "Source off-canvas restore image; the modal renders actual restore."
       },

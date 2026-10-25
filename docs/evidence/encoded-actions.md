@@ -7,7 +7,7 @@ The migration does not wait for these: it builds with `Proposed` and cites `prop
 | Action | Slots | Example | Proposed | Answer | How checked | By, date |
 |---|---|---|---|---|---|---|
 | A-2b6ca2 | 65 (BTN_Cancelar, BTN_Confirmar, BTN_Fechar, BTN_Gravar, BTN_Guardar, BTN_Iniciar, BTN_Reconstruir1, BTN_SYST_FERMER, BTN_Sair) | WINDEVDIALOGBOX.BTN_SYST_FERMER | Close the window — same encoded action as the skin-template button BTN_SYST_FERMER | | | |
-| A-2fd8eb | 50 (BTN_UMC) | WINDEVDIALOGBOX.BTN_UMC | Open WINDEV's user macro-code editor (U.M.C., a WINDEV developer feature): propose to exclude — same encoded action as the skin-template button BTN_UMC | | | |
+| A-2fd8eb | 50 (BTN_UMC) | WINDEVDIALOGBOX.BTN_UMC | Open WINDEV's user macro-code editor (U.M.C., a WINDEV developer feature): propose to exclude — same encoded action as the skin-template button BTN_UMC | Exclude WINDEV macro editor | Owner scope decision, not runtime validation | Owner, 2026-10-25 |
 | A-48d568 | 50 (BTN_SYST_MINIMIZE) | WINDEVDIALOGBOX.BTN_SYST_MINIMIZE | Minimize the window — same encoded action as the skin-template button BTN_SYST_MINIMIZE | | | |
 | A-ff0b05 | 50 (BTN_Syst_Maximize) | WINDEVDIALOGBOX.BTN_Syst_Maximize | Maximize or restore the window — same encoded action as the skin-template button BTN_Syst_Maximize | | | |
 | A-d61aa1 | 33 (BTN_Cancelar, BTN_Confirmar, BTN_Fechar, BTN_SYST_FERMER, BTN_selecionar) | WIN_Form_Clientes.BTN_Cancelar | Close the window — same encoded action as the skin-template button BTN_SYST_FERMER | | | |

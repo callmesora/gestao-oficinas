@@ -15,7 +15,7 @@ export function WdButton({ control: source, chrome = false, interpretAmpersand =
   return <button {...props} type="button" data-testid={control.name} data-control-path={control.path}
     data-wd-mnemonic={caption.letter ? caption.letter.toLocaleLowerCase("pt-PT") : undefined}
     aria-keyshortcuts={props["aria-keyshortcuts"] ?? (caption.letter ? `Alt+${caption.letter}` : undefined)}
-    hidden={props.hidden ?? control.visible === false} tabIndex={String(control.tab_order) === "-1" ? -1 : tabIndex}
+    hidden={props.hidden ?? ((control.visible ?? control.flags?.Visible) === false)} tabIndex={tabIndex ?? (control.flags?.["TAB Key"] === false || String(control.tab_order) === "-1" ? -1 : undefined)}
     className={`wd-button ${chrome ? "wd-chrome-button" : ""} ${className}`}
     style={{ ...controlBox(control), ...buttonSkin(control), ...style }}>
     {!chrome && <span>{!interpretAmpersand ? control.caption : <>{caption.before}{caption.letter && <u>{caption.letter}</u>}{caption.after}</>}</span>}
@@ -34,7 +34,7 @@ export function WdCheckbox({ control: source, checked, onChange, disabled }: {
   control: LegacyControl; checked: boolean | null; onChange: (value: boolean) => void; disabled?: boolean;
 }) {
   const control = useAnchoredControl(source);
-  return <label className="wd-checkbox" hidden={control.visible === false || control.flags?.Visible === false}
+  return <label className="wd-checkbox" hidden={(control.visible ?? control.flags?.Visible) === false}
     data-control-path={control.path} style={controlBox(control)}>
     <input type="checkbox" data-testid={control.name} checked={checked === true} disabled={disabled}
       aria-label={control.caption || control.name}
@@ -54,7 +54,7 @@ export function WdRadio({ control: source, options, value, onChange, disabled, l
   const selected = options.findIndex(option => option.value === value);
   const tabStop = selected < 0 ? 0 : selected;
   return <div role="radiogroup" aria-label={label} data-testid={control.name} data-control-path={control.path}
-    hidden={control.visible === false || control.flags?.Visible === false} className="wd-radio" style={controlBox(control)}>
+    hidden={(control.visible ?? control.flags?.Visible) === false} className="wd-radio" style={controlBox(control)}>
     {options.map((option, index) => <button key={option.value} ref={node => { buttons.current[index] = node; }} type="button" role="radio"
       aria-checked={selected === index} disabled={disabled} data-radio-value={option.value}
       tabIndex={control.flags?.["TAB Key"] === false || String(control.tab_order) === "-1" || index !== tabStop ? -1 : 0}
@@ -90,16 +90,32 @@ export function WdFrame({ layout, instance, children, width, height, onClose, on
   const frameWidth = width ?? size.width;
   const frameHeight = height ?? size.height;
   const skin = { "--wd-frame": `url("${skinImage(layout.window.background_image)}")` } as CSSProperties;
+  const group = layout.controls.find(control => control.name === "SCSystemButtons");
+  const hidden = (control: LegacyControl) => (control.visible ?? control.flags?.Visible) === false;
+  const chrome = buttons.filter(button => layout.controls.some(control => control.name === button.name)).map(button => {
+    const control = controlOf(layout, button.name);
+    return <WdButton key={control.path} control={control} chrome aria-label={button.label} onClick={button.action}
+      style={group ? { left: control.x - group.x, top: control.y - group.y } : { left: undefined, right: size.width - control.x - (control.width ?? 0) }} />;
+  });
+  const macro = layout.controls.find(control => control.name === "BTN_UMC");
+  const restore = layout.controls.find(control => control.name === "BTN_Syst_Restore");
   return <section data-testid={instance} data-layout={layout.window.name} aria-label={title.caption ?? layout.window.title ?? undefined}
     data-wd-keyboard-scope="" tabIndex={-1} onKeyDown={activateMnemonic}
     className="wd-frame" style={{ ...skin, width: frameWidth, height: frameHeight }}>
     <div className="wd-client">
-      <div className="wd-title" data-testid={title.name} style={{ ...controlBox(title), width: (title.width ?? 0) + frameWidth - size.width }}>{title.caption}</div>
-      {buttons.filter(button => layout.controls.some(control => control.name === button.name || control.path === button.name)).map(button => {
-        const control = controlOf(layout, button.name);
-        return <WdButton key={control.path} control={control} chrome aria-label={button.label} onClick={button.action}
-          style={{ left: undefined, right: size.width - control.x - (control.width ?? 0) }} />;
-      })}
+      <div className="wd-title" data-testid={title.name} data-control-path={title.path} hidden={hidden(title)}
+        style={{ ...controlBox(title), width: Math.max(0, (title.width ?? 0) + frameWidth - size.width),
+          textAlign: title.h_align === "Right" ? "right" : title.h_align === "Center" ? "center" : "left" }}>{title.caption}</div>
+      {restore && <span data-testid={restore.name} data-control-path={restore.path} aria-hidden="true" hidden={hidden(restore)}
+        style={{ position: "absolute", ...controlBox(restore), left: restore.x + (restore.anchoring?.includes("Right") ? frameWidth - size.width : 0),
+          pointerEvents: restore.flags?.["With click"] === false ? "none" : undefined }}>
+        {restore.image && <img src={skinImage(restore.image)} alt="" style={{ width: "100%", height: "100%" }} />}
+      </span>}
+      {group ? <div data-testid={group.name} data-control-path={group.path} hidden={hidden(group)}
+        style={{ position: "absolute", ...controlBox(group), left: undefined, right: size.width - group.x - (group.width ?? 0) }}>
+        {macro && <WdButton control={macro} chrome hidden aria-hidden="true" tabIndex={-1} style={{ left: macro.x - group.x, top: macro.y - group.y }} />}
+        {chrome}
+      </div> : chrome}
       <FrameDeltaContext.Provider value={{ width: frameWidth - size.width, height: frameHeight - size.height }}>{children}</FrameDeltaContext.Provider>
     </div>
   </section>;
@@ -229,7 +245,7 @@ export function WdEdit({ control: source, automaticErase, integerMask = false, d
     testId: `${control.name}__suggestions`, label: props["aria-label"] ?? control.caption ?? control.name });
   const selection = useInputSelection(automaticErase ?? control.flags?.["Automatic erase"], { ...props, onFocus: assistance.onFocus });
   const captionWidth = control.caption_width ?? 0;
-  return <div ref={field} className="wd-field" hidden={props.hidden ?? control.visible === false} data-control-path={control.path} style={controlBox(control)}>
+  return <div ref={field} className="wd-field" hidden={props.hidden ?? ((control.visible ?? control.flags?.Visible) === false)} data-control-path={control.path} style={controlBox(control)}>
     {captionWidth > 0 && <label htmlFor={id} style={{ width: captionWidth - 2 }}>{control.caption}</label>}
     <input {...props} {...numeric} {...selection} {...assistance.attributes} onChange={assistance.onChange} onBlur={assistance.onBlur} onKeyDown={assistance.onKeyDown}
       id={id} type={control.flags?.Password === true && !(revealEnabled && revealed) ? "password" : "text"}
@@ -258,13 +274,17 @@ export function WdMemo({ control: source, automaticErase, ...props }: { control:
   const selection = useInputSelection(automaticErase ?? control.flags?.["Automatic erase"], props);
   const id = useId();
   const captionWidth = control.caption_width ?? 0;
-  return <div className="wd-field wd-memo-field" hidden={props.hidden ?? control.visible === false} data-control-path={control.path} style={controlBox(control)}>
+  return <div className="wd-field wd-memo-field" hidden={props.hidden ?? ((control.visible ?? control.flags?.Visible) === false)} data-control-path={control.path} style={controlBox(control)}>
     {captionWidth > 0 && <label htmlFor={id} style={{ width: captionWidth - 2 }}>{control.caption}</label>}
     <textarea {...props} {...selection} id={id}
       maxLength={props.maxLength ?? (control.input_type === "Text" && (control.input_size ?? 0) > 0 ? control.input_size : undefined)}
       tabIndex={props.tabIndex ?? (control.flags?.["TAB Key"] === false || String(control.tab_order) === "-1" ? -1 : undefined)} data-testid={control.name} className="wd-edit wd-memo"
       readOnly={props.readOnly ?? control.state === "Read-only"}
       aria-label={captionWidth ? undefined : props["aria-label"] ?? control.caption ?? control.name}
-      style={{ left: captionWidth, width: (control.width ?? 0) - captionWidth }} />
+      wrap={control.flags?.["Horz. scrollbar"] === true ? "off" : "soft"}
+      style={{ left: captionWidth, width: (control.width ?? 0) - captionWidth,
+        textAlign: control.h_align === "Right" ? "right" : control.h_align === "Center" ? "center" : "left",
+        overflowX: control.flags?.["Horz. scrollbar"] === true ? "scroll" : "hidden",
+        overflowY: control.flags?.["Vert. scrollbar"] === true ? "scroll" : "auto" }} />
   </div>;
 }

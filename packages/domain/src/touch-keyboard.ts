@@ -1,4 +1,5 @@
 import Decimal from "decimal.js";
+import { alphaKeyboardButtons, alphaKeyboardButtonForKey, numericKeyboardButtons, numericKeyboardButtonForKey } from "./touch-keyboard-controls";
 
 const Exact = Decimal.clone({ precision: 100 });
 export interface AlphaKeyboardOptions { title: string; value: string; maxLength?: number; inputMask?: string; password?: boolean | "nomepasta" }
@@ -22,12 +23,8 @@ export function alphaKeyboardWrite(state: AlphaKeyboardState, key: string, optio
 
 /** Modern key names route the same source button action; comma intentionally routes semicolon. */
 export function alphaKeyboardKey(key: string): string | null {
-  if (key === "Backspace") return "APAGAR_ULTIMO";
-  if (key === "^") return "/\\";
-  if (key === ",") return ";";
-  if (/^[a-zA-Z0-9]$/.test(key)) return key.toLocaleUpperCase("pt-PT");
-  if ("`´~€ªºÇç+%?=#\"&@();:\\/ _*.-".includes(key) && key.length === 1) return key === "ç" ? "Ç" : key;
-  return null;
+  const button = alphaKeyboardButtonForKey(key), action = button ? alphaKeyboardButtons[button] : undefined;
+  return action?.kind === "write" ? action.value : null;
 }
 
 export interface NumericKeyboardOptions { title: string; value: string; decimals: number; lower: string; upper: string }
@@ -60,6 +57,6 @@ export function numericKeyboardResult(state: NumericKeyboardState, options: Nume
     : { kind: "outside", message: `Valor fora dos limites (${options.lower} - ${options.upper})` };
 }
 export function numericKeyboardKey(key: string): string | null {
-  if (["c", "C", "Backspace"].includes(key)) return "C";
-  return /^[0-9.-]$/.test(key) ? key : null;
+  const button = numericKeyboardButtonForKey(key), action = button ? numericKeyboardButtons[button] : undefined;
+  return action?.kind === "write" ? action.value : null;
 }
