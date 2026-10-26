@@ -206,6 +206,28 @@ for(const kind of ["list","form","prompt"] as const) test(`proof repair material
   if(kind==="list"){screen=await list(page,materialServer.origin);sequence=["BTN_Fechar","BTN_todos","TABLE_ordens_reparacao","BTN_Material","LIST_mecanicos","BTN_anterior","BTN_anterior1","BTN_seguinte1","BTN_seguinte"];}
   else {const form=await editor(page,materialServer.origin);if(kind==="form"){screen=form;sequence=["EDT_matricula","EDT_marca_modelo","BTN_Sair","EDT_mecanico","BTN_NoName1","TABLE_material","BTN_anterior","BTN_seguinte","BTN_Eliminar","BTN_Preço","BTN_Quantidade","BTN_Descricao","BTN_Leitor","EDT_quant","EDT_artigo","BTN_NoName2","EDT_artigo_descricao","BTN_Adicionar","BTN_Cancelar"];}
     else {await form.getByTestId("BTN_Quantidade").click();screen=page.getByTestId(promptId);sequence=["EDT_quantidade","BTN_Confirmar","BTN_Cancelar"];}}
+  // A source TABLE is one outer control group. Its maintained accessible headers have their own target stops.
+  // These literal source-column sequences account for every derived stop without changing any accessibility control.
+  const headers:Record<string,TableFocusStop[]>={
+    TABLE_ordens_reparacao:sourceHeaderStops("TABLE_ordens_reparacao",["COL_Numero","COL_Matricula","COL_Marca_Modelo"]),
+    TABLE_material:[{table:"TABLE_material",column:null,kind:"columns",tag:"BUTTON",role:"button"},...sourceHeaderStops("TABLE_material",["COL_data_hora","COL_mecanico_descricao","COL_descricao_artigo","COL_quant","COL_preco"]),{table:"TABLE_material",column:"COL_Lancado",kind:"caption",tag:"SPAN",role:null},{table:"TABLE_material",column:"COL_Lancado",kind:"resize",tag:"SPAN",role:"separator"}],
+  };
   await screen.getByTestId(sequence[0]).focus();
-  for(let index=0;index<sequence.length;index++){await expect(screen.getByTestId(sequence[index]),`${kind} source Tab${index}`).toBeFocused();if(index+1<sequence.length)await page.keyboard.press("Tab");}
+  for(let index=0;index<sequence.length;index++){
+    await expect(screen.getByTestId(sequence[index]),`${kind} source Tab${index}`).toBeFocused();
+    for(const stop of headers[sequence[index]]??[]){await page.keyboard.press("Tab");expect(await focusedTableStop(page),`${kind} derived stop ${stop.column??"configuration"}/${stop.kind}`).toEqual(stop);}
+    if(index+1<sequence.length)await page.keyboard.press("Tab");
+  }
 });
+
+type TableFocusStop={table:string;column:string|null;kind:string;tag:string;role:string|null};
+function sourceHeaderStops(table:string,columns:readonly string[]):TableFocusStop[]{
+  return columns.flatMap(column=>[{table,column,kind:"sort",tag:"BUTTON",role:"button"},{table,column,kind:"search",tag:"BUTTON",role:"button"},{table,column,kind:"resize",tag:"SPAN",role:"separator"}]);
+}
+async function focusedTableStop(page:Page):Promise<TableFocusStop>{
+  return page.evaluate(()=>{
+    const node=document.activeElement as HTMLElement,table=node.closest<HTMLElement>(".wd-table"),column=node.closest<HTMLElement>("th[data-control-path]");
+    const kind=node.classList.contains("wd-column-search")?"search":node.classList.contains("wd-column-resize")?"resize":node.classList.contains("wd-column-caption")?"caption":column&&node.tagName==="BUTTON"?"sort":node.dataset.testid===`${table?.dataset.testid}__columns`?"columns":"unknown";
+    return {table:table?.dataset.testid??"outside-source-table",column:column?.dataset.testid??null,kind,tag:node.tagName,role:node.getAttribute("role")??(node.tagName==="BUTTON"?"button":null)};
+  });
+}
