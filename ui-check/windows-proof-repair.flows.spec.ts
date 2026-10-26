@@ -1,7 +1,7 @@
 import type { Locator, Page } from "@playwright/test";
 import { expect, test } from "./support/repair-orders";
 import chromeSource from "./support/proof-repair-chrome";
-import {sourceSimpleControls} from "./support/proof-repair-properties";
+import {sourceSimpleControls,sourceChromeControls} from "./support/proof-repair-properties";
 
 // Frozen literal coordinates from the cited dossier/source, compared to the actual mounted consumers.
 // Neither expected geometry nor expected draft values are read from production layout metadata at runtime.
@@ -68,6 +68,7 @@ for(const target of targets) test(`proof repair ${target.unit} actual chrome ret
   if(target.kind==="picker") await repairDatabase.query('UPDATE app."estados_reparacao" SET "tipo"=2 WHERE "Codigo"=\'R\'');
   await page.setViewportSize({width:1400,height:1000});
   const {screen,frame,parent}=await open(page,repairServer.origin,target), source=chromeSource[target.unit], initial=(await frame.boundingBox())!;
+  await sourceChromeControls(frame,source);
   const focus=screen.getByTestId(target.focus);
   if(target.kind==="form" || target.kind==="state") await focus.fill("retained draft ç  ");
   await focus.focus(); const values=await mountedValues(screen), selection=await screen.locator('tr[aria-selected="true"]').allTextContents();
@@ -84,6 +85,7 @@ for(const target of targets) test(`proof repair ${target.unit} actual chrome ret
   await expect(frame).toBeVisible(); await expect(focus).toBeFocused(); expect(await mountedValues(screen)).toEqual(values); expect(await screen.locator('tr[aria-selected="true"]').allTextContents()).toEqual(selection);
   await screen.getByTestId("BTN_Syst_Maximize").click(); const maximized=(await frame.boundingBox())!;
   expect(maximized.width).toBeGreaterThan(initial.width); expect(maximized.height).toBeGreaterThanOrEqual(initial.height);
+  await sourceChromeControls(frame,source,maximized.width-initial.width);
   expect(await mountedValues(screen)).toEqual(values);
   await screen.getByTestId("BTN_Syst_Maximize").click(); await page.evaluate(()=>window.scrollTo(0,0)); const restored=(await frame.boundingBox())!; expect({width:restored.width,height:restored.height}).toEqual({width:initial.width,height:initial.height}); expect(await mountedValues(screen)).toEqual(values);
   const before=(await repairDatabase.query('SELECT to_jsonb(o)::text AS row FROM app."ordem_reparacao" o')).rows;
@@ -178,4 +180,12 @@ test("proof repair labor close disposes its actual pending refresh and timer bef
     release();await page.waitForLoadState("networkidle");await expect(screen.getByTestId("TABLE_tempos_reparacao").locator("tbody tr")).toHaveCount(2);
     await expect(screen.getByTestId("BTN_Fechar")).toBeEnabled();await screen.getByTestId("BTN_Fechar").click();const final=ticks;await page.clock.fastForward(3000);expect(ticks).toBe(final);
   }finally{release();await page.unroute("**/api/repair-labor/list");}
+});
+
+
+for(const kind of ["information","time","state"] as const) test(`proof repair labor ${kind} traverses every exact source numeric Tab position through the real dialog`,async({page,repairServer})=>{
+  const target=targets.find(value=>value.kind===kind)!,{screen}=await open(page,repairServer.origin,target);
+  const sequence={information:["EDT_servico_avaria","EDT_observacao","EDT_cliente","EDT_contactos","BTN_Imprimir1","BTN_Fechar"],time:["EDT_matricula_marca_modelo","EDT_mecanico","BTN_NoName1","BTN_Iniciar","BTN_Cancelar"],state:["EDT_matricula_marca_modelo","TABLE_Estados_reparacao","BTN_anterior","BTN_seguinte","EDT_Data_Hora","BTN_NoName1","EDT_descricao","EDT_historico","EDT_obs_servico","BTN_Confirmar","BTN_Cancelar"]}[kind];
+  await expect(screen.getByTestId(kind==="information"?"BTN_Imprimir1":kind==="time"?"BTN_Iniciar":"BTN_Confirmar")).toBeEnabled();await screen.getByTestId(sequence[0]).focus();
+  for(let index=0;index<sequence.length;index++){await expect(screen.getByTestId(sequence[index]),`${kind} source Tab${index+2}`).toBeFocused();if(index+1<sequence.length)await page.keyboard.press("Tab");}
 });

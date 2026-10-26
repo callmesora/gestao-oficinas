@@ -124,7 +124,7 @@ export function RepairLaborInformationDialog({ repository, numero, finish, print
     <Captions layout={infoLayout} />
     {memo(infoLayout, "EDT_servico_avaria", loaded?.order.recepcao_servico ?? "")}{memo(infoLayout, "EDT_observacao", loaded?.order.recepcao_obs ?? "")}
     {memo(infoLayout, "EDT_cliente", loaded?.order.cliente ?? "")}{memo(infoLayout, "EDT_contactos", loaded?.order.recepacao_contatos ?? "")}
-    <Buttons layout={infoLayout} actions={{ BTN_Fechar: { onClick: close }, BTN_Imprimir1: { disabled: !print || !loaded, onClick: () => print?.(numero) } }} />
+    <Buttons layout={infoLayout} actions={{ BTN_Imprimir1: { disabled: !print || !loaded, onClick: () => print?.(numero) }, BTN_Fechar: { onClick: close } }} />
     {diagnostic && <output data-testid="repair-labor-info-diagnostic">{diagnostic}</output>}
   </WdModal>;
 }
@@ -180,11 +180,13 @@ export function RepairLaborStateDialog({ repository, descriptiveRepository, nume
     {memo(stateLayout, "EDT_matricula_marca_modelo", loaded ? `${loaded.order.matricula ?? ""}      ${loaded.order.marcamodelo ?? ""}` : "")}
     <WdTable control={table} rows={loaded?.choices ?? []} rowId={row => row.id} selectedId={selection} onSelect={id => { if (!busy) setSelection(id); }} {...settings} designerOptions configureColumns onResetColumns={settings.resetLayout} showHeaders={false}
       cell={(row, column) => column.name === "COL_imagem" ? <ColorCell value={row.Cor} source={stateLayout} table={table.path} /> : column.name === "COL_Descricao" ? row.Descricao : column.name === "COL_Codigo" ? row.Codigo : column.name === "COL_Tipo" ? row.tipo : column.name === "COL_cor" ? row.Cor : ""} />
+    <Buttons layout={stateLayout} actions={{ BTN_anterior: { disabled: busy, onClick: () => setSelection(move(loaded?.choices ?? [], selection, -1)) }, BTN_seguinte: { disabled: busy, onClick: () => setSelection(move(loaded?.choices ?? [], selection, 1)) } }} />
     <WdDateTimeEdit ref={calendar} control={controlOf(stateLayout, "EDT_Data_Hora")} draft={when} onChange={value => { setWhen(value); setInvalid(false); }} invalid={invalid} disabled={busy || !loaded} />
+    <Buttons layout={stateLayout} actions={{ BTN_NoName1: { disabled: busy || !loaded || !descriptiveRepository, onClick: () => setPicker(true) } }} />
     {memo(stateLayout, "EDT_descricao", description, setDescription, busy || !loaded, { onPointerDown: openKeyboard("description") })}
     <div ref={history}><WdMemo control={controlOf(stateLayout, "EDT_historico")} value={loaded?.order.reparacao_estado_historico ?? ""} /></div>
     {memo(stateLayout, "EDT_obs_servico", service, setService, busy || !loaded, { onPointerDown: openKeyboard("service") })}
-    <Buttons layout={stateLayout} actions={{ BTN_Confirmar: { disabled: busy || !loaded, onClick: () => void save() }, BTN_Cancelar: { disabled: busy, onClick: close }, BTN_NoName1: { disabled: busy || !loaded || !descriptiveRepository, onClick: () => setPicker(true) }, BTN_anterior: { disabled: busy, onClick: () => setSelection(move(loaded?.choices ?? [], selection, -1)) }, BTN_seguinte: { disabled: busy, onClick: () => setSelection(move(loaded?.choices ?? [], selection, 1)) } }} />
+    <Buttons layout={stateLayout} actions={{ BTN_Confirmar: { disabled: busy || !loaded, onClick: () => void save() }, BTN_Cancelar: { disabled: busy, onClick: close } }} />
     {picker && descriptiveRepository && <DescriptiveStatePicker repository={descriptiveRepository} origin="" finish={value => { setDescription(value); setPicker(false); }} />}
     {keyboard && <TouchKeyboardDialog request={keyboard.request} finish={(value, outcome) => {
       if (outcome.confirmed && outcome.edited) { if (keyboard.field === "description") setDescription(value); else setService(value); }
@@ -300,7 +302,7 @@ export function RepairLaborTimeDialog({ repository, mechanicRepository, numero: 
   return <WdModal ref={modal} layout={timeLayout} instance="repair-labor-time" testId="WIN_Tempos_Reparacao_Tempo" restoreTestId="repair-labor-time-restore" onClose={close}>
     {memo(timeLayout, "EDT_matricula_marca_modelo", loaded ? `${loaded.order.matricula ?? ""}\r\n${loaded.order.marcamodelo ?? ""}` : "")}
     {memo(timeLayout, "EDT_mecanico", activeName)}
-    <Buttons layout={timeLayout} actions={{ BTN_Iniciar: { caption, disabled: busy || !loaded || !mechanicReady || !timeReady, onClick: () => void toggle() }, BTN_Cancelar: { disabled: busy, onClick: close }, BTN_NoName1: { disabled: busy || !mechanicRepository || !mechanicReady || !timeReady, onClick: () => setMechanicPicker(true) } }} />
+    <Buttons layout={timeLayout} actions={{ BTN_NoName1: { disabled: busy || !mechanicRepository || !mechanicReady || !timeReady, onClick: () => setMechanicPicker(true) }, BTN_Iniciar: { caption, disabled: busy || !loaded || !mechanicReady || !timeReady, onClick: () => void toggle() }, BTN_Cancelar: { disabled: busy, onClick: close } }} />
     {mechanicPicker && mechanicRepository && <MechanicPicker repository={mechanicRepository} origin="" finish={value => { setMechanicPicker(false); void chooseMechanic(value === "" ? null : Number(value)); }} />}
     {password !== null && <RepairMaterialPrompt mode="password" value="" finish={value => { setPassword(null); const resolve = passwordResult.current; passwordResult.current = null; resolve?.(value); }} />}
     {statePicker && <RepairLaborStatePicker choices={stateChoices} finish={value => { setStatePicker(false); const resolve = stateResult.current; stateResult.current = null; resolve?.(value); }} />}

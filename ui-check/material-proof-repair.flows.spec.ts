@@ -1,6 +1,7 @@
 import type { Locator, Page } from "@playwright/test";
 import { expect, test } from "./support/repair-materials";
-import {sourceSimpleControls} from "./support/proof-repair-properties";
+import {sourceSimpleControls,sourceChromeControls} from "./support/proof-repair-properties";
+import chromeSource from "./support/proof-repair-chrome";
 
 const promptId = "WIN_Inserir_quantidade_password";
 async function list(page: Page, origin: string, restricted = false, count = 1) {
@@ -162,12 +163,13 @@ for(const kind of ["list","form","prompt"] as const) test(`proof repair material
   if(kind==="list") { screen=await list(page,materialServer.origin); frame=screen; await screen.getByTestId("TABLE_ordens_reparacao").locator("tbody tr").click(); }
   else { const form=await editor(page,materialServer.origin); if(kind==="prompt") { await form.getByTestId("BTN_Quantidade").click(); screen=page.getByTestId(promptId); frame=page.getByTestId("repair-material-quantidade-prompt"); await screen.getByTestId("EDT_quantidade").fill("7,125"); }
     else {screen=form;frame=page.getByTestId("repair-material-form-frame");await screen.getByTestId("EDT_artigo_descricao").fill("draft preserved");} }
+  const unit=kind==="list"?"WIN_Material_Reparacao":kind==="form"?"WIN_Material_reparacao_form":"WIN_Inserir_quantidade_password";await sourceChromeControls(frame,chromeSource[unit]);
   const field=kind==="prompt"?screen.getByTestId("EDT_quantidade"):kind==="form"?screen.getByTestId("EDT_artigo_descricao"):screen.getByTestId("LIST_mecanicos");
   await field.focus(); const initial=(await frame.boundingBox())!,value=await field.inputValue(), selected=await screen.locator('tr[aria-selected="true"]').allTextContents();
   await screen.getByTestId("BTN_SYST_MINIMIZE").click(); await expect(frame).toBeHidden();
   if(kind==="list") await page.getByTestId("workspace-tasks").getByRole("button").click(); else await page.getByTestId(kind==="form"?"repair-material-form-restore":"repair-material-prompt-restore").click();
   await expect(frame).toBeVisible();await expect(field).toBeFocused();await expect(field).toHaveValue(value);expect(await screen.locator('tr[aria-selected="true"]').allTextContents()).toEqual(selected);
-  await screen.getByTestId("BTN_Syst_Maximize").click();expect((await frame.boundingBox())!.width).toBeGreaterThan(initial.width);await expect(field).toHaveValue(value);
+  await screen.getByTestId("BTN_Syst_Maximize").click();const expanded=(await frame.boundingBox())!;expect(expanded.width).toBeGreaterThan(initial.width);await expect(field).toHaveValue(value);await sourceChromeControls(frame,chromeSource[unit],expanded.width-initial.width);
   await screen.getByTestId("BTN_Syst_Maximize").click();const normal=(await frame.boundingBox())!;expect([normal.width,normal.height]).toEqual([initial.width,initial.height]);await expect(field).toHaveValue(value);
   await screen.getByTestId("BTN_SYST_FERMER").click();await expect(frame).toHaveCount(0);
   if(kind==="prompt") await expect(page.getByTestId("WIN_Material_reparacao_form")).toBeVisible();
@@ -197,4 +199,13 @@ test("proof repair material close disposes a pending timer read and reopened win
     const current=reads,next=page.waitForResponse(response=>response.url().endsWith("/api/repair-materials/list"));await page.clock.fastForward(1000);await next;expect(reads).toBe(current+1);
     await screen.getByTestId("BTN_SYST_FERMER").click();const final=reads;await page.clock.fastForward(3000);expect(reads).toBe(final);
   }finally{release();await page.unroute("**/api/repair-materials/list");}
+});
+
+for(const kind of ["list","form","prompt"] as const) test(`proof repair material ${kind} follows the exact source numeric Tab order through real native focus`,async({page,materialServer})=>{
+  let screen:Locator,sequence:readonly string[];
+  if(kind==="list"){screen=await list(page,materialServer.origin);sequence=["BTN_Fechar","BTN_todos","TABLE_ordens_reparacao","BTN_Material","LIST_mecanicos","BTN_anterior","BTN_anterior1","BTN_seguinte1","BTN_seguinte"];}
+  else {const form=await editor(page,materialServer.origin);if(kind==="form"){screen=form;sequence=["EDT_matricula","EDT_marca_modelo","BTN_Sair","EDT_mecanico","BTN_NoName1","TABLE_material","BTN_anterior","BTN_seguinte","BTN_Eliminar","BTN_Preço","BTN_Quantidade","BTN_Descricao","BTN_Leitor","EDT_quant","EDT_artigo","BTN_NoName2","EDT_artigo_descricao","BTN_Adicionar","BTN_Cancelar"];}
+    else {await form.getByTestId("BTN_Quantidade").click();screen=page.getByTestId(promptId);sequence=["EDT_quantidade","BTN_Confirmar","BTN_Cancelar"];}}
+  await screen.getByTestId(sequence[0]).focus();
+  for(let index=0;index<sequence.length;index++){await expect(screen.getByTestId(sequence[index]),`${kind} source Tab${index}`).toBeFocused();if(index+1<sequence.length)await page.keyboard.press("Tab");}
 });

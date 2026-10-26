@@ -206,5 +206,83 @@ export default {
       "width": 44,
       "height": 19
     }
+  },
+  "WIN_Material_Reparacao": {
+    "SCSystemButtons": {
+      "x": 666,
+      "y": 1,
+      "width": 128,
+      "height": 18
+    },
+    "BTN_SYST_MINIMIZE": {
+      "x": 700,
+      "y": 0,
+      "width": 26,
+      "height": 19
+    },
+    "BTN_Syst_Maximize": {
+      "x": 726,
+      "y": 0,
+      "width": 25,
+      "height": 19
+    },
+    "BTN_SYST_FERMER": {
+      "x": 750,
+      "y": 0,
+      "width": 44,
+      "height": 19
+    }
+  },
+  "WIN_Material_reparacao_form": {
+    "SCSystemButtons": {
+      "x": 666,
+      "y": 1,
+      "width": 128,
+      "height": 18
+    },
+    "BTN_SYST_MINIMIZE": {
+      "x": 700,
+      "y": 0,
+      "width": 26,
+      "height": 19
+    },
+    "BTN_Syst_Maximize": {
+      "x": 726,
+      "y": 0,
+      "width": 25,
+      "height": 19
+    },
+    "BTN_SYST_FERMER": {
+      "x": 750,
+      "y": 0,
+      "width": 44,
+      "height": 19
+    }
+  },
+  "WIN_Inserir_quantidade_password": {
+    "SCSystemButtons": {
+      "x": 236,
+      "y": 1,
+      "width": 128,
+      "height": 18
+    },
+    "BTN_SYST_MINIMIZE": {
+      "x": 270,
+      "y": 0,
+      "width": 26,
+      "height": 19
+    },
+    "BTN_Syst_Maximize": {
+      "x": 296,
+      "y": 0,
+      "width": 25,
+      "height": 19
+    },
+    "BTN_SYST_FERMER": {
+      "x": 320,
+      "y": 0,
+      "width": 44,
+      "height": 19
+    }
   }
 } as const;

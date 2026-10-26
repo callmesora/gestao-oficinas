@@ -11,6 +11,10 @@ function sourceBounds(control: SourceControl, dw: number, dh: number) {
 export async function sourceSimpleControls(screen: Locator, unit: Unit, delta={width:0,height:0}) {
   for(const control of sourceControls[unit] as readonly SourceControl[]) {
     // Tab pages remain mounted; each page is explicitly exposed by the caller before its assertions.
+    if(unit==="WIN_Table_Tempos_materiais_Descricoes" && control.path.startsWith("TAB_principal.")) {
+      const pages:Record<string,string>={BTN_Imprimir:"Materiais",BTN_Material:"Materiais",BTN_listagem:"Descrições/Observações",STC_Histórico_dos_estados:"Histórico dos estados",STC_Serviço_Avaria:"Descrições/Observações",STC_total:"Tempos",STC_total_material:"Materiais"};
+      await screen.getByRole("tab",{name:pages[control.name],exact:true}).click();
+    }
     const field=screen.locator(`[data-control-path="${control.path}"]`).first();
     if(await field.count()===0) throw new Error(`Maintained ${unit}/${control.path} is absent`);
     const actual=await field.evaluate(element=>{const node=element as HTMLElement;return {tag:node.tagName,hidden:node.hidden,tab:node.tabIndex,left:parseFloat(node.style.left),top:parseFloat(node.style.top),width:parseFloat(node.style.width),height:parseFloat(node.style.height),text:node.textContent,align:getComputedStyle(node).textAlign,animation:getComputedStyle(node).animationName,vertical:getComputedStyle(node).alignItems,lineHeight:getComputedStyle(node).lineHeight,editable:node.isContentEditable};});
@@ -18,6 +22,11 @@ export async function sourceSimpleControls(screen: Locator, unit: Unit, delta={w
     if(control.name==="RADTitle") expected.width=control.width+delta.width;
     expect({x:actual.left,y:actual.top,width:actual.width,height:actual.height},control.id).toEqual(expected);
     expect(actual.hidden,control.id).toBe(control.visible===false);
+    if(control.visible!==false) {
+      await expect(field,control.id).toBeVisible();
+      const box=(await field.boundingBox())!,frameBox=await field.evaluate(element=>{const rect=element.closest(".wd-frame")!.getBoundingClientRect();return {x:rect.x,y:rect.y};});
+      expect({x:box.x-frameBox.x,y:box.y-frameBox.y,width:box.width,height:box.height},control.id).toEqual(expected);
+    } else await expect(field,control.id).toBeHidden();
     expect(actual.editable,control.id).toBe(false);
     expect(actual.animation,control.id).toBe("none");
     if(control.kind==="Caption") {
@@ -40,3 +49,19 @@ export async function sourceSimpleControls(screen: Locator, unit: Unit, delta={w
   }
 }
 export { sourceControls };
+
+
+type ChromeBox={x:number;y:number;width:number;height:number};
+export async function sourceChromeControls(frame:Locator,source:Record<string,ChromeBox>,deltaWidth=0) {
+  const skins={BTN_SYST_MINIMIZE:["MediaPlayer_Btn_Minimize","MediaPlayer_Btn_Minimize_Anim"],BTN_Syst_Maximize:["MediaPlayer_Btn_Maximise","MediaPlayer_Btn_Maximize_Anim"],BTN_SYST_FERMER:["MediaPlayer_Btn_Close","MediaPlayer_Btn_Close_Anim"]} as const;
+  const origin=(await frame.boundingBox())!,group=source.SCSystemButtons,groupNode=frame.getByTestId("SCSystemButtons"),groupBox=(await groupNode.boundingBox())!;
+  await expect(groupNode).toBeVisible();expect({x:groupBox.x-origin.x,y:groupBox.y-origin.y,width:groupBox.width,height:groupBox.height}).toEqual({...group,x:group.x+deltaWidth});
+  for(const name of ["BTN_SYST_MINIMIZE","BTN_Syst_Maximize","BTN_SYST_FERMER"] as const) {
+    const node=frame.getByTestId(name),expected=source[name],paint=await node.evaluate(element=>{const item=element as HTMLButtonElement,style=getComputedStyle(item),icon=item.querySelector(".wd-button-icon");return {tag:item.tagName,type:item.type,tab:item.tabIndex,disabled:item.disabled,hidden:item.hidden,left:parseFloat(item.style.left),top:parseFloat(item.style.top),width:parseFloat(item.style.width),height:parseFloat(item.style.height),background:style.backgroundImage,icon:icon?getComputedStyle(icon).backgroundImage:"",animation:style.animationName};});
+    await expect(node).toHaveAttribute("data-control-path",`SCSystemButtons.${name}`);
+    expect(paint.tag).toBe("BUTTON");expect(paint.type).toBe("button");expect(paint.tab).toBe(-1);expect(paint.disabled).toBe(false);expect(paint.hidden).toBe(false);expect(paint.animation).toBe("none");
+    // Source NoAnchor keeps each custom child at a fixed local offset as its owning group follows the right edge.
+    expect({x:paint.left,y:paint.top,width:paint.width,height:paint.height}).toEqual({x:expected.x-group.x,y:expected.y-group.y,width:expected.width,height:expected.height});
+    expect(paint.icon).toContain(skins[name][0]);expect(paint.background).toContain(skins[name][1]);
+  }
+}
