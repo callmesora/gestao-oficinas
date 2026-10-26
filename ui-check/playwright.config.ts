@@ -13,6 +13,6 @@ export default defineConfig({
   use: { baseURL: "http://localhost:1431", channel: "chrome", viewport: { width: 1024, height: 768 },
     // Headless Playwright otherwise hides even source-required always-visible scrollbars.
     launchOptions: { ignoreDefaultArgs: ["--hide-scrollbars"] } },
-  webServer: { command: "npm run dev:workflows", url: "http://localhost:1431", reuseExistingServer: true, timeout: 90000,
+  webServer: { command: "npm run dev:workflows", url: "http://localhost:1431", reuseExistingServer: false, timeout: 90000,
     gracefulShutdown: { signal: "SIGTERM", timeout: 10000 } },
 });
