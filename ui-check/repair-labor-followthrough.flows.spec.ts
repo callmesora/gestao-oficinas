@@ -95,6 +95,7 @@ test("ADR012 actual labor query headers sort typed numbers and displayed priorit
 });
 
 test("ADR012 actual open-labor headers sort mixed raw date formats and seek mechanics without dropping rows", async ({ page, repairServer, repairDatabase }) => {
+  await page.clock.install({ time: new Date(2026, 9, 25, 12, 30, 0) });
   await repairDatabase.query(`INSERT INTO app."tempos_reparacao" ("tempos_reparacaoID","numero","mecanico","inicio","fim") VALUES
     (1,10,2,'20261025120100','00000000000000000'),(2,10,10,'2026-10-25 12:00:00.001','00000000000000000')`);
   const screen = await labor(page, repairServer.origin), table = screen.getByTestId("TABLE_tempos_reparacao_ordem");

@@ -1,0 +1,4060 @@
+[
+  {
+    "unit": "WIN_Table_estados_reparacao",
+    "buttons": [
+      {
+        "name": "BTN_Delete",
+        "x": 527,
+        "y": 90,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 5,
+        "caption": {
+          "PT": "Apagar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Delete.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Fechar",
+        "x": 527,
+        "y": 150,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 7,
+        "caption": {
+          "PT": "Fechar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Imprimir",
+        "x": 527,
+        "y": 120,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 6,
+        "caption": {
+          "PT": "Imprimir"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Print.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Modificar",
+        "x": 527,
+        "y": 61,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Modificar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Modif.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_selecionar",
+        "x": 527,
+        "y": 564,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 8,
+        "caption": {
+          "PT": "Selecionar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "Btn_New",
+        "x": 527,
+        "y": 31,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Novo"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_New.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 584,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 534,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 560,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 500,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 1,
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  },
+  {
+    "unit": "WIN_Table_unidades",
+    "buttons": [
+      {
+        "name": "BTN_Delete",
+        "x": 519,
+        "y": 90,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 5,
+        "caption": {
+          "PT": "Apagar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Delete.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Fechar",
+        "x": 519,
+        "y": 150,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 7,
+        "caption": {
+          "PT": "Fechar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Imprimir",
+        "x": 519,
+        "y": 120,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 6,
+        "caption": {
+          "PT": "Imprimir"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Print.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Modificar",
+        "x": 519,
+        "y": 61,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Modificar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Modif.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "Btn_New",
+        "x": 519,
+        "y": 31,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Novo"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_New.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 576,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 526,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 552,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 492,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 1,
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  },
+  {
+    "unit": "WIN_Form_documentos",
+    "buttons": [
+      {
+        "name": "BTN_Cancelar",
+        "x": 406,
+        "y": 63,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Cancelar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Cancel.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Validar",
+        "x": 406,
+        "y": 31,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Validar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 450,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 400,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 426,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 366,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 1,
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  },
+  {
+    "unit": "WIN_Form_Viaturas",
+    "buttons": [
+      {
+        "name": "BTN_Cancelar",
+        "x": 406,
+        "y": 63,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Cancelar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Cancel.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Validar",
+        "x": 406,
+        "y": 31,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Validar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_VISION",
+        "x": 342,
+        "y": 65,
+        "width": 42,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 5,
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_VisionPlus.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 450,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 400,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 426,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 366,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 1,
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  },
+  {
+    "unit": "WIN_Form_Terminais",
+    "buttons": [
+      {
+        "name": "BTN_Cancelar",
+        "x": 406,
+        "y": 63,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Cancelar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Cancel.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Validar",
+        "x": 406,
+        "y": 31,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Validar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_procurar_pasta",
+        "x": 336,
+        "y": 217,
+        "width": 40,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 9,
+        "caption": {
+          "PT": "..."
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 450,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 400,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 426,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 366,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 1,
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  },
+  {
+    "unit": "WIN_Form_mecanicos",
+    "buttons": [
+      {
+        "name": "BTN_Cancelar",
+        "x": 406,
+        "y": 63,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Cancelar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Cancel.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Validar",
+        "x": 406,
+        "y": 31,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Validar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 450,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 400,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 426,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 366,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 1,
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  },
+  {
+    "unit": "WIN_Table_postos",
+    "buttons": [
+      {
+        "name": "BTN_Delete",
+        "x": 486,
+        "y": 90,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 5,
+        "caption": {
+          "PT": "Apagar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Delete.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Fechar",
+        "x": 486,
+        "y": 120,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 6,
+        "caption": {
+          "PT": "Fechar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Modificar",
+        "x": 486,
+        "y": 61,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Modificar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Modif.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "Btn_New",
+        "x": 486,
+        "y": 31,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Novo"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_New.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 542,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 492,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 518,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 458,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 1,
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  },
+  {
+    "unit": "WIN_Form_Clientes",
+    "buttons": [
+      {
+        "name": "BTN_Cancelar",
+        "x": 406,
+        "y": 63,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Cancelar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Cancel.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Validar",
+        "x": 406,
+        "y": 31,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Validar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 450,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 400,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 426,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 366,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 1,
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  },
+  {
+    "unit": "WIN_Table_documentos",
+    "buttons": [
+      {
+        "name": "BTN_Delete",
+        "x": 558,
+        "y": 90,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 5,
+        "caption": {
+          "PT": "Apagar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Delete.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Fechar",
+        "x": 558,
+        "y": 150,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 7,
+        "caption": {
+          "PT": "Fechar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Imprimir",
+        "x": 558,
+        "y": 120,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 6,
+        "caption": {
+          "PT": "Imprimir"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Print.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Modificar",
+        "x": 558,
+        "y": 61,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Modificar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Modif.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_anterior",
+        "x": 558,
+        "y": 415,
+        "width": 90,
+        "height": 38,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 10,
+        "caption": {
+          "PT": "Anterior"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\VST01372.png"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_seguinte",
+        "x": 558,
+        "y": 459,
+        "width": 90,
+        "height": 38,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 9,
+        "caption": {
+          "PT": "Seguinte"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\VST01370.png"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_selecionar",
+        "x": 558,
+        "y": 547,
+        "width": 90,
+        "height": 38,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 8,
+        "caption": {
+          "PT": "Selecionar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "Btn_New",
+        "x": 558,
+        "y": 31,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Novo"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_New.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 613,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 563,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 589,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 529,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 1,
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  },
+  {
+    "unit": "WIN_Form_unidades",
+    "buttons": [
+      {
+        "name": "BTN_Cancelar",
+        "x": 406,
+        "y": 63,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Cancelar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Cancel.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Validar",
+        "x": 406,
+        "y": 31,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Validar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 450,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 400,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 426,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 366,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 1,
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  },
+  {
+    "unit": "WIN_Form_estados_reparacao",
+    "buttons": [
+      {
+        "name": "BTN_Cancelar",
+        "x": 406,
+        "y": 63,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Cancelar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Cancel.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Validar",
+        "x": 406,
+        "y": 31,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Validar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_VISION",
+        "x": 141,
+        "y": 93,
+        "width": 42,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 5,
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_VisionPlus.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 450,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 400,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 426,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 366,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 1,
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  },
+  {
+    "unit": "WIN_Table_utilizadores",
+    "buttons": [
+      {
+        "name": "BTN_Delete",
+        "x": 605,
+        "y": 90,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 5,
+        "caption": {
+          "PT": "Apagar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Delete.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Fechar",
+        "x": 605,
+        "y": 150,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 8,
+        "caption": {
+          "PT": "Fechar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Imprimir",
+        "x": 605,
+        "y": 120,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 6,
+        "caption": {
+          "PT": "Imprimir"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Print.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Modificar",
+        "x": 605,
+        "y": 61,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Modificar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Modif.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_anterior",
+        "x": 605,
+        "y": 418,
+        "width": 90,
+        "height": 38,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 10,
+        "caption": {
+          "PT": "Anterior"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\VST01372.png"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_seguinte",
+        "x": 605,
+        "y": 462,
+        "width": 90,
+        "height": 38,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 9,
+        "caption": {
+          "PT": "Seguinte"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\VST01370.png"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_selecionar",
+        "x": 605,
+        "y": 550,
+        "width": 90,
+        "height": 38,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 7,
+        "caption": {
+          "PT": "Selecionar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "Btn_New",
+        "x": 605,
+        "y": 31,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Novo"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_New.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 662,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 612,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 638,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 578,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 1,
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  },
+  {
+    "unit": "WIN_Table_mecanicos",
+    "buttons": [
+      {
+        "name": "BTN_Delete",
+        "x": 605,
+        "y": 90,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 5,
+        "caption": {
+          "PT": "Apagar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Delete.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Fechar",
+        "x": 605,
+        "y": 150,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 7,
+        "caption": {
+          "PT": "Fechar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Imprimir",
+        "x": 605,
+        "y": 120,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 6,
+        "caption": {
+          "PT": "Imprimir"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Print.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Modificar",
+        "x": 605,
+        "y": 61,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Modificar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Modif.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_anterior",
+        "x": 605,
+        "y": 418,
+        "width": 90,
+        "height": 38,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 10,
+        "caption": {
+          "PT": "Anterior"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\VST01372.png"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_seguinte",
+        "x": 605,
+        "y": 462,
+        "width": 90,
+        "height": 38,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 9,
+        "caption": {
+          "PT": "Seguinte"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\VST01370.png"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_selecionar",
+        "x": 605,
+        "y": 550,
+        "width": 90,
+        "height": 38,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 8,
+        "caption": {
+          "PT": "Selecionar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "Btn_New",
+        "x": 605,
+        "y": 31,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Novo"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_New.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 661,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 611,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 637,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 577,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 1,
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  },
+  {
+    "unit": "WIN_Table_Viaturas",
+    "buttons": [
+      {
+        "name": "BTN_Delete",
+        "x": 698,
+        "y": 176,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 5,
+        "caption": {
+          "PT": "Apagar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Delete.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Fechar",
+        "x": 698,
+        "y": 236,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 7,
+        "caption": {
+          "PT": "Fechar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Imprimir",
+        "x": 698,
+        "y": 206,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 6,
+        "caption": {
+          "PT": "Imprimir"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Print.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Modificar",
+        "x": 698,
+        "y": 147,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Modificar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Modif.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_cliente",
+        "x": 189,
+        "y": 28,
+        "width": 81,
+        "height": 53,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 10,
+        "caption": {
+          "PT": "Pesquisar por cliente"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_marca_modelo",
+        "x": 277,
+        "y": 28,
+        "width": 81,
+        "height": 53,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 9,
+        "caption": {
+          "PT": "Pesquisar por marca/modelo"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_matricula",
+        "x": 102,
+        "y": 28,
+        "width": 81,
+        "height": 53,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 11,
+        "caption": {
+          "PT": "Pesquisar por matrícula"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_selecionar",
+        "x": 698,
+        "y": 561,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 8,
+        "caption": {
+          "PT": "Selecionar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_todos",
+        "x": 14,
+        "y": 28,
+        "width": 81,
+        "height": 53,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 12,
+        "caption": {
+          "PT": "Ver Todos"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "Btn_New",
+        "x": 698,
+        "y": 117,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Novo"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_New.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 750,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 700,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 726,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 666,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 1,
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  },
+  {
+    "unit": "WIN_Table_Terminais",
+    "buttons": [
+      {
+        "name": "BTN_Delete",
+        "x": 486,
+        "y": 90,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 5,
+        "caption": {
+          "PT": "Apagar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Delete.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Fechar",
+        "x": 486,
+        "y": 120,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 6,
+        "caption": {
+          "PT": "Fechar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Modificar",
+        "x": 486,
+        "y": 61,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Modificar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Modif.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_selecionar",
+        "x": 486,
+        "y": 317,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 7,
+        "caption": {
+          "PT": "Selecionar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "Btn_New",
+        "x": 486,
+        "y": 31,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Novo"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_New.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 542,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 492,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 518,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 458,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 1,
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  },
+  {
+    "unit": "WIN_Form_estados_descritivos",
+    "buttons": [
+      {
+        "name": "BTN_Cancelar",
+        "x": 406,
+        "y": 63,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Cancelar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Cancel.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Validar",
+        "x": 406,
+        "y": 31,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Validar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 450,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 400,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 426,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 366,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 1,
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  },
+  {
+    "unit": "WIN_Table_artigos",
+    "buttons": [
+      {
+        "name": "BTN_Delete",
+        "x": 698,
+        "y": 176,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 5,
+        "caption": {
+          "PT": "Apagar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Delete.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Fechar",
+        "x": 698,
+        "y": 236,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 7,
+        "caption": {
+          "PT": "Fechar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Imprimir",
+        "x": 698,
+        "y": 206,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 6,
+        "caption": {
+          "PT": "Imprimir"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Print.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Modificar",
+        "x": 698,
+        "y": 147,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Modificar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Modif.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_anterior",
+        "x": 698,
+        "y": 415,
+        "width": 90,
+        "height": 38,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 14,
+        "caption": {
+          "PT": "Anterior"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\VST01372.png"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_codigo",
+        "x": 102,
+        "y": 28,
+        "width": 81,
+        "height": 53,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 10,
+        "caption": {
+          "PT": "Pesquisar por código"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_codigobarras",
+        "x": 277,
+        "y": 28,
+        "width": 81,
+        "height": 53,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 12,
+        "caption": {
+          "PT": "Pesquisar por código barras"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_descricao",
+        "x": 189,
+        "y": 28,
+        "width": 81,
+        "height": 53,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 11,
+        "caption": {
+          "PT": "Pesquisar por descriçªo"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_seguinte",
+        "x": 698,
+        "y": 459,
+        "width": 90,
+        "height": 38,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 15,
+        "caption": {
+          "PT": "Seguinte"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\VST01370.png"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_selecionar",
+        "x": 698,
+        "y": 547,
+        "width": 90,
+        "height": 38,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 13,
+        "caption": {
+          "PT": "Selecionar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_todos",
+        "x": 14,
+        "y": 28,
+        "width": 81,
+        "height": 53,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 8,
+        "caption": {
+          "PT": "Ver Todos"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "Btn_New",
+        "x": 698,
+        "y": 117,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Novo"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_New.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 750,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 700,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 726,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 666,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 1,
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  },
+  {
+    "unit": "WIN_Form_postos",
+    "buttons": [
+      {
+        "name": "BTN_Cancelar",
+        "x": 406,
+        "y": 63,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Cancelar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Cancel.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Validar",
+        "x": 406,
+        "y": 31,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Validar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_NoName1",
+        "x": 123,
+        "y": 93,
+        "width": 37,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "..."
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 450,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 400,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 426,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 366,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 1,
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  },
+  {
+    "unit": "WIN_Form_artigos",
+    "buttons": [
+      {
+        "name": "BTN_Cancelar",
+        "x": 406,
+        "y": 63,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Cancelar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Cancel.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Validar",
+        "x": 406,
+        "y": 31,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Validar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 450,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 400,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 426,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 366,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  },
+  {
+    "unit": "WIN_Table_estados_descritivos",
+    "buttons": [
+      {
+        "name": "BTN_Delete",
+        "x": 519,
+        "y": 90,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 5,
+        "caption": {
+          "PT": "Apagar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Delete.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Fechar",
+        "x": 519,
+        "y": 150,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 7,
+        "caption": {
+          "PT": "Fechar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Imprimir",
+        "x": 519,
+        "y": 120,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 6,
+        "caption": {
+          "PT": "Imprimir"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Print.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Modificar",
+        "x": 519,
+        "y": 61,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Modificar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Modif.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_anterior",
+        "x": 519,
+        "y": 418,
+        "width": 90,
+        "height": 38,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 10,
+        "caption": {
+          "PT": "Anterior"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\VST01372.png"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_seguinte",
+        "x": 519,
+        "y": 462,
+        "width": 90,
+        "height": 38,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 9,
+        "caption": {
+          "PT": "Seguinte"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\VST01370.png"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_selecionar",
+        "x": 519,
+        "y": 550,
+        "width": 90,
+        "height": 38,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 8,
+        "caption": {
+          "PT": "Selecionar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "Btn_New",
+        "x": 519,
+        "y": 31,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Novo"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_New.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 575,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 525,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 551,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 491,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 1,
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  },
+  {
+    "unit": "WIN_Table_Clientes",
+    "buttons": [
+      {
+        "name": "BTN_Delete",
+        "x": 698,
+        "y": 178,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 5,
+        "caption": {
+          "PT": "Apagar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Delete.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Fechar",
+        "x": 698,
+        "y": 238,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 7,
+        "caption": {
+          "PT": "Fechar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Imprimir",
+        "x": 698,
+        "y": 208,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 6,
+        "caption": {
+          "PT": "Imprimir"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Print.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Modificar",
+        "x": 698,
+        "y": 149,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Modificar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Modif.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_codigo",
+        "x": 102,
+        "y": 30,
+        "width": 81,
+        "height": 53,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 11,
+        "caption": {
+          "PT": "Pesquisar por código"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_codigopostal",
+        "x": 364,
+        "y": 30,
+        "width": 81,
+        "height": 53,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 14,
+        "caption": {
+          "PT": "Pesquisar por código postal"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_descricao",
+        "x": 189,
+        "y": 30,
+        "width": 81,
+        "height": 53,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 10,
+        "caption": {
+          "PT": "Pesquisar por descriçªo"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_morada",
+        "x": 277,
+        "y": 30,
+        "width": 81,
+        "height": 53,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 9,
+        "caption": {
+          "PT": "Pesquisar por morada"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_selecionar",
+        "x": 698,
+        "y": 467,
+        "width": 90,
+        "height": 38,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 16,
+        "caption": {
+          "PT": "Selecionar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_telefone",
+        "x": 451,
+        "y": 30,
+        "width": 81,
+        "height": 53,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 15,
+        "caption": {
+          "PT": "Pesquisar por telefone"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_todos",
+        "x": 14,
+        "y": 30,
+        "width": 81,
+        "height": 53,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 12,
+        "caption": {
+          "PT": "Ver Todos"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "Btn_New",
+        "x": 698,
+        "y": 119,
+        "width": 90,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Novo"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_New.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 750,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 700,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 726,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 666,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 1,
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  },
+  {
+    "unit": "WIN_Form_utilizadores",
+    "buttons": [
+      {
+        "name": "BTN_Cancelar",
+        "x": 406,
+        "y": 63,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 4,
+        "caption": {
+          "PT": "Cancelar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Cancel.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Validar",
+        "x": 406,
+        "y": 31,
+        "width": 80,
+        "height": 24,
+        "flags": {
+          "Visible": true,
+          "TAB Key": true
+        },
+        "tab_order": 3,
+        "caption": {
+          "PT": "Validar"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_FERMER",
+        "x": 450,
+        "y": 0,
+        "width": 44,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_SYST_MINIMIZE",
+        "x": 400,
+        "y": 0,
+        "width": 26,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_Syst_Maximize",
+        "x": 426,
+        "y": 0,
+        "width": 25,
+        "height": 19,
+        "flags": {
+          "Visible": true,
+          "TAB Key": false
+        },
+        "tab_order": "-1",
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+        }
+      },
+      {
+        "name": "BTN_UMC",
+        "x": 366,
+        "y": 0,
+        "width": 24,
+        "height": 19,
+        "flags": {
+          "Visible": false,
+          "TAB Key": true
+        },
+        "tab_order": 1,
+        "caption": {
+          "PT": "&Bouton"
+        },
+        "image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC.gif"
+        },
+        "background_image": {
+          "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_UMC_Anim.gif"
+        }
+      }
+    ]
+  }
+]

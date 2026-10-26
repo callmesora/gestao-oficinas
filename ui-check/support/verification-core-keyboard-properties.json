@@ -1,0 +1,1554 @@
+[
+  {
+    "x": 684,
+    "y": 245,
+    "width": 68,
+    "height": 61,
+    "tab_order": 11,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1000",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_0",
+    "caption": "0",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 18,
+    "y": 245,
+    "width": 68,
+    "height": 61,
+    "tab_order": 1,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1001",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_1",
+    "caption": "1",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 92,
+    "y": 245,
+    "width": 68,
+    "height": 61,
+    "tab_order": 3,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1002",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_2",
+    "caption": "2",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 166,
+    "y": 245,
+    "width": 68,
+    "height": 61,
+    "tab_order": 4,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1003",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_3",
+    "caption": "3",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 240,
+    "y": 245,
+    "width": 68,
+    "height": 61,
+    "tab_order": 5,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1004",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_4",
+    "caption": "4",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 314,
+    "y": 245,
+    "width": 68,
+    "height": 61,
+    "tab_order": 6,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1005",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_5",
+    "caption": "5",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 388,
+    "y": 245,
+    "width": 68,
+    "height": 61,
+    "tab_order": 7,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1006",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_6",
+    "caption": "6",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 462,
+    "y": 245,
+    "width": 68,
+    "height": 61,
+    "tab_order": 8,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1007",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_7",
+    "caption": "7",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 536,
+    "y": 245,
+    "width": 68,
+    "height": 61,
+    "tab_order": 9,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1008",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_8",
+    "caption": "8",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 610,
+    "y": 245,
+    "width": 68,
+    "height": 61,
+    "tab_order": 10,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1009",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_9",
+    "caption": "9",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 18,
+    "y": 523,
+    "width": 68,
+    "height": 61,
+    "tab_order": 2,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1010",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_CapsLock",
+    "caption": "Caps Lock",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 8,
+    "y": 2,
+    "width": 760,
+    "height": 55,
+    "tab_order": "-1",
+    "state": "Read-only",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": false
+    },
+    "id": "RULE-W55826C-1011",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_Caption",
+    "caption": "Nome do cliente",
+    "background_image": "CA_Andy_Frame.png"
+  },
+  {
+    "x": 18,
+    "y": 390,
+    "width": 68,
+    "height": 61,
+    "tab_order": 22,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1012",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_a",
+    "caption": "A",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 353,
+    "y": 180,
+    "width": 62,
+    "height": 49,
+    "tab_order": 65,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1013",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_a_cima",
+    "caption": "“",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 591,
+    "y": 456,
+    "width": 50,
+    "height": 61,
+    "tab_order": 41,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1014",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_acento_agudo",
+    "caption": "·",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 702,
+    "y": 456,
+    "width": 50,
+    "height": 61,
+    "tab_order": 43,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1015",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_acento_circunflexo",
+    "caption": "/\\",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 536,
+    "y": 456,
+    "width": 50,
+    "height": 61,
+    "tab_order": 40,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1016",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_acento_grave",
+    "caption": "‘",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 646,
+    "y": 456,
+    "width": 50,
+    "height": 61,
+    "tab_order": 42,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1017",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_acento_til",
+    "caption": "~",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 166,
+    "y": 523,
+    "width": 68,
+    "height": 61,
+    "tab_order": 45,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1018",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_apagar_tudo",
+    "caption": "Apagar Tudo",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 92,
+    "y": 523,
+    "width": 68,
+    "height": 61,
+    "tab_order": 44,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1019",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_apagar_ultimo",
+    "caption": "Apagar Ultimo",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 85,
+    "y": 180,
+    "width": 62,
+    "height": 49,
+    "tab_order": 61,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1020",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_arroba",
+    "caption": "@",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 554,
+    "y": 180,
+    "width": 62,
+    "height": 49,
+    "tab_order": 68,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1021",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_aspas",
+    "caption": "\"",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 18,
+    "y": 126,
+    "width": 62,
+    "height": 49,
+    "tab_order": 49,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1022",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_asterisco",
+    "caption": "*",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 314,
+    "y": 456,
+    "width": 68,
+    "height": 61,
+    "tab_order": 36,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1023",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_b",
+    "caption": "B",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 286,
+    "y": 125,
+    "width": 62,
+    "height": 49,
+    "tab_order": 54,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1024",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_barra_direita",
+    "caption": "/",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 219,
+    "y": 125,
+    "width": 62,
+    "height": 49,
+    "tab_order": 53,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1025",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_barra_esquerda",
+    "caption": "\\",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 166,
+    "y": 456,
+    "width": 68,
+    "height": 61,
+    "tab_order": 34,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1026",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_c",
+    "caption": "C",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 684,
+    "y": 389,
+    "width": 68,
+    "height": 61,
+    "tab_order": 31,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1027",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_c_cedilha",
+    "caption": "˙",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 610,
+    "y": 523,
+    "width": 142,
+    "height": 61,
+    "tab_order": 47,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1028",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_cancelar",
+    "caption": "",
+    "background_image": "CA_WidgetVista.png",
+    "image": "VST01620.png"
+  },
+  {
+    "x": 688,
+    "y": 180,
+    "width": 62,
+    "height": 49,
+    "tab_order": 70,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1029",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_cardinal",
+    "caption": "#",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 462,
+    "y": 523,
+    "width": 142,
+    "height": 61,
+    "tab_order": 46,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1030",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_confirmar",
+    "caption": "",
+    "background_image": "CA_WidgetVista.png",
+    "image": "VST01610.png"
+  },
+  {
+    "x": 166,
+    "y": 389,
+    "width": 68,
+    "height": 61,
+    "tab_order": 24,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1031",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_d",
+    "caption": "D",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 487,
+    "y": 125,
+    "width": 62,
+    "height": 49,
+    "tab_order": 57,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1032",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_dois_pontos",
+    "caption": ":",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 166,
+    "y": 322,
+    "width": 68,
+    "height": 61,
+    "tab_order": 14,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1033",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_e",
+    "caption": "E",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 240,
+    "y": 523,
+    "width": 216,
+    "height": 61,
+    "tab_order": 39,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1034",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_espaco",
+    "caption": "Espaço",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 152,
+    "y": 180,
+    "width": 62,
+    "height": 49,
+    "tab_order": 62,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1035",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_euro",
+    "caption": "",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 240,
+    "y": 389,
+    "width": 68,
+    "height": 61,
+    "tab_order": 25,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1036",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_f",
+    "caption": "F",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 314,
+    "y": 389,
+    "width": 68,
+    "height": 61,
+    "tab_order": 26,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1037",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_g",
+    "caption": "G",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 388,
+    "y": 389,
+    "width": 68,
+    "height": 61,
+    "tab_order": 27,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1038",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_h",
+    "caption": "H",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 536,
+    "y": 322,
+    "width": 68,
+    "height": 61,
+    "tab_order": 19,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1039",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_i",
+    "caption": "I",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 487,
+    "y": 180,
+    "width": 62,
+    "height": 49,
+    "tab_order": 67,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1040",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_i_comercial",
+    "caption": "&&",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 621,
+    "y": 180,
+    "width": 62,
+    "height": 49,
+    "tab_order": 69,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1041",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_igual",
+    "caption": "=",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 462,
+    "y": 389,
+    "width": 68,
+    "height": 61,
+    "tab_order": 28,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1042",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_j",
+    "caption": "J",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 536,
+    "y": 389,
+    "width": 68,
+    "height": 61,
+    "tab_order": 29,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1043",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_k",
+    "caption": "K",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 610,
+    "y": 389,
+    "width": 68,
+    "height": 61,
+    "tab_order": 30,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1044",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_l",
+    "caption": "L",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 462,
+    "y": 456,
+    "width": 68,
+    "height": 61,
+    "tab_order": 38,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1045",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_m",
+    "caption": "M",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 85,
+    "y": 126,
+    "width": 62,
+    "height": 49,
+    "tab_order": 50,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1046",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_mais",
+    "caption": "+",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 152,
+    "y": 126,
+    "width": 62,
+    "height": 49,
+    "tab_order": 51,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1047",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_menos",
+    "caption": "-",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 388,
+    "y": 456,
+    "width": 68,
+    "height": 61,
+    "tab_order": 37,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1048",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_n",
+    "caption": "N",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 610,
+    "y": 322,
+    "width": 68,
+    "height": 61,
+    "tab_order": 20,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1049",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_o",
+    "caption": "O",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 420,
+    "y": 180,
+    "width": 62,
+    "height": 49,
+    "tab_order": 66,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1050",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_o_cima",
+    "caption": "”",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 684,
+    "y": 322,
+    "width": 68,
+    "height": 61,
+    "tab_order": 21,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1051",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_p",
+    "caption": "P",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 688,
+    "y": 125,
+    "width": 62,
+    "height": 49,
+    "tab_order": 60,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1052",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_parentesis_direita",
+    "caption": ")",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 621,
+    "y": 125,
+    "width": 62,
+    "height": 49,
+    "tab_order": 59,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1053",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_parentesis_esquerda",
+    "caption": "(",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 219,
+    "y": 180,
+    "width": 62,
+    "height": 49,
+    "tab_order": 63,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1054",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_percentagem",
+    "caption": "%",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 353,
+    "y": 125,
+    "width": 62,
+    "height": 49,
+    "tab_order": 55,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1055",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_ponto",
+    "caption": ".",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 286,
+    "y": 180,
+    "width": 62,
+    "height": 49,
+    "tab_order": 64,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1056",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_ponto_interrogacao",
+    "caption": "?",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 554,
+    "y": 125,
+    "width": 62,
+    "height": 49,
+    "tab_order": 58,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1057",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_ponto_virgula",
+    "caption": ";",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 18,
+    "y": 323,
+    "width": 68,
+    "height": 61,
+    "tab_order": 12,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1058",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_q",
+    "caption": "Q",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 240,
+    "y": 322,
+    "width": 68,
+    "height": 61,
+    "tab_order": 15,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1059",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_r",
+    "caption": "R",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 92,
+    "y": 389,
+    "width": 68,
+    "height": 61,
+    "tab_order": 23,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1060",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_s",
+    "caption": "S",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 314,
+    "y": 322,
+    "width": 68,
+    "height": 61,
+    "tab_order": 16,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1061",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_t",
+    "caption": "T",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 462,
+    "y": 323,
+    "width": 68,
+    "height": 61,
+    "tab_order": 18,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1062",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_u",
+    "caption": "U",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 18,
+    "y": 180,
+    "width": 62,
+    "height": 49,
+    "tab_order": 52,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1063",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_under_score",
+    "caption": "_",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 240,
+    "y": 456,
+    "width": 68,
+    "height": 61,
+    "tab_order": 35,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1064",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_v",
+    "caption": "V",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 420,
+    "y": 125,
+    "width": 62,
+    "height": 49,
+    "tab_order": 56,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1065",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_virgula",
+    "caption": ",",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 92,
+    "y": 322,
+    "width": 68,
+    "height": 61,
+    "tab_order": 13,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1066",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_w",
+    "caption": "W",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 92,
+    "y": 456,
+    "width": 68,
+    "height": 61,
+    "tab_order": 33,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1067",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_x",
+    "caption": "X",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 388,
+    "y": 322,
+    "width": 68,
+    "height": 61,
+    "tab_order": 17,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1068",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_y",
+    "caption": "Y",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 18,
+    "y": 457,
+    "width": 68,
+    "height": 61,
+    "tab_order": 32,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W55826C-1069",
+    "unit": "WIN_Teclado_Alfa",
+    "name": "BTN_z",
+    "caption": "Z",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 6,
+    "y": 6,
+    "width": 312,
+    "height": 55,
+    "tab_order": "-1",
+    "state": "Read-only",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": false
+    },
+    "id": "RULE-W291790-1000",
+    "unit": "WIN_Teclado_numerico",
+    "name": "BTN_Caption",
+    "caption": "Numero",
+    "background_image": "CA_Andy_Frame.png"
+  },
+  {
+    "x": 236,
+    "y": 207,
+    "width": 68,
+    "height": 61,
+    "tab_order": 12,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W291790-1001",
+    "unit": "WIN_Teclado_numerico",
+    "name": "BTN_cancelar",
+    "caption": "",
+    "background_image": "CA_WidgetVista.png",
+    "image": "VST01620.png"
+  },
+  {
+    "x": 88,
+    "y": 207,
+    "width": 68,
+    "height": 61,
+    "tab_order": 5,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W291790-1002",
+    "unit": "WIN_Teclado_numerico",
+    "name": "BTN_cinco",
+    "caption": "5",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 236,
+    "y": 274,
+    "width": 68,
+    "height": 128,
+    "tab_order": 11,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W291790-1003",
+    "unit": "WIN_Teclado_numerico",
+    "name": "BTN_confirmar",
+    "caption": "",
+    "background_image": "CA_WidgetVista.png",
+    "image": "VST01610.png"
+  },
+  {
+    "x": 88,
+    "y": 274,
+    "width": 68,
+    "height": 61,
+    "tab_order": 2,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W291790-1004",
+    "unit": "WIN_Teclado_numerico",
+    "name": "BTN_dois",
+    "caption": "2",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 236,
+    "y": 140,
+    "width": 68,
+    "height": 61,
+    "tab_order": 16,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W291790-1005",
+    "unit": "WIN_Teclado_numerico",
+    "name": "BTN_limpar",
+    "caption": "C",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 162,
+    "y": 341,
+    "width": 68,
+    "height": 61,
+    "tab_order": 15,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W291790-1006",
+    "unit": "WIN_Teclado_numerico",
+    "name": "BTN_menos",
+    "caption": "-",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 162,
+    "y": 140,
+    "width": 68,
+    "height": 61,
+    "tab_order": 9,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W291790-1007",
+    "unit": "WIN_Teclado_numerico",
+    "name": "BTN_nove",
+    "caption": "9",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 88,
+    "y": 140,
+    "width": 68,
+    "height": 61,
+    "tab_order": 8,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W291790-1008",
+    "unit": "WIN_Teclado_numerico",
+    "name": "BTN_oito",
+    "caption": "8",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 88,
+    "y": 341,
+    "width": 68,
+    "height": 61,
+    "tab_order": 14,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W291790-1009",
+    "unit": "WIN_Teclado_numerico",
+    "name": "BTN_ponto",
+    "caption": ".",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 14,
+    "y": 207,
+    "width": 68,
+    "height": 61,
+    "tab_order": 4,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W291790-1010",
+    "unit": "WIN_Teclado_numerico",
+    "name": "BTN_quatro",
+    "caption": "4",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 162,
+    "y": 207,
+    "width": 68,
+    "height": 61,
+    "tab_order": 6,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W291790-1011",
+    "unit": "WIN_Teclado_numerico",
+    "name": "BTN_seis",
+    "caption": "6",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 14,
+    "y": 140,
+    "width": 68,
+    "height": 61,
+    "tab_order": 7,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W291790-1012",
+    "unit": "WIN_Teclado_numerico",
+    "name": "BTN_sete",
+    "caption": "7",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 162,
+    "y": 274,
+    "width": 68,
+    "height": 61,
+    "tab_order": 3,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W291790-1013",
+    "unit": "WIN_Teclado_numerico",
+    "name": "BTN_tres",
+    "caption": "3",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 14,
+    "y": 274,
+    "width": 68,
+    "height": 61,
+    "tab_order": 1,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W291790-1014",
+    "unit": "WIN_Teclado_numerico",
+    "name": "BTN_um",
+    "caption": "1",
+    "background_image": "CA_WidgetVista.png"
+  },
+  {
+    "x": 14,
+    "y": 341,
+    "width": 68,
+    "height": 61,
+    "tab_order": 10,
+    "state": "Active",
+    "button_type": "Normal",
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "id": "RULE-W291790-1015",
+    "unit": "WIN_Teclado_numerico",
+    "name": "BTN_zero",
+    "caption": "0",
+    "background_image": "CA_WidgetVista.png"
+  }
+]

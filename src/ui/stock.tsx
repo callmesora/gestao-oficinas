@@ -98,6 +98,7 @@ export function StockDocumentDialog({ services, documents: initialDocuments, mec
   const [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState("");
   const [documents, setDocuments] = useState(initialDocuments), [mechanics, setMechanics] = useState(initialMechanics);
   const [document, setDocument] = useState(loaded?.header.documento_codigo ?? documents[0]?.Codigo ?? "");
+  const [documentSelection, setDocumentSelection] = useState(0);
   const [number, setNumber] = useState(loaded?.header.documento_numero ?? "0"), [description, setDescription] = useState<string | null>(loaded ? loaded.header.Descricao : "");
   const [mechanic, setMechanic] = useState<string | null>(loaded ? loaded.header.mecanico : null), [date, setDate] = useState(() => dateEntryInitial(loaded ? loaded.header.data : today()));
   const [lines, setLines] = useState<StockLine[]>(loaded?.lines ?? []), [selection, setSelection] = useState<string | null>(null);
@@ -113,7 +114,7 @@ export function StockDocumentDialog({ services, documents: initialDocuments, mec
     if (loaded) return;
     const owner = ++nextOwner.current;
     void stock.next(document).then(result => { if (!active.current || owner !== nextOwner.current) return; if (result.kind === "loaded") setNumber(result.number); else setDiagnostic(result.kind); }).catch(() => { if (active.current && owner === nextOwner.current) setDiagnostic("transport"); });
-  }, [document, stock, loaded]);
+  }, [document, documentSelection, stock, loaded]);
   const focus = (name: string) => window.requestAnimationFrame(() => window.document.querySelector<HTMLInputElement>(`[data-testid="WIN_Table_Lin_Stocks"] [data-testid="${name}"]`)?.focus());
   useEffect(() => { focus("EDT_codigo"); }, []);
   const close = () => { if (!pending.current) { dialog.current?.close(); finish(); } };
@@ -176,7 +177,8 @@ export function StockDocumentDialog({ services, documents: initialDocuments, mec
       if (kind === "document") {
         const result = await services.documents.list({}); if (!active.current) return;
         if (result.kind !== "loaded") { setDiagnostic(result.kind); return; }
-        setDocuments(result.documentTypes); setDocument(code);
+        // Source257–258 executes selection even when the picker returns the current code.
+        setDocuments(result.documentTypes); setDocument(code); setDocumentSelection(current => current + 1);
       } else {
         const result = await services.mechanics.list({}); if (!active.current) return;
         if (result.kind !== "loaded") { setDiagnostic(result.kind); return; }

@@ -89,8 +89,8 @@ it("nine-field material insert keeps its source values and never adjusts article
   expect(await executeExtractedQuery(connect, { query: "QRY_insert_material_reparacao", parameters: {
     ParamNumero: "9007199254740993", ParamMecanico: "2", ParamArtigo: "A", ParamDescricaoArtigo: " Exact ' ", ParamQuantidade: "-2.123456789123456789", ParamDataHora: "", ParamReparacaoEstado: null, ParamPreco: "123456789123456789.1", ParamLancado: true,
   } })).toEqual({ kind: "written", affected: "1" });
-  expect((await database.query('SELECT "numero"::text,"quantidade"::text,"preco"::text,"descricao_artigo","reparacao_estado","data_hora","lancado" FROM app."material_reparacao" WHERE "numero"=9007199254740993')).rows[0])
-    .toEqual({ numero: "9007199254740993", quantidade: "-2.123456789123456789", preco: "123456789123456789.1", descricao_artigo: " Exact ' ", reparacao_estado: null, data_hora: "", lancado: true });
+  expect((await database.query('SELECT "numero"::text,"mecanico"::text,"artigo","quantidade"::text,"preco"::text,"descricao_artigo","reparacao_estado","data_hora","lancado" FROM app."material_reparacao" WHERE "numero"=9007199254740993')).rows[0])
+    .toEqual({ numero: "9007199254740993", mecanico: "2", artigo: "A", quantidade: "-2.123456789123456789", preco: "123456789123456789.1", descricao_artigo: " Exact ' ", reparacao_estado: null, data_hora: "", lancado: true });
   expect((await database.query('SELECT "stock"::text FROM app."artigos"')).rows[0].stock).toBe("99");
 });
 
@@ -215,4 +215,201 @@ it("RULE-Q02-004 an actual AFTER-write failure rolls back material and dependent
   } finally { await database.query('DROP TRIGGER query_failure ON app."material_reparacao"; DROP FUNCTION public.query_failure(); DROP TABLE public.query_failure_effects'); }
   expect(await executeExtractedQuery(connect, { query: "QRY_insert_material_reparacao", parameters: materialParameters("-1") })).toEqual({ kind: "written", affected: "1" });
   expect(await read("QRY_select_material_reparacao", { ParamNumero: "99" })).toMatchObject([{ quantidade: "-1", descricao_artigo: "  Preserved  " }]);
+});
+
+// Independent fixture values and dossier aliases, not values read back from the adapter.
+function sourceOrderValues(numero: "10" | "2") {
+  const first = numero === "10";
+  return { numero, matricula: first ? "AA" : "BB", km_viatura: first ? "1000" : "2000", recepcao_util: first ? "5" : "6",
+    recepcao_datahora: first ? "20261025100000000" : "2026-10-25 09:00:00.000", recepcao_cliente: "1", recepcao_terceiro: first ? "2" : null,
+    recepacao_contatos: `Contact ${numero}`, recepcao_servico: `Service ${numero}`, recepcao_obs: `Obs ${numero}`,
+    recepcao_entrega_prevista: first ? "20261025" : "2026-10-26", recepcao_prioridade: first ? "1" : "2", reparacao_mecanico: first ? "3" : "2",
+    reparacao_estado: first ? "R" : "X", reparacao_estado_obs: `State obs ${numero}`, reparacao_servico: `Work ${numero}`,
+    reparacao_estado_data: `State date ${numero}`, reparacao_estado_historico: `History ${numero}`, totaL_mao_obra: `${numero}.11`,
+    total_pecas: `${numero}.22`, total_desconto: `${numero}.33`, total_reparacao: `${numero}.44`, faturado: first,
+    total_pago: first ? "1.23" : "2.34", Estados_reparacaoID: first ? "21" : "22", numero_fatura: `Invoice ${numero}`,
+    data_pagamento: first ? "20261025" : "20261026" };
+}
+async function fillSourceOrderProjectionValues() {
+  for (const numero of ["10", "2"] as const) {
+    const values = sourceOrderValues(numero), keys = Object.keys(values);
+    await database.query(`UPDATE app."ordem_reparacao" SET ${keys.map((key, index) => `"${key}"=$${index + 1}`).join(",")} WHERE "numero"=${numero}`, Object.values(values));
+  }
+}
+function sourceProjectionRows(query: ExtractedQueryName, fields: string[]) {
+  type Row = Record<string, string | boolean | null | { encoding: "base64"; data: string }>;
+  const article = { Codigo: "A", Descricao: "Artigo A", codbarras: "Barcode", unidade: "UN", preco: "1.234567890123456789", inativo: false };
+  const vehicle = (first: boolean) => ({ matricula_Vi: first ? "AA" : "BB", Cliente: "2", marca: first ? "MARCA" : "B", modelo: first ? "MODELO" : "B", Ano: "2026", mes: "10", marcamodelo: first ? "MARCA MODELO" : "B B" });
+  const material = { numero: "10", mecanico: "2", artigo: "A", descricao_artigo: "Linha material", quantidade: "1.000000000000000001", data_hora: "20261025120000000", reparacao_estado: "R", preco: "3.14", lancado: false };
+  const orders = (["10", "2"] as const).map(numero => {
+    const first = numero === "10";
+    return { ...sourceOrderValues(numero), ...vehicle(first), Codigo: first ? "R" : "X", Descricao: first ? "Reparação" : "Fechado",
+      tipo: first ? "3" : "6", Cor: first ? "255" : "0", Codigo_me: first ? "3" : "2", Descricao_me: first ? "Atribuído" : "Linha",
+      Codigo_Cliente: "1", Descricao_Cliente: "Recepção", Codigo_Terceiro: first ? "2" : null, Descricao_Terceiro: first ? "Dono" : null, lancar_material: first };
+  });
+  const headers: Row[] = [
+    { cab_stocksID: "1", documento_codigo: "D1", documento_numero: "7", data: "20261025110000000", Descricao_ca: "Header1", mecanico: "2", documentosID: "1", mecanicosID: "1", documentosID_do: "1", Codigo: "D1", Descricao: "Saída", stock: "2", obriga_macanico: true },
+    { cab_stocksID: "2", documento_codigo: "D2", documento_numero: "7", data: "20261025100000000", Descricao_ca: "Header2", mecanico: "3", documentosID: "2", mecanicosID: "2", documentosID_do: "2", Codigo: "D2", Descricao: "Entrada", stock: "1", obriga_macanico: false },
+  ];
+  const stockLedger = { numero: "7", artigo: "A", descricao_artigo: "Filtro documentário", quantidade: "2", Descricao: "Saída", data: "20261025110000000", stock: "2" };
+  const materialLedger = { numero: "10", artigo: "A", descricao_artigo: "Linha material", quantidade: material.quantidade, Descricao: "Ordem de reparaçªo", data: "20261025100000000", stock: "2" };
+  const consumption = { ...article, Codigo_artigo: "A", documento_numero: "10", data: material.data_hora, artigo: "A", quantidade: material.quantidade, descricao_doc: "Ordem de reparaçªo", matricula: "AA", Descricao_me: "Atribuído" };
+  const exits = headers.map((header, index) => ({ ...article, Codigo_artigo: "A", documento_numero: "7", data: header.data,
+    artigo: "A", quantidade: "2", descricao_doc: "Saída", matricula: "", Descricao_me: index === 0 ? "Linha" : "Atribuído" }));
+  const labor = (["10", "2"] as const).map(numero => {
+    const first = numero === "10";
+    return { numero, matricula: first ? "AA" : "BB", recepcao_datahora: sourceOrderValues(numero).recepcao_datahora,
+      matricula_Vi: first ? "AA" : "BB", marca: first ? "MARCA" : "B", modelo: first ? "MODELO" : "B", numero_te: numero,
+      mecanico: first ? "2" : "3", inicio: first ? "20261025120000000" : "20261025130000000", fim: first ? "00000000000000000" : "20261025140000000",
+      Codigo: first ? "2" : "3", Descricao: first ? "Linha" : "Atribuído" };
+  });
+  let rows: Row[];
+  switch (query) {
+    case "QRY_select_cab_lin_stocks": rows = [stockLedger]; break;
+    case "QRY_select_cab_stocks": rows = headers; break;
+    case "QRY_select_cliente_codigo": rows = [{ Codigo: "1", Descricao: "Recepção", Morada1: "Rua1", Morada2: null, codpostal: "0000", Telefone1: " 123 ", Telemovel: "456", observacao: " Obs " }]; break;
+    case "QRY_select_consumo_material_viatura": rows = [{ ...material, ...article, numero_or: "10", matricula: "AA", reparacao_mecanico: "3", Codigo_me: "2", Descricao_me: "Linha", matricula_Vi: "AA", marca: "MARCA", modelo: "MODELO", recepcao_datahora: "20261025100000000" }]; break;
+    case "QRY_select_lin_stocks": rows = [{ lin_stocksID: "1", documento_codigo: "D1", documento_numero: "7", linha: "9007199254740993", artigo: "A", descricao_artigo: "Filtro documentário", quantidade: "2", preco: "5", documento_codigodocumento_numero: { encoding: "base64", data: "AAH/" } }]; break;
+    case "QRY_select_material_ordem_Reparacao": rows = [materialLedger]; break;
+    case "QRY_select_material_reparacao": rows = [material]; break;
+    case "QRY_select_mecanicos_codigo": rows = [{ Codigo: "2", Descricao: "Linha", palavra_passe: "Synthetic secret", inativo: true }]; break;
+    case "QRY_select_ordens_reparacao": case "QRY_select_ordens_reparacao_tempos": rows = orders; break;
+    case "QRY_select_ordens_reparacao_matricula": rows = [orders[0]]; break;
+    case "QRY_select_ordens_reparacao_data_entrega": case "QRY_select_ordens_reparacao_data_pag": rows = orders.map(order => ({ ...order, Cliente: "Dono", Estado: order.Descricao })); break;
+    case "QRY_select_tempos_reparacao_ordem": rows = [labor[0]]; break;
+    case "QRY_tempos_ordem_reparacao": case "QRY_tempos_ordem_reparacao_matricula": case "QRY_tempos_ordem_reparacao_mecanico": rows = labor; break;
+    case "QRY_union_extrato_artigos": case "QRY_union_extrato_artigos_calcular_total": rows = [stockLedger, materialLedger]; break;
+    case "QRY_union_lin_stocks": rows = exits; break;
+    case "QRY_union_material_reparacao": rows = [consumption]; break;
+    case "QRY_Union_lin_stocks_material_reparacao": rows = [...exits, consumption]; break;
+    default: throw new Error(`No independent source fixture for ${query}`);
+  }
+  return rows.map(row => Object.fromEntries(fields.map(field => [field, row[field] ?? null])));
+}
+function canonicalRows(rows: Record<string, unknown>[]) { return rows.map(row => JSON.stringify(Object.entries(row).sort())).sort(); }
+
+// Source projection contracts transcribed from docs/mapping/QRY_*.md dossier SQL.
+// Execute the real adapter; combine these field checks with the predicate/value cases above.
+const sourceReadContracts: { query: ExtractedQueryName; parameters: Record<string, unknown>; count: number; fields: string[] }[] = [
+  {"query": "QRY_select_cab_lin_stocks", "parameters": {"ParamDaData": "20261025000000000", "ParamAData": "20261025235959999", "ParamDoArtigo": "A", "ParamAoArtigo": "A"}, "count": 1, "fields": ["numero", "artigo", "descricao_artigo", "quantidade", "Descricao", "data", "stock"]},
+  {"query": "QRY_select_cab_stocks", "parameters": {}, "count": 2, "fields": ["cab_stocksID", "documento_codigo", "documento_numero", "data", "Descricao_ca", "mecanico", "documentosID", "mecanicosID", "documentosID_do", "Codigo", "Descricao", "stock", "obriga_macanico"]},
+  {"query": "QRY_select_cliente_codigo", "parameters": {"ParamCodigo_Cliente": "1"}, "count": 1, "fields": ["Codigo", "Descricao", "Morada1", "Morada2", "codpostal", "Telefone1", "Telemovel", "observacao"]},
+  {"query": "QRY_select_consumo_material_viatura", "parameters": {"ParamDaData": "20261025000000000", "ParamAData": "20261025235959999", "ParamDoArtigo": "A", "ParamAoArtigo": "A", "ParamDaViatura": "AA", "ParamAViatura": "BB"}, "count": 1, "fields": ["numero", "data_hora", "mecanico", "artigo", "descricao_artigo", "quantidade", "Codigo", "Descricao", "codbarras", "unidade", "preco", "inativo", "numero_or", "matricula", "reparacao_mecanico", "Codigo_me", "Descricao_me", "matricula_Vi", "marca", "modelo", "recepcao_datahora"]},
+  {"query": "QRY_select_lin_stocks", "parameters": {"ParamNumero": "7", "ParamDoc": "D1"}, "count": 1, "fields": ["lin_stocksID", "documento_codigo", "documento_numero", "linha", "artigo", "descricao_artigo", "quantidade", "preco", "documento_codigodocumento_numero"]},
+  {"query": "QRY_select_material_ordem_Reparacao", "parameters": {"ParamDaData": "20261025000000000", "ParamAData": "20261025235959999", "ParamDoArtigo": "A", "ParamAoArtigo": "A"}, "count": 1, "fields": ["numero", "artigo", "descricao_artigo", "quantidade", "Descricao", "data", "stock"]},
+  {"query": "QRY_select_material_reparacao", "parameters": {"ParamNumero": "10"}, "count": 1, "fields": ["numero", "mecanico", "artigo", "descricao_artigo", "quantidade", "data_hora", "reparacao_estado", "lancado", "preco"]},
+  {"query": "QRY_select_mecanicos_codigo", "parameters": {"ParamCodigo": "2"}, "count": 1, "fields": ["Codigo", "Descricao", "palavra_passe", "inativo"]},
+  {"query": "QRY_select_ordens_reparacao", "parameters": {}, "count": 2, "fields": ["numero", "matricula", "km_viatura", "recepcao_util", "recepcao_datahora", "recepacao_contatos", "recepcao_servico", "recepcao_obs", "recepcao_entrega_prevista", "recepcao_prioridade", "reparacao_mecanico", "reparacao_estado", "reparacao_estado_obs", "reparacao_servico", "reparacao_estado_data", "reparacao_estado_historico", "totaL_mao_obra", "total_pecas", "total_desconto", "total_reparacao", "faturado", "total_pago", "Estados_reparacaoID", "numero_fatura", "matricula_Vi", "Cliente", "marca", "modelo", "Ano", "mes", "marcamodelo", "Codigo", "Descricao", "tipo", "Cor", "Codigo_me", "Descricao_me", "Codigo_Cliente", "Descricao_Cliente", "recepcao_cliente", "recepcao_terceiro", "Codigo_Terceiro", "Descricao_Terceiro"]},
+  {"query": "QRY_select_ordens_reparacao_data_entrega", "parameters": {"ParamDaData": "20261025", "ParamAData": "20261026", "ParamEstados": ["R", "X"]}, "count": 2, "fields": ["numero", "matricula", "recepcao_datahora", "recepcao_entrega_prevista", "reparacao_estado", "total_pago", "Cliente", "Estado", "marcamodelo"]},
+  {"query": "QRY_select_ordens_reparacao_data_pag", "parameters": {"ParamDaData": "20261025", "ParamAData": "20261026", "ParamEstados": ["R", "X"]}, "count": 2, "fields": ["numero", "matricula", "recepcao_datahora", "data_pagamento", "reparacao_estado", "total_pago", "Cliente", "Estado", "marcamodelo"]},
+  {"query": "QRY_select_ordens_reparacao_matricula", "parameters": {"ParamTipo": ["3"], "ParamLancarMat": true}, "count": 1, "fields": ["numero", "matricula", "km_viatura", "recepcao_util", "recepcao_datahora", "recepacao_contatos", "recepcao_servico", "recepcao_obs", "recepcao_entrega_prevista", "recepcao_prioridade", "reparacao_mecanico", "reparacao_estado", "reparacao_estado_obs", "reparacao_servico", "reparacao_estado_data", "reparacao_estado_historico", "totaL_mao_obra", "total_pecas", "total_desconto", "total_reparacao", "faturado", "total_pago", "Estados_reparacaoID", "numero_fatura", "matricula_Vi", "Cliente", "marca", "modelo", "Ano", "mes", "marcamodelo", "Codigo", "Descricao", "tipo", "Codigo_me", "Descricao_me", "lancar_material"]},
+  {"query": "QRY_select_ordens_reparacao_tempos", "parameters": {}, "count": 2, "fields": ["numero", "matricula", "km_viatura", "recepcao_util", "recepcao_datahora", "recepacao_contatos", "recepcao_servico", "recepcao_obs", "recepcao_entrega_prevista", "recepcao_prioridade", "reparacao_mecanico", "reparacao_estado", "reparacao_estado_obs", "reparacao_servico", "reparacao_estado_data", "reparacao_estado_historico", "totaL_mao_obra", "total_pecas", "total_desconto", "total_reparacao", "faturado", "total_pago", "Estados_reparacaoID", "numero_fatura", "matricula_Vi", "Cliente", "marca", "modelo", "Ano", "mes", "marcamodelo", "Codigo", "Descricao", "tipo", "Cor", "Codigo_me", "Descricao_me"]},
+  {"query": "QRY_select_tempos_reparacao_ordem", "parameters": {"ParamNumero": "10"}, "count": 1, "fields": ["numero", "mecanico", "inicio", "fim", "Codigo", "Descricao"]},
+  {"query": "QRY_tempos_ordem_reparacao", "parameters": {"ParamDaOrdem": "2", "ParamAOrdem": "10", "ParamDaData": "20261025000000000", "ParamAData": "20261025235959999"}, "count": 2, "fields": ["numero", "matricula", "recepcao_datahora", "matricula_Vi", "marca", "modelo", "numero_te", "mecanico", "inicio", "fim", "Codigo", "Descricao"]},
+  {"query": "QRY_tempos_ordem_reparacao_matricula", "parameters": {"ParamDaViatura": "AA", "ParamAViatura": "BB", "ParamDaData": "20261025000000000", "ParamAData": "20261025235959999"}, "count": 2, "fields": ["numero", "matricula", "recepcao_datahora", "matricula_Vi", "marca", "modelo", "numero_te", "mecanico", "inicio", "fim", "Codigo", "Descricao"]},
+  {"query": "QRY_tempos_ordem_reparacao_mecanico", "parameters": {"ParamDoMecanico": "2", "ParamAoMecanico": "3", "ParamDaData": "20261025000000000", "ParamAData": "20261025235959999"}, "count": 2, "fields": ["numero", "matricula", "recepcao_datahora", "matricula_Vi", "marca", "modelo", "numero_te", "mecanico", "inicio", "fim", "Codigo", "Descricao"]},
+  {"query": "QRY_union_extrato_artigos", "parameters": {"ParamDaData": "20261025000000000", "ParamAData": "20261025235959999", "ParamDoArtigo": "A", "ParamAoArtigo": "A"}, "count": 2, "fields": ["numero", "artigo", "descricao_artigo", "quantidade", "Descricao", "data", "stock"]},
+  {"query": "QRY_union_extrato_artigos_calcular_total", "parameters": {"ParamDaData": "20261025000000000", "ParamAData": "20261025235959999", "ParamDoArtigo": "A", "ParamAoArtigo": "A"}, "count": 2, "fields": ["numero", "artigo", "descricao_artigo", "quantidade", "Descricao", "data", "stock"]},
+  {"query": "QRY_union_lin_stocks", "parameters": {"ParamDaData": "20261025000000000", "ParamAData": "20261025235959999", "ParamDoArtigo": "A", "ParamAoArtigo": "A", "ParamDescricao": "Filtro%"}, "count": 2, "fields": ["documento_numero", "data", "artigo", "quantidade", "Codigo_artigo", "Descricao", "codbarras", "unidade", "preco", "inativo", "descricao_doc", "matricula", "Descricao_me"]},
+  {"query": "QRY_union_material_reparacao", "parameters": {"ParamDaData": "20261025000000000", "ParamAData": "20261025235959999", "ParamDoArtigo": "A", "ParamAoArtigo": "A"}, "count": 1, "fields": ["documento_numero", "data", "artigo", "quantidade", "Codigo_artigo", "Descricao", "codbarras", "unidade", "preco", "inativo", "descricao_doc", "matricula", "Descricao_me"]},
+  {"query": "QRY_Union_lin_stocks_material_reparacao", "parameters": {"ParamDaData": "20261025000000000", "ParamAData": "20261025235959999", "ParamDoArtigo": "A", "ParamAoArtigo": "A", "ParamDescricao": "Filtro%"}, "count": 3, "fields": ["documento_numero", "data", "artigo", "quantidade", "Codigo_artigo", "Descricao", "codbarras", "unidade", "preco", "inativo", "descricao_doc", "matricula", "Descricao_me"]},
+ ];
+it.each(sourceReadContracts)("$query returns the complete source projection on a nonempty real database", async ({ query, parameters, count, fields }) => {
+  await seed();
+  await database.query(`INSERT INTO app."tempos_reparacao" ("tempos_reparacaoID","numero","mecanico","inicio","fim") VALUES
+    (1,10,2,'20261025120000000','00000000000000000'),(2,2,3,'20261025130000000','20261025140000000')`);
+  await fillSourceOrderProjectionValues();
+  const rows = await read(query, parameters);
+  expect(rows).toHaveLength(count);
+  expect(canonicalRows(rows)).toEqual(canonicalRows(sourceProjectionRows(query, fields)));
+  for (const row of rows) {
+    expect(Object.keys(row).sort()).toEqual([...fields].sort());
+    for (const value of Object.values(row)) expect(value === null || typeof value === "string" || typeof value === "boolean" ||
+      (typeof value === "object" && value.encoding === "base64" && typeof value.data === "string")).toBe(true);
+  }
+});
+
+it.each(sourceReadContracts.filter(contract => "ParamDaData" in contract.parameters))(
+  "$query excludes nonmatching date and both sides of its declared ranges", async ({ query, parameters }) => {
+    await seed();
+    await database.query(`INSERT INTO app."tempos_reparacao" ("tempos_reparacaoID","numero","mecanico","inicio","fim") VALUES
+      (1,10,2,'20261025120000000','00000000000000000'),(2,2,3,'20261025130000000','20261025140000000')`);
+    expect((await read(query, parameters)).length).toBeGreaterThan(0);
+    const dayOnly = String(parameters.ParamDaData).length === 8;
+    expect(await read(query, { ...parameters, ParamDaData: dayOnly ? "20261028" : "20261028000000000", ParamAData: dayOnly ? "20261029" : "20261029235959999" })).toEqual([]);
+    expect(await read(query, { ...parameters, ParamDaData: dayOnly ? "20261023" : "20261023000000000", ParamAData: dayOnly ? "20261024" : "20261024235959999" })).toEqual([]);
+    const ranges = [
+      { first: "ParamDoArtigo", last: "ParamAoArtigo", outside: ["0", "Z"] },
+      { first: "ParamDaViatura", last: "ParamAViatura", outside: ["00", "ZZ"] },
+      { first: "ParamDaOrdem", last: "ParamAOrdem", outside: ["1", "11"] },
+      { first: "ParamDoMecanico", last: "ParamAoMecanico", outside: ["1", "4"] },
+    ];
+    for (const range of ranges) if (range.first in parameters) for (const value of range.outside) {
+      expect(await read(query, { ...parameters, [range.first]: value, [range.last]: value })).toEqual([]);
+    }
+  },
+);
+
+it("source date predicates distinguish material time from reception time and exit direction from header duplication", async () => {
+  await seed();
+  await database.query(`UPDATE app."material_reparacao" SET "data_hora"='20990101120000000';
+    INSERT INTO app."lin_stocks" ("lin_stocksID","documento_codigo","documento_numero","linha","artigo","descricao_artigo","quantidade","preco")
+      VALUES (2,'D2',7,2,'A','Filtro entrada',3,7)`);
+  expect(await read("QRY_select_consumo_material_viatura", { ...dates, ...articleRange, ParamDaViatura: "AA", ParamAViatura: "BB" })).toEqual([]);
+  expect(await read("QRY_union_material_reparacao", { ...dates, ...articleRange })).toEqual([]);
+  expect(await read("QRY_select_material_ordem_Reparacao", { ...dates, ...articleRange })).toHaveLength(1);
+  const exits = await read("QRY_union_lin_stocks", { ...dates, ...articleRange, ParamDescricao: "Filtro" });
+  expect(exits).toHaveLength(2);
+  expect(exits.every(row => row.descricao_doc === "Saída" && row.quantidade === "2")).toBe(true);
+  // Unlike the intentionally number-only consumption join, the ledger joins both document keys.
+  const ledger = await read("QRY_select_cab_lin_stocks", { ...dates, ...articleRange });
+  expect(ledger.map(row => [row.Descricao, row.quantidade]).sort()).toEqual([["Entrada", "3"], ["Saída", "2"]]);
+});
+
+it.each([0, 1, 2, 3, 4, 5, 6, 7])("labor order selection honors source OR types for state type %s", async tipo => {
+  await seed();
+  await database.query('UPDATE app."estados_reparacao" SET "tipo"=$1', [tipo]);
+  const rows = await read("QRY_select_ordens_reparacao_tempos");
+  expect(rows.map(row => row.numero)).toEqual([2, 3, 4, 5, 6].includes(tipo) ? ["2", "10"] : []);
+});
+
+it("general orders preserve optional mechanic/third-party joins and suppress missing mandatory partners", async () => {
+  await seed();
+  await database.query('UPDATE app."ordem_reparacao" SET "recepcao_terceiro"=2 WHERE "numero"=10; DELETE FROM app."mecanicos"');
+  const general = await read("QRY_select_ordens_reparacao");
+  expect(general.map(row => [row.numero, row.Codigo_me, row.Descricao_me, row.Codigo_Terceiro, row.Descricao_Terceiro]))
+    .toEqual([["10", null, null, "2", "Dono"], ["2", null, null, null, null]]);
+  await database.query('DELETE FROM app."Clientes" WHERE "Codigo"=1');
+  expect(await read("QRY_select_ordens_reparacao")).toEqual([]);
+  // The material/time selectors do not add the general list's reception-customer join.
+  expect((await read("QRY_select_ordens_reparacao_tempos")).map(row => row.numero)).toEqual(["2", "10"]);
+  await database.query('DELETE FROM app."Viaturas" WHERE "matricula"=\'AA\'');
+  expect((await read("QRY_select_ordens_reparacao_tempos")).map(row => row.numero)).toEqual(["2"]);
+});
+
+it("full26-field update persists every source assignment with distinct exact values", async () => {
+  const original = orderParameters();
+  expect(await executeExtractedQuery(connect, { query: "QRY_insert_ordens_reparacao", parameters: original })).toEqual({ kind: "written", affected: "1" });
+  const parameters = {
+    ParamNumero: "9007199254740995", ParamNumero_antigo: original.ParamNumero, ParamMatricula: "BB", ParamKM: "42", ParamRecepcao_util: "254",
+    ParamRecepcao_data_hora: "20261026123456789", ParamRecepcao_cliente: "9007199254740996", ParamRecepcao_Terceiro: "9007199254740997",
+    ParamRecepcao_contactos: " Changed contact\r\n ", ParamRecepcao_servico: "Changed service", ParamRecepcao_obs: " Changed observation ",
+    ParamRecepcao_entrega: "20261027", ParamRecepcao_prioridade: "2", ParamReparacao_mecanico: "3", ParamReparacao_estado: "X",
+    ParamReparacao_estado_obs: "Changed state observation", ParamReparacao_servico: " Changed work ", ParamReparacao_estado_data: "20261026130000000",
+    ParamReparacao_estado_historico: " History\r\nChanged ", ParamTotal_mao_obra: "9.876543210987654321", ParamTotal_pecas: "8.765432109876543219",
+    ParamTotal_desconto: "7.654321098765432198", ParamTotal_reparacao: "6.543210987654321987", ParamFaturado: false,
+    ParamTotal_pago: "5.432109876543219876", ParamNumero_fatura: " Changed invoice ", ParamDataPagamento: "20261028",
+  };
+  expect(await executeExtractedQuery(connect, { query: "QRY_update_ordens_reparacao", parameters })).toEqual({ kind: "written", affected: "1" });
+  const expected = {
+    numero: "9007199254740995", matricula: "BB", km_viatura: "42", recepcao_util: "254", recepcao_datahora: "20261026123456789",
+    recepcao_cliente: "9007199254740996", recepcao_terceiro: "9007199254740997", recepacao_contatos: " Changed contact\r\n ",
+    recepcao_servico: "Changed service", recepcao_obs: " Changed observation ", recepcao_entrega_prevista: "20261027", recepcao_prioridade: "2",
+    reparacao_mecanico: "3", reparacao_estado: "X", reparacao_estado_obs: "Changed state observation", reparacao_servico: " Changed work ",
+    reparacao_estado_data: "20261026130000000", reparacao_estado_historico: " History\r\nChanged ", totaL_mao_obra: "9.876543210987654321",
+    total_pecas: "8.765432109876543219", total_desconto: "7.654321098765432198", total_reparacao: "6.543210987654321987", faturado: "false",
+    total_pago: "5.432109876543219876", numero_fatura: " Changed invoice ", data_pagamento: "20261028",
+  };
+  const projection = Object.keys(expected).map(field => `"${field}"::text AS "${field}"`).join(",");
+  expect((await database.query(`SELECT ${projection} FROM app."ordem_reparacao"`)).rows).toEqual([expected]);
 });

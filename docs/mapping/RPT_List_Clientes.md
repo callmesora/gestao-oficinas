@@ -46,15 +46,15 @@ Data source: `Embedded query`. The report specification reproduces the available
 
 ## Proposed changes
 
-No business or architecture change is accepted. Parameterized SQL, a new report engine, decimal and date helpers remain framing proposals in `docs/porting.md`. Preserve observed literals and event order; do not silently repair misleading titles, join conditions, reset timing or durations.
+The target engine, arithmetic and parameterized query contract follow accepted ADR-002/005/006. Preserve source literals and event order, including misleading titles, joins, reset timing and durations. Target tests do not decode the remaining legacy properties.
 
 ## Unresolved
 
-- **U-R10-01** — Designer fidelity: orientation, fonts, alignment, exact display masks, clipped/unprinted captions and control-level overflow beyond supplied flags need WINDEV properties or a complete golden PDF. Blocks visual implementation. Interim default: preserve listed geometry, bindings and flags; no inferred typography.
-- **U-R10-02** — Runtime/engine contract: no-row output, NULL formatting, first/last page behavior, counter/sum automatic reset scope, report cancellation, printer errors/default dialogs, snapshot versus live-table iteration and concurrent changes require controlled legacy print samples. Blocks engine edge-case implementation. Interim default: none; must be answered.
-- **U-R10-03** — Data contract: embedded SELECT, WHERE, ORDER BY, deduplication and inherited filters are encoded; compiled selected-item lists are not complete SQL. Export the report embedded query from WINDEV. Blocks faithful row selection; interim default: none; must be answered.
+- **U-R10-01** — Remaining design fidelity: orientation, fonts, alignment, masks and overflow not exposed by the current extraction. Static designer-property export or further decoding can resolve these without executing the legacy application. The implemented layout uses the explicit ADR-005 defaults; exact native appearance remains unconfirmed.
+- **U-R10-02** — Remaining engine equivalence: implicit NULL/empty output, counter resets, cancellation and printer-error behavior beyond the sole company-caption event. Properties/documented engine contracts or controlled output can resolve these. Target Paged.js/PDF behavior is implemented and tested under ADR-005; native printing needs host checks. This report uses an embedded query, not a caller table.
+- **U-R10-03** — Exact embedded SELECT/filter/order contract is not yet decoded/exported. Source .wde:353–357 retains its 1,965-byte encoded query; selected-item lists are not complete SQL. Static query export or decoding can resolve it without a business-application run. The target uses the separately labelled ADR-005 query proposal.
 
-Coverage: 1/1 nonempty source code blocks; 0/0 encoded slots documented separately. Every report SRC seed ID is retained. Status is specified/unmapped only.
+Coverage: 1/1 nonempty source code blocks; 0/0 encoded slots documented separately. Every report SRC seed ID is retained. Current implementation/verification status is in the per-unit parity CSV; these source questions do not erase built target behavior.
 
 ## Image-observed footer captions
 

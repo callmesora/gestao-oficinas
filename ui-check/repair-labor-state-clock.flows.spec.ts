@@ -30,6 +30,7 @@ test("SRC-ed637cd256 actual Estado captures SysDateTime after its real initializ
   } finally { releaseInitialRead(); }
   await expect(state.getByTestId("EDT_Data_Hora")).toHaveValue("26/10/2026 00:01"); expect(initialized).toBe(true);
   await expect(state.getByTestId("EDT_obs_servico")).toHaveValue("Serviço original");
+  await page.unroute("**/api/repair-labor/read");
   await state.getByTestId("BTN_Confirmar").click(); await expect(state).toHaveCount(0);
   const saved = (await repairDatabase.query('SELECT "reparacao_estado_data","reparacao_estado_historico","reparacao_servico" FROM app."ordem_reparacao" WHERE "numero"=10')).rows[0];
   expect(saved).toEqual({ reparacao_estado_data: "20261026000102345", reparacao_estado_historico: "26/10/2026 00:01    Em reparação\r\n", reparacao_servico: "Serviço original" });

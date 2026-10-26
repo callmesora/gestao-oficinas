@@ -34,6 +34,7 @@ test("SRC-fafcfa6be8 actual Estado caller refuses cached type2, then refreshes a
 });
 
 test("SRC-fafcfa6be8 actual Estado return reapplies selected mechanic and restores saved index plus its real labor child query", async ({ page, repairServer, repairDatabase }) => {
+  await page.clock.install({ time: new Date(2026, 9, 25, 12, 30, 0) });
   await repairDatabase.query(`INSERT INTO app."estados_reparacao" ("estados_reparacaoID","Codigo","Descricao","tipo","Cor") VALUES (700,'Z7','Fechado fora do filtro',7,0);
     INSERT INTO app."ordem_reparacao" ("ordem_reparacaoID","numero","matricula","recepcao_cliente","reparacao_estado","reparacao_mecanico","recepcao_prioridade","reparacao_servico","reparacao_estado_historico") VALUES
       (80,20,'AA-00-AA',1,'R',2,1,'Serviço20',''),(81,30,'AA-00-AA',1,'R',2,1,'Serviço30',''),(82,40,'BB-00-BB',2,'R',10,1,'Serviço40','');

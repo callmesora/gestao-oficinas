@@ -76,7 +76,7 @@ test("configured scanner caller reads the real terminal identity once per launch
     await page.evaluate(() => { (window as unknown as NativeState).__scannerMode = "ready"; });
     await page.getByTestId("stock-scanner-open").click(); await expect(scanner.getByTestId("TABLE_Leitura").locator("tbody tr")).toHaveCount(2);
     await scanner.getByTestId("BTN_Confirmar").click(); const unknown = page.getByTestId("WIN_Leitor_cod_barras_desconhecidos");
-    await expect(unknown.getByTestId("TABLE_Leitura").locator("tbody tr")).toHaveCount(1); await expect(unknown).toContainText("WHAT"); await expect(unknown).toContainText("1.00");
+    await expect(unknown.getByTestId("TABLE_Leitura").locator("tbody tr")).toHaveCount(1); await expect(unknown).toContainText("WHAT"); await expect(unknown).toContainText("1,000");
     await unknown.getByTestId("BTN_Confirmar").click(); await expect(unknown).toHaveCount(0);
     const result = JSON.parse(await page.getByTestId("stock-scanner-returned").innerText());
     expect(result).toEqual({ kind: "partitioned", known: [{ barcode: "BAR-B", quantity: "2.25", code: "B", description: "Outro", price: "2.50" }], unknown: [{ barcode: "WHAT", quantity: "1.00" }] });

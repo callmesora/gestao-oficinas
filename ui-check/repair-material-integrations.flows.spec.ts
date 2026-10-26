@@ -28,7 +28,7 @@ async function passwordKeyboard(page: Page) {
 }
 const content = "BAR-B 2.25\r\nWHAT  1.00\r\n\r\nBAR   9.99";
 
-test("source material caller carries module m into the actual article picker and awaits its search keyboard result", async ({ page, materialServer }) => {
+test("source material caller carries module m into the actual article picker and awaits its search keyboard result", async ({ page, materialServer, materialDatabase }) => {
   const form = await open(page, materialServer.origin, "m");
   await form.getByTestId("BTN_NoName2").click();
   const picker = page.getByTestId("article-picker"), search = picker.getByTestId("EDT_termo_pesquisa");
@@ -40,6 +40,30 @@ test("source material caller carries module m into the actual article picker and
   await expect(row).toHaveCount(1); await row.dblclick(); await expect(picker).toHaveCount(0);
   await expect(form.getByTestId("EDT_artigo")).toHaveValue("B");
   await expect(form.getByTestId("EDT_artigo_descricao")).toHaveValue("Outro");
+  await form.getByTestId("EDT_quant").fill("2,750");
+  await form.getByTestId("EDT_artigo_descricao").fill("Descrição temporária");
+  await form.getByTestId("BTN_NoName2").click();
+  const otherRow = picker.getByTestId("TABLE_artigos").locator("tbody tr").filter({ has: page.getByRole("cell", { name: "A", exact: true }) });
+  await otherRow.click(); await expect(otherRow).toHaveAttribute("aria-selected", "true");
+  await materialDatabase.query('UPDATE app."artigos" SET "Descricao"=$1 WHERE "Codigo"=$2', ["Outro atualizado", "B"]);
+  // Source930–959 returns the opening origin on Close; it does not preselect that row.
+  // The nonempty B return therefore rereads B even though A is now selected.
+  await picker.getByTestId("BTN_Fechar").click(); await expect(picker).toHaveCount(0);
+  await expect(form.getByTestId("EDT_artigo")).toHaveValue("B");
+  await expect(form.getByTestId("EDT_artigo_descricao")).toHaveValue("Outro atualizado");
+  await expect(form.getByTestId("EDT_quant")).toHaveValue("2,750");
+  await form.getByTestId("EDT_artigo").fill("");
+  await form.getByTestId("EDT_artigo_descricao").fill("Descrição sem código");
+  await form.getByTestId("BTN_NoName2").click(); await otherRow.click();
+  await expect(otherRow).toHaveAttribute("aria-selected", "true");
+  // An empty opening origin returns empty and skips every caller assignment/read.
+  await picker.getByTestId("BTN_Fechar").click(); await expect(picker).toHaveCount(0);
+  await expect(form.getByTestId("EDT_artigo")).toHaveValue("");
+  await expect(form.getByTestId("EDT_artigo_descricao")).toHaveValue("Descrição sem código");
+  await expect(form.getByTestId("EDT_quant")).toHaveValue("2,750");
+  await expect(form.getByTestId("TABLE_material").locator("tbody tr")).toHaveCount(1);
+  await expect(form.getByTestId("TABLE_material")).toContainText("Original");
+  expect((await materialDatabase.query('SELECT "artigo","descricao_artigo","quantidade"::text,"preco"::text FROM app."material_reparacao"')).rows).toEqual([{ artigo: "A", descricao_artigo: "Original", quantidade: "2", preco: "1.25" }]);
 });
 
 test("SRC-517e7660ea SRC-a5152a0572 active prompt mouse actions await actual numeric/alpha keyboards; commented material handlers stay inert", async ({ page, materialServer, materialDatabase }) => {
@@ -53,6 +77,12 @@ test("SRC-517e7660ea SRC-a5152a0572 active prompt mouse actions await actual num
   await form.getByTestId("BTN_Preço").click(); prompt = page.getByTestId("WIN_Inserir_quantidade_password"); await prompt.getByTestId("EDT_quantidade").click(); keyboard = page.getByTestId("WIN_Teclado_numerico");
   await expect(keyboard.getByTestId("BTN_Caption")).toHaveText("Quantidade"); await page.keyboard.press("9"); await keyboard.getByTestId("BTN_cancelar").click(); await expect(prompt.getByTestId("EDT_quantidade")).toHaveValue("1,25"); await prompt.getByTestId("BTN_Cancelar").click();
   await form.getByTestId("BTN_Descricao").click(); prompt = page.getByTestId("WIN_Inserir_quantidade_password"); await prompt.getByTestId("EDT_descricao").click(); keyboard = page.getByTestId("WIN_Teclado_Alfa");
+  await expect(keyboard.getByTestId("EDT_Texto")).toHaveValue("Original");
+  await keyboard.getByTestId("BTN_apagar_tudo").click(); await page.keyboard.type("discarded");
+  await expect(keyboard.getByTestId("EDT_Texto")).toHaveValue("discarded");
+  await keyboard.getByTestId("BTN_cancelar").click(); await expect(keyboard).toHaveCount(0);
+  await expect(prompt.getByTestId("EDT_descricao")).toHaveValue("Original");
+  await prompt.getByTestId("EDT_descricao").click(); await expect(keyboard.getByTestId("EDT_Texto")).toHaveValue("Original");
   await expect(keyboard.getByTestId("BTN_Caption")).toHaveText("Descricao"); await keyboard.getByTestId("BTN_apagar_tudo").click(); await page.keyboard.type("keyboard"); await page.keyboard.press("Enter");
   await expect(prompt).toBeVisible(); await expect(prompt.getByTestId("EDT_descricao")).toHaveValue("keyboard"); await prompt.getByTestId("BTN_Confirmar").click();
   expect((await materialDatabase.query('SELECT "stock"::text FROM app."artigos" WHERE "Codigo"=$1', ["A"])).rows[0].stock).toBe("10");

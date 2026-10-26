@@ -1,0 +1,497 @@
+[
+  {
+    "x": 192,
+    "y": 229,
+    "width": 158,
+    "height": 42,
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "tab_order": 6,
+    "button_type": "Normal",
+    "state": "Active",
+    "caption": {
+      "PT": "Cancelar"
+    },
+    "background_image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+    },
+    "image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Cancel.gif"
+    },
+    "id": "RULE-W9D7053-1000",
+    "unit": "WIN_Acesso",
+    "name": "BTN_Cancelar"
+  },
+  {
+    "x": 28,
+    "y": 229,
+    "width": 158,
+    "height": 42,
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "tab_order": 5,
+    "button_type": "Validate",
+    "state": "Active",
+    "caption": {
+      "PT": "Confirmar"
+    },
+    "background_image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+    },
+    "image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+    },
+    "id": "RULE-W9D7053-1001",
+    "unit": "WIN_Acesso",
+    "name": "BTN_Confirmar"
+  },
+  {
+    "x": 290,
+    "y": 74,
+    "width": 60,
+    "height": 40,
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "tab_order": 2,
+    "button_type": "Normal",
+    "state": "Active",
+    "caption": {
+      "PT": "..."
+    },
+    "background_image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+    },
+    "id": "RULE-W9D7053-1002",
+    "unit": "WIN_Acesso",
+    "name": "BTN_NoName1"
+  },
+  {
+    "x": 330,
+    "y": 0,
+    "width": 44,
+    "height": 19,
+    "flags": {
+      "Visible": true,
+      "TAB Key": false
+    },
+    "tab_order": "-1",
+    "button_type": "Abort",
+    "state": "Active",
+    "background_image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+    },
+    "image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+    },
+    "id": "RULE-W9D7053-1009",
+    "unit": "WIN_Acesso",
+    "name": "BTN_SYST_FERMER"
+  },
+  {
+    "x": 280,
+    "y": 0,
+    "width": 26,
+    "height": 19,
+    "flags": {
+      "Visible": true,
+      "TAB Key": false
+    },
+    "tab_order": "-1",
+    "button_type": "Normal",
+    "state": "Active",
+    "background_image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+    },
+    "image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+    },
+    "id": "RULE-W9D7053-1010",
+    "unit": "WIN_Acesso",
+    "name": "BTN_SYST_MINIMIZE"
+  },
+  {
+    "x": 306,
+    "y": 0,
+    "width": 25,
+    "height": 19,
+    "flags": {
+      "Visible": true,
+      "TAB Key": false
+    },
+    "tab_order": "-1",
+    "button_type": "Normal",
+    "state": "Active",
+    "background_image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+    },
+    "image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+    },
+    "id": "RULE-W9D7053-1011",
+    "unit": "WIN_Acesso",
+    "name": "BTN_Syst_Maximize"
+  },
+  {
+    "x": 185,
+    "y": 284,
+    "width": 96,
+    "height": 45,
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "tab_order": 9,
+    "button_type": "Normal",
+    "state": "Active",
+    "caption": {
+      "PT": "Cancelar"
+    },
+    "background_image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+    },
+    "image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\Btn_Cancel.gif"
+    },
+    "id": "RULE-W3BC89B-1000",
+    "unit": "WIN_sistema",
+    "name": "BTN_Cancelar"
+  },
+  {
+    "x": 83,
+    "y": 284,
+    "width": 96,
+    "height": 45,
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "tab_order": 8,
+    "button_type": "Normal",
+    "state": "Active",
+    "caption": {
+      "PT": "Guardar"
+    },
+    "background_image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+    },
+    "image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\Btn_OK.gif"
+    },
+    "id": "RULE-W3BC89B-1001",
+    "unit": "WIN_sistema",
+    "name": "BTN_Guardar"
+  },
+  {
+    "x": 316,
+    "y": 0,
+    "width": 44,
+    "height": 19,
+    "flags": {
+      "Visible": true,
+      "TAB Key": false
+    },
+    "tab_order": "-1",
+    "button_type": "Normal",
+    "state": "Active",
+    "background_image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+    },
+    "image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+    },
+    "id": "RULE-W3BC89B-1012",
+    "unit": "WIN_sistema",
+    "name": "BTN_SYST_FERMER"
+  },
+  {
+    "x": 266,
+    "y": 0,
+    "width": 26,
+    "height": 19,
+    "flags": {
+      "Visible": true,
+      "TAB Key": false
+    },
+    "tab_order": "-1",
+    "button_type": "Normal",
+    "state": "Active",
+    "background_image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+    },
+    "image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+    },
+    "id": "RULE-W3BC89B-1013",
+    "unit": "WIN_sistema",
+    "name": "BTN_SYST_MINIMIZE"
+  },
+  {
+    "x": 292,
+    "y": 0,
+    "width": 25,
+    "height": 19,
+    "flags": {
+      "Visible": true,
+      "TAB Key": false
+    },
+    "tab_order": "-1",
+    "button_type": "Normal",
+    "state": "Active",
+    "background_image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+    },
+    "image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+    },
+    "id": "RULE-W3BC89B-1014",
+    "unit": "WIN_sistema",
+    "name": "BTN_Syst_Maximize"
+  },
+  {
+    "x": 4,
+    "y": 3,
+    "width": 77,
+    "height": 66,
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "tab_order": 8,
+    "button_type": "Normal",
+    "state": "Active",
+    "caption": {
+      "PT": "Artigos"
+    },
+    "background_image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+    },
+    "image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\barcode_48.gif"
+    },
+    "id": "RULE-WCB13D1-1000",
+    "unit": "WIN_MENU",
+    "name": "BTN_Artigos"
+  },
+  {
+    "x": 4,
+    "y": 3,
+    "width": 77,
+    "height": 66,
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "tab_order": 5,
+    "button_type": "Normal",
+    "state": "Active",
+    "caption": {
+      "PT": "Clientes"
+    },
+    "background_image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+    },
+    "image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\clients_32.gif"
+    },
+    "id": "RULE-WCB13D1-1001",
+    "unit": "WIN_MENU",
+    "name": "BTN_Clientes"
+  },
+  {
+    "x": 4,
+    "y": 3,
+    "width": 77,
+    "height": 66,
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "tab_order": 7,
+    "button_type": "Normal",
+    "state": "Active",
+    "caption": {
+      "PT": "Ordens de reparaçªo"
+    },
+    "background_image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+    },
+    "image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\tool_32.gif"
+    },
+    "id": "RULE-WCB13D1-1002",
+    "unit": "WIN_MENU",
+    "name": "BTN_Ordens_reparacao"
+  },
+  {
+    "x": 4,
+    "y": 3,
+    "width": 77,
+    "height": 66,
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "tab_order": 6,
+    "button_type": "Normal",
+    "state": "Active",
+    "caption": {
+      "PT": "Viaturas"
+    },
+    "background_image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+    },
+    "image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\plan_3_a_48.gif"
+    },
+    "id": "RULE-WCB13D1-1003",
+    "unit": "WIN_MENU",
+    "name": "BTN_Viaturas"
+  },
+  {
+    "x": 4,
+    "y": 3,
+    "width": 77,
+    "height": 66,
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "tab_order": 9,
+    "button_type": "Normal",
+    "state": "Active",
+    "caption": {
+      "PT": "Material"
+    },
+    "background_image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+    },
+    "image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\raw_material_32.gif"
+    },
+    "id": "RULE-WCB13D1-1004",
+    "unit": "WIN_MENU",
+    "name": "BTN_material"
+  },
+  {
+    "x": 4,
+    "y": 3,
+    "width": 77,
+    "height": 66,
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "tab_order": 3,
+    "button_type": "Normal",
+    "state": "Active",
+    "caption": {
+      "PT": "Movimentos de stock"
+    },
+    "background_image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+    },
+    "image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\inventory_categories_32.gif"
+    },
+    "id": "RULE-WCB13D1-1005",
+    "unit": "WIN_MENU",
+    "name": "BTN_movimentos_stock"
+  },
+  {
+    "x": 4,
+    "y": 3,
+    "width": 77,
+    "height": 66,
+    "flags": {
+      "Visible": true,
+      "TAB Key": true
+    },
+    "tab_order": 4,
+    "button_type": "Normal",
+    "state": "Active",
+    "caption": {
+      "PT": "Tempos"
+    },
+    "background_image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_anim.gif"
+    },
+    "image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\time_frame_32.gif"
+    },
+    "id": "RULE-WCB13D1-1006",
+    "unit": "WIN_MENU",
+    "name": "BTN_tempos"
+  },
+  {
+    "x": 750,
+    "y": 0,
+    "width": 44,
+    "height": 19,
+    "flags": {
+      "Visible": true,
+      "TAB Key": false
+    },
+    "tab_order": "-1",
+    "button_type": "Normal",
+    "state": "Active",
+    "background_image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close_Anim.gif"
+    },
+    "image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Close.gif"
+    },
+    "id": "RULE-WCB13D1-1011",
+    "unit": "WIN_MENU",
+    "name": "BTN_SYST_FERMER"
+  },
+  {
+    "x": 700,
+    "y": 0,
+    "width": 26,
+    "height": 19,
+    "flags": {
+      "Visible": true,
+      "TAB Key": false
+    },
+    "tab_order": "-1",
+    "button_type": "Normal",
+    "state": "Active",
+    "background_image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize_Anim.gif"
+    },
+    "image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Minimize.gif"
+    },
+    "id": "RULE-WCB13D1-1012",
+    "unit": "WIN_MENU",
+    "name": "BTN_SYST_MINIMIZE"
+  },
+  {
+    "x": 726,
+    "y": 0,
+    "width": 25,
+    "height": 19,
+    "flags": {
+      "Visible": true,
+      "TAB Key": false
+    },
+    "tab_order": "-1",
+    "button_type": "Normal",
+    "state": "Active",
+    "background_image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximize_Anim.gif"
+    },
+    "image": {
+      "PT": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Btn_Maximise.gif"
+    },
+    "id": "RULE-WCB13D1-1013",
+    "unit": "WIN_MENU",
+    "name": "BTN_Syst_Maximize"
+  }
+]

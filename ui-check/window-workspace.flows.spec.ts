@@ -22,10 +22,14 @@ async function windowFor(page: Page, screen: string) {
   await expect(window).toHaveCount(1); return window;
 }
 
-async function gutterRaster(page: Page, frame: Locator, testInfo: TestInfo, phase: string) {
+async function gutterRaster(page: Page, frame: Locator, testInfo: TestInfo, phase: string, sourceOffset?: { x: number; y: number }) {
   const bounds = (await frame.boundingBox())!;
-  // Source frame border is 8px; Articles controls start at x=14. Sample only the empty client strip.
-  const clip = { x: Math.floor(bounds.x + 9), y: Math.floor(bounds.y + 60), width: 3, height: 96 };
+  const canvasTop = await frame.evaluate(element => element.closest(".wd-workspace-canvas")!.getBoundingClientRect().top);
+  // Source frame border is 8px; Articles controls start at x=14. Focus may scroll
+  // the frame above the clipped canvas. Keep this whole empty client strip visible,
+  // then reuse its exact source-local position when lower windows disappear.
+  const offset = sourceOffset ?? { x: 9, y: Math.max(60, Math.ceil(canvasTop - bounds.y) + 1) };
+  const clip = { x: Math.floor(bounds.x + offset.x), y: Math.floor(bounds.y + offset.y), width: 3, height: 96 };
   const png = await page.screenshot({ clip });
   const result = await page.evaluate(async bytes => {
     const image = await createImageBitmap(new Blob([new Uint8Array(bytes)], { type: "image/png" }));
@@ -47,9 +51,14 @@ async function gutterRaster(page: Page, frame: Locator, testInfo: TestInfo, phas
     return { clip, frame: rect(element), canvas: rect(canvas), canvasScroll: { x: canvas.scrollLeft, y: canvas.scrollTop }, documentScroll: { x: scrollX, y: scrollY }, activeElement: (document.activeElement as HTMLElement)?.dataset.testid, search: { bounds: rect(search), selectionStart: search.selectionStart, selectionEnd: search.selectionEnd, scrollLeft: search.scrollLeft }, todos: { bounds: rect(todos), hover: todos.matches(":hover"), image: getComputedStyle(todos).borderImageSource }, controls };
   }, clip);
   await testInfo.attach(`${phase}-gutter`, { body: png, contentType: "image/png" });
-  await testInfo.attach(`${phase}-gutter-state`, { body: JSON.stringify({ ...result, geometry }), contentType: "application/json" });
+  await testInfo.attach(`${phase}-gutter-state`, { body: JSON.stringify({ ...result, offset, geometry }), contentType: "application/json" });
+  const viewport = page.viewportSize()!;
+  expect(clip.x, "opacity sample must lie inside the visible frame client").toBeGreaterThanOrEqual(Math.max(geometry.frame.x + 8, geometry.canvas.x, 0));
+  expect(clip.x + clip.width).toBeLessThanOrEqual(Math.min(geometry.frame.right - 8, geometry.canvas.right, viewport.width));
+  expect(clip.y).toBeGreaterThanOrEqual(Math.max(geometry.frame.y + 25, geometry.canvas.y, 0));
+  expect(clip.y + clip.height).toBeLessThanOrEqual(Math.min(geometry.frame.bottom - 8, geometry.canvas.bottom, viewport.height));
   expect(geometry.controls, "opacity sample must contain no source control paint").toEqual([]);
-  return result;
+  return { ...result, offset };
 }
 
 for (const viewport of [{ width: 1440, height: 1000 }, { width: 900, height: 700 }]) {
@@ -106,7 +115,7 @@ for (const viewport of [{ width: 1440, height: 1000 }, { width: 900, height: 700
     await page.getByTestId(`${vehicleId}-task`).click(); await vehicles.getByRole("button", { name: "Minimizar", exact: true }).click();
     await page.getByTestId(`${articleId}-task`).click(); await expect(articles).toHaveAttribute("data-active", "true");
     await expect(articles.getByTestId("EDT_termo_pesquisa")).toBeFocused(); await expect(articles.getByTestId("EDT_termo_pesquisa")).toHaveValue("foco artigo");
-    const alone = await gutterRaster(page, frame, testInfo, "alone");
+    const alone = await gutterRaster(page, frame, testInfo, "alone", layered.offset);
     await testInfo.attach("production-alone-window", { body: await page.screenshot(), contentType: "image/png" });
     expect.soft(layered.hash, "pixels inside the top window cannot change when only lower windows disappear").toBe(alone.hash);
     expect.soft(alone.pixel[3]).toBe(255); expect.soft(alone.pixel.slice(0, 3).reduce((sum, value) => sum + value, 0) / 3, "source client fill must not fall back to a huge black panel").toBeGreaterThan(100);

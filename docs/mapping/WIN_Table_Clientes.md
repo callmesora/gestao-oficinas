@@ -375,7 +375,7 @@ On open: global declarations precede control initialization and end-of-initializ
 
 ## Proposed changes for later framing
 
-Parameterized SQL, explicit buffer/state contracts and improved write failures are proposals only. No bug fix, behavior exclusion or architecture is approved in Step 0.
+Source expressions above remain legacy evidence. Accepted ADR-002/003/006/008/011/012 now define parameterized SQL and explicit target identity/state/write-failure handling. These decisions settle target behavior, while unspecified legacy HFSQL coercion, generated-error presentation and shared-cursor outcomes remain scoped U questions.
 
 ## Unresolved
 
