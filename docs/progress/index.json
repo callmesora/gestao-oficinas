@@ -1456,9 +1456,9 @@
   "looks": null,
   "visuals": {},
   "functional": {
-   "passed": 4,
+   "passed": 5,
    "total": 5,
-   "status": "pending",
+   "status": "verified",
    "cases": [
     "FUNC-OPS-PRINT-02",
     "FUNC-OPS-PDF-RPT_Materiais",
@@ -1595,9 +1595,9 @@
   "looks": null,
   "visuals": {},
   "functional": {
-   "passed": 4,
+   "passed": 5,
    "total": 5,
-   "status": "pending",
+   "status": "verified",
    "cases": [
     "FUNC-OPS-PRINT-02",
     "FUNC-OPS-PDF-RPT_Servico_Avaria",
@@ -1847,9 +1847,9 @@
   "looks": null,
   "visuals": {},
   "functional": {
-   "passed": 2,
+   "passed": 3,
    "total": 3,
-   "status": "pending",
+   "status": "verified",
    "cases": [
     "FUNC-OPS-STATEMENT-01",
     "FUNC-OPS-STATEMENT-02",
@@ -1915,9 +1915,9 @@
   "looks": null,
   "visuals": {},
   "functional": {
-   "passed": 2,
+   "passed": 3,
    "total": 3,
-   "status": "pending",
+   "status": "verified",
    "cases": [
     "FUNC-OPS-FILTER-03",
     "FUNC-OPS-FILTER-04",
@@ -2465,9 +2465,9 @@
   "looks": null,
   "visuals": {},
   "functional": {
-   "passed": 2,
+   "passed": 4,
    "total": 4,
-   "status": "pending",
+   "status": "verified",
    "cases": [
     "FUNC-OPS-INV-01",
     "FUNC-OPS-INV-02",
@@ -2713,9 +2713,9 @@
   "looks": null,
   "visuals": {},
   "functional": {
-   "passed": 10,
+   "passed": 13,
    "total": 13,
-   "status": "pending",
+   "status": "verified",
    "cases": [
     "FC-CORE-MENU-LAUNCH",
     "FC-CORE-ACCESS-LOGIN",
@@ -2845,9 +2845,9 @@
    }
   },
   "functional": {
-   "passed": 9,
+   "passed": 10,
    "total": 10,
-   "status": "pending",
+   "status": "verified",
    "cases": [
     "FUNC-OPS-ORD-05",
     "FUNC-OPS-ORD-06",
@@ -2958,9 +2958,9 @@
    }
   },
   "functional": {
-   "passed": 9,
+   "passed": 11,
    "total": 11,
-   "status": "pending",
+   "status": "verified",
    "cases": [
     "FC-CORE-ARTICLES-LIFECYCLE",
     "FC-CORE-ARTICLES-RULES",
@@ -3000,9 +3000,9 @@
   "looks": null,
   "visuals": {},
   "functional": {
-   "passed": 4,
+   "passed": 6,
    "total": 6,
-   "status": "pending",
+   "status": "verified",
    "cases": [
     "FUNC-OPS-STOCK-01",
     "FUNC-OPS-STOCK-02",
@@ -3095,9 +3095,9 @@
    }
   },
   "functional": {
-   "passed": 8,
+   "passed": 9,
    "total": 9,
-   "status": "pending",
+   "status": "verified",
    "cases": [
     "FC-CORE-DOCUMENT-TYPES-LIFECYCLE",
     "FC-CORE-DOCUMENT-TYPES-RULES",
@@ -3181,9 +3181,9 @@
    }
   },
   "functional": {
-   "passed": 8,
+   "passed": 9,
    "total": 9,
-   "status": "pending",
+   "status": "verified",
    "cases": [
     "FC-CORE-DESCRIPTIVE-STATES-LIFECYCLE",
     "FC-CORE-DESCRIPTIVE-STATES-RULES",
@@ -3226,9 +3226,9 @@
    }
   },
   "functional": {
-   "passed": 8,
+   "passed": 9,
    "total": 9,
-   "status": "pending",
+   "status": "verified",
    "cases": [
     "FC-CORE-REPAIR-STATES-LIFECYCLE",
     "FC-CORE-REPAIR-STATES-RULES",
@@ -3266,9 +3266,9 @@
   "looks": null,
   "visuals": {},
   "functional": {
-   "passed": 7,
+   "passed": 8,
    "total": 8,
-   "status": "pending",
+   "status": "verified",
    "cases": [
     "FUNC-OPS-STOCK-02",
     "FUNC-OPS-STOCK-03",
@@ -3310,9 +3310,9 @@
    }
   },
   "functional": {
-   "passed": 8,
+   "passed": 9,
    "total": 9,
-   "status": "pending",
+   "status": "verified",
    "cases": [
     "FC-CORE-MECHANICS-LIFECYCLE",
     "FC-CORE-MECHANICS-RULES",
@@ -3393,9 +3393,9 @@
   "looks": null,
   "visuals": {},
   "functional": {
-   "passed": 6,
+   "passed": 7,
    "total": 7,
-   "status": "pending",
+   "status": "verified",
    "cases": [
     "FUNC-OPS-ORD-12",
     "FUNC-OPS-FLOW-01",
@@ -3439,7 +3439,7 @@
    },
    "darwin": {
     "pixel": 98.2,
-    "layout": 92.8
+    "layout": 92.7
    }
   },
   "functional": {
@@ -3494,9 +3494,9 @@
    }
   },
   "functional": {
-   "passed": 7,
+   "passed": 8,
    "total": 8,
-   "status": "pending",
+   "status": "verified",
    "cases": [
     "FC-CORE-UNITS-LIFECYCLE",
     "FC-CORE-UNITS-RULES",
@@ -3538,9 +3538,9 @@
    }
   },
   "functional": {
-   "passed": 11,
+   "passed": 12,
    "total": 12,
-   "status": "pending",
+   "status": "verified",
    "cases": [
     "FC-CORE-USERS-LIFECYCLE",
     "FC-CORE-USERS-RULES",
@@ -3593,9 +3593,9 @@
    }
   },
   "functional": {
-   "passed": 8,
+   "passed": 9,
    "total": 9,
-   "status": "pending",
+   "status": "verified",
    "cases": [
     "FC-CORE-VEHICLES-LIFECYCLE",
     "FC-CORE-VEHICLES-RULES",

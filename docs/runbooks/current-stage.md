@@ -1,7 +1,7 @@
-# Current stage — MIG-14F functional readiness
+# Current stage — MIG-14F functional readiness closed
 
-Active sweep: macOS arm64/main base `f2b0812`; prior delivery in `docs/runbooks/handoff.md`. Three isolated writers own list printing; repair/stock/inventory; menu/report callers. Root owns integration, shared tracking and final regressions. Private proofs: `analysis-local/functional-sweep/`.
+macOS arm64/main over `d45ab60`; no push. Three isolated workers supplied list printing, operations and menu/report caller tests; root integrated/tracked, with fresh independent reviews. All227 unchanged functional requirements pass across53 screens/28 reports. Proofs:`analysis-local/functional-sweep/`; latest results:`docs/runbooks/handoff.md`.
 
-Close all19 pending cases in `docs/functional-acceptance.json` through real UI/API/database/PDF tests and fixes. Preserve the227-case denominator and refresh earlier executed witnesses against the final code. Use `python scripts/functional_acceptance.py --require-complete` and the progress report; no new runbook. Functional completion remains separate from strict source parity and host acceptance (ADR-007).
+Use `python scripts/functional_acceptance.py --require-complete` and regenerate progress after changes. Functional100% remains separate from strict source parity and cutover (ADR-007). Next gates: host-labelled installation/native dialogs/printing/devices/recovery, Windows acceptance, official import reconciliation and source questions;11 platform checks remain pending. Existing native macOS business smoke passes.
 
-Read source/dossiers before declaring evidence unavailable. Preserve source fields/confidence, seed, U IDs, original backups and17 historical import-copy differences. Recheck actual consumer assertions and applicable decisions; promote strict rows only on their own proof. Tested local commits on main; no push. Owner demo3210/profile and unowned swap remain untouched; Windows/printing/devices retain host-labelled checks.
+Preserve source/confidence/seed/U IDs, original backups,17 historical import-copy differences, owner demo3210/profile and unowned swap. Keep one integration owner and isolated writers. Strict rows need their own proof; application/test edits invalidate functional witnesses. Guide checkouts remain unchanged.
