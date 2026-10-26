@@ -104,10 +104,12 @@ export async function proofColumnConfiguration(grid: Locator, source: ProofTable
     expect(moved.cells[columns.indexOf(movable[0]) + 1]).toBe(firstCell);
     await second.locator("[draggable]").dragTo(first.locator("[draggable]"));
     expect((await snapshots()).order).toEqual(columns.map(column => column.name));
+    await first.locator("[draggable]").press("Control+Shift+ArrowRight");
+    expect((await snapshots()).order).not.toEqual(columns.map(column => column.name));
   }
   const before = await snapshots();
   await reopen();
-  expect((await snapshots()).order).toEqual(before.order);
+  expect((await snapshots()).order).toEqual(source.save ? before.order : columns.map(column => column.name));
   for (const column of resizable) await expect(grid.getByTestId(column.name)).toHaveCSS("width", `${column.width! + (source.save ? 7 : 0)}px`);
   if (source.save) {
     await grid.getByRole("button", { name: "Colunas", exact: true }).click();
@@ -121,6 +123,7 @@ export async function proofColumnConfiguration(grid: Locator, source: ProofTable
       await settings.locator("label").last().getByRole("checkbox").check();
     }
     await settings.getByRole("button", { name: "Repor", exact: true }).click();
+    expect((await snapshots()).order).toEqual(columns.map(column => column.name));
     for (const column of resizable) await expect(grid.getByTestId(column.name)).toHaveCSS("width", `${column.width}px`);
   } else await expect(grid.getByRole("button", { name: "Colunas", exact: true })).toHaveCount(0);
 }
