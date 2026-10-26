@@ -1,5 +1,15 @@
 # Local checkout setup — 25 October 2026
 
+## Windows runtime and packaging — 26 October 2026
+
+Windows x64 checkout over `6b1fda4`, native fixes `5d439cb`: the corrected ANSI export was read into a fresh ignored `analysis-local/customer-demo` PostgreSQL profile: 159,668 imported, zero quarantine, zero mismatch; source SHA256 remained `a7e098e4169d12233ba49f80fe212c0ca2a9076bb718332f7e9b43592d64dde9`. The older pre-correction export was safely refused and its incomplete `analysis-local/local-service` profile retained; do not overwrite it or use it as the prepared demo.
+
+The prepared service uses loopback API port 3210/database port 54329 and a validated installed Chrome report runtime. From this checkout, restart it with `npm run local:start -- --profile analysis-local/customer-demo`. Open `http://127.0.0.1:3210/` or the built Windows desktop executable. First access uses the private `analysis-local/customer-demo/operator-token` file through **Definir acesso**, with a new password; never reuse the imported legacy credential. Ordinary starts retain data and do not reimport. Keep the original snapshot and both profiles private.
+
+Release client/installer commands and the still-unbundled server/database deployment responsibilities are in [README](../README.md#windows-executable-and-customer-installer). This local prepared service is a development-machine runtime result, not a clean-customer installation or production cutover.
+
+Release build completed with `npm run tauri -- build --bundles nsis`. The release executable launched with a responsive native window/WebView2 process and the built API returned HTTP 200. NSIS artifact `Gestao Oficinas_0.1.0_x64-setup.exe` is 1,847,178 bytes, SHA256 `4fdf0bf45e20f6d4f3dbf603e37c5e1d223029233a515aa0e889e01eb4c5edd5`, unsigned. Installer generation passed; clean-machine installation, upgrade/uninstall and complete service packaging were not performed. Owner explicitly stopped further suites and Computer Use in favor of this runtime/delivery checkpoint.
+
 This report supplements the existing roadmap/handoff with facts about this newly prepared Mac. Historical Windows test results and running process handles in the handoff belong to the previous machine; they are not local running services or checks rerun here.
 
 Current delivery policy: follow ADR-007, commit tested work locally on main, use helpful subagents, and leave all pushing to the owner. Earlier branch/publication notes below describe setup history.

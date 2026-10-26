@@ -59,6 +59,14 @@ A separately deployed API may instead set all three variables: `GESTAO_REPORT_CH
 
 Preserve `playwright-core`1.64.1, `pagedjs`0.4.3, `@fontsource/noto-sans`5.3.0, offline assets and their licenses on the API host. Tests: `npm test -- apps/server/src/local/report-runtime.test.ts apps/server/src/reports/runtime.test.ts`; a test host may select its browser with `REPORT_TEST_EXECUTABLE`. Native dialogs, physical printing and other-host acceptance remain separate.
 
+## Windows executable and customer installer
+
+`npm run tauri -- build --bundles nsis` builds the release desktop executable at `src-tauri/target/release/gestao-oficinas.exe` and an NSIS `-setup.exe` under `src-tauri/target/release/bundle/nsis/`. The installer handles the desktop shortcut/uninstaller and checks WebView2 ([Tauri Windows packaging](https://v2.tauri.app/distribute/windows-installer/)).
+
+The current installer contains the desktop client only. It requires the persistent API/PostgreSQL service; the default native API address is `http://127.0.0.1:3210`. Neither the Node runtime/server nor PostgreSQL/report runtime is currently bundled or started by the desktop executable. A successful client build is therefore not a complete customer installation.
+
+The customer-facing deliverable should be one setup executable that also provisions/manages the service, initializes a fresh private database outside the installation folder or explicitly imports an approved snapshot, provides first-run access, and preserves data during upgrades/uninstall. Report runtime provisioning and backup/recovery belong in that deployment. The customer should not need this checkout, npm, Rust or development commands. Until that packaging is implemented and exercised on a clean Windows machine, use the current client only with an explicitly prepared service.
+
 ## Configured scanner file on the desktop host
 
 Set `GESTAO_SCANNER_FILES_CONFIG` in the desktop application's launch environment to an absolute local JSON manifest. Provision it outside the checkout with permissions limited to the app's OS user (0600 on macOS; that user's ACL on Windows). This is a trusted native grant, never a browser/API setting. Example with synthetic paths:
