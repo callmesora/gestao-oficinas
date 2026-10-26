@@ -131,6 +131,8 @@ export function VehicleList({ repositories, selecting = false, origin = "", sele
   const columnSearch = useRef<{ key: NonNullable<VehicleFilter["sort"]>; term: string } | null>(null);
   const callback = useRef(selected);
   const operationOwner = useRef(0);
+  // WIN_Table_Viaturas774 executes BTN_todos684–689, including its final search focus.
+  useEffect(() => { search.current?.focus(); }, []);
   useEffect(() => { callback.current = selected; }, [selected]);
   useEffect(() => () => { operationOwner.current++; callback.current?.(returned.current); }, []);
   const table = controlOf(listLayout, "TABLE_Viaturas"), settings = useTableLayout(table, "WIN_Table_Viaturas/TABLE_Viaturas");
