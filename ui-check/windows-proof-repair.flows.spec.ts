@@ -132,3 +132,50 @@ for(const returned of ["cancel-origin","selected-code"] as const) test(`proof re
   await form.getByTestId("BTN_Gravar").click();const date=page.getByTestId("WIN_Data");await expect(date).toBeVisible();await date.getByTestId("EDT_Data").press("Escape");await expect(form).toHaveCount(0);
   expect((await repairDatabase.query('SELECT "recepcao_terceiro"::text FROM app."ordem_reparacao" WHERE "numero"=10')).rows[0].recepcao_terceiro).toBe(code);
 });
+
+test("proof repair labor startup composes first settings prior-day closure and an exact oversized window-owned timer",async({page,repairServer,repairDatabase})=>{
+  await page.clock.install({time:new Date("2026-10-26T12:00:00.000Z")});
+  await repairDatabase.query(`UPDATE app."sistema" SET "Tempo_tempos"=2147484,"encerrar_tempos2"='180001';
+    INSERT INTO app."ordem_reparacao" ("numero","matricula","reparacao_estado","reparacao_mecanico") VALUES (20,'AA-00-AA','R',2);
+    INSERT INTO app."tempos_reparacao" ("tempos_reparacaoID","numero","mecanico","inicio","fim","Inicio_reparacao_estado") VALUES (1,20,2,'20261025102345123','00000000000000000','START-STATE'),(2,10,2,'20261026110000000','00000000000000000','TODAY')`);
+  let ticks=0;page.on("request",request=>{if(new URL(request.url()).pathname==="/api/repair-labor/tick")ticks++;});const screen=await labor(page,repairServer.origin);
+  expect((await repairDatabase.query('SELECT "numero"::text,"fim","fim_reparacao_estado" FROM app."tempos_reparacao" ORDER BY _row_id')).rows).toEqual([{numero:"20",fim:"20261025180001000",fim_reparacao_estado:"START-STATE"},{numero:"10",fim:"00000000000000000",fim_reparacao_estado:null}]);
+  await page.clock.fastForward(2147483647);expect(ticks).toBe(0);await page.clock.fastForward(352);expect(ticks).toBe(0);
+  const tick=page.waitForResponse(response=>response.url().endsWith("/api/repair-labor/tick"));await page.clock.fastForward(1);expect((await tick).ok()).toBe(true);await expect(screen.getByTestId("BTN_todos")).toBeEnabled();expect(ticks).toBe(1);
+  await repairDatabase.query('UPDATE app."sistema" SET "Tempo_tempos"=1');await screen.getByTestId("BTN_todos").click();await expect(screen.getByTestId("BTN_todos")).toBeEnabled();await page.clock.fastForward(1000);expect(ticks).toBe(1);
+  await screen.getByTestId("BTN_Fechar").click();await page.clock.fastForward(2147484000);expect(ticks).toBe(1);
+});
+
+for(const interval of [null,"0"] as const) test(`proof repair labor startup ${interval===null?"NULL":"zero"} interval awaits exact Error after real initial orders are loaded`,async({page,repairServer,repairDatabase})=>{
+  await repairDatabase.query('UPDATE app."sistema" SET "Tempo_tempos"=$1',[interval]);
+  await page.goto(`${repairServer.origin}/?workflow=repair-labor`);await page.getByTestId("repair-labor-open").click();const message=page.getByTestId("WINDEVMESSAGEBOX");
+  await expect(message.getByTestId("LIB_INFO")).toHaveText("Erro ao criar timer de atualização");await expect(page.getByTestId("WIN_Tempos_Reparacao").getByTestId("TABLE_tempos_reparacao")).toContainText("10");
+  await message.getByTestId("BTN_OK").click();await expect(page.getByTestId("WIN_Tempos_Reparacao").getByTestId("BTN_todos")).toBeEnabled();
+});
+
+test("proof repair actual labor timer closes current mechanic open work with visible state and restores checked filter selected order and child read",async({page,repairServer,repairDatabase})=>{
+  await page.clock.install({time:new Date("2026-10-26T11:59:59.000Z")});await repairDatabase.query('UPDATE app."sistema" SET "Tempo_tempos"=1,"encerrar_tempos1"=\'120000\',"encerrar_tempos2"=\'180000\'');
+  const screen=await labor(page,repairServer.origin);await repairDatabase.query(`INSERT INTO app."ordem_reparacao" ("numero","matricula","reparacao_estado","reparacao_mecanico") VALUES (20,'AA-00-AA','X',2),(30,'AA-00-AA','R',10);
+    INSERT INTO app."tempos_reparacao" ("tempos_reparacaoID","numero","mecanico","inicio","fim") VALUES (1,10,2,'20261026110000000','00000000000000000'),(2,20,2,'20261026110000000','00000000000000000'),(3,30,10,'20261026110000000','00000000000000000')`);
+  await screen.getByTestId("BTN_todos").click();await expect(screen.getByTestId("BTN_todos")).toBeEnabled();await screen.getByTestId("LIST_mecanicos").selectOption("2");await expect(screen.getByTestId("STC_filtro_atual")).toHaveText("ANA");
+  await screen.getByRole("checkbox",{name:"Selecionar estado X",exact:true}).click();await expect(screen.getByTestId("TABLE_tempos_reparacao").locator("tbody tr")).toHaveCount(1);
+  await screen.getByTestId("TABLE_tempos_reparacao").getByRole("cell",{name:"10",exact:true}).click();const children=screen.getByTestId("TABLE_tempos_reparacao_ordem");await expect(children.locator("tbody tr")).toHaveCount(1);
+  const tick=page.waitForResponse(response=>response.url().endsWith("/api/repair-labor/tick")), child=page.waitForResponse(response=>response.url().endsWith("/api/repair-labor/read"));await page.clock.fastForward(1000);expect((await tick).ok()).toBe(true);await child;
+  await expect(screen.getByTestId("TABLE_tempos_reparacao").locator('tr[aria-selected="true"]')).toContainText("10");await expect(children.locator("tbody tr")).toHaveCount(0);
+  await expect(screen.getByTestId("LIST_mecanicos")).toHaveValue("2");await expect(screen.getByTestId("STC_filtro_atual")).toHaveText("ANA");await expect(screen.getByRole("checkbox",{name:"Selecionar estado X",exact:true})).toHaveAttribute("aria-checked","false");
+  expect((await repairDatabase.query('SELECT "numero"::text,"fim","fim_reparacao_estado" FROM app."tempos_reparacao" ORDER BY _row_id')).rows).toEqual([{numero:"10",fim:"20261026120000000",fim_reparacao_estado:"R"},{numero:"20",fim:"20261026120000000",fim_reparacao_estado:"R"},{numero:"30",fim:"00000000000000000",fim_reparacao_estado:null}]);
+});
+
+test("proof repair labor close disposes its actual pending refresh and timer before an independent reopened instance reads current rows",async({page,repairServer,repairDatabase})=>{
+  await page.clock.install({time:new Date("2026-10-26T10:00:00.000Z")});await repairDatabase.query('UPDATE app."sistema" SET "Tempo_tempos"=1');
+  let screen=await labor(page,repairServer.origin),release!:()=>void,fetched!:()=>void;const gate=new Promise<void>(resolve=>{release=resolve;}),actual=new Promise<void>(resolve=>{fetched=resolve;});let hold=true,ticks=0;
+  page.on("request",request=>{if(new URL(request.url()).pathname==="/api/repair-labor/tick")ticks++;});
+  await page.route("**/api/repair-labor/list",async route=>{if(!hold){await route.continue();return;}hold=false;const response=await route.fetch();fetched();await gate;await route.fulfill({response});});
+  try{
+    await page.clock.fastForward(1000);await actual;await screen.locator('..').getByTestId("BTN_SYST_FERMER").click();await expect(screen).toHaveCount(0);const stopped=ticks;await page.clock.fastForward(3000);expect(ticks).toBe(stopped);
+    await repairDatabase.query(`INSERT INTO app."ordem_reparacao" ("numero","matricula","reparacao_estado","reparacao_mecanico") VALUES (20,'AA-00-AA','R',2)`);
+    await page.getByTestId("repair-labor-open").click();screen=page.getByTestId("WIN_Tempos_Reparacao");await expect(screen.getByTestId("TABLE_tempos_reparacao").locator("tbody tr")).toHaveCount(2);
+    release();await page.waitForLoadState("networkidle");await expect(screen.getByTestId("TABLE_tempos_reparacao").locator("tbody tr")).toHaveCount(2);
+    await expect(screen.getByTestId("BTN_Fechar")).toBeEnabled();await screen.getByTestId("BTN_Fechar").click();const final=ticks;await page.clock.fastForward(3000);expect(ticks).toBe(final);
+  }finally{release();await page.unroute("**/api/repair-labor/list");}
+});
