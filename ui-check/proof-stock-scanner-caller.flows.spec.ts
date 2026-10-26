@@ -20,6 +20,7 @@ for (const delayed of [false, true]) test(`stock proof material caller reader ch
     if (delayed) { await expect.poll(() => configFetched).toBe(true); await expect(reader.getByTestId("BTN_Confirmar")).toBeDisabled(); }
     else await expect(reader.getByTestId("TABLE_Leitura").locator("tbody tr")).toHaveCount(2);
     await reader.getByTestId("BTN_SYST_FERMER").click(); await expect(reader).toHaveCount(0); await expect(form.getByTestId("BTN_Leitor")).toBeEnabled();
+    await expect(form.getByTestId("repair-material-form-diagnostic")).toHaveCount(0);
     if (delayed) { const completed = page.waitForResponse(response => response.url().endsWith("/api/stock/scanner-config")); release(); await (await completed).finished(); await page.unroute("**/api/stock/scanner-config"); }
     expect(partitions).toBe(0); expect(await table.innerText()).toBe(memory); await expect(form.getByTestId("EDT_quant")).toHaveValue("9,125"); await expect(form.getByTestId("EDT_artigo_descricao")).toHaveValue("Unsaved input Ω  ");
     await expect(page.getByTestId("WIN_Leitor_cod_barras_desconhecidos")).toHaveCount(0); expect((await materialDatabase.query('SELECT to_jsonb(m) AS row FROM app."material_reparacao" m ORDER BY _row_id')).rows).toEqual(before);
