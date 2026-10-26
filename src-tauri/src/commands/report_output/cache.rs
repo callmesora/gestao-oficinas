@@ -29,12 +29,14 @@ fn owned_name(name: &str) -> bool {
 fn directory(path: &Path) -> Result<File, String> {
     fs::create_dir_all(path.parent().ok_or("report_cache_failed")?)
         .map_err(|_| "report_cache_failed")?;
-    let mut builder = fs::DirBuilder::new();
+    let builder = fs::DirBuilder::new();
     #[cfg(unix)]
-    {
+    let builder = {
         use std::os::unix::fs::DirBuilderExt;
+        let mut builder = builder;
         builder.mode(0o700);
-    }
+        builder
+    };
     if let Err(error) = builder.create(path)
         && error.kind() != std::io::ErrorKind::AlreadyExists
     {
@@ -172,7 +174,9 @@ mod tests {
         let root = std::env::temp_dir().join(unique_name("gestao-report-cache-", ""));
         let old = create(&root, b"old", &AtomicBool::new(true), false).unwrap();
         let now = SystemTime::now();
-        File::open(&old)
+        File::options()
+            .write(true)
+            .open(&old)
             .unwrap()
             .set_times(fs::FileTimes::new().set_modified(now - MAX_AGE - Duration::from_secs(60)))
             .unwrap();

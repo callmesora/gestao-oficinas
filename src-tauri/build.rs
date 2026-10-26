@@ -15,10 +15,10 @@ fn main() {
         let manifest =
             std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("windows-test.manifest.xml");
         println!("cargo:rerun-if-changed={}", manifest.display());
-        println!("cargo:rustc-link-arg-tests=/MANIFEST:EMBED");
-        println!(
-            "cargo:rustc-link-arg-tests=/MANIFESTINPUT:{}",
-            manifest.display()
-        );
+        // Library unit-test harnesses are lib targets, so test-target-only flags miss them.
+        println!("cargo:rustc-link-arg=/MANIFEST:EMBED");
+        println!("cargo:rustc-link-arg=/MANIFESTINPUT:{}", manifest.display());
+        // Tauri already supplies its manifest resource for binary targets.
+        println!("cargo:rustc-link-arg-bins=/MANIFEST:NO");
     }
 }

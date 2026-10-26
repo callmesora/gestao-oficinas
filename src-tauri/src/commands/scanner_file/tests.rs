@@ -15,7 +15,12 @@ impl Sandbox {
             SEQUENCE.fetch_add(1, Ordering::Relaxed)
         ));
         fs::create_dir(&path).unwrap();
-        Self(fs::canonicalize(path).unwrap())
+        // Windows canonicalize returns a verbatim path, which scanner grants deliberately reject.
+        Self(if cfg!(windows) {
+            path
+        } else {
+            fs::canonicalize(path).unwrap()
+        })
     }
     fn request(&self) -> ScannerFileRequest {
         ScannerFileRequest {

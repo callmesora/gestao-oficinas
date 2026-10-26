@@ -43,6 +43,7 @@ try {
   const context = browser.contexts()[0];
   await expect.poll(() => context.pages().length).toBeGreaterThan(0);
   const page = context.pages()[0];
+  await page.waitForURL(url => url.protocol === "http:" || url.protocol === "https:", { timeout: 30_000 });
   await page.goto(new URL("?diagnostics=foundation", page.url()).href);
   await expect(page).toHaveTitle("Gestão de Oficinas");
   await expect(page.getByTestId("foundation-inspect")).toBeVisible();
