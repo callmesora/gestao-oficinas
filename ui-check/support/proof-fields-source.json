@@ -1,0 +1,3981 @@
+{
+  "WIN_Acesso": {
+    "EDT_palavra_passe": {
+      "id": "RULE-W9D7053-1004",
+      "evidence": "dossier: WIN_Acesso/controls.EDT_palavra_passe; docs/screens/WIN_Acesso.md",
+      "kind": "Edit control",
+      "tab_order": 4,
+      "input_size": 15,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 28,
+      "y": 167,
+      "width": 322,
+      "height": 40,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": true,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_utilizador": {
+      "id": "RULE-W9D7053-1005",
+      "evidence": "dossier: WIN_Acesso/controls.EDT_utilizador; docs/screens/WIN_Acesso.md",
+      "kind": "Edit control",
+      "tab_order": 3,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 28,
+      "y": 75,
+      "width": 256,
+      "height": 40,
+      "row": "Read-onl Text",
+      "state": "Read-only",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    }
+  },
+  "WIN_Data": {
+    "EDT_Data": {
+      "id": "RULE-W16C5A7-1002",
+      "evidence": "dossier: WIN_Data/controls.EDT_Data; docs/screens/WIN_Data.md",
+      "kind": "Edit control",
+      "tab_order": 1,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "UseSystemMask"
+      },
+      "anchoring": "<None>",
+      "x": 49,
+      "y": 74,
+      "width": 100,
+      "height": 27,
+      "row": "Active Date",
+      "state": "Active",
+      "input_type": "Date",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    }
+  },
+  "WIN_Extrato_Artigos": {
+    "EDT_Ao_artigo": {
+      "id": "RULE-W13F458-1004",
+      "evidence": "dossier: WIN_Extrato_Artigos/controls.EDT_Ao_artigo; docs/screens/WIN_Extrato_Artigos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Ao artigo"
+      },
+      "tab_order": 6,
+      "input_size": 30,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 36,
+      "y": 159,
+      "width": 254,
+      "height": 24,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": false,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Da_data": {
+      "id": "RULE-W13F458-1005",
+      "evidence": "dossier: WIN_Extrato_Artigos/controls.EDT_Da_data; docs/screens/WIN_Extrato_Artigos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Da data"
+      },
+      "tab_order": 2,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "UseSystemMask"
+      },
+      "anchoring": "<None>",
+      "x": 36,
+      "y": 48,
+      "width": 144,
+      "height": 24,
+      "row": "Active Date",
+      "state": "Active",
+      "input_type": "Date",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Do_artigo": {
+      "id": "RULE-W13F458-1006",
+      "evidence": "dossier: WIN_Extrato_Artigos/controls.EDT_Do_artigo; docs/screens/WIN_Extrato_Artigos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Do artigo"
+      },
+      "tab_order": 4,
+      "input_size": 30,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 36,
+      "y": 129,
+      "width": 254,
+      "height": 24,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": false,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_a_data": {
+      "id": "RULE-W13F458-1007",
+      "evidence": "dossier: WIN_Extrato_Artigos/controls.EDT_a_data; docs/screens/WIN_Extrato_Artigos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "À data"
+      },
+      "tab_order": 3,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "UseSystemMask"
+      },
+      "anchoring": "<None>",
+      "x": 36,
+      "y": 78,
+      "width": 144,
+      "height": 24,
+      "row": "Active Date",
+      "state": "Active",
+      "input_type": "Date",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    }
+  },
+  "WIN_Filtro_Mapas_Artigos": {
+    "CBOX_doc": {
+      "id": "RULE-WCD4890-1011",
+      "evidence": "dossier: WIN_Filtro_Mapas_Artigos/controls.CBOX_doc; docs/screens/WIN_Filtro_Mapas_Artigos.md",
+      "kind": "Check Box",
+      "caption": {
+        "PT": "I&nterruptor"
+      },
+      "initial_value": "0",
+      "tab_order": 8,
+      "image": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Cbox_Anim.gif",
+      "anchoring": "<None>",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Proportional column": true,
+        "Three states": false
+      }
+    },
+    "EDT_Ao_artigo": {
+      "id": "RULE-WCD4890-1012",
+      "evidence": "dossier: WIN_Filtro_Mapas_Artigos/controls.EDT_Ao_artigo; docs/screens/WIN_Filtro_Mapas_Artigos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Ao artigo"
+      },
+      "tab_order": 6,
+      "input_size": 30,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 58,
+      "y": 158,
+      "width": 254,
+      "height": 24,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": false,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Ao_artigo1": {
+      "id": "RULE-WCD4890-1013",
+      "evidence": "dossier: WIN_Filtro_Mapas_Artigos/controls.EDT_Ao_artigo1; docs/screens/WIN_Filtro_Mapas_Artigos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Ao artigo"
+      },
+      "tab_order": 14,
+      "input_size": 30,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 58,
+      "y": 158,
+      "width": 254,
+      "height": 24,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": false,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Ao_artigo2": {
+      "id": "RULE-WCD4890-1014",
+      "evidence": "dossier: WIN_Filtro_Mapas_Artigos/controls.EDT_Ao_artigo2; docs/screens/WIN_Filtro_Mapas_Artigos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Ao artigo"
+      },
+      "tab_order": 23,
+      "input_size": 30,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 58,
+      "y": 144,
+      "width": 254,
+      "height": 24,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": false,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Da_data": {
+      "id": "RULE-WCD4890-1015",
+      "evidence": "dossier: WIN_Filtro_Mapas_Artigos/controls.EDT_Da_data; docs/screens/WIN_Filtro_Mapas_Artigos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Da data"
+      },
+      "tab_order": 2,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "UseSystemMask"
+      },
+      "anchoring": "<None>",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Da_data1": {
+      "id": "RULE-WCD4890-1016",
+      "evidence": "dossier: WIN_Filtro_Mapas_Artigos/controls.EDT_Da_data1; docs/screens/WIN_Filtro_Mapas_Artigos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Da data"
+      },
+      "tab_order": 10,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "UseSystemMask"
+      },
+      "anchoring": "<None>",
+      "x": 58,
+      "y": 47,
+      "width": 144,
+      "height": 24,
+      "row": "Active Date",
+      "state": "Active",
+      "input_type": "Date",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Da_viatura": {
+      "id": "RULE-WCD4890-1017",
+      "evidence": "dossier: WIN_Filtro_Mapas_Artigos/controls.EDT_Da_viatura; docs/screens/WIN_Filtro_Mapas_Artigos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Da viatura"
+      },
+      "tab_order": 16,
+      "input_size": 15,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 58,
+      "y": 208,
+      "width": 254,
+      "height": 24,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": false,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Descriçªo": {
+      "id": "RULE-WCD4890-1018",
+      "evidence": "dossier: WIN_Filtro_Mapas_Artigos/controls.EDT_Descriçªo; docs/screens/WIN_Filtro_Mapas_Artigos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Descriçªo"
+      },
+      "tab_order": 25,
+      "input_size": 30,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 58,
+      "y": 174,
+      "width": 302,
+      "height": 24,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text"
+    },
+    "EDT_Do_artigo": {
+      "id": "RULE-WCD4890-1019",
+      "evidence": "dossier: WIN_Filtro_Mapas_Artigos/controls.EDT_Do_artigo; docs/screens/WIN_Filtro_Mapas_Artigos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Do artigo"
+      },
+      "tab_order": 4,
+      "input_size": 30,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 58,
+      "y": 128,
+      "width": 254,
+      "height": 24,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": false,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Do_artigo1": {
+      "id": "RULE-WCD4890-1020",
+      "evidence": "dossier: WIN_Filtro_Mapas_Artigos/controls.EDT_Do_artigo1; docs/screens/WIN_Filtro_Mapas_Artigos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Do artigo"
+      },
+      "tab_order": 12,
+      "input_size": 30,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 58,
+      "y": 128,
+      "width": 254,
+      "height": 24,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": false,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Do_artigo2": {
+      "id": "RULE-WCD4890-1021",
+      "evidence": "dossier: WIN_Filtro_Mapas_Artigos/controls.EDT_Do_artigo2; docs/screens/WIN_Filtro_Mapas_Artigos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Do artigo"
+      },
+      "tab_order": 21,
+      "input_size": 30,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 58,
+      "y": 114,
+      "width": 254,
+      "height": 24,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": false,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_a_data": {
+      "id": "RULE-WCD4890-1022",
+      "evidence": "dossier: WIN_Filtro_Mapas_Artigos/controls.EDT_a_data; docs/screens/WIN_Filtro_Mapas_Artigos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "À data"
+      },
+      "tab_order": 3,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "UseSystemMask"
+      },
+      "anchoring": "<None>",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_a_data1": {
+      "id": "RULE-WCD4890-1023",
+      "evidence": "dossier: WIN_Filtro_Mapas_Artigos/controls.EDT_a_data1; docs/screens/WIN_Filtro_Mapas_Artigos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "À data"
+      },
+      "tab_order": 11,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "UseSystemMask"
+      },
+      "anchoring": "<None>",
+      "x": 58,
+      "y": 77,
+      "width": 144,
+      "height": 24,
+      "row": "Active Date",
+      "state": "Active",
+      "input_type": "Date",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_a_viatura": {
+      "id": "RULE-WCD4890-1024",
+      "evidence": "dossier: WIN_Filtro_Mapas_Artigos/controls.EDT_a_viatura; docs/screens/WIN_Filtro_Mapas_Artigos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "À viatura"
+      },
+      "tab_order": 18,
+      "input_size": 15,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 58,
+      "y": 238,
+      "width": 254,
+      "height": 24,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": false,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    }
+  },
+  "WIN_Filtro_Mapas_Tempos": {
+    "EDT_Ao_mecanico": {
+      "id": "RULE-WA6D3FA-1006",
+      "evidence": "dossier: WIN_Filtro_Mapas_Tempos/controls.EDT_Ao_mecanico; docs/screens/WIN_Filtro_Mapas_Tempos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Ao mecânico"
+      },
+      "tab_order": 9,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "99"
+      },
+      "anchoring": "<None>",
+      "x": 128,
+      "y": 81,
+      "width": 96,
+      "height": 24,
+      "row": "Active Numeric",
+      "state": "Active",
+      "input_type": "Numeric",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Da_data": {
+      "id": "RULE-WA6D3FA-1007",
+      "evidence": "dossier: WIN_Filtro_Mapas_Tempos/controls.EDT_Da_data; docs/screens/WIN_Filtro_Mapas_Tempos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Da data"
+      },
+      "tab_order": 2,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "UseSystemMask"
+      },
+      "anchoring": "<None>",
+      "x": 128,
+      "y": 132,
+      "width": 144,
+      "height": 24,
+      "row": "Active Date",
+      "state": "Active",
+      "input_type": "Date",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Da_ordem": {
+      "id": "RULE-WA6D3FA-1008",
+      "evidence": "dossier: WIN_Filtro_Mapas_Tempos/controls.EDT_Da_ordem; docs/screens/WIN_Filtro_Mapas_Tempos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Da ordem"
+      },
+      "tab_order": 5,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "9999999999"
+      },
+      "anchoring": "<None>",
+      "x": 128,
+      "y": 51,
+      "width": 144,
+      "height": 24,
+      "row": "Active Numeric",
+      "state": "Active",
+      "input_type": "Numeric",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Da_viatura": {
+      "id": "RULE-WA6D3FA-1009",
+      "evidence": "dossier: WIN_Filtro_Mapas_Tempos/controls.EDT_Da_viatura; docs/screens/WIN_Filtro_Mapas_Tempos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Da viatura"
+      },
+      "tab_order": 11,
+      "input_size": 15,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 101,
+      "y": 51,
+      "width": 150,
+      "height": 24,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": false,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Do_mecanico": {
+      "id": "RULE-WA6D3FA-1010",
+      "evidence": "dossier: WIN_Filtro_Mapas_Tempos/controls.EDT_Do_mecanico; docs/screens/WIN_Filtro_Mapas_Tempos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Do mecânico"
+      },
+      "tab_order": 7,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "99"
+      },
+      "anchoring": "<None>",
+      "x": 128,
+      "y": 51,
+      "width": 96,
+      "height": 24,
+      "row": "Active Numeric",
+      "state": "Active",
+      "input_type": "Numeric",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_a_data": {
+      "id": "RULE-WA6D3FA-1011",
+      "evidence": "dossier: WIN_Filtro_Mapas_Tempos/controls.EDT_a_data; docs/screens/WIN_Filtro_Mapas_Tempos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "À data"
+      },
+      "tab_order": 3,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "UseSystemMask"
+      },
+      "anchoring": "<None>",
+      "x": 128,
+      "y": 162,
+      "width": 144,
+      "height": 24,
+      "row": "Active Date",
+      "state": "Active",
+      "input_type": "Date",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_a_ordem": {
+      "id": "RULE-WA6D3FA-1012",
+      "evidence": "dossier: WIN_Filtro_Mapas_Tempos/controls.EDT_a_ordem; docs/screens/WIN_Filtro_Mapas_Tempos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "À ordem"
+      },
+      "tab_order": 6,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "9999999999"
+      },
+      "anchoring": "<None>",
+      "x": 128,
+      "y": 81,
+      "width": 144,
+      "height": 24,
+      "row": "Active Numeric",
+      "state": "Active",
+      "input_type": "Numeric",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_a_viatura": {
+      "id": "RULE-WA6D3FA-1013",
+      "evidence": "dossier: WIN_Filtro_Mapas_Tempos/controls.EDT_a_viatura; docs/screens/WIN_Filtro_Mapas_Tempos.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "À viatura"
+      },
+      "tab_order": 13,
+      "input_size": 15,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 101,
+      "y": 81,
+      "width": 150,
+      "height": 24,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": false,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    }
+  },
+  "WIN_Inserir_quantidade_password": {
+    "EDT_descricao": {
+      "id": "RULE-W7DB208-1003",
+      "evidence": "dossier: WIN_Inserir_quantidade_password/controls.EDT_descricao; docs/screens/WIN_Inserir_quantidade_password.md",
+      "kind": "Edit control",
+      "tab_order": 4,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 26,
+      "y": 45,
+      "width": 317,
+      "height": 38,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_password": {
+      "id": "RULE-W7DB208-1004",
+      "evidence": "dossier: WIN_Inserir_quantidade_password/controls.EDT_password; docs/screens/WIN_Inserir_quantidade_password.md",
+      "kind": "Edit control",
+      "tab_order": 2,
+      "input_size": 15,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 26,
+      "y": 45,
+      "width": 317,
+      "height": 38,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": true,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_quantidade": {
+      "id": "RULE-W7DB208-1005",
+      "evidence": "dossier: WIN_Inserir_quantidade_password/controls.EDT_quantidade; docs/screens/WIN_Inserir_quantidade_password.md",
+      "kind": "Edit control",
+      "tab_order": 3,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "MoneySystemMask"
+      },
+      "anchoring": "<None>",
+      "x": 26,
+      "y": 45,
+      "width": 317,
+      "height": 38,
+      "row": "Active Numeric",
+      "state": "Active",
+      "input_type": "Numeric",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    }
+  },
+  "WIN_Mapa_Vendas": {
+    "EDT_A_data": {
+      "id": "RULE-W7DB489-1003",
+      "evidence": "dossier: WIN_Mapa_Vendas/controls.EDT_A_data; docs/screens/WIN_Mapa_Vendas.md",
+      "kind": "Edit control",
+      "tab_order": 3,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "UseSystemMask"
+      },
+      "anchoring": "<None>",
+      "x": 19,
+      "y": 73,
+      "width": 208,
+      "height": 24,
+      "row": "Active Date",
+      "state": "Active",
+      "input_type": "Date",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Da_data": {
+      "id": "RULE-W7DB489-1004",
+      "evidence": "dossier: WIN_Mapa_Vendas/controls.EDT_Da_data; docs/screens/WIN_Mapa_Vendas.md",
+      "kind": "Edit control",
+      "tab_order": 2,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "UseSystemMask"
+      },
+      "anchoring": "<None>",
+      "x": 19,
+      "y": 40,
+      "width": 208,
+      "height": 24,
+      "row": "Active Date",
+      "state": "Active",
+      "input_type": "Date",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    }
+  },
+  "WIN_Material_Reparacao": {
+    "LIST_mecanicos": {
+      "id": "RULE-WE6E1AD-1009",
+      "evidence": "dossier: WIN_Material_Reparacao/controls.LIST_mecanicos; docs/screens/WIN_Material_Reparacao.md",
+      "kind": "List Box",
+      "tab_order": 6,
+      "browsed_file": "mecanicos",
+      "browsed_item": "Codigo",
+      "displayed_item": "Descricao",
+      "stored_item": "Codigo",
+      "anchoring": "Bottom, height and width",
+      "x": 19,
+      "y": 106,
+      "width": 170,
+      "height": 422,
+      "row": "Active File loa 1",
+      "state": "Active",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Browse": true,
+        "Sorted": false,
+        "Multi-selection": false,
+        "Scrollbar tooltip": false,
+        "Display/Scrollbar": false
+      }
+    }
+  },
+  "WIN_Material_reparacao_form": {
+    "EDT_artigo": {
+      "id": "RULE-W27273E-1014",
+      "evidence": "dossier: WIN_Material_reparacao_form/controls.EDT_artigo; docs/screens/WIN_Material_reparacao_form.md",
+      "kind": "Edit control",
+      "tab_order": 16,
+      "input_size": 30,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Right and bottom, height and width",
+      "x": 91,
+      "y": 541,
+      "width": 146,
+      "height": 38,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_artigo_descricao": {
+      "id": "RULE-W27273E-1015",
+      "evidence": "dossier: WIN_Material_reparacao_form/controls.EDT_artigo_descricao; docs/screens/WIN_Material_reparacao_form.md",
+      "kind": "Edit control",
+      "tab_order": 18,
+      "input_size": 100,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Right and bottom, height and width",
+      "x": 308,
+      "y": 541,
+      "width": 287,
+      "height": 38,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_marca_modelo": {
+      "id": "RULE-W27273E-1016",
+      "evidence": "dossier: WIN_Material_reparacao_form/controls.EDT_marca_modelo; docs/screens/WIN_Material_reparacao_form.md",
+      "kind": "Edit control",
+      "tab_order": 3,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Right and bottom, height and width",
+      "x": 207,
+      "y": 65,
+      "width": 480,
+      "height": 38,
+      "row": "Read-onl Text",
+      "state": "Read-only",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_matricula": {
+      "id": "RULE-W27273E-1017",
+      "evidence": "dossier: WIN_Material_reparacao_form/controls.EDT_matricula; docs/screens/WIN_Material_reparacao_form.md",
+      "kind": "Edit control",
+      "tab_order": 2,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Bottom, height and width",
+      "x": 19,
+      "y": 65,
+      "width": 182,
+      "height": 38,
+      "row": "Read-onl Text",
+      "state": "Read-only",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_mecanico": {
+      "id": "RULE-W27273E-1018",
+      "evidence": "dossier: WIN_Material_reparacao_form/controls.EDT_mecanico; docs/screens/WIN_Material_reparacao_form.md",
+      "kind": "Edit control",
+      "tab_order": 5,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Bottom, height and width",
+      "x": 19,
+      "y": 138,
+      "width": 603,
+      "height": 38,
+      "row": "Read-onl Text",
+      "state": "Read-only",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_quant": {
+      "id": "RULE-W27273E-1019",
+      "evidence": "dossier: WIN_Material_reparacao_form/controls.EDT_quant; docs/screens/WIN_Material_reparacao_form.md",
+      "kind": "Edit control",
+      "tab_order": 15,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "999 999,999"
+      },
+      "anchoring": "Bottom, height and width",
+      "x": 19,
+      "y": 541,
+      "width": 66,
+      "height": 38,
+      "row": "Active Numeric",
+      "state": "Active",
+      "input_type": "Numeric",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    }
+  },
+  "WIN_MENU": {
+    "TAB_NoName1": {
+      "id": "RULE-WCB13D1-1010",
+      "evidence": "dossier: WIN_MENU/controls.TAB_NoName1; docs/screens/WIN_MENU.md",
+      "kind": "Tab",
+      "caption": {
+        "PT": "&Pasta"
+      },
+      "initial_value": "1",
+      "tab_order": 1,
+      "anchoring": "Width",
+      "x": 10,
+      "y": 53,
+      "width": 780,
+      "height": 79,
+      "row": "Active Top 0",
+      "state": "Active",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Proportional tabs": true
+      }
+    }
+  },
+  "WIN_Mudar_Estado": {
+    "EDT_Letra": {
+      "id": "RULE-W20AB1F-1003",
+      "evidence": "dossier: WIN_Mudar_Estado/controls.EDT_Letra; docs/screens/WIN_Mudar_Estado.md",
+      "kind": "Edit control",
+      "tab_order": 2,
+      "input_size": 1,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 140,
+      "y": 85,
+      "width": 23,
+      "height": 27,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    }
+  },
+  "WIN_Ordens_Reparacao": {
+    "COMBO_mecanico": {
+      "id": "RULE-W53605A-1019",
+      "evidence": "dossier: WIN_Ordens_Reparacao/controls.COMBO_mecanico; docs/screens/WIN_Ordens_Reparacao.md",
+      "kind": "Combo Box",
+      "tab_order": 17,
+      "input_size": 0,
+      "input_type": "Text",
+      "linked_item": "Viaturas.Cliente",
+      "browsed_file": "mecanicos",
+      "browsed_item": "Codigo",
+      "displayed_item": "Descricao",
+      "stored_item": "Codigo",
+      "anchoring": "Right and bottom, height and width",
+      "x": 734,
+      "y": 127,
+      "width": 116,
+      "height": 31,
+      "row": "Active File wit",
+      "state": "Active",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Browse": true,
+        "Sorted": false,
+        "With input": false,
+        "Required input": false,
+        "File assisted input": false,
+        "NULL if empty": false,
+        "Scrollbar tooltip": true,
+        "Horizontal scroll": false
+      }
+    },
+    "EDT_cliente": {
+      "id": "RULE-W53605A-1020",
+      "evidence": "dossier: WIN_Ordens_Reparacao/controls.EDT_cliente; docs/screens/WIN_Ordens_Reparacao.md",
+      "kind": "Edit control",
+      "tab_order": 20,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "9999999999"
+      },
+      "anchoring": "Right and bottom, height and width",
+      "x": 482,
+      "y": 131,
+      "width": 89,
+      "height": 24,
+      "row": "Active Numeric",
+      "state": "Active",
+      "input_type": "Numeric",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_data_entrada_fim": {
+      "id": "RULE-W53605A-1021",
+      "evidence": "dossier: WIN_Ordens_Reparacao/controls.EDT_data_entrada_fim; docs/screens/WIN_Ordens_Reparacao.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Fim"
+      },
+      "tab_order": 14,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "DD/MM/YYYY HH:mm"
+      },
+      "anchoring": "Bottom, height and width",
+      "x": 24,
+      "y": 93,
+      "width": 140,
+      "height": 25,
+      "row": "Active Date",
+      "state": "Active",
+      "input_type": "Date",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_data_entrada_inicio": {
+      "id": "RULE-W53605A-1022",
+      "evidence": "dossier: WIN_Ordens_Reparacao/controls.EDT_data_entrada_inicio; docs/screens/WIN_Ordens_Reparacao.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Início"
+      },
+      "tab_order": 8,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "DD/MM/YYYY HH:mm"
+      },
+      "anchoring": "Bottom, height and width",
+      "x": 24,
+      "y": 62,
+      "width": 140,
+      "height": 25,
+      "row": "Active Date",
+      "state": "Active",
+      "input_type": "Date",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_data_entrega_fim": {
+      "id": "RULE-W53605A-1023",
+      "evidence": "dossier: WIN_Ordens_Reparacao/controls.EDT_data_entrega_fim; docs/screens/WIN_Ordens_Reparacao.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Fim"
+      },
+      "tab_order": 13,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "UseSystemMask"
+      },
+      "anchoring": "Right and bottom, height and width",
+      "x": 493,
+      "y": 78,
+      "width": 127,
+      "height": 25,
+      "row": "Active Date",
+      "state": "Active",
+      "input_type": "Date",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_data_entrega_inicio": {
+      "id": "RULE-W53605A-1024",
+      "evidence": "dossier: WIN_Ordens_Reparacao/controls.EDT_data_entrega_inicio; docs/screens/WIN_Ordens_Reparacao.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Início"
+      },
+      "tab_order": 6,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "UseSystemMask"
+      },
+      "anchoring": "Right and bottom, height and width",
+      "x": 493,
+      "y": 53,
+      "width": 127,
+      "height": 25,
+      "row": "Active Date",
+      "state": "Active",
+      "input_type": "Date",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_matricula": {
+      "id": "RULE-W53605A-1025",
+      "evidence": "dossier: WIN_Ordens_Reparacao/controls.EDT_matricula; docs/screens/WIN_Ordens_Reparacao.md",
+      "kind": "Edit control",
+      "tab_order": 12,
+      "input_size": 15,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Right and bottom, height and width",
+      "x": 737,
+      "y": 68,
+      "width": 110,
+      "height": 24,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": true,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "RADIO_prioridade": {
+      "id": "RULE-W53605A-1026",
+      "evidence": "dossier: WIN_Ordens_Reparacao/controls.RADIO_prioridade; docs/screens/WIN_Ordens_Reparacao.md",
+      "kind": "RadioButton",
+      "caption": {
+        "PT": "&Selector"
+      },
+      "initial_value": "1",
+      "tab_order": 10,
+      "image": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Radio_Anim.gif",
+      "anchoring": "Right and bottom, height and width",
+      "x": 646,
+      "y": 67,
+      "width": 75,
+      "height": 89,
+      "row": "Active 1",
+      "state": "Active",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Proportional column": false,
+        "Three states": false
+      }
+    }
+  },
+  "WIN_Ordens_Reparacao_Form": {
+    "CBOX_faturado": {
+      "id": "RULE-W61831D-1009",
+      "evidence": "dossier: WIN_Ordens_Reparacao_Form/controls.CBOX_faturado; docs/screens/WIN_Ordens_Reparacao_Form.md",
+      "kind": "Check Box",
+      "caption": {
+        "PT": "I&nterruptor"
+      },
+      "initial_value": "0",
+      "tab_order": 26,
+      "image": "C:\\My Projects\\GestaoOficinas\\MediaPlayer_Cbox_Anim.gif",
+      "anchoring": "Bottom",
+      "x": 19,
+      "y": 547,
+      "width": 74,
+      "height": 25,
+      "row": "Active 1",
+      "state": "Active",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Proportional column": true,
+        "Three states": false
+      }
+    },
+    "COMBO_Prioridade": {
+      "id": "RULE-W61831D-1010",
+      "evidence": "dossier: WIN_Ordens_Reparacao_Form/controls.COMBO_Prioridade; docs/screens/WIN_Ordens_Reparacao_Form.md",
+      "kind": "Combo Box",
+      "caption": {
+        "PT": "Prioridade"
+      },
+      "tab_order": 24,
+      "input_size": 0,
+      "input_type": "Text",
+      "browsed_item": "Codigo",
+      "displayed_item": "Descricao",
+      "stored_item": "Codigo",
+      "anchoring": "Bottom",
+      "x": 19,
+      "y": 502,
+      "width": 181,
+      "height": 31,
+      "row": "Active Memory",
+      "state": "Active",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Browse": true,
+        "Sorted": false,
+        "With input": false,
+        "Required input": false,
+        "File assisted input": false,
+        "NULL if empty": false,
+        "Scrollbar tooltip": true,
+        "Horizontal scroll": false
+      }
+    },
+    "COMBO_Recepcionado": {
+      "id": "RULE-W61831D-1011",
+      "evidence": "dossier: WIN_Ordens_Reparacao_Form/controls.COMBO_Recepcionado; docs/screens/WIN_Ordens_Reparacao_Form.md",
+      "kind": "Combo Box",
+      "caption": {
+        "PT": "Recepcionado"
+      },
+      "tab_order": 21,
+      "input_size": 0,
+      "input_type": "Text",
+      "browsed_file": "utilizadores",
+      "browsed_item": "Codigo",
+      "displayed_item": "Descricao",
+      "stored_item": "Codigo",
+      "anchoring": "Bottom",
+      "x": 340,
+      "y": 459,
+      "width": 279,
+      "height": 31,
+      "row": "Active File wit",
+      "state": "Active",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Browse": true,
+        "Sorted": false,
+        "With input": false,
+        "Required input": false,
+        "File assisted input": false,
+        "NULL if empty": false,
+        "Scrollbar tooltip": true,
+        "Horizontal scroll": false
+      }
+    },
+    "COMBO_estado": {
+      "id": "RULE-W61831D-1012",
+      "evidence": "dossier: WIN_Ordens_Reparacao_Form/controls.COMBO_estado; docs/screens/WIN_Ordens_Reparacao_Form.md",
+      "kind": "Combo Box",
+      "tab_order": 16,
+      "input_size": 0,
+      "input_type": "Text",
+      "browsed_item": "Codigo",
+      "displayed_item": "Descricao",
+      "stored_item": "Codigo",
+      "anchoring": "Width and bottom",
+      "x": 19,
+      "y": 148,
+      "width": 229,
+      "height": 31,
+      "row": "Active Memory",
+      "state": "Active",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Browse": true,
+        "Sorted": false,
+        "With input": false,
+        "Required input": false,
+        "File assisted input": false,
+        "NULL if empty": false,
+        "Scrollbar tooltip": true,
+        "Horizontal scroll": false
+      }
+    },
+    "COMBO_mecanico": {
+      "id": "RULE-W61831D-1013",
+      "evidence": "dossier: WIN_Ordens_Reparacao_Form/controls.COMBO_mecanico; docs/screens/WIN_Ordens_Reparacao_Form.md",
+      "kind": "Combo Box",
+      "caption": {
+        "PT": "Mecânico"
+      },
+      "tab_order": 20,
+      "input_size": 0,
+      "input_type": "Text",
+      "browsed_file": "mecanicos",
+      "browsed_item": "Codigo",
+      "displayed_item": "Descricao",
+      "stored_item": "Codigo",
+      "anchoring": "Bottom",
+      "x": 19,
+      "y": 459,
+      "width": 262,
+      "height": 31,
+      "row": "Active File wit",
+      "state": "Active",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Browse": true,
+        "Sorted": false,
+        "With input": false,
+        "Required input": false,
+        "File assisted input": false,
+        "NULL if empty": false,
+        "Scrollbar tooltip": true,
+        "Horizontal scroll": false
+      }
+    },
+    "EDT_Cliente": {
+      "id": "RULE-W61831D-1014",
+      "evidence": "dossier: WIN_Ordens_Reparacao_Form/controls.EDT_Cliente; docs/screens/WIN_Ordens_Reparacao_Form.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Cliente"
+      },
+      "tab_order": 9,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Right and bottom, width",
+      "x": 271,
+      "y": 73,
+      "width": 397,
+      "height": 24,
+      "row": "Read-onl Text",
+      "state": "Read-only",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Contactos": {
+      "id": "RULE-W61831D-1015",
+      "evidence": "dossier: WIN_Ordens_Reparacao_Form/controls.EDT_Contactos; docs/screens/WIN_Ordens_Reparacao_Form.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Contactos"
+      },
+      "tab_order": 15,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Right and bottom, height and width",
+      "x": 318,
+      "y": 135,
+      "width": 350,
+      "height": 72,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": true,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": true,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Data_pagamento": {
+      "id": "RULE-W61831D-1016",
+      "evidence": "dossier: WIN_Ordens_Reparacao_Form/controls.EDT_Data_pagamento; docs/screens/WIN_Ordens_Reparacao_Form.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Data pagamento"
+      },
+      "tab_order": 29,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "UseSystemMask"
+      },
+      "anchoring": "Bottom",
+      "x": 493,
+      "y": 547,
+      "width": 172,
+      "height": 24,
+      "row": "Active Date",
+      "state": "Active",
+      "input_type": "Date",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_KM": {
+      "id": "RULE-W61831D-1017",
+      "evidence": "dossier: WIN_Ordens_Reparacao_Form/controls.EDT_KM; docs/screens/WIN_Ordens_Reparacao_Form.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "KM"
+      },
+      "tab_order": 5,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "9999999999"
+      },
+      "x": 552,
+      "y": 36,
+      "width": 116,
+      "height": 24,
+      "row": "Active Numeric",
+      "state": "Active",
+      "input_type": "Numeric",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Marca_Modelo": {
+      "id": "RULE-W61831D-1018",
+      "evidence": "dossier: WIN_Ordens_Reparacao_Form/controls.EDT_Marca_Modelo; docs/screens/WIN_Ordens_Reparacao_Form.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Marca / Modelo"
+      },
+      "tab_order": 11,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Width and bottom",
+      "x": 19,
+      "y": 105,
+      "width": 288,
+      "height": 24,
+      "row": "Read-onl Text",
+      "state": "Read-only",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Nr_Fatura": {
+      "id": "RULE-W61831D-1019",
+      "evidence": "dossier: WIN_Ordens_Reparacao_Form/controls.EDT_Nr_Fatura; docs/screens/WIN_Ordens_Reparacao_Form.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Nr” Fatura"
+      },
+      "tab_order": 27,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Bottom",
+      "x": 98,
+      "y": 547,
+      "width": 230,
+      "height": 24,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Ordem_n": {
+      "id": "RULE-W61831D-1020",
+      "evidence": "dossier: WIN_Ordens_Reparacao_Form/controls.EDT_Ordem_n; docs/screens/WIN_Ordens_Reparacao_Form.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Ordem n”"
+      },
+      "tab_order": 2,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "9999999999"
+      },
+      "anchoring": "Width",
+      "x": 19,
+      "y": 36,
+      "width": 126,
+      "height": 24,
+      "row": "Read-onl Numeric",
+      "state": "Read-only",
+      "input_type": "Numeric",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": false,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Terceiro": {
+      "id": "RULE-W61831D-1021",
+      "evidence": "dossier: WIN_Ordens_Reparacao_Form/controls.EDT_Terceiro; docs/screens/WIN_Ordens_Reparacao_Form.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Terceiro"
+      },
+      "tab_order": 12,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "9999999999"
+      },
+      "anchoring": "Right and bottom, width",
+      "x": 318,
+      "y": 105,
+      "width": 121,
+      "height": 24,
+      "row": "Read-onl Numeric",
+      "state": "Read-only",
+      "input_type": "Numeric",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Terceiro_Descricao": {
+      "id": "RULE-W61831D-1022",
+      "evidence": "dossier: WIN_Ordens_Reparacao_Form/controls.EDT_Terceiro_Descricao; docs/screens/WIN_Ordens_Reparacao_Form.md",
+      "kind": "Edit control",
+      "tab_order": 14,
+      "input_size": 100,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Right and bottom, width",
+      "x": 493,
+      "y": 105,
+      "width": 175,
+      "height": 24,
+      "row": "Read-onl Text",
+      "state": "Read-only",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Total_Pago": {
+      "id": "RULE-W61831D-1023",
+      "evidence": "dossier: WIN_Ordens_Reparacao_Form/controls.EDT_Total_Pago; docs/screens/WIN_Ordens_Reparacao_Form.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Total Pago"
+      },
+      "tab_order": 28,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "999999999,99"
+      },
+      "anchoring": "Bottom",
+      "x": 337,
+      "y": 547,
+      "width": 144,
+      "height": 24,
+      "row": "Active Numeric",
+      "state": "Active",
+      "input_type": "Numeric",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_data_entrega": {
+      "id": "RULE-W61831D-1024",
+      "evidence": "dossier: WIN_Ordens_Reparacao_Form/controls.EDT_data_entrega; docs/screens/WIN_Ordens_Reparacao_Form.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Data entrega"
+      },
+      "tab_order": 4,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "UseSystemMask"
+      },
+      "x": 369,
+      "y": 36,
+      "width": 159,
+      "height": 25,
+      "row": "Active Date",
+      "state": "Active",
+      "input_type": "Date",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_data_hora_entrada": {
+      "id": "RULE-W61831D-1025",
+      "evidence": "dossier: WIN_Ordens_Reparacao_Form/controls.EDT_data_hora_entrada; docs/screens/WIN_Ordens_Reparacao_Form.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Data entrada"
+      },
+      "tab_order": 3,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "DD/MM/YYYY HH:mm"
+      },
+      "x": 165,
+      "y": 36,
+      "width": 185,
+      "height": 25,
+      "row": "Active Date",
+      "state": "Active",
+      "input_type": "Date",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_matricula": {
+      "id": "RULE-W61831D-1026",
+      "evidence": "dossier: WIN_Ordens_Reparacao_Form/controls.EDT_matricula; docs/screens/WIN_Ordens_Reparacao_Form.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Matrícula"
+      },
+      "tab_order": 8,
+      "input_size": 15,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Width and bottom",
+      "x": 19,
+      "y": 73,
+      "width": 181,
+      "height": 24,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_observacao": {
+      "id": "RULE-W61831D-1027",
+      "evidence": "dossier: WIN_Ordens_Reparacao_Form/controls.EDT_observacao; docs/screens/WIN_Ordens_Reparacao_Form.md",
+      "kind": "Edit control",
+      "tab_order": 19,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Bottom, height and width",
+      "x": 19,
+      "y": 350,
+      "width": 649,
+      "height": 95,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": true,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": true,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_servico_avaria": {
+      "id": "RULE-W61831D-1028",
+      "evidence": "dossier: WIN_Ordens_Reparacao_Form/controls.EDT_servico_avaria; docs/screens/WIN_Ordens_Reparacao_Form.md",
+      "kind": "Edit control",
+      "tab_order": 18,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Bottom, height and width",
+      "x": 19,
+      "y": 216,
+      "width": 649,
+      "height": 95,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": true,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": true,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    }
+  },
+  "WIN_sistema": {
+    "EDT_Atualizacao_materiais": {
+      "id": "RULE-W3BC89B-1003",
+      "evidence": "dossier: WIN_sistema/controls.EDT_Atualizacao_materiais; docs/screens/WIN_sistema.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Atualizaçªo materiais (segundos)"
+      },
+      "tab_order": 3,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "9999999999"
+      },
+      "anchoring": "<None>",
+      "x": 32,
+      "y": 90,
+      "width": 300,
+      "height": 25,
+      "row": "Active Numeric",
+      "state": "Active",
+      "input_type": "Numeric",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Atualizacao_ordens_reparacao": {
+      "id": "RULE-W3BC89B-1004",
+      "evidence": "dossier: WIN_sistema/controls.EDT_Atualizacao_ordens_reparacao; docs/screens/WIN_sistema.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Atualizaçªo ordens de reparaçªo (segundos)"
+      },
+      "tab_order": 2,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "9999999999"
+      },
+      "anchoring": "<None>",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Atualizacao_tempos": {
+      "id": "RULE-W3BC89B-1005",
+      "evidence": "dossier: WIN_sistema/controls.EDT_Atualizacao_tempos; docs/screens/WIN_sistema.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Atualizaçªo tempos (segundos)"
+      },
+      "tab_order": 4,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "9999999999"
+      },
+      "anchoring": "<None>",
+      "x": 32,
+      "y": 132,
+      "width": 300,
+      "height": 25,
+      "row": "Active Numeric",
+      "state": "Active",
+      "input_type": "Numeric",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Data_inicio": {
+      "id": "RULE-W3BC89B-1006",
+      "evidence": "dossier: WIN_sistema/controls.EDT_Data_inicio; docs/screens/WIN_sistema.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Mostrar movimentos atØ dias anteriores"
+      },
+      "tab_order": 5,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "999"
+      },
+      "anchoring": "<None>",
+      "x": 32,
+      "y": 174,
+      "width": 300,
+      "height": 25,
+      "row": "Active Numeric",
+      "state": "Active",
+      "input_type": "Numeric",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_encerrar_tempos_1": {
+      "id": "RULE-W3BC89B-1007",
+      "evidence": "dossier: WIN_sistema/controls.EDT_encerrar_tempos_1; docs/screens/WIN_sistema.md",
+      "kind": "Edit control",
+      "tab_order": 6,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "HH:MM:SS"
+      },
+      "anchoring": "Right",
+      "x": 32,
+      "y": 242,
+      "width": 63,
+      "height": 25,
+      "row": "Active Time",
+      "state": "Active",
+      "input_type": "Time",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_encerrar_tempos_2": {
+      "id": "RULE-W3BC89B-1008",
+      "evidence": "dossier: WIN_sistema/controls.EDT_encerrar_tempos_2; docs/screens/WIN_sistema.md",
+      "kind": "Edit control",
+      "tab_order": 7,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "HH:MM:SS"
+      },
+      "anchoring": "Right",
+      "x": 120,
+      "y": 242,
+      "width": 63,
+      "height": 25,
+      "row": "Active Time",
+      "state": "Active",
+      "input_type": "Time",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    }
+  },
+  "WIN_Table_cab_stocks": {
+    "COMBO_tipo_doc": {
+      "id": "RULE-W7C9411-1006",
+      "evidence": "dossier: WIN_Table_cab_stocks/controls.COMBO_tipo_doc; docs/screens/WIN_Table_cab_stocks.md",
+      "kind": "Combo Box",
+      "tab_order": 5,
+      "input_size": 0,
+      "input_type": "Text",
+      "linked_item": "Viaturas.Cliente",
+      "browsed_file": "documentos",
+      "browsed_item": "Codigo",
+      "displayed_item": "Descricao",
+      "stored_item": "Codigo",
+      "anchoring": "Right",
+      "x": 19,
+      "y": 62,
+      "width": 214,
+      "height": 31,
+      "row": "Active File wit",
+      "state": "Active",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Browse": true,
+        "Sorted": false,
+        "With input": false,
+        "Required input": false,
+        "File assisted input": false,
+        "NULL if empty": false,
+        "Scrollbar tooltip": true,
+        "Horizontal scroll": false
+      }
+    },
+    "EDT_Ao_n": {
+      "id": "RULE-W7C9411-1007",
+      "evidence": "dossier: WIN_Table_cab_stocks/controls.EDT_Ao_n; docs/screens/WIN_Table_cab_stocks.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Ao n”"
+      },
+      "tab_order": 6,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "9999999999"
+      },
+      "anchoring": "Right",
+      "x": 250,
+      "y": 66,
+      "width": 117,
+      "height": 24,
+      "row": "Active Numeric",
+      "state": "Active",
+      "input_type": "Numeric",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Da_data": {
+      "id": "RULE-W7C9411-1008",
+      "evidence": "dossier: WIN_Table_cab_stocks/controls.EDT_Da_data; docs/screens/WIN_Table_cab_stocks.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Da data"
+      },
+      "tab_order": 4,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "UseSystemMask"
+      },
+      "anchoring": "Right",
+      "x": 388,
+      "y": 36,
+      "width": 144,
+      "height": 24,
+      "row": "Active Date",
+      "state": "Active",
+      "input_type": "Date",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Do_n": {
+      "id": "RULE-W7C9411-1009",
+      "evidence": "dossier: WIN_Table_cab_stocks/controls.EDT_Do_n; docs/screens/WIN_Table_cab_stocks.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Do n”"
+      },
+      "tab_order": 3,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "9999999999"
+      },
+      "anchoring": "Right",
+      "x": 250,
+      "y": 36,
+      "width": 117,
+      "height": 24,
+      "row": "Active Numeric",
+      "state": "Active",
+      "input_type": "Numeric",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_a_data": {
+      "id": "RULE-W7C9411-1010",
+      "evidence": "dossier: WIN_Table_cab_stocks/controls.EDT_a_data; docs/screens/WIN_Table_cab_stocks.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "À data"
+      },
+      "tab_order": 7,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "UseSystemMask"
+      },
+      "anchoring": "Right",
+      "x": 388,
+      "y": 66,
+      "width": 144,
+      "height": 24,
+      "row": "Active Date",
+      "state": "Active",
+      "input_type": "Date",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_descricao": {
+      "id": "RULE-W7C9411-1011",
+      "evidence": "dossier: WIN_Table_cab_stocks/controls.EDT_descricao; docs/screens/WIN_Table_cab_stocks.md",
+      "kind": "Edit control",
+      "tab_order": 8,
+      "input_size": 100,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Right",
+      "x": 556,
+      "y": 66,
+      "width": 225,
+      "height": 24,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    }
+  },
+  "WIN_Table_Lin_Stocks": {
+    "COMBO_mecanico": {
+      "id": "RULE-W7E91C1-1010",
+      "evidence": "dossier: WIN_Table_Lin_Stocks/controls.COMBO_mecanico; docs/screens/WIN_Table_Lin_Stocks.md",
+      "kind": "Combo Box",
+      "tab_order": 6,
+      "input_size": 0,
+      "input_type": "Text",
+      "browsed_file": "mecanicos",
+      "browsed_item": "Codigo",
+      "displayed_item": "Descricao",
+      "stored_item": "Codigo",
+      "anchoring": "Right",
+      "x": 503,
+      "y": 120,
+      "width": 206,
+      "height": 36,
+      "row": "Active File wit",
+      "state": "Active",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Browse": true,
+        "Sorted": false,
+        "With input": false,
+        "Required input": false,
+        "File assisted input": false,
+        "NULL if empty": false,
+        "Scrollbar tooltip": true,
+        "Horizontal scroll": false
+      }
+    },
+    "COMBO_tipo_doc": {
+      "id": "RULE-W7E91C1-1011",
+      "evidence": "dossier: WIN_Table_Lin_Stocks/controls.COMBO_tipo_doc; docs/screens/WIN_Table_Lin_Stocks.md",
+      "kind": "Combo Box",
+      "tab_order": 2,
+      "input_size": 0,
+      "input_type": "Text",
+      "linked_item": "Viaturas.Cliente",
+      "browsed_file": "documentos",
+      "browsed_item": "Codigo",
+      "displayed_item": "Descricao",
+      "stored_item": "Codigo",
+      "anchoring": "Right",
+      "x": 19,
+      "y": 59,
+      "width": 319,
+      "height": 36,
+      "row": "Active File wit",
+      "state": "Active",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Browse": true,
+        "Sorted": false,
+        "With input": false,
+        "Required input": false,
+        "File assisted input": false,
+        "NULL if empty": false,
+        "Scrollbar tooltip": true,
+        "Horizontal scroll": false
+      }
+    },
+    "EDT_Data": {
+      "id": "RULE-W7E91C1-1012",
+      "evidence": "dossier: WIN_Table_Lin_Stocks/controls.EDT_Data; docs/screens/WIN_Table_Lin_Stocks.md",
+      "kind": "Edit control",
+      "tab_order": 4,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "UseSystemMask"
+      },
+      "anchoring": "Right",
+      "x": 613,
+      "y": 64,
+      "width": 139,
+      "height": 24,
+      "row": "Active Date",
+      "state": "Active",
+      "input_type": "Date",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_Numero": {
+      "id": "RULE-W7E91C1-1013",
+      "evidence": "dossier: WIN_Table_Lin_Stocks/controls.EDT_Numero; docs/screens/WIN_Table_Lin_Stocks.md",
+      "kind": "Edit control",
+      "tab_order": 3,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "9999999999"
+      },
+      "anchoring": "Right",
+      "x": 421,
+      "y": 64,
+      "width": 140,
+      "height": 24,
+      "row": "Read-onl Numeric",
+      "state": "Read-only",
+      "input_type": "Numeric",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_codigo": {
+      "id": "RULE-W7E91C1-1014",
+      "evidence": "dossier: WIN_Table_Lin_Stocks/controls.EDT_codigo; docs/screens/WIN_Table_Lin_Stocks.md",
+      "kind": "Edit control",
+      "tab_order": 11,
+      "input_size": 30,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Bottom",
+      "x": 19,
+      "y": 498,
+      "width": 130,
+      "height": 36,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_descricao": {
+      "id": "RULE-W7E91C1-1015",
+      "evidence": "dossier: WIN_Table_Lin_Stocks/controls.EDT_descricao; docs/screens/WIN_Table_Lin_Stocks.md",
+      "kind": "Edit control",
+      "tab_order": 8,
+      "input_size": 100,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Right",
+      "x": 19,
+      "y": 127,
+      "width": 460,
+      "height": 24,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_descricao_Artigo": {
+      "id": "RULE-W7E91C1-1016",
+      "evidence": "dossier: WIN_Table_Lin_Stocks/controls.EDT_descricao_Artigo; docs/screens/WIN_Table_Lin_Stocks.md",
+      "kind": "Edit control",
+      "tab_order": 13,
+      "input_size": 100,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Bottom",
+      "x": 208,
+      "y": 498,
+      "width": 318,
+      "height": 36,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_preco": {
+      "id": "RULE-W7E91C1-1017",
+      "evidence": "dossier: WIN_Table_Lin_Stocks/controls.EDT_preco; docs/screens/WIN_Table_Lin_Stocks.md",
+      "kind": "Edit control",
+      "tab_order": 15,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "999999999,99"
+      },
+      "anchoring": "Bottom",
+      "x": 614,
+      "y": 498,
+      "width": 81,
+      "height": 36,
+      "row": "Active Numeric",
+      "state": "Active",
+      "input_type": "Numeric",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_quant": {
+      "id": "RULE-W7E91C1-1018",
+      "evidence": "dossier: WIN_Table_Lin_Stocks/controls.EDT_quant; docs/screens/WIN_Table_Lin_Stocks.md",
+      "kind": "Edit control",
+      "tab_order": 14,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "999999,999"
+      },
+      "anchoring": "Bottom",
+      "x": 532,
+      "y": 498,
+      "width": 76,
+      "height": 36,
+      "row": "Active Numeric",
+      "state": "Active",
+      "input_type": "Numeric",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    }
+  },
+  "WIN_Table_Tempos_materiais_Descricoes": {
+    "EDT_historico_estado": {
+      "id": "RULE-WBBC9D9-1007",
+      "evidence": "dossier: WIN_Table_Tempos_materiais_Descricoes/controls.EDT_historico_estado; docs/screens/WIN_Table_Tempos_materiais_Descricoes.md",
+      "kind": "Edit control",
+      "path": "TAB_principal.EDT_historico_estado",
+      "tab_order": 1,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Width",
+      "x": 25,
+      "y": 92,
+      "width": 584,
+      "height": 373,
+      "row": "Read-onl Text",
+      "state": "Read-only",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": true,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": true,
+        "Horz. scrollbar": true,
+        "Vert. scrollbar": true
+      }
+    },
+    "EDT_observacao": {
+      "id": "RULE-WBBC9D9-1008",
+      "evidence": "dossier: WIN_Table_Tempos_materiais_Descricoes/controls.EDT_observacao; docs/screens/WIN_Table_Tempos_materiais_Descricoes.md",
+      "kind": "Edit control",
+      "path": "TAB_principal.EDT_observacao",
+      "tab_order": 2,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Width",
+      "x": 25,
+      "y": 278,
+      "width": 584,
+      "height": 151,
+      "row": "Read-onl Text",
+      "state": "Read-only",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": true,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": true,
+        "Horz. scrollbar": true,
+        "Vert. scrollbar": true
+      }
+    },
+    "EDT_servico_avaria": {
+      "id": "RULE-WBBC9D9-1009",
+      "evidence": "dossier: WIN_Table_Tempos_materiais_Descricoes/controls.EDT_servico_avaria; docs/screens/WIN_Table_Tempos_materiais_Descricoes.md",
+      "kind": "Edit control",
+      "path": "TAB_principal.EDT_servico_avaria",
+      "tab_order": 1,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Width",
+      "x": 25,
+      "y": 92,
+      "width": 584,
+      "height": 154,
+      "row": "Read-onl Text",
+      "state": "Read-only",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": true,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": true,
+        "Horz. scrollbar": true,
+        "Vert. scrollbar": true
+      }
+    },
+    "TAB_principal": {
+      "id": "RULE-WBBC9D9-1017",
+      "evidence": "dossier: WIN_Table_Tempos_materiais_Descricoes/controls.TAB_principal; docs/screens/WIN_Table_Tempos_materiais_Descricoes.md",
+      "kind": "Tab",
+      "caption": {
+        "PT": "&Pasta"
+      },
+      "initial_value": "1",
+      "tab_order": 2,
+      "anchoring": "Width and height",
+      "x": 19,
+      "y": 36,
+      "width": 596,
+      "height": 435,
+      "row": "Active Top 0",
+      "state": "Active",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Proportional tabs": true
+      }
+    }
+  },
+  "WIN_Teclado_Alfa": {
+    "EDT_Texto": {
+      "id": "RULE-W55826C-1070",
+      "evidence": "dossier: WIN_Teclado_Alfa/controls.EDT_Texto; docs/screens/WIN_Teclado_Alfa.md",
+      "kind": "Edit control",
+      "tab_order": "-1",
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 13,
+      "y": 60,
+      "width": 750,
+      "height": 60,
+      "row": "Read-onl Text",
+      "state": "Read-only",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": false,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_input_manual": {
+      "id": "RULE-W55826C-1071",
+      "evidence": "dossier: WIN_Teclado_Alfa/controls.EDT_input_manual; docs/screens/WIN_Teclado_Alfa.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Imput Manual (nªo visivel em runtime)"
+      },
+      "tab_order": "-1",
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 547,
+      "y": -33,
+      "width": 221,
+      "height": 24,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": false,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    }
+  },
+  "WIN_Teclado_numerico": {
+    "EDT_Texto": {
+      "id": "RULE-W291790-1016",
+      "evidence": "dossier: WIN_Teclado_numerico/controls.EDT_Texto; docs/screens/WIN_Teclado_numerico.md",
+      "kind": "Edit control",
+      "tab_order": "-1",
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Bottom, height and width",
+      "x": 14,
+      "y": 68,
+      "width": 292,
+      "height": 60,
+      "row": "Read-onl Text",
+      "state": "Read-only",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": false,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": false,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_input_manual": {
+      "id": "RULE-W291790-1017",
+      "evidence": "dossier: WIN_Teclado_numerico/controls.EDT_input_manual; docs/screens/WIN_Teclado_numerico.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Imput Manual (nªo visivel em runtime)"
+      },
+      "tab_order": "-1",
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 97,
+      "y": -33,
+      "width": 221,
+      "height": 24,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": false,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    }
+  },
+  "WIN_Tempos_Reparacao": {
+    "LIST_mecanicos": {
+      "id": "RULE-W9DD275-1015",
+      "evidence": "dossier: WIN_Tempos_Reparacao/controls.LIST_mecanicos; docs/screens/WIN_Tempos_Reparacao.md",
+      "kind": "List Box",
+      "tab_order": 6,
+      "browsed_file": "mecanicos",
+      "browsed_item": "inativo",
+      "displayed_item": "Descricao",
+      "stored_item": "Codigo",
+      "anchoring": "Bottom, height and width",
+      "x": 19,
+      "y": 106,
+      "width": 170,
+      "height": 182,
+      "row": "Active File loa 1",
+      "state": "Active",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Browse": true,
+        "Sorted": false,
+        "Multi-selection": false,
+        "Scrollbar tooltip": false,
+        "Display/Scrollbar": false
+      }
+    }
+  },
+  "WIN_Tempos_Reparacao_Estado": {
+    "EDT_Data_Hora": {
+      "id": "RULE-W6946F0-1007",
+      "evidence": "dossier: WIN_Tempos_Reparacao_Estado/controls.EDT_Data_Hora; docs/screens/WIN_Tempos_Reparacao_Estado.md",
+      "kind": "Edit control",
+      "caption": {
+        "PT": "Data / Hora"
+      },
+      "tab_order": 6,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "DD/MM/YYYY HH:mm"
+      },
+      "anchoring": "<None>",
+      "x": 19,
+      "y": 207,
+      "width": 224,
+      "height": 38,
+      "row": "Active Date",
+      "state": "Active",
+      "input_type": "Date",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_descricao": {
+      "id": "RULE-W6946F0-1008",
+      "evidence": "dossier: WIN_Tempos_Reparacao_Estado/controls.EDT_descricao; docs/screens/WIN_Tempos_Reparacao_Estado.md",
+      "kind": "Edit control",
+      "tab_order": 8,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 19,
+      "y": 279,
+      "width": 403,
+      "height": 37,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_historico": {
+      "id": "RULE-W6946F0-1009",
+      "evidence": "dossier: WIN_Tempos_Reparacao_Estado/controls.EDT_historico; docs/screens/WIN_Tempos_Reparacao_Estado.md",
+      "kind": "Edit control",
+      "tab_order": 9,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 19,
+      "y": 350,
+      "width": 464,
+      "height": 95,
+      "row": "Read-onl Text",
+      "state": "Read-only",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": true,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": true,
+        "Horz. scrollbar": true,
+        "Vert. scrollbar": true
+      }
+    },
+    "EDT_matricula_marca_modelo": {
+      "id": "RULE-W6946F0-1010",
+      "evidence": "dossier: WIN_Tempos_Reparacao_Estado/controls.EDT_matricula_marca_modelo; docs/screens/WIN_Tempos_Reparacao_Estado.md",
+      "kind": "Edit control",
+      "tab_order": 2,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 19,
+      "y": 36,
+      "width": 464,
+      "height": 34,
+      "row": "Read-onl Text",
+      "state": "Read-only",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": true,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": false,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": true,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_obs_servico": {
+      "id": "RULE-W6946F0-1011",
+      "evidence": "dossier: WIN_Tempos_Reparacao_Estado/controls.EDT_obs_servico; docs/screens/WIN_Tempos_Reparacao_Estado.md",
+      "kind": "Edit control",
+      "tab_order": 10,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 19,
+      "y": 479,
+      "width": 464,
+      "height": 56,
+      "row": "Active Text",
+      "state": "Active",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": true,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": true,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    }
+  },
+  "WIN_Tempos_Reparacao_Informacao": {
+    "EDT_cliente": {
+      "id": "RULE-W24748E-1003",
+      "evidence": "dossier: WIN_Tempos_Reparacao_Informacao/controls.EDT_cliente; docs/screens/WIN_Tempos_Reparacao_Informacao.md",
+      "kind": "Edit control",
+      "tab_order": 4,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Width",
+      "x": 19,
+      "y": 306,
+      "width": 584,
+      "height": 27,
+      "row": "Read-onl Text",
+      "state": "Read-only",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_contactos": {
+      "id": "RULE-W24748E-1004",
+      "evidence": "dossier: WIN_Tempos_Reparacao_Informacao/controls.EDT_contactos; docs/screens/WIN_Tempos_Reparacao_Informacao.md",
+      "kind": "Edit control",
+      "tab_order": 5,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Width",
+      "x": 19,
+      "y": 365,
+      "width": 584,
+      "height": 70,
+      "row": "Read-onl Text",
+      "state": "Read-only",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": true,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": true,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_observacao": {
+      "id": "RULE-W24748E-1005",
+      "evidence": "dossier: WIN_Tempos_Reparacao_Informacao/controls.EDT_observacao; docs/screens/WIN_Tempos_Reparacao_Informacao.md",
+      "kind": "Edit control",
+      "tab_order": 3,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Width",
+      "x": 19,
+      "y": 184,
+      "width": 584,
+      "height": 90,
+      "row": "Read-onl Text",
+      "state": "Read-only",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": true,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": true,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_servico_avaria": {
+      "id": "RULE-W24748E-1006",
+      "evidence": "dossier: WIN_Tempos_Reparacao_Informacao/controls.EDT_servico_avaria; docs/screens/WIN_Tempos_Reparacao_Informacao.md",
+      "kind": "Edit control",
+      "tab_order": 2,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "Width",
+      "x": 19,
+      "y": 62,
+      "width": 584,
+      "height": 90,
+      "row": "Read-onl Text",
+      "state": "Read-only",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": true,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": true,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    }
+  },
+  "WIN_Tempos_Reparacao_Tempo": {
+    "EDT_matricula_marca_modelo": {
+      "id": "RULE-W6D3B26-1004",
+      "evidence": "dossier: WIN_Tempos_Reparacao_Tempo/controls.EDT_matricula_marca_modelo; docs/screens/WIN_Tempos_Reparacao_Tempo.md",
+      "kind": "Edit control",
+      "tab_order": 2,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 38,
+      "y": 51,
+      "width": 237,
+      "height": 56,
+      "row": "Read-onl Text",
+      "state": "Read-only",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": true,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": false,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": true,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    },
+    "EDT_mecanico": {
+      "id": "RULE-W6D3B26-1005",
+      "evidence": "dossier: WIN_Tempos_Reparacao_Tempo/controls.EDT_mecanico; docs/screens/WIN_Tempos_Reparacao_Tempo.md",
+      "kind": "Edit control",
+      "tab_order": 3,
+      "input_size": 0,
+      "input_mask": {
+        "PT": "0"
+      },
+      "anchoring": "<None>",
+      "x": 38,
+      "y": 117,
+      "width": 172,
+      "height": 32,
+      "row": "Read-onl Text",
+      "state": "Read-only",
+      "input_type": "Text",
+      "flags": {
+        "Visible": true,
+        "TAB Key": true,
+        "Multiline": false,
+        "RTF format": false,
+        "Password": false,
+        "Required input": false,
+        "Blank if zero": false,
+        "NULL if empty": false,
+        "File assisted input": false,
+        "Automatic erase": true,
+        "End of automatic input": false,
+        "Horizontal scroll": true,
+        "Vertical scroll": false,
+        "Horz. scrollbar": false,
+        "Vert. scrollbar": false
+      }
+    }
+  }
+}
