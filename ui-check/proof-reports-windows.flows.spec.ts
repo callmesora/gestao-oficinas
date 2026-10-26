@@ -41,7 +41,7 @@ for (const item of cases) test(`reports proof ${item.unit} ${item.mode} actual c
   await expect(page.getByTestId(item.unit).getByTestId(item.field)).toHaveValue(initial);
 });
 
-type DesignerOracle = { id: string; name: string; kind: string; state?: string; tabOrder?: number | string; buttonType?: string; text: string; x: number; y: number; width: number; height: number; anchor: string; visible: boolean; tab: boolean; icon: string; skin: string };
+type DesignerOracle = { id: string; name: string; kind: string; hAlign?: string; vAlign?: string; state?: string; tabOrder?: number | string; buttonType?: string; text: string; x: number; y: number; width: number; height: number; anchor: string; visible: boolean; tab: boolean; icon: string; skin: string };
 const designerOracles: Record<string, DesignerOracle[]> = {
   "WIN_Filtro_Mapas_Artigos": [
     {"id":"RULE-WCD4890-1001","name":"BTN_VISION1","kind":"Button","text":"","x":318,"y":208,"width":42,"height":24,"anchor":"<None>","visible":true,"tab":true,"icon":"Btn_VisionPlus.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":17,"buttonType":"Normal"},
@@ -53,7 +53,7 @@ const designerOracles: Record<string, DesignerOracle[]> = {
     {"id":"RULE-WCD4890-1007","name":"BTN_VISION7","kind":"Button","text":"","x":318,"y":144,"width":42,"height":24,"anchor":"<None>","visible":true,"tab":true,"icon":"Btn_VisionPlus.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":24,"buttonType":"Normal"},
     {"id":"RULE-WCD4890-1008","name":"BTN_VISION8","kind":"Button","text":"","x":318,"y":114,"width":42,"height":24,"anchor":"<None>","visible":true,"tab":true,"icon":"Btn_VisionPlus.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":22,"buttonType":"Normal"},
     {"id":"RULE-WCD4890-1010","name":"BTN_Visualizar_impressão1","kind":"Button","text":"Visualizar impressão","x":121,"y":283,"width":179,"height":37,"anchor":"<None>","visible":true,"tab":true,"icon":"Btn_OK.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":20,"buttonType":"Normal"},
-    {"id":"RULE-WCD4890-1025","name":"RADTitle","kind":"Caption","text":"","x":9,"y":4,"width":309,"height":18,"anchor":"<None>","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
+    {"id":"RULE-WCD4890-1025","name":"RADTitle","kind":"Caption","text":"","x":9,"y":4,"width":309,"height":18,"anchor":"<None>","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"center"},
     {"id":"RULE-WCD4890-1026","name":"BTN_SYST_FERMER","kind":"Button","text":"","x":374,"y":0,"width":44,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Close.gif","skin":"MediaPlayer_Btn_Close_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-WCD4890-1027","name":"BTN_SYST_MINIMIZE","kind":"Button","text":"","x":324,"y":0,"width":26,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Minimize.gif","skin":"MediaPlayer_Btn_Minimize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-WCD4890-1028","name":"BTN_Syst_Maximize","kind":"Button","text":"","x":350,"y":0,"width":25,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Maximise.gif","skin":"MediaPlayer_Btn_Maximize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
@@ -65,7 +65,7 @@ const designerOracles: Record<string, DesignerOracle[]> = {
     {"id":"RULE-WA6D3FA-1003","name":"BTN_VISION3","kind":"Button","text":"","x":230,"y":81,"width":42,"height":24,"anchor":"<None>","visible":true,"tab":true,"icon":"Btn_VisionPlus.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":10,"buttonType":"Normal"},
     {"id":"RULE-WA6D3FA-1004","name":"BTN_VISION4","kind":"Button","text":"","x":230,"y":51,"width":42,"height":24,"anchor":"<None>","visible":true,"tab":true,"icon":"Btn_VisionPlus.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":8,"buttonType":"Normal"},
     {"id":"RULE-WA6D3FA-1005","name":"BTN_Visualizar_impressão","kind":"Button","text":"Visualizar impressão","x":111,"y":212,"width":179,"height":37,"anchor":"<None>","visible":true,"tab":true,"icon":"Btn_OK.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":4,"buttonType":"Normal"},
-    {"id":"RULE-WA6D3FA-1014","name":"RADTitle","kind":"Caption","text":"","x":9,"y":4,"width":284,"height":18,"anchor":"<None>","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
+    {"id":"RULE-WA6D3FA-1014","name":"RADTitle","kind":"Caption","text":"","x":9,"y":4,"width":284,"height":18,"anchor":"<None>","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"center"},
     {"id":"RULE-WA6D3FA-1015","name":"BTN_SYST_FERMER","kind":"Button","text":"","x":349,"y":0,"width":44,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Close.gif","skin":"MediaPlayer_Btn_Close_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-WA6D3FA-1016","name":"BTN_SYST_MINIMIZE","kind":"Button","text":"","x":299,"y":0,"width":26,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Minimize.gif","skin":"MediaPlayer_Btn_Minimize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-WA6D3FA-1017","name":"BTN_Syst_Maximize","kind":"Button","text":"","x":325,"y":0,"width":25,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Maximise.gif","skin":"MediaPlayer_Btn_Maximize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
@@ -73,8 +73,8 @@ const designerOracles: Record<string, DesignerOracle[]> = {
   ],
   "WIN_Mapa_Vendas": [
     {"id":"RULE-W7DB489-1002","name":"BTN_Visualizar_impressão1","kind":"Button","text":"Visualizar impressão","x":83,"y":342,"width":179,"height":37,"anchor":"<None>","visible":true,"tab":true,"icon":"Btn_OK.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":5,"buttonType":"Normal"},
-    {"id":"RULE-W7DB489-1005","name":"RADTitle","kind":"Caption","text":"","x":9,"y":4,"width":196,"height":18,"anchor":"Width","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
-    {"id":"RULE-W7DB489-1006","name":"STC_Titulo_Tabela","kind":"Caption","text":"Etiqueta","x":19,"y":108,"width":301,"height":26,"anchor":"<None>","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
+    {"id":"RULE-W7DB489-1005","name":"RADTitle","kind":"Caption","text":"","x":9,"y":4,"width":196,"height":18,"anchor":"Width","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"center"},
+    {"id":"RULE-W7DB489-1006","name":"STC_Titulo_Tabela","kind":"Caption","text":"Etiqueta","x":19,"y":108,"width":301,"height":26,"anchor":"<None>","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"center"},
     {"id":"RULE-W7DB489-1007","name":"BTN_SYST_FERMER","kind":"Button","text":"","x":295,"y":0,"width":44,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Close.gif","skin":"MediaPlayer_Btn_Close_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-W7DB489-1008","name":"BTN_SYST_MINIMIZE","kind":"Button","text":"","x":245,"y":0,"width":26,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Minimize.gif","skin":"MediaPlayer_Btn_Minimize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-W7DB489-1009","name":"BTN_Syst_Maximize","kind":"Button","text":"","x":271,"y":0,"width":25,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Maximise.gif","skin":"MediaPlayer_Btn_Maximize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
@@ -118,6 +118,8 @@ async function designerProperties(frame: Locator, unit: string, title: string, d
     expect(Math.abs(box.x - base.x - expected.x), source.id + " x").toBeLessThan(0.6); expect(Math.abs(box.y - base.y - expected.y), source.id + " y").toBeLessThan(0.6);
     expect(Math.abs(box.width - expected.width), source.id + " width").toBeLessThan(0.6); expect(Math.abs(box.height - expected.height), source.id + " height").toBeLessThan(0.6);
     if (source.kind === "Caption") {
+      if (source.hAlign) await expect(node).toHaveCSS("text-align", source.hAlign === "justified" ? "justify" : source.hAlign);
+      if (source.name !== "RADTitle" && source.vAlign) await expect(node).toHaveCSS("align-items", source.vAlign === "top" ? "start" : source.vAlign === "bottom" ? "end" : "center");
       await expect(node, source.id).toHaveText(source.name === "RADTitle" ? title : source.name === "STC_Titulo_Tabela" ? `Estados de reparação que pedem data de ${title === "Mapa de Vendas" ? "entrega" : "pagamento"}` : source.text);
       expect(await node.locator("*").count(), source.id + " plain text").toBe(0); await expect(node).toHaveCSS("animation-name", "none");
     } else {

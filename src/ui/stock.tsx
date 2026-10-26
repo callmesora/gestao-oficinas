@@ -27,7 +27,7 @@ import articleLayout from "./legacy/WIN_Table_artigos.layout.json";
 import { WdButton } from "./legacy/wd";
 import { WdTable } from "./legacy/table";
 import { useTableLayout } from "./legacy/table-layout";
-import { controlOf, type LegacyLayout, type LegacyColumn } from "./legacy/layout";
+import { controlOf, type LegacyLayout, type LegacyColumn, type LegacyControl } from "./legacy/layout";
 import { WdRadControls, type WdRadBinding } from "./legacy/rad-controls";
 import { WdModal, type WdModalHandle } from "./legacy/modal";
 import type { WdDateEditHandle } from "./legacy/date";
@@ -36,11 +36,16 @@ import { DialogProvider, useDialogs } from "./legacy/dialogs";
 import { decimalMaskOf, decimalMaskDisplay, decimalMaskValue, decimalMaskEdit, type DecimalMask } from "./legacy/decimal-entry";
 
 // JPG-backed source text, retaining original geometry/assets. Missing kind is local presentation only (U01).
-function captions(layout: LegacyLayout, replacements: Record<string, string>, title?: string): LegacyLayout {
-  return { ...layout, window: { ...layout.window, ...(title ? { title } : {}) }, controls: layout.controls.map(c => ({ ...c, ...(replacements[c.name] ? { caption: replacements[c.name], ...(c.kind === "control" ? { kind: c.name.startsWith("BTN_") ? "Button" : "Caption" } : {}) } : {}), ...(c.columns ? { columns: c.columns.map(column => replacements[column.name] ? { ...column, title: replacements[column.name] } : column) } : {}) })) };
+function captions(layout: LegacyLayout, replacements: Record<string, string>, title?: string, properties: Record<string, Partial<LegacyControl>> = {}): LegacyLayout {
+  return { ...layout, window: { ...layout.window, ...(title ? { title } : {}) }, controls: layout.controls.map(c => ({ ...c, ...properties[c.name], ...(replacements[c.name] ? { caption: replacements[c.name], ...(c.kind === "control" ? { kind: c.name.startsWith("BTN_") ? "Button" : "Caption" } : {}) } : {}), ...(c.columns ? { columns: c.columns.map(column => replacements[column.name] ? { ...column, title: replacements[column.name] } : column) } : {}) })) };
 }
 const listLayout = captions(listSource, { STC_Descricao: "Descrição", EDT_Do_n: "Do nº", EDT_Ao_n: "Ao nº", COL_Numero: "Número", COL_descricao: "Descrição" });
-const lineLayout = captions(lineSource, { STC_Descricao: "Descrição", STC_Número: "Número", STC_Descrição_do_Artigo: "Descrição do Artigo", COL_Descricao: "Descrição do artigo" });
+// Dossier aliases STC_Descriçªo_do_Artigo/STC_Nœmero retain these literal
+// properties; the actual accented controls carry only geometry/flags in the extract.
+const lineLayout = captions(lineSource, { STC_Descricao: "Descrição", STC_Número: "Número", STC_Descrição_do_Artigo: "Descrição do Artigo", COL_Descricao: "Descrição do artigo" }, undefined, {
+  STC_Descrição_do_Artigo: { anchoring: "Bottom", state: "Active", input_type: "Text", input_mask: "0", h_align: "Left", v_align: "Top" },
+  STC_Número: { anchoring: "<None>", state: "Active", input_type: "Text", input_mask: "0", h_align: "Left", v_align: "Center" },
+});
 const inventoryLayout = captions(inventorySource, { RADTitle: "Inventário", COL_Descricao: "Descrição" }, "Inventário");
 const rebuildLayout = captions(rebuildSource, { RADTitle: "Reconstrução de Stocks" }, "Reconstrução de Stocks");
 const inventoryRebuildLayout = captions(inventoryRebuildSource, { RADTitle: "Reconstrução de Stocks", BTN_Reconstruir1: "Não", STC_reconstrucao_stocks: "É aconselhada a reconstrução dos stocks.\r\nPretende fazê-lo agora?" }, "Reconstrução de Stocks");

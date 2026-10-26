@@ -3,7 +3,7 @@ import type { StockReadResult } from "../packages/domain/src/stock";
 import type { Terminal } from "../packages/domain/src/terminals";
 import type { Posto } from "../packages/domain/src/postos";
 
-type Result = { kind: string; id: string; rows: { id: string }[]; documentTypes: { Codigo: string }[]; documentType: { id: string }; mechanics: { Codigo: number }[]; mechanic: { id: string }; terminals: Terminal[]; terminal: Terminal; postos: Posto[]; posto: Posto };
+type Result = { kind: string; id: string; rows: { id: string; documento_numero: string | null }[]; documents: { Codigo: string | null }[]; documentTypes: { Codigo: string }[]; documentType: { id: string }; mechanics: { Codigo: number }[]; mechanic: { id: string }; terminals: Terminal[]; terminal: Terminal; postos: Posto[]; posto: Posto };
 async function apiFor(request: APIRequestContext) {
   const session = await request.post("/api/development/session", { headers: { Origin: "http://localhost:1431", "X-Isolated-Development": "1" } }); expect(session.ok()).toBe(true);
   const { token } = await session.json();
@@ -118,7 +118,8 @@ test("stock proof modify restores the original nondefault mechanic and disables 
   try {
     await page.goto("/?workflow=stock"); await page.getByTestId("stock-open").click(); const list = page.getByTestId("WIN_Table_cab_stocks");
     await list.getByTestId("COMBO_tipo_doc").selectOption(code);
-    await list.getByTestId("TABLE_cab_stocks").locator("tbody tr").first().dblclick(); const form = page.getByTestId("WIN_Table_Lin_Stocks");
+    await list.getByTestId("TABLE_cab_stocks").getByRole("cell", { name: "Original header Ω", exact: true }).click();
+    await expect(list.getByTestId("BTN_alterar")).toBeEnabled(); await list.getByTestId("BTN_alterar").click(); const form = page.getByTestId("WIN_Table_Lin_Stocks");
     await expect(form.getByTestId("EDT_Numero")).toHaveValue("7"); await expect(form.getByTestId("EDT_Numero")).toHaveAttribute("readonly", "");
     await expect(form.getByTestId("EDT_Data")).toHaveValue("29/02/2024"); await expect(form.getByTestId("EDT_Data")).toBeDisabled();
     await expect(form.getByTestId("COMBO_tipo_doc")).toBeDisabled(); await expect(form.getByTestId("BTN_VISION")).toBeDisabled();
@@ -128,13 +129,13 @@ test("stock proof modify restores the original nondefault mechanic and disables 
   } finally { await api("stock", "delete", { id: created.id }); await api("mechanics", "delete", { id: mechanic.mechanic.id }); await api("document-types", "delete", { id: doc.documentType.id }); }
 });
 
-type DesignerOracle = { id: string; name: string; kind: string; state?: string; tabOrder?: number | string; buttonType?: string; text: string; x: number; y: number; width: number; height: number; anchor: string; visible: boolean; tab: boolean; icon: string; skin: string };
+type DesignerOracle = { id: string; name: string; kind: string; hAlign?: string; vAlign?: string; state?: string; tabOrder?: number | string; buttonType?: string; text: string; x: number; y: number; width: number; height: number; anchor: string; visible: boolean; tab: boolean; icon: string; skin: string };
 const designerOracles: Record<string, DesignerOracle[]> = {
   "WIN_Extrato_Artigos": [
     {"id":"RULE-W13F458-1001","name":"BTN_VISION3","kind":"Button","text":"","x":296,"y":159,"width":42,"height":24,"anchor":"<None>","visible":true,"tab":true,"icon":"Btn_VisionPlus.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":7,"buttonType":"Normal"},
     {"id":"RULE-W13F458-1002","name":"BTN_VISION4","kind":"Button","text":"","x":296,"y":129,"width":42,"height":24,"anchor":"<None>","visible":true,"tab":true,"icon":"Btn_VisionPlus.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":5,"buttonType":"Normal"},
     {"id":"RULE-W13F458-1003","name":"BTN_Visualizar_impressão","kind":"Button","text":"Visualizar impressão","x":99,"y":204,"width":179,"height":37,"anchor":"<None>","visible":true,"tab":true,"icon":"","skin":"","state":"Active","tabOrder":8,"buttonType":"Normal"},
-    {"id":"RULE-W13F458-1008","name":"RADTitle","kind":"Caption","text":"Extrato de Artigos","x":9,"y":4,"width":221,"height":18,"anchor":"Width","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
+    {"id":"RULE-W13F458-1008","name":"RADTitle","kind":"Caption","text":"Extrato de Artigos","x":9,"y":4,"width":221,"height":18,"anchor":"Width","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"center"},
     {"id":"RULE-W13F458-1009","name":"BTN_SYST_FERMER","kind":"Button","text":"","x":320,"y":0,"width":44,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Close.gif","skin":"MediaPlayer_Btn_Close_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-W13F458-1010","name":"BTN_SYST_MINIMIZE","kind":"Button","text":"","x":270,"y":0,"width":26,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Minimize.gif","skin":"MediaPlayer_Btn_Minimize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-W13F458-1011","name":"BTN_Syst_Maximize","kind":"Button","text":"","x":296,"y":0,"width":25,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Maximise.gif","skin":"MediaPlayer_Btn_Maximize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
@@ -143,7 +144,7 @@ const designerOracles: Record<string, DesignerOracle[]> = {
   "WIN_Inventario": [
     {"id":"RULE-W450C10-1001","name":"BTN_Imprimir","kind":"Button","text":"Imprimir","x":19,"y":466,"width":94,"height":43,"anchor":"Right and bottom, height and width","visible":true,"tab":true,"icon":"Btn_Print.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":3,"buttonType":"Normal"},
     {"id":"RULE-W450C10-1002","name":"BTN_Sair","kind":"Button","text":"Sair","x":521,"y":466,"width":94,"height":43,"anchor":"Right and bottom, height and width","visible":true,"tab":true,"icon":"Btn_Close.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":4,"buttonType":"Abort"},
-    {"id":"RULE-W450C10-1004","name":"RADTitle","kind":"Caption","text":"Inventário","x":9,"y":4,"width":485,"height":18,"anchor":"Width","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
+    {"id":"RULE-W450C10-1004","name":"RADTitle","kind":"Caption","text":"Inventário","x":9,"y":4,"width":485,"height":18,"anchor":"Width","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"center"},
     {"id":"RULE-W450C10-1005","name":"BTN_SYST_FERMER","kind":"Button","text":"","x":584,"y":0,"width":44,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Close.gif","skin":"MediaPlayer_Btn_Close_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-W450C10-1006","name":"BTN_SYST_MINIMIZE","kind":"Button","text":"","x":534,"y":0,"width":26,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Minimize.gif","skin":"MediaPlayer_Btn_Minimize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-W450C10-1007","name":"BTN_Syst_Maximize","kind":"Button","text":"","x":560,"y":0,"width":25,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Maximise.gif","skin":"MediaPlayer_Btn_Maximize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
@@ -152,8 +153,8 @@ const designerOracles: Record<string, DesignerOracle[]> = {
   "WIN_Inventario_Reconstrucao": [
     {"id":"RULE-WB2F707-1000","name":"BTN_Reconstruir","kind":"Button","text":"Sim","x":34,"y":118,"width":117,"height":48,"anchor":"<None>","visible":true,"tab":true,"icon":"Btn_OK.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":2,"buttonType":"Normal"},
     {"id":"RULE-WB2F707-1001","name":"BTN_Reconstruir1","kind":"Button","text":"Não","x":164,"y":118,"width":117,"height":48,"anchor":"<None>","visible":true,"tab":true,"icon":"Btn_Cancel.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":3,"buttonType":"Normal"},
-    {"id":"RULE-WB2F707-1003","name":"RADTitle","kind":"Caption","text":"Reconstrução de Stocks","x":9,"y":4,"width":191,"height":18,"anchor":"Width","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
-    {"id":"RULE-WB2F707-1004","name":"STC_reconstrucao_stocks","kind":"Caption","text":"É aconselhada a reconstrução dos stocks.\r\nPretende fazê-lo agora?","x":19,"y":36,"width":287,"height":79,"anchor":"<None>","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
+    {"id":"RULE-WB2F707-1003","name":"RADTitle","kind":"Caption","text":"Reconstrução de Stocks","x":9,"y":4,"width":191,"height":18,"anchor":"Width","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"center"},
+    {"id":"RULE-WB2F707-1004","name":"STC_reconstrucao_stocks","kind":"Caption","text":"É aconselhada a reconstrução dos stocks.\r\nPretende fazê-lo agora?","x":19,"y":36,"width":287,"height":79,"anchor":"<None>","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"center","vAlign":"center"},
     {"id":"RULE-WB2F707-1005","name":"BTN_SYST_FERMER","kind":"Button","text":"","x":268,"y":0,"width":44,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Close.gif","skin":"MediaPlayer_Btn_Close_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-WB2F707-1006","name":"BTN_SYST_MINIMIZE","kind":"Button","text":"","x":218,"y":0,"width":26,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Minimize.gif","skin":"MediaPlayer_Btn_Minimize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-WB2F707-1007","name":"BTN_Syst_Maximize","kind":"Button","text":"","x":244,"y":0,"width":25,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Maximise.gif","skin":"MediaPlayer_Btn_Maximize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
@@ -162,8 +163,8 @@ const designerOracles: Record<string, DesignerOracle[]> = {
   "WIN_Leitor_cod_barras": [
     {"id":"RULE-WAFCFDF-1001","name":"BTN_Cancelar","kind":"Button","text":"Cancelar","x":281,"y":541,"width":88,"height":38,"anchor":"Right and bottom","visible":true,"tab":true,"icon":"Btn_Close.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":4,"buttonType":"Abort"},
     {"id":"RULE-WAFCFDF-1002","name":"BTN_Confirmar","kind":"Button","text":"Confirmar","x":187,"y":541,"width":88,"height":38,"anchor":"Right and bottom","visible":true,"tab":true,"icon":"Btn_OK.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":3,"buttonType":"Validate"},
-    {"id":"RULE-WAFCFDF-1004","name":"RADTitle","kind":"Caption","text":"Códigos de barras","x":9,"y":4,"width":239,"height":18,"anchor":"Width","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
-    {"id":"RULE-WAFCFDF-1005","name":"STC_Códigos_de_barras_encontrados","kind":"Caption","text":"Códigos de barras encontrados no ficheiro","x":19,"y":36,"width":350,"height":25,"anchor":"<None>","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
+    {"id":"RULE-WAFCFDF-1004","name":"RADTitle","kind":"Caption","text":"Códigos de barras","x":9,"y":4,"width":239,"height":18,"anchor":"Width","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"center"},
+    {"id":"RULE-WAFCFDF-1005","name":"STC_Códigos_de_barras_encontrados","kind":"Caption","text":"Códigos de barras encontrados no ficheiro","x":19,"y":36,"width":350,"height":25,"anchor":"<None>","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"top"},
     {"id":"RULE-WAFCFDF-1006","name":"BTN_SYST_FERMER","kind":"Button","text":"","x":338,"y":0,"width":44,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Close.gif","skin":"MediaPlayer_Btn_Close_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-WAFCFDF-1007","name":"BTN_SYST_MINIMIZE","kind":"Button","text":"","x":288,"y":0,"width":26,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Minimize.gif","skin":"MediaPlayer_Btn_Minimize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-WAFCFDF-1008","name":"BTN_Syst_Maximize","kind":"Button","text":"","x":314,"y":0,"width":25,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Maximise.gif","skin":"MediaPlayer_Btn_Maximize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
@@ -171,8 +172,8 @@ const designerOracles: Record<string, DesignerOracle[]> = {
   ],
   "WIN_Leitor_cod_barras_desconhecidos": [
     {"id":"RULE-WB2879B-1001","name":"BTN_Confirmar","kind":"Button","text":"Confirmar","x":281,"y":541,"width":88,"height":38,"anchor":"Right and bottom","visible":true,"tab":true,"icon":"Btn_OK.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":3,"buttonType":"Validate"},
-    {"id":"RULE-WB2879B-1003","name":"RADTitle","kind":"Caption","text":"Códigos de barras","x":9,"y":4,"width":239,"height":18,"anchor":"Width","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
-    {"id":"RULE-WB2879B-1004","name":"STC_Códigos_de_barras_desconhecidos","kind":"Caption","text":"Códigos de barras desconhecidos","x":19,"y":36,"width":350,"height":25,"anchor":"<None>","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
+    {"id":"RULE-WB2879B-1003","name":"RADTitle","kind":"Caption","text":"Códigos de barras","x":9,"y":4,"width":239,"height":18,"anchor":"Width","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"center"},
+    {"id":"RULE-WB2879B-1004","name":"STC_Códigos_de_barras_desconhecidos","kind":"Caption","text":"Códigos de barras desconhecidos","x":19,"y":36,"width":350,"height":25,"anchor":"<None>","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"top"},
     {"id":"RULE-WB2879B-1005","name":"BTN_SYST_FERMER","kind":"Button","text":"","x":338,"y":0,"width":44,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Close.gif","skin":"MediaPlayer_Btn_Close_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-WB2879B-1006","name":"BTN_SYST_MINIMIZE","kind":"Button","text":"","x":288,"y":0,"width":26,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Minimize.gif","skin":"MediaPlayer_Btn_Minimize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-WB2879B-1007","name":"BTN_Syst_Maximize","kind":"Button","text":"","x":314,"y":0,"width":25,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Maximise.gif","skin":"MediaPlayer_Btn_Maximize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
@@ -180,7 +181,7 @@ const designerOracles: Record<string, DesignerOracle[]> = {
   ],
   "WIN_Reconstrucao_Stocks": [
     {"id":"RULE-W541EAA-1000","name":"BTN_Reconstruir","kind":"Button","text":"Reconstruir","x":69,"y":64,"width":149,"height":64,"anchor":"<None>","visible":true,"tab":true,"icon":"Btn_OK.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":2,"buttonType":"Normal"},
-    {"id":"RULE-W541EAA-1002","name":"RADTitle","kind":"Caption","text":"Reconstrução de Stocks","x":9,"y":4,"width":169,"height":18,"anchor":"Width","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
+    {"id":"RULE-W541EAA-1002","name":"RADTitle","kind":"Caption","text":"Reconstrução de Stocks","x":9,"y":4,"width":169,"height":18,"anchor":"Width","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"center"},
     {"id":"RULE-W541EAA-1003","name":"BTN_SYST_FERMER","kind":"Button","text":"","x":235,"y":0,"width":44,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Close.gif","skin":"MediaPlayer_Btn_Close_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-W541EAA-1004","name":"BTN_SYST_MINIMIZE","kind":"Button","text":"","x":185,"y":0,"width":26,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Minimize.gif","skin":"MediaPlayer_Btn_Minimize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-W541EAA-1005","name":"BTN_Syst_Maximize","kind":"Button","text":"","x":211,"y":0,"width":25,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Maximise.gif","skin":"MediaPlayer_Btn_Maximize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
@@ -191,9 +192,9 @@ const designerOracles: Record<string, DesignerOracle[]> = {
     {"id":"RULE-W7C9411-1003","name":"BTN_VISION","kind":"Button","text":"","x":187,"y":36,"width":42,"height":24,"anchor":"Right","visible":true,"tab":true,"icon":"Btn_VisionPlus.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":2,"buttonType":"Normal"},
     {"id":"RULE-W7C9411-1004","name":"BTN_alterar","kind":"Button","text":"Alterar","x":675,"y":156,"width":106,"height":46,"anchor":"Right","visible":true,"tab":true,"icon":"Btn_Modif.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":11,"buttonType":"Normal"},
     {"id":"RULE-W7C9411-1005","name":"BTN_novo","kind":"Button","text":"Novo","x":675,"y":104,"width":106,"height":46,"anchor":"Right","visible":true,"tab":true,"icon":"Btn_New.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":10,"buttonType":"Normal"},
-    {"id":"RULE-W7C9411-1012","name":"RADTitle","kind":"Caption","text":"Movimentos de Stocks","x":9,"y":4,"width":651,"height":18,"anchor":"Width","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
-    {"id":"RULE-W7C9411-1013","name":"STC_Descricao","kind":"Caption","text":"Descrição","x":556,"y":36,"width":100,"height":20,"anchor":"Right","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
-    {"id":"RULE-W7C9411-1014","name":"STC_Tipo_de_Documento","kind":"Caption","text":"Tipo de Documento","x":19,"y":36,"width":100,"height":20,"anchor":"<None>","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
+    {"id":"RULE-W7C9411-1012","name":"RADTitle","kind":"Caption","text":"Movimentos de Stocks","x":9,"y":4,"width":651,"height":18,"anchor":"Width","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"center"},
+    {"id":"RULE-W7C9411-1013","name":"STC_Descricao","kind":"Caption","text":"Descrição","x":556,"y":36,"width":100,"height":20,"anchor":"Right","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"center"},
+    {"id":"RULE-W7C9411-1014","name":"STC_Tipo_de_Documento","kind":"Caption","text":"Tipo de Documento","x":19,"y":36,"width":100,"height":20,"anchor":"<None>","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"center"},
     {"id":"RULE-W7C9411-1015","name":"BTN_SYST_FERMER","kind":"Button","text":"","x":750,"y":0,"width":44,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Close.gif","skin":"MediaPlayer_Btn_Close_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-W7C9411-1016","name":"BTN_SYST_MINIMIZE","kind":"Button","text":"","x":700,"y":0,"width":26,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Minimize.gif","skin":"MediaPlayer_Btn_Minimize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-W7C9411-1017","name":"BTN_Syst_Maximize","kind":"Button","text":"","x":726,"y":0,"width":25,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Maximise.gif","skin":"MediaPlayer_Btn_Maximize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
@@ -208,16 +209,16 @@ const designerOracles: Record<string, DesignerOracle[]> = {
     {"id":"RULE-W7E91C1-1006","name":"BTN_NoName1","kind":"Button","text":"...","x":155,"y":498,"width":47,"height":36,"anchor":"Bottom","visible":true,"tab":true,"icon":"","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":12,"buttonType":"Normal"},
     {"id":"RULE-W7E91C1-1008","name":"BTN_VISION","kind":"Button","text":"","x":339,"y":65,"width":42,"height":24,"anchor":"Right","visible":true,"tab":true,"icon":"Btn_VisionPlus.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":5,"buttonType":"Normal"},
     {"id":"RULE-W7E91C1-1009","name":"BTN_VISION2","kind":"Button","text":"","x":710,"y":126,"width":42,"height":24,"anchor":"Right","visible":true,"tab":true,"icon":"Btn_VisionPlus.gif","skin":"MediaPlayer_Btn_anim.gif","state":"Active","tabOrder":7,"buttonType":"Normal"},
-    {"id":"RULE-W7E91C1-1019","name":"RADTitle","kind":"Caption","text":"Movimentos de Stocks","x":9,"y":4,"width":651,"height":18,"anchor":"Width","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
-    {"id":"RULE-W7E91C1-1020","name":"STC_Código","kind":"Caption","text":"Código","x":19,"y":483,"width":100,"height":20,"anchor":"Bottom","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
-    {"id":"RULE-W7E91C1-1021","name":"STC_Data","kind":"Caption","text":"Data","x":613,"y":36,"width":100,"height":20,"anchor":"<None>","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
-    {"id":"RULE-W7E91C1-1022","name":"STC_Descricao","kind":"Caption","text":"Descrição","x":19,"y":104,"width":100,"height":20,"anchor":"Right","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
-    {"id":"RULE-W7E91C1-1023","name":"STC_Descrição_do_Artigo","kind":"Caption","text":"Descrição do Artigo","x":208,"y":483,"width":183,"height":20,"anchor":"Bottom","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
-    {"id":"RULE-W7E91C1-1024","name":"STC_Mecanico","kind":"Caption","text":"Mecânico","x":503,"y":101,"width":100,"height":20,"anchor":"Right","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
-    {"id":"RULE-W7E91C1-1025","name":"STC_Número","kind":"Caption","text":"Número","x":421,"y":36,"width":100,"height":20,"anchor":"<None>","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
-    {"id":"RULE-W7E91C1-1026","name":"STC_Preço","kind":"Caption","text":"Preço","x":614,"y":483,"width":42,"height":20,"anchor":"Bottom","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
-    {"id":"RULE-W7E91C1-1027","name":"STC_Quantidade","kind":"Caption","text":"Quantidade","x":532,"y":483,"width":65,"height":20,"anchor":"Bottom","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
-    {"id":"RULE-W7E91C1-1028","name":"STC_Tipo_de_Documento","kind":"Caption","text":"Tipo de Documento","x":19,"y":36,"width":100,"height":20,"anchor":"<None>","visible":true,"tab":true,"icon":"","skin":"","state":"Active"},
+    {"id":"RULE-W7E91C1-1019","name":"RADTitle","kind":"Caption","text":"Movimentos de Stocks","x":9,"y":4,"width":651,"height":18,"anchor":"Width","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"center"},
+    {"id":"RULE-W7E91C1-1020","name":"STC_Código","kind":"Caption","text":"Código","x":19,"y":483,"width":100,"height":20,"anchor":"Bottom","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"top"},
+    {"id":"RULE-W7E91C1-1021","name":"STC_Data","kind":"Caption","text":"Data","x":613,"y":36,"width":100,"height":20,"anchor":"<None>","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"center"},
+    {"id":"RULE-W7E91C1-1022","name":"STC_Descricao","kind":"Caption","text":"Descrição","x":19,"y":104,"width":100,"height":20,"anchor":"Right","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"top"},
+    {"id":"RULE-W7E91C1-1023","name":"STC_Descrição_do_Artigo","kind":"Caption","text":"Descrição do Artigo","x":208,"y":483,"width":183,"height":20,"anchor":"Bottom","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"top"},
+    {"id":"RULE-W7E91C1-1024","name":"STC_Mecanico","kind":"Caption","text":"Mecânico","x":503,"y":101,"width":100,"height":20,"anchor":"Right","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"center"},
+    {"id":"RULE-W7E91C1-1025","name":"STC_Número","kind":"Caption","text":"Número","x":421,"y":36,"width":100,"height":20,"anchor":"<None>","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"center"},
+    {"id":"RULE-W7E91C1-1026","name":"STC_Preço","kind":"Caption","text":"Preço","x":614,"y":483,"width":42,"height":20,"anchor":"Bottom","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"top"},
+    {"id":"RULE-W7E91C1-1027","name":"STC_Quantidade","kind":"Caption","text":"Quantidade","x":532,"y":483,"width":65,"height":20,"anchor":"Bottom","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"top"},
+    {"id":"RULE-W7E91C1-1028","name":"STC_Tipo_de_Documento","kind":"Caption","text":"Tipo de Documento","x":19,"y":36,"width":100,"height":20,"anchor":"<None>","visible":true,"tab":true,"icon":"","skin":"","state":"Active","hAlign":"left","vAlign":"center"},
     {"id":"RULE-W7E91C1-1029","name":"BTN_SYST_FERMER","kind":"Button","text":"","x":750,"y":0,"width":44,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Close.gif","skin":"MediaPlayer_Btn_Close_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-W7E91C1-1030","name":"BTN_SYST_MINIMIZE","kind":"Button","text":"","x":700,"y":0,"width":26,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Minimize.gif","skin":"MediaPlayer_Btn_Minimize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
     {"id":"RULE-W7E91C1-1031","name":"BTN_Syst_Maximize","kind":"Button","text":"","x":726,"y":0,"width":25,"height":19,"anchor":"<None>","visible":true,"tab":false,"icon":"MediaPlayer_Btn_Maximise.gif","skin":"MediaPlayer_Btn_Maximize_Anim.gif","state":"Active","tabOrder":"-1","buttonType":"Normal"},
@@ -261,6 +262,8 @@ async function designerProperties(frame: Locator, unit: string, title: string, d
     expect(Math.abs(box.x - base.x - expected.x), source.id + " x").toBeLessThan(0.6); expect(Math.abs(box.y - base.y - expected.y), source.id + " y").toBeLessThan(0.6);
     expect(Math.abs(box.width - expected.width), source.id + " width").toBeLessThan(0.6); expect(Math.abs(box.height - expected.height), source.id + " height").toBeLessThan(0.6);
     if (source.kind === "Caption") {
+      if (source.hAlign) await expect(node).toHaveCSS("text-align", source.hAlign === "justified" ? "justify" : source.hAlign);
+      if (source.name !== "RADTitle" && source.vAlign) await expect(node).toHaveCSS("align-items", source.vAlign === "top" ? "start" : source.vAlign === "bottom" ? "end" : "center");
       await expect(node, source.id).toHaveText(source.name === "RADTitle" ? title : source.name === "STC_Titulo_Tabela" ? `Estados de reparação que pedem data de ${title === "Mapa de Vendas" ? "entrega" : "pagamento"}` : source.text);
       expect(await node.locator("*").count(), source.id + " plain text").toBe(0); await expect(node).toHaveCSS("animation-name", "none");
     } else {
@@ -289,3 +292,18 @@ test("stock proof actual stock list chrome and static properties retain filters 
 });
 
 async function workspaceBounds(frame: Locator) { return frame.evaluate(element => { const box = element.getBoundingClientRect(), canvas = element.closest(".wd-workspace-canvas")!, parent = canvas.getBoundingClientRect(); return { x: box.x - parent.x + canvas.scrollLeft, y: box.y - parent.y + canvas.scrollTop, width: box.width, height: box.height }; }); }
+
+test("stock proof new document uses the first actual source document exact MAX plus one today quantity one and article focus", async ({ page, request }) => {
+  const api = await apiFor(request), initial = await api("stock", "list", {}); expect(initial.kind).toBe("loaded"); expect(initial.documents.length).toBeGreaterThan(0);
+  const first = initial.documents[0].Codigo ?? "", current = await api("stock", "list", { document: first, from: "-9999999999999999999", to: "99999999999999999999" });
+  const maximum = current.rows.reduce((value, row) => row.documento_numero !== null && BigInt(row.documento_numero) > value ? BigInt(row.documento_numero) : value, 0n);
+  const expectedNumber = (maximum + 1n).toString();
+  await page.goto("/?workflow=stock"); const today = await page.evaluate(() => { const date = new Date(); return `${String(date.getDate()).padStart(2, "0")}/${String(date.getMonth() + 1).padStart(2, "0")}/${date.getFullYear()}`; });
+  await page.getByTestId("stock-open").click(); const list = page.getByTestId("WIN_Table_cab_stocks"); await expect(list.getByTestId("BTN_novo")).toBeEnabled(); await list.getByTestId("BTN_novo").click();
+  const form = page.getByTestId("WIN_Table_Lin_Stocks"); await expect(form.getByTestId("COMBO_tipo_doc")).toHaveValue(first); await expect(form.getByTestId("COMBO_tipo_doc")).toBeEnabled();
+  await expect(form.getByTestId("EDT_Numero")).toHaveValue(expectedNumber); await expect(form.getByTestId("EDT_Numero")).toHaveAttribute("readonly", "");
+  await expect(form.getByTestId("EDT_Data")).toHaveValue(today); await expect(form.getByTestId("EDT_Data")).toBeEnabled(); await expect(form.getByTestId("EDT_quant")).toHaveValue("1,000");
+  await expect(form.getByTestId("EDT_preco")).toHaveValue("0,00"); await expect(form.getByTestId("EDT_codigo")).toHaveValue(""); await expect(form.getByTestId("EDT_codigo")).toBeFocused();
+  await expect(form.getByTestId("TABLE_lin_Stocks").locator("tbody tr")).toHaveCount(0); await form.getByTestId("BTN_SYST_FERMER").click(); await page.getByTestId("WINDEVDIALOGBOX").getByRole("button", { name: "Sim", exact: true }).click();
+  await expect(form).toHaveCount(0); expect((await api("stock", "list", { document: first, from: "-9999999999999999999", to: "99999999999999999999" })).rows).toEqual(current.rows);
+});
