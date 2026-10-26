@@ -168,8 +168,29 @@ it("programmatic service/material reports use reception customer and preserve li
   expect(controls(materials.html, "STC_Total_material")).toEqual(["€ 1,234567  "]);
   expect(controls(materials.html, "STC_informacao")).toEqual(["Nrº Ordem Reparação: 10\r\nMatrícula: AA   MARCA/MODELO\r\nCliente: RECEPTION CUSTOMER"]);
   expect(materials.html).not.toContain("UNRELATED DATABASE MATERIAL");
-  // The captured dossier binds the price-named control to launched; preserve that source anomaly.
-  expect(controls(materials.html, "ITEM_COL_preco")).toEqual(["1", "0"]);
+  // ADR005: price and launched are distinct; totals still belong to the caller.
+  expect(controls(materials.html, "ITEM_COL_preco")).toEqual(["3.5", "99"]);
+  expect(controls(materials.html, "INT_COL_lancado")).toEqual(["1", "0"]);
+});
+
+it("ADR005 price columns preserve exact decimal, zero and NULL independently from status flags and caller totals", async () => {
+  await database.query(`INSERT INTO app."artigos" ("artigosID","Codigo","Descricao","preco","inativo")
+    VALUES (1,'A','DECIMAL',12.34567890123456789,true),(2,'B','ZERO',0,false),(3,'C','NULL',NULL,true)`);
+  const articles = await document("RPT_List_artigos", { kind: "embedded-query" });
+  expect(controls(articles.html, "ITEM_Preco")).toEqual(["12.34567890123456789", "0", ""]);
+  expect(controls(articles.html, "INT_Inativo")).toEqual(["true", "false", "true"]);
+  const materials = await document("RPT_Materiais", { kind: "window-table", window: "WIN_Table_Tempos_materiais_Descricoes", table: "TABLE_materiais", orderNumber: "99999", formattedTotal: "TOTAL DO CHAMADOR  ", rows: [
+    { COL_cod_art: "C", COL_desc_artigo: "NULL", COL_quant: "1", COL_preco: null, COL_lancado: "1" },
+    { COL_cod_art: "A", COL_desc_artigo: "DECIMAL", COL_quant: "2", COL_preco: "12.34567890123456789", COL_lancado: "0" },
+    { COL_cod_art: "B", COL_desc_artigo: "ZERO", COL_quant: "3", COL_preco: "0", COL_lancado: "1" },
+  ] });
+  expect(controls(materials.html, "ITEM_COL_cod_art")).toEqual(["C", "A", "B"]);
+  expect(controls(materials.html, "ITEM_COL_preco")).toEqual(["", "12.34567890123456789", "0"]);
+  expect(controls(materials.html, "INT_COL_lancado")).toEqual(["1", "0", "1"]);
+  expect(controls(materials.html, "STC_Total_material")).toEqual(["TOTAL DO CHAMADOR  "]);
+  expect((await database.query('SELECT "Codigo","preco"::text,"inativo" FROM app."artigos" ORDER BY "artigosID"')).rows).toEqual([
+    { Codigo: "A", preco: "12.34567890123456789", inativo: true }, { Codigo: "B", preco: "0", inativo: false }, { Codigo: "C", preco: null, inativo: true },
+  ]);
 });
 
 it("each of the26 other source report Open events assigns the actual company context into its generated offline PDF", async () => {

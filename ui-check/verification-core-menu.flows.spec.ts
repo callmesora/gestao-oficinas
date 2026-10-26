@@ -67,8 +67,8 @@ test("WIN_sistema proposed chrome retains draft and close/cancel leave persisted
   await system.getByTestId("BTN_Syst_Maximize").click(); expect((await frame.boundingBox())!.width).toBe(original.width);
   await field.focus(); await system.getByTestId("BTN_SYST_MINIMIZE").click(); await expect(field).toBeHidden(); await page.getByTestId("system-restore").click();
   await expect(field).toHaveValue("98"); await expect(field).toBeFocused(); await system.getByTestId("BTN_SYST_FERMER").click(); await expect(system).toHaveCount(0);
-  await menu.getByTestId("OPT_Sistema").click(); await expect(field).toHaveValue(value); await field.fill("97"); await system.getByTestId("BTN_Cancelar").click();
-  await menu.getByTestId("OPT_Sistema").click(); await expect(field).toHaveValue(value); expect(writes).toBe(0);
+  await menu.getByText("Menu", { exact: true }).click(); await menu.getByTestId("OPT_Sistema").click(); await expect(field).toHaveValue(value); await field.fill("97"); await system.getByTestId("BTN_Cancelar").click();
+  await menu.getByText("Menu", { exact: true }).click(); await menu.getByTestId("OPT_Sistema").click(); await expect(field).toHaveValue(value); expect(writes).toBe(0);
 });
 
 test("WIN_MENU proposed chrome retains its actual child and closes the entered shell", async ({ page }) => {

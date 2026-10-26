@@ -120,10 +120,14 @@ it.each(cases)("$reportId real PDF retains source text, paper, footer and per-do
   if (footer) expect(text).toContain("Golfinho Software, Lda");
   if (counter) expect(controls(result.html, counter)).toEqual([String(count)]);
   if (reportId.startsWith("RPT_List_") || reportId === "RPT_inventario" || reportId.startsWith("RPT_Ordens_")) expect(text).toContain("Número de linhas:");
-  if (reportId === "RPT_List_artigos") expect(controls(result.html, "ITEM_Preco")).toEqual(["true", "false"]); // source binds inativo, not preco
+  if (reportId === "RPT_List_artigos") {
+    expect(controls(result.html, "ITEM_Preco")).toEqual(["99.99", "88.88"]); // ADR005 corrects the misleading source binding.
+    expect(text).toContain("99.99"); expect(text).toContain("88.88");
+  }
   if (reportId === "RPT_Materiais") {
     expect(controls(result.html, "ITEM_COL_cod_art")).toEqual(["B", "A"]);
-    expect(controls(result.html, "ITEM_COL_preco")).toEqual(["1", "0"]); // source binds lancado, not preco
+    expect(controls(result.html, "ITEM_COL_preco")).toEqual(["88.88", "99.99"]);
+    expect(text).toContain("88.88"); expect(text).toContain("99.99");
     expect(controls(result.html, "STC_Total_material")).toEqual(["TOTAL DO CHAMADOR 0,70 €  "]);
     expect(text).toContain("Cliente: CUSTB");
   }

@@ -1,6 +1,6 @@
 # Mapping — RPT_List_artigos
 
-Step 0 only. Source evidence is mapped; no application functionality is implemented. Review pending.
+Source inventory; current implementation and intentional target changes follow ADR-005. Original evidence and unresolved legacy questions remain recorded below.
 
 ## Purpose
 
@@ -46,7 +46,7 @@ Data source: `Embedded query`. The report specification reproduces the available
 
 ## Proposed changes
 
-No business or architecture change is accepted. Parameterized SQL, a new report engine, decimal and date helpers remain framing proposals in `docs/porting.md`. Preserve observed literals and event order; do not silently repair misleading titles, join conditions, reset timing or durations.
+Accepted runtime/report choices are in ADR-005. Its explicit price-column correction supersedes the misleading extracted binding; preserve the original evidence, other literals, event order, joins, totals and durations.
 
 ## Unresolved
 

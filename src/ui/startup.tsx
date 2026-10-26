@@ -43,7 +43,11 @@ export function MenuLaunchers({ windows, mode, system, terminate }: { windows: S
   if (mode === "labor" || mode === "materials") return windows.some(item => item.id === (mode === "labor" ? "repair-labor" : "repair-materials")) ? null : <output data-testid="startup-module-unavailable">Módulo indisponível nesta versão de desenvolvimento.</output>;
   const tab = controlOf(menuLayout, "TAB_NoName1"), group = controlOf(menuLayout, "TAB_NoName1.LAYOUT_NoName1");
   return <><div data-testid="WIN_MENU" style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
-    {mode !== "articles" && <nav className="startup-menu-bar" aria-label="Menu principal">
+    {mode !== "articles" && <nav className="startup-menu-bar" aria-label="Menu principal" onClick={event => {
+      if (!(event.target instanceof Element) || !event.target.closest("button")) return;
+      // A selected menu command releases the dropdown so its caller can be used on return.
+      event.currentTarget.querySelectorAll("details[open]").forEach(details => details.removeAttribute("open"));
+    }}>
       <details><summary>Menu</summary><div><button disabled={actionBusy} data-testid="OPT_Postos" onClick={() => { const definition = windows.find(item => item.id === "postos"); if (definition) launch(definition); }}>Postos</button><button disabled={actionBusy} data-testid="OPT_Sistema" onClick={system}>Sistema</button><button disabled={actionBusy} data-testid="MENU_OPT_Exit" onClick={terminate}>Sair</button></div></details>
       {([["tables", "Tabelas"], ["movements", "Movimentos"], ["reports", "Mapas"], ["utilities", "Utilitários"]] as const).map(([group, label]) => <details key={group}><summary>{label}</summary><div>{windows.filter(item => item.group === group && item.id !== "postos" && !item.toolbarOnly).map(item => <button key={item.id} disabled={actionBusy} data-testid={item.menuControl ?? `menu-${item.id}`} onClick={() => launch(item)}>{item.label}</button>)}</div></details>)}
     </nav>}

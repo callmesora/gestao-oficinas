@@ -17,6 +17,7 @@ test("MIG12 development menu opens actual customer list once, restores minimized
   await system.getByTestId("BTN_Guardar").click(); await expect(system).toHaveCount(0);
   expect((await startupServer.database.query('SELECT "Tempo_materiais"::text,"encerrar_tempos1" FROM app."sistema"')).rows).toEqual([{ Tempo_materiais: "30", encerrar_tempos1: "040506" }]);
   await startupServer.database.query('UPDATE app."sistema" SET "Tempo_materiais"=9007199254740993');
+  await menu.getByText("Menu", { exact: true }).click();
   await menu.getByTestId("OPT_Sistema").click(); await expect(system.getByTestId("EDT_Atualizacao_materiais")).toHaveValue("9007199254740993");
   await system.getByTestId("EDT_Data_inicio").fill("8"); await system.getByTestId("BTN_Guardar").click(); await expect(system).toHaveCount(0);
   expect((await startupServer.database.query('SELECT "Tempo_materiais"::text FROM app."sistema"')).rows[0].Tempo_materiais).toBe("9007199254740993");

@@ -2,7 +2,7 @@
 
 Evidence: `legacy/GestaoOficinas_TesteIA/RPT_Materiais.wde`, `dossier: RPT_Materiais`, `docs/mapping/RPT_Materiais.md`, image `docs/evidence/images/RPT_Materiais.jpg`.
 
-Stage 0 specification; independent review pending. No report implementation or accepted renderer decision.
+Source specification; current implementation and intentional target changes follow ADR-005. Original bindings and unresolved legacy properties remain recorded below.
 
 Printed by: `legacy/GestaoOficinas_TesteIA/WIN_Table_Tempos_materiais_Descricoes.wdw:791`
 
@@ -130,3 +130,7 @@ Implemented auto-height follow-through (ADR-005): `STC_informacao` and `STC_Tota
 ## Footer caption evidence
 
 Image-observed footer strings above have inferred control association, recorded in docs/mapping/RPT_Materiais.md and separate RULE rows. U-R19-01 is narrowed to remaining designer/runtime properties rather than these legible strings.
+
+## Accepted target correction
+
+ADR-005: `ITEM_COL_preco` prints captured `COL_preco`; the extracted `COL_lancado` binding remains documented above and its separate indicator is retained. Caller row order and total text remain authoritative. This intentional functional change preserves decimal/NULL values and does not change stored data.

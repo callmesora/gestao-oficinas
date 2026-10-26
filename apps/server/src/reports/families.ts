@@ -120,7 +120,9 @@ export async function familyReportDocument(client: Client, request: FamilyReport
   const source = masterSources[request.reportId as keyof typeof masterSources];
   if (source) {
     const rows = await query(client, `SELECT ${source.fields.map(field => `s."${field}"::text AS "${field}"`).join(",")} FROM app."${source.file}" s ORDER BY s."${source.order}" ASC NULLS LAST,s._row_id`);
-    const document = flatReportDocument(request.reportId, request.context, rows);
+    // ADR005: the price caption must show price, retaining the separate inactive indicator.
+    const body = request.reportId === "RPT_List_artigos" ? rows.map(row => ({ ...row, ITEM_Preco: row.preco, INT_Inativo: row.inativo })) : rows;
+    const document = flatReportDocument(request.reportId, request.context, body);
     document.unresolved.push(`assumed: docs/evidence-report.md/${request.reportId}/embedded-query proposal`);
     return document;
   }
@@ -137,7 +139,8 @@ export async function familyReportDocument(client: Client, request: FamilyReport
     if (request.source.kind === "programmatic") return flatReportDocument(request.reportId, request.context, [{ item_matricula: order?.matricula ?? null,
       ITEM_Marca_Modelo: vehicle ? `${vehicle.marca ?? ""}  ${vehicle.modelo ?? ""}` : null, item_servico_avaria: order?.recepcao_servico ?? null, item_observacao: order?.recepcao_obs ?? null, item_contactos: order?.recepacao_contatos ?? null, item_cliente: customer?.Descricao ?? null }]);
     const information = order ? `Nrº Ordem Reparação: ${order.numero}` + (vehicle ? `\r\nMatrícula: ${order.matricula}   ${vehicle.marca ?? ""}/${vehicle.modelo ?? ""}` : "") + (customer ? `\r\nCliente: ${customer.Descricao ?? ""}` : "") : "";
-    return flatReportDocument(request.reportId, request.context, request.source.rows, { STC_informacao: information, STC_Total_material: request.source.formattedTotal });
+    // ADR005: preserve captured prices and launched flags as distinct report columns.
+    return flatReportDocument(request.reportId, request.context, request.source.rows.map(row => ({ ...row, ITEM_COL_preco: row.COL_preco, INT_COL_lancado: row.COL_lancado })), { STC_informacao: information, STC_Total_material: request.source.formattedTotal });
   }
   if (request.source.kind !== "query") return { kind: "invalid" };
   const params = request.source.parameters;

@@ -2,7 +2,7 @@
 
 Evidence: `legacy/GestaoOficinas_TesteIA/RPT_List_artigos.wde`, `dossier: RPT_List_artigos`, `docs/mapping/RPT_List_artigos.md`, image `docs/evidence/images/RPT_List_artigos.jpg`.
 
-Stage 0 specification; independent review pending. No report implementation or accepted renderer decision.
+Source specification; current implementation and intentional target changes follow ADR-005. Original bindings and unresolved legacy properties remain recorded below.
 
 Printed by: WIN_Table_artigos (named in its compiled code: predefined action or dynamic call)
 
@@ -105,3 +105,7 @@ STC_Empresa=gsNome_empresa_reports
 ## Footer caption evidence
 
 Image-observed footer strings above have inferred control association, recorded in docs/mapping/RPT_List_artigos.md and separate RULE rows. U-R12-01 is narrowed to remaining designer/runtime properties rather than these legible strings.
+
+## Accepted target correction
+
+ADR-005: `ITEM_Preco` prints the selected article `preco`; the extracted `inativo` binding remains documented above and its separate indicator is retained. This intentional functional change preserves decimal/NULL values and does not change stored data.
