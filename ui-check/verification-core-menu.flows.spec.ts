@@ -31,7 +31,6 @@ for (const [id, group, name, target] of launchers) {
     const frame = page.getByTestId("workspace-window-1"), title = frame.getByTestId("RADTitle");
     await expect(title).toBeVisible();
     const originalNode = await frame.elementHandle(); await expect(frame).toHaveAttribute("data-active", "true");
-    if (group) await menu.getByText(group, { exact: true }).click();
     await menu.getByTestId(target === "WIN_Table_Clientes" ? "BTN_Viaturas" : "BTN_Clientes").click();
     if (group) await menu.getByText(group, { exact: true }).click();
     const competitor = page.getByTestId("workspace-window-2"); await expect(competitor).toHaveAttribute("data-active", "true"); await expect(frame).toHaveAttribute("data-active", "false");
@@ -39,8 +38,10 @@ for (const [id, group, name, target] of launchers) {
     expect(await originalNode!.evaluate(node => node.isConnected && node === document.querySelector('[data-testid="workspace-window-1"]'))).toBe(true);
     await expect(page.locator(".wd-workspace-window")).toHaveCount(2);
     await frame.getByRole("button", { name: "Minimizar", exact: true }).click(); await expect(frame).toBeHidden();
+    if (group) await menu.getByText(group, { exact: true }).click();
     await trigger.click(); await expect(frame).toBeVisible(); await expect(frame).toHaveAttribute("data-active", "true"); await expect(screen).toBeVisible(); await expect(page.locator(".wd-workspace-window")).toHaveCount(2);
     await frame.getByTestId("BTN_SYST_FERMER").click(); await expect(screen).toHaveCount(0);
+    if (group) await menu.getByText(group, { exact: true }).click();
     await trigger.click(); await expect(screen).toBeVisible(); await expect(page.getByTestId("workspace-window-3")).toHaveAttribute("data-active", "true"); await expect(page.locator(".wd-workspace-window")).toHaveCount(2);
   });
 }

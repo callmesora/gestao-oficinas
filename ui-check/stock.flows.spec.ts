@@ -36,7 +36,9 @@ test("MIG11 actual stock list/document supports atomic creation, editable lines,
     await expect(list.getByTestId("BTN_novo")).toBeEnabled(); await list.getByTestId("BTN_novo").click(); await form.getByTestId("COMBO_tipo_doc").selectOption(fixture.code); await expect(form.getByTestId("EDT_Numero")).toHaveValue("1");
     await expect(form.getByTestId("COMBO_mecanico")).toBeHidden(); await form.getByTestId("EDT_codigo").fill(fixture.articleCode); await form.getByTestId("EDT_quant").focus(); await expect(form.getByTestId("EDT_descricao_Artigo")).toHaveValue("Synthetic stock article");
     await form.getByTestId("EDT_quant").fill("2,500"); await form.getByTestId("BTN_Adicionar").click(); await expect(form.getByTestId("TABLE_lin_Stocks").getByRole("cell", { name: fixture.articleCode, exact: true })).toBeVisible();
-    await form.getByTestId("COL_Quant-0").fill("3,125"); await form.getByTestId("BTN_Confirmar").click(); await expect(form).toHaveCount(0);
+    await expect(form.getByTestId("EDT_codigo")).toHaveValue(""); await expect(form.getByTestId("EDT_codigo")).toBeFocused();
+    await form.getByTestId("COL_Quant-0").fill("3,125"); await expect(form.getByTestId("COL_Quant-0")).toHaveValue("3,125");
+    await form.getByTestId("BTN_Confirmar").click(); await expect(form).toHaveCount(0);
     await expect(list.getByTestId("TABLE_cab_stocks").getByRole("cell", { name: "Synthetic stock document", exact: true })).toBeVisible();
     let rows = await api("stock", "list", { document: fixture.code }); expect(rows.rows).toHaveLength(1); const createdId = rows.rows[0].id;
     let read = await api("stock", "read", { id: createdId }); expect(read.lines[0].quantidade).toBe("3.125");
@@ -134,6 +136,7 @@ test("stock actual line handlers retain empty refusal, lookup focus, decimal hea
     for (const amount of ["2,500", "10,000"]) {
       await form.getByTestId("EDT_codigo").fill(fixture.articleCode); await form.getByTestId("EDT_quant").focus(); await expect(form.getByTestId("EDT_descricao_Artigo")).toHaveValue("Synthetic stock article");
       await form.getByTestId("EDT_quant").fill(amount); await form.getByTestId("BTN_Adicionar").click();
+      await expect(form.getByTestId("EDT_codigo")).toHaveValue(""); await expect(form.getByTestId("EDT_codigo")).toBeFocused();
     }
     await form.getByTestId("BTN_Confirmar").click(); await expect(form).toHaveCount(0);
     const rows = await api("stock", "list", { document: fixture.code }); expect(rows.rows).toHaveLength(1);
@@ -174,9 +177,11 @@ test("stock line masks and deletion preserve surviving edits and untouched nulla
       await form.getByTestId("EDT_codigo").fill(fixture.articleCode); await form.getByTestId("EDT_quant").focus();
       await expect(form.getByTestId("EDT_descricao_Artigo")).toHaveValue("Synthetic stock article");
       await expect(form.getByTestId("EDT_preco")).toHaveValue(""); await form.getByTestId("BTN_Adicionar").click();
+      await expect(form.getByTestId("EDT_codigo")).toHaveValue(""); await expect(form.getByTestId("EDT_codigo")).toBeFocused();
     };
     await add(); await add(); await add();
     await form.getByTestId("COL_Preco-0").fill("6,25");
+    await expect(form.getByTestId("COL_Preco-0")).toHaveValue("6,25");
     await form.getByTestId("COL_Preco-0").press("End"); await form.getByTestId("COL_Preco-0").pressSequentially("a1"); await expect(form.getByTestId("COL_Preco-0")).toHaveValue("6,25");
     await form.getByTestId("COL_Preco-0").fill("123456789,00"); await form.getByTestId("COL_Preco-0").press("Home"); await form.getByTestId("COL_Preco-0").pressSequentially("0");
     await expect(form.getByTestId("COL_Preco-0")).toHaveValue("123456789,00"); await form.getByTestId("COL_Preco-0").fill("6,25");
