@@ -16,7 +16,7 @@ const cases = [
 for (const item of cases) test(`reports proof ${item.unit} ${item.mode} actual chrome preserves draft focus source frame and saved geometry`, async ({ page }) => {
   await page.goto("/?workflow=report-filters"); const launch = page.getByTestId(`report-filter-${item.group}-${item.mode}`); await launch.click();
   const host = page.getByTestId("workspace-window-1"), frame = page.getByTestId("workspace-window-1-frame"), screen = page.getByTestId(item.unit);
-  await expect(screen).toBeVisible(); const original = (await frame.boundingBox())!; expect(original.width).toBe(item.width); expect(original.height).toBe(item.height);
+  await expect(screen).toBeVisible(); const original = await workspaceBounds(frame); expect(original.width).toBe(item.width); expect(original.height).toBe(item.height);
   await expect(frame.getByTestId("RADTitle")).toHaveText(item.title); const edit = screen.getByTestId(item.field), initial = await edit.inputValue();
   const vehicle = item.mode.endsWith("viatura"), detail = item.mode === "descriminado";
   const active = item.group === "material" ? vehicle ? ["BTN_VISION1", "BTN_VISION2", "BTN_VISION3", "BTN_VISION4", "BTN_Visualizar_impressão1"] : detail ? ["BTN_VISION7", "BTN_VISION8", "BTN_Visualizar_impressão"] : ["BTN_VISION5", "BTN_VISION6", "BTN_Visualizar_impressão"] : item.group === "labor" ? ["BTN_Visualizar_impressão", ...(vehicle ? ["BTN_VISION1", "BTN_VISION2"] : item.mode.startsWith("mecanico") ? ["BTN_VISION3", "BTN_VISION4"] : [])] : ["BTN_Visualizar_impressão1", "STC_Titulo_Tabela"];
@@ -24,11 +24,11 @@ for (const item of cases) test(`reports proof ${item.unit} ${item.mode} actual c
   await edit.fill(item.draft); await edit.focus();
   await frame.getByTestId("BTN_SYST_MINIMIZE").click(); await expect(host).toBeHidden();
   const task = page.getByTestId("workspace-window-1-task"); await expect(task).toContainText("minimizada"); await task.click();
-  await expect(edit).toBeFocused(); await expect(edit).toHaveValue(item.draft); expect(await frame.boundingBox()).toEqual(original);
+  await expect(edit).toBeFocused(); await expect(edit).toHaveValue(item.draft); expect(await workspaceBounds(frame)).toEqual(original);
   await frame.getByTestId("BTN_Syst_Maximize").click(); const maximum = (await frame.boundingBox())!; expect(maximum.width).toBeGreaterThan(original.width);
   await designerProperties(frame, item.unit, item.title, { width: maximum.width - original.width, height: maximum.height - original.height }, active);
   await expect(frame.getByTestId("RADTitle")).toHaveText(item.title); await expect(edit).toHaveValue(item.draft);
-  await frame.getByTestId("BTN_Syst_Maximize").click(); expect(await frame.boundingBox()).toEqual(original);
+  await frame.getByTestId("BTN_Syst_Maximize").click(); expect(await workspaceBounds(frame)).toEqual(original);
   for (const [name, width] of [["BTN_SYST_MINIMIZE", 26], ["BTN_Syst_Maximize", 25], ["BTN_SYST_FERMER", 44]] as const) {
     const chrome = frame.getByTestId(name); await expect(chrome).toHaveAttribute("tabindex", "-1"); const bounds = (await chrome.boundingBox())!;
     expect(bounds.width).toBe(width); expect(bounds.height).toBe(19); await expect(chrome.locator(".wd-button-icon")).toHaveCount(1);
@@ -36,7 +36,7 @@ for (const item of cases) test(`reports proof ${item.unit} ${item.mode} actual c
   await expect(frame.getByTestId("BTN_UMC")).toBeHidden(); await frame.getByTestId("BTN_SYST_FERMER").click(); await expect(host).toHaveCount(0); await expect(task).toHaveCount(0); await expect(launch).toBeEnabled();
   const saved = await page.evaluate(unit => JSON.parse(localStorage.getItem(`gestao-oficinas:window-geometry:v1:${unit}`)!), item.unit);
   expect(saved).toMatchObject({ width: item.width, height: item.height, maximized: false });
-  await launch.click(); const reopened = page.getByTestId("workspace-window-2-frame"); const bounds = (await reopened.boundingBox())!;
+  await launch.click(); const reopened = page.getByTestId("workspace-window-2-frame"); const bounds = await workspaceBounds(reopened);
   expect(bounds.width).toBe(original.width); expect(bounds.height).toBe(original.height); expect(bounds.x).toBe(original.x); expect(bounds.y).toBe(original.y);
   await expect(page.getByTestId(item.unit).getByTestId(item.field)).toHaveValue(initial);
 });
@@ -84,30 +84,50 @@ const designerOracles: Record<string, DesignerOracle[]> = {
 
 /** Frozen dossier/parity oracles read before authoring. These assertions inspect the mounted
  * production DOM, styles, PNG bindings and actual resize, never a layout-to-layout comparison. */
+const systemGroups: Record<string, [number, number, number, number]> = {"WIN_Extrato_Artigos":[236,1,128,18],"WIN_Filtro_Mapas_Artigos":[290,1,128,18],"WIN_Filtro_Mapas_Tempos":[265,1,128,18],"WIN_Inventario":[500,1,128,18],"WIN_Inventario_Reconstrucao":[184,1,128,18],"WIN_Leitor_cod_barras":[254,1,128,18],"WIN_Leitor_cod_barras_desconhecidos":[254,1,128,18],"WIN_Mapa_Vendas":[211,1,128,18],"WIN_Reconstrucao_Stocks":[151,1,128,18],"WIN_Table_cab_stocks":[666,1,128,18],"WIN_Table_Lin_Stocks":[666,1,128,18]};
 async function designerProperties(frame: Locator, unit: string, title: string, delta = { width: 0, height: 0 }, active?: readonly string[]) {
   const base = (await frame.boundingBox())!;
+  const groupSource = systemGroups[unit], group = frame.getByTestId("SCSystemButtons");
+  await expect(group).toBeVisible(); const groupBox = (await group.boundingBox())!;
+  expect(Math.abs(groupBox.x - base.x - groupSource[0] - delta.width)).toBeLessThan(0.6);
+  expect(Math.abs(groupBox.y - base.y - groupSource[1])).toBeLessThan(0.6);
+  expect(groupBox.width).toBe(groupSource[2]); expect(groupBox.height).toBe(groupSource[3]);
+  // The source group owns the four real title actions; only its source-disabled
+  // chrome children and hidden macro are excluded from ordinary Tab traversal.
+  await expect(group.locator("button")).toHaveCount(4);
+  for (const child of await group.locator("button").all()) expect(await child.evaluate(element => element.tabIndex)).toBe(-1);
   for (const source of designerOracles[unit] ?? []) {
     if (active && !active.includes(source.name) && !["RADTitle", "BTN_SYST_MINIMIZE", "BTN_Syst_Maximize", "BTN_SYST_FERMER", "BTN_UMC"].includes(source.name)) continue;
     if (["STC_Mecanico", "BTN_VISION2"].includes(source.name) && unit === "WIN_Table_Lin_Stocks") continue; // separate document-dependent caller case
     const node = frame.getByTestId(source.name);
     await expect(node, source.id).toHaveCount(1);
-    if (!source.visible) { await expect(node, source.id).toBeHidden(); if (source.kind === "Button") await expect(node).toHaveAttribute("tabindex", "-1"); continue; }
+    if (!source.visible) {
+      await expect(node, source.id).toBeHidden(); await expect(node).toHaveAttribute("tabindex", "-1"); await expect(node).toHaveAttribute("aria-hidden", "true");
+      await expect(node).toHaveCSS("left", `${source.x - groupSource[0]}px`); await expect(node).toHaveCSS("top", `${source.y - groupSource[1]}px`);
+      await expect(node).toHaveCSS("width", `${source.width}px`); await expect(node).toHaveCSS("height", `${source.height}px`);
+      if (source.icon) expect(await node.evaluate(element => (element as HTMLElement).style.getPropertyValue("--wd-icon-0"))).toContain(source.icon.replace(/\.(?:gif|png)$/i, ""));
+      if (source.skin) expect(await node.evaluate(element => (element as HTMLElement).style.getPropertyValue("--wd-background-0"))).toContain(source.skin.replace(/\.(?:gif|png)$/i, ""));
+      continue;
+    }
     await expect(node, source.id).toBeVisible();
     const box = (await node.boundingBox())!;
     const chrome = ["BTN_SYST_MINIMIZE", "BTN_Syst_Maximize", "BTN_SYST_FERMER"].includes(source.name);
-    const expected = { x: source.x + (chrome || source.anchor.includes("Right") && !source.anchor.includes("Width") ? delta.width : 0), y: source.y + (source.anchor.includes("Bottom") && !source.anchor.includes("Height") ? delta.height : 0),
-      width: source.width + (source.name === "RADTitle" || source.anchor.includes("Width") ? delta.width : 0), height: source.height + (source.anchor.includes("Height") ? delta.height : 0) };
+    const expected = { x: source.x + (chrome || source.anchor.toLowerCase().includes("right") && !source.anchor.toLowerCase().includes("width") ? delta.width : 0), y: source.y + (source.anchor.toLowerCase().includes("bottom") && !source.anchor.toLowerCase().includes("height") ? delta.height : 0),
+      width: source.width + (source.name === "RADTitle" || source.anchor.toLowerCase().includes("width") ? delta.width : 0), height: source.height + (source.anchor.toLowerCase().includes("height") ? delta.height : 0) };
     expect(Math.abs(box.x - base.x - expected.x), source.id + " x").toBeLessThan(0.6); expect(Math.abs(box.y - base.y - expected.y), source.id + " y").toBeLessThan(0.6);
     expect(Math.abs(box.width - expected.width), source.id + " width").toBeLessThan(0.6); expect(Math.abs(box.height - expected.height), source.id + " height").toBeLessThan(0.6);
     if (source.kind === "Caption") {
       await expect(node, source.id).toHaveText(source.name === "RADTitle" ? title : source.name === "STC_Titulo_Tabela" ? `Estados de reparação que pedem data de ${title === "Mapa de Vendas" ? "entrega" : "pagamento"}` : source.text);
       expect(await node.locator("*").count(), source.id + " plain text").toBe(0); await expect(node).toHaveCSS("animation-name", "none");
     } else {
+      await expect(node).toBeEnabled();
       expect(await node.evaluate(element => (element as HTMLButtonElement).type), source.id + " normal button").toBe("button");
       expect(await node.evaluate(element => element.tabIndex), source.id + " TAB flag").toBe(source.tab ? 0 : -1);
       if (!chrome) await expect(node.locator("span").first(), source.id + " caption").toHaveText(source.text);
-      if (source.icon) { await expect(node.locator(".wd-button-icon")).toHaveCount(1); expect(await node.evaluate(element => (element as HTMLElement).style.getPropertyValue("--wd-icon-0"))).toContain(source.icon.replace(/\.gif$/i, "")); }
-      if (source.skin) expect(await node.evaluate(element => (element as HTMLElement).style.getPropertyValue("--wd-background-0"))).toContain(source.skin.replace(/\.gif$/i, ""));
+      if (source.icon) { await expect(node.locator(".wd-button-icon")).toHaveCount(1); expect(await node.evaluate(element => (element as HTMLElement).style.getPropertyValue("--wd-icon-0"))).toContain(source.icon.replace(/\.(?:gif|png)$/i, "")); }
+      if (source.skin) expect(await node.evaluate(element => (element as HTMLElement).style.getPropertyValue("--wd-background-0"))).toContain(source.skin.replace(/\.(?:gif|png)$/i, ""));
     }
   }
 }
+
+async function workspaceBounds(frame: Locator) { return frame.evaluate(element => { const box = element.getBoundingClientRect(), canvas = element.closest(".wd-workspace-canvas")!, parent = canvas.getBoundingClientRect(); return { x: box.x - parent.x + canvas.scrollLeft, y: box.y - parent.y + canvas.scrollTop, width: box.width, height: box.height }; }); }

@@ -59,7 +59,9 @@ async function consumption(client: Client, request: FamilyReportRequest, params:
   // Orders-only caller passes an extra description argument although its query has no such predicate.
   if (!reportParametersValid(request.reportId, params)) return { kind: "invalid" };
   const articleFrom = bound(params, "ParamDoArtigo"), articleTo = bound(params, "ParamAoArtigo");
-  const articleWhere = articleFrom === null || articleTo === null ? "TRUE" : 'm."artigo" BETWEEN $1 AND $2';
+  // Keep every bound typed even when NULL omits this predicate. Vehicle ranges
+  // still use $3/$4, so replacing this clause with TRUE leaves untyped $1/$2.
+  const articleWhere = '($1::text IS NULL OR $2::text IS NULL OR m."artigo" BETWEEN $1 AND $2)';
   let rows: ReportValues[];
   if (vehicle) {
     rows = await query(client, `SELECT m."numero",m."data_hora",m."mecanico",m."artigo",m."descricao_artigo",m."quantidade",a."Codigo",a."Descricao",a."unidade",a."preco",o."numero" AS numero_or,o."matricula",o."recepcao_datahora",v."marca",v."modelo",e."Descricao" AS "Descricao_me"
