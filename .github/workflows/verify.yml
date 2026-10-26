@@ -10,6 +10,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # Functional witnesses name the application commit actually tested.
       - uses: actions/setup-node@v7
         with:
           node-version: '24.22.1'
@@ -19,6 +21,11 @@ jobs:
           python-version: '3.12'
       - name: Visual comparison dependency
         run: python -m pip install pillow==13.0.0
+      - name: Functional acceptance evidence
+        run: |
+          python -m unittest discover -s tests -p test_functional_acceptance.py
+          python -m unittest discover -s tests -p test_progress_dashboard.py
+          python scripts/functional_acceptance.py --check
       - name: Rust toolchain
         run: rustup show
       - name: C# decoder regression runtime (macOS)

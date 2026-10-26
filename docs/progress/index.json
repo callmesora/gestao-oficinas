@@ -21,7 +21,16 @@
    "unmapped": 5
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 2,
+   "total": 2,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-RESOURCE-DIALOG",
+    "FC-CORE-RESOURCE-CALCULATOR"
+   ]
+  }
  },
  {
   "name": "WINDEVMESSAGEBOX",
@@ -45,7 +54,17 @@
    "unmapped": 1
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-NUMERIC-BOUNDS",
+    "FC-CORE-MESSAGES",
+    "FC-CORE-MESSAGE-COPY"
+   ]
+  }
  },
  {
   "name": "My_GestaoOficinas",
@@ -789,7 +808,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_Consumo_Material_Descriminado_Ordens",
+    "FUNC-OPS-PDF-CONSUMPTION",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_Consumo_Material_Descriminado_ordens_saidas",
@@ -813,7 +842,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_Consumo_Material_Descriminado_ordens_saidas",
+    "FUNC-OPS-PDF-CONSUMPTION",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_Consumo_Material_Descriminado_Saidas",
@@ -837,7 +876,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_Consumo_Material_Descriminado_Saidas",
+    "FUNC-OPS-PDF-CONSUMPTION",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_Consumo_Material_Resumo_ordem_saidas",
@@ -861,7 +910,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_Consumo_Material_Resumo_ordem_saidas",
+    "FUNC-OPS-PDF-CONSUMPTION",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_Consumo_Material_Resumo_ordens",
@@ -885,7 +944,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_Consumo_Material_Resumo_ordens",
+    "FUNC-OPS-PDF-CONSUMPTION",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_Consumo_Material_Resumo_Saidas",
@@ -909,7 +978,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_Consumo_Material_Resumo_Saidas",
+    "FUNC-OPS-PDF-CONSUMPTION",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_Consumo_Material_Viatura_Descriminado",
@@ -933,7 +1012,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_Consumo_Material_Viatura_Descriminado",
+    "FUNC-OPS-PDF-VEHICLE",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_Consumo_Material_Viatura_Resumo",
@@ -957,7 +1046,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_Consumo_Material_Viatura_Resumo",
+    "FUNC-OPS-PDF-VEHICLE",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_Extrato_artigos",
@@ -981,7 +1080,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_Extrato_artigos",
+    "FUNC-OPS-PDF-STATEMENT",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_inventario",
@@ -1005,7 +1114,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_inventario",
+    "FUNC-OPS-PDF-MANYROWS",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_List_artigos",
@@ -1029,7 +1148,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_List_artigos",
+    "FUNC-OPS-PDF-MANYROWS",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_List_Clientes",
@@ -1053,7 +1182,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_List_Clientes",
+    "FUNC-OPS-PDF-MANYROWS",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_List_documentos",
@@ -1077,7 +1216,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_List_documentos",
+    "FUNC-OPS-PDF-MANYROWS",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_List_estados_descritivos",
@@ -1101,7 +1250,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_List_estados_descritivos",
+    "FUNC-OPS-PDF-MANYROWS",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_List_estados_reparacao",
@@ -1125,7 +1284,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_List_estados_reparacao",
+    "FUNC-OPS-PDF-MANYROWS",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_List_mecanicos",
@@ -1149,7 +1318,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_List_mecanicos",
+    "FUNC-OPS-PDF-MANYROWS",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_List_unidades",
@@ -1173,7 +1352,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_List_unidades",
+    "FUNC-OPS-PDF-MANYROWS",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_List_utilizadores",
@@ -1197,7 +1386,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_List_utilizadores",
+    "FUNC-OPS-PDF-MANYROWS",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_List_Viaturas",
@@ -1221,7 +1420,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_List_Viaturas",
+    "FUNC-OPS-PDF-MANYROWS",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_Materiais",
@@ -1245,7 +1454,19 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 4,
+   "total": 5,
+   "status": "pending",
+   "cases": [
+    "FUNC-OPS-PRINT-02",
+    "FUNC-OPS-PDF-RPT_Materiais",
+    "FUNC-OPS-PDF-SNAPSHOTS",
+    "FUNC-OPS-PDF-LONG",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_Ordens_Reparacao",
@@ -1269,7 +1490,18 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 4,
+   "total": 4,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PRINT-01",
+    "FUNC-OPS-PDF-RPT_Ordens_Reparacao",
+    "FUNC-OPS-PDF-SNAPSHOTS",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_Ordens_Reparacao_DataEntrega",
@@ -1293,7 +1525,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_Ordens_Reparacao_DataEntrega",
+    "FUNC-OPS-PDF-SALES",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_Ordens_Reparacao_DataPag",
@@ -1317,7 +1559,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_Ordens_Reparacao_DataPag",
+    "FUNC-OPS-PDF-SALES",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_Servico_Avaria",
@@ -1341,7 +1593,19 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 4,
+   "total": 5,
+   "status": "pending",
+   "cases": [
+    "FUNC-OPS-PRINT-02",
+    "FUNC-OPS-PDF-RPT_Servico_Avaria",
+    "FUNC-OPS-PDF-SNAPSHOTS",
+    "FUNC-OPS-PDF-LONG",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_Tempos_Ordem_Reparacao",
@@ -1365,7 +1629,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_Tempos_Ordem_Reparacao",
+    "FUNC-OPS-PDF-LABOR",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_Tempos_Ordem_Reparacao_Mecanico",
@@ -1389,7 +1663,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_Tempos_Ordem_Reparacao_Mecanico",
+    "FUNC-OPS-PDF-LABOR",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo",
@@ -1413,7 +1697,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo",
+    "FUNC-OPS-PDF-LABOR",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "RPT_Tempos_Ordem_Reparacao_viatura",
@@ -1437,7 +1731,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-PDF-RPT_Tempos_Ordem_Reparacao_viatura",
+    "FUNC-OPS-PDF-LABOR",
+    "FUNC-OPS-PDF-INVALID"
+   ]
+  }
  },
  {
   "name": "WIN_Acesso",
@@ -1461,7 +1765,24 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 10,
+   "total": 10,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-ACCESS-LOGIN",
+    "FC-CORE-ACCESS-ENROLL-LOGOUT",
+    "FC-CORE-ACCESS-REVOCATION",
+    "FC-CORE-ACCESS-CANCEL",
+    "FC-CORE-PERSISTENT-START",
+    "FC-CORE-ALPHA-CALLERS",
+    "FC-CORE-MANAGED-CREDENTIALS",
+    "FC-CORE-LAUNCH-ARTICLES-PRESENTATION",
+    "FC-CORE-LAUNCH-LABOR",
+    "FC-CORE-LAUNCH-MATERIALS"
+   ]
+  }
  },
  {
   "name": "WIN_Data",
@@ -1490,6 +1811,16 @@
     "pixel": 97.8,
     "layout": 84.8
    }
+  },
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-DATE-CONFIRM-CANCEL",
+    "FC-CORE-DATE-INVALID",
+    "FC-CORE-DATE-PICKER"
+   ]
   }
  },
  {
@@ -1514,7 +1845,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 2,
+   "total": 3,
+   "status": "pending",
+   "cases": [
+    "FUNC-OPS-STATEMENT-01",
+    "FUNC-OPS-STATEMENT-02",
+    "FUNC-OPS-STATEMENT-03"
+   ]
+  }
  },
  {
   "name": "WIN_Filtro_Mapas_Artigos",
@@ -1538,7 +1879,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-FILTER-01",
+    "FUNC-OPS-FILTER-02",
+    "FUNC-OPS-FILTER-06"
+   ]
+  }
  },
  {
   "name": "WIN_Filtro_Mapas_Tempos",
@@ -1562,7 +1913,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 2,
+   "total": 3,
+   "status": "pending",
+   "cases": [
+    "FUNC-OPS-FILTER-03",
+    "FUNC-OPS-FILTER-04",
+    "FUNC-OPS-FILTER-06"
+   ]
+  }
  },
  {
   "name": "WIN_Form_artigos",
@@ -1591,6 +1952,17 @@
     "pixel": 98.8,
     "layout": 97.1
    }
+  },
+  "functional": {
+   "passed": 4,
+   "total": 4,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-ARTICLES-LIFECYCLE",
+    "FC-CORE-ARTICLES-RULES",
+    "FC-CORE-ARTICLES-CLOSE",
+    "FC-CORE-ARTICLES-ATOMIC"
+   ]
   }
  },
  {
@@ -1627,6 +1999,18 @@
     "pixel": 98.8,
     "layout": 95.5
    }
+  },
+  "functional": {
+   "passed": 5,
+   "total": 5,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-CUSTOMERS-LIFECYCLE",
+    "FC-CORE-CUSTOMERS-RULES",
+    "FC-CORE-CUSTOMERS-CLOSE",
+    "FC-CORE-CUSTOMERS-ATOMIC",
+    "FC-CORE-PERSISTENT-START"
+   ]
   }
  },
  {
@@ -1656,6 +2040,17 @@
     "pixel": 98.9,
     "layout": 96.7
    }
+  },
+  "functional": {
+   "passed": 4,
+   "total": 4,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-DOCUMENT-TYPES-LIFECYCLE",
+    "FC-CORE-DOCUMENT-TYPES-RULES",
+    "FC-CORE-DOCUMENT-TYPES-CLOSE",
+    "FC-CORE-DOCUMENT-TYPES-ATOMIC"
+   ]
   }
  },
  {
@@ -1692,6 +2087,17 @@
     "pixel": 98.4,
     "layout": 96.7
    }
+  },
+  "functional": {
+   "passed": 4,
+   "total": 4,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-DESCRIPTIVE-STATES-LIFECYCLE",
+    "FC-CORE-DESCRIPTIVE-STATES-RULES",
+    "FC-CORE-DESCRIPTIVE-STATES-CLOSE",
+    "FC-CORE-DESCRIPTIVE-STATES-ATOMIC"
+   ]
   }
  },
  {
@@ -1721,6 +2127,18 @@
     "pixel": 98.4,
     "layout": 93.3
    }
+  },
+  "functional": {
+   "passed": 5,
+   "total": 5,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-REPAIR-STATES-LIFECYCLE",
+    "FC-CORE-REPAIR-STATES-RULES",
+    "FC-CORE-REPAIR-STATES-CLOSE",
+    "FC-CORE-REPAIR-STATES-ATOMIC",
+    "FC-CORE-REPAIR-STATES-COLOR-BOUNDARY"
+   ]
   }
  },
  {
@@ -1750,6 +2168,17 @@
     "pixel": 98.8,
     "layout": 96.7
    }
+  },
+  "functional": {
+   "passed": 4,
+   "total": 4,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-MECHANICS-LIFECYCLE",
+    "FC-CORE-MECHANICS-RULES",
+    "FC-CORE-MECHANICS-CLOSE",
+    "FC-CORE-MECHANICS-ATOMIC"
+   ]
   }
  },
  {
@@ -1779,6 +2208,18 @@
     "pixel": 98.8,
     "layout": 97.0
    }
+  },
+  "functional": {
+   "passed": 5,
+   "total": 5,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-POSTOS-LIFECYCLE",
+    "FC-CORE-POSTOS-RULES",
+    "FC-CORE-POSTOS-CLOSE",
+    "FC-CORE-POSTOS-ATOMIC",
+    "FC-CORE-TERMINALS-FOLDER-BOUNDARY"
+   ]
   }
  },
  {
@@ -1815,6 +2256,18 @@
     "pixel": 98.4,
     "layout": 95.9
    }
+  },
+  "functional": {
+   "passed": 5,
+   "total": 5,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-TERMINALS-LIFECYCLE",
+    "FC-CORE-TERMINALS-RULES",
+    "FC-CORE-TERMINALS-CLOSE",
+    "FC-CORE-TERMINALS-ATOMIC",
+    "FC-CORE-TERMINALS-FOLDER-BOUNDARY"
+   ]
   }
  },
  {
@@ -1851,6 +2304,17 @@
     "pixel": 98.6,
     "layout": 96.9
    }
+  },
+  "functional": {
+   "passed": 4,
+   "total": 4,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-UNITS-LIFECYCLE",
+    "FC-CORE-UNITS-RULES",
+    "FC-CORE-UNITS-CLOSE",
+    "FC-CORE-UNITS-ATOMIC"
+   ]
   }
  },
  {
@@ -1880,6 +2344,19 @@
     "pixel": 98.7,
     "layout": 96.8
    }
+  },
+  "functional": {
+   "passed": 6,
+   "total": 6,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-USERS-LIFECYCLE",
+    "FC-CORE-USERS-RULES",
+    "FC-CORE-USERS-CLOSE",
+    "FC-CORE-USERS-ATOMIC",
+    "FC-CORE-ACCESS-REVOCATION",
+    "FC-CORE-MANAGED-CREDENTIALS"
+   ]
   }
  },
  {
@@ -1916,6 +2393,17 @@
     "pixel": 98.4,
     "layout": 93.9
    }
+  },
+  "functional": {
+   "passed": 4,
+   "total": 4,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-VEHICLES-LIFECYCLE",
+    "FC-CORE-VEHICLES-RULES",
+    "FC-CORE-VEHICLES-CLOSE",
+    "FC-CORE-VEHICLES-ATOMIC"
+   ]
   }
  },
  {
@@ -1940,7 +2428,18 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 4,
+   "total": 4,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-MAT-04",
+    "FUNC-OPS-MAT-06",
+    "FUNC-OPS-MAT-07",
+    "FUNC-OPS-LAB-06"
+   ]
+  }
  },
  {
   "name": "WIN_Inventario",
@@ -1964,7 +2463,18 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 2,
+   "total": 4,
+   "status": "pending",
+   "cases": [
+    "FUNC-OPS-INV-01",
+    "FUNC-OPS-INV-02",
+    "FUNC-OPS-INV-04",
+    "FUNC-OPS-INV-05"
+   ]
+  }
  },
  {
   "name": "WIN_Inventario_Reconstrucao",
@@ -1988,7 +2498,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-INV-01",
+    "FUNC-OPS-INV-02",
+    "FUNC-OPS-INV-03"
+   ]
+  }
  },
  {
   "name": "WIN_Leitor_cod_barras",
@@ -2012,7 +2532,18 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 4,
+   "total": 4,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-SCAN-01",
+    "FUNC-OPS-SCAN-02",
+    "FUNC-OPS-SCAN-03",
+    "FUNC-OPS-SCAN-04"
+   ]
+  }
  },
  {
   "name": "WIN_Leitor_cod_barras_desconhecidos",
@@ -2036,7 +2567,16 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 2,
+   "total": 2,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-SCAN-01",
+    "FUNC-OPS-SCAN-02"
+   ]
+  }
  },
  {
   "name": "WIN_Mapa_Vendas",
@@ -2060,7 +2600,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-FILTER-05",
+    "FUNC-OPS-FILTER-06",
+    "FUNC-OPS-FILTER-07"
+   ]
+  }
  },
  {
   "name": "WIN_Material_Reparacao",
@@ -2084,7 +2634,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-MAT-01",
+    "FUNC-OPS-MAT-02",
+    "FC-CORE-LAUNCH-MATERIALS"
+   ]
+  }
  },
  {
   "name": "WIN_Material_reparacao_form",
@@ -2108,7 +2668,26 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 12,
+   "total": 12,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-FLOW-01",
+    "FUNC-OPS-MAT-03",
+    "FUNC-OPS-MAT-04",
+    "FUNC-OPS-MAT-05",
+    "FUNC-OPS-MAT-06",
+    "FUNC-OPS-MAT-07",
+    "FUNC-OPS-MAT-08",
+    "FUNC-OPS-MAT-09",
+    "FUNC-OPS-MAT-10",
+    "FUNC-OPS-DETAIL-04",
+    "FUNC-OPS-SCAN-02",
+    "FUNC-OPS-SCAN-03"
+   ]
+  }
  },
  {
   "name": "WIN_MENU",
@@ -2132,7 +2711,27 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 10,
+   "total": 13,
+   "status": "pending",
+   "cases": [
+    "FC-CORE-MENU-LAUNCH",
+    "FC-CORE-ACCESS-LOGIN",
+    "FC-CORE-ACCESS-ENROLL-LOGOUT",
+    "FC-CORE-ACCESS-REVOCATION",
+    "FC-CORE-MENU-CLOSE",
+    "FC-CORE-MENU-UTILITY",
+    "FC-CORE-PERSISTENT-START",
+    "FC-CORE-MENU-EXIT",
+    "FC-CORE-MENU-REPORT-ROUTES",
+    "FC-CORE-LAUNCH-ARTICLES-PRESENTATION",
+    "FC-CORE-LAUNCH-LABOR",
+    "FC-CORE-LAUNCH-MATERIALS",
+    "FC-CORE-LAUNCH-ARTICLES-ACTIONS"
+   ]
+  }
  },
  {
   "name": "WIN_Mudar_Estado",
@@ -2161,6 +2760,14 @@
     "pixel": 97.9,
     "layout": 83.2
    }
+  },
+  "functional": {
+   "passed": 1,
+   "total": 1,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-ORD-10"
+   ]
   }
  },
  {
@@ -2190,6 +2797,23 @@
     "pixel": 96.2,
     "layout": 76.8
    }
+  },
+  "functional": {
+   "passed": 10,
+   "total": 10,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-ORD-01",
+    "FUNC-OPS-ORD-02",
+    "FUNC-OPS-ORD-03",
+    "FUNC-OPS-ORD-04",
+    "FUNC-OPS-ORD-05",
+    "FUNC-OPS-ORD-09",
+    "FUNC-OPS-ORD-11",
+    "FUNC-OPS-ORD-12",
+    "FUNC-OPS-FLOW-01",
+    "FUNC-OPS-PRINT-01"
+   ]
   }
  },
  {
@@ -2219,6 +2843,23 @@
     "pixel": 98.9,
     "layout": 95.0
    }
+  },
+  "functional": {
+   "passed": 9,
+   "total": 10,
+   "status": "pending",
+   "cases": [
+    "FUNC-OPS-ORD-05",
+    "FUNC-OPS-ORD-06",
+    "FUNC-OPS-ORD-07",
+    "FUNC-OPS-ORD-08",
+    "FUNC-OPS-ORD-09",
+    "FUNC-OPS-ORD-10",
+    "FUNC-OPS-ORD-12",
+    "FUNC-OPS-ORD-13",
+    "FUNC-OPS-ORD-14",
+    "FUNC-OPS-FLOW-01"
+   ]
   }
  },
  {
@@ -2243,7 +2884,16 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 2,
+   "total": 2,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-INV-02",
+    "FUNC-OPS-INV-03"
+   ]
+  }
  },
  {
   "name": "WIN_sistema",
@@ -2267,7 +2917,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-SYSTEM-SAVE",
+    "FC-CORE-SYSTEM-CANCEL",
+    "FC-CORE-SYSTEM-ATOMIC"
+   ]
+  }
  },
  {
   "name": "WIN_Table_artigos",
@@ -2296,6 +2956,24 @@
     "pixel": 98.6,
     "layout": 93.9
    }
+  },
+  "functional": {
+   "passed": 9,
+   "total": 11,
+   "status": "pending",
+   "cases": [
+    "FC-CORE-ARTICLES-LIFECYCLE",
+    "FC-CORE-ARTICLES-RULES",
+    "FC-CORE-ARTICLES-CLOSE",
+    "FC-CORE-ARTICLES-DELETE",
+    "FC-CORE-ARTICLES-FIND",
+    "FC-CORE-ARTICLES-ATOMIC",
+    "FC-CORE-ARTICLES-SELECT",
+    "FC-CORE-ARTICLES-PRINT",
+    "FC-CORE-MENU-LAUNCH",
+    "FC-CORE-ALPHA-CALLERS",
+    "FC-CORE-LAUNCH-ARTICLES-ACTIONS"
+   ]
   }
  },
  {
@@ -2320,7 +2998,20 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 4,
+   "total": 6,
+   "status": "pending",
+   "cases": [
+    "FUNC-OPS-STOCK-01",
+    "FUNC-OPS-STOCK-02",
+    "FUNC-OPS-STOCK-06",
+    "FUNC-OPS-STOCK-08",
+    "FUNC-OPS-STOCK-09",
+    "FC-CORE-LAUNCH-ARTICLES-ACTIONS"
+   ]
+  }
  },
  {
   "name": "WIN_Table_Clientes",
@@ -2356,6 +3047,23 @@
     "pixel": 98.5,
     "layout": 94.4
    }
+  },
+  "functional": {
+   "passed": 10,
+   "total": 10,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-CUSTOMERS-LIFECYCLE",
+    "FC-CORE-CUSTOMERS-RULES",
+    "FC-CORE-CUSTOMERS-CLOSE",
+    "FC-CORE-CUSTOMERS-DELETE",
+    "FC-CORE-CUSTOMERS-FIND",
+    "FC-CORE-CUSTOMERS-ATOMIC",
+    "FC-CORE-CUSTOMERS-SELECT",
+    "FC-CORE-CUSTOMERS-PRINT",
+    "FC-CORE-MENU-LAUNCH",
+    "FC-CORE-PERSISTENT-START"
+   ]
   }
  },
  {
@@ -2385,6 +3093,22 @@
     "pixel": 98.4,
     "layout": 91.9
    }
+  },
+  "functional": {
+   "passed": 8,
+   "total": 9,
+   "status": "pending",
+   "cases": [
+    "FC-CORE-DOCUMENT-TYPES-LIFECYCLE",
+    "FC-CORE-DOCUMENT-TYPES-RULES",
+    "FC-CORE-DOCUMENT-TYPES-CLOSE",
+    "FC-CORE-DOCUMENT-TYPES-DELETE",
+    "FC-CORE-DOCUMENT-TYPES-FIND",
+    "FC-CORE-DOCUMENT-TYPES-ATOMIC",
+    "FC-CORE-DOCUMENT-TYPES-SELECT",
+    "FC-CORE-DOCUMENT-TYPES-PRINT",
+    "FC-CORE-MENU-LAUNCH"
+   ]
   }
  },
  {
@@ -2409,7 +3133,17 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 3,
+   "total": 3,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-TIPO3-SELECT",
+    "FC-CORE-TIPO3-FIND",
+    "FUNC-OPS-LAB-07"
+   ]
+  }
  },
  {
   "name": "WIN_Table_estados_descritivos",
@@ -2445,6 +3179,22 @@
     "pixel": 98.5,
     "layout": 92.2
    }
+  },
+  "functional": {
+   "passed": 8,
+   "total": 9,
+   "status": "pending",
+   "cases": [
+    "FC-CORE-DESCRIPTIVE-STATES-LIFECYCLE",
+    "FC-CORE-DESCRIPTIVE-STATES-RULES",
+    "FC-CORE-DESCRIPTIVE-STATES-CLOSE",
+    "FC-CORE-DESCRIPTIVE-STATES-DELETE",
+    "FC-CORE-DESCRIPTIVE-STATES-FIND",
+    "FC-CORE-DESCRIPTIVE-STATES-ATOMIC",
+    "FC-CORE-DESCRIPTIVE-STATES-SELECT",
+    "FC-CORE-DESCRIPTIVE-STATES-PRINT",
+    "FC-CORE-MENU-LAUNCH"
+   ]
   }
  },
  {
@@ -2474,6 +3224,22 @@
     "pixel": 98.7,
     "layout": 94.9
    }
+  },
+  "functional": {
+   "passed": 8,
+   "total": 9,
+   "status": "pending",
+   "cases": [
+    "FC-CORE-REPAIR-STATES-LIFECYCLE",
+    "FC-CORE-REPAIR-STATES-RULES",
+    "FC-CORE-REPAIR-STATES-CLOSE",
+    "FC-CORE-REPAIR-STATES-DELETE",
+    "FC-CORE-REPAIR-STATES-FIND",
+    "FC-CORE-REPAIR-STATES-ATOMIC",
+    "FC-CORE-REPAIR-STATES-SELECT",
+    "FC-CORE-REPAIR-STATES-PRINT",
+    "FC-CORE-MENU-LAUNCH"
+   ]
   }
  },
  {
@@ -2498,7 +3264,22 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 7,
+   "total": 8,
+   "status": "pending",
+   "cases": [
+    "FUNC-OPS-STOCK-02",
+    "FUNC-OPS-STOCK-03",
+    "FUNC-OPS-STOCK-04",
+    "FUNC-OPS-STOCK-05",
+    "FUNC-OPS-STOCK-06",
+    "FUNC-OPS-STOCK-07",
+    "FUNC-OPS-STOCK-10",
+    "FUNC-OPS-STOCK-11"
+   ]
+  }
  },
  {
   "name": "WIN_Table_mecanicos",
@@ -2527,6 +3308,22 @@
     "pixel": 98.6,
     "layout": 93.1
    }
+  },
+  "functional": {
+   "passed": 8,
+   "total": 9,
+   "status": "pending",
+   "cases": [
+    "FC-CORE-MECHANICS-LIFECYCLE",
+    "FC-CORE-MECHANICS-RULES",
+    "FC-CORE-MECHANICS-CLOSE",
+    "FC-CORE-MECHANICS-DELETE",
+    "FC-CORE-MECHANICS-FIND",
+    "FC-CORE-MECHANICS-ATOMIC",
+    "FC-CORE-MECHANICS-SELECT",
+    "FC-CORE-MECHANICS-PRINT",
+    "FC-CORE-MENU-LAUNCH"
+   ]
   }
  },
  {
@@ -2556,6 +3353,20 @@
     "pixel": 98.6,
     "layout": 96.0
    }
+  },
+  "functional": {
+   "passed": 7,
+   "total": 7,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-POSTOS-LIFECYCLE",
+    "FC-CORE-POSTOS-RULES",
+    "FC-CORE-POSTOS-CLOSE",
+    "FC-CORE-POSTOS-DELETE",
+    "FC-CORE-POSTOS-FIND",
+    "FC-CORE-POSTOS-ATOMIC",
+    "FC-CORE-MENU-LAUNCH"
+   ]
   }
  },
  {
@@ -2580,7 +3391,21 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 6,
+   "total": 7,
+   "status": "pending",
+   "cases": [
+    "FUNC-OPS-ORD-12",
+    "FUNC-OPS-FLOW-01",
+    "FUNC-OPS-DETAIL-01",
+    "FUNC-OPS-DETAIL-02",
+    "FUNC-OPS-DETAIL-03",
+    "FUNC-OPS-DETAIL-04",
+    "FUNC-OPS-PRINT-02"
+   ]
+  }
  },
  {
   "name": "WIN_Table_Terminais",
@@ -2616,6 +3441,21 @@
     "pixel": 98.2,
     "layout": 92.8
    }
+  },
+  "functional": {
+   "passed": 8,
+   "total": 8,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-TERMINALS-LIFECYCLE",
+    "FC-CORE-TERMINALS-RULES",
+    "FC-CORE-TERMINALS-CLOSE",
+    "FC-CORE-TERMINALS-DELETE",
+    "FC-CORE-TERMINALS-FIND",
+    "FC-CORE-TERMINALS-ATOMIC",
+    "FC-CORE-TERMINALS-SELECT",
+    "FC-CORE-MENU-LAUNCH"
+   ]
   }
  },
  {
@@ -2652,6 +3492,21 @@
     "pixel": 98.9,
     "layout": 96.4
    }
+  },
+  "functional": {
+   "passed": 7,
+   "total": 8,
+   "status": "pending",
+   "cases": [
+    "FC-CORE-UNITS-LIFECYCLE",
+    "FC-CORE-UNITS-RULES",
+    "FC-CORE-UNITS-CLOSE",
+    "FC-CORE-UNITS-DELETE",
+    "FC-CORE-UNITS-FIND",
+    "FC-CORE-UNITS-ATOMIC",
+    "FC-CORE-UNITS-PRINT",
+    "FC-CORE-MENU-LAUNCH"
+   ]
   }
  },
  {
@@ -2681,6 +3536,25 @@
     "pixel": 98.7,
     "layout": 92.8
    }
+  },
+  "functional": {
+   "passed": 11,
+   "total": 12,
+   "status": "pending",
+   "cases": [
+    "FC-CORE-USERS-LIFECYCLE",
+    "FC-CORE-USERS-RULES",
+    "FC-CORE-USERS-CLOSE",
+    "FC-CORE-USERS-DELETE",
+    "FC-CORE-USERS-FIND",
+    "FC-CORE-USERS-ATOMIC",
+    "FC-CORE-USERS-SELECT",
+    "FC-CORE-USERS-PRINT",
+    "FC-CORE-MENU-LAUNCH",
+    "FC-CORE-ACCESS-LOGIN",
+    "FC-CORE-ACCESS-REVOCATION",
+    "FC-CORE-MANAGED-CREDENTIALS"
+   ]
   }
  },
  {
@@ -2717,6 +3591,22 @@
     "pixel": 98.6,
     "layout": 94.7
    }
+  },
+  "functional": {
+   "passed": 8,
+   "total": 9,
+   "status": "pending",
+   "cases": [
+    "FC-CORE-VEHICLES-LIFECYCLE",
+    "FC-CORE-VEHICLES-RULES",
+    "FC-CORE-VEHICLES-CLOSE",
+    "FC-CORE-VEHICLES-DELETE",
+    "FC-CORE-VEHICLES-FIND",
+    "FC-CORE-VEHICLES-ATOMIC",
+    "FC-CORE-VEHICLES-SELECT",
+    "FC-CORE-VEHICLES-PRINT",
+    "FC-CORE-MENU-LAUNCH"
+   ]
   }
  },
  {
@@ -2746,6 +3636,15 @@
     "pixel": 97.0,
     "layout": 88.8
    }
+  },
+  "functional": {
+   "passed": 2,
+   "total": 2,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-ALPHA-ENTRY",
+    "FC-CORE-ALPHA-CALLERS"
+   ]
   }
  },
  {
@@ -2775,6 +3674,15 @@
     "pixel": 96.5,
     "layout": 86.3
    }
+  },
+  "functional": {
+   "passed": 2,
+   "total": 2,
+   "status": "verified",
+   "cases": [
+    "FC-CORE-NUMERIC-ENTRY",
+    "FC-CORE-NUMERIC-BOUNDS"
+   ]
   }
  },
  {
@@ -2799,7 +3707,20 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 6,
+   "total": 6,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-LAB-01",
+    "FUNC-OPS-LAB-02",
+    "FUNC-OPS-LAB-03",
+    "FUNC-OPS-LAB-04",
+    "FUNC-OPS-LAB-11",
+    "FC-CORE-LAUNCH-LABOR"
+   ]
+  }
  },
  {
   "name": "WIN_Tempos_Reparacao_Estado",
@@ -2823,7 +3744,19 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 5,
+   "total": 5,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-FLOW-01",
+    "FUNC-OPS-LAB-09",
+    "FUNC-OPS-LAB-10",
+    "FUNC-OPS-LAB-11",
+    "FUNC-OPS-LAB-12"
+   ]
+  }
  },
  {
   "name": "WIN_Tempos_Reparacao_Informacao",
@@ -2847,7 +3780,15 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 1,
+   "total": 1,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-LAB-04"
+   ]
+  }
  },
  {
   "name": "WIN_Tempos_Reparacao_Tempo",
@@ -2871,7 +3812,20 @@
    "unmapped": 0
   },
   "looks": null,
-  "visuals": {}
+  "visuals": {},
+  "functional": {
+   "passed": 6,
+   "total": 6,
+   "status": "verified",
+   "cases": [
+    "FUNC-OPS-FLOW-01",
+    "FUNC-OPS-LAB-05",
+    "FUNC-OPS-LAB-06",
+    "FUNC-OPS-LAB-07",
+    "FUNC-OPS-LAB-08",
+    "FUNC-OPS-LAB-12"
+   ]
+  }
  },
  {
   "name": "artigos",

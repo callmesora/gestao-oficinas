@@ -25,6 +25,7 @@ At the end: update docs/parity/parity.csv, ROADMAP.md and docs/runbooks/handoff.
 - Always keep the preamble (handoff + instructions) and the closing (verify, commit, handoff).
 - Give precise goals and constraints, not the detailed "how": the implementer chooses the implementation, the human arbitrates in review.
 - Restate any decision made since the last session, or point to its ADR.
+- If separate functional readiness is accepted (ADR-007), update `docs/functional-acceptance.json` with required real workflow/data-safety checks, exact executed witnesses, OS and compatible commit. Keep omitted scope pending and strict parity/native acceptance separate.
 - One workflow per stage. If a stage needs more than one session, split it.
 
 ## Reusable instructions (pick according to accepted choices)

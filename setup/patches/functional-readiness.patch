@@ -1,0 +1,1219 @@
+diff --git a/05-work-loop.md b/05-work-loop.md
+index 83e9960..05dc147 100644
+--- a/05-work-loop.md
++++ b/05-work-loop.md
+@@ -66,6 +66,10 @@ Example: a repair-order save is complete when validation, material/time recordin
+
+ An **initial implementation** milestone may close with `implemented` rows and named acceptance work in the roadmap. It is not slice acceptance or migration completion; unavailable source/native confirmation need not block unrelated implementation.
+
++A project may opt into **functional readiness** through `docs/functional-acceptance.json`: complete, approved target cases for real workflows, normal/boundary/failure cases, persistence and report output. Each accepted case names exact executed checks and run/OS/commit evidence. Validate this record separately from strict parity and platform acceptance ([10](10-parity-and-verification.md#1-a-closed-world-inventory)); a tested target choice does not resolve an unknown legacy property.
++
++Use functional readiness as the owner's primary progress view when that is the agreed goal. Show its accepted/total denominator, remaining failures and untested items, with strict parity/source questions and OS-specific checks alongside it. Build links and a green test-suite percentage do not establish functional acceptance or release readiness.
++
+ ## Checks to use
+
+ - Domain tests for money/time/stock rules, named with parity IDs.
+diff --git a/10-parity-and-verification.md b/10-parity-and-verification.md
+index 9a7de3e..e690581 100644
+--- a/10-parity-and-verification.md
++++ b/10-parity-and-verification.md
+@@ -4,7 +4,7 @@
+
+ ## 1. A closed-world inventory
+
+-The parity matrix `docs/parity/parity.csv` ([template](templates/parity.template.csv)) is the definition of done. It is built in three layers:
++The parity matrix `docs/parity/parity.csv` ([template](templates/parity.template.csv)) defines strict migration completion. It is built in three layers:
+
+ 1. **Generated seed** — `scripts/inspect_windev.py` writes `parity-seed.csv`: one `SRC-*` row per extracted code block (window/control path + raw event code + `path:line`), one per XDD table, one per binary/unsupported source needing an export. IDs are stable across re-runs of the same sources. If an upgraded inspector names a block differently, `parity_check.py --seed` reports `matrix row SRC-old is now seed row SRC-new`: rename the row.
+ 2. **Manual rows** for what code blocks do not show: menu entries and shortcuts, Groupware rights, reports and labels, scheduled jobs, external integrations, imports/exports, printing and devices, INI/registry settings, installer/update behavior.
+@@ -22,13 +22,19 @@ Rules of the matrix, enforced by `scripts/parity_check.py`:
+ Run it in `npm run verify` (without `--require-complete`) on every commit, and with `--require-complete` as the final release gate.
+
+
+-**Progress for everyone.** `python3 scripts/progress_dashboard.py` turns the matrix into `docs/progress/index.html`: the share of behaviors verified, each screen and report as not started → mapped → being built → done, the questions waiting for the WINDEV expert and the decisions waiting for the owner, and the progress line over time. Each stage regenerates it, so a non-technical owner follows the migration by opening one file.
++**Progress for everyone.** `python3 scripts/progress_dashboard.py` writes `docs/progress/index.html`: functional readiness first, then built/proven/strict parity counts, source questions, platform evidence and strict completion history. Without a functional acceptance inventory, the headline stays unassessed. Each stage regenerates the page so a non-technical owner can open one file.
+
+ For broad implementation waves, also report **built = implemented + verified**, verified targets, exclusions and unanswered source/U items, with explicit denominators. A built percentage measures target coverage; it is not legacy parity or release readiness. Keep assumption-backed targets visible. Linking existing code or testing an accepted default does not prove newly recovered legacy knowledge; never upgrade source confidence just because target tests pass. Initial implementation milestones retain an acceptance backlog; the final `--require-complete` gate is unchanged.
+
++Projects may opt into **functional acceptance** in `docs/functional-acceptance.json` ([template](templates/functional-acceptance.template.json)). Each required case declares `id`, `units`, `requirement`, exact `checks` (`file`, `title`), `status` (`verified` or `pending`) and `evidence` (`run`, `os`, `commit`). Run metadata records which exact checks actually passed and the tested application commit. Requirements cite source rules or approved target decisions; assertions exercise real paths and would fail if the behavior disappeared. Validate the schema and evidence with `python3 scripts/functional_acceptance.py --check`; use `--require-complete` for this optional acceptance gate.
++
++The primary functional percentage is verified required cases / all declared required cases. Cover the complete approved workflow scope and every screen/report from the inventory: a missing unit creates a pending, unassessed gap. Untested and failed cases stay in the denominator; built links and a suite pass rate never create acceptance. Proof must remain compatible with its tested commit: application or test changes invalidate affected evidence; documentation-only changes do not. Keep strict parity/source confidence and platform capabilities (status, OS, commit) alongside this view. An approved target choice may pass while its legacy U question remains unanswered; unexecuted native checks remain unexecuted.
++
++Adapt the validator's `CODE_PATHS` to the actual project's application, assets, configuration, golden inputs, runtime-evidence JSON and native probes; cited test files are included automatically. Changing those inputs invalidates the witness. Ordinary report/status documentation may retain it. The validator checks recorded attestations; review still establishes that the exact tests ran and assert the full requirement.
++
+ ## 2. Golden scenarios (characterization tests)
+
+-The only robust proof that totals, rounding, statuses and reports match is to **record the legacy application and replay the target** on identical inputs ([template](templates/golden-scenario.md)):
++To compare observed legacy totals, rounding, statuses and reports, **record the legacy application and replay the target** on identical inputs ([template](templates/golden-scenario.md)):
+
+ 1. **Before**: export the relevant tables from the data copy (CSV + manifest; anonymised if the data is personal).
+ 2. **Act**: perform a scripted sequence in the legacy app (or with WINDEV's automated test scenarios, if the project has them).
+@@ -36,7 +42,7 @@ The only robust proof that totals, rounding, statuses and reports match is to **
+ 4. **Replay** in the target from the same "before" state, through the use cases (fast tests) and end to end (slower).
+ 5. **Compare** with `scripts/compare_exports.py`: keys, renames, ignored technical columns and **declared** normalizations (decimal comma, date formats, trimming). Any undeclared difference fails.
+
+-**No legacy runs available?** Expected results can be derived from the mapped rules on synthetic data, but label them `spec-derived` (they prove the code matches the spec, not the legacy app) and replace them with recorded scenarios when the app can run. Historical data is a golden dataset too: wherever the legacy app stored a derived value (order totals, stock levels, durations, statuses) next to its inputs, the target's domain functions must reproduce it from those inputs. Every disagreement is either a rule not yet understood or a data-quality issue to record.
++**Source-derived checks** can verify readable rules directly: derive expected results from the actual source, schema and accepted decisions on synthetic data, then exercise the real target path. Label scenarios `spec-derived` and identify source rules versus approved target choices; reserve `recorded` for observed legacy runs. A legacy run is not a prerequisite for testing a readable assignment or calculation. Such a test does not establish encoded SQL, missing designer properties or native engine behavior; retain those U questions and add static exports or recorded checks for the missing evidence. Historical data is a golden dataset too: wherever the legacy app stored a derived value (order totals, stock levels, durations, statuses) next to its inputs, the target's domain functions must reproduce it from those inputs. Every disagreement is either a rule not yet understood or a data-quality issue to record.
+
+ Choose scenarios for: every workflow's happy path, each boundary (zero, negative, maximum, empty date), each error message, rounding with many lines, and every report. Record them early (stage 0–3), while the legacy app and its experts are available.
+
+@@ -72,7 +78,8 @@ Import reconciliation ([08](08-data-migration.md#import-and-reconciliation)): co
+ |---|---|
+ | Every commit | `npm run verify` (types, lint, unit, IPC-mocked workflows, `parity_check.py`, bindings diff) |
+ | Initial implementation wave | Focused worker checks, integrated verification and review under project policy; rows may remain `implemented` with named acceptance work |
+-| Slice acceptance | Golden scenarios of the slice; parity rows `verified` or approved `excluded`; native smoke on at least one target OS |
++| Functional acceptance (opt-in) | Validated `docs/functional-acceptance.json`: every required case has passed its exact real behavior checks with compatible run/OS/commit evidence; all screens/reports are assessed; strict parity, U questions and platform evidence remain separate |
++| Strict parity acceptance | Golden scenarios of the slice; parity rows `verified` or approved `excluded`; native smoke on at least one target OS |
+ | Nightly | Full rebuild, all tests, all golden scenarios, report pushed to `reports` |
+ | Release | All of the above on every target OS + `parity_check.py --require-complete --seed docs/parity/parity-seed.csv` + reconciliation of a full import + cutover rehearsal |
+
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 3572547..a4387bd 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -1,5 +1,13 @@
+ # Changelog
+
++## 2026-10-26 — functional acceptance and strict parity
++
++- Define functional readiness against complete approved target scope and executed behavior assertions, independently of strict parity/source confidence and platform evidence.
++- Recognize source-derived checks for readable legacy rules; retain encoded properties and native behavior as explicit evidence gaps.
++- Align workflow and agent/stage instructions; passing tests and built links do not create an acceptance percentage.
++- Add the portable acceptance validator, primary functional dashboard and synthetic pending template, with tests for missing scope, stale witnesses, independent parity and platform evidence.
++- Read only authoritative aggregate/seed snapshots for progress history when present; normalize Git paths across platforms.
++
+ ## 2026-10-26 — parallel implementation after a proven workflow
+
+ - Broad workflow-family waves with isolated writers, lean evidence packets, frozen deliveries and one integration owner for contracts, verification and tracking.
+diff --git a/README.md b/README.md
+index dbc263b..f99936c 100644
+--- a/README.md
++++ b/README.md
+@@ -48,6 +48,8 @@ Paste [templates/PromptInit.md](templates/PromptInit.md) into the planning sessi
+ ### Step 4 — The loop *(the core of the work)*
+ For each roadmap slice or independent workflow-family wave: bounded prompt → real UI + domain + command + persistence + tests → integrated verification and review/fix → parity, status and rolling handoff → explicit commit; synchronize only as project policy allows. Parallel implementation starts after a proven workflow and shared primitives; built coverage remains separate from acceptance → [05](05-work-loop.md), [01](01-principles-and-roles.md).
+
++For an agreed functional-readiness goal, declare required target cases in `docs/functional-acceptance.json` ([template](templates/functional-acceptance.template.json)). The progress page leads with their executed evidence; strict parity, unanswered source questions and native platform acceptance remain separate → [10](10-parity-and-verification.md#1-a-closed-world-inventory).
++
+ ### Step 5 — Nightly test machine *(if possible)*
+ Rebuilds the database, replays every test and golden scenario, pushes a timestamped report — the safety net → [02](02-infrastructure.md#test-machine-the-nightly-safety-net).
+
+diff --git a/docs/upstream-audit.md b/docs/upstream-audit.md
+index 24b461f..0cc273b 100644
+--- a/docs/upstream-audit.md
++++ b/docs/upstream-audit.md
+@@ -64,6 +64,7 @@ This table traces **every upstream section** to its place in this playbook, so n
+ ## Additions beyond upstream
+
+ - [09 — WLanguage traps](../09-wlanguage-traps.md) and [10 — Parity and verification](../10-parity-and-verification.md).
++- Optional functional acceptance against declared required cases, with executed evidence kept separate from strict parity/source confidence and platform acceptance ([05](../05-work-loop.md#definition-of-done-for-a-slice), [10](../10-parity-and-verification.md#1-a-closed-world-inventory)).
+ - One guard rule set for Git, agent hooks and CI; agent-neutral skills (Claude Code, Codex, others).
+ - Inspector with window/control/event context, parity seed and secret hints; `parity_check.py`; `compare_exports.py`; tested hook guard and pre-commit hook.
+ - Templates: mapping prompt, map-element skill, roadmap, parity matrix, window spec, golden scenario, compare config.
+diff --git a/scripts/README.md b/scripts/README.md
+index af4246f..7741f1b 100644
+--- a/scripts/README.md
++++ b/scripts/README.md
+@@ -74,7 +74,18 @@ Seed rows, code blocks with event meanings, encoded actions with every other slo
+ python3 scripts/progress_dashboard.py --title "My App"     # writes docs/progress/index.html (+ .json)
+ ```
+
+-One self-contained HTML page from what the process already maintains — parity matrix and seed, mapping notes and specs, answer sheet, ADRs, Git history: the share of legacy behaviors verified in the new app, screens and reports done / being built / mapped / not started, assumptions to confirm with the WINDEV expert, decisions waiting for the owner, progress over time (from the history of `docs/parity/`) and recent commits. Each stage regenerates and commits it; open it in a browser, no server needed.
++One self-contained HTML page: functional acceptance first, then implementation coverage, proven behaviors, strict completion, source questions, platform evidence and recent commits. The matrix, seed, mapping notes, answer sheet and ADRs retain their roles. History remains strict completion (verified + approved exclusions); Windows and macOS visual measurements stay separate. Without an acceptance inventory the functional headline is unassessed, never inferred from built links. Each stage regenerates and commits the page; open it in a browser, no server needed.
++
++## `functional_acceptance.py` — optional target acceptance gate
++
++```sh
++python3 scripts/functional_acceptance.py --check
++python3 scripts/functional_acceptance.py --require-complete
++```
++
++Start from [the pending example](../templates/functional-acceptance.template.json), remap its units and declare the complete required workflow scope in `docs/functional-acceptance.json`. Version 1 contains `cases`, `runs` and separate `platform` capabilities. Cases use exact check file/title pairs; runs attest successful `file::title` checks, commands, OS and tested commit. Pending cases require a concrete `gap`. Record real executions before adding evidence or marking a case `verified`; the tool validates attestations, not whether tests assert the whole requirement.
++
++Missing screens/reports create pending unassessed gaps. Stale run evidence becomes pending without changing the ledger or strict parity CSV. Cited tests and `CODE_PATHS` are compared against the tested ancestor commit, including untracked inputs. Adapt those paths to the actual project's application, assets, configuration, golden/runtime fixtures and native probes; ordinary report/status documentation can change without invalidating proof. `--require-complete` fails until every required functional case passes; platform capabilities retain their own OS-specific status and never change this denominator.
+
+ ## `screen_layout.py`, `skin_assets.py`, `visual_compare.py` — a screen that looks like the legacy one
+
+diff --git a/scripts/functional_acceptance.py b/scripts/functional_acceptance.py
+new file mode 100644
+index 0000000..b31aa48
+--- /dev/null
++++ b/scripts/functional_acceptance.py
+@@ -0,0 +1,157 @@
++#!/usr/bin/env python3
++"""Assess declared functional checks; never change source confidence or strict parity."""
++import argparse
++import json
++from pathlib import Path, PurePosixPath
++import re
++import subprocess
++
++# A docs/report-only commit retains business evidence. Changed application/tests need a new run.
++CODE_PATHS = ('src', 'packages', 'apps', 'src-tauri', 'ui-check', 'package.json',
++              'package-lock.json', 'vite.config.ts', 'vitest.config.ts', 'rust-toolchain.toml',
++              'public', 'ui-check.config.json', 'tsconfig.json', 'tsconfig.tools.json',
++              'setup/requirements.txt', ':(glob)scripts/native*.mjs', 'docs/golden',
++              'docs/evidence/message-proposals.json', 'docs/evidence/ui-inputs.json')
++
++
++def compatible_commit(root, commit, test_files=()):
++    def git(*args):
++        return subprocess.run(['git', '-C', str(root), *args], capture_output=True)
++    paths = (*CODE_PATHS, *test_files)
++    untracked = git('ls-files', '--others', '--exclude-standard', '--', *paths)
++    return (bool(re.fullmatch(r'[0-9a-f]{40}', commit or ''))
++            and git('cat-file', '-e', commit + '^{commit}').returncode == 0
++            and git('merge-base', '--is-ancestor', commit, 'HEAD').returncode == 0
++            and git('diff', '--quiet', commit, '--', *paths).returncode == 0
++            and untracked.returncode == 0 and not untracked.stdout.strip())
++
++
++def check_key(check):
++    file, title = check.get('file', ''), check.get('title', '')
++    path = PurePosixPath(file)
++    if (not file or path.is_absolute() or '..' in path.parts or '\\' in file
++            or not isinstance(title, str) or not title.strip()):
++        raise ValueError('Each test needs a repository-relative file and exact executed title')
++    return file + '::' + title
++
++
++def assess_data(data, names, root, compatible=compatible_commit):
++    """Validate evidence, derive effective results, and retain omitted units in the denominator."""
++    if data.get('version') != 1:
++        raise ValueError('Unsupported functional acceptance version')
++    names, root = set(names), Path(root).resolve()
++    runs = data.get('runs', {})
++    valid = {}
++    for ident, run in runs.items():
++        if not run.get('os') or not run.get('commit') or not run.get('commands'):
++            raise ValueError(f'{ident}: run requires OS, commit and executed commands')
++        keys = run.get('checks', [])
++        if not isinstance(keys, list) or len(keys) != len(set(keys)):
++            raise ValueError(f'{ident}: duplicate or malformed executed checks')
++        test_files = []
++        for key in keys:
++            file, separator, title = key.partition('::')
++            if not separator:
++                raise ValueError(f'{ident}: executed checks require file::title')
++            check_key({'file': file, 'title': title})
++            test_files.append(file)
++        valid[ident] = compatible(root, run['commit'], test_files)
++
++    ids, records = set(), []
++    def assess_item(item, platform=False):
++        ident = item.get('id')
++        if not isinstance(ident, str) or not ident or ident in ids:
++            raise ValueError(f'Duplicate or missing acceptance ID: {ident}')
++        ids.add(ident)
++        units = item.get('units', [])
++        if len(set(units)) != len(units) or not set(units) <= names or (not units and not platform):
++            raise ValueError(f'{ident}: unknown, duplicate or missing units')
++        if not item.get('requirement') or item.get('status') not in {'verified', 'pending'}:
++            raise ValueError(f'{ident}: requirement and verified/pending status are required')
++        if platform and not item.get('os'):
++            raise ValueError(f'{ident}: platform capability requires an OS')
++        checks = [check_key(c) for c in item.get('checks', [])]
++        if len(checks) != len(set(checks)):
++            raise ValueError(f'{ident}: duplicate test witness')
++        for check in item.get('checks', []):
++            file = (root / check['file']).resolve()
++            if not file.is_relative_to(root) or not file.is_file():
++                raise ValueError(f'{ident}: test file is missing or outside the repository')
++        covered, environments, stale = set(), set(), False
++        for evidence in item.get('evidence', []):
++            run_id = evidence.get('run')
++            if run_id not in runs:
++                raise ValueError(f'{ident}: unknown evidence run {run_id}')
++            run = runs[run_id]
++            if evidence.get('os') != run['os'] or evidence.get('commit') != run['commit']:
++                raise ValueError(f'{ident}: witness OS/commit differs from its executed run')
++            if platform and run['os'] != item['os']:
++                raise ValueError(f'{ident}: another host cannot prove this platform capability')
++            if valid[run_id]:
++                covered.update(run['checks'])
++                environments.add(run['os'])
++            else:
++                stale = True
++        status, reason = item['status'], item.get('gap', '')
++        if status == 'verified':
++            if not checks or not item.get('evidence'):
++                raise ValueError(f'{ident}: verified requires real test witnesses and run evidence')
++            declared = {key for e in item['evidence'] for key in runs[e['run']]['checks']}
++            if not set(checks) <= declared:
++                raise ValueError(f'{ident}: cited test was not attested as executed')
++            if not set(checks) <= covered:
++                status, reason = 'pending', 'Application/test files changed since the cited run; rerun these checks.'
++        elif not reason:
++            raise ValueError(f'{ident}: pending requires a concrete remaining obligation')
++        return {**item, 'status': status, 'gap': reason, 'environments': sorted(environments), 'stale': stale}
++
++    for item in data.get('cases', []):
++        records.append(assess_item(item))
++    covered_units = {name for item in records for name in item['units']}
++    for name in sorted(names - covered_units):
++        records.append({'id': 'unassessed:' + name, 'units': [name],
++                        'requirement': 'Declare and verify the normal functional acceptance scope.',
++                        'status': 'pending', 'gap': 'Functional acceptance has not been scoped for this unit.',
++                        'checks': [], 'evidence': [], 'environments': [], 'stale': False})
++    platform = [assess_item(item, platform=True) for item in data.get('platform', [])]
++    by_unit = {}
++    for name in sorted(names):
++        cases = [r for r in records if name in r['units']]
++        passed = sum(r['status'] == 'verified' for r in cases)
++        by_unit[name] = {'passed': passed, 'total': len(cases),
++                         'status': 'verified' if cases and passed == len(cases) else 'pending',
++                         'cases': [r['id'] for r in cases]}
++    passed = sum(r['status'] == 'verified' for r in records)
++    return {'assessed': bool(data.get('cases')), 'passed': passed, 'total': len(records),
++            'percent': round(100 * passed / len(records), 1) if records else 0.0,
++            'environments': sorted({env for r in records for env in r['environments']}),
++            'units': by_unit, 'cases': records, 'platform': platform}
++
++
++def assess(docs, units, root=None):
++    docs = Path(docs)
++    names = [u['name'] for u in units if u['kind'] in {'screen', 'report'}]
++    file = docs / 'functional-acceptance.json'
++    data = json.loads(file.read_text(encoding='utf-8')) if file.exists() else {'version': 1}
++    return assess_data(data, names, root or docs.parent)
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--docs', type=Path, default=Path('docs'))
++    parser.add_argument('--check', action='store_true', help='validate scope/evidence without changing any results')
++    parser.add_argument('--require-complete', action='store_true', help='fail until every required functional case passes')
++    args = parser.parse_args()
++    from progress_dashboard import matrix_rows, summarize
++    files = {p.name: p.read_text(encoding='utf-8') for p in (args.docs / 'parity').glob('*.csv')}
++    try:
++        result = assess(args.docs, summarize(matrix_rows(files), args.docs))
++    except (ValueError, KeyError, TypeError) as error:
++        parser.exit(1, str(error) + '\n')
++    print(json.dumps({k: v for k, v in result.items() if k not in {'cases', 'platform', 'units'}}, indent=2))
++    if args.require_complete and (not result['assessed'] or result['passed'] != result['total']):
++        parser.exit(1, 'Required functional acceptance checks remain pending.\n')
++
++
++if __name__ == '__main__':
++    main()
+diff --git a/scripts/progress_dashboard.py b/scripts/progress_dashboard.py
+index b87c4a6..d9776d6 100644
+--- a/scripts/progress_dashboard.py
++++ b/scripts/progress_dashboard.py
+@@ -5,8 +5,8 @@ Reads only what the process already maintains: the parity matrix (docs/parity/),
+ notes and specs, the answer sheet, the ADRs and, when the folder is a Git repository, the history of the parity
+ files. Writes docs/progress/index.html (no external files, no network). Run it after each stage, or from CI.
+
+-Per screen and report: not started → mapped (note and spec written) → building (rows implemented) → done
+-(every row verified or excluded). Headline: share of legacy behaviors verified in the new app.
++Functional readiness uses explicit executed acceptance cases. Strict parity, implementation,
++source confidence and host acceptance remain separate; none is inferred from another.
+ """
+ import argparse
+ import collections
+@@ -20,6 +20,7 @@ import re
+ import subprocess
+
+ DONE = {'verified', 'excluded'}
++BUILT = {'implemented', 'verified'}
+ STATUS_ORDER = ['verified', 'excluded', 'implemented', 'specified', 'unmapped']
+ COLORS = {'verified': '#5fd38d', 'excluded': '#6b7280', 'implemented': '#f5c451', 'specified': '#8f7cf6',
+           'unmapped': '#3a3f4b'}
+@@ -68,12 +69,16 @@ def unit_kind(name, kinds):
+
+
+ def summarize(rows, docs):
+-    units = collections.defaultdict(lambda: {'statuses': collections.Counter(), 'kinds': set(), 'assumed': 0})
++    units = collections.defaultdict(lambda: {'statuses': collections.Counter(), 'kinds': set(), 'assumed': 0,
++                                             'source_unresolved': 0, 'built_on_defaults': 0})
+     for row in rows:
+         unit = units[row.get('element') or '?']
+         status = (row.get('status') or 'unmapped').strip()
+         unit['statuses'][status] += 1
+         unit['assumed'] += status == 'verified' and (row.get('confidence') or '').strip() == 'assumed'
++        unresolved = (row.get('confidence') or '').strip() == 'unresolved'
++        unit['source_unresolved'] += unresolved
++        unit['built_on_defaults'] += unresolved and status in BUILT
+         unit['kinds'].add(row.get('kind', ''))
+     result = []
+     for name, unit in units.items():
+@@ -82,21 +87,33 @@ def summarize(rows, docs):
+         mapped = (docs / 'mapping' / f'{name}.md').exists()
+         spec = any((docs / folder / f'{name}.md').exists() for folder in ('screens', 'reports'))
+         done = sum(counts[s] for s in DONE)
++        built = sum(counts[s] for s in BUILT)
++        proven, excluded = counts['verified'], counts['excluded']
+         if total and done == total:
+             stage = 'done'
++        elif built and built + excluded == total:
++            stage = 'built'
+         elif counts['implemented'] or counts['verified']:
+             stage = 'building'
+         elif mapped:
+             stage = 'mapped'
+         else:
+             stage = 'not started'
+-        visual = docs / 'evidence' / 'visual' / f'{name}.json'
+-        looks = json.loads(visual.read_text(encoding='utf-8')) if visual.exists() else None
+-        result.append({'name': name, 'kind': kind, 'total': total, 'done': done, 'stage': stage, 'spec': spec,
++        visual_root = docs / 'evidence' / 'visual'
++        visuals = {}
++        for platform, directory in (('windows', visual_root), ('darwin', visual_root / 'darwin')):
++            visual = directory / f'{name}.json'
++            if visual.exists():
++                record = json.loads(visual.read_text(encoding='utf-8'))
++                visuals[platform] = {'pixel': record.get('pixel_similarity'), 'layout': record.get('edge_overlap')}
++        result.append({'name': name, 'kind': kind, 'total': total, 'done': done, 'built': built,
++                       'built_percent': round(100 * built / total, 1) if total else 0.0,
++                       'proven': proven, 'excluded': excluded, 'stage': stage, 'spec': spec,
+                        'assumed': unit['assumed'],
++                       'source_unresolved': unit['source_unresolved'], 'built_on_defaults': unit['built_on_defaults'],
+                        'statuses': {s: counts[s] for s in STATUS_ORDER},
+-                       'looks': looks and {'pixel': looks.get('pixel_similarity'), 'layout': looks.get('edge_overlap')}})
+-    order = {'building': 0, 'mapped': 1, 'done': 2, 'not started': 3}
++                       'looks': visuals.get('windows'), 'visuals': visuals})
++    order = {'building': 0, 'built': 1, 'mapped': 2, 'done': 3, 'not started': 4}
+     return sorted(result, key=lambda u: (order[u['stage']], u['kind'], u['name'].lower()))
+
+
+@@ -130,12 +147,15 @@ def git(root, *args):
+
+
+ def history(root, parity_dir, limit=200):
+-    """(date, verified %, rows) after each commit that touched the parity files, oldest first."""
+-    relative = parity_dir.resolve().relative_to(Path(git(root, 'rev-parse', '--show-toplevel').strip() or root).resolve())
++    """(date, strict completion %, rows) after parity commits, oldest first. Includes approved exclusions."""
++    relative = parity_dir.resolve().relative_to(Path(git(root, 'rev-parse', '--show-toplevel').strip() or root).resolve()).as_posix()
+     points = []
+     for line in git(root, 'log', f'-{limit}', '--format=%H %cI', '--', str(relative)).splitlines()[::-1]:
+         sha, date = line.split()
+         names = git(root, 'ls-tree', '--name-only', sha, f'{relative}/').split()
++        # matrix_rows already prefers the aggregate. Avoid thousands of redundant Git reads.
++        if f'{relative}/parity.csv' in names:
++            names = [n for n in names if Path(n).name in {'parity.csv', 'parity-seed.csv'}]
+         files = {n: git(root, 'show', f'{sha}:{n}') for n in names if n.endswith('.csv')}
+         rows = matrix_rows(files)
+         if rows:
+@@ -161,13 +181,13 @@ def chart(points):
+     xs = [i * (w - 20) / (len(points) - 1) + 10 for i in range(len(points))]
+     ys = [h - 10 - p[1] * (h - 20) / 100 for p in points]
+     line = ' '.join(f'{x:.1f},{y:.1f}' for x, y in zip(xs, ys))
+-    return (f'<svg viewBox="0 0 {w} {h}" class="chart" role="img" aria-label="verified share over time">'
++    return (f'<svg viewBox="0 0 {w} {h}" class="chart" role="img" aria-label="strict completion over time: verified plus approved exclusions">'
+             f'<polyline points="{line}" fill="none" stroke="{COLORS["verified"]}" stroke-width="2.5"/>'
+             f'<text x="10" y="14">{points[0][0]}</text><text x="{w - 10}" y="14" text-anchor="end">'
+             f'{points[-1][0]} · {points[-1][1]}%</text></svg>')
+
+
+-def render(units, questions, points, commits, title, generated):
++def render(units, questions, points, commits, title, generated, functional=None):
+     rows = sum(u['total'] for u in units)
+     done = sum(u['done'] for u in units)
+     statuses = collections.Counter()
+@@ -177,28 +197,68 @@ def render(units, questions, points, commits, title, generated):
+     for u in units:
+         by_kind[u['kind']][u['stage']] += 1
+     percent = round(100 * done / rows, 1) if rows else 0.0
++    built = statuses['implemented'] + statuses['verified']
++    built_percent = round(100 * built / rows, 1) if rows else 0.0
++    proven_percent = round(100 * statuses['verified'] / rows, 1) if rows else 0.0
+     assumed = sum(u['assumed'] for u in units)
++    source_unresolved = sum(u['source_unresolved'] for u in units)
++    built_on_defaults = sum(u['built_on_defaults'] for u in units)
++    functional = functional or {'assessed': False, 'passed': 0, 'total': 0, 'percent': 0,
++                                'units': {}, 'cases': [], 'platform': [], 'environments': []}
++    functional_percent = f'{functional["percent"]}%' if functional['assessed'] else '—'
++
++    def functional_unit(unit):
++        return functional['units'].get(unit['name'], {'passed': 0, 'total': 0, 'status': 'pending', 'cases': []})
+
+     def tile(kind, label):
+-        counts = by_kind.get(kind, collections.Counter())
+-        total = sum(counts.values())
+-        return (f'<div class="tile"><div class="big">{counts["done"]}<small>/{total}</small></div><div>{label} done</div>'
+-                f'<div class="muted">{counts["building"]} being built · {counts["mapped"]} mapped · '
+-                f'{counts["not started"]} not started</div></div>')
++        group = [u for u in units if u['kind'] == kind]
++        ready = sum(functional_unit(u)['status'] == 'verified' for u in group)
++        return (f'<div class="tile"><div class="big">{ready}<small>/{len(group)}</small></div>'
++                f'<div>{label} functionally verified</div>'
++                f'<div class="muted">All declared functional checks passed; host acceptance is separate.</div></div>')
+
+     legend = ''.join(f'<span><i style="background:{COLORS[s]}"></i>{LABELS[s]} ({statuses[s]})</span>' for s in STATUS_ORDER)
++
++    def visual_cell(unit):
++        labels = {'windows': 'Windows', 'darwin': 'macOS'}
++        scores = ''.join(
++            f'<div title="{labels[platform]}: layout match with the legacy screen '
++            f'(pixel similarity {escape(str(score["pixel"]))} %)">'
++            f'{labels[platform]} {escape(str(score["layout"]))} %</div>'
++            for platform, score in unit['visuals'].items())
++        return f'<td class="visual">{scores or "–"}</td>'
++
+     unit_rows = ''.join(
+-        f'<tr class="{u["stage"].replace(" ", "-")}"><td>{escape(u["name"])}</td><td>{u["kind"]}</td>'
+-        f'<td><b class="stage {u["stage"].replace(" ", "-")}">{u["stage"]}</b></td>'
+-        f'<td>{bar(u["statuses"], u["total"])}</td><td class="num">{u["done"]}/{u["total"]}</td>'
+-        f'<td class="num" title="layout match with the legacy screen (pixel similarity {(u["looks"] or {}).get("pixel", "–")} %)">'
+-        f'{str((u["looks"] or {}).get("layout")) + " %" if u["looks"] else "–"}</td></tr>'
++        f'<tr class="{u["stage"].replace(" ", "-")} functional-{functional_unit(u)["status"]}"><td>{escape(u["name"])}</td><td>{u["kind"]}</td>'
++        f'<td><b class="stage {"done" if functional_unit(u)["status"] == "verified" else "building"}">'
++        f'{"verified" if functional_unit(u)["status"] == "verified" else "pending"}</b>'
++        f'<div class="muted">{functional_unit(u)["passed"]}/{functional_unit(u)["total"]} functional checks</div></td>'
++        f'<td>{bar(u["statuses"], u["total"])}</td>'
++        f'<td class="num"><div>{u["built"]}/{u["total"]} built</div><div>{u["proven"]}/{u["total"]} proven</div></td>'
++        f'<td class="num" title="verified plus approved exclusions">{u["done"]}/{u["total"]}<div class="muted">{u["excluded"]} excluded</div></td>'
++        f'{visual_cell(u)}</tr>'
+         for u in units if u['kind'] in ('screen', 'report'))
+     others = [u for u in units if u['kind'] not in ('screen', 'report')]
+     other_line = (f'<p class="muted">Also tracked: {len(others)} other elements (tables, queries, procedures), '
+-                  f'{sum(u["done"] for u in others)}/{sum(u["total"] for u in others)} behaviors done.</p>') if others else ''
++                  f'{sum(u["built"] for u in others)}/{sum(u["total"] for u in others)} built, '
++                  f'{sum(u["proven"] for u in others)}/{sum(u["total"] for u in others)} proven, '
++                  f'{sum(u["done"] for u in others)}/{sum(u["total"] for u in others)} strictly complete '
++                  f'({sum(u["excluded"] for u in others)} excluded).</p>') if others else ''
+     pending = questions['decisions_pending']
+     commit_items = ''.join(f'<li><span class="muted">{escape(d)}</span> {escape(s)}</li>' for d, s in commits)
++    functional_items = ''.join(
++        f'<li id="case-{escape(c["id"])}"><b>{escape(c["status"])}</b> · {escape(c["requirement"])}'
++        f'<div class="muted">{escape(", ".join(c["units"]))}</div>'
++        + (f'<div class="muted">{escape(c["gap"])}</div>' if c['gap'] else '')
++        + ''.join(f'<div class="muted">{escape(check["file"])} :: {escape(check["title"])}</div>' for check in c['checks'])
++        + ''.join(f'<div class="muted">{escape(e["os"])} · {escape(e["commit"][:12])} · {escape(e["run"])}</div>' for e in c.get('evidence', []))
++        + '</li>' for c in functional['cases'])
++    host_items = ''.join(
++        f'<li><b>{escape(c["os"])} · {escape(c["status"])}</b> · {escape(c["requirement"])}'
++        + (f'<div class="muted">{escape(c["gap"])}</div>' if c['gap'] else '')
++        + ''.join(f'<div class="muted">{escape(e["commit"][:12])} · {escape(e["run"])}</div>' for e in c.get('evidence', []))
++        + '</li>'
++        for c in functional['platform'])
+     return f'''<!doctype html>
+ <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>{escape(title)} — migration progress</title>
+@@ -210,48 +270,68 @@ main{{max-width:1100px;margin:0 auto;padding:24px 16px 48px}}
+ h1{{font-size:14px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin:0 0 18px}}
+ h2{{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:32px 0 12px}}
+ .hero{{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-end}}
+-.hero .pct{{font-size:72px;font-weight:700;color:var(--accent);line-height:1}}
++.hero .pct{{font-size:72px;font-weight:700;color:{COLORS["verified"]};line-height:1}}
+ .tiles{{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:20px}}
+ .tile{{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}}
+ .big{{font-size:34px;font-weight:700}}.big small{{font-size:18px;color:var(--muted)}}
+-.muted{{color:var(--muted);font-size:13px}}
++.muted{{color:var(--muted);font-size:13px;overflow-wrap:anywhere}}
+ .bar{{display:flex;height:12px;border-radius:6px;overflow:hidden;background:{COLORS["unmapped"]};min-width:40px}}
+ .bar span{{display:block;height:100%}}
+ .legend{{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--muted);margin:10px 0}}
+ .legend i{{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}}
+ table{{width:100%;border-collapse:collapse;table-layout:fixed}}td{{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:middle;overflow-wrap:anywhere}}
+-td:nth-child(1){{width:30%}}td:nth-child(2){{width:10%}}td:nth-child(3){{width:14%}}td:nth-child(5){{width:9%}}td:nth-child(6){{width:9%}}.num{{text-align:right;white-space:nowrap}}
++td:nth-child(1){{width:27%}}td:nth-child(2){{width:8%}}td:nth-child(3){{width:11%}}td:nth-child(5){{width:16%}}td:nth-child(6){{width:12%}}td:nth-child(7){{width:14%}}.num{{text-align:right;white-space:nowrap}}.visual{{text-align:right;font-size:12px;white-space:nowrap}}
++thead .num{{white-space:normal}}
+ .stage{{font-size:12px;padding:2px 8px;border-radius:99px;background:var(--line);white-space:nowrap}}
+ .stage.done{{background:#1f4d33;color:#9ff0c0}}.stage.building{{background:#4d3f17;color:#ffe08a}}
++.stage.built{{background:#594817;color:#ffe7a6}}
+ .stage.mapped{{background:#2d2752;color:#cfc6ff}}
+ .filters button{{font:inherit;font-size:13px;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:4px 10px;margin:0 6px 8px 0;cursor:pointer}}
+ .filters button.on{{border-color:var(--accent)}}
+ .chart{{width:100%;max-width:640px;background:var(--panel);border:1px solid var(--line);border-radius:10px}}
+ .chart text{{fill:var(--muted);font-size:11px}}
+ ul{{padding-left:18px}}li{{margin:3px 0}}
+-@media (max-width:760px){{td:nth-child(2){{display:none}}td:nth-child(1){{width:40%}}td:nth-child(3){{width:22%}}td:nth-child(5){{width:16%}}.hero .pct{{font-size:56px}}}}
++@media (max-width:760px){{.unit-table{{overflow-x:auto}}table{{min-width:880px}}td:nth-child(2){{display:none}}.hero .pct{{font-size:56px}}}}
+ </style></head><body><main>
+ <h1>{escape(title)} · WINDEV → new app · migration progress</h1>
+-<div class="hero"><div class="pct">{percent}%</div>
+-<div><div>of the old app's behaviors are rebuilt <b>and proven</b> in the new app</div>
+-<div class="muted">{done} of {rows} behaviors{f" · {assumed} of them on assumptions still to confirm" if assumed else ""} · updated {generated}</div></div></div>
+-<div class="tiles">{tile("screen", "screens")}{tile("report", "reports")}
++<div class="hero"><div class="pct">{functional_percent}</div>
++<div><div>of required <b>functional acceptance checks</b> have passed</div>
++<div class="muted">{functional["passed"]}/{functional["total"]} required checks · {escape(", ".join(functional["environments"])) or "No executed functional evidence recorded"} · updated {generated}</div></div></div>
++<p class="muted">Functional verification covers declared normal workflows, persistence, cancellation and data correctness.
++Every screen/report stays in scope. Missing scope or stale evidence stays pending. Native deployment is assessed separately.</p>
++<div class="tiles">
++{tile("screen", "screens")}{tile("report", "reports")}
++<div class="tile"><div class="big">{built_percent}%</div><div>implementation coverage</div>
++<div class="muted">{built} of {rows} behaviors · {statuses["implemented"]} built, awaiting proof · {statuses["excluded"]} approved exclusions outside the built count</div></div>
++<div class="tile"><div class="big">{proven_percent}%</div><div>strict behavior verification</div>
++<div class="muted">{statuses["verified"]}/{rows} verified{f" · {assumed} on assumptions still to confirm" if assumed else ""}</div></div>
++<div class="tile"><div class="big">{percent}%</div><div>strict completion</div>
++<div class="muted">{done}/{rows} verified + approved exclusions ({statuses["excluded"]} excluded)</div></div>
++<div class="tile"><div class="big">{built_on_defaults}</div><div>built using target defaults</div>
++<div class="muted">{source_unresolved} source behaviors still unconfirmed. Implementation does not resolve the WINDEV evidence gaps or native acceptance.</div></div>
+ <div class="tile"><div class="big">{questions["answer_sheet_open"]}</div><div>assumptions to confirm with the WINDEV expert (work does not wait)</div>
+ <div class="muted">{questions["answer_sheet_done"]} answered · {questions["unresolved_items"]} open points in the analysis</div></div>
+ <div class="tile"><div class="big">{len(pending)}</div><div>decisions waiting for you</div>
+ <div class="muted">{escape(", ".join(pending[:4])) or "none"}</div></div></div>
+-<h2>All behaviors</h2>{bar(statuses, rows or 1)}<div class="legend">{legend}</div>
+-<h2>Progress over time</h2>{chart(points)}
+ <h2>Screens and reports</h2>
+-<div class="filters"><button data-f="all" class="on">all</button><button data-f="building">being built</button>
+-<button data-f="mapped">mapped</button><button data-f="done">done</button><button data-f="not-started">not started</button></div>
+-<table id="units"><thead><tr class="muted"><td>screen / report</td><td>kind</td><td>stage</td><td>behaviors</td>
+-<td class="num">done</td><td class="num">looks like the original</td></tr></thead><tbody>{unit_rows}</tbody></table>{other_line}
++<div class="filters"><button data-f="all" class="on">all</button><button data-f="functional-verified">functionally verified</button>
++<button data-f="functional-pending">functional checks pending</button><button data-f="built">implementation built</button></div>
++<div class="unit-table"><table id="units"><thead><tr class="muted"><td>screen / report</td><td>kind</td><td>functional readiness</td><td>strict parity</td>
++<td class="num">built / proven</td><td class="num">strict completion</td><td class="num">looks like the original</td></tr></thead><tbody>{unit_rows}</tbody></table></div>{other_line}
++<h2>Platform acceptance</h2><p class="muted">Functional checks on one host do not establish another host's native dialogs, installation, printing or devices.</p>
++<ul>{host_items or '<li class="muted">Platform acceptance has not been recorded.</li>'}</ul>
++<details><summary>Functional acceptance evidence and pending work</summary><ul>{functional_items or '<li>No functional acceptance inventory recorded.</li>'}</ul></details>
++<h2>Strict parity and legacy fidelity</h2>{bar(statuses, rows or 1)}<div class="legend">{legend}</div>
++<h2>Strict completion over time</h2><p class="muted">Original history: verified + approved exclusions. Implemented rows awaiting proof do not count in this line.</p>{chart(points)}
+ <h2>Recent work</h2><ul>{commit_items or '<li class="muted">No commits yet.</li>'}</ul>
+-<p class="muted">Each screen goes: not started → mapped (its behavior written down and checked) → being built → done
+-(every behavior proven by a test, or excluded by a decision). "Looks like the original": how much of the legacy
+-screen's layout (borders, text, lines) is at the same place in the new one, from scripts/visual_compare.py — a human
+-still approves the look from the side-by-side image. Generated by scripts/progress_dashboard.py.</p>
++<p class="muted">Functionally verified means every declared functional check for that unit has executed proof against the recorded application commit.
++It does not assert exact WINDEV equivalence, zero bugs, or complete native acceptance. Strict unit completion still requires every parity row verified or excluded.
++Built = implemented + verified; proven = verified; strict completion = verified + approved exclusions.
++Specified or unmapped rows keep a unit short of built. Built does not establish native or human acceptance.
++"Looks like the original": how much of the legacy
++screen's layout (borders, text, lines) is at the same place in the new one, from scripts/visual_compare.py.
++Windows and macOS measurements are shown separately; a score does not establish native or human acceptance.
++A human still approves the look from the side-by-side image. Generated by scripts/progress_dashboard.py.</p>
+ </main><script>
+ document.querySelectorAll('.filters button').forEach(b => b.onclick = () => {{
+   document.querySelectorAll('.filters button').forEach(x => x.classList.toggle('on', x === b));
+@@ -271,7 +351,12 @@ def build(docs, title='Migration', root=None):
+     commits = [tuple(line.split(' ', 1)) for line in git(root, 'log', '-10', '--format=%cs %s').splitlines()
+                if ' ' in line]
+     generated = datetime.now().strftime('%Y-%m-%d %H:%M')
+-    return render(units, open_questions(docs), points, commits, title, generated), units
++    from functional_acceptance import assess
++    functional = assess(docs, units, root)
++    for unit in units:
++        if unit['name'] in functional['units']:
++            unit['functional'] = functional['units'][unit['name']]
++    return render(units, open_questions(docs), points, commits, title, generated, functional), units
+
+
+ def main():
+@@ -286,8 +371,11 @@ def main():
+     out.write_text(page, encoding='utf-8')
+     (out.with_suffix('.json')).write_text(json.dumps(units, indent=1), encoding='utf-8')
+     screens = [u for u in units if u['kind'] == 'screen']
+-    print(f"{out}: {sum(u['stage'] == 'done' for u in screens)}/{len(screens)} screens done, "
+-          f"{sum(u['done'] for u in units)}/{sum(u['total'] for u in units)} behaviors")
++    print(f"{out}: {sum(u.get('functional', {}).get('status') == 'verified' for u in screens)}/{len(screens)} screens functionally verified, "
++          f"{sum(u['stage'] == 'done' for u in screens)}/{len(screens)} screens strictly done, "
++          f"{sum(u['built'] for u in units)}/{sum(u['total'] for u in units)} behaviors built, "
++          f"{sum(u['proven'] for u in units)} verified, {sum(u['excluded'] for u in units)} excluded, "
++          f"{sum(u['done'] for u in units)} strictly complete")
+
+
+ if __name__ == '__main__':
+diff --git a/templates/AGENTS.template.md b/templates/AGENTS.template.md
+index ea09078..16912d2 100644
+--- a/templates/AGENTS.template.md
++++ b/templates/AGENTS.template.md
+@@ -13,7 +13,8 @@ Keep this file short (about 100 lines). Details live in `docs/`; local rules liv
+ - `src/infrastructure/` — Tauri IPC (or API) adapters. `src/bindings/` is generated: never edit by hand.
+ - `src-tauri/src/commands/` — one Rust command per business operation, one transaction each.
+ - `src-tauri/migrations/` — ordered SQL migrations; committed ones are immutable. See local `AGENTS.md`.
+-- `docs/parity/parity.csv` — behavior parity matrix: the definition of done.
++- `docs/parity/parity.csv` — behavior parity matrix: strict migration completion.
++- `docs/functional-acceptance.json` — optional approved target cases and executed run/OS/commit evidence; validate before counting functional readiness.
+ - `docs/porting.md` — this project's concrete pattern (file, function, component) for each WLanguage construct it uses, over `docs/wlanguage-traps.md`; every slice follows it.
+ - `legacy/`, `analysis-local/` — private, ignored, read-only evidence. Never execute legacy code.
+ - `skills/` — playbooks to follow; `scripts/` — evidence pipeline, parity gate, comparator, guard. Humans own `scripts/guard.py`, `.githooks/` and agent configuration: do not modify them.
+@@ -82,6 +83,7 @@ npm run verify          # typecheck + lint + unit + parity check: must pass befo
+ npm run ui:check        # UI check and click-through flows, browser preview with mocked IPC
+ npm run tauri -- build  # native package for this OS
+ python3 scripts/parity_check.py docs/parity/parity.csv --seed docs/parity/parity-seed.csv   # parity progress and validity
++python3 scripts/functional_acceptance.py --check   # if adopted: validate target scope and executed evidence
+ python3 scripts/progress_dashboard.py --title "<App>"   # docs/progress/index.html for non-technical readers
+ <golden scenarios, bindings generation, migration commands…>
+ ```
+@@ -97,6 +99,7 @@ python3 scripts/progress_dashboard.py --title "<App>"   # docs/progress/index.ht
+ Ticket key of the current slice: in `ROADMAP.md`. Branch `<KEY>-<slug>`, commits start with `<KEY>:`.
+ After one proven workflow, use independent implementation families where useful (wave packet in `templates/prompt-stage.md`). One integration owner controls shared contracts and tracking; workers own disjoint files/worktrees, receive exact IDs/evidence/contracts and return frozen changes, focused checks and per-row claims. Review the combined delivery under the accepted project policy.
+ Keep one reusable active brief and a rolling handoff; do not add a runbook per worker. Report built targets, verified targets and source questions separately. Initial implementation is not final acceptance; preserve seed IDs and source provenance.
++If functional readiness is adopted, maintain `docs/functional-acceptance.json`: required cases (`id`, `units`, `requirement`, exact `checks` file/title, `verified|pending`, run/OS/commit evidence) and executed run metadata. Missing screens/reports create pending unassessed gaps; app/test changes invalidate affected witnesses. Adapt `CODE_PATHS` in the validator to this project's actual runtime inputs. Validate before counting accepted/required cases. Keep strict parity/source confidence and platform evidence separate; suite pass rates or built links do not supply acceptance, and tested target choices never resolve legacy U questions.
+
+ ## Pointers
+
+diff --git a/templates/functional-acceptance.template.json b/templates/functional-acceptance.template.json
+new file mode 100644
+index 0000000..2c2c56f
+--- /dev/null
++++ b/templates/functional-acceptance.template.json
+@@ -0,0 +1,16 @@
++{
++  "version": 1,
++  "runs": {},
++  "cases": [
++    {
++      "id": "FA-001",
++      "units": ["WIN_Example"],
++      "requirement": "Save and reopen agreed values; a failed save leaves no partial changes.",
++      "checks": [],
++      "status": "pending",
++      "gap": "Replace the example unit, declare the full approved scope and execute exact behavior checks.",
++      "evidence": []
++    }
++  ],
++  "platform": []
++}
+diff --git a/templates/prompt-stage.md b/templates/prompt-stage.md
+index 0cc8b03..9723536 100644
+--- a/templates/prompt-stage.md
++++ b/templates/prompt-stage.md
+@@ -8,6 +8,7 @@ First read docs/runbooks/handoff.md, AGENTS.md, ROADMAP.md and the ADRs for this
+ Stage "<name>" (roadmap #<n>):
+ - Parity rows: <IDs>. Evidence: <legacy paths:lines, exported SQL, screenshots, docs/screens/<WINDOW>.md, golden scenarios>.
+ - Expected behavior: <normal case, boundary case, failure case with exact legacy message>.
++- Functional acceptance (if adopted): <docs/functional-acceptance.json required case IDs/units/requirements, exact check file/title and executed run/OS/commit evidence; retain pending cases and unassessed screens/reports>.
+ - Intentional changes: <none, or ADR references>.
+ - Deliverables: <domain rules + tests named with parity IDs, Rust command + transaction, UI, golden scenario, migration if any>.
+ - Constraints: inspect the real schema and library APIs before coding; port every construct with its pattern in docs/porting.md (and its trap in docs/wlanguage-traps.md); <architecture constraints from ADRs>.
+@@ -15,6 +16,8 @@ Stage "<name>" (roadmap #<n>):
+
+ Done means: npm run verify passes, the golden scenarios for these rows pass — also clicked through the UI in ui-check/<slice>.flows.spec.ts (templates/ui-check/flows.example.spec.ts) —, each row you mark verified names the test that proves it, and every window and message box the slice opens is built from its generated layout with the skin kit, configured in ui-check.config.json and passes npm run ui:check (controls, captions, visual score recorded and not lower than before) — attach the side-by-side images to the handoff. Unknown legacy behavior follows AGENTS.md "No guessing": a proposal makes the row `assumed` (it may be verified); a choice of your own with no proposal keeps it implemented, listed under "Decisions needed". List checks you could not run (e.g. native printing on Windows).
+
++If functional acceptance is adopted, update docs/functional-acceptance.json, run python3 scripts/functional_acceptance.py --check and report verified/required cases separately from strict parity/source confidence and platform acceptance. App/test changes invalidate affected run witnesses; ordinary report/status documentation changes do not. Count complete declared scope, not tests passed or built links. Source-derived expectations can prove readable rules; tested target choices do not answer encoded legacy questions or prove unexecuted native behavior.
++
+ Before closing: an independent review of the slice with skills/review (a separate sub-agent or session); a slice touching money, stock or totals, the data import, deleting or overwriting data, or a multi-window workflow gets a second, independent one. One fixer applies their findings. An agent that cannot start a separate session reviews in a separate pass after clearing its context, reading only the diff, this prompt, the ADRs and the evidence, and says so in the handoff.
+
+ For a parallel wave, apply closing reviews to the integrated delivery, not separately to every worker. An accepted project ADR may allow coordinator self-review for initial implementations; disclose it and keep those rows implemented until the acceptance review/checks. Workers return changes and claims; the coordinator owns the closing below.
+diff --git a/tests/test_docs.py b/tests/test_docs.py
+index cfb98f2..3e244cc 100644
+--- a/tests/test_docs.py
++++ b/tests/test_docs.py
+@@ -1,4 +1,5 @@
+ from pathlib import Path
++import json
+ import re
+ import unittest
+
+@@ -40,6 +41,14 @@ class DocumentationTests(unittest.TestCase):
+         from helpers import load
+         self.assertEqual(header.split(','), load('scripts/inspect_windev.py').SEED_COLUMNS)
+
++    def test_functional_acceptance_template_is_valid_pending_scope(self):
++        from helpers import load
++        data = json.loads((ROOT / 'templates/functional-acceptance.template.json').read_text(encoding='utf-8'))
++        result = load('scripts/functional_acceptance.py').assess_data(data, ['WIN_Example'], ROOT)
++        self.assertEqual((result['passed'], result['total']), (0, 1))
++        self.assertEqual(result['units']['WIN_Example']['status'], 'pending')
++        self.assertEqual(result['environments'], [])
++
+
+ class MergeMarkerTests(unittest.TestCase):
+     def test_no_unresolved_merge_conflicts(self):
+diff --git a/tests/test_functional_acceptance.py b/tests/test_functional_acceptance.py
+new file mode 100644
+index 0000000..92ce37b
+--- /dev/null
++++ b/tests/test_functional_acceptance.py
+@@ -0,0 +1,152 @@
++import copy
++import json
++from pathlib import Path
++import subprocess
++import sys
++import tempfile
++import unittest
++
++sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
++from functional_acceptance import assess, assess_data, compatible_commit
++
++
++class FunctionalAcceptanceChecks(unittest.TestCase):
++    def setUp(self):
++        self.temporary = tempfile.TemporaryDirectory()
++        self.addCleanup(self.temporary.cleanup)
++        self.root = Path(self.temporary.name)
++        (self.root / 'flow.spec.ts').write_text('test("save and reopen", realSave)\n')
++        self.commit = 'a' * 40
++        self.witness = {'file': 'flow.spec.ts', 'title': 'save and reopen'}
++        self.data = {'version': 1, 'runs': {'mac': {
++            'os': 'macOS arm64', 'commit': self.commit, 'commands': ['playwright test'],
++            'checks': ['flow.spec.ts::save and reopen']}}, 'cases': [{
++                'id': 'save', 'units': ['WIN_Example'], 'requirement': 'Save and reopen exact stored values.',
++                'checks': [self.witness], 'status': 'verified',
++                'evidence': [{'run': 'mac', 'os': 'macOS arm64', 'commit': self.commit}]}]}
++
++    def evaluate(self, names=('WIN_Example',), compatible=True):
++        return assess_data(self.data, names, self.root, compatible=lambda *_: compatible)
++
++    def test_complete_executed_contract_passes_without_altering_its_input(self):
++        before = copy.deepcopy(self.data)
++        result = self.evaluate()
++        self.assertEqual((result['passed'], result['total'], result['percent']), (1, 1, 100.0))
++        self.assertEqual(result['units']['WIN_Example']['status'], 'verified')
++        self.assertEqual(result['environments'], ['macOS arm64'])
++        self.assertEqual(self.data, before)
++
++    def test_omitting_a_screen_keeps_its_missing_scope_in_the_denominator(self):
++        result = self.evaluate(('WIN_Example', 'WIN_Forgotten'))
++        self.assertEqual((result['passed'], result['total'], result['percent']), (1, 2, 50.0))
++        self.assertEqual(result['units']['WIN_Forgotten']['status'], 'pending')
++        self.assertIn('not been scoped', result['cases'][1]['gap'])
++
++    def test_pending_critical_workflow_keeps_all_its_units_open(self):
++        self.data['cases'].append({'id': 'rollback', 'units': ['WIN_Example', 'WIN_Other'],
++                                  'requirement': 'A refused save retains both original records.',
++                                  'checks': [], 'status': 'pending', 'gap': 'Real failed-save proof is outstanding.'})
++        result = self.evaluate(('WIN_Example', 'WIN_Other'))
++        self.assertEqual((result['passed'], result['total']), (1, 2))
++        self.assertTrue(all(u['status'] == 'pending' for u in result['units'].values()))
++
++    def test_verified_without_executed_witness_or_with_a_different_test_title_is_rejected(self):
++        for change in ('missing-evidence', 'missing-check', 'wrong-title', 'wrong-commit', 'wrong-os'):
++            with self.subTest(change=change):
++                before = copy.deepcopy(self.data)
++                case = self.data['cases'][0]
++                if change == 'missing-evidence':
++                    case['evidence'] = []
++                elif change == 'missing-check':
++                    case['checks'] = []
++                elif change == 'wrong-title':
++                    case['checks'] = [{'file': 'flow.spec.ts', 'title': 'test was not executed'}]
++                else:
++                    case['evidence'][0]['commit' if change == 'wrong-commit' else 'os'] = 'other'
++                with self.assertRaises(ValueError):
++                    self.evaluate()
++                self.data = before
++
++    def test_modified_application_cannot_reuse_old_passes(self):
++        result = self.evaluate(compatible=False)
++        self.assertEqual((result['passed'], result['total']), (0, 1))
++        self.assertIn('changed since', result['cases'][0]['gap'])
++        self.assertEqual(self.data['cases'][0]['status'], 'verified')
++
++    def test_platform_does_not_borrow_another_host_or_change_the_functional_denominator(self):
++        self.data['platform'] = [{'id': 'mac-print', 'os': 'macOS arm64', 'units': ['WIN_Example'],
++                                 'requirement': 'Actual native printing completes.', 'status': 'pending',
++                                 'checks': [], 'gap': 'Printer check is not executed.'}]
++        result = self.evaluate()
++        self.assertEqual((result['passed'], result['total']), (1, 1))
++        self.assertEqual(result['platform'][0]['status'], 'pending')
++        self.data['platform'][0].update(os='Windows x64', status='verified', checks=[self.witness],
++                                       evidence=self.data['cases'][0]['evidence'])
++        with self.assertRaisesRegex(ValueError, 'another host'):
++            self.evaluate()
++
++    def test_unknown_units_duplicate_cases_and_external_test_files_are_rejected(self):
++        before = copy.deepcopy(self.data)
++        self.data['cases'][0]['units'] = ['WIN_NotInInventory']
++        with self.assertRaises(ValueError):
++            self.evaluate()
++        self.data = copy.deepcopy(before)
++        self.data['cases'].append(copy.deepcopy(self.data['cases'][0]))
++        with self.assertRaises(ValueError):
++            self.evaluate()
++        self.data = before
++        self.data['cases'][0]['checks'] = [{'file': '../outside.ts', 'title': 'save and reopen'}]
++        with self.assertRaises(ValueError):
++            self.evaluate()
++
++    def test_absent_ledger_reports_unassessed_instead_of_built_as_verified(self):
++        result = assess(self.root, [{'name': 'WIN_Example', 'kind': 'screen', 'built': 99}], self.root)
++        self.assertFalse(result['assessed'])
++        self.assertEqual((result['passed'], result['total']), (0, 1))
++
++
++class ApplicationCommitChecks(unittest.TestCase):
++    def test_real_git_proof_survives_docs_changes_but_not_changed_or_untracked_application_inputs(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            root = Path(temporary)
++            def git(*args):
++                return subprocess.check_output(['git', '-C', str(root), *args], stderr=subprocess.DEVNULL, text=True).strip()
++            git('init')
++            git('config', 'user.name', 'Synthetic test')
++            git('config', 'user.email', 'synthetic@example.invalid')
++            git('config', 'commit.gpgsign', 'false')
++            (root / 'src').mkdir()
++            app = root / 'src/app.ts'
++            app.write_text('original application')
++            git('add', 'src/app.ts')
++            git('commit', '-m', 'synthetic baseline')
++            commit = git('rev-parse', 'HEAD')
++            self.assertTrue(compatible_commit(root, commit))
++            (root / 'README.md').write_text('documentation only')
++            git('add', 'README.md')
++            git('commit', '-m', 'synthetic documentation')
++            self.assertTrue(compatible_commit(root, commit))
++            app.write_text('changed application')
++            self.assertFalse(compatible_commit(root, commit))
++            app.write_text('original application')
++            new = root / 'src/new.ts'
++            new.write_text('new application input')
++            self.assertFalse(compatible_commit(root, commit))
++            new.unlink()
++            self.assertTrue(compatible_commit(root, commit))
++            for path in ['docs/evidence/message-proposals.json', 'docs/evidence/ui-inputs.json',
++                         'docs/golden/scenario.json', 'scripts/native-startup-probe.mjs', 'tests/flow.py']:
++                file = root / path
++                file.parent.mkdir(parents=True, exist_ok=True)
++                file.write_text('initial test/runtime input')
++                git('add', path)
++                git('commit', '-m', 'synthetic input baseline')
++                tested = git('rev-parse', 'HEAD')
++                file.write_text('changed test/runtime input')
++                self.assertFalse(compatible_commit(root, tested, ['tests/flow.py']))
++                file.write_text('initial test/runtime input')
++                self.assertTrue(compatible_commit(root, tested, ['tests/flow.py']))
++
++
++if __name__ == '__main__':
++    unittest.main()
+diff --git a/tests/test_progress_dashboard.py b/tests/test_progress_dashboard.py
+index 1c9c7a4..975bd57 100644
+--- a/tests/test_progress_dashboard.py
++++ b/tests/test_progress_dashboard.py
+@@ -1,66 +1,217 @@
+-import csv
++import json
+ from pathlib import Path
+-import subprocess
++import sys
+ import tempfile
+ import unittest
++from unittest.mock import patch
++
++sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
++from progress_dashboard import chart, history, matrix_rows, render, summarize
++
++
++class PlatformVisualProgressChecks(unittest.TestCase):
++    def summary_and_page(self, docs):
++        rows = [{'element': 'WIN_Form_Example', 'kind': 'window', 'status': 'implemented'}]
++        units = summarize(rows, docs)
++        page = render(units, {'decisions_pending': [], 'answer_sheet_open': 0,
++                              'answer_sheet_done': 0, 'unresolved_items': 0}, [], [], 'Example', 'fixed')
++        return units[0], page
++
++    def record(self, docs, platform, pixel, layout, date):
++        directory = docs / 'evidence' / 'visual'
++        if platform == 'darwin':
++            directory /= 'darwin'
++        directory.mkdir(parents=True, exist_ok=True)
++        filename = directory / 'WIN_Form_Example.json'
++        filename.write_text(json.dumps({'pixel_similarity': pixel, 'edge_overlap': layout, 'date': date}), encoding='utf-8')
++        return filename
++
++    def test_darwin_only_measurement_is_visible_and_labelled_without_inventing_windows_evidence(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            docs = Path(temporary)
++            filename = self.record(docs, 'darwin', 98.9, 96.7, '2026-10-25')
++            before = filename.read_bytes()
++            unit, page = self.summary_and_page(docs)
++            self.assertIsNone(unit['looks'])
++            self.assertEqual(unit['visuals'], {'darwin': {'pixel': 98.9, 'layout': 96.7}})
++            self.assertIn('macOS 96.7 %', page)
++            self.assertIn('pixel similarity 98.9 %', page)
++            self.assertNotIn('Windows 96.7', page)
++            self.assertEqual(filename.read_bytes(), before)
++            self.assertEqual(unit['statuses']['implemented'], 1)
++            self.assertEqual(unit['done'], 0)
++
++    def test_both_histories_remain_separate_in_fixed_order_and_legacy_looks_is_unchanged(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            docs = Path(temporary)
++            # Create the newer/higher-scoring Mac record first: neither date, score nor file order wins.
++            mac = self.record(docs, 'darwin', 99.1, 97.2, '2026-10-25')
++            windows = self.record(docs, 'windows', 94.5, 88.4, '2026-10-24')
++            before = {filename: filename.read_bytes() for filename in (mac, windows)}
++            unit, page = self.summary_and_page(docs)
++            self.assertEqual(unit['looks'], {'pixel': 94.5, 'layout': 88.4})
++            self.assertEqual(list(unit['visuals']), ['windows', 'darwin'])
++            self.assertEqual(unit['visuals'], {'windows': {'pixel': 94.5, 'layout': 88.4},
++                                             'darwin': {'pixel': 99.1, 'layout': 97.2}})
++            self.assertIn('Windows 88.4 %', page)
++            self.assertIn('macOS 97.2 %', page)
++            self.assertLess(page.index('Windows 88.4 %'), page.index('macOS 97.2 %'))
++            self.assertEqual({filename: filename.read_bytes() for filename in before}, before)
++
++    def test_missing_histories_stay_unmeasured_without_altering_behavior_progress(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            unit, page = self.summary_and_page(Path(temporary))
++            self.assertIsNone(unit['looks'])
++            self.assertEqual(unit['visuals'], {})
++            self.assertIn('<td class="visual">–</td>', page)
++            self.assertEqual(unit['stage'], 'built')
++            self.assertEqual((unit['done'], unit['total']), (0, 1))
++
++
++class BuiltAndProvenProgressChecks(unittest.TestCase):
++    def summary(self, statuses):
++        with tempfile.TemporaryDirectory() as temporary:
++            return summarize([{'element': 'WIN_Example', 'kind': 'window', 'status': status}
++                              for status in statuses], Path(temporary))[0]
++
++    def test_built_excludes_decisions_while_strict_completion_keeps_them(self):
++        unit = self.summary(['implemented', 'implemented', 'verified', 'excluded', 'specified', 'unmapped'])
++        self.assertEqual((unit['built'], unit['built_percent'], unit['proven'], unit['excluded']), (3, 50.0, 1, 1))
++        self.assertEqual((unit['done'], unit['total'], unit['stage']), (2, 6, 'building'))
++        page = render([unit], {'decisions_pending': ['pending-choice'], 'answer_sheet_open': 8,
++                              'answer_sheet_done': 2, 'unresolved_items': 4},
++                      [('2026-10-24', 20.0, 6), ('2026-10-25', 30.0, 6)], [], 'Example', 'fixed')
++        self.assertIn('<div class="hero"><div class="pct">—</div>', page)
++        self.assertIn('<div class="big">50.0%</div><div>implementation coverage</div>', page)
++        self.assertIn('3 of 6 behaviors · 2 built, awaiting proof · 1 approved exclusions outside the built count', page)
++        self.assertIn('<div class="big">16.7%</div><div>strict behavior verification</div>', page)
++        self.assertIn('<div class="big">33.3%</div><div>strict completion</div>', page)
++        self.assertIn('2/6 verified + approved exclusions (1 excluded)', page)
++        self.assertIn('3/6 built', page)
++        self.assertIn('1/6 proven', page)
++        self.assertIn('1 excluded</div>', page)
++        self.assertIn('pending-choice', page)
++        self.assertIn('2 answered · 4 open points', page)
++        self.assertNotIn('rebuilt <b>and proven</b>', page)
++
++    def test_fully_built_is_a_separate_stage_and_unknown_rows_do_not_close_it(self):
++        cases = [(['implemented'], 'built'),
++                 (['implemented', 'verified', 'excluded'], 'built'),
++                 (['implemented', 'specified'], 'building'),
++                 (['verified', 'unmapped'], 'building'),
++                 (['implemented', 'excluded', 'unmapped'], 'building'),
++                 (['verified', 'excluded'], 'done'),
++                 (['excluded'], 'done')]
++        for statuses, expected in cases:
++            with self.subTest(statuses=statuses):
++                unit = self.summary(statuses)
++                self.assertEqual(unit['stage'], expected)
++                self.assertEqual(unit['built'], statuses.count('implemented') + statuses.count('verified'))
++                self.assertEqual(unit['done'], statuses.count('verified') + statuses.count('excluded'))
++        unit = self.summary(['implemented', 'excluded'])
++        self.assertEqual(unit['built_percent'], 50.0)
++
++    def test_excluded_only_and_empty_matrices_never_report_built_work(self):
++        unit = self.summary(['excluded'])
++        self.assertEqual((unit['built'], unit['built_percent'], unit['proven']), (0, 0.0, 0))
++        questions = {'decisions_pending': [], 'answer_sheet_open': 0,
++                     'answer_sheet_done': 0, 'unresolved_items': 0}
++        page = render([unit], questions, [], [], 'Example', 'fixed')
++        self.assertIn('<div class="hero"><div class="pct">—</div>', page)
++        self.assertIn('<div class="big">0.0%</div><div>implementation coverage</div>', page)
++        self.assertIn('<div class="big">100.0%</div><div>strict completion</div>', page)
++        empty = render([], questions, [], [], 'Example', 'fixed')
++        self.assertIn('<div class="hero"><div class="pct">—</div>', empty)
++        self.assertIn('0 of 0 behaviors', empty)
++
++    def test_history_retains_original_strict_values_and_correctly_labels_exclusions(self):
++        original_points = [('2026-10-24', 20.0, 10), ('2026-10-25', 30.0, 10)]
++        graphic = chart(original_points)
++        self.assertIn('points="10.0,106.0 630.0,94.0"', graphic)
++        self.assertIn('strict completion over time: verified plus approved exclusions', graphic)
++        self.assertIn('2026-10-25 · 30.0%', graphic)
++        self.assertNotIn('verified share over time', graphic)
++        self.assertEqual(original_points, [('2026-10-24', 20.0, 10), ('2026-10-25', 30.0, 10)])
++
++    def test_aggregate_and_seed_behavior_identity_rules_are_unchanged(self):
++        header = 'id,element,context,event,status\n'
++        rows = matrix_rows({
++            'parity.csv': header + 'current,WIN_Example,WIN_Example/button,18,implemented\n',
++            'WIN_Example.csv': header + 'current,WIN_Example,WIN_Example/button,18,verified\n',
++            'parity-seed.csv': header + 'old,WIN_Example,WIN_Example/button,18,specified\n'
++                                      'missing,WIN_Example,WIN_Example/other,18,unmapped\n',
++        })
++        self.assertEqual([(row['id'], row['status']) for row in rows],
++                         [('current', 'implemented'), ('missing', 'unmapped')])
++
++    def test_history_reads_only_the_authoritative_aggregate_when_it_exists(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            root = Path(temporary)
++            header = 'id,element,context,event,status\n'
++            files = {'docs/parity/parity.csv': header + 'one,WIN_A,WIN_A/a,18,verified\n',
++                     'docs/parity/parity-seed.csv': header + 'two,WIN_A,WIN_A/b,18,unmapped\n',
++                     'docs/parity/WIN_A.csv': header + 'one,WIN_A,WIN_A/a,18,implemented\n'}
++            def git_result(_root, *args):
++                if args[0] == 'rev-parse':
++                    return str(root)
++                if args[0] == 'log':
++                    return 'abc 2026-10-26T10:00:00+00:00'
++                if args[0] == 'ls-tree':
++                    return '\n'.join(files)
++                return files[args[1].partition(':')[2]]
++            with patch('progress_dashboard.git', side_effect=git_result) as calls:
++                self.assertEqual(history(root, root / 'docs/parity'), [('2026-10-26', 50.0, 2)])
++            shown = [c.args[2] for c in calls.call_args_list if c.args[1] == 'show']
++            self.assertEqual(shown, ['abc:docs/parity/parity.csv', 'abc:docs/parity/parity-seed.csv'])
++
++    def test_target_defaults_do_not_hide_unconfirmed_source_behavior(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            rows = [{'element': 'WIN_Example', 'kind': 'window', 'status': status, 'confidence': confidence}
++                    for status, confidence in [('implemented', 'unresolved'), ('unmapped', 'unresolved'),
++                                               ('verified', 'verified'), ('excluded', 'unresolved')]]
++            unit = summarize(rows, Path(temporary))[0]
++        self.assertEqual((unit['built'], unit['proven'], unit['source_unresolved'], unit['built_on_defaults']),
++                         (2, 1, 3, 1))
++        page = render([unit], {'decisions_pending': [], 'answer_sheet_open': 0,
++                              'answer_sheet_done': 0, 'unresolved_items': 0}, [], [], 'Example', 'fixed')
++        self.assertIn('<div class="big">1</div><div>built using target defaults</div>', page)
++        self.assertIn('3 source behaviors still unconfirmed', page)
++        self.assertIn('1/4 proven', page)
++
++
++class FunctionalReadinessProgressChecks(unittest.TestCase):
++    def test_functional_proof_is_primary_without_promoting_unknown_source_or_native_hosts(self):
++        from functional_acceptance import assess_data
++        with tempfile.TemporaryDirectory() as temporary:
++            docs = Path(temporary)
++            (docs / 'flow.ts').write_text('actual test fixture')
++            rows = [{'element': 'WIN_Example', 'kind': 'window', 'status': 'implemented',
++                     'confidence': 'unresolved'}]
++            units = summarize(rows, docs)
++            commit = 'a' * 40
++            data = {'version': 1, 'runs': {'actual': {'os': 'macOS arm64', 'commit': commit,
++                     'commands': ['actual fixture command'], 'checks': ['flow.ts::save and reopen']}},
++                    'cases': [{'id': 'save', 'units': ['WIN_Example'], 'requirement': 'Save and reopen.',
++                               'status': 'verified', 'checks': [{'file': 'flow.ts', 'title': 'save and reopen'}],
++                               'evidence': [{'run': 'actual', 'os': 'macOS arm64', 'commit': commit}]}],
++                    'platform': [{'id': 'windows-print', 'os': 'Windows x64', 'units': ['WIN_Example'],
++                                  'requirement': 'Native print.', 'status': 'pending', 'checks': [],
++                                  'gap': 'Windows printer check not run.'}]}
++            functional = assess_data(data, ['WIN_Example'], docs, compatible=lambda *_: True)
++            page = render(units, {'decisions_pending': [], 'answer_sheet_open': 0,
++                                 'answer_sheet_done': 0, 'unresolved_items': 1}, [], [], 'Example', 'fixed', functional)
++        self.assertIn('<div class="hero"><div class="pct">100.0%</div>', page)
++        self.assertIn('1/1 required checks', page)
++        self.assertIn('1<small>/1</small></div><div>screens functionally verified', page)
++        self.assertIn('Windows x64 · pending', page)
++        self.assertIn('Windows printer check not run.', page)
++        self.assertIn('<div class="big">0.0%</div><div>strict completion</div>', page)
++        self.assertEqual((units[0]['stage'], units[0]['proven'], units[0]['source_unresolved']), ('built', 0, 1))
++        self.assertEqual(rows[0]['confidence'], 'unresolved')
++        self.assertIn('data-f="functional-verified"', page)
++        self.assertIn('class="built functional-verified"', page)
++        self.assertIn('flow.ts :: save and reopen', page)
+
+-from helpers import load
+-
+-module = load('scripts/progress_dashboard.py')
+-COLUMNS = ['id', 'kind', 'element', 'context', 'event', 'evidence', 'confidence', 'legacy_behavior',
+-           'target_behavior', 'implemented_in', 'test', 'decision', 'status']
+-
+-
+-def write(path, rows):
+-    path.parent.mkdir(parents=True, exist_ok=True)
+-    with path.open('w', newline='', encoding='utf-8') as handle:
+-        writer = csv.DictWriter(handle, fieldnames=COLUMNS)
+-        writer.writeheader()
+-        writer.writerows({c: r.get(c, '') for c in COLUMNS} for r in rows)
+-
+-
+-class ProgressDashboardTests(unittest.TestCase):
+-    def test_stages_counts_and_history(self):
+-        with tempfile.TemporaryDirectory() as directory:
+-            root = Path(directory)
+-            git = lambda *a: subprocess.run(['git', '-C', str(root), *a], check=True, capture_output=True)
+-            git('init', '-q')
+-            git('config', 'user.email', 't@t')
+-            git('config', 'user.name', 't')
+-            seed = [{'id': f'SRC-{i}', 'kind': k, 'element': e, 'status': 'unmapped'}
+-                    for i, (k, e) in enumerate([('window', 'WIN_A'), ('window', 'WIN_A'), ('window', 'WIN_B'),
+-                                                ('report', 'RPT_C'), ('table', 'Clientes')])]
+-            write(root / 'docs/parity/parity-seed.csv', seed)
+-            git('add', 'docs')
+-            git('commit', '-qm', 'seed')
+-            write(root / 'docs/parity/WIN_A.csv', [dict(seed[0], status='verified'), dict(seed[1], status='excluded')])
+-            write(root / 'docs/parity/WIN_B.csv', [dict(seed[2], status='implemented')])
+-            (root / 'docs/mapping').mkdir()
+-            (root / 'docs/mapping/RPT_C.md').write_text('U-RC-01 open\n', encoding='utf-8')
+-            (root / 'docs/evidence').mkdir()
+-            (root / 'docs/evidence/encoded-actions.md').write_text(
+-                '| A-1 | 3 (BTN_X) | WIN_A.BTN_X | closes | WINDEV | Ana |\n| A-2 | 1 (BTN_Y) | WIN_B.BTN_Y | | | |\n'
+-                '| Q-01 | Esc? | | | |\n', encoding='utf-8')
+-            git('add', 'docs')
+-            git('commit', '-qm', 'stage 1')
+-            page, units = module.build(root / 'docs', 'Test')
+-        stages = {u['name']: u['stage'] for u in units}
+-        self.assertEqual(stages, {'WIN_A': 'done', 'WIN_B': 'building', 'RPT_C': 'mapped', 'Clientes': 'not started'})
+-        self.assertIn('40.0%', page)  # 2 of 5 behaviors done
+-        self.assertIn('<div class="big">2</div><div>assumptions to confirm with the WINDEV expert (work does not wait)</div>', page)
+-        self.assertIn('<polyline', page)  # two commits touched the parity files
+-        self.assertIn('stage 1', page)
+-
+-    def test_rule_rows_join_their_unit_and_renamed_seed_rows_count_once(self):
+-        header = 'id,kind,element,context,event,status,confidence\n'
+-        files = {'parity.csv': header + 'SRC-old,window,WIN_A,WIN_A/BTN_X,18,verified,assumed\n'
+-                                         'RULE-1,rule,Delete guard,WIN_A/BTN_Y,,implemented,inferred\n',
+-                 'parity-seed.csv': header + 'SRC-new,window,WIN_A,WIN_A/BTN_X,18,unmapped,unresolved\n'
+-                                             'SRC-z,window,WIN_A,WIN_A/BTN_Z,18,unmapped,unresolved\n'}
+-        rows = module.matrix_rows(files)
+-        self.assertEqual(sorted(r['id'] for r in rows), ['RULE-1', 'SRC-old', 'SRC-z'])
+-        units = module.summarize(rows, Path('/nonexistent'))
+-        self.assertEqual([(u['name'], u['total'], u['assumed']) for u in units], [('WIN_A', 3, 1)])
+
+ if __name__ == '__main__':
+     unittest.main()
+diff --git a/tests/test_progress_dashboard_base.py b/tests/test_progress_dashboard_base.py
+new file mode 100644
+index 0000000..9ce730f
+--- /dev/null
++++ b/tests/test_progress_dashboard_base.py
+@@ -0,0 +1,68 @@
++import csv
++from pathlib import Path
++import subprocess
++import tempfile
++import unittest
++
++from helpers import load
++
++module = load('scripts/progress_dashboard.py')
++COLUMNS = ['id', 'kind', 'element', 'context', 'event', 'evidence', 'confidence', 'legacy_behavior',
++           'target_behavior', 'implemented_in', 'test', 'decision', 'status']
++
++
++def write(path, rows):
++    path.parent.mkdir(parents=True, exist_ok=True)
++    with path.open('w', newline='', encoding='utf-8') as handle:
++        writer = csv.DictWriter(handle, fieldnames=COLUMNS)
++        writer.writeheader()
++        writer.writerows({c: r.get(c, '') for c in COLUMNS} for r in rows)
++
++
++class ProgressDashboardTests(unittest.TestCase):
++    def test_stages_counts_and_history(self):
++        with tempfile.TemporaryDirectory() as directory:
++            root = Path(directory)
++            git = lambda *a: subprocess.run(['git', '-C', str(root), *a], check=True, capture_output=True)
++            git('init', '-q')
++            git('config', 'user.email', 't@t')
++            git('config', 'user.name', 't')
++            git('config', 'commit.gpgsign', 'false')
++            seed = [{'id': f'SRC-{i}', 'kind': k, 'element': e, 'status': 'unmapped'}
++                    for i, (k, e) in enumerate([('window', 'WIN_A'), ('window', 'WIN_A'), ('window', 'WIN_B'),
++                                                ('report', 'RPT_C'), ('table', 'Clientes')])]
++            write(root / 'docs/parity/parity-seed.csv', seed)
++            git('add', 'docs')
++            git('commit', '-qm', 'seed')
++            write(root / 'docs/parity/WIN_A.csv', [dict(seed[0], status='verified'), dict(seed[1], status='excluded')])
++            write(root / 'docs/parity/WIN_B.csv', [dict(seed[2], status='implemented')])
++            (root / 'docs/mapping').mkdir()
++            (root / 'docs/mapping/RPT_C.md').write_text('U-RC-01 open\n', encoding='utf-8')
++            (root / 'docs/evidence').mkdir()
++            (root / 'docs/evidence/encoded-actions.md').write_text(
++                '| A-1 | 3 (BTN_X) | WIN_A.BTN_X | closes | WINDEV | Ana |\n| A-2 | 1 (BTN_Y) | WIN_B.BTN_Y | | | |\n'
++                '| Q-01 | Esc? | | | |\n', encoding='utf-8')
++            git('add', 'docs')
++            git('commit', '-qm', 'stage 1')
++            page, units = module.build(root / 'docs', 'Test')
++        stages = {u['name']: u['stage'] for u in units}
++        self.assertEqual(stages, {'WIN_A': 'done', 'WIN_B': 'built', 'RPT_C': 'mapped', 'Clientes': 'not started'})
++        self.assertIn('40.0%', page)  # strict completion: 2 of 5 behaviors
++        self.assertIn('<div class="hero"><div class="pct">—</div>', page)  # no functional ledger
++        self.assertIn('<div class="big">2</div><div>assumptions to confirm with the WINDEV expert (work does not wait)</div>', page)
++        self.assertIn('<polyline', page)  # two commits touched the parity files
++        self.assertIn('stage 1', page)
++
++    def test_rule_rows_join_their_unit_and_renamed_seed_rows_count_once(self):
++        header = 'id,kind,element,context,event,status,confidence\n'
++        files = {'parity.csv': header + 'SRC-old,window,WIN_A,WIN_A/BTN_X,18,verified,assumed\n'
++                                         'RULE-1,rule,Delete guard,WIN_A/BTN_Y,,implemented,inferred\n',
++                 'parity-seed.csv': header + 'SRC-new,window,WIN_A,WIN_A/BTN_X,18,unmapped,unresolved\n'
++                                             'SRC-z,window,WIN_A,WIN_A/BTN_Z,18,unmapped,unresolved\n'}
++        rows = module.matrix_rows(files)
++        self.assertEqual(sorted(r['id'] for r in rows), ['RULE-1', 'SRC-old', 'SRC-z'])
++        units = module.summarize(rows, Path('/nonexistent'))
++        self.assertEqual([(u['name'], u['total'], u['assumed']) for u in units], [('WIN_A', 3, 1)])
++
++if __name__ == '__main__':
++    unittest.main()

@@ -17,7 +17,7 @@ Keep this file short (about 100 lines). Details live in `docs/`; local rules liv
 - `src-tauri/src/commands/` — narrow native OS commands; business operations use the server API.
 - `apps/server/` — TypeScript API owns authorization and business transactions; one save = one operation = one transaction.
 - `apps/server/migrations/` — sole PostgreSQL schema history; committed migrations are immutable. See local `AGENTS.md`.
-- `docs/parity/parity.csv` — behavior parity matrix: the definition of done.
+- `docs/parity/parity.csv` — strict behavior parity; `docs/functional-acceptance.json` — required functional checks (ADR-007).
 - `docs/porting.md` — this project's concrete pattern (file, function, component) for each WLanguage construct it uses, over `docs/wlanguage-traps.md`; every slice follows it.
 - `legacy/` and `GestaoOficinas_TesteIA/` — immutable private originals; never execute legacy code, modify, or copy raw material into the app/published docs. Treat credentials as to revoke, never reuse.
 - `analysis-local/` — ignored extracts/scratch copies; coordinator owns shared outputs, subagents use isolated namespaces.
@@ -72,6 +72,8 @@ Before marking a row `verified`, check all of these and report them in the hando
 3. No part of the behavior depends on an unresolved item or on a choice of yours that no proposal or ADR covers (`assumed` rows cite theirs).
 4. If the target differs from legacy, `decision` names the ADR.
 5. Re-read `docs/decisions/` at the end of the stage: ADRs added while you worked apply to your code too.
+
+Functional readiness is separate: all normal supported workflow/data-safety cases need real executed assertions with OS/compatible commit, across every screen/report. Accepted target defaults may be functionally tested without resolving U/source confidence or promoting strict parity. Missing scope/proof stays pending; platform acceptance stays host-specific. Check with `python scripts/functional_acceptance.py --check`; update the existing acceptance inventory and progress, not another runbook (ADR-007).
 
 Identifiers you invent (test ids for controls that do not exist in legacy, helper names) are documented in the screen spec as non-legacy.
 

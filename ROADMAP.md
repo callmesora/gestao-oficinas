@@ -1,6 +1,6 @@
 # ROADMAP — Gestao Oficinas
 
-Current local work: MIG-14 assumed-target sweep on main over ba4f658; no push. All 51 application windows/28 reports have initial paths. Aggregate: 2,200/2,273 built (96.8%), 367 verified (16.1%), zero specified, 23 unmapped and 50 owner-excluded macro-editor actions. 458 additional target defaults are implemented; all 481 original source questions remain unconfirmed. No whole-window/native acceptance is implied. Integrated621tests/86browser checks and Mac native business/report preview pass; see docs/runbooks/handoff.md and docs/migration-history.md.
+Current local work: functional readiness (ADR-007), main over fd76baa; no push. Required workflow checks: 208/227 verified (91.6%), with 37/53 screens and 26/28 reports functionally verified. The 19 remaining checks are explicit in `docs/functional-acceptance.json`. Strict parity remains 764/2,273(33.6%); built 2,200(96.8%), 23 unmapped, 50 approved exclusions and 481 source questions. Native deployment remains separate. Existing 756 API/PG/PDF and 486 unique browser passes supply the cited application evidence; see the handoff and progress report.
 
 Order follows templates/ROADMAP.template.md and accepted ADR-007. Step 0 commits: 7d3a5c7 and 637fc6b. Framing must close before foundation. The database/import and shared UI foundations and a usable customer workflow exist. Customer designer/native/report parity remains open; its core delivery and follow-up are tracked separately below.
 
@@ -88,6 +88,7 @@ Each group below must be split into bounded stage briefs for individual workflow
 | 11 | Slice | Startup, access, system, menu and launch modes | MIG-12 | assigned units below | isolated implementer + coordinator | templates/prompt-stage.md | persistent user access/menu, configuration save, launch modes and shared touch keyboards | 5, 7, 8, 9, 10 | Local persistent/native startup and explicit mechanic credentials delivered — updater/INI/other-host gates retained |
 | 12 | Slice | Every report/filter and print destination | MIG-13 | assigned units below | isolated implementer + coordinator | templates/prompt-stage.md | 28 initial data/render paths, three filter screens, offline Paged.js/Chromium preview/PDF and actual callers | 7, 8, 9, 10, 11 | Offline runtime pins, source flow/margins/totals/company delivered — legacy fidelity, host packaging/native printing retained |
 | 13 | Cleanup | Resolve remaining U items and review all parity claims | MIG-14 | all remaining rows | coordinator + isolated writers | docs/runbooks/current-stage.md | exact source-event proofs, concrete fixes, no silent exclusions; assumed choices traced to proposals/ADRs | 12 | In progress — 764/2,273 verified (+397 this sweep), 2,200 built; 23 unmapped and 481 source questions remain; native acceptance retained |
+| 13.F | Functional verification | Required workshop workflows across every screen/report | MIG-14F | separate functional inventory; strict rows unchanged | root + scope workers + independent check | docs/functional-acceptance.json | explicit workflows, exact executed tests/OS/compatible commit and visible remaining checks | 12 | 208/227 verified; 37/53 screens,26/28 reports; 19 checks pending |
 | 14 | Acceptance | Installer, upgrade, restore, devices and full reconciliation | MIG-15 | all plus platform rows | implementer + owner | templates/prompt-stage.md | native Windows acceptance and data reconciliation artifacts | 13 | Local fresh-profile recovery prerequisite delivered; full acceptance to do |
 | 15 | Cutover | Rehearsal and explicit production transition plan | MIG-16 | all | owner + implementer | 08-data-migration.md | complete gate; freeze/rollback plan; owner acceptance | 14 | To do |
 
@@ -244,6 +245,8 @@ All 143 per-unit CSVs retain their seed IDs. This assignment is a scheduling ind
 ## Stage closure
 
 Follow templates/prompt-stage.md: read handoff/instructions/ADRs; synchronize safely; bounded behavior and evidence; implement; actual verify/UI/golden/native checks; independent review/fixes (two for risky slices); update parity, roadmap, handoff and progress; commit explicit files locally. Do not push or overwrite a dirty checkout to synchronize. Continue the next ready slice without routine approval (ADR-007).
+
+Functional readiness closes only the declared required workflow checks; strict migration and host acceptance keep their existing gates. Update the canonical acceptance inventory alongside relevant tests; changed application/test inputs require fresh evidence.
 
 
 ## Recurring cleanup checkpoints

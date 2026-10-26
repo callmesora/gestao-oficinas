@@ -3,9 +3,10 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from progress_dashboard import chart, matrix_rows, render, summarize
+from progress_dashboard import chart, history, matrix_rows, render, summarize
 
 
 class PlatformVisualProgressChecks(unittest.TestCase):
@@ -80,9 +81,10 @@ class BuiltAndProvenProgressChecks(unittest.TestCase):
         page = render([unit], {'decisions_pending': ['pending-choice'], 'answer_sheet_open': 8,
                               'answer_sheet_done': 2, 'unresolved_items': 4},
                       [('2026-10-24', 20.0, 6), ('2026-10-25', 30.0, 6)], [], 'Example', 'fixed')
-        self.assertIn('<div class="hero"><div class="pct">50.0%</div>', page)
+        self.assertIn('<div class="hero"><div class="pct">—</div>', page)
+        self.assertIn('<div class="big">50.0%</div><div>implementation coverage</div>', page)
         self.assertIn('3 of 6 behaviors · 2 built, awaiting proof · 1 approved exclusions outside the built count', page)
-        self.assertIn('<div class="big">16.7%</div><div>proven by verification</div>', page)
+        self.assertIn('<div class="big">16.7%</div><div>strict behavior verification</div>', page)
         self.assertIn('<div class="big">33.3%</div><div>strict completion</div>', page)
         self.assertIn('2/6 verified + approved exclusions (1 excluded)', page)
         self.assertIn('3/6 built', page)
@@ -115,10 +117,11 @@ class BuiltAndProvenProgressChecks(unittest.TestCase):
         questions = {'decisions_pending': [], 'answer_sheet_open': 0,
                      'answer_sheet_done': 0, 'unresolved_items': 0}
         page = render([unit], questions, [], [], 'Example', 'fixed')
-        self.assertIn('<div class="hero"><div class="pct">0.0%</div>', page)
+        self.assertIn('<div class="hero"><div class="pct">—</div>', page)
+        self.assertIn('<div class="big">0.0%</div><div>implementation coverage</div>', page)
         self.assertIn('<div class="big">100.0%</div><div>strict completion</div>', page)
         empty = render([], questions, [], [], 'Example', 'fixed')
-        self.assertIn('<div class="hero"><div class="pct">0.0%</div>', empty)
+        self.assertIn('<div class="hero"><div class="pct">—</div>', empty)
         self.assertIn('0 of 0 behaviors', empty)
 
     def test_history_retains_original_strict_values_and_correctly_labels_exclusions(self):
@@ -141,6 +144,26 @@ class BuiltAndProvenProgressChecks(unittest.TestCase):
         self.assertEqual([(row['id'], row['status']) for row in rows],
                          [('current', 'implemented'), ('missing', 'unmapped')])
 
+    def test_history_reads_only_the_authoritative_aggregate_when_it_exists(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            header = 'id,element,context,event,status\n'
+            files = {'docs/parity/parity.csv': header + 'one,WIN_A,WIN_A/a,18,verified\n',
+                     'docs/parity/parity-seed.csv': header + 'two,WIN_A,WIN_A/b,18,unmapped\n',
+                     'docs/parity/WIN_A.csv': header + 'one,WIN_A,WIN_A/a,18,implemented\n'}
+            def git_result(_root, *args):
+                if args[0] == 'rev-parse':
+                    return str(root)
+                if args[0] == 'log':
+                    return 'abc 2026-10-26T10:00:00+00:00'
+                if args[0] == 'ls-tree':
+                    return '\n'.join(files)
+                return files[args[1].partition(':')[2]]
+            with patch('progress_dashboard.git', side_effect=git_result) as calls:
+                self.assertEqual(history(root, root / 'docs/parity'), [('2026-10-26', 50.0, 2)])
+            shown = [c.args[2] for c in calls.call_args_list if c.args[1] == 'show']
+            self.assertEqual(shown, ['abc:docs/parity/parity.csv', 'abc:docs/parity/parity-seed.csv'])
+
     def test_target_defaults_do_not_hide_unconfirmed_source_behavior(self):
         with tempfile.TemporaryDirectory() as temporary:
             rows = [{'element': 'WIN_Example', 'kind': 'window', 'status': status, 'confidence': confidence}
@@ -154,6 +177,40 @@ class BuiltAndProvenProgressChecks(unittest.TestCase):
         self.assertIn('<div class="big">1</div><div>built using target defaults</div>', page)
         self.assertIn('3 source behaviors still unconfirmed', page)
         self.assertIn('1/4 proven', page)
+
+
+class FunctionalReadinessProgressChecks(unittest.TestCase):
+    def test_functional_proof_is_primary_without_promoting_unknown_source_or_native_hosts(self):
+        from functional_acceptance import assess_data
+        with tempfile.TemporaryDirectory() as temporary:
+            docs = Path(temporary)
+            (docs / 'flow.ts').write_text('actual test fixture')
+            rows = [{'element': 'WIN_Example', 'kind': 'window', 'status': 'implemented',
+                     'confidence': 'unresolved'}]
+            units = summarize(rows, docs)
+            commit = 'a' * 40
+            data = {'version': 1, 'runs': {'actual': {'os': 'macOS arm64', 'commit': commit,
+                     'commands': ['actual fixture command'], 'checks': ['flow.ts::save and reopen']}},
+                    'cases': [{'id': 'save', 'units': ['WIN_Example'], 'requirement': 'Save and reopen.',
+                               'status': 'verified', 'checks': [{'file': 'flow.ts', 'title': 'save and reopen'}],
+                               'evidence': [{'run': 'actual', 'os': 'macOS arm64', 'commit': commit}]}],
+                    'platform': [{'id': 'windows-print', 'os': 'Windows x64', 'units': ['WIN_Example'],
+                                  'requirement': 'Native print.', 'status': 'pending', 'checks': [],
+                                  'gap': 'Windows printer check not run.'}]}
+            functional = assess_data(data, ['WIN_Example'], docs, compatible=lambda *_: True)
+            page = render(units, {'decisions_pending': [], 'answer_sheet_open': 0,
+                                 'answer_sheet_done': 0, 'unresolved_items': 1}, [], [], 'Example', 'fixed', functional)
+        self.assertIn('<div class="hero"><div class="pct">100.0%</div>', page)
+        self.assertIn('1/1 required checks', page)
+        self.assertIn('1<small>/1</small></div><div>screens functionally verified', page)
+        self.assertIn('Windows x64 · pending', page)
+        self.assertIn('Windows printer check not run.', page)
+        self.assertIn('<div class="big">0.0%</div><div>strict completion</div>', page)
+        self.assertEqual((units[0]['stage'], units[0]['proven'], units[0]['source_unresolved']), ('built', 0, 1))
+        self.assertEqual(rows[0]['confidence'], 'unresolved')
+        self.assertIn('data-f="functional-verified"', page)
+        self.assertIn('class="built functional-verified"', page)
+        self.assertIn('flow.ts :: save and reopen', page)
 
 
 if __name__ == '__main__':

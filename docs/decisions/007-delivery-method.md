@@ -1,7 +1,7 @@
 # ADR-007 — Ordered stages and evidence gates
 
 - Date: 2026-10-23
-- Status: Accepted; updated 2026-10-25
+- Status: Accepted; updated 2026-10-26
 - Decided by: human (delivery, subagents and Git policy); guide (evidence gates)
 - Parity rows affected: no status changes during framing; affected units retain their existing IDs.
 
@@ -28,4 +28,8 @@ The four Unidades/Postos raw new-row events have no reachable input branch: the 
 The owner requests a second broad sweep on 2026-10-25 and explicitly delegates missing-behaviour assumptions. Implement documented reversible target defaults for remaining U rows; preserve their IDs, source evidence/confidence and legacy questions. A concrete default-backed target may be implemented while exact legacy/native acceptance remains open. Do not invent unavailable SQL, hide data anomalies, or label unperformed native checks verified. Report target coverage separately from unresolved source knowledge.
 
 ## Consequences and verification
-The final gate requires every parity row verified or excluded by ADR, full reconciliation, golden scenarios and native/install/restore evidence. Unavailable checks remain explicit. Step 0 validation stays an evidence snapshot and is not substituted for target verification.
+The owner approved separate functional readiness on 2026-10-26. The primary report measures required cases in `docs/functional-acceptance.json`: normal supported actions, real persistence/readback/cancellation, correct quantities/totals/stock and critical data safety for one or two users. Every inventory screen/report must have explicit scope; omitted scope stays pending. A unit is functionally verified only when all its required cases cite actual executed assertions, OS and a compatible application/test commit. Built links or suite pass rates supply no numerator.
+
+Accepted target defaults may pass functional tests while their original U/source-confidence and strict parity statuses remain unchanged. Functional acceptance does not establish exact WINDEV equivalence or another host's capabilities. Show platform installation, native dialogs/printing/devices and recovery separately. Data representation, authorization and transactional safety remain mandatory. Changed application/test inputs invalidate old functional witnesses; documentation-only changes do not.
+
+The full migration/cutover gate retains strict parity, reconciliation, goldens and applicable native/install/restore acceptance. Functional 100% is a scoped acceptance milestone, not that release gate. Unavailable checks remain explicit; Step 0 stays a historical evidence snapshot.

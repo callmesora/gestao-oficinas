@@ -1,7 +1,7 @@
-# Current stage — MIG-14 source-first verification
+# Current stage — MIG-14F functional readiness
 
-Latest bounded sweep: `docs/runbooks/handoff.md`; macOS arm64/main base `9987bd2`. Root owns shared tracking; isolated workers return frozen files and exact row/test claims. Private proofs: `analysis-local/verification-wave/`.
+Latest delivery: `docs/runbooks/handoff.md`; macOS arm64/main base `fd76baa`. Root owns shared tracking; workers scope functional cases and return exact executed witnesses. Private proofs: `analysis-local/functional-readiness/` and the earlier verification wave.
 
-Continue real consumer proofs for remaining implemented rows. Read original source/dossiers before treating a U item as missing evidence; distinguish encoded properties needing static decoding/export, modern test gaps and actual legacy/native acceptance. Accepted target choices already have ADRs. No blanket WINDEV execution prerequisite or whole-unit promotion.
+Next: close the 19 pending checks in `docs/functional-acceptance.json`, prioritizing real menu/print callers and stock/inventory interactions. Use that single inventory, `python scripts/functional_acceptance.py --check` and the progress report; no new runbook. Functional completion requires every declared workflow/data-safety case, separate from strict source parity and host acceptance (ADR-007).
 
-Preserve source fields, seed, U IDs, original backups and17 historical import-copy differences. Recheck row assertions, real paths, unresolved dependencies, applicable ADRs and final decisions; synchronize affected unit/aggregate CSVs and progress. Keep docs lean. Tested local commits on main; no push. Owner demo3210/profile and unowned swap remain untouched; Windows/printing/devices retain host-labelled checks.
+Read source/dossiers before declaring evidence unavailable. Preserve source fields/confidence, seed, U IDs, original backups and17 historical import-copy differences. Recheck actual consumer assertions and applicable decisions; promote strict rows only on their own proof. Tested local commits on main; no push. Owner demo3210/profile and unowned swap remain untouched; Windows/printing/devices retain host-labelled checks.
