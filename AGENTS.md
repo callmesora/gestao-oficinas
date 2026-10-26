@@ -110,6 +110,7 @@ npm run native:check
 ## Work tracking
 
 Ticket and current slice: `ROADMAP.md`; commits start with the ticket. Local main commits are allowed; separate branches/worktrees are optional for concurrent writers. Complete dependencies in order; useful independent subagent work may run in parallel. One writer per file; no pushes.
+After shared primitives and a real persisted workflow, assign independent workflow families with exact parity IDs, evidence/spec references, owned files, shared contracts and isolated test profiles/ports. Workers return frozen files/commits, focused checks and per-row implementation claims; the coordinator integrates shared changes, reviews and runs combined verification. Existing coverage and assumed target defaults are not newly recovered legacy behavior; keep built, verified and unanswered-source counts separate (ADR-007; portable guide update: `setup/patches/parallel-implementation-waves.patch`).
 Use one reusable `docs/runbooks/current-stage.md` for the active bounded brief. Keep only the latest closed stage in `docs/runbooks/handoff.md`; record concise delivery/review history in `docs/migration-history.md`, with full reports recoverable from Git. Keep current decisions in their applicable ADR/spec and operational procedures in runbooks. Verification, review/fixes, parity/roadmap updates and regenerated progress remain required. Never advance past an unfinished dependency.
 
 ## Pointers
