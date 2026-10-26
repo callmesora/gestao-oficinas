@@ -3,6 +3,15 @@ import { expect, test } from "./support/repair-orders";
 import chromeSource from "./support/proof-repair-chrome";
 import {sourceSimpleControls,sourceChromeControls} from "./support/proof-repair-properties";
 
+test.use({timezoneId:"UTC"});
+async function pauseWorkstationClock(page:Page,iso:string) {
+  const time=new Date(iso);
+  await page.clock.install({time});
+  // Pause in the future, then set the exact source workstation value before any application timer exists.
+  await page.clock.pauseAt(new Date(time.getTime()+60000));
+  await page.clock.setSystemTime(time);
+}
+
 // Frozen literal coordinates from the cited dossier/source, compared to the actual mounted consumers.
 // Neither expected geometry nor expected draft values are read from production layout metadata at runtime.
 test.beforeEach(async ({ repairDatabase }) => {
@@ -136,7 +145,7 @@ for(const returned of ["cancel-origin","selected-code"] as const) test(`proof re
 });
 
 test("proof repair labor startup composes first settings prior-day closure and an exact oversized window-owned timer",async({page,repairServer,repairDatabase})=>{
-  await page.clock.install({time:new Date("2026-10-26T12:00:00.000Z")});
+  await pauseWorkstationClock(page,"2026-10-26T12:00:00.000Z");
   await repairDatabase.query(`UPDATE app."sistema" SET "Tempo_tempos"=2147484,"encerrar_tempos2"='180001';
     INSERT INTO app."ordem_reparacao" ("numero","matricula","reparacao_estado","reparacao_mecanico") VALUES (20,'AA-00-AA','R',2);
     INSERT INTO app."tempos_reparacao" ("tempos_reparacaoID","numero","mecanico","inicio","fim","Inicio_reparacao_estado") VALUES (1,20,2,'20261025102345123','00000000000000000','START-STATE'),(2,10,2,'20261026110000000','00000000000000000','TODAY')`);
@@ -145,7 +154,9 @@ test("proof repair labor startup composes first settings prior-day closure and a
   await page.clock.fastForward(2147483647);expect(ticks).toBe(0);await page.clock.fastForward(352);expect(ticks).toBe(0);
   const tick=page.waitForResponse(response=>response.url().endsWith("/api/repair-labor/tick"));await page.clock.fastForward(1);expect((await tick).ok()).toBe(true);await expect(screen.getByTestId("BTN_todos")).toBeEnabled();expect(ticks).toBe(1);
   await repairDatabase.query('UPDATE app."sistema" SET "Tempo_tempos"=1');await screen.getByTestId("BTN_todos").click();await expect(screen.getByTestId("BTN_todos")).toBeEnabled();await page.clock.fastForward(1000);expect(ticks).toBe(1);
-  await screen.getByTestId("BTN_Fechar").click();await page.clock.fastForward(2147484000);expect(ticks).toBe(1);
+  await screen.getByTestId("BTN_Fechar").click();
+  // Playwright's installed clock fastForward uses ticks|0 internally; keep each tool advance signed32-safe.
+  await page.clock.fastForward(2147483647);await page.clock.fastForward(353);expect(ticks).toBe(1);
 });
 
 for(const interval of [null,"0"] as const) test(`proof repair labor startup ${interval===null?"NULL":"zero"} interval awaits exact Error after real initial orders are loaded`,async({page,repairServer,repairDatabase})=>{
@@ -156,7 +167,7 @@ for(const interval of [null,"0"] as const) test(`proof repair labor startup ${in
 });
 
 test("proof repair actual labor timer closes current mechanic open work with visible state and restores checked filter selected order and child read",async({page,repairServer,repairDatabase})=>{
-  await page.clock.install({time:new Date("2026-10-26T11:59:59.000Z")});await repairDatabase.query('UPDATE app."sistema" SET "Tempo_tempos"=1,"encerrar_tempos1"=\'120000\',"encerrar_tempos2"=\'180000\'');
+  await pauseWorkstationClock(page,"2026-10-26T11:59:59.000Z");await repairDatabase.query('UPDATE app."sistema" SET "Tempo_tempos"=1,"encerrar_tempos1"=\'120000\',"encerrar_tempos2"=\'180000\'');
   const screen=await labor(page,repairServer.origin);await repairDatabase.query(`INSERT INTO app."ordem_reparacao" ("numero","matricula","reparacao_estado","reparacao_mecanico") VALUES (20,'AA-00-AA','X',2),(30,'AA-00-AA','R',10);
     INSERT INTO app."tempos_reparacao" ("tempos_reparacaoID","numero","mecanico","inicio","fim") VALUES (1,10,2,'20261026110000000','00000000000000000'),(2,20,2,'20261026110000000','00000000000000000'),(3,30,10,'20261026110000000','00000000000000000')`);
   await screen.getByTestId("BTN_todos").click();await expect(screen.getByTestId("BTN_todos")).toBeEnabled();await screen.getByTestId("LIST_mecanicos").selectOption("2");await expect(screen.getByTestId("STC_filtro_atual")).toHaveText("ANA");
@@ -169,7 +180,7 @@ test("proof repair actual labor timer closes current mechanic open work with vis
 });
 
 test("proof repair labor close disposes its actual pending refresh and timer before an independent reopened instance reads current rows",async({page,repairServer,repairDatabase})=>{
-  await page.clock.install({time:new Date("2026-10-26T10:00:00.000Z")});await repairDatabase.query('UPDATE app."sistema" SET "Tempo_tempos"=1');
+  await pauseWorkstationClock(page,"2026-10-26T10:00:00.000Z");await repairDatabase.query('UPDATE app."sistema" SET "Tempo_tempos"=1');
   let screen=await labor(page,repairServer.origin),release!:()=>void,fetched!:()=>void;const gate=new Promise<void>(resolve=>{release=resolve;}),actual=new Promise<void>(resolve=>{fetched=resolve;});let hold=true,ticks=0;
   page.on("request",request=>{if(new URL(request.url()).pathname==="/api/repair-labor/tick")ticks++;});
   await page.route("**/api/repair-labor/list",async route=>{if(!hold){await route.continue();return;}hold=false;const response=await route.fetch();fetched();await gate;await route.fulfill({response});});
