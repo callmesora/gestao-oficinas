@@ -294,16 +294,35 @@ test("stock proof actual stock list chrome and static properties retain filters 
 async function workspaceBounds(frame: Locator) { return frame.evaluate(element => { const box = element.getBoundingClientRect(), canvas = element.closest(".wd-workspace-canvas")!, parent = canvas.getBoundingClientRect(); return { x: box.x - parent.x + canvas.scrollLeft, y: box.y - parent.y + canvas.scrollTop, width: box.width, height: box.height }; }); }
 
 test("stock proof new document uses the first actual source document exact MAX plus one today quantity one and article focus", async ({ page, request }) => {
-  const api = await apiFor(request), initial = await api("stock", "list", {}); expect(initial.kind).toBe("loaded"); expect(initial.documents.length).toBeGreaterThan(0);
-  const first = initial.documents[0].Codigo ?? "", current = await api("stock", "list", { document: first, from: "-9999999999999999999", to: "99999999999999999999" });
-  const maximum = current.rows.reduce((value, row) => row.documento_numero !== null && BigInt(row.documento_numero) > value ? BigInt(row.documento_numero) : value, 0n);
-  const expectedNumber = (maximum + 1n).toString();
-  await page.goto("/?workflow=stock"); const today = await page.evaluate(() => { const date = new Date(); return `${String(date.getDate()).padStart(2, "0")}/${String(date.getMonth() + 1).padStart(2, "0")}/${date.getFullYear()}`; });
-  await page.getByTestId("stock-open").click(); const list = page.getByTestId("WIN_Table_cab_stocks"); await expect(list.getByTestId("BTN_novo")).toBeEnabled(); await list.getByTestId("BTN_novo").click();
-  const form = page.getByTestId("WIN_Table_Lin_Stocks"); await expect(form.getByTestId("COMBO_tipo_doc")).toHaveValue(first); await expect(form.getByTestId("COMBO_tipo_doc")).toBeEnabled();
-  await expect(form.getByTestId("EDT_Numero")).toHaveValue(expectedNumber); await expect(form.getByTestId("EDT_Numero")).toHaveAttribute("readonly", "");
-  await expect(form.getByTestId("EDT_Data")).toHaveValue(today); await expect(form.getByTestId("EDT_Data")).toBeEnabled(); await expect(form.getByTestId("EDT_quant")).toHaveValue("1,000");
-  await expect(form.getByTestId("EDT_preco")).toHaveValue("0,00"); await expect(form.getByTestId("EDT_codigo")).toHaveValue(""); await expect(form.getByTestId("EDT_codigo")).toBeFocused();
-  await expect(form.getByTestId("TABLE_lin_Stocks").locator("tbody tr")).toHaveCount(0); await form.getByTestId("BTN_SYST_FERMER").click(); await page.getByTestId("WINDEVDIALOGBOX").getByRole("button", { name: "Sim", exact: true }).click();
-  await expect(form).toHaveCount(0); expect((await api("stock", "list", { document: first, from: "-9999999999999999999", to: "99999999999999999999" })).rows).toEqual(current.rows);
+  const api = await apiFor(request), available = await api("document-types", "list", {}), usedCodes = new Set(available.documentTypes.map(row => row.Codigo));
+  const codes = Array.from({ length: 1296 }, (_, index) => `I${index.toString(36).padStart(2, "0")}`).filter(code => !usedCodes.has(code)).slice(0, 2);
+  expect(codes).toHaveLength(2); const ownedTypes: Result[] = []; let ownedHeader: Result | undefined;
+  try {
+    for (const code of codes) {
+      const saved = await api("document-types", "save", { mode: "create", values: { Codigo: code, Descricao: `Proof initialization ${code}`, stock: 1, obriga_macanico: false } });
+      expect(saved.kind).toBe("saved"); ownedTypes.push(saved);
+    }
+    const initial = await api("stock", "list", {}); expect(initial.kind).toBe("loaded"); expect(initial.documents.length).toBeGreaterThanOrEqual(2);
+    const first = initial.documents[0].Codigo ?? "", bounds = { document: first, from: "-9999999999999999999", to: "99999999999999999999" };
+    const before = await api("stock", "list", bounds), usedNumbers = new Set(before.rows.map(row => row.documento_numero));
+    let seedNumber = 41n; while (usedNumbers.has(seedNumber.toString())) seedNumber++;
+    // This positive MAX fixture is owned by this case even when the first current
+    // source document predates it. Its unique orphan line changes no article stock.
+    ownedHeader = await api("stock", "save", { mode: "create", document: first, number: seedNumber.toString(), description: "Proof initialization header", date: "20261026", mechanic: null,
+      lines: [{ linha: "1", artigo: `proof-init-orphan-${codes[0]}-${Date.now()}`, descricao_artigo: "Owned initialization fixture", quantidade: "1", preco: "0" }] });
+    expect(ownedHeader.kind).toBe("saved");
+    const current = await api("stock", "list", bounds), maximum = current.rows.reduce((value, row) => row.documento_numero !== null && BigInt(row.documento_numero) > value ? BigInt(row.documento_numero) : value, 0n);
+    expect(maximum).toBeGreaterThanOrEqual(seedNumber); const expectedNumber = (maximum + 1n).toString();
+    await page.goto("/?workflow=stock"); const today = await page.evaluate(() => { const date = new Date(); return `${String(date.getDate()).padStart(2, "0")}/${String(date.getMonth() + 1).padStart(2, "0")}/${date.getFullYear()}`; });
+    await page.getByTestId("stock-open").click(); const list = page.getByTestId("WIN_Table_cab_stocks"); await expect(list.getByTestId("BTN_novo")).toBeEnabled(); await list.getByTestId("BTN_novo").click();
+    const form = page.getByTestId("WIN_Table_Lin_Stocks"); await expect(form.getByTestId("COMBO_tipo_doc")).toHaveValue(first); await expect(form.getByTestId("COMBO_tipo_doc")).toBeEnabled();
+    await expect(form.getByTestId("EDT_Numero")).toHaveValue(expectedNumber); await expect(form.getByTestId("EDT_Numero")).toHaveAttribute("readonly", "");
+    await expect(form.getByTestId("EDT_Data")).toHaveValue(today); await expect(form.getByTestId("EDT_Data")).toBeEnabled(); await expect(form.getByTestId("EDT_quant")).toHaveValue("1,000");
+    await expect(form.getByTestId("EDT_preco")).toHaveValue("0,00"); await expect(form.getByTestId("EDT_codigo")).toHaveValue(""); await expect(form.getByTestId("EDT_codigo")).toBeFocused();
+    await expect(form.getByTestId("TABLE_lin_Stocks").locator("tbody tr")).toHaveCount(0); await form.getByTestId("BTN_SYST_FERMER").click(); await page.getByTestId("WINDEVDIALOGBOX").getByRole("button", { name: "Sim", exact: true }).click();
+    await expect(form).toHaveCount(0); expect((await api("stock", "list", bounds)).rows).toEqual(current.rows);
+  } finally {
+    if (ownedHeader?.kind === "saved") await api("stock", "delete", { id: ownedHeader.id });
+    for (const owned of ownedTypes) await api("document-types", "delete", { id: owned.documentType.id });
+  }
 });
