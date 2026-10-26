@@ -9,17 +9,21 @@ import { WdModal, type WdModalHandle } from "./modal";
 import { rightAlignedResourceInput } from "./resource-state";
 import { dialogLayout } from "./dialog-layout";
 import { useInputSelection } from "./input-selection";
+import { resourceInputDisplay, resourceInputValue } from "./resource-input";
+import { CalculatorDialog } from "./calculator";
 
 export function ResourceBox({ current, controller }: { current: PendingResource; controller: MessageController }) {
   const { id, request, model } = current;
   const selection = useInputSelection(request.input?.kind === "text" ? request.input.automaticErase : undefined);
   const ref = useRef<WdModalHandle>(null), inputRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null), textId = useId();
-  const [input, setInput] = useState<string | boolean>(request.input?.value ?? "");
+  const [input, setInput] = useState<string | boolean | null>(() => request.input?.kind === "text" ? resourceInputDisplay(request.input) : request.input?.value ?? null);
+  const [edited, setEdited] = useState(false), [invalid, setInvalid] = useState(false), [calculator, setCalculator] = useState(false);
+  const changeInput = (value: string | boolean) => { setInput(value); setEdited(true); setInvalid(false); };
   const size = layout.window.size!;
   const body = controlOf(layout, "LIB_INFO"), button = controlOf(layout, "BTN_1");
   const field = controlOf(layout, request.input?.kind === "checkbox" ? "INT_1" : "SAI_1");
   const icon = controlOf(layout, "ICONE");
-  const multiline = request.input?.kind === "text" && !request.input.password && !rightAlignedResourceInput(request.input.inputType) && request.input.value.includes("\r\n");
+  const multiline = request.input?.kind === "text" && !request.input.password && !rightAlignedResourceInput(request.input.inputType) && (request.input.value ?? "").includes("\r\n");
   // Source RedimensionnerFenêtre: desktop minimum 400 and extra height for input.
   const [fit, setFit] = useState<ReturnType<typeof resourceGeometry> | null>(null);
   useEffect(() => {
@@ -48,7 +52,12 @@ export function ResourceBox({ current, controller }: { current: PendingResource;
     return () => dialog.close();
   }, [model.focus, request.input]);
   const finish = (name?: string, reason: "close" | "escape" = "close") => {
-    ref.current?.close(); controller.finish(id, name, reason, input);
+    const value = request.input?.kind === "text" ? resourceInputValue(request.input, String(input ?? ""), edited) : { kind: "valid" as const, value: edited ? input : request.input?.value };
+    // FermeDialogue copies the live input on every source button/Escape path. A cancel
+    // remains available even for a partial typed draft; direct chrome keeps its original.
+    const cancellation = !name || name === model.buttons[(request.destructive ? request.safeIndex! : request.cancelIndex) - 1].name;
+    if (name && !cancellation && value.kind === "invalid") { setInvalid(true); inputRef.current?.focus(); return; }
+    ref.current?.close(); controller.finish(id, name, reason, value.kind === "valid" ? value.value : input);
   };
   return <WdModal ref={ref} layout={dialogLayout(layout, request.title)} instance="resource-box-frame" testId="WINDEVDIALOGBOX"
     restoreTestId="resource-box-restore" describedBy={textId} contentSize={fit ?? { width, height }} onClose={() => finish()} onCancel={() => finish(undefined, "escape")}
@@ -71,19 +80,21 @@ export function ResourceBox({ current, controller }: { current: PendingResource;
         {request.input && <div className="wd-resource-input" style={{ left: fit?.bodyX ?? body.x, top: fit?.inputY ?? body.y + body.height! - 6,
           width: (fit?.inputWidth ?? width - body.x - 16) + actualWidth - width, height: fit?.inputHeight ?? field.height! }}>
           {request.input.kind === "checkbox" ? <label>
-            <input ref={node => { inputRef.current = node; }} data-testid="INT_1" type="checkbox" checked={Boolean(input)} onChange={event => setInput(event.target.checked)} />{request.input.label}
+            <input ref={node => { inputRef.current = node; }} data-testid="INT_1" type="checkbox" checked={Boolean(input)} onChange={event => changeInput(event.target.checked)} />{request.input.label}
           </label> : multiline ? <textarea {...selection} ref={node => { inputRef.current = node; }} className="wd-resource-edit" data-testid="SAI_1" aria-labelledby={textId}
             style={{ overflowY: fit ? "auto" : "hidden" }}
-            maxLength={request.input.maxLength || undefined} value={String(input)} onChange={event => setInput(event.target.value.replace(/\r?\n/g, "\r\n"))} />
+            maxLength={request.input.maxLength || undefined} value={String(input ?? "")} onChange={event => changeInput(event.target.value.replace(/\r?\n/g, "\r\n"))} />
           : request.input.inputType && request.input.inputType !== "text" ? <WdEdit control={{ ...field, x: 0, y: 0,
               width: (fit?.inputWidth ?? width - body.x - 16) + actualWidth - width, height: fit?.inputHeight ?? field.height!,
               caption_width: 0, input_type: "Text", h_align: "Right", input_mask: request.input.inputMask,
-              flags: { ...field.flags, Password: request.input.password === true } }}
+              visible: true, flags: { ...field.flags, Password: request.input.password === true } }}
             ref={node => { inputRef.current = node; }} aria-labelledby={textId} automaticErase={request.input.automaticErase}
             decimalMask={request.input.inputType === "numeric" || request.input.inputType === "currency"}
-            maxLength={request.input.maxLength || undefined} value={String(input)} onChange={event => setInput(event.target.value)} />
+            aria-invalid={invalid || undefined} maxLength={request.input.maxLength || undefined} value={String(input ?? "")} onChange={event => changeInput(event.target.value)}
+            adornment={request.input.calculator && ["numeric", "currency"].includes(request.input.inputType) ? { width: 24, content: <button type="button"
+              className="wd-resource-calculator" data-testid="SAI_1__calculator" aria-label="Calculadora" onClick={() => setCalculator(true)}>▦</button> } : undefined} />
           : <input {...selection} ref={node => { inputRef.current = node; }} className="wd-resource-edit" data-testid="SAI_1" aria-labelledby={textId}
-            type={request.input.password ? "password" : "text"} maxLength={request.input.maxLength || undefined} value={String(input)} onChange={event => setInput(event.target.value)} />}
+            type={request.input.password ? "password" : "text"} maxLength={request.input.maxLength || undefined} value={String(input ?? "")} onChange={event => changeInput(event.target.value)} />}
         </div>}
         <div className="wd-resource-actions">
           {model.buttons.map((item, index) => <WdButton key={item.name} control={{ ...button, name: item.name, path: item.name,
@@ -91,6 +102,13 @@ export function ResourceBox({ current, controller }: { current: PendingResource;
               width: fit?.widths[index] ?? button.width!, top: (fit?.buttonY ?? button.y + extra) + actualHeight - height }}
             onClick={() => finish(item.name)} />)}
         </div>
+        {calculator && <CalculatorDialog initial={request.input?.kind === "text" ? (() => {
+          const value = resourceInputValue(request.input, String(input ?? ""), true);
+          return value.kind === "valid" ? value.value ?? "" : "";
+        })() : ""} close={value => {
+          setCalculator(false);
+          if (value !== null && request.input?.kind === "text") changeInput(resourceInputDisplay({ ...request.input, value }));
+        }} />}
     </>}
   </WdModal>;
 }

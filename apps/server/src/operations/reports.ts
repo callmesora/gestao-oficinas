@@ -1,8 +1,8 @@
-import { connectOperationClient, closeOperationClient, type DatabaseConnection } from "../db/connection";
-import { reportRequestSchema, movementWithin, statementGroups, type StatementMovement, type ReportRenderResult } from "../../../../packages/domain/src/reports";
+import { connectOperationClient, closeOperationClient, rollbackAfterFailure, type DatabaseConnection } from "../db/connection";
+import { reportRequestSchema, movementWithin, statementGroups, type ArticleStatementRequest, type StatementMovement, type ReportRenderResult } from "../../../../packages/domain/src/reports";
 import { dateTimeComparisonKey } from "../../../../packages/domain/src/date-time";
 import type { ReportRenderer } from "../reports/renderer";
-import { orderReportDocument, statementReportDocument } from "../reports/templates";
+import { orderReportDocument, statementReportDocument, type ReportDocument } from "../reports/templates";
 import { familyReportDocument } from "../reports/families";
 
 /** dossier: QRY_union_extrato_artigos/sql, QRY_union_extrato_artigos_calcular_total/sql.
@@ -29,27 +29,39 @@ export async function renderReport(connect: DatabaseConnection | undefined, rend
   // ADR005 keeps caller dates/live rows intact and never mutates the submitted context.
   const request = configuredCompany === undefined ? parsed.data : { ...parsed.data, context: { ...parsed.data.context, company: configuredCompany } };
   // A table-sourced report consumes ONLY the explicit live-table snapshot. No DB read substitutes it.
-  if (request.reportId === "RPT_Ordens_Reparacao") return renderer(orderReportDocument(request));
+  if (request.reportId === "RPT_Ordens_Reparacao") return renderDocument(renderer, orderReportDocument(request));
   if (!connect) return { kind: "unavailable" };
   const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
+  let document: ReportDocument | Exclude<ReportRenderResult, { kind: "rendered" }>;
   try {
-    if (request.reportId !== "RPT_Extrato_artigos") {
-      const document = await familyReportDocument(client, request);
-      return "html" in document ? renderer(document) : document;
-    }
-    const result = await client.query<StatementMovement>(statementSql, [request.source.articleFrom, request.source.articleTo]);
-    // Same pure representation-aware datetime comparison as ADR002's real repair list.
-    // Applying date predicates after parameterized source joins preserves multiplicity.
-    const current = result.rows.filter(row => movementWithin(row, request.source.from, request.source.to));
-    const articleOrder = new Map<string, number>();
-    for (const row of current) if (!articleOrder.has(row.artigo)) articleOrder.set(row.artigo, articleOrder.size);
-    current.sort((left, right) => articleOrder.get(left.artigo)! - articleOrder.get(right.artigo)!
-      || (dateTimeComparisonKey(left.data)! < dateTimeComparisonKey(right.data)! ? -1 : dateTimeComparisonKey(left.data)! > dateTimeComparisonKey(right.data)! ? 1 : 0));
-    const historical = result.rows.filter(row => movementWithin(row, "20000101000000", request.source.openingCutoff));
-    const groups = statementGroups(current, historical);
-    if (groups.kind !== "built") return groups;
-    return renderer(statementReportDocument(request.context, groups.groups));
-  } catch { return { kind: "failed" }; }
+    // ADR005 target default: source Open lookups and result rows share one immutable
+    // database snapshot, even when another user edits between the individual reads.
+    // No database client/transaction survives into pagination or an OS output dialog.
+    await client.query("BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY");
+    document = request.reportId === "RPT_Extrato_artigos" ? await statementDocument(client, request) : await familyReportDocument(client, request);
+    await client.query("COMMIT");
+  } catch { await rollbackAfterFailure(client); return { kind: "failed" }; }
   finally { await closeOperationClient(client); }
+  return "html" in document ? renderDocument(renderer, document) : document;
 }
+
+async function renderDocument(renderer: ReportRenderer, document: ReportDocument): Promise<ReportRenderResult> {
+  try { return await renderer(document); } catch { return { kind: "failed" }; }
+}
+
+async function statementDocument(client: Client, request: ArticleStatementRequest): Promise<ReportDocument | Exclude<ReportRenderResult, { kind: "rendered" }>> {
+  const result = await client.query<StatementMovement>(statementSql, [request.source.articleFrom, request.source.articleTo]);
+  // Same pure representation-aware datetime comparison as ADR002's real repair list.
+  // Applying date predicates after parameterized source joins preserves multiplicity.
+  const current = result.rows.filter(row => movementWithin(row, request.source.from, request.source.to));
+  const articleOrder = new Map<string, number>();
+  for (const row of current) if (!articleOrder.has(row.artigo)) articleOrder.set(row.artigo, articleOrder.size);
+  current.sort((left, right) => articleOrder.get(left.artigo)! - articleOrder.get(right.artigo)!
+    || (dateTimeComparisonKey(left.data)! < dateTimeComparisonKey(right.data)! ? -1 : dateTimeComparisonKey(left.data)! > dateTimeComparisonKey(right.data)! ? 1 : 0));
+  const historical = result.rows.filter(row => movementWithin(row, "20000101000000", request.source.openingCutoff));
+  const groups = statementGroups(current, historical);
+  if (groups.kind !== "built") return groups;
+  return statementReportDocument(request.context, groups.groups);
+}
+import type { Client } from "pg";

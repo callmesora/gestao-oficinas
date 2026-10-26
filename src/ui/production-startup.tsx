@@ -44,6 +44,7 @@ export default function ProductionStartup({ native }: { native: boolean }) {
   const [prepared, setPrepared] = useState<Prepared | null>(null), [phase, setPhase] = useState<"loading" | "access" | "setup" | "desktop" | "terminated" | "unavailable">("loading"), [user, setUser] = useState<UserListRow | null>(null), [expiresAt, setExpiresAt] = useState("");
   const [windows, setWindows] = useState<StartupWindowDefinition[] | null>(null), [system, setSystem] = useState(false), [diagnostic, setDiagnostic] = useState(""), [busy, setBusy] = useState(false), [minimized, setMinimized] = useState(false), [maximized, setMaximized] = useState(true), [extent, setExtent] = useState({ width: window.innerWidth, height: window.innerHeight });
   const initial = useRef<Promise<Prepared> | null>(null), active = useRef(true), pending = useRef(false);
+  const [openingFailed, setOpeningFailed] = useState(false), [openAttempt, setOpenAttempt] = useState(0);
   useEffect(() => {
     active.current = true;
     if (!initial.current) initial.current = (async () => {
@@ -62,9 +63,10 @@ export default function ProductionStartup({ native }: { native: boolean }) {
   useEffect(() => {
     if (phase !== "desktop" || !prepared) return;
     let current = true;
-    void Promise.all([prepared.startup.initialise(), defaultStartupWindows(), additionalWorkshopWindows({ restrictedMaterials: prepared.mode === "labor" || prepared.mode === "materials" })]).then(([result, defaults, additional]) => { if (!current) return; if (result.kind === "ready") setWindows([...defaults, ...additional]); else setDiagnostic("Não foi possível abrir a aplicação. Tente novamente."); }).catch(() => { if (current) setDiagnostic("Serviço indisponível. Tente novamente."); });
+    const failed = (message: string) => { if (current) { setOpeningFailed(true); setDiagnostic(message); } };
+    void Promise.all([prepared.startup.initialise(), defaultStartupWindows(), additionalWorkshopWindows({ restrictedMaterials: prepared.mode === "labor" || prepared.mode === "materials" })]).then(([result, defaults, additional]) => { if (!current) return; if (result.kind === "ready") setWindows([...defaults, ...additional]); else failed("Não foi possível abrir a aplicação. Tente novamente."); }).catch(() => failed("Serviço indisponível. Tente novamente."));
     return () => { current = false; };
-  }, [phase, prepared]);
+  }, [phase, prepared, openAttempt]);
   const leave = useCallback(async (terminate: boolean) => {
     if (pending.current) return;
     pending.current = true; setBusy(true); setDiagnostic("");
@@ -73,9 +75,9 @@ export default function ProductionStartup({ native }: { native: boolean }) {
     finally { pending.current = false; if (active.current) setBusy(false); }
   }, [native, prepared, user]);
   const terminate = useCallback(() => { void leave(true); }, [leave]);
-  const accepted = (selected: UserListRow, expiry?: string) => { setUser(selected); if (expiry) setExpiresAt(expiry); setDiagnostic(""); setPhase("desktop"); };
+  const accepted = (selected: UserListRow, expiry?: string) => { setUser(selected); if (expiry) setExpiresAt(expiry); setOpeningFailed(false); setDiagnostic(""); setPhase("desktop"); };
   const mode = prepared?.mode ?? "menu", module = mode === "labor" || mode === "materials";
-  const desktop = <div className={`startup-desktop ${module ? "startup-module" : ""}`}><WdWorkspace>{windows ? <MenuLaunchers windows={windows} mode={mode} system={() => setSystem(true)} terminate={terminate} /> : <output>A abrir…</output>}</WdWorkspace></div>;
+  const desktop = <div className={`startup-desktop ${module ? "startup-module" : ""}`}><WdWorkspace>{windows ? <MenuLaunchers windows={windows} mode={mode} system={() => setSystem(true)} terminate={terminate} /> : openingFailed ? <section><p role="status">Aplicação indisponível.</p><button data-testid="startup-retry" onClick={() => { setOpeningFailed(false); setDiagnostic(""); setOpenAttempt(value => value + 1); }}>Tentar novamente</button></section> : <output>A abrir…</output>}</WdWorkspace></div>;
   return <LaunchModeContext value={mode === "labor" ? "t" : mode === "materials" ? "m" : null}><DialogProvider><main className="startup-workflow" data-testid="business-startup">
     {phase === "loading" && <p role="status">A ligar ao serviço…</p>}
     {phase === "unavailable" && <section><h1>Gestão de Oficinas</h1><p role="alert">Não foi possível ligar ao serviço configurado.</p><button onClick={() => window.location.reload()}>Tentar novamente</button><button onClick={terminate}>Sair</button></section>}

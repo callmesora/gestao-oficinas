@@ -19,7 +19,7 @@ export async function listArticles(connect: DatabaseConnection, input: unknown):
     if (filter.active !== filter.inactive) predicates.push(`a."inativo"=${filter.inactive ? "TRUE" : "FALSE"}`);
     const field = { todos: undefined, codigo: "Codigo", descricao: "Descricao", codigobarras: "codbarras" }[filter.mode];
     if (field && filter.term !== "") {
-      predicates.push(`position(lower($1) in lower(a."${field}"))>0`);
+      predicates.push(`position(lower($1::text COLLATE "pg_unicode_fast") in lower(a."${field}" COLLATE "pg_unicode_fast"))>0`);
       bindings.push(filter.term);
     }
     const where = predicates.length ? ` WHERE ${predicates.join(" AND ")}` : "";

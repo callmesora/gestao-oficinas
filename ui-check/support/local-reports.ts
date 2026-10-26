@@ -12,7 +12,7 @@ async function freePort() {
   const server = createServer(); await new Promise<void>(done => server.listen(0, "127.0.0.1", done)); const address = server.address(); if (!address || typeof address === "string") throw new Error(); await new Promise<void>(done => server.close(() => done())); return address.port;
 }
 type ReportServer = { origin: string; setupToken: string; restart: () => Promise<void>; pinHash: () => Promise<string> };
-export const test = base.extend<object, { localReportServer: ReportServer }>({
+export const test = base.extend<{ localReportServer: ReportServer }>({
   localReportServer: [async ({ browserName }, use) => {
     if (browserName !== "chromium") throw new Error("Configured Chrome required");
     const root = fileURLToPath(new URL("../../", import.meta.url)), directory = await mkdtemp(resolve(root, "analysis-local/local-report-browser-")), frontend = join(directory, "dist"), state = join(directory, "profile");
@@ -30,6 +30,6 @@ export const test = base.extend<object, { localReportServer: ReportServer }>({
         restart: async () => { await running!.close(); running = await startLocalService({ directory: state, frontend, environment: {} }); },
         pinHash: async () => createHash("sha256").update(await readFile(localReportPinPath(state))).digest("hex") });
     } finally { try { await running?.close(); } finally { await rm(directory, { recursive: true }); } }
-  }, { scope: "worker", timeout: 120000 }],
+  }, { timeout: 120000 }],
 });
 export { expect };

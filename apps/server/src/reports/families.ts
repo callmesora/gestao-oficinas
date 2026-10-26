@@ -1,6 +1,7 @@
 import type { Client } from "pg";
 import Decimal from "decimal.js";
-import { dateOnlyComparisonKey, dateTimeComparisonKey, isDateOnlyBound, isDateTimeBound } from "../../../../packages/domain/src/date-time";
+import { dateOnlyComparisonKey, dateTimeComparisonKey } from "../../../../packages/domain/src/date-time";
+import { reportParametersValid } from "../../../../packages/domain/src/report-contracts";
 import { laborDuration, laborDurationDisplay, laborSumHours, OPEN_LABOR_FINISH } from "../../../../packages/domain/src/repair-labor-time";
 import type { FamilyReportRequest, ReportRenderResult } from "../../../../packages/domain/src/reports";
 import { flatReportDocument, fixedReportDocument, sourceBand, reportValue, type ReportValues } from "./fixed-layout";
@@ -24,19 +25,12 @@ function records(rows: Record<string, unknown>[]): ReportValues[] {
 async function query(client: Client, sql: string, parameters: unknown[] = []): Promise<ReportValues[]> {
   return records((await client.query(sql, parameters)).rows);
 }
-function parametersValid(parameters: Parameters, allowed: string[]): boolean {
-  return Object.keys(parameters).every(key => allowed.includes(key)) && allowed.every(key => Object.hasOwn(parameters, key))
-    && Object.entries(parameters).every(([key, value]) => key === "ParamEstados" ? value === null || Array.isArray(value) : value === null || typeof value === "string");
-}
 function bound(parameters: Parameters, key: string): string | null { const value = parameters[key]; return typeof value === "string" ? value : null; }
 function datePredicate(value: string | null, from: string | null, to: string | null, dateOnly = false): boolean {
   // HFSQL explicit NULL disables this BETWEEN condition, retaining other predicates.
   if (from === null || to === null) return true;
   const key = dateOnly ? dateOnlyComparisonKey : dateTimeComparisonKey, raw = key(value);
   return raw !== null && raw >= key(from)! && raw <= key(to)!;
-}
-function validDates(parameters: Parameters, only = false): boolean {
-  return ["ParamDaData", "ParamAData"].every(key => parameters[key] === null || typeof parameters[key] === "string" && (only ? isDateOnlyBound(parameters[key]) : isDateTimeBound(parameters[key])));
 }
 function exactSum(values: (string | null)[]): string | null {
   if (values.some(value => value === null || !/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(value))) return null;
@@ -62,9 +56,8 @@ function sortedWithinGroups(rows: ReportValues[], group: string, date: string): 
 /** Explicit source consumption shapes: source joins differ deliberately between document/order branches. */
 async function consumption(client: Client, request: FamilyReportRequest, params: Parameters): Promise<FamilyResult> {
   const vehicle = request.reportId.includes("Viatura");
-  const allowed = vehicle ? ["ParamDaData", "ParamAData", "ParamDoArtigo", "ParamAoArtigo", "ParamDaViatura", "ParamAViatura"] : ["ParamDoArtigo", "ParamAoArtigo", "ParamDaData", "ParamAData", "ParamDescricao"];
   // Orders-only caller passes an extra description argument although its query has no such predicate.
-  if (!parametersValid(params, allowed) || !validDates(params)) return { kind: "invalid" };
+  if (!reportParametersValid(request.reportId, params)) return { kind: "invalid" };
   const articleFrom = bound(params, "ParamDoArtigo"), articleTo = bound(params, "ParamAoArtigo");
   const articleWhere = articleFrom === null || articleTo === null ? "TRUE" : 'm."artigo" BETWEEN $1 AND $2';
   let rows: ReportValues[];
@@ -150,7 +143,7 @@ export async function familyReportDocument(client: Client, request: FamilyReport
   const params = request.source.parameters;
   if (request.reportId.startsWith("RPT_Consumo_")) return consumption(client, request, params);
   if (request.reportId === "RPT_Ordens_Reparacao_DataEntrega" || request.reportId === "RPT_Ordens_Reparacao_DataPag") {
-    if (!parametersValid(params, ["ParamDaData", "ParamAData", "ParamEstados"]) || !validDates(params, true)) return { kind: "invalid" };
+    if (!reportParametersValid(request.reportId, params)) return { kind: "invalid" };
     const delivery = request.reportId === "RPT_Ordens_Reparacao_DataEntrega", field = delivery ? "recepcao_entrega_prevista" : "data_pagamento";
     let rows = await query(client, `SELECT o."numero",o."matricula",o."recepcao_datahora",o."${field}",o."total_pago",c."Descricao" AS "Cliente",s."Descricao" AS "Estado",(v."marca"||' ')||v."modelo" AS marcamodelo
       FROM app."ordem_reparacao" o INNER JOIN app."Viaturas" v ON v."matricula"=o."matricula" INNER JOIN app."Clientes" c ON c."Codigo"=v."Cliente"
@@ -168,7 +161,7 @@ export async function familyReportDocument(client: Client, request: FamilyReport
 async function laborReport(client: Client, request: FamilyReportRequest, params: Parameters): Promise<FamilyResult> {
   const vehicle = request.reportId.endsWith("viatura"), order = request.reportId === "RPT_Tempos_Ordem_Reparacao", summary = request.reportId.endsWith("Resumo");
   const range = vehicle ? ["ParamDaViatura", "ParamAViatura"] : order ? ["ParamDaOrdem", "ParamAOrdem"] : ["ParamDoMecanico", "ParamAoMecanico"];
-  if (!parametersValid(params, [...range, "ParamDaData", "ParamAData"]) || !validDates(params)) return { kind: "invalid" };
+  if (!reportParametersValid(request.reportId, params)) return { kind: "invalid" };
   const field = vehicle ? 'o."matricula"' : order ? 'o."numero"' : 'm."Codigo"';
   let rows = await query(client, `SELECT o."numero",o."matricula",o."recepcao_datahora",v."marca",v."modelo",t."mecanico",t."inicio",t."fim",m."Descricao"
     FROM app."ordem_reparacao" o INNER JOIN app."tempos_reparacao" t ON o."numero"=t."numero" INNER JOIN app."Viaturas" v ON o."matricula"=v."matricula" INNER JOIN app."mecanicos" m ON t."mecanico"=m."Codigo"

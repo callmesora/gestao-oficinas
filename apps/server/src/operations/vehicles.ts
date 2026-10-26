@@ -5,7 +5,8 @@ import { vehicleFilterSchema, vehicleSaveSchema, vehicleRequiredMessage, vehicle
   type VehicleSaveResult, type VehicleDeleteResult } from "../../../../packages/domain/src/vehicles";
 
 const returning = `_row_id::text AS id,"ViaturasID"::text,"matricula","Cliente"::text,"marca","modelo","Ano","mes"`;
-const registrationSchema = z.strictObject({ registration: z.string().max(15) });
+// ADR002: an original imported key is an exact identity, not a new-entry mask.
+const registrationSchema = z.strictObject({ registration: z.string() });
 const associatedMessage = "Viatura usada em ordens de reparação, não pode ser eliminada";
 
 export async function listVehicles(connect: DatabaseConnection, input: unknown): Promise<VehicleListResult> {
@@ -14,7 +15,7 @@ export async function listVehicles(connect: DatabaseConnection, input: unknown):
   const filter = parsed.data;
   // Verified: dossier QRY_select_viaturas/sql; literal comparison default ADR-010.
   const fields = { todos: [], matricula: ['v."matricula"'], cliente: ['c."Descricao"'], marca_modelo: ['v."marca"', 'v."modelo"'] }[filter.mode];
-  const expressions = filter.term === "" ? [] : fields.map(field => `strpos(lower(COALESCE(${field},'')),lower($1))>0`);
+  const expressions = filter.term === "" ? [] : fields.map(field => `strpos(lower(COALESCE(${field},'') COLLATE "pg_unicode_fast"),lower($1::text COLLATE "pg_unicode_fast"))>0`);
   const where = expressions.length ? `WHERE (${expressions.join(" OR ")})` : "";
   const sort = filter.sort === "Descricao" ? 'c."Descricao"' : `v."${filter.sort ?? "matricula"}"`;
   const client = await connectOperationClient(connect);
@@ -49,7 +50,7 @@ export async function saveVehicle(connect: DatabaseConnection, input: unknown): 
   if (required) return { kind: "required", message: required };
   if (command.mode === "update" && values.matricula !== command.originalRegistration) return { kind: "registrationLocked" };
   const registration = vehicleUppercase(values.matricula);
-  if (registration.length > 15) return { kind: "invalid" };
+  if (command.mode === "create" && registration.length > 15) return { kind: "invalid" };
   const client = await connectOperationClient(connect);
   if (!client) return { kind: "failed" };
   try {

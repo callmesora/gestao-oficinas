@@ -30,6 +30,7 @@ import { useTableLayout } from "./legacy/table-layout";
 import { controlOf, type LegacyLayout, type LegacyColumn } from "./legacy/layout";
 import { WdRadControls, type WdRadBinding } from "./legacy/rad-controls";
 import { WdModal, type WdModalHandle } from "./legacy/modal";
+import type { WdDateEditHandle } from "./legacy/date";
 import { WdWorkspace, useWorkspace } from "./legacy/workspace";
 import { DialogProvider, useDialogs } from "./legacy/dialogs";
 import { decimalMaskOf, decimalMaskDisplay, decimalMaskValue, decimalMaskEdit, type DecimalMask } from "./legacy/decimal-entry";
@@ -366,14 +367,19 @@ export function StockScannerDialog({ repository, sourceText, finish }: { reposit
 
 export function StockStatementDialog({ services, onPreview, finish }: { services: Services; onPreview?: StockReportPreview; finish: () => void }) {
   const dialog = useRef<WdModalHandle>(null), [from, setFrom] = useState(() => dateEntryInitial(today())), [to, setTo] = useState(() => dateEntryInitial(today()));
+  const fromInput = useRef<WdDateEditHandle>(null), toInput = useRef<WdDateEditHandle>(null);
   const [articleFrom, setArticleFrom] = useState(""), [articleTo, setArticleTo] = useState("zzzzzzzzzz"), [picker, setPicker] = useState<"from" | "to" | null>(null);
   const close = () => { dialog.current?.close(); finish(); };
-  const preview = () => { const a = dateEntryResult(from), b = dateEntryResult(to); if (a.kind !== "valid" || b.kind !== "valid") return;
+  const preview = () => { const a = dateEntryResult(from), b = dateEntryResult(to);
+    if (!fromInput.current?.validateCalendar()) return;
+    if (a.kind !== "valid") { fromInput.current?.focus(); return; }
+    if (!toInput.current?.validateCalendar()) return;
+    if (b.kind !== "valid") { toInput.current?.focus(); return; }
     onPreview?.({ reportId: "RPT_Extrato_artigos", from: a.value === null ? null : a.value + "000000", to: b.value === null ? null : b.value + "235959", articleFrom, articleTo });
   };
   const bindings: WdRadBinding[] = [
-    { name: "EDT_Da_data", kind: "date", props: { draft: from, onChange: setFrom, invalid: dateEntryResult(from).kind === "invalid" } },
-    { name: "EDT_a_data", kind: "date", props: { draft: to, onChange: setTo, invalid: dateEntryResult(to).kind === "invalid" } },
+    { name: "EDT_Da_data", kind: "date", props: { ref: fromInput, draft: from, onChange: setFrom, invalid: dateEntryResult(from).kind === "invalid" } },
+    { name: "EDT_a_data", kind: "date", props: { ref: toInput, draft: to, onChange: setTo, invalid: dateEntryResult(to).kind === "invalid" } },
     { name: "EDT_Do_artigo", kind: "edit", props: { value: articleFrom, onChange: e => setArticleFrom(e.currentTarget.value) } },
     { name: "EDT_Ao_artigo", kind: "edit", props: { value: articleTo, onChange: e => setArticleTo(e.currentTarget.value) } },
     { name: "BTN_VISION4", kind: "button", props: { onClick: () => setPicker("from") } },

@@ -101,6 +101,8 @@
 .wd-message-icon.error { background: #c62f2f; }
 .wd-resource-input { position: absolute; }
 .wd-resource-edit { box-sizing: border-box; width: 100%; height: 100%; font: inherit; padding: 2px 4px; border: 1px solid #a7adb8; }
+.wd-resource-calculator { position: absolute; right: 2px; top: 2px; bottom: 2px; width: 22px; border: 0; padding: 0; background: #eef3fa; color: #44566c; }
+.wd-resource-input [aria-invalid="true"], [data-testid="target-calculator"] [aria-invalid="true"] { outline: 1px solid #b62929; outline-offset: -1px; }
 textarea.wd-resource-edit { resize: none; }
 .wd-resource-icon { position: absolute; }
 .wd-resource-icon > .wd-message-icon { inset: 0; width: 100%; height: 100%; }

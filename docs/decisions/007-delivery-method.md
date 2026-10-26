@@ -25,5 +25,7 @@ The owner approved excluding the 50 hidden WINDEV user macro-code editor actions
 
 The four Unidades/Postos raw new-row events have no reachable input branch: the source tables are read-only and every column disables input. Their target implementation keeps actions available across ordinary selection and offers creation through the actual form. This is source applicability, not a new inline-edit feature or an exclusion; native row-event timing remains U02.
 
+The owner requests a second broad sweep on 2026-10-25 and explicitly delegates missing-behaviour assumptions. Implement documented reversible target defaults for remaining U rows; preserve their IDs, source evidence/confidence and legacy questions. A concrete default-backed target may be implemented while exact legacy/native acceptance remains open. Do not invent unavailable SQL, hide data anomalies, or label unperformed native checks verified. Report target coverage separately from unresolved source knowledge.
+
 ## Consequences and verification
 The final gate requires every parity row verified or excluded by ADR, full reconciliation, golden scenarios and native/install/restore evidence. Unavailable checks remain explicit. Step 0 validation stays an evidence snapshot and is not substituted for target verification.

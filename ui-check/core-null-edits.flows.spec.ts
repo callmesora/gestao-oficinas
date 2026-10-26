@@ -1,7 +1,7 @@
 import { expect, test, type APIRequestContext } from "@playwright/test";
 
 async function authenticated(request: APIRequestContext) {
-  const session = await request.post("/api/development/session", { headers: { Origin: "http://localhost:1431", "X-Isolated-Development": "1" } });
+  const session = await request.post("/api/development/session", { headers: { Origin: new URL(test.info().project.use.baseURL!).origin, "X-Isolated-Development": "1" } });
   expect(session.ok()).toBe(true);
   return { Authorization: `Bearer ${(await session.json()).token}` };
 }

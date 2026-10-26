@@ -13,7 +13,7 @@ export function band(name: string, height: number, controls: Control[], kind = "
     return `<div data-control="${control.name}" class="control${control.title ? " title" : ""}${control.auto ? " auto" : ""}" style="display:block;left:${control.x}mm;top:${control.y ?? 0}mm;width:${control.width}mm;height:${control.height}mm;${border}">${escapeReportText(control.value)}</div>`;
   }).join("")}</div>`;
 }
-/** ADR005: only evidenced auto-height consumers opt in. Chromium sizes text; source
+/** ADR005: evidenced auto-height controls opt in. Chromium sizes text; source
  * intersecting rectangles share a flow section and keep their original offsets.
  * Later sections retain the original gaps, moving down when preceding content grows.
  */
@@ -39,7 +39,7 @@ export function intrinsicBand(name: string, height: number, controls: Control[],
   return `<div data-band="${name}" class="band intrinsic-band ${kind}${divisible ? " divisible" : ""}"${divisible ? "" : " data-report-indivisible"} style="min-height:${height}mm;padding-bottom:${Math.max(0, height - previousBottom)}mm">${content}</div>`;
 }
 function start(context: ReportContext, title: { x: number; width: number; value: string }): string {
-  return band("START_OF_DOCUMENT", 20, [
+  return intrinsicBand("START_OF_DOCUMENT", 20, [
     { name: "STC_Empresa", x: 0, width: 60, height: 6.615, value: context.company },
     { name: "CONTROL58", x: 144.18, width: 31.72, height: 6.76, value: context.dateText, auto: true },
     { name: "DOCTITLE", x: title.x, y: 6.615, width: title.width, height: 9.789, value: title.value, title: true, auto: true },
@@ -47,7 +47,7 @@ function start(context: ReportContext, title: { x: number; width: number; value:
 }
 function end(count: number, statement: boolean): string {
   const y = statement ? 6.005 : 9.262;
-  return band("END_OF_DOCUMENT", statement ? 12.909 : 15.349, [
+  return intrinsicBand("END_OF_DOCUMENT", statement ? 12.909 : 15.349, [
     { name: statement ? "COUNTERSTATIC" : "COUNTERSTATIC1", x: 0, y, width: 30.271, height: 6.085, value: statement ? "" : "Número de linhas:", auto: true },
     { name: statement ? "COUNTER" : "COUNTER1", x: 30.271, y, width: 16.338, height: 6.088, value: String(count), auto: true },
     { name: statement ? "PoweredWx" : "PoweredWx1", x: 134.998, y: statement ? 6.005 : 9.791, width: 40.902, height: 5.556, value: "Golfinho Software, Lda" },
@@ -102,7 +102,7 @@ export function orderReportDocument(input: OrderReportRequest): ReportDocument {
     value: column.key === "COL_Recepcao_prioridade" ? orderReportPriority(source[column.key]) : source[column.key],
   })), "detail"))).join("");
   return { reportId: input.reportId, css: baseCss + pageHeaderCss(10.850), unresolved: ["U-R20-01", "U-R20-02", "U-R20-03", "U-R20-07"],
-    html: `<div class="running-header">${header}</div><article class="report">${start(input.context, { x: 52.045, width: 71.810, value: "Ordens de Reparação" })}<table><thead>${row(header)}</thead><tbody>${details}</tbody></table>${end(input.source.rows.length, false)}</article>` };
+    html: `<div class="running-header">${header}</div><article class="report" data-report-page-height="${279.4 - 40 - 10.850 - 6.614}" data-report-overflow="U-R20-01">${start(input.context, { x: 52.045, width: 71.810, value: "Ordens de Reparação" })}<table><thead>${row(header)}</thead><tbody>${details}</tbody></table>${end(input.source.rows.length, false)}</article>` };
 }
 export function statementReportDocument(context: ReportContext, groups: readonly StatementGroup[]): ReportDocument {
   const columns = [
@@ -124,5 +124,5 @@ export function statementReportDocument(context: ReportContext, groups: readonly
   }).join("");
   return { reportId: "RPT_Extrato_artigos", css: baseCss + pageHeaderCss(6.090), unresolved: ["U-R09-01", "U-R09-02", "U-R09-03", "U-R09-06", "U-R09-07"],
     // No source title/three numeric-header literals recovered: do not print designer placeholders.
-    html: `<div class="running-header">${header}</div><article class="report">${start(context, { x: 54.427, width: 67.046, value: "" })}<table><thead>${row(header)}</thead><tbody>${body}</tbody></table>${end(groups.reduce((count, group) => count + group.lines.length, 0), true)}</article>` };
+    html: `<div class="running-header">${header}</div><article class="report" data-report-page-height="${279.4 - 40 - 6.090 - 6.614}" data-report-overflow="U-R09-01">${start(context, { x: 54.427, width: 67.046, value: "" })}<table><thead>${row(header)}</thead><tbody>${body}</tbody></table>${end(groups.reduce((count, group) => count + group.lines.length, 0), true)}</article>` };
 }

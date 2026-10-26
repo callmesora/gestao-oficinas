@@ -51,7 +51,7 @@ async function seed() {
 
 it("rejects unknown query names, arbitrary SQL and incomplete/extra/invalid parameters before connecting", async () => {
   let calls = 0; const unavailable: DatabaseConnection = async () => { calls++; throw new Error("synthetic"); };
-  for (const input of [null, { query: "SELECT 1", parameters: {} }, { query: "__proto__", parameters: {} }, { query: "QRY_select_cliente_codigo", parameters: {} },
+  for (const input of [null, { query: "SELECT 1", parameters: {} }, { query: "__proto__", parameters: {} }, { query: "QRY_select_cliente_codigo", parameters: { ParamCodigo_Cliente: undefined } },
     { query: "QRY_select_cliente_codigo", parameters: { ParamCodigo_Cliente: "1 OR TRUE" } }, { query: "QRY_select_cab_stocks", parameters: {}, sql: "DELETE" },
     { query: "QRY_select_lin_stocks", parameters: { ParamNumero: "1", ParamDoc: "D1", ParamLinha: "2" } }]) {
     expect(await executeExtractedQuery(unavailable, input)).toEqual({ kind: "invalid" });
@@ -179,4 +179,40 @@ it("fixed read operations release their actual database connection", async () =>
   };
   expect(await executeExtractedQuery(observed, { query: "QRY_select_cab_stocks", parameters: {} })).toEqual({ kind: "loaded", rows: [] });
   expect((await database.query('SELECT COUNT(*)::int AS count FROM pg_stat_activity WHERE pid=ANY($1::int[])', [pids])).rows[0].count).toBe(0);
+});
+
+const materialParameters = (quantity: string) => ({ ParamNumero: "99", ParamMecanico: null, ParamArtigo: "Orphan", ParamDescricaoArtigo: "  Preserved  ", ParamQuantidade: quantity, ParamDataHora: "", ParamReparacaoEstado: null, ParamPreco: "0.123456789123456789", ParamLancado: null });
+it("RULE-Q02-004 actual contention refuses atomically, retry and competing writes allocate distinct exact identities", async () => {
+  const blocker = await connect();
+  try {
+    await blocker.query('BEGIN'); await blocker.query('LOCK TABLE app."material_reparacao" IN SHARE ROW EXCLUSIVE MODE');
+    expect(await executeExtractedQuery(connect, { query: "QRY_insert_material_reparacao", parameters: materialParameters("-1") })).toEqual({ kind: "in_use" });
+    expect((await database.query('SELECT count(*)::text AS count FROM app."material_reparacao"')).rows[0].count).toBe("0");
+  } finally { await blocker.query("ROLLBACK"); await blocker.end(); }
+  const commands = [materialParameters("-1.000000000000000001"), materialParameters("2.000000000000000002")];
+  const replies = await Promise.all(commands.map(parameters => executeExtractedQuery(connect, { query: "QRY_insert_material_reparacao", parameters })));
+  for (const [index, reply] of replies.entries()) {
+    expect(["written", "in_use"]).toContain(reply.kind);
+    if (reply.kind === "in_use") expect(await executeExtractedQuery(connect, { query: "QRY_insert_material_reparacao", parameters: commands[index] })).toEqual({ kind: "written", affected: "1" });
+  }
+  const rows = (await database.query('SELECT "material_reparacaoID"::text,"quantidade"::text,"preco"::text FROM app."material_reparacao" ORDER BY "material_reparacaoID"')).rows;
+  expect(rows.map(row => row.material_reparacaoID)).toEqual(["1", "2"]);
+  expect(rows.map(row => row.quantidade).sort()).toEqual(["-1.000000000000000001", "2.000000000000000002"]);
+  expect(rows.every(row => row.preco === "0.123456789123456789")).toBe(true);
+});
+
+it("RULE-Q02-004 an actual AFTER-write failure rolls back material and dependent effects before a successful retry", async () => {
+  await database.query("CREATE TABLE public.query_failure_effects (value text)");
+  await database.query(`CREATE FUNCTION public.query_failure() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN
+    INSERT INTO public.query_failure_effects VALUES ('Synthetic dependent effect');
+    RAISE EXCEPTION 'Synthetic write refusal';
+  END $$`);
+  await database.query('CREATE TRIGGER query_failure AFTER INSERT ON app."material_reparacao" FOR EACH ROW EXECUTE FUNCTION public.query_failure()');
+  try {
+    expect(await executeExtractedQuery(connect, { query: "QRY_insert_material_reparacao", parameters: materialParameters("-1") })).toEqual({ kind: "failed" });
+    expect((await database.query('SELECT count(*)::text AS count FROM app."material_reparacao"')).rows[0].count).toBe("0");
+    expect((await database.query('SELECT count(*)::text AS count FROM public.query_failure_effects')).rows[0].count).toBe("0");
+  } finally { await database.query('DROP TRIGGER query_failure ON app."material_reparacao"; DROP FUNCTION public.query_failure(); DROP TABLE public.query_failure_effects'); }
+  expect(await executeExtractedQuery(connect, { query: "QRY_insert_material_reparacao", parameters: materialParameters("-1") })).toEqual({ kind: "written", affected: "1" });
+  expect(await read("QRY_select_material_reparacao", { ParamNumero: "99" })).toMatchObject([{ quantidade: "-1", descricao_artigo: "  Preserved  " }]);
 });

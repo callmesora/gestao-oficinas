@@ -382,7 +382,7 @@ export function MaterialsList({ repository, articleRepository, mechanicRepositor
       cell={(row, column) => column.name === "COL_Numero" ? row.numero ?? "" : column.name === "COL_Matricula" ? <span style={{ fontSize: 12, fontWeight: "bold" }}>{row.matricula ?? ""}</span> : column.name === "COL_Marca_Modelo" ? row.marcamodelo ?? "" : ""} />
     <MaterialTabControls layout={listLayout} bindings={bindings} from={Number(orderTable.tab_order)} until={Number(mechanicControl.tab_order)} />
     <select data-testid="LIST_mecanicos" data-control-path={mechanicControl.path} className="material-source-mechanics" size={15} aria-label="Mecânicos"
-      hidden={mechanicControl.visible === false || mechanicControl.flags?.Visible === false} disabled={mechanicControl.state === "Grayed"}
+      hidden={(mechanicControl.visible ?? mechanicControl.flags?.Visible) === false} disabled={mechanicControl.state === "Grayed"}
       tabIndex={mechanicControl.flags?.["TAB Key"] === false || String(mechanicControl.tab_order) === "-1" ? -1 : 0}
       value={mechanicSelection === undefined ? "none" : String(mechanicSelection)} style={{ ...controlBox(mechanicControl), textAlign: mechanicControl.h_align === "Right" ? "right" : mechanicControl.h_align === "Center" ? "center" : "left" }}
       onPointerDown={() => { mechanicPointerChanged.current = false; }}

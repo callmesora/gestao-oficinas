@@ -59,3 +59,26 @@ it("SRC-6c92aa7fbd/SRC-1c6b73c15d keeps the lower-picker copy behavior even when
   expect(reportPickerRange("1", "9", "0", true, true)).toEqual({ from: "0", to: "9" });
   expect(reportPickerRange("1", "9", "7", true, true)).toEqual({ from: "7", to: "7" });
 });
+
+it("RULE-WCD4890/WA6D3FA-005 blank/zero/NULL Date8 coercion remains explicit unresolved without mutating or normalizing the caller draft", () => {
+  for (const from of [null, "", "00000000", "20260230", "opaque"]) {
+    const input = { ...material, from }, original = structuredClone(input);
+    expect(materialReportDispatch("descriminado", input, context)).toEqual({ kind: "unresolved" });
+    expect(input).toEqual(original);
+    expect(laborReportDispatch("ordem_reparacao", { from, to: "20261025", rangeFrom: "1", rangeTo: "10" }, context)).toEqual({ kind: "unresolved" });
+  }
+  expect(laborReportDispatch("mecanico_descriminado", { from: "20261001", to: "20261025", rangeFrom: "0", rangeTo: "00018446744073709551615" }, context).kind).toBe("ready");
+  expect(laborReportDispatch("ordem_reparacao", { from: "20261001", to: "20261025", rangeFrom: "1", rangeTo: "18446744073709551616" }, context)).toEqual({ kind: "invalid-number" });
+});
+
+it("RULE-W7DB489-005 selected NULL state keys refuse lossy serialization; unchecked NULLs preserve literal checked codes and Date8 empty/zero", () => {
+  const states = [{ id: "1", Codigo: null, Descricao: "NULL SOURCE", checked: true }, { id: "2", Codigo: " Á ", Descricao: null, checked: true }];
+  expect(salesReportDispatch("vendas", { from: "20261001", to: "20261025", states }, context)).toEqual({ kind: "unresolved" });
+  states[0].checked = false;
+  for (const from of ["", "00000000"]) {
+    const result = salesReportDispatch("recebimentos", { from, to: "20261025", states }, context);
+    expect(result.kind).toBe("ready");
+    if (result.kind === "ready") expect(result.request.source).toEqual({ kind: "query", parameters: { ParamDaData: from, ParamAData: "20261025", ParamEstados: [" Á "] } });
+  }
+  expect(states[0]).toEqual({ id: "1", Codigo: null, Descricao: "NULL SOURCE", checked: false });
+});

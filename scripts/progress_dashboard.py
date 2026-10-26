@@ -70,12 +70,16 @@ def unit_kind(name, kinds):
 
 
 def summarize(rows, docs):
-    units = collections.defaultdict(lambda: {'statuses': collections.Counter(), 'kinds': set(), 'assumed': 0})
+    units = collections.defaultdict(lambda: {'statuses': collections.Counter(), 'kinds': set(), 'assumed': 0,
+                                             'source_unresolved': 0, 'built_on_defaults': 0})
     for row in rows:
         unit = units[row.get('element') or '?']
         status = (row.get('status') or 'unmapped').strip()
         unit['statuses'][status] += 1
         unit['assumed'] += status == 'verified' and (row.get('confidence') or '').strip() == 'assumed'
+        unresolved = (row.get('confidence') or '').strip() == 'unresolved'
+        unit['source_unresolved'] += unresolved
+        unit['built_on_defaults'] += unresolved and status in BUILT
         unit['kinds'].add(row.get('kind', ''))
     result = []
     for name, unit in units.items():
@@ -107,6 +111,7 @@ def summarize(rows, docs):
                        'built_percent': round(100 * built / total, 1) if total else 0.0,
                        'proven': proven, 'excluded': excluded, 'stage': stage, 'spec': spec,
                        'assumed': unit['assumed'],
+                       'source_unresolved': unit['source_unresolved'], 'built_on_defaults': unit['built_on_defaults'],
                        'statuses': {s: counts[s] for s in STATUS_ORDER},
                        'looks': visuals.get('windows'), 'visuals': visuals})
     order = {'building': 0, 'built': 1, 'mapped': 2, 'done': 3, 'not started': 4}
@@ -194,6 +199,8 @@ def render(units, questions, points, commits, title, generated):
     built_percent = round(100 * built / rows, 1) if rows else 0.0
     proven_percent = round(100 * statuses['verified'] / rows, 1) if rows else 0.0
     assumed = sum(u['assumed'] for u in units)
+    source_unresolved = sum(u['source_unresolved'] for u in units)
+    built_on_defaults = sum(u['built_on_defaults'] for u in units)
 
     def tile(kind, label):
         counts = by_kind.get(kind, collections.Counter())
@@ -271,6 +278,8 @@ ul{{padding-left:18px}}li{{margin:3px 0}}
 <div class="muted">{statuses["verified"]}/{rows} verified{f" · {assumed} on assumptions still to confirm" if assumed else ""}</div></div>
 <div class="tile"><div class="big">{percent}%</div><div>strict completion</div>
 <div class="muted">{done}/{rows} verified + approved exclusions ({statuses["excluded"]} excluded)</div></div>
+<div class="tile"><div class="big">{built_on_defaults}</div><div>built using target defaults</div>
+<div class="muted">{source_unresolved} source behaviors still unconfirmed. Implementation does not resolve the WINDEV evidence gaps or native acceptance.</div></div>
 {tile("screen", "screens")}{tile("report", "reports")}
 <div class="tile"><div class="big">{questions["answer_sheet_open"]}</div><div>assumptions to confirm with the WINDEV expert (work does not wait)</div>
 <div class="muted">{questions["answer_sheet_done"]} answered · {questions["unresolved_items"]} open points in the analysis</div></div>

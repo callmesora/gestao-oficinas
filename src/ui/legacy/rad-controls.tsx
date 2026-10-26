@@ -35,12 +35,12 @@ export function resolveRadBindings(layout: LegacyLayout, bindings: readonly WdRa
 function RadStatic({ source, kind, backgroundColor, text }: { source: LegacyControl; kind: "caption" | "shape"; backgroundColor?: CSSProperties["backgroundColor"]; text?: string }) {
   const control = useAnchoredControl(source);
   const alignment: CSSProperties = kind === "caption" ? {
-    display: control.visible === false ? "none" : "grid",
+    display: (control.visible ?? control.flags?.Visible) === false ? "none" : "grid",
     textAlign: ({ Left: "left", Right: "right", Center: "center", Justified: "justify" } as const)[control.h_align ?? "Left"],
     alignItems: ({ Top: "start", Center: "center", Bottom: "end" } as const)[control.v_align ?? "Top"],
   } : {};
   return <div className={`wd-rad-${kind}`} data-testid={control.name} data-control-path={control.path}
-    hidden={control.visible === false} style={{ ...controlBox(control), backgroundColor, ...alignment }}>{kind === "caption" ? text ?? control.caption : null}</div>;
+    hidden={(control.visible ?? control.flags?.Visible) === false} style={{ ...controlBox(control), backgroundColor, ...alignment }}>{kind === "caption" ? text ?? control.caption : null}</div>;
 }
 
 export function WdRadControls({ layout, bindings }: { layout: LegacyLayout; bindings: readonly WdRadBinding[] }) {

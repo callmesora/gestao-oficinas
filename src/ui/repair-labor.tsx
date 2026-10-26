@@ -60,7 +60,7 @@ function ColorCell({ value, source, table }: { value: number | null; source: Leg
   const shape = controlOf(source, `${table}.COL_imagem.SHA_cor`);
   if (shape.kind !== "Shape" || shape.width == null || shape.height == null) throw new Error(`Labor cell shape unresolved: ${shape.path}`);
   return <span className="repair-labor-color" data-testid={shape.name} data-control-path={shape.path}
-    hidden={shape.visible === false || shape.flags?.Visible === false}
+    hidden={(shape.visible ?? shape.flags?.Visible) === false}
     style={{ width: shape.width, height: shape.height, backgroundColor: sourceColor(value) }} />;
 }
 function Buttons({ layout, actions }: { layout: LegacyLayout; actions: Record<string, { onClick?: () => void; disabled?: boolean; caption?: string }> }) {

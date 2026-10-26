@@ -1,7 +1,7 @@
-# Current stage — everyday output acceptance
+# Current stage — target sweep delivered; acceptance remains
 
-Root integrates on macOS arm64/main; no push. The understood-behaviour wave addresses all 1,029 aggregate specified rows (979 initial implementations, 50 owner-approved macro-editor exclusions). Keep the existing 481 unresolved rows, source IDs/seed/first eight fields and historical 17 import-copy differences intact. No whole-window/native closure.
+macOS arm64/main over ba4f658; delivery commit is in Git. Three isolated writers/root integration delivered458 further target defaults:2,200/2,273built,367verified,23unmapped,50approved exclusions. All51 application windows/28reports have initial paths. Source confidence/U questions remain unchanged; no push or migration-complete claim.
 
-The implementation batch and focused integration checks are delivered (see handoff/Git). Next use the existing packaged probe for one list and one grouped multipage report: assess preview/fonts, PDF export, native save/print panels and device output separately. Preserve owner port3210/data; use owned profiles, ports and synthetic fixtures. Record unavailable Windows/device checks precisely and continue independent source work.
+621integrated tests/86unique browser checks, native WK business/26-page PDF preview and Mac debug app pass. Existing demo3210 is running with preserved data and a cold backup. See handoff for exact scope/failed-attempt fixes; private proof is in analysis-local/assumed-sweep. Unowned swap/originals remain untouched.
 
-Use the existing handoff/history and decisions; no new runbooks. Built coverage and verified acceptance remain separate.
+Next work: exercise remaining source/native/Windows/printing/HFSQL acceptance and fix practical user-reported issues.23 source-only gaps are14binarytemplates,3binaryqueryrows,4mobilebranches and2emptyinheritedmenus. Do not invent SQL or promote unverified parity. Keep root ownership of shared tracking, original source/first8fields/seed and17historical import-copy differences; no new runbooks.

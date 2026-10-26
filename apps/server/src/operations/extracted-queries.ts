@@ -18,7 +18,7 @@ const dateTime = z.string().refine(isDateTimeBound).nullable();
 const dateOnly = z.string().refine(isDateOnlyBound).nullable();
 type DateRule = { field: string; dateOnly: boolean };
 type DateSort = DateRule & { group: string | null; descending: boolean };
-type Definition = { schema: z.ZodType; parameters: readonly string[]; sql: string; operation: "read" | "insert-material" | "insert-order" | "update-order"; date?: DateRule; sort?: DateSort };
+type Definition = { schema: z.ZodObject; parameters: readonly string[]; sql: string; operation: "read" | "insert-material" | "insert-order" | "update-order"; date?: DateRule; sort?: DateSort };
 
 const definitions = {
   QRY_insert_material_reparacao: {
@@ -205,13 +205,18 @@ function values(row: Record<string, unknown>): Record<string, ExtractedQueryValu
 /** One validated fixed query per connection; every write is one protected transaction.
  * Inserts retain the source engine's automatic-ID role using the existing locked signed64 allocator.
  * Full26-field UPDATE intentionally permits numero changes and has NO material/time cascade.
- * Missing parameters are invalid rather than silently equated with explicit NULL.
+ * ADR002: declared omitted read parameters use the explicit nullable-predicate default;
+ * write parameters remain required, avoiding unintended NULL overwrites.
  */
 export async function executeExtractedQuery(connect: DatabaseConnection, input: unknown): Promise<ExtractedQueryResult> {
   const outer = inputSchema.safeParse(input);
   if (!outer.success || !Object.hasOwn(definitions, outer.data.query)) return { kind: "invalid" };
   const definition: Definition = definitions[outer.data.query as ExtractedQueryName];
-  const parsed = definition.schema.safeParse(outer.data.parameters);
+  const supplied = outer.data.parameters;
+  const candidate = definition.operation === "read" && supplied !== null && typeof supplied === "object" && !Array.isArray(supplied)
+    ? { ...Object.fromEntries(Object.keys(definition.schema.shape).map(name => [name, null])), ...supplied }
+    : supplied;
+  const parsed = definition.schema.safeParse(candidate);
   if (!parsed.success) return { kind: "invalid" };
   const parameters = parsed.data as Record<string, unknown>, binds = definition.parameters.map(name => parameters[name]);
   const client = await connectOperationClient(connect);

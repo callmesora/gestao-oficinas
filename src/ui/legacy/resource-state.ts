@@ -3,15 +3,15 @@ import { skinSourceImage } from "./layout";
 export type ResourceEditType = "text" | "numeric" | "currency" | "date" | "time";
 export function rightAlignedResourceInput(type: ResourceEditType = "text") { return type === "numeric" || type === "currency" || type === "date" || type === "time"; }
 
-export type ResourceInput = { kind: "text"; value: string; maxLength?: number; password?: boolean; automaticErase?: boolean; adaptWidth?: boolean; inputType?: ResourceEditType; inputMask?: string; returnFormat?: string }
-  | { kind: "checkbox"; value: boolean; label: string };
+export type ResourceInput = { kind: "text"; value: string | null; maxLength?: number; password?: boolean; automaticErase?: boolean; adaptWidth?: boolean; inputType?: ResourceEditType; inputMask?: string; returnFormat?: string; calculator?: boolean }
+  | { kind: "checkbox"; value: boolean | null; label: string };
 export interface ResourceRequest {
   title: string; text: string; buttons: { label: string; value?: number }[];
   defaultIndex: number; cancelIndex: number; input?: ResourceInput;
   destructive?: boolean; safeIndex?: number;
   icon?: { flags: number; image?: string };
 }
-export interface ResourceResult { result: number; input?: string | boolean }
+export interface ResourceResult { result: number; input?: string | boolean | null }
 
 // legacy/GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:663-697 (Windows).
 export function resourceIcon(flags = 0, image = "") {
@@ -43,11 +43,11 @@ export function resourceModel(request: ResourceRequest) {
     closeResult: request.destructive ? buttons[cancel - 1].result : request.cancelIndex };
 }
 
-export function resourceResult(request: ResourceRequest, model: ReturnType<typeof resourceModel>, button?: string, reason: "close" | "escape" = "close", input?: string | boolean): ResourceResult {
+export function resourceResult(request: ResourceRequest, model: ReturnType<typeof resourceModel>, button?: string, reason: "close" | "escape" = "close", input?: string | boolean | null): ResourceResult {
   const selected = button ? model.buttons.find(item => item.name === button) : null;
   if (button && !selected) throw new Error("Button is not present in this resource");
   // FermeDialogue copies input on click/Esc. Closing the window directly uses its raw default value.
   const changed = !!button || reason === "escape";
   return { result: selected?.result ?? (reason === "escape" ? model.escapeResult : model.closeResult),
-    ...(request.input ? { input: changed ? input ?? request.input.value : request.input.value } : {}) };
+    ...(request.input ? { input: changed && input !== undefined ? input : request.input.value } : {}) };
 }

@@ -118,7 +118,7 @@ export function WdTable<T>({ control: sourceControl, rows, rowId, cell, selected
       if (showHeaders || !configureColumns || options?.column_context_menu !== "Yes" || !onHiddenColumnsChange) return;
       event.preventDefault(); setConfigurationOpen(true);
     }}
-    hidden={control.visible === false} style={{ ...controlBox(control), ...(effectiveRowHeight ? { backgroundImage: `repeating-linear-gradient(to bottom, transparent 0 ${effectiveRowHeight - 1}px, #e0e2e4 ${effectiveRowHeight - 1}px ${effectiveRowHeight}px)` } : {}), overflowY: scrollbarMode(options?.vertical_scrollbar), overflowX: scrollbarMode(options?.horizontal_scrollbar), touchAction: options?.touch_scrolling === "No" ? "none" : undefined }} tabIndex={String(control.tab_order) === "-1" ? -1 : 0}
+    hidden={(control.visible ?? control.flags?.Visible) === false} style={{ ...controlBox(control), ...(effectiveRowHeight ? { backgroundImage: `repeating-linear-gradient(to bottom, transparent 0 ${effectiveRowHeight - 1}px, #e0e2e4 ${effectiveRowHeight - 1}px ${effectiveRowHeight}px)` } : {}), overflowY: scrollbarMode(options?.vertical_scrollbar), overflowX: scrollbarMode(options?.horizontal_scrollbar), touchAction: options?.touch_scrolling === "No" ? "none" : undefined }} tabIndex={String(control.tab_order) === "-1" ? -1 : 0}
     onKeyDown={event => {
       if (event.target !== event.currentTarget) return;
       const index = displayed.findIndex(row => row.id === selectedId);

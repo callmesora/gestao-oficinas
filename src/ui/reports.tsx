@@ -1,23 +1,29 @@
 import { useEffect, useRef, useState } from "react";
 import { familyReportIds, type FamilyReportRequest, type ReportId, type ReportRequest, type ReportRenderResult, type ReportContext } from "../../packages/domain/src/reports";
 import { isolatedReportRenderer } from "../infrastructure/reports";
+import { createReportPreviewSession, type RenderReport, type ReportPreviewState } from "../application/report-preview";
 import { nativeReportOutputAvailable, printReportPdf, saveReportPdf, type ReportOutputResult } from "../infrastructure/report-output";
 import "./reports.css";
 
-export type RenderReport = (request: ReportRequest) => Promise<ReportRenderResult>;
+export type { RenderReport } from "../application/report-preview";
 export function useReportPreview() {
-  const [result, setResult] = useState<ReportRenderResult | null>(null), [busy, setBusy] = useState(false);
-  const renderer = useRef<Promise<RenderReport> | null>(null), owner = useRef(0);
-  useEffect(() => () => { owner.current++; }, []);
-  const preview = async (request: ReportRequest) => {
-    const current = ++owner.current; setBusy(true);
-    try {
-      const render = await (renderer.current ??= isolatedReportRenderer()), next = await render(request);
-      if (owner.current === current) setResult(next);
-    } catch { if (owner.current === current) setResult({ kind: "failed" }); }
-    finally { if (owner.current === current) setBusy(false); }
-  };
-  return { preview, busy, element: result?.kind === "rendered" ? <ReportPreview result={result} close={() => setResult(null)} /> : result ? <output data-testid="report-diagnostic">{result.kind}</output> : null };
+  const [{ result, busy }, setState] = useState<ReportPreviewState>({ result: null, busy: false });
+  const [session] = useState(() => {
+    let renderer: Promise<RenderReport> | null = null;
+    return createReportPreviewSession(async () => {
+      try { return await (renderer ??= isolatedReportRenderer()); }
+      catch (error) { renderer = null; throw error; }
+    }, setState);
+  });
+  useEffect(() => () => session.abandon(), [session]);
+  return { preview: session.preview, cancel: session.cancel, busy, element: busy
+    ? <ReportProgress cancel={session.cancel} />
+    : result?.kind === "rendered" ? <ReportPreview result={result} close={session.cancel} /> : result ? <output data-testid="report-diagnostic">{result.kind}</output> : null };
+}
+function ReportProgress({ cancel }: { cancel: () => void }) {
+  const dialog = useRef<HTMLDialogElement>(null);
+  useEffect(() => { dialog.current?.showModal(); }, []);
+  return <dialog ref={dialog} className="report-progress" onCancel={event => { event.preventDefault(); cancel(); }}><button autoFocus data-testid="report-cancel" onClick={cancel}>Cancelar</button></dialog>;
 }
 export type StockReportInput = { reportId: "RPT_inventario" | "RPT_Extrato_artigos"; from?: string | null; to?: string | null; articleFrom?: string; articleTo?: string };
 /** Shared caller adapter; stock window retains its source Date8→day-bound preparation. */

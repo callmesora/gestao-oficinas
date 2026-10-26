@@ -5,7 +5,7 @@
   const field = id => document.querySelector(`[data-testid="${id}"]`);
   const mark = async value => { stage = value; await invoke("plugin:event|emit", { event: "native-probe-stage", payload: stage }); };
   const wait = async predicate => {
-    const deadline = Date.now() + 12_000;
+    const deadline = Date.now() + 40_000;
     while (!predicate()) { if (Date.now() > deadline) throw new Error("probe_timeout"); await new Promise(resolve => setTimeout(resolve, 25)); }
     return predicate();
   };
@@ -49,6 +49,14 @@
     await mark("customer-saved");
     await wait(() => table.querySelector('table[aria-rowcount="1003"]'));
     await seek("771", "Native synthetic customer", 1002);
+    await mark("report-preview"); list.querySelector('[data-testid="BTN_Imprimir"]').click();
+    const preview = await wait(() => document.querySelector("dialog.report-preview[open]"));
+    const iframe = await wait(() => preview.querySelector('iframe[title="RPT_List_Clientes"]'));
+    const bounds = iframe.getBoundingClientRect();
+    if (bounds.width <= 0 || bounds.height <= 0 || !iframe.srcdoc.includes("Native synthetic customer") || !iframe.srcdoc.includes("data:font/woff2;base64,") || iframe.srcdoc.includes("<script")) throw new Error("probe_report_snapshot");
+    if (field("report-save-pdf")?.disabled !== false || field("report-print-pdf")?.disabled !== false) throw new Error("probe_report_output_controls");
+    Array.from(preview.querySelectorAll("button")).find(button => button.textContent === "Fechar").click();
+    await wait(() => !document.querySelector("dialog.report-preview"));
     await mark("logout"); field("business-logout").click(); await wait(() => field("WIN_Acesso"));
     await wait(() => !field("WIN_Table_Clientes"));
     await mark("login"); field("BTN_NoName1").click();
@@ -59,7 +67,7 @@
     field("business-logout").click(); await wait(() => field("WIN_Acesso"));
     stage = "metadata";
     const [info, args] = await Promise.all([invoke("native_info"), invoke("read_startup_arguments")]);
-    await invoke("plugin:event|emit", { event: "native-probe-result", payload: { info, arguments: args, business: { enrolled: true, customerSaved: true, loggedOut: true, loggedInAgain: true } } });
+    await invoke("plugin:event|emit", { event: "native-probe-result", payload: { info, arguments: args, business: { enrolled: true, customerSaved: true, reportPreview: true, loggedOut: true, loggedInAgain: true } } });
     await invoke("terminate_application");
   } catch { await invoke("plugin:event|emit", { event: "native-probe-failure", payload: stage }); }
 })();

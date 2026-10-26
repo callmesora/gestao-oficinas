@@ -7,6 +7,16 @@ import { migrate } from "./migrate";
 import { exportComparison } from "./csv-exports";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
+import { createHash } from "node:crypto";
+import { updateTypedHash, type Cell, type ExportManifest } from "./legacy-import";
+
+function signedProvenanceSource() {
+  const base = legacyFixture();
+  return { ...base, *rows(table: string) {
+    let index = 0;
+    for (const row of base.rows(table)) yield { ...row, sourceRow: index++ === 0 ? "-9223372036854775808" : "0" };
+  } };
+}
 
 describe("MIG-4 real PostgreSQL schema/import", () => {
   let engine: Awaited<ReturnType<typeof startIsolatedPostgres>>;
@@ -68,7 +78,7 @@ describe("MIG-4 real PostgreSQL schema/import", () => {
   });
 
   it("restores a complete stopped-cluster backup and reconciles persisted data", async () => {
-    const source = legacyFixture(); await importLegacy(client, source);
+    const source = signedProvenanceSource(); await importLegacy(client, source);
     const name = String((await client.query("SELECT current_database() AS name")).rows[0].name);
     await client.end();
     await engine.backupAndRestore();
@@ -107,5 +117,81 @@ describe("MIG-4 real PostgreSQL schema/import", () => {
       expect(rejected?.status === "rejected" && rejected.reason.message).toBe("Target already imported");
       await reconcileLegacy(client, legacyFixture());
     } finally { await other.end(); }
+  });
+
+  it("RULE-T01-002 RULE-T06-003 preserves signed64 negative/zero source-row provenance and duplicate business IDs", async () => {
+    const source = signedProvenanceSource();
+    await importLegacy(client, source); await reconcileLegacy(client, source);
+    expect((await client.query('SELECT _source_row::text,"tempos_reparacaoID"::text,"inicio","fim" FROM app."tempos_reparacao" ORDER BY _source_row')).rows)
+      .toEqual([{ _source_row: "-9223372036854775808", tempos_reparacaoID: "7", inicio: "00000000000000000", fim: "" }, { _source_row: "0", tempos_reparacaoID: "7", inicio: "20261024123045000", fim: null }]);
+    expect((await client.query('SELECT count(*)::text AS count,count(DISTINCT _row_id)::text AS identities FROM app."tempos_reparacao"')).rows[0]).toEqual({ count: "2", identities: "2" });
+  });
+
+  it.each(["01", "-0", "1.0", "9223372036854775808", "-9223372036854775809"])("RULE-T01-002 invalid source row identity %s aborts without provenance or target writes", async identity => {
+    const base = legacyFixture();
+    const source = { ...base, *rows(table: string) { for (const row of base.rows(table)) yield { ...row, sourceRow: identity }; } };
+    await expect(importLegacy(client, source)).rejects.toThrow(/Source row identity|Invalid source row identity/);
+    expect((await client.query("SELECT count(*)::text AS count FROM import_audit.runs")).rows[0].count).toBe("0");
+    expect((await client.query('SELECT count(*)::text AS count FROM app."Clientes"')).rows[0].count).toBe("0");
+  });
+
+  it("RULE-T06-002 repeated source row identity aborts the entire import while duplicate business identifiers stay supported", async () => {
+    const base = legacyFixture();
+    const source = { ...base, *rows(table: string) { for (const row of base.rows(table)) yield { ...row, sourceRow: "1" }; } };
+    await expect(importLegacy(client, source)).rejects.toThrow("not strictly increasing");
+    expect((await client.query("SELECT count(*)::text AS count FROM import_audit.runs")).rows[0].count).toBe("0");
+    expect((await client.query('SELECT count(*)::text AS count FROM app."Clientes"')).rows[0].count).toBe("0");
+    await importLegacy(client, base); await reconcileLegacy(client, base);
+    expect((await client.query('SELECT count(*)::text AS count FROM app."tempos_reparacao" WHERE "tempos_reparacaoID"=7')).rows[0].count).toBe("2");
+  });
+
+  it("import interruption retains its original failure when the actual connection closes before rollback", async () => {
+    const name = String((await client.query("SELECT current_database() AS name")).rows[0].name);
+    const interrupted = new Error("Synthetic source interruption");
+    const closing: Promise<void>[] = [];
+    await expect(importLegacy(client, legacyFixture(), { afterBatch() { closing.push(client.end()); throw interrupted; } })).rejects.toBe(interrupted);
+    await Promise.all(closing);
+    client = await engine.connect(name);
+    expect((await client.query("SELECT count(*)::text AS count FROM import_audit.runs")).rows[0].count).toBe("0");
+    expect((await client.query('SELECT count(*)::text AS count FROM app."Clientes"')).rows[0].count).toBe("0");
+    await importLegacy(client, legacyFixture()); await reconcileLegacy(client, legacyFixture());
+  });
+
+  it("RULE-T01..T17-002/003 all seventeen tables retain raw NULL/empty/anomalies and opaque binary provenance", async () => {
+    const samples: Record<string, Record<string, Cell>[]> = {
+      Clientes: [{ ClientesID: "9223372036854775807", Codigo: "18446744073709551615", Descricao: "  ÁÇORES  ", Morada1: "", Morada2: null, observacao: "A\r\nB" }],
+      Viaturas: [{ ViaturasID: "-1", matricula: " imported registration beyond 15 ", Cliente: "999", marca: " ÁÇ ", Ano: "0", mes: "255" }],
+      mecanicos: [{ mecanicosID: "1", Codigo: "0", Descricao: "Mecânico", palavra_passe: "SyntheticOnly", inativo: "1" }],
+      artigos: [{ artigosID: "1", Codigo: " a ", unidade: "???", preco: "0.10000000000000001", stock: "-123456789.123456789123456789", inativo: null }],
+      ordem_reparacao: [{ ordem_reparacaoID: "1", numero: "18446744073709551615", matricula: "ORPHAN", recepcao_cliente: "777", recepcao_datahora: "00000000000000000", recepcao_entrega_prevista: "", total_pago: "-1.234567890123456789" }],
+      tempos_reparacao: [{ tempos_reparacaoID: "7", numero: "999", mecanico: "255", inicio: "00000000000000000", fim: "" }, { tempos_reparacaoID: "7", numero: "999", inicio: "", fim: null }],
+      material_reparacao: [{ material_reparacaoID: "1", numero: "999", artigo: "ORPHAN", quantidade: "-2.123456789123456789", data_hora: "", lancado: "0", extra: null }],
+      utilizadores: [{ utilizadoresID: "1", Codigo: "255", Descricao: " Utilizador ", palavra_passe: "SyntheticOnly" }],
+      unidades: [{ unidadesID: "1", Codigo: "u", Descricao: "" }, { unidadesID: "2", Codigo: "u", Descricao: null }],
+      documentos: [{ documentosID: "1", Codigo: "???", Descricao: " Documento ", stock: "255", obriga_macanico: null }],
+      cab_stocks: [{ cab_stocksID: "1", documento_codigo: "ORPHAN", documento_numero: "18446744073709551615", data: "", mecanico: "255", DocumentosID: "-9223372036854775808", MecanicosID: "9007199254740993" }],
+      lin_stocks: [{ lin_stocksID: "1", documento_codigo: "???", documento_numero: "2", linha: "4294967295", artigo: "ORPHAN", quantidade: "-1.20E-5", preco: "0.000000000000000001", Documento_codigodocumento_numero: Buffer.from([0, 255, 1]) }, { lin_stocksID: "2", Documento_codigodocumento_numero: Buffer.alloc(0) }],
+      estados_reparacao: [{ estados_reparacaoID: "1", Codigo: "R", tipo: "255", Cor: "4294967295", lancar_defa: "0", lancar_material: null, confirmacao: "1" }],
+      estados_descritivos: [{ estados_descritivosID: "1", Codigo: "É", Descricao: " A\r\nB " }],
+      Terminais: [{ Codigo: " t ", Descricao: "", codbarras_inicio: "255", codbarras_fim: "0", quant_inicio: null, pasta_localizacao: "", nome_ficheiro: null }],
+      sistema: [{ Tempo_ordem_reparacao: "18446744073709551615", Tempo_materiais: "0", Tempo_tempos: null, Data_inicio: "65535", encerrar_tempos1: "", encerrar_tempos2: null }],
+      postos: [{ Codigo: "255", Descricao: null, terminal: "ORPHAN", teste: "  kept  " }],
+    };
+    const manifest: ExportManifest = { tables: {} }, records: Record<string, Cell[][]> = {};
+    for (const table of columnMapping.tables) {
+      records[table.name] = samples[table.name].map(sample => table.columns.map(column => sample[column.name] ?? null));
+      const hash = createHash("sha256"); records[table.name].forEach(cells => updateTypedHash(hash, cells));
+      manifest.tables[table.name] = { rows: records[table.name].length, columns: table.columns.map(column => ({ name: column.sourceName })), sha256_typed_rows: hash.digest("hex") };
+    }
+    const source = { manifest, fingerprint: createHash("sha256").update(JSON.stringify(manifest)).digest("hex"), assertUnchanged() {},
+      *rows(table: string) { for (const [index, values] of records[table].entries()) yield { sourceRow: index === 0 ? "-1" : "0", values }; } };
+    const report = await importLegacy(client, source); await reconcileLegacy(client, source);
+    expect(Object.keys(report.tables)).toHaveLength(17);
+    for (const [name, rows] of Object.entries(samples)) expect(report.tables[name]).toMatchObject({ rows: rows.length, imported: rows.length, quarantined: 0, mismatches: 0 });
+    expect((await client.query('SELECT "stock"::text,"preco"::text,"unidade","inativo" FROM app."artigos"')).rows[0]).toEqual({ stock: "-123456789.123456789123456789", preco: "0.10000000000000001", unidade: "???", inativo: null });
+    expect((await client.query('SELECT "DocumentosID"::text,"MecanicosID"::text FROM app."cab_stocks"')).rows[0]).toEqual({ DocumentosID: "-9223372036854775808", MecanicosID: "9007199254740993" });
+    expect((await client.query('SELECT "Documento_codigodocumento_numero" AS binary FROM app."lin_stocks" ORDER BY _row_id')).rows).toEqual([{ binary: Buffer.from([0, 255, 1]) }, { binary: Buffer.alloc(0) }]);
+    expect((await client.query('SELECT "Descricao" FROM app."unidades" ORDER BY _row_id')).rows).toEqual([{ Descricao: "" }, { Descricao: null }]);
+    expect((await client.query('SELECT "Tempo_ordem_reparacao"::text,"encerrar_tempos1","encerrar_tempos2" FROM app."sistema"')).rows[0]).toEqual({ Tempo_ordem_reparacao: "18446744073709551615", encerrar_tempos1: "", encerrar_tempos2: null });
   });
 });

@@ -48,9 +48,9 @@ export function MenuLaunchers({ windows, mode, system, terminate }: { windows: S
       {([["tables", "Tabelas"], ["movements", "Movimentos"], ["reports", "Mapas"], ["utilities", "Utilitários"]] as const).map(([group, label]) => <details key={group}><summary>{label}</summary><div>{windows.filter(item => item.group === group && item.id !== "postos" && !item.toolbarOnly).map(item => <button key={item.id} disabled={actionBusy} data-testid={item.menuControl ?? `menu-${item.id}`} onClick={() => launch(item)}>{item.label}</button>)}</div></details>)}
     </nav>}
     <div className="startup-quick-bar" data-testid={tab.name} data-control-path={tab.path}
-      role="group" aria-label={tab.caption?.replace("&", "")} hidden={tab.visible === false || tab.flags?.Visible === false}
+      role="group" aria-label={tab.caption?.replace("&", "")} hidden={(tab.visible ?? tab.flags?.Visible) === false}
       style={{ top: mode === "articles" ? 27 : tab.y, height: tab.height ?? 79 }}>
-      <div data-testid={group.name} data-control-path={group.path} hidden={group.visible === false || group.flags?.Visible === false}
+      <div data-testid={group.name} data-control-path={group.path} hidden={(group.visible ?? group.flags?.Visible) === false}
         style={{ position: "absolute", left: group.x - tab.x, top: group.y - tab.y, width: group.width ?? 770, height: group.height ?? 72 }}>
       {quick.filter(([, key]) => mode !== "articles" || key === "articles" || key === "stock-documents").map(([name, key], index) => ({ name, key, index, control: controlOf(menuLayout, name) })).sort((left, right) => Number(left.control.tab_order) - Number(right.control.tab_order)).map(({ name, key, index, control }) => {
         const definition = windows.find(item => item.id === key);

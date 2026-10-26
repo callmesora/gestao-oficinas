@@ -4,6 +4,7 @@ import { WindowInteraction } from "./window-interaction";
 import type { LegacyLayout } from "./layout";
 import type { WindowGeometryStore } from "../../application/window-geometry";
 import { windowGeometryStore } from "../../infrastructure/window-geometry";
+import { dialogTabStops } from "./dialog-keyboard";
 
 export interface WindowSpec { layout: LegacyLayout; content: ReactNode; key?: string; onClose?: () => void }
 interface WindowEntry extends WindowSpec { id: string; x: number; y: number; width: number; height: number; z: number; minimized: boolean; maximized: boolean }
@@ -64,9 +65,11 @@ export function WdWorkspace({ children, geometryStore = windowGeometryStore }: {
       if (focusRequest) launcher.current?.querySelector<HTMLElement>("button")?.focus();
       return;
     }
+    const root = roots.current.get(activeId);
+    if (root?.contains(document.activeElement) && !(document.activeElement as HTMLElement).closest(".wd-chrome-button")) return;
     const remembered = focused.current.get(activeId);
     if (remembered?.isConnected && !remembered.matches(":disabled") && remembered.getClientRects().length) remembered.focus();
-    else roots.current.get(activeId)?.querySelector<HTMLElement>(".wd-frame")?.focus();
+    else (root && (dialogTabStops(root).find(element => !element.closest(".wd-chrome-button,.wd-workspace-edge")) ?? root.querySelector<HTMLElement>(".wd-frame")))?.focus();
   }, [activeId, focusRequest]);
   const activate = (id: string) => {
     if (activeId === id) return;

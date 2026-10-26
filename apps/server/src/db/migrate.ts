@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { readdir, readFile } from "node:fs/promises";
 import type { Client } from "pg";
+import { rollbackAfterFailure } from "./connection";
 
 export async function migrate(client: Client): Promise<void> {
   const directory = new URL("../../migrations/", import.meta.url);
@@ -25,7 +26,7 @@ export async function migrate(client: Client): Promise<void> {
     }
     await client.query("COMMIT");
   } catch (error) {
-    await client.query("ROLLBACK");
+    await rollbackAfterFailure(client);
     throw error;
   }
 }

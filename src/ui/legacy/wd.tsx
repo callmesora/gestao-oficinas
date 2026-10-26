@@ -240,7 +240,7 @@ export function WdEdit({ control: source, automaticErase, integerMask = false, d
   const maxLength = props.maxLength ?? (control.input_type === "Text" && (control.input_size ?? 0) > 0 ? control.input_size : undefined);
   const readOnly = props.readOnly ?? control.state === "Read-only";
   const assistance = useInputSuggestions({ enabled: !mask && control.input_type === "Text" && control.flags?.["File assisted input"] === true
-    && suggestions !== undefined && onSuggestion !== undefined && !readOnly && !props.disabled && !(props.hidden ?? control.visible === false),
+    && suggestions !== undefined && onSuggestion !== undefined && !readOnly && !props.disabled && !(props.hidden ?? ((control.visible ?? control.flags?.Visible) === false)),
     values: suggestions, maxLength, onSuggestion, handlers: { ...numeric, onBlur: props.onBlur }, id,
     testId: `${control.name}__suggestions`, label: props["aria-label"] ?? control.caption ?? control.name });
   const selection = useInputSelection(automaticErase ?? control.flags?.["Automatic erase"], { ...props, onFocus: assistance.onFocus });

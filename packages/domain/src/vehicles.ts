@@ -9,7 +9,7 @@ export const vehicleValuesSchema = z.strictObject({
 });
 export const vehicleSaveSchema = z.discriminatedUnion("mode", [
   z.strictObject({ mode: z.literal("create"), values: vehicleValuesSchema }),
-  z.strictObject({ mode: z.literal("update"), originalRegistration: z.string().max(15), values: vehicleValuesSchema }),
+  z.strictObject({ mode: z.literal("update"), originalRegistration: z.string(), values: vehicleValuesSchema.extend({ matricula: z.string() }) }),
 ]);
 export const vehicleFilterSchema = z.strictObject({
   mode: z.enum(["todos", "matricula", "cliente", "marca_modelo"]), term: z.string(),

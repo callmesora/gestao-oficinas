@@ -10,7 +10,7 @@ export async function listCustomers(connect: DatabaseConnection, input: unknown)
   const filter = parsed.data;
   // Verified mode/field map: WIN_Table_Clientes.wdw:608–633. ADR-009/U-CC16AB27-02 locale default.
   const fields = { todos: [], codigo: ["Codigo"], descricao: ["Descricao"], morada: ["Morada1", "Morada2"], codigopostal: ["codpostal"], telefone: ["Telefone1", "Telemovel"] }[filter.mode];
-  const expressions = filter.term === "" ? [] : fields.map(field => `strpos(lower(COALESCE("${field}"::text,'')),lower($1))>0`);
+  const expressions = filter.term === "" ? [] : fields.map(field => `strpos(lower(COALESCE("${field}"::text,'') COLLATE "pg_unicode_fast"),lower($1::text COLLATE "pg_unicode_fast"))>0`);
   const where = expressions.length ? `WHERE (${expressions.join(" OR ")})` : "";
   const order = filter.sort ? `c."${filter.sort}" ${filter.descending ? "DESC" : "ASC"},c._row_id` : 'c."ClientesID",c._row_id';
   const client = await connectOperationClient(connect);

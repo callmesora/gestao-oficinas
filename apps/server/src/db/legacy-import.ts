@@ -2,9 +2,10 @@ import { createHash, randomUUID, type Hash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { DatabaseSync } from "node:sqlite";
 import Decimal from "decimal.js";
-import type { Client } from "pg";
+import type { Client, QueryResult } from "pg";
 import { z } from "zod";
 import mapping from "./column-mapping.v1.json" with { type: "json" };
+import { rollbackAfterFailure } from "./connection";
 
 export const columnMapping = mapping;
 type Column = typeof mapping.tables[number]["columns"][number];
@@ -150,6 +151,7 @@ export async function importLegacy(client: Client, source: LegacySource, options
       const digest = createHash("sha256");
       const result: TableResult = { rows: 0, imported: 0, quarantined: 0, nulls: 0, binary: 0, sourceHash: "", provenanceHash: "", mismatches: 0 };
       report.tables[table.name] = result;
+      let previousSourceRow: bigint | null = null;
       let targetBatch: unknown[][] = [], auditBatch: unknown[][] = [], quarantineBatch: unknown[][] = [];
       const flush = async () => {
         await insertRows(client, `app.${quoteIdentifier(table.name)}`, ["_import_id", "_source_row", ...table.columns.map(column => column.name)], targetBatch);
@@ -159,6 +161,13 @@ export async function importLegacy(client: Client, source: LegacySource, options
         options.afterBatch?.();
       };
       for (const row of source.rows(table.name)) {
+        // ADR002: SQLite rowid is signed64, including zero/negative identities.
+        // Refuse invalid/duplicate/out-of-order provenance rather than merging or re-keying.
+        if (typeof row.sourceRow !== "string" || !/^(?:0|[1-9][0-9]*|-[1-9][0-9]*)$/.test(row.sourceRow)) throw new Error("Invalid source row identity");
+        const identity = BigInt(row.sourceRow);
+        if (identity < -9223372036854775808n || identity > 9223372036854775807n) throw new Error("Source row identity out of range");
+        if (previousSourceRow !== null && identity <= previousSourceRow) throw new Error("Source row identities are not strictly increasing");
+        previousSourceRow = identity;
         if (row.values.length !== sourceColumns.length) throw new Error("Source row width differs");
         updateTypedHash(digest, row.values); result.rows++;
         result.nulls += row.values.filter(value => value === null).length;
@@ -186,22 +195,22 @@ export async function importLegacy(client: Client, source: LegacySource, options
     await client.query(options.dryRun ? "ROLLBACK" : "COMMIT");
     return report;
   } catch (error) {
-    await client.query("ROLLBACK");
+    await rollbackAfterFailure(client);
     throw error;
   }
 }
 
 async function reconcileTable(client: Client, table: typeof mapping.tables[number], sourceColumns: string[], run: string): Promise<{ hash: string; mismatches: number; rows: number }> {
-  const digest = createHash("sha256"); let last = "0", mismatches = 0, rows = 0;
+  const digest = createHash("sha256"); let last: string | null = null, mismatches = 0, rows = 0;
   const columns = table.columns.map(column => `t.${quoteIdentifier(column.name)}`).join(",");
   for (;;) {
-    const page = await client.query(`
+    const page: QueryResult<Record<string, unknown> & { source_row: string; original_values: TaggedCell[]; quarantined: boolean; _row_id: string | null }> = await client.query(`
       SELECT a.source_row, a.original_values, a.quarantined, t._row_id, ${columns}
       FROM (
         SELECT source_row, original_values, false AS quarantined FROM import_audit.rows WHERE run_id=$1 AND table_name=$2
         UNION ALL SELECT source_row, original_values, true AS quarantined FROM import_audit.quarantine WHERE run_id=$1 AND table_name=$2
       ) a LEFT JOIN app.${quoteIdentifier(table.name)} t ON t._import_id=$1 AND t._source_row=a.source_row
-      WHERE a.source_row > $3 ORDER BY a.source_row LIMIT 1000`, [run, table.name, last]);
+      WHERE ($3::bigint IS NULL OR a.source_row > $3::bigint) ORDER BY a.source_row LIMIT 1000`, [run, table.name, last]);
     if (!page.rowCount) break;
     for (const row of page.rows) {
       last = row.source_row; rows++;
@@ -237,5 +246,5 @@ export async function reconcileLegacy(client: Client, source: LegacySource): Pro
       if (result.mismatches || result.rows !== manifest.rows || result.hash !== manifest.sha256_typed_rows) throw new Error(`Target reconciliation failed: ${table.name}`);
     }
     await client.query("COMMIT");
-  } catch (error) { await client.query("ROLLBACK"); throw error; }
+  } catch (error) { await rollbackAfterFailure(client); throw error; }
 }

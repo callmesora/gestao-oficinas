@@ -38,12 +38,12 @@ export function resourceButtonGeometry(labels: string[], title: string, measure:
 }
 
 // legacy/GestaoOficinas_TesteIA/WDFAA/WINDEVDIALOGBOX.wdw:1094-1155 (text input).
-export function resourceTextInputGeometry(input: { value: string; maxLength?: number; adaptWidth?: boolean; inputType?: ResourceEditType; inputMask?: string },
+export function resourceTextInputGeometry(input: { value: string | null; maxLength?: number; adaptWidth?: boolean; inputType?: ResourceEditType; inputMask?: string },
   base: { width: number; height: number }, measure: TextMeasure, inset: number, multiline: boolean) {
-  const width = multiline ? Math.max(base.width, measure(input.value).width) : base.width;
+  const width = multiline ? Math.max(base.width, measure(input.value ?? "").width) : base.width;
   const typed = rightAlignedResourceInput(input.inputType);
   const count = typed ? input.inputMask?.length : input.maxLength;
-  return { width, height: multiline ? measure(input.value, width).height + inset : base.height,
+  return { width, height: multiline ? measure(input.value ?? "", width).height + inset : base.height,
     adaptedWidth: input.adaptWidth && count ? count * measure(typed ? "0" : "W").width + 8 : undefined };
 }
 

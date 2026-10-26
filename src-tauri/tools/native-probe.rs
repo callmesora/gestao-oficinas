@@ -38,7 +38,7 @@ fn main() {
                     "info": {"appVersion":env!("CARGO_PKG_VERSION"),"platform":std::env::consts::OS},
                     "arguments":gestao_oficinas_lib::commands::startup::read_startup_arguments()
                 });
-                if business { expected["business"] = serde_json::json!({"enrolled":true,"customerSaved":true,"loggedOut":true,"loggedInAgain":true}); }
+                if business { expected["business"] = serde_json::json!({"enrolled":true,"customerSaved":true,"reportPreview":true,"loggedOut":true,"loggedInAgain":true}); }
                 if scanner { expected["scanner"] = serde_json::json!({"exact":true,"repeatable":true,"unavailable":true,"invalidEncoding":true}); }
                 let received = serde_json::from_str::<serde_json::Value>(event.payload());
                 if received.as_ref().is_ok_and(|value| value == &expected) {
@@ -50,13 +50,13 @@ fn main() {
             let failure = app.handle().clone();
             app.listen("native-probe-stage", move |event| {
                 if let Ok(stage) = serde_json::from_str::<String>(event.payload())
-                    && ["script", "enrollment", "customer", "customer-list", "customer-form", "customer-saved", "logout", "login", "metadata"].contains(&stage.as_str()) {
+                    && ["script", "enrollment", "customer", "customer-list", "customer-form", "customer-saved", "report-preview", "logout", "login", "metadata"].contains(&stage.as_str()) {
                     eprintln!("NATIVE_PROBE stage: {stage}");
                 }
             });
             app.listen("native-probe-failure", move |event| {
                 let stage = serde_json::from_str::<String>(event.payload()).unwrap_or_else(|_| "unknown".into());
-                if ["enrollment", "customer", "customer-list", "customer-form", "customer-saved", "logout", "login", "metadata", "scanner"].contains(&stage.as_str()) { eprintln!("NATIVE_PROBE stage failed: {stage}"); }
+                if ["enrollment", "customer", "customer-list", "customer-form", "customer-saved", "report-preview", "logout", "login", "metadata", "scanner"].contains(&stage.as_str()) { eprintln!("NATIVE_PROBE stage failed: {stage}"); }
                 failure.exit(1);
             });
             tauri::WebviewWindowBuilder::new(app, "main", tauri::WebviewUrl::App(if business { "index.html" } else { "index.html?diagnostics=foundation" }.into()))
@@ -66,7 +66,7 @@ fn main() {
                 .build()?;
             let timeout = app.handle().clone();
             std::thread::spawn(move || {
-                std::thread::sleep(std::time::Duration::from_secs(if business { 90 } else { 20 }));
+                std::thread::sleep(std::time::Duration::from_secs(if business { 130 } else { 20 }));
                 eprintln!("NATIVE_PROBE timeout"); timeout.exit(1);
             });
             Ok(())

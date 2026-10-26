@@ -41,7 +41,7 @@ export class MessageController {
     const model = resourceModel(copy);
     return new Promise(resolve => { this.queue.push({ kind: "resource", value: { kind: "resource", id: ++this.sequence, request: copy, model }, resolve }); this.emit(); });
   };
-  finish(id: number, button?: string, reason: "close" | "escape" = "close", input?: string | boolean) {
+  finish(id: number, button?: string, reason: "close" | "escape" = "close", input?: string | boolean | null) {
     const current = this.queue[0];
     if (!current || current.value.id !== id) return;
     let settle: () => void;

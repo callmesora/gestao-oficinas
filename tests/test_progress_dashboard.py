@@ -141,6 +141,20 @@ class BuiltAndProvenProgressChecks(unittest.TestCase):
         self.assertEqual([(row['id'], row['status']) for row in rows],
                          [('current', 'implemented'), ('missing', 'unmapped')])
 
+    def test_target_defaults_do_not_hide_unconfirmed_source_behavior(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            rows = [{'element': 'WIN_Example', 'kind': 'window', 'status': status, 'confidence': confidence}
+                    for status, confidence in [('implemented', 'unresolved'), ('unmapped', 'unresolved'),
+                                               ('verified', 'verified'), ('excluded', 'unresolved')]]
+            unit = summarize(rows, Path(temporary))[0]
+        self.assertEqual((unit['built'], unit['proven'], unit['source_unresolved'], unit['built_on_defaults']),
+                         (2, 1, 3, 1))
+        page = render([unit], {'decisions_pending': [], 'answer_sheet_open': 0,
+                              'answer_sheet_done': 0, 'unresolved_items': 0}, [], [], 'Example', 'fixed')
+        self.assertIn('<div class="big">1</div><div>built using target defaults</div>', page)
+        self.assertIn('3 source behaviors still unconfirmed', page)
+        self.assertIn('1/4 proven', page)
+
 
 if __name__ == '__main__':
     unittest.main()

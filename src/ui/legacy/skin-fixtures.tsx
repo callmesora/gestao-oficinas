@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import form from "./WIN_Form_Clientes.layout.json";
 import list from "./WIN_Table_Clientes.layout.json";
 import mechanics from "./WIN_Form_mecanicos.layout.json";
@@ -8,11 +8,24 @@ import { useTableLayout } from "./table-layout";
 import { WdButton, WdEdit, WdFrame, WdMemo } from "./wd";
 import { WdTable } from "./table";
 import { DialogProvider, useDialogs } from "./dialogs";
+import { WdModal, type WdModalHandle } from "./modal";
+import type { ResourceInput } from "./resource-state";
 
 function MessageFixture() {
   const { message, resource } = useDialogs();
   const [result, setResult] = useState("");
   const [resourceIcon, setResourceIcon] = useState("32");
+  const [typedInput, setTypedInput] = useState("numeric");
+  const typedInputs: Record<string, ResourceInput> = {
+    numeric: { kind: "text", inputType: "numeric", value: "9007199254740993.125", inputMask: "+99999999999999999999,999", calculator: true },
+    wideNumeric: { kind: "text", inputType: "numeric", value: "9".repeat(96) + ".125", inputMask: "+99999999999999999999,999", calculator: true },
+    currency: { kind: "text", inputType: "currency", value: "12.50", inputMask: "+999 999 999,99", calculator: true },
+    date: { kind: "text", inputType: "date", value: "20261025", inputMask: "DD/MM/YYYY", returnFormat: "AAAAMMJJ" },
+    time: { kind: "text", inputType: "time", value: "23595812", inputMask: "HH:mm:SS,CC", returnFormat: "HHmmSSCC" },
+    null: { kind: "text", inputType: "numeric", value: null, inputMask: "+999,99" },
+    raw: { kind: "text", inputType: "date", value: "original opaque", returnFormat: "unknown" },
+    checkboxNull: { kind: "checkbox", value: null, label: "Opção" },
+  };
   return <div data-testid="skin-message-fixture">
     <p>Mensagens — retorno de teste, sem operação de negócio.</p>
     <button data-testid="skin-message-open" onClick={async () => {
@@ -27,6 +40,14 @@ function MessageFixture() {
       void Promise.all([first, second]).then(values => setResult(values.join(",")));
     }}>Testar sequência</button>
     <output data-testid="skin-message-result">{result}</output>
+    <label>Entrada de teste <select data-testid="skin-resource-type" value={typedInput} onChange={event => setTypedInput(event.currentTarget.value)}>
+      {Object.keys(typedInputs).map(value => <option key={value}>{value}</option>)}
+    </select></label>
+    <button data-testid="skin-resource-typed" onClick={async () => {
+      const value = await resource({ title: "Entrada tipada", text: "Valor de teste", buttons: [{ label: "Aceitar" }, { label: "Cancelar" }],
+        defaultIndex: 1, cancelIndex: 2, input: typedInputs[typedInput] });
+      setResult(JSON.stringify(value));
+    }}>Testar entrada tipada</button>
     <button data-testid="skin-message-long" onClick={async () => {
       setResult(String(await message({ title: "Texto longo", text: "Linha de teste com acentos: Açores. ".repeat(90), type: 0 })));
     }}>Testar mensagem longa</button>
@@ -78,6 +99,35 @@ function MessageFixture() {
         defaultIndex: 1, cancelIndex: 2, input: { kind: "text", value: "A\r\nB" } });
       setResult(JSON.stringify(value));
     }}>Testar texto</button>
+  </div>;
+}
+
+/** Target-only fixture exercises native dialog focus primitives without API replacements. */
+function FocusFixture() {
+  const [open, setOpen] = useState(false), [nested, setNested] = useState(false), [visible, setVisible] = useState(false);
+  const ref = useRef<WdModalHandle>(null), child = useRef<WdModalHandle>(null);
+  return <div>
+    <button data-testid="focus-open" onClick={() => setOpen(true)}>Testar foco modal</button>
+    {open && <WdModal ref={ref} layout={form} instance="focus-frame" testId="focus-dialog" restoreTestId="focus-restore"
+      onClose={() => { ref.current?.close(); setOpen(false); }}>
+      <div style={{ position: "absolute", left: 24, top: 50, display: "grid", gap: 10 }}>
+        <input data-testid="focus-third" tabIndex={3} aria-label="Terceiro" />
+        <input data-testid="focus-first" tabIndex={1} aria-label="Primeiro" />
+        <input data-testid="focus-disabled" disabled aria-label="Desativado" />
+        <label><input data-testid="focus-radio-a" type="radio" name="focus-choice" />A</label>
+        <label><input data-testid="focus-radio-b" type="radio" name="focus-choice" defaultChecked />B</label>
+        <div inert><button>Inerte</button></div>
+        <button data-testid="focus-nested-open" onClick={() => setNested(true)}>Abrir diálogo</button>
+        <button data-testid="focus-last" onClick={() => { ref.current?.close(); setOpen(false); }}>Fechar</button>
+        <WdButton control={{ ...controlOf(form, "BTN_Validar"), name: "focus-runtime-visible", path: "target/focus-runtime-visible", x: 0, y: 220, visible,
+          flags: { ...controlOf(form, "BTN_Validar").flags, Visible: false } }} onClick={() => setVisible(false)} />
+        <button data-testid="focus-show-runtime" onClick={() => setVisible(true)}>Mostrar controlo</button>
+      </div>
+      {nested && <WdModal ref={child} layout={form} instance="focus-child-frame" testId="focus-child" restoreTestId="focus-child-restore"
+        onClose={() => { child.current?.close(); setNested(false); }}>
+        <button data-testid="focus-child-close" style={{ position: "absolute", left: 24, top: 80 }} onClick={() => { child.current?.close(); setNested(false); }}>Fechar</button>
+      </WdModal>}
+    </WdModal>}
   </div>;
 }
 
@@ -177,6 +227,6 @@ export default function SkinFixtures() {
     <aside>Teste de componentes — não é o formulário de clientes nem verifica os seus comportamentos.</aside>
     <h1>Pele MediaPlayer</h1>
     <a href="/">Voltar à verificação do ambiente</a>
-    <FrameFixture instance="A" /><FrameFixture instance="B" /><TableFixture /><MessageFixture /><InputFixture />
+    <FrameFixture instance="A" /><FrameFixture instance="B" /><TableFixture /><MessageFixture /><InputFixture /><FocusFixture />
   </main></DialogProvider>;
 }

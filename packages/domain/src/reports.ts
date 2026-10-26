@@ -2,6 +2,7 @@ import { z } from "zod";
 import Decimal from "decimal.js";
 import { dateTimeComparisonKey, isDateTimeBound } from "./date-time";
 import { repairOrderListSchema } from "./repair-orders";
+import { reportIntegerBound, reportParametersValid } from "./report-contracts";
 
 const text = z.string().nullable();
 export const reportContextSchema = z.strictObject({ company: z.string(), dateText: z.string() });
@@ -32,12 +33,12 @@ const familySourceSchema = z.discriminatedUnion("kind", [
   z.strictObject({ kind: z.literal("embedded-query") }), z.strictObject({ kind: z.literal("file") }),
   z.strictObject({ kind: z.literal("query"), parameters: z.record(z.string(), z.union([text, z.array(z.string())])) }),
   z.strictObject({ kind: z.literal("window-table"), window: z.literal("WIN_Table_Tempos_materiais_Descricoes"), table: z.literal("TABLE_materiais"),
-    rows: z.array(z.record(z.string(), text)), orderNumber: z.string(), formattedTotal: z.string() }),
-  z.strictObject({ kind: z.literal("programmatic"), orderNumber: z.string() }),
+    rows: z.array(z.record(z.string(), text)), orderNumber: z.string().refine(reportIntegerBound), formattedTotal: z.string() }),
+  z.strictObject({ kind: z.literal("programmatic"), orderNumber: z.string().refine(reportIntegerBound) }),
 ]);
 export const familyReportSchema = z.strictObject({ reportId: z.enum(familyReportIds), context: reportContextSchema, source: familySourceSchema }).refine(input => {
   const expected = input.reportId.startsWith("RPT_List_") ? "embedded-query" : input.reportId === "RPT_inventario" ? "file" : input.reportId === "RPT_Materiais" ? "window-table" : input.reportId === "RPT_Servico_Avaria" ? "programmatic" : "query";
-  return input.source.kind === expected;
+  return input.source.kind === expected && (input.source.kind !== "query" || reportParametersValid(input.reportId, input.source.parameters));
 });
 export const reportRequestSchema = z.discriminatedUnion("reportId", [orderReportSchema, articleStatementSchema, familyReportSchema]);
 export type FamilyReportRequest = z.infer<typeof familyReportSchema>;

@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { dateCalendarValue } from "./date-entry";
 import { isDateOnlyBound } from "./date-time";
+import { reportIntegerBound } from "./report-contracts";
 import type { FamilyReportRequest, ReportContext } from "./reports";
 
 export const materialReportModes = ["resumo", "descriminado", "resumo_viatura", "descriminado_viatura"] as const;
@@ -68,7 +69,7 @@ export function laborReportDispatch(mode: LaborReportMode, input: {
   if (!dates) return { kind: "unresolved" };
   const vehicle = mode === "viatura";
   // UNRESOLVED U-WA6D3FA-05: reject malformed numeric edits instead of guessing native numeric coercion.
-  if (!vehicle && ![input.rangeFrom, input.rangeTo].every(value => /^[0-9]+$/.test(value) && BigInt(value) <= 18446744073709551615n)) return { kind: "invalid-number" };
+  if (!vehicle && ![input.rangeFrom, input.rangeTo].every(reportIntegerBound)) return { kind: "invalid-number" };
   const [from, to] = dates;
   const reportId = mode === "ordem_reparacao" ? "RPT_Tempos_Ordem_Reparacao" : mode === "viatura" ? "RPT_Tempos_Ordem_Reparacao_viatura"
     : mode === "mecanico_resumo" ? "RPT_Tempos_Ordem_Reparacao_Mecanico_Resumo" : "RPT_Tempos_Ordem_Reparacao_Mecanico";

@@ -15,7 +15,7 @@ export function WdCombo({ control: source, options, value, onChange, disabled, a
   useLayoutEffect(() => {
     if (allowNoSelection && !options.some(option => option.value === value) && select.current) select.current.selectedIndex = -1;
   }, [allowNoSelection, options, value]);
-  return <div className="wd-field wd-combo-field" hidden={control.visible === false || control.flags?.Visible === false}
+  return <div className="wd-field wd-combo-field" hidden={(control.visible ?? control.flags?.Visible) === false}
     data-control-path={control.path} style={controlBox(control)}>
     {captionWidth > 0 && <label htmlFor={id} style={{ width: captionWidth - 2 }}>{control.caption}</label>}
     <select ref={select} id={id} data-testid={control.name} className="wd-edit wd-combo" value={value} disabled={disabled}
