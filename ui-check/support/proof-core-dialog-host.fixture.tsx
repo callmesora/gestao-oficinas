@@ -3,6 +3,11 @@ import { createRoot } from "react-dom/client";
 import { DialogProvider, useDialogs } from "../../src/ui/legacy/dialogs";
 import type { MessageRequest } from "../../src/ui/legacy/message-state";
 import type { ResourceRequest } from "../../src/ui/legacy/resource-state";
+import { VehicleEditor } from "../../src/ui/vehicles";
+import { isolatedVehicleRepository } from "../../src/infrastructure/vehicles";
+import { isolatedCustomerRepository } from "../../src/infrastructure/customers";
+import type { VehicleRepository } from "../../src/application/vehicles";
+import type { CustomerRepository } from "../../src/application/customers";
 
 type ProofDialogRequest = { kind: "message"; request: MessageRequest } | { kind: "resource"; request: ResourceRequest };
 
@@ -30,4 +35,21 @@ export function mount(requests: ProofDialogRequest[]) {
   const container = document.createElement("div");
   document.body.append(container);
   createRoot(container).render(<DialogProvider><Caller requests={requests} /></DialogProvider>);
+}
+
+function VehicleCaller({ initialRegistration, repositories }: {
+  initialRegistration: string; repositories: { vehicles: VehicleRepository; customers: CustomerRepository };
+}) {
+  const [opened, setOpened] = useState(false), [returned, setReturned] = useState<boolean | null>(null);
+  return <>
+    <button data-testid="proof-core-vehicle-open" onClick={() => { setReturned(null); setOpened(true); }}>Abrir viatura</button>
+    {opened && <VehicleEditor repositories={repositories} initialRegistration={initialRegistration} finish={saved => { setReturned(saved); setOpened(false); }} />}
+    <output data-testid="proof-core-vehicle-result">{returned === null ? "pending" : String(returned)}</output>
+  </>;
+}
+
+export async function mountVehicleCaller(initialRegistration: string) {
+  const [vehicles, customers] = await Promise.all([isolatedVehicleRepository(), isolatedCustomerRepository()]);
+  const container = document.createElement("div"); document.body.append(container);
+  createRoot(container).render(<DialogProvider><VehicleCaller initialRegistration={initialRegistration} repositories={{ vehicles, customers }} /></DialogProvider>);
 }
