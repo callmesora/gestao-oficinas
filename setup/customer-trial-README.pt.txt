@@ -21,9 +21,8 @@ definitiva até os resultados terem sido confirmados.
    para uma base de dados nova. A operação pode demorar vários minutos. Não
    desligue o computador durante este processo. Os ficheiros antigos não são
    alterados pela importação.
-5. No primeiro acesso, use o código aberto no Bloco de Notas, selecione o
-   utilizador quando pedido e escolha uma palavra-passe nova. Não reutilize a
-   palavra-passe antiga. Feche o Bloco de Notas depois de usar o código.
+5. No primeiro acesso, selecione o utilizador quando pedido e escolha uma
+   palavra-passe nova. Não reutilize a palavra-passe antiga.
 6. Feche a aplicação normalmente antes de desligar o computador. Se aparecer
    uma mensagem de erro, não apague pastas nem tente reinstalar por cima dos
    dados: contacte o responsável pela instalação.

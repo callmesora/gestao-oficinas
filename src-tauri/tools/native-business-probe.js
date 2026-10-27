@@ -17,7 +17,12 @@
   try {
     await invoke("plugin:event|emit", { event: "native-probe-stage", payload: "script" });
     const setup = await wait(() => field("authentication-enrollment"));
-    input(setup.querySelector('[aria-label="Código de configuração"]'), __SETUP_TOKEN_JSON__);
+    const localToken = await invoke("local_setup_token");
+    if (localToken === null) input(await wait(() => setup.querySelector('[aria-label="Código de configuração"]')), __SETUP_TOKEN_JSON__);
+    else {
+      if (localToken !== __SETUP_TOKEN_JSON__) throw new Error("native enrollment handoff mismatch");
+      await wait(() => !setup.querySelector('[aria-label="Código de configuração"]'));
+    }
     input(setup.querySelector('[aria-label="Nova palavra-passe"]'), "Native42");
     await wait(() => !field("enrollment-confirm").disabled); field("enrollment-confirm").click();
     await wait(() => field("WIN_MENU"));

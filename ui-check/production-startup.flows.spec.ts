@@ -1,5 +1,24 @@
 import { test, expect } from "./support/local-reports";
 
+test("local enrollment keeps its received token when the acknowledgement response is lost", async ({ page, localReportServer }) => {
+  await page.addInitScript(({ token }) => {
+    const bridge = window as unknown as { __TAURI_INTERNALS__: { invoke: (command: string) => Promise<unknown> }; __ackReached?: boolean };
+    bridge.__TAURI_INTERNALS__ = { invoke: async command => {
+      if (command === "read_startup_arguments") return { modulo: null, artigos: null };
+      if (command === "local_setup_token") return token;
+      if (command === "ack_local_setup") { bridge.__ackReached = true; throw new Error("synthetic acknowledgement response lost"); }
+      throw new Error("Unexpected synthetic IPC");
+    } };
+  }, { token: localReportServer.setupToken });
+  await page.goto(localReportServer.origin);
+  const setup = page.getByTestId("authentication-enrollment");
+  await expect.poll(() => page.evaluate(() => (window as unknown as { __ackReached?: boolean }).__ackReached)).toBe(true);
+  await expect(setup.getByLabel("Código de configuração")).toHaveCount(0);
+  await setup.getByLabel("Nova palavra-passe").fill("Startup42");
+  await setup.getByTestId("enrollment-confirm").click();
+  await expect(page.getByTestId("WIN_MENU")).toBeVisible();
+});
+
 test("production startup retains the authenticated session after a failed initialization and retries the real service", async ({ page, localReportServer }) => {
   const errors: string[] = [], requests: string[] = [];
   page.on("pageerror", error => errors.push(error.message));

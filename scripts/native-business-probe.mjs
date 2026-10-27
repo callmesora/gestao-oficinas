@@ -58,7 +58,11 @@ try {
   assert.equal(native.status, 0, native.stderr || "Native build failed");
   const executable = join(root, "src-tauri/target/debug", `native-probe${process.platform === "win32" ? ".exe" : ""}`);
   let stdout = "", stderr = "";
-  child = spawn(executable, [], { cwd: root, windowsHide: true, stdio: ["ignore", "pipe", "pipe"], env: { ...process.env, GESTAO_NATIVE_PROBE_MODE: "business", GESTAO_NATIVE_PROBE_SETUP_TOKEN: token, GESTAO_NATIVE_PROBE_DATA_DIRECTORY: profile } });
+  const pipeEnrollment = process.env.GESTAO_NATIVE_PROBE_PIPE === "1";
+  const nativeEnvironment = { ...process.env, GESTAO_NATIVE_PROBE_MODE: "business", GESTAO_NATIVE_PROBE_SETUP_TOKEN: token, GESTAO_NATIVE_PROBE_DATA_DIRECTORY: profile };
+  if (pipeEnrollment) nativeEnvironment.GESTAO_SETUP_PIPE = "1"; else delete nativeEnvironment.GESTAO_SETUP_PIPE;
+  child = spawn(executable, [], { cwd: root, windowsHide: true, stdio: [pipeEnrollment ? "pipe" : "ignore", "pipe", "pipe"], env: nativeEnvironment });
+  if (pipeEnrollment) child.stdin.end(token);
   child.stdout.on("data", data => { stdout = (stdout + data).slice(-16_384); }); child.stderr.on("data", data => { stderr = (stderr + data).slice(-16_384); });
   const exitCode = await new Promise((done, reject) => {
     const timeout = setTimeout(() => { child.kill(); reject(new Error("Native business probe timed out")); }, 140_000);

@@ -1,4 +1,6 @@
+pub mod local_enrollment;
 pub mod message_sound;
+pub use local_enrollment::{ACK_LOCAL_SETUP_COMMAND, LOCAL_SETUP_TOKEN_COMMAND};
 pub use message_sound::PLAY_MESSAGE_SOUND_COMMAND;
 pub mod repair_state_color;
 pub mod report_output;

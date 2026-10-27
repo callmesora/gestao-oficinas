@@ -5,7 +5,7 @@ import type { UserListRow } from "../../packages/domain/src/users";
 import { startupLaunchMode, type LaunchMode } from "../../packages/domain/src/startup";
 import { businessAuthenticationRepository, businessStartupRepository, accessUserRepository } from "../infrastructure/authentication";
 import { clearBusinessSession, configureBusinessTransport, SESSION_EXPIRED_EVENT } from "../infrastructure/workflow-http";
-import { readStartupArguments, terminateApplication } from "../infrastructure/native";
+import { acknowledgeLocalSetup, readLocalSetupToken, readStartupArguments, terminateApplication } from "../infrastructure/native";
 import { additionalWorkshopWindows } from "./workshop-windows";
 import { defaultStartupWindows, type StartupWindowDefinition } from "./startup-windows";
 import { MenuLaunchers, menuLayout, menuTitle } from "./startup";
@@ -19,23 +19,26 @@ import "./startup.css";
 import { LaunchModeContext } from "./launch-mode";
 
 type Prepared = { authentication: AuthenticationRepository; startup: StartupRepository; status: AuthenticationStatus; mode: LaunchMode };
-function Enrollment({ authentication, emptyUsers, accepted, cancel }: { authentication: AuthenticationRepository; emptyUsers: boolean; accepted: (user: UserListRow, expiresAt: string) => void; cancel: () => void }) {
+function Enrollment({ authentication, emptyUsers, native, accepted, cancel }: { authentication: AuthenticationRepository; emptyUsers: boolean; native: boolean; accepted: (user: UserListRow, expiresAt: string) => void; cancel: () => void }) {
   const [code, setCode] = useState(emptyUsers ? 1 : 0), [description, setDescription] = useState(emptyUsers ? "Administrador" : ""), [token, setToken] = useState(""), [password, setPassword] = useState(""), [busy, setBusy] = useState(false), [diagnostic, setDiagnostic] = useState(""), [picker, setPicker] = useState(false);
+  const [localToken, setLocalToken] = useState<string | null | undefined>(native ? undefined : null);
   const pending = useRef(false), active = useRef(true), users = accessUserRepository(authentication);
   useEffect(() => { active.current = true; return () => { active.current = false; }; }, []);
+  useEffect(() => { if (!native) return; let current = true; void readLocalSetupToken().then(value => { if (current) setLocalToken(value); }).catch(() => { if (current) setLocalToken(null); }); return () => { current = false; }; }, [native]);
+  useEffect(() => { if (localToken) void acknowledgeLocalSetup().catch(() => undefined); }, [localToken]);
   const submit = async () => {
     if (pending.current) return;
     pending.current = true; setBusy(true); setDiagnostic("");
-    try { const result = await authentication.enroll({ code, password, token }); if (!active.current) return; if (result.kind === "continuar") { setToken(""); setPassword(""); accepted(result.user, result.session.expiresAt); } else setDiagnostic(result.kind === "throttled" ? "Demasiadas tentativas. Aguarde um minuto." : result.kind === "unavailable" ? "Código de configuração inválido ou já utilizado." : "Não foi possível definir o acesso. Verifique os campos e tente novamente."); }
+    try { const result = await authentication.enroll({ code, password, token: localToken ?? token }); if (!active.current) return; if (result.kind === "continuar") { setToken(""); setLocalToken(null); setPassword(""); accepted(result.user, result.session.expiresAt); } else setDiagnostic(result.kind === "throttled" ? "Demasiadas tentativas. Aguarde um minuto." : result.kind === "unavailable" ? "Código de configuração inválido ou já utilizado." : "Não foi possível definir o acesso. Verifique os campos e tente novamente."); }
     catch { if (active.current) setDiagnostic("Serviço indisponível. Tente novamente."); }
     finally { pending.current = false; if (active.current) setBusy(false); }
   };
-  return <section data-testid="authentication-enrollment" className="startup-enrollment"><h2>Definir acesso</h2><p>Use o código de configuração fornecido pelo responsável pelo serviço e escolha uma nova palavra-passe.</p>
+  return <section data-testid="authentication-enrollment" className="startup-enrollment"><h2>Definir acesso</h2><p>{localToken === undefined ? "A preparar o acesso…" : localToken ? "Escolha uma nova palavra-passe para o utilizador." : "Use o código de configuração fornecido pelo responsável pelo serviço e escolha uma nova palavra-passe."}</p>
     <form onSubmit={event => { event.preventDefault(); void submit(); }}>
       <label>Utilizador <input aria-label="Utilizador de configuração" value={description} readOnly /></label>{!emptyUsers && <button type="button" data-testid="enrollment-user-picker" disabled={busy} onClick={() => setPicker(true)}>Selecionar</button>}
-      <label>Código de configuração <input aria-label="Código de configuração" type="password" autoComplete="off" value={token} maxLength={64} disabled={busy} onChange={event => setToken(event.target.value)} /></label>
+      {localToken === null && <label>Código de configuração <input aria-label="Código de configuração" type="password" autoComplete="off" value={token} maxLength={64} disabled={busy} onChange={event => setToken(event.target.value)} /></label>}
       <label>Nova palavra-passe <input aria-label="Nova palavra-passe" type="password" autoComplete="new-password" value={password} maxLength={15} disabled={busy} onChange={event => setPassword(event.target.value)} /></label>
-      <button data-testid="enrollment-confirm" disabled={busy || !code || !password || token.length !== 64}>Definir acesso</button><button type="button" disabled={busy} onClick={cancel}>Cancelar</button>
+      <button data-testid="enrollment-confirm" disabled={busy || !code || !password || (localToken ?? token).length !== 64}>Definir acesso</button><button type="button" disabled={busy} onClick={cancel}>Cancelar</button>
     </form>{diagnostic && <output role="status">{diagnostic}</output>}
     {picker && <UserPicker repository={users} origin={code} finish={selected => { setPicker(false); const next = Number(selected); setCode(next); if (next) void authentication.users({}).then(result => { if (active.current && result.kind === "loaded") setDescription(result.users.find(row => row.Codigo === next)?.Descricao ?? ""); }).catch(() => { if (active.current) setDiagnostic("Serviço indisponível. Tente novamente."); }); }} />}
   </section>;
@@ -81,7 +84,7 @@ export default function ProductionStartup({ native }: { native: boolean }) {
   return <LaunchModeContext value={mode === "labor" ? "t" : mode === "materials" ? "m" : null}><DialogProvider><main className="startup-workflow" data-testid="business-startup">
     {phase === "loading" && <p role="status">A ligar ao serviço…</p>}
     {phase === "unavailable" && <section><h1>Gestão de Oficinas</h1><p role="alert">Não foi possível ligar ao serviço configurado.</p><button onClick={() => window.location.reload()}>Tentar novamente</button><button onClick={terminate}>Sair</button></section>}
-    {phase === "setup" && prepared && (prepared.status.kind === "ready" && prepared.status.setupAvailable ? <Enrollment authentication={prepared.authentication} emptyUsers={prepared.status.emptyUsers} accepted={accepted} cancel={terminate} /> : <section><h1>Gestão de Oficinas</h1><p role="status">O acesso precisa de ser configurado pelo responsável pelo serviço.</p><button onClick={terminate}>Sair</button></section>)}
+    {phase === "setup" && prepared && (prepared.status.kind === "ready" && prepared.status.setupAvailable ? <Enrollment authentication={prepared.authentication} emptyUsers={prepared.status.emptyUsers} native={native} accepted={accepted} cancel={terminate} /> : <section><h1>Gestão de Oficinas</h1><p role="status">O acesso precisa de ser configurado pelo responsável pelo serviço.</p><button onClick={terminate}>Sair</button></section>)}
     {phase === "access" && prepared && <StartupAccessDialog repository={prepared.startup} users={accessUserRepository(prepared.authentication)} touch={module} finish={(result, selected) => { if (result === "continuar" && selected) accepted(selected); else terminate(); }} />}
     {phase === "desktop" && <><aside className="startup-session"><span data-testid="business-session-user">{user?.Descricao}</span><button data-testid="business-logout" disabled={busy} onClick={() => void leave(false)}>Terminar sessão</button></aside>{module ? <div className="startup-module-host">{desktop}</div> : <><div hidden={minimized}><WdFrame layout={menuLayout} instance="startup-menu-frame" width={maximized ? Math.max(800, extent.width - 24) : 800} height={maximized ? Math.max(600, extent.height - 52) : 600} onClose={terminate} onMinimize={() => setMinimized(true)} onToggleMaximize={() => setMaximized(previous => !previous)}>{desktop}</WdFrame></div>{minimized && <button onClick={() => setMinimized(false)}>{menuTitle}</button>}</>}</>}
     {prepared && system && <SystemDialog repository={prepared.startup} finish={() => setSystem(false)} />}

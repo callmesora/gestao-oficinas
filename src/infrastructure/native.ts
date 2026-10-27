@@ -14,3 +14,9 @@ export async function readStartupArguments(): Promise<StartupArguments> {
 export async function terminateApplication(): Promise<void> {
   z.null().parse(await invoke<unknown>(nativeCommands.terminateApplication));
 }
+export async function readLocalSetupToken(): Promise<string | null> {
+  return z.string().regex(/^[a-f0-9]{64}$/).nullable().parse(await invoke<unknown>(nativeCommands.localSetupToken));
+}
+export async function acknowledgeLocalSetup(): Promise<void> {
+  if (z.boolean().parse(await invoke<unknown>(nativeCommands.ackLocalSetup)) !== true) throw new Error("local_setup_handoff_unavailable");
+}

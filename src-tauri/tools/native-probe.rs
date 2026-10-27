@@ -7,6 +7,7 @@ use tauri::{Listener, Manager, webview::PageLoadEvent};
 // A separate executable: the distributed application never installs this listener/script.
 fn main() {
     let business = std::env::var("GESTAO_NATIVE_PROBE_MODE").as_deref() == Ok("business");
+    let enrollment = std::env::var("GESTAO_NATIVE_PROBE_MODE").as_deref() == Ok("enrollment");
     let scanner = std::env::var("GESTAO_NATIVE_PROBE_MODE").as_deref() == Ok("scanner");
     let token = if business {
         let value = std::env::var("GESTAO_NATIVE_PROBE_SETUP_TOKEN")
@@ -39,6 +40,7 @@ fn main() {
                     "arguments":gestao_oficinas_lib::commands::startup::read_startup_arguments()
                 });
                 if business { expected["business"] = serde_json::json!({"enrolled":true,"customerSaved":true,"reportPreview":true,"loggedOut":true,"loggedInAgain":true}); }
+                if enrollment { expected["enrollment"] = serde_json::json!({"automatic":true,"enrolled":true}); }
                 if scanner { expected["scanner"] = serde_json::json!({"exact":true,"repeatable":true,"unavailable":true,"invalidEncoding":true}); }
                 let received = serde_json::from_str::<serde_json::Value>(event.payload());
                 if received.as_ref().is_ok_and(|value| value == &expected) {
@@ -59,21 +61,21 @@ fn main() {
                 if ["enrollment", "customer", "customer-list", "customer-form", "customer-saved", "report-preview", "logout", "login", "metadata", "scanner"].contains(&stage.as_str()) { eprintln!("NATIVE_PROBE stage failed: {stage}"); }
                 failure.exit(1);
             });
-            tauri::WebviewWindowBuilder::new(app, "main", tauri::WebviewUrl::App(if business { "index.html" } else { "index.html?diagnostics=foundation" }.into()))
+            tauri::WebviewWindowBuilder::new(app, "main", tauri::WebviewUrl::App(if business || enrollment { "index.html" } else { "index.html?diagnostics=foundation" }.into()))
                 .title("Gestao Oficinas native startup probe")
                 .incognito(true)
                 .data_directory(profile)
                 .build()?;
             let timeout = app.handle().clone();
             std::thread::spawn(move || {
-                std::thread::sleep(std::time::Duration::from_secs(if business { 130 } else { 20 }));
+                std::thread::sleep(std::time::Duration::from_secs(if business || enrollment { 130 } else { 20 }));
                 eprintln!("NATIVE_PROBE timeout"); timeout.exit(1);
             });
             Ok(())
         })
         .on_page_load(move |window, payload| {
-            if payload.event() != PageLoadEvent::Finished || (!business && !payload.url().query_pairs().any(|(key,value)| key == "diagnostics" && value == "foundation")) { return; }
-            if business && (payload.url().scheme() == "about" || business_started.swap(true, Ordering::SeqCst)) { return; }
+            if payload.event() != PageLoadEvent::Finished || (!(business || enrollment) && !payload.url().query_pairs().any(|(key,value)| key == "diagnostics" && value == "foundation")) { return; }
+            if (business || enrollment) && (payload.url().scheme() == "about" || business_started.swap(true, Ordering::SeqCst)) { return; }
             if business { eprintln!("NATIVE_PROBE page_finished"); }
             let script = r#"(async () => {
                 const invoke = window.__TAURI_INTERNALS__.invoke;
@@ -82,7 +84,7 @@ fn main() {
                 await invoke('terminate_application');
             })().catch(() => {});"#;
             let business_script = if business { include_str!("native-business-probe.js").replace("__SETUP_TOKEN_JSON__", &token) } else { String::new() };
-            if window.eval(if business { &business_script } else if scanner { include_str!("native-scanner-probe.js") } else { script }).is_err() { window.app_handle().exit(1); }
+            if window.eval(if business { &business_script } else if enrollment { include_str!("native-enrollment-probe.js") } else if scanner { include_str!("native-scanner-probe.js") } else { script }).is_err() { window.app_handle().exit(1); }
         })
         .run(context)
         .expect("native probe runtime failed");

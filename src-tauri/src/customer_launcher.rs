@@ -15,13 +15,19 @@ mod windows {
         ffi::OsStr,
         io::{self, BufRead, BufReader, Read, Write},
         net::TcpStream,
-        os::windows::{ffi::OsStrExt, process::CommandExt},
+        os::windows::{
+            ffi::OsStrExt,
+            fs::{MetadataExt, OpenOptionsExt},
+            process::CommandExt,
+        },
         path::{Path, PathBuf},
         process::{Child, ChildStdout, Command, Stdio},
         thread,
-        time::{Duration, SystemTime, UNIX_EPOCH},
+        time::{Duration, Instant, SystemTime, UNIX_EPOCH},
     };
-    use windows_sys::Win32::Storage::FileSystem::MoveFileW;
+    use windows_sys::Win32::Storage::FileSystem::{
+        FILE_ATTRIBUTE_REPARSE_POINT, FILE_FLAG_OPEN_REPARSE_POINT, MoveFileW,
+    };
 
     const HIDDEN: u32 = 0x0800_0000; // CREATE_NO_WINDOW
     const TITLE: &str = "Gestão de Oficinas";
@@ -62,6 +68,60 @@ mod windows {
         }
         Ok(reader)
     }
+    fn setup_acknowledgement(output: ChildStdout) -> std::sync::mpsc::Receiver<bool> {
+        let (send, receive) = std::sync::mpsc::sync_channel(1);
+        thread::spawn(move || {
+            let mut reader = BufReader::new(output);
+            let mut acknowledged = false;
+            loop {
+                let mut line = String::new();
+                match reader.by_ref().take(256).read_line(&mut line) {
+                    Ok(0) | Err(_) => break,
+                    Ok(_) if !acknowledged && line == "SETUP_IPC_READY\n" => {
+                        let _ = send.send(true);
+                        acknowledged = true;
+                    }
+                    Ok(_) => {}
+                }
+            }
+            if !acknowledged {
+                let _ = send.send(false);
+            }
+        });
+        receive
+    }
+    fn await_owned_event(
+        host: &mut Child,
+        client: &mut Child,
+        receive: &std::sync::mpsc::Receiver<bool>,
+        timeout: Option<Duration>,
+    ) -> io::Result<bool> {
+        let deadline = timeout.map(|duration| Instant::now() + duration);
+        loop {
+            if !matches!(host.try_wait(), Ok(None)) {
+                let _ = client.kill();
+                let _ = client.wait();
+                return Err(failed());
+            }
+            match client.try_wait() {
+                Ok(None) => {}
+                Ok(Some(_)) => return Err(failed()),
+                Err(_) => {
+                    let _ = client.kill();
+                    let _ = client.wait();
+                    return Err(failed());
+                }
+            }
+            if deadline.is_some_and(|time| Instant::now() >= time) {
+                return Ok(false);
+            }
+            match receive.recv_timeout(Duration::from_millis(200)) {
+                Ok(value) => return Ok(value),
+                Err(std::sync::mpsc::RecvTimeoutError::Disconnected) => return Ok(false),
+                Err(std::sync::mpsc::RecvTimeoutError::Timeout) => {}
+            }
+        }
+    }
     struct OwnedHost {
         child: Child,
         _output: BufReader<ChildStdout>,
@@ -83,6 +143,32 @@ mod windows {
             return Err(io::Error::last_os_error());
         }
         Ok(())
+    }
+    fn read_setup_token(path: &Path) -> io::Result<Vec<u8>> {
+        let file = std::fs::OpenOptions::new()
+            .read(true)
+            .custom_flags(FILE_FLAG_OPEN_REPARSE_POINT)
+            .open(path)?;
+        let metadata = file.metadata()?;
+        if !metadata.is_file()
+            || metadata.file_attributes() & FILE_ATTRIBUTE_REPARSE_POINT != 0
+            || metadata.len() > 65
+        {
+            return Err(failed());
+        }
+        let mut token = Vec::new();
+        file.take(66).read_to_end(&mut token)?;
+        if token.last() == Some(&b'\n') {
+            token.pop();
+        }
+        if token.len() != 64
+            || !token
+                .iter()
+                .all(|byte| byte.is_ascii_digit() || (b'a'..=b'f').contains(byte))
+        {
+            return Err(failed());
+        }
+        Ok(token)
     }
     fn enrollment_available(port: u16) -> io::Result<bool> {
         let mut socket = TcpStream::connect_timeout(
@@ -321,45 +407,104 @@ mod windows {
             child: host,
             _output: output,
         };
-        let token = profile.join("operator-token");
         let needs_enrollment = enrollment_available(3210)?;
-        if token.is_file() && needs_enrollment {
-            message(
-                "Para definir o primeiro acesso, copie o código que vai abrir no Bloco de Notas e escolha uma nova palavra-passe na aplicação.",
-                MessageLevel::Info,
-            );
-            let system = PathBuf::from(std::env::var_os("SystemRoot").ok_or_else(failed)?)
-                .join("System32/notepad.exe");
-            let _ = Command::new(system).arg(token).spawn();
-        }
+        let token = if needs_enrollment {
+            Some(read_setup_token(&profile.join("operator-token"))?)
+        } else {
+            None
+        };
         if host.child.try_wait()?.is_some() {
             return Err(failed());
         }
-        let client_result = match Command::new(app).current_dir(folder).spawn() {
-            Ok(mut client) => loop {
-                if !matches!(host.child.try_wait(), Ok(None)) {
-                    // This handle is the exact client launched above, never a discovered PID.
-                    let _ = client.kill();
-                    let _ = client.wait();
-                    break Err(failed());
-                }
-                match client.try_wait() {
-                    Ok(Some(status)) => break Ok(status),
-                    Ok(None) => {}
-                    Err(error) => {
-                        let _ = client.kill();
-                        let _ = client.wait();
-                        break Err(error);
+        let mut client_command = Command::new(app);
+        client_command
+            .current_dir(folder)
+            .env_remove("GESTAO_SETUP_PIPE")
+            .stdin(Stdio::null());
+        if token.is_some() {
+            client_command
+                .env("GESTAO_SETUP_PIPE", "1")
+                .stdin(Stdio::piped())
+                .stdout(Stdio::piped());
+        }
+        let client_result = match client_command.spawn() {
+            Ok(mut client) => {
+                if let Some(token) = token {
+                    let sent = client
+                        .stdin
+                        .take()
+                        .ok_or_else(failed)
+                        .and_then(|mut pipe| pipe.write_all(&token));
+                    // Drain output even if an older client closed its input;
+                    // a full output pipe must not stall the recovery path.
+                    let acknowledged = if let Some(output) = client.stdout.take() {
+                        let receive = setup_acknowledgement(output);
+                        await_owned_event(
+                            &mut host.child,
+                            &mut client,
+                            &receive,
+                            Some(Duration::from_secs(20)),
+                        )? && sent.is_ok()
+                    } else {
+                        false
+                    };
+                    if !acknowledged {
+                        if !matches!(client.try_wait(), Ok(None)) {
+                            let _ = client.kill();
+                            let _ = client.wait();
+                            return Err(failed());
+                        }
+                        let (send, receive) = std::sync::mpsc::sync_channel(1);
+                        thread::spawn(move || {
+                            message(
+                                "A preparação automática do acesso demorou mais do que o esperado. Se a aplicação pedir um código de configuração, copie o código que será aberto no Bloco de Notas; caso contrário, continue normalmente.",
+                                MessageLevel::Info,
+                            );
+                            let _ = send.send(true);
+                        });
+                        if !await_owned_event(&mut host.child, &mut client, &receive, None)? {
+                            let _ = client.kill();
+                            let _ = client.wait();
+                            return Err(failed());
+                        }
+                        let system =
+                            PathBuf::from(std::env::var_os("SystemRoot").ok_or_else(failed)?)
+                                .join("System32/notepad.exe");
+                        if Command::new(system)
+                            .arg(profile.join("operator-token"))
+                            .spawn()
+                            .is_err()
+                        {
+                            let _ = client.kill();
+                            let _ = client.wait();
+                            return Err(failed());
+                        }
                     }
                 }
-                thread::sleep(Duration::from_millis(250));
-            },
+                loop {
+                    if !matches!(host.child.try_wait(), Ok(None)) {
+                        // This handle is the exact client launched above, never a discovered PID.
+                        let _ = client.kill();
+                        let _ = client.wait();
+                        break Err(failed());
+                    }
+                    match client.try_wait() {
+                        Ok(Some(status)) => break Ok(status),
+                        Ok(None) => {}
+                        Err(error) => {
+                            let _ = client.kill();
+                            let _ = client.wait();
+                            break Err(error);
+                        }
+                    }
+                    thread::sleep(Duration::from_millis(250));
+                }
+            }
             Err(error) => Err(error),
         };
         drop(host.child.stdin.take());
         let status = host.child.wait();
-        client_result?;
-        if !status?.success() {
+        if !client_result?.success() || !status?.success() {
             return Err(failed());
         }
         Ok(())
@@ -377,6 +522,74 @@ mod windows {
     mod tests {
         use super::*;
         use std::{fs, net::TcpListener};
+
+        #[test]
+        fn setup_file_accepts_only_the_bounded_token_format() {
+            let root = std::env::temp_dir().join(format!(
+                "gestao-token-{}-{}",
+                std::process::id(),
+                SystemTime::now()
+                    .duration_since(UNIX_EPOCH)
+                    .unwrap()
+                    .as_nanos()
+            ));
+            fs::create_dir(&root).unwrap();
+            let path = root.join("operator-token");
+            fs::write(&path, format!("{}\n", "a".repeat(64))).unwrap();
+            assert_eq!(read_setup_token(&path).unwrap(), b"a".repeat(64));
+            fs::write(&path, "a".repeat(66)).unwrap();
+            assert!(read_setup_token(&path).is_err());
+            fs::write(&path, "z".repeat(64)).unwrap();
+            assert!(read_setup_token(&path).is_err());
+            fs::remove_dir_all(root).unwrap();
+        }
+
+        #[test]
+        fn launcher_recognizes_only_the_exact_ipc_acknowledgement() {
+            for (text, expected) in [("SETUP_IPC_READY", true), ("OTHER", false)] {
+                let system = PathBuf::from(std::env::var_os("SystemRoot").unwrap())
+                    .join("System32/WindowsPowerShell/v1.0/powershell.exe");
+                let command = format!("[Console]::Out.Write('{text}' + [char]10)");
+                let mut child = Command::new(system)
+                    .args(["-NoProfile", "-Command", &command])
+                    .creation_flags(HIDDEN)
+                    .stdout(Stdio::piped())
+                    .spawn()
+                    .unwrap();
+                let output = child.stdout.take().unwrap();
+                assert_eq!(
+                    setup_acknowledgement(output)
+                        .recv_timeout(Duration::from_secs(5))
+                        .unwrap(),
+                    expected
+                );
+                assert!(child.wait().unwrap().success());
+            }
+        }
+
+        #[test]
+        fn service_exit_closes_owned_client_during_ack_or_fallback_wait() {
+            let system = PathBuf::from(std::env::var_os("SystemRoot").unwrap())
+                .join("System32/WindowsPowerShell/v1.0/powershell.exe");
+            for timeout in [Some(Duration::from_secs(20)), None] {
+                let mut host = Command::new(&system)
+                    .args(["-NoProfile", "-Command", "Start-Sleep -Milliseconds 800"])
+                    .creation_flags(HIDDEN)
+                    .spawn()
+                    .unwrap();
+                let mut client = Command::new(&system)
+                    .args(["-NoProfile", "-Command", "Start-Sleep -Seconds 30"])
+                    .creation_flags(HIDDEN)
+                    .spawn()
+                    .unwrap();
+                let (_send, receive) = std::sync::mpsc::sync_channel(1);
+                let began = Instant::now();
+                assert!(await_owned_event(&mut host, &mut client, &receive, timeout).is_err());
+                assert!(began.elapsed() < Duration::from_secs(8));
+                assert!(client.try_wait().unwrap().is_some());
+                let _ = host.wait();
+            }
+        }
 
         #[test]
         fn enrollment_prompt_only_when_server_reports_setup_available() {
