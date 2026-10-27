@@ -20,6 +20,18 @@ const head = spawnSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf
 const status = spawnSync("git", ["status", "--porcelain", "--untracked-files=all"], { cwd: root, encoding: "utf8", windowsHide: true });
 if (head.status !== 0 || status.status !== 0 || status.stdout.trim() || manifest.sourceDirty || manifest.sourceCommit !== head.stdout.trim() || manifest.platform !== "win32" || manifest.architecture !== "x64" || !Array.isArray(manifest.files)) throw new Error("A clean stage from the current commit is required");
 const digest = async file => { const hash = createHash("sha256"); for await (const chunk of createReadStream(file)) hash.update(chunk); return hash.digest("hex"); };
+// Rebuild both executables from this clean checkout in this invocation. A stale
+// target/release executable is never accepted as evidence for the source commit.
+const client = spawnSync("cmd.exe", ["/d", "/s", "/c", "npm run tauri -- build --no-bundle"], { cwd: root, stdio: "inherit", windowsHide: true });
+if (client.status !== 0) throw new Error("Desktop client build failed");
+const launcher = spawnSync("cargo", ["build", "--release", "--manifest-path", "src-tauri/Cargo.toml", "--features", "customer-launcher", "--bin", "gestao-oficinas-launcher"], { cwd: root, stdio: "inherit", windowsHide: true });
+if (launcher.status !== 0) throw new Error("Customer launcher build failed");
+const afterBuild = spawnSync("git", ["status", "--porcelain", "--untracked-files=all"], { cwd: root, encoding: "utf8", windowsHide: true });
+const afterHead = spawnSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8", windowsHide: true });
+if (afterBuild.status !== 0 || afterBuild.stdout.trim() || afterHead.status !== 0 || afterHead.stdout.trim() !== manifest.sourceCommit) throw new Error("Source changed during the build");
+for (const item of manifest.files.filter(item => item.path.startsWith("dist/"))) {
+  if (await digest(join(root, ...item.path.split("/"))) !== item.sha256) throw new Error(`Frontend differs from the staged build: ${item.path}`);
+}
 const records = new Map();
 for (const record of manifest.files) {
   if (typeof record.path !== "string" || !/^[a-z0-9._@+#/-]+$/i.test(record.path) || record.path.split("/").some(part => !part || part === "." || part === "..") || !/^[a-f0-9]{64}$/.test(record.sha256) || records.has(record.path.toLowerCase())) throw new Error("Invalid runtime inventory");

@@ -44,7 +44,7 @@ const nodeLicense = await checkedPath(values["node-license"], "file");
 const backup = await checkedPath(values["backup-root"], "directory");
 const browser = await checkedPath(values["browser-root"], "directory");
 const browserExe = await checkedPath(values["browser-executable"], "file");
-if (!contained(browser, browserExe) || !/^[a-f\d]{64}$/i.test(values["browser-sha256"])) throw new Error("Browser executable or expected SHA-256 is invalid");
+if (!samePath(browserExe, join(browser, "chrome-headless-shell.exe")) || !/^[a-f\d]{64}$/i.test(values["browser-sha256"])) throw new Error("Browser executable must use the packaged launcher layout and expected SHA-256");
 if (run(node, ["--version"]) !== "v24.22.1" || run(node, ["-p", "process.platform + '/' + process.arch"]) !== "win32/x64") throw new Error("Node 24.22.1 Windows x64 is required");
 if (!(await readFile(nodeLicense, "utf8")).startsWith("Node.js is licensed")) throw new Error("Node license notice is required");
 if (await digest(browserExe) !== values["browser-sha256"].toLowerCase()) throw new Error("Browser executable fingerprint mismatch");
