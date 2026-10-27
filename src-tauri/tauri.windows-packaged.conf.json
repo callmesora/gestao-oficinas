@@ -1,0 +1,7 @@
+{
+  "bundle": {
+    "resources": {
+      "../analysis-local/windows-runtime/": "service/"
+    }
+  }
+}
