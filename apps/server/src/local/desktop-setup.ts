@@ -1,6 +1,7 @@
 import { isAbsolute } from "node:path";
 import { parseArgs } from "node:util";
 import { setupLocalService } from "./service";
+import { provisionLocalReportRuntime } from "./report-runtime";
 
 // A private setup child: only the owning native launcher supplies these paths.
 const abort = new AbortController();
@@ -12,11 +13,11 @@ process.stdin.resume();
 
 try {
   const { values } = parseArgs({
-    options: { profile: { type: "string" }, snapshot: { type: "string" }, "database-port": { type: "string" }, "api-port": { type: "string" } },
+    options: { profile: { type: "string" }, snapshot: { type: "string" }, browser: { type: "string" }, "database-port": { type: "string" }, "api-port": { type: "string" } },
     strict: true,
     allowPositionals: false,
   });
-  if (!values.profile || !isAbsolute(values.profile) || (values.snapshot !== undefined && !isAbsolute(values.snapshot))) throw new Error("invalid setup path");
+  if (!values.profile || !isAbsolute(values.profile) || (values.snapshot !== undefined && !isAbsolute(values.snapshot)) || (values.browser !== undefined && !isAbsolute(values.browser))) throw new Error("invalid setup path");
   await setupLocalService({
     directory: values.profile,
     snapshot: values.snapshot,
@@ -24,6 +25,7 @@ try {
     ...(values["api-port"] !== undefined ? { apiPort: Number(values["api-port"]) } : {}),
     signal: abort.signal,
   });
+  if (values.browser) await provisionLocalReportRuntime({ directory: values.profile, executable: values.browser, signal: abort.signal });
   if (abort.signal.aborted) throw new Error("setup interrupted");
   process.stdout.write("READY\n");
 } catch {
