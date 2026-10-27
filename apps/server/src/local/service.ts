@@ -13,10 +13,12 @@ import { acquireRunner, assertPortFree, connectLocal, installedPostgres, postgre
 const defaultFrontend = fileURLToPath(new URL("../../../../dist/", import.meta.url));
 export async function setupLocalService(options: { directory?: string; snapshot?: string; databasePort?: number; apiPort?: number; signal?: AbortSignal } = {}) {
   const paths = profilePaths(options.directory ?? defaultLocalDirectory), profile = newProfile(options.databasePort, options.apiPort);
+  const assertActive = () => { if (options.signal?.aborted) throw new LocalServiceError("setup_interrupted"); };
+  assertActive();
   const binaries = await installedPostgres(); await assertPortFree(profile.databasePort); await assertPortFree(profile.apiPort);
+  assertActive();
   let source: SqliteLegacySource | undefined;
   try { if (options.snapshot) source = new SqliteLegacySource(resolve(options.snapshot)); } catch { throw new LocalServiceError("snapshot_invalid"); }
-  const assertActive = () => { if (options.signal?.aborted) throw new LocalServiceError("setup_interrupted"); };
   let stop: (() => Promise<void>) | undefined, release: (() => Promise<void>) | undefined;
   try {
     assertActive();
@@ -34,12 +36,15 @@ export async function setupLocalService(options: { directory?: string; snapshot?
     const database = await connectLocal(profile); let report: ImportResult | undefined;
     try {
       await migrate(database);
-      if (source) { report = await importLegacy(database, source); await privateFile(paths.report, JSON.stringify(report, null, 2) + "\n"); if (Object.values(report.tables).some(table => table.quarantined !== 0 || table.mismatches !== 0)) throw new LocalServiceError("snapshot_requires_review"); }
+      assertActive();
+      if (source) { report = await importLegacy(database, source, { checkActive: assertActive }); assertActive(); await privateFile(paths.report, JSON.stringify(report, null, 2) + "\n"); if (Object.values(report.tables).some(table => table.quarantined !== 0 || table.mismatches !== 0)) throw new LocalServiceError("snapshot_requires_review"); }
     } finally { await database.end(); }
     assertActive();
     await privateFile(paths.token, randomBytes(32).toString("hex") + "\n");
+    assertActive();
     // Publish the strict startup profile only after the one-time initialization/import succeeds.
     await privateFile(paths.profile, JSON.stringify(profile, null, 2) + "\n");
+    assertActive();
     return { directory: paths.directory, tokenFile: paths.token, imported: report ? Object.values(report.tables).reduce((sum, table) => sum + table.imported, 0) : 0 };
   } catch (error) { if (error instanceof LocalServiceError) throw error; throw new LocalServiceError("setup_failed"); }
   finally { source?.close(); try { await stop?.(); } finally { await release?.(); } }

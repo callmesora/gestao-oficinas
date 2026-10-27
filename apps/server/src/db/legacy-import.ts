@@ -125,11 +125,12 @@ async function insertRows(client: Client, table: string, columns: string[], rows
 export interface TableResult { rows: number; imported: number; quarantined: number; nulls: number; binary: number; sourceHash: string; provenanceHash: string; mismatches: number }
 export interface ImportResult { dryRun: boolean; sourceSha256: string; tables: Record<string, TableResult> }
 
-export async function importLegacy(client: Client, source: LegacySource, options: { dryRun?: boolean; afterBatch?: () => void } = {}): Promise<ImportResult> {
+export async function importLegacy(client: Client, source: LegacySource, options: { dryRun?: boolean; afterBatch?: () => void; checkActive?: () => void } = {}): Promise<ImportResult> {
   const report: ImportResult = { dryRun: options.dryRun ?? false, sourceSha256: source.fingerprint, tables: {} };
   const names = mapping.tables.map(table => table.name).sort();
   if (names.join("\0") !== Object.keys(source.manifest.tables).sort().join("\0")) throw new Error("Source table set differs from mapping");
   source.assertUnchanged();
+  options.checkActive?.();
   await client.query("BEGIN");
   try {
     // A fresh target only. Locks also prevent simultaneous imports or application writes.
@@ -159,6 +160,7 @@ export async function importLegacy(client: Client, source: LegacySource, options
         await insertRows(client, "import_audit.quarantine", ["run_id", "table_name", "source_row", "reason", "original_values"], quarantineBatch);
         targetBatch = []; auditBatch = []; quarantineBatch = [];
         options.afterBatch?.();
+        options.checkActive?.();
       };
       for (const row of source.rows(table.name)) {
         // ADR002: SQLite rowid is signed64, including zero/negative identities.
@@ -187,11 +189,13 @@ export async function importLegacy(client: Client, source: LegacySource, options
       result.sourceHash = digest.digest("hex");
       if (result.rows !== manifest.rows || result.sourceHash !== manifest.sha256_typed_rows) throw new Error(`Source manifest mismatch: ${table.name}`);
       const reconciliation = await reconcileTable(client, table, sourceColumns, run);
+      options.checkActive?.();
       result.provenanceHash = reconciliation.hash; result.mismatches = reconciliation.mismatches;
       if (result.sourceHash !== reconciliation.hash || result.mismatches || result.rows !== reconciliation.rows) throw new Error(`Target reconciliation failed: ${table.name}`);
     }
     source.assertUnchanged();
     await client.query("UPDATE import_audit.runs SET completed_at=clock_timestamp() WHERE id=$1", [run]);
+    options.checkActive?.();
     await client.query(options.dryRun ? "ROLLBACK" : "COMMIT");
     return report;
   } catch (error) {

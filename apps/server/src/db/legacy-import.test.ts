@@ -68,6 +68,30 @@ describe("MIG-4 real PostgreSQL schema/import", () => {
     await importLegacy(client, source); await reconcileLegacy(client, source);
   });
 
+  it("desktop setup cancellation after an import batch rolls back actual records and provenance", async () => {
+    let cancelled = false;
+    await expect(importLegacy(client, legacyFixture(), {
+      afterBatch() { cancelled = true; },
+      checkActive() { if (cancelled) throw new Error("setup interrupted"); },
+    })).rejects.toThrow("setup interrupted");
+    expect((await client.query('SELECT count(*) FROM app."Clientes"')).rows[0].count).toBe("0");
+    expect((await client.query("SELECT count(*) FROM import_audit.runs")).rows[0].count).toBe("0");
+    expect((await client.query("SELECT count(*) FROM import_audit.rows")).rows[0].count).toBe("0");
+  });
+
+  it("desktop setup cancellation after final source verification prevents import commit", async () => {
+    const source = legacyFixture();
+    let verifications = 0, cancelled = false;
+    source.assertUnchanged = () => { if (++verifications === 2) cancelled = true; };
+    await expect(importLegacy(client, source, {
+      checkActive() { if (cancelled) throw new Error("setup interrupted"); },
+    })).rejects.toThrow("setup interrupted");
+    expect(verifications).toBe(2);
+    expect((await client.query('SELECT count(*) FROM app."Clientes"')).rows[0].count).toBe("0");
+    expect((await client.query("SELECT count(*) FROM import_audit.runs")).rows[0].count).toBe("0");
+    expect((await client.query("SELECT count(*) FROM import_audit.rows")).rows[0].count).toBe("0");
+  });
+
   it("quarantines an out-of-range value without rounding or losing its original", async () => {
     const result = await importLegacy(client, legacyFixture(true));
     expect(result.tables.Clientes).toMatchObject({ rows: 1, imported: 0, quarantined: 1, mismatches: 0 });
