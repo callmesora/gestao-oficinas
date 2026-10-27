@@ -156,7 +156,7 @@ async function copyTree(input, destination, filter = () => true) {
     else throw new Error(`Unsupported payload entry: ${join(destination, entry.name)}`);
   }
 }
-const fixedSourceFiles = ["package.json", "apps/server/package.json", "packages/domain/package.json", "src-tauri/tauri.conf.json", "docs/evidence/ui-inputs.json"];
+const fixedSourceFiles = ["package.json", "apps/server/package.json", "packages/domain/package.json", "src-tauri/tauri.conf.json", "docs/evidence/ui-inputs.json", "scripts/windows/customer-export.ps1", "scripts/windows/Assert-ScratchPaths.ps1", "scripts/windows/HfSqlOdbcAnsi.cs"];
 for (const file of fixedSourceFiles) await copyOne(join(source, file), file);
 for (const file of trackedFiles.sort()) await copyOne(join(source, file), file);
 await copyOne(join(frontend, "index.html"), "dist/index.html");
@@ -191,7 +191,7 @@ for (const [path, value] of known) {
   const staged = JSON.parse(await readFile(join(output, path, "package.json"), "utf8"));
   if (staged.name !== value.pkg.name || staged.version !== value.pkg.version) throw new Error(`Staged package identity changed: ${path}`);
 }
-const status = spawnSync("git", ["-C", source, "status", "--porcelain", "--untracked-files=all", "--", "apps/server/src", "packages/domain/src", "apps/server/migrations", "package.json", "package-lock.json", "src-tauri/tauri.conf.json", "docs/evidence/ui-inputs.json"], { encoding: "utf8", windowsHide: true });
+const status = spawnSync("git", ["-C", source, "status", "--porcelain", "--untracked-files=all", "--", "apps/server/src", "packages/domain/src", "apps/server/migrations", "package.json", "package-lock.json", "src-tauri/tauri.conf.json", "docs/evidence/ui-inputs.json", "scripts/windows/customer-export.ps1", "scripts/windows/Assert-ScratchPaths.ps1", "scripts/windows/HfSqlOdbcAnsi.cs"], { encoding: "utf8", windowsHide: true });
 if (status.status !== 0) throw new Error("Source Git status unavailable");
 const manifest = { schema: 1, platform: "win32", architecture: "x64", sourceCommit: git.stdout.trim(), sourceDirty: Boolean(status.stdout.trim()), frontendVerifiedAgainstSource: false, lockSha256: initialLockHash, nodeVersion: "24.22.1", nodeSha256: await digest(node), postgresVersion: "18.4", playwrightVersion: "1.64.1", browserVersion: expectedBrowser, browserSha256: values["browser-sha256"].toLowerCase(), browserExecutable: `runtime/chromium/${relative(browser, browserExe).split(sep).join("/")}`, backupTools: "runtime/postgres-tools/bin", packages: [...known.entries()].map(([path, value]) => ({ path, version: value.pkg.version })).sort((a, b) => a.path.localeCompare(b.path, "en")), files: records, absentOptionalDependencies: [...missingOptional].sort() };
 await writeFile(join(output, "runtime-manifest.json"), JSON.stringify(manifest, null, 2) + "\n", { flag: "wx" });

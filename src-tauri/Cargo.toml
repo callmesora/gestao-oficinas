@@ -21,8 +21,14 @@ name = "native-probe"
 path = "tools/native-probe.rs"
 required-features = ["development-tools"]
 
+[[bin]]
+name = "gestao-oficinas-launcher"
+path = "src/customer_launcher.rs"
+required-features = ["customer-launcher"]
+
 [features]
 development-tools = []
+customer-launcher = []
 
 [lib]
 name = "gestao_oficinas_lib"

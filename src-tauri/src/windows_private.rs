@@ -301,9 +301,9 @@ fn pinned_directories(path: &Path, include_leaf: bool) -> io::Result<Vec<Handle>
     } else {
         parts.len() - 1
     };
-    for index in 1..count {
+    for (index, part) in parts.iter().enumerate().take(count).skip(1) {
         if index > 1 {
-            prefix.push(parts[index]);
+            prefix.push(part);
         }
         let name = wide(prefix.as_os_str())?;
         // Attribute/security-only opens do not reserve delete sharing. Directory
