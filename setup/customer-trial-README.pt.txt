@@ -4,7 +4,8 @@ Esta é uma versão de teste para um único computador. Mantenha a aplicação
 antiga e as suas cópias de segurança. Não use esta versão como substituição
 definitiva até os resultados terem sido confirmados.
 
-1. Extraia toda a pasta recebida para o computador. Não execute o programa
+1. Nas propriedades do ficheiro ZIP, selecione "Desbloquear" se essa opção
+   aparecer. Depois extraia toda a pasta recebida para o computador. Não execute o programa
    diretamente dentro do ficheiro ZIP. Mantenha juntos INICIAR.exe, o programa
    Gestao Oficinas e a pasta service.
 2. Execute INICIAR.exe. O Windows pode apresentar um aviso porque esta versão

@@ -22,7 +22,7 @@ if (head.status !== 0 || status.status !== 0 || status.stdout.trim() || manifest
 const digest = async file => { const hash = createHash("sha256"); for await (const chunk of createReadStream(file)) hash.update(chunk); return hash.digest("hex"); };
 const records = new Map();
 for (const record of manifest.files) {
-  if (typeof record.path !== "string" || !/^[a-z0-9._@/-]+$/i.test(record.path) || record.path.split("/").some(part => !part || part === "." || part === "..") || !/^[a-f0-9]{64}$/.test(record.sha256) || records.has(record.path.toLowerCase())) throw new Error("Invalid runtime inventory");
+  if (typeof record.path !== "string" || !/^[a-z0-9._@+#/-]+$/i.test(record.path) || record.path.split("/").some(part => !part || part === "." || part === "..") || !/^[a-f0-9]{64}$/.test(record.sha256) || records.has(record.path.toLowerCase())) throw new Error("Invalid runtime inventory");
   records.set(record.path.toLowerCase(), record);
 }
 async function inventory(directory, prefix = "") {

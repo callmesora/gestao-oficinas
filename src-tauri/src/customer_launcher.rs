@@ -282,6 +282,21 @@ mod windows {
         if !profile.exists() && !setup(&runtime, &node, &browser, &parent, &profile)? {
             return Ok(());
         }
+        // The bundled client is configured for this exact loopback port. Refuse
+        // an imported or altered profile pointing elsewhere before starting it.
+        let config_path = profile.join("profile.json");
+        if std::fs::metadata(&config_path)?.len() > 4096 {
+            return Err(failed());
+        }
+        let profile_bytes = std::fs::read(config_path)?;
+        if profile_bytes.len() > 4096 {
+            return Err(failed());
+        }
+        let configuration: serde_json::Value =
+            serde_json::from_slice(&profile_bytes).map_err(|_| failed())?;
+        if configuration["apiPort"] != 3210 {
+            return Err(failed());
+        }
         let mut host = command(&node, &runtime)
             .args([
                 "--import",
@@ -307,7 +322,8 @@ mod windows {
             _output: output,
         };
         let token = profile.join("operator-token");
-        if token.is_file() && enrollment_available(3210)? {
+        let needs_enrollment = enrollment_available(3210)?;
+        if token.is_file() && needs_enrollment {
             message(
                 "Para definir o primeiro acesso, copie o código que vai abrir no Bloco de Notas e escolha uma nova palavra-passe na aplicação.",
                 MessageLevel::Info,
@@ -351,7 +367,7 @@ mod windows {
     pub fn main() {
         if run().is_err() {
             message(
-                "Não foi possível iniciar a aplicação ou preparar a base de dados. Verifique se o programa antigo está fechado e se o driver ODBC HFSQL 28 de 32 bits e a análise .WDD estão disponíveis. Os dados existentes foram preservados. Contacte o responsável pela instalação.",
+                "Não foi possível iniciar a aplicação ou preparar a base de dados. Verifique se o programa antigo está fechado, se as portas locais 3210 e 54329 estão livres e, para importação HFSQL, se o driver ODBC HFSQL 28 de 32 bits e a análise .WDD estão disponíveis. Os dados existentes foram preservados. Contacte o responsável pela instalação.",
                 MessageLevel::Error,
             );
         }
