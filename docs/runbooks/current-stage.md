@@ -1,4 +1,6 @@
-# Current stage — MIG-15W Windows validation
+# Current stage — MIG-15P Windows customer installer
+
+Owner requests a customer-ready setup including database provisioning and authorizes pushes. Root coordinates isolated packaging/Windows-security investigations over `76dfeba`; owner preference is one Windows PC unless a multi-PC requirement is confirmed. ADR017 records the bounded deployment framing. First deliverable is an offline runtime payload; customer readiness also requires safe service startup/shutdown, profile ACLs, enrollment, reports, backup/upgrade and clean-machine acceptance. Preserve the existing demo, source snapshot, and all original data.
 
 Owner requested latest GitHub main and actual Windows execution. Root owns this isolated worktree over `6b1fda4` on Windows x64; the original laptop checkout and its unfinished edits are preserved. No push or production operation. Prior Mac delivery remains in the handoff/history stage 38.
 
