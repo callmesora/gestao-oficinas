@@ -396,6 +396,28 @@ mod windows {
         if configuration["apiPort"] != 3210 {
             return Err(failed());
         }
+        // A profile may have been created by an earlier portable installation.
+        // Rebind only after the bundled report browser passes its offline check.
+        let mut reports = command(&node, &runtime)
+            .args([
+                "--import",
+                "tsx",
+                "apps/server/src/local/desktop-report.ts",
+                "--profile",
+            ])
+            .arg(&profile)
+            .arg("--browser")
+            .arg(&browser)
+            .stdin(Stdio::piped())
+            .stdout(Stdio::piped())
+            .stderr(Stdio::null())
+            .spawn()?;
+        let report_result = marker(&mut reports);
+        drop(reports.stdin.take());
+        let report_status = reports.wait()?;
+        if report_result.is_err() || !report_status.success() {
+            return Err(failed());
+        }
         let mut host = command(&node, &runtime)
             .args([
                 "--import",

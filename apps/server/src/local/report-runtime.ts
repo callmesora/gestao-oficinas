@@ -1,7 +1,7 @@
 import { createHash, randomUUID } from "node:crypto";
 import { constants, createReadStream } from "node:fs";
 import { access, link, lstat, open, rename, stat, unlink } from "node:fs/promises";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { chromium, type Browser } from "playwright-core";
 import { z } from "zod";
 import { createConfiguredReportRenderer, reportRuntimeConfiguration, ReportRuntimeConfigurationError, type ReportRuntimeConfiguration } from "../reports/runtime";
@@ -69,16 +69,23 @@ async function publish(file: string, contents: string, replace: boolean): Promis
   finally { await handle?.close().catch(() => undefined); await unlink(temporary).catch(() => undefined); }
 }
 
-export async function provisionLocalReportRuntime(options: { directory?: string; executable: string; replace?: boolean; signal?: AbortSignal }): Promise<{ pinFile: string }> {
+export async function provisionLocalReportRuntime(options: { directory?: string; executable: string; replace?: boolean; ensureManaged?: boolean; signal?: AbortSignal }): Promise<{ pinFile: string }> {
   const directory = options.directory ?? defaultLocalDirectory, profile = await readLocalProfile(directory);
   const release = await acquireRunner(directory, profile.id), pinFile = localReportPinPath(directory);
   const active = () => { if (options.signal?.aborted) throw new LocalServiceError("report_provision_interrupted"); };
   try {
     active();
     const exists = await lstat(pinFile).then(() => true, error => { if (error.code === "ENOENT") return false; throw new LocalServiceError("report_pin_invalid"); });
-    if (exists) { if (!options.replace) throw new LocalServiceError("report_pin_exists"); await assertProtected(pinFile); }
     try { reportRuntimeConfiguration(environmentFor({ executablePath: options.executable, sha256: "0".repeat(64), version: "0.0.0.0" })); }
     catch { throw new LocalServiceError("report_runtime_configuration"); }
+    if (exists) {
+      if (options.ensureManaged) {
+        const previous = await optionalPin(pinFile, profile.id);
+        const comparable = (path: string) => process.platform === "win32" ? resolve(path).toLowerCase() : resolve(path);
+        if (previous && comparable(previous.executablePath) === comparable(options.executable)) return { pinFile };
+      } else if (!options.replace) throw new LocalServiceError("report_pin_exists");
+      await assertProtected(pinFile);
+    }
     const sha256 = await fingerprint(options.executable); active();
     let browser: Browser | undefined, version: string;
     try {
@@ -97,7 +104,7 @@ export async function provisionLocalReportRuntime(options: { directory?: string;
     active();
     const contents = JSON.stringify(pinSchema.parse({ version: 1, profileId: profile.id, executablePath: options.executable, sha256, browserVersion: version }), null, 2) + "\n";
     if (Buffer.byteLength(contents, "utf8") > MAX_PIN_BYTES) throw new LocalServiceError("report_pin_invalid");
-    await publish(pinFile, contents, options.replace === true);
+    await publish(pinFile, contents, options.replace === true || (options.ensureManaged === true && exists));
     return { pinFile };
   } catch (error) { if (error instanceof LocalServiceError) throw error; throw new LocalServiceError("report_provision_failed"); }
   finally { await release(); }

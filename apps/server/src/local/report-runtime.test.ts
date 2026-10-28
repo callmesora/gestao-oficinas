@@ -75,6 +75,24 @@ it("explicit replacement publishes a validated pin atomically and missing/foreig
   finally { await release(); }
 }, 60_000);
 
+it("managed package relocation validates the bundled browser before replacing an old pin and preserves failures", async () => {
+  await provisionLocalReportRuntime({ directory, executable, ensureManaged: true });
+  expect(await readFile(pin(), "utf8")).toBe(originalPin);
+  const oldPin = JSON.stringify({ ...JSON.parse(originalPin), executablePath: join(root, "old-package", "browser.exe") });
+  await restorePin(oldPin);
+  await expect(provisionLocalReportRuntime({ directory, executable: join(root, "missing-browser.exe"), ensureManaged: true })).rejects.toThrow("report_runtime_executable");
+  expect(await readFile(pin(), "utf8")).toBe(oldPin);
+  await provisionLocalReportRuntime({ directory, executable, ensureManaged: true });
+  expect(await readFile(pin(), "utf8")).toBe(originalPin);
+  const render = await createLocalReportRenderer(directory, {});
+  expect((await render!(smoke)).kind).toBe("rendered");
+  await restorePin("invalid pin");
+  await expect(provisionLocalReportRuntime({ directory, executable, ensureManaged: true })).rejects.toThrow("report_pin_invalid");
+  expect(await readFile(pin(), "utf8")).toBe("invalid pin");
+  expect(await hash(profilePaths(directory).profile)).toBe(profileBefore);
+  expect(await exists(profilePaths(directory).lock)).toBe(false);
+}, 60_000);
+
 it("ordinary start refuses invalid/bounded/profile-mismatched/private pin state before starting any database and releases its lock", async () => {
   const value = JSON.parse(originalPin);
   for (const invalid of ["not JSON", JSON.stringify({ ...value, extra: true }), JSON.stringify({ ...value, profileId: "00000000-0000-4000-8000-000000000000" }), JSON.stringify({ ...value, sha256: "secret-invalid-value" }), " ".repeat(64 * 1024 + 1)]) {
