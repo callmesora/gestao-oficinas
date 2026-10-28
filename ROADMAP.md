@@ -1,6 +1,6 @@
 # ROADMAP — Gestao Oficinas
 
-Current checkpoint: MIG-15S Windows first-access improvement, following the portable trial over `0836c9c`. The owned launcher supplies one-use setup authorization privately so the normal desktop flow needs no Notepad; Windows native enrollment, one-use refusal, service-exit supervision and manual fallback checks passed. The existing trial archive predates this change. Complete NSIS packaging, backup/upgrade, crash recovery, a clean second PC and physical devices remain open; no production or parity acceptance is claimed. Owner stopped further suites and Computer Use. See the handoff and current brief.
+Current checkpoint: MIG-15I unsigned Windows evaluation installer over `24cfe15`, bundling the launcher, service and offline runtime. Isolated installation, synthetic persistence/restart, report-pin relocation and data-preserving uninstall passed on this laptop. The one-use first-access flow avoids the old Notepad handoff. Customer-friendly backup/upgrade, crash recovery, a clean second PC and physical devices remain open; no production or parity acceptance is claimed. Owner stopped further suites and Computer Use. See the handoff and current brief.
 
 Order follows templates/ROADMAP.template.md and accepted ADR-007. Step 0 commits: 7d3a5c7 and 637fc6b. Framing must close before foundation. The database/import and shared UI foundations and a usable customer workflow exist. Customer designer/native/report parity remains open; its core delivery and follow-up are tracked separately below.
 
