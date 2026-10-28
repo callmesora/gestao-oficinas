@@ -1,6 +1,6 @@
 # ROADMAP — Gestao Oficinas
 
-Current checkpoint: MIG-15I unsigned Windows evaluation installer over `24cfe15`, bundling the launcher, service and offline runtime. Isolated installation, synthetic persistence/restart, report-pin relocation and data-preserving uninstall passed on this laptop. The one-use first-access flow avoids the old Notepad handoff. Customer-friendly backup/upgrade, crash recovery, a clean second PC and physical devices remain open; no production or parity acceptance is claimed. Owner stopped further suites and Computer Use. See the handoff and current brief.
+Current checkpoint: MIG-15I unsigned Windows evaluation installer over `b898b5b`, bundling the launcher, service and offline runtime, with a migration wizard and truthful stage progress. Native release-wizard checks and isolated real legacy import passed on this laptop; the new NSIS installation and a clean PC remain to be checked. The one-use first-access flow avoids the old Notepad handoff. Customer-friendly backup/upgrade, crash recovery and physical devices remain open; no production or parity acceptance is claimed. See the handoff and current brief.
 
 Order follows templates/ROADMAP.template.md and accepted ADR-007. Step 0 commits: 7d3a5c7 and 637fc6b. Framing must close before foundation. The database/import and shared UI foundations and a usable customer workflow exist. Customer designer/native/report parity remains open; its core delivery and follow-up are tracked separately below.
 
