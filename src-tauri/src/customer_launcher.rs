@@ -10,7 +10,7 @@ mod windows {
     use gestao_oficinas_lib::windows_private::{
         create_private_directory, verify_private_directory,
     };
-    use rfd::{FileDialog, MessageButtons, MessageDialog, MessageDialogResult, MessageLevel};
+    use rfd::{FileDialog, MessageDialog, MessageLevel};
     use std::{
         ffi::OsStr,
         io::{self, BufRead, BufReader, Read, Write},
@@ -282,67 +282,14 @@ mod windows {
             None
         }
     }
-    fn select_snapshot(
+    fn export_snapshot(
         runtime: &Path,
         node: &Path,
         parent: &Path,
-    ) -> io::Result<Option<Option<PathBuf>>> {
-        match MessageDialog::new().set_title("Preparar Gestão de Oficinas").set_level(MessageLevel::Info).set_buttons(MessageButtons::YesNoCancel)
-            .set_description("Pretende importar os dados do programa antigo?\n\nSim: escolher a pasta e importar WINDEV/HFSQL.\nNão: criar uma base vazia ou escolher uma exportação SQLite.\nCancelar: sair.\n\nFeche o programa antigo e mantenha uma cópia de segurança. É necessário o driver ODBC HFSQL 28 de 32 bits.").show() {
-            MessageDialogResult::No => {
-                return match MessageDialog::new().set_title(TITLE).set_level(MessageLevel::Info).set_buttons(MessageButtons::YesNoCancel)
-                    .set_description("Pretende criar uma base de dados vazia?\n\nSim: começar sem dados.\nNão: escolher uma exportação SQLite verificada.\nCancelar: sair.").show() {
-                    MessageDialogResult::Yes => Ok(Some(None)),
-                    MessageDialogResult::No => Ok(FileDialog::new().set_title("Selecionar exportação verificada").add_filter("Exportação SQLite", &["sqlite"]).pick_file().map(Some)),
-                    _ => Ok(None),
-                };
-            }
-            MessageDialogResult::Yes => {},
-            _ => return Ok(None),
-        }
-        let Some(selected) = FileDialog::new()
-            .set_title("Selecionar pasta do programa antigo ou dos dados")
-            .pick_folder()
-        else {
-            return Ok(None);
-        };
-        let data = if let Some(data) = data_folder(&selected) {
-            data
-        } else {
-            message(
-                "Não foi possível identificar uma única pasta de dados. Selecione a pasta que contém os ficheiros Clientes.fic e Viaturas.fic.",
-                MessageLevel::Info,
-            );
-            let Some(data) = FileDialog::new()
-                .set_directory(&selected)
-                .set_title("Selecionar pasta dos ficheiros .FIC")
-                .pick_folder()
-            else {
-                return Ok(None);
-            };
-            data
-        };
-        let analysis = if let Some(analysis) = analysis_file(&data) {
-            analysis
-        } else {
-            message(
-                "Não foi possível identificar uma única análise WINDEV. Selecione o ficheiro .WDD correspondente aos dados.",
-                MessageLevel::Info,
-            );
-            let Some(analysis) = FileDialog::new()
-                .set_directory(data.parent().unwrap_or(&data))
-                .set_title("Selecionar análise antiga")
-                .add_filter("Análise WINDEV", &["wdd"])
-                .pick_file()
-            else {
-                return Ok(None);
-            };
-            analysis
-        };
-        message(
-            "Será criada uma cópia privada e verificada dos dados. Aguarde; esta operação pode demorar vários minutos.",
-            MessageLevel::Info,
-        );
+        data: &Path,
+        analysis: &Path,
+        progress: &impl Fn(&'static str),
+    ) -> io::Result<PathBuf> {
         let id = format!(
             "{:032x}",
             SystemTime::now()
@@ -377,6 +324,7 @@ mod windows {
         if !status.success() {
             return Err(failed());
         }
+        progress("convert");
         let work = parent.join("analysis-local");
         let source = work.join(format!("hfsql-ansi-{id}"));
         let output = work.join(format!("converted-{id}"));
@@ -403,23 +351,16 @@ mod windows {
         if !child.wait()?.success() {
             return Err(failed());
         }
-        Ok(Some(Some(output.join("data.sqlite"))))
+        Ok(output.join("data.sqlite"))
     }
-    fn setup(
+    fn setup_snapshot(
         runtime: &Path,
         node: &Path,
         browser: &Path,
         parent: &Path,
         profile: &Path,
-    ) -> io::Result<bool> {
-        let snapshot = match select_snapshot(runtime, node, parent)? {
-            Some(value) => value,
-            None => return Ok(false),
-        };
-        message(
-            "A base de dados será preparada agora. Aguarde; a importação pode demorar vários minutos.",
-            MessageLevel::Info,
-        );
+        snapshot: Option<PathBuf>,
+    ) -> io::Result<()> {
         let stamp = SystemTime::now()
             .duration_since(UNIX_EPOCH)
             .map_err(|_| failed())?
@@ -454,8 +395,9 @@ mod windows {
             return Err(failed());
         }
         move_fresh(&staging, profile)?;
-        Ok(true)
+        Ok(())
     }
+    include!("migration_wizard.rs");
     pub fn run() -> io::Result<()> {
         let executable = std::env::current_exe()?;
         let folder = executable.parent().ok_or_else(failed)?;
@@ -474,7 +416,7 @@ mod windows {
             create_private_directory(&parent)?
         };
         let profile = parent.join("profile");
-        if !profile.exists() && !setup(&runtime, &node, &browser, &parent, &profile)? {
+        if !profile.exists() && !wizard::run(&runtime, &node, &browser, &parent, &profile)? {
             return Ok(());
         }
         // The bundled client is configured for this exact loopback port. Refuse

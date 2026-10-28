@@ -1,4 +1,5 @@
 import ProductionStartup from "./ui/production-startup";
+import MigrationWizard from "./ui/migration-wizard";
 import { additionalWorkshopWindows } from "./ui/workshop-windows";
 import ReportFiltersWorkflow from "./ui/report-filters";
 import StartupWorkflow from "./ui/startup";
@@ -41,6 +42,7 @@ export default function App({ preview }: { preview: boolean }) {
     try { setInfo(await readNativeInfo()); } catch { setFailed(true); }
     finally { setPending(false); }
   }
+  if (new URLSearchParams(window.location.search).get("migration") === "1") return <MigrationWizard />;
   if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("skin") === "controls") return <SkinFixtures />;
   if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("skin") === "workspace") return <WorkspaceFixture />;
   if (import.meta.env.DEV && new URLSearchParams(window.location.search).get("workflow") === "customers") return <CustomersWorkflow />;
