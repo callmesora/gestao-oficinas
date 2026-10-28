@@ -61,11 +61,18 @@ Preserve `playwright-core`1.64.1, `pagedjs`0.4.3, `@fontsource/noto-sans`5.3.0, 
 
 ## Windows executable and customer installer
 
-`npm run tauri -- build --bundles nsis` builds the release desktop executable at `src-tauri/target/release/gestao-oficinas.exe` and an NSIS `-setup.exe` under `src-tauri/target/release/bundle/nsis/`. The installer handles the desktop shortcut/uninstaller and checks WebView2 ([Tauri Windows packaging](https://v2.tauri.app/distribute/windows-installer/)).
+`npm run tauri -- build --bundles nsis` builds a **client-only** installer. The separate customer trial installer bundles the owning launcher, local API/PostgreSQL, reporting browser and offline WebView2. It is unsigned and intended for evaluation: customer-friendly backup/restore, safe upgrades and clean-PC acceptance remain open. Direct legacy import requires the official 32-bit HFSQL 28 ODBC driver and matching `.WDD`.
 
-The current installer contains the desktop client only. It requires the persistent API/PostgreSQL service; the default native API address is `http://127.0.0.1:3210`. Neither the Node runtime/server nor PostgreSQL/report runtime is currently bundled or started by the desktop executable. A successful client build is therefore not a complete customer installation.
+To rebuild the complete trial installer on Windows x64, use a clean committed checkout, the [Windows prerequisites](setup/LOCAL-WORKSPACE.md), Node 24.22.1 with its license, the Playwright-pinned Chromium headless shell, and the checked PostgreSQL 18.4 backup tools (`python setup/provision-backup-test-tools.py --directory analysis-local/toolchain/postgres-clients-18.4`). Set `$browserRoot` to the directory containing `chrome-headless-shell.exe` and `$nodeLicense` to the Node license file. The staging script verifies the browser version/hash, tool provenance, source and payload; outputs must be fresh directories under `analysis-local`.
 
-The customer-facing deliverable should be one setup executable that also provisions/manages the service, initializes a fresh private database outside the installation folder or explicitly imports an approved snapshot, provides first-run access, and preserves data during upgrades/uninstall. Report runtime provisioning and backup/recovery belong in that deployment. The customer should not need this checkout, npm, Rust or development commands. Until that packaging is implemented and exercised on a clean Windows machine, use the current client only with an explicitly prepared service.
+```powershell
+npm run build
+$browser = Join-Path $browserRoot 'chrome-headless-shell.exe'
+node scripts/prepare-windows-runtime.mjs --source-root $PWD.Path --output (Join-Path $PWD.Path 'analysis-local/installer-runtime') --dependency-root (Join-Path $PWD.Path 'node_modules') --frontend (Join-Path $PWD.Path 'dist') --node-executable (Get-Command node.exe).Source --node-license $nodeLicense --backup-root (Join-Path $PWD.Path 'analysis-local/toolchain/postgres-clients-18.4') --browser-root $browserRoot --browser-executable $browser --browser-sha256 'f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0'
+npm run package:windows-installer -- --runtime (Join-Path $PWD.Path 'analysis-local/installer-runtime') --portable (Join-Path $PWD.Path 'analysis-local/installer-portable')
+```
+
+The resulting `-setup.exe` is under `src-tauri/target/release/bundle/nsis/`; preserve any previous installer before rebuilding. A new commit requires a freshly staged runtime and fresh output paths. For a repeat build of the same commit, also preserve its existing `analysis-local/installer-config-<commit>.json` so a fresh config can be written. The script records the source commit and installer hash in `installer-build.json` in the portable output.
 
 ## Configured scanner file on the desktop host
 
