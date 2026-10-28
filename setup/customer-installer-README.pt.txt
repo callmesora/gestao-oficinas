@@ -11,8 +11,9 @@ dados e os procedimentos terem sido confirmados.
    criar uma base de dados vazia ou importar os dados antigos.
 3. Para importar WINDEV/HFSQL, feche o programa antigo em todos os computadores
    que possam alterar os ficheiros e tenha uma cópia de segurança atual. Escolha
-   a pasta dos ficheiros .FIC e a análise .WDD correspondente. É necessário o
-   driver oficial ODBC HFSQL 28 de 32 bits instalado neste computador. Se não
+   a pasta do programa antigo ou a pasta dos ficheiros .FIC. A análise .WDD é
+   procurada automaticamente; se houver dúvida, será necessário escolhê-la.
+   É necessário o driver oficial ODBC HFSQL 28 de 32 bits instalado neste computador. Se não
    estiver disponível, peça uma exportação SQLite verificada ao responsável.
 4. Aguarde a preparação e importação. Os ficheiros antigos não são alterados.
    Na primeira entrada, escolha o utilizador e uma palavra-passe nova; não

@@ -209,39 +209,135 @@ mod windows {
         }
         Ok(status["setupRequired"] == true && status["setupAvailable"] == true)
     }
+    // Discovery is intentionally limited to the selected folder and one
+    // known child/parent. A unique filename is not proof of compatibility;
+    // the official exporter and reconciliation still validate the import.
+    fn discovery_directory(path: &Path) -> bool {
+        for part in path.ancestors() {
+            let Ok(metadata) = std::fs::symlink_metadata(part) else {
+                return false;
+            };
+            if !metadata.is_dir() || metadata.file_attributes() & FILE_ATTRIBUTE_REPARSE_POINT != 0
+            {
+                return false;
+            }
+        }
+        true
+    }
+    fn data_folder(selected: &Path) -> Option<PathBuf> {
+        fn contains_business_files(path: &Path) -> bool {
+            if !discovery_directory(path) {
+                return false;
+            }
+            let Ok(entries) = std::fs::read_dir(path) else {
+                return false;
+            };
+            let mut customers = false;
+            let mut vehicles = false;
+            for entry in entries.flatten() {
+                if !entry.file_type().is_ok_and(|kind| kind.is_file()) {
+                    continue;
+                }
+                let name = entry.file_name();
+                customers |= name.eq_ignore_ascii_case("clientes.fic");
+                vehicles |= name.eq_ignore_ascii_case("viaturas.fic");
+            }
+            customers && vehicles
+        }
+        let child = selected.join("Exe");
+        let child_is_directory =
+            std::fs::symlink_metadata(&child).is_ok_and(|metadata| metadata.file_type().is_dir());
+        let mut found = Vec::new();
+        if contains_business_files(selected) {
+            found.push(selected.to_path_buf());
+        }
+        if child_is_directory && contains_business_files(&child) {
+            found.push(child);
+        }
+        if found.len() == 1 { found.pop() } else { None }
+    }
+    fn analysis_file(data: &Path) -> Option<PathBuf> {
+        let mut candidates = Vec::new();
+        for directory in std::iter::once(data).chain(data.parent()) {
+            // If either directory cannot be read, uniqueness is unknown.
+            if !discovery_directory(directory) {
+                return None;
+            }
+            let entries = std::fs::read_dir(directory).ok()?;
+            for entry in entries {
+                let entry = entry.ok()?;
+                if entry.file_type().ok()?.is_file()
+                    && entry
+                        .path()
+                        .extension()
+                        .is_some_and(|ext| ext.eq_ignore_ascii_case("wdd"))
+                {
+                    candidates.push(entry.path());
+                }
+            }
+        }
+        if candidates.len() == 1 {
+            candidates.pop()
+        } else {
+            None
+        }
+    }
     fn select_snapshot(
         runtime: &Path,
         node: &Path,
         parent: &Path,
     ) -> io::Result<Option<Option<PathBuf>>> {
-        match MessageDialog::new().set_title(TITLE).set_level(MessageLevel::Info).set_buttons(MessageButtons::YesNoCancel)
-            .set_description("Pretende importar dados existentes?\n\nSim: escolher os dados antigos.\nNão: criar uma base de dados vazia.\nCancelar: sair.").show() {
-            MessageDialogResult::No => return Ok(Some(None)),
+        match MessageDialog::new().set_title("Preparar Gestão de Oficinas").set_level(MessageLevel::Info).set_buttons(MessageButtons::YesNoCancel)
+            .set_description("Pretende importar os dados do programa antigo?\n\nSim: escolher a pasta e importar WINDEV/HFSQL.\nNão: criar uma base vazia ou escolher uma exportação SQLite.\nCancelar: sair.\n\nFeche o programa antigo e mantenha uma cópia de segurança. É necessário o driver ODBC HFSQL 28 de 32 bits.").show() {
+            MessageDialogResult::No => {
+                return match MessageDialog::new().set_title(TITLE).set_level(MessageLevel::Info).set_buttons(MessageButtons::YesNoCancel)
+                    .set_description("Pretende criar uma base de dados vazia?\n\nSim: começar sem dados.\nNão: escolher uma exportação SQLite verificada.\nCancelar: sair.").show() {
+                    MessageDialogResult::Yes => Ok(Some(None)),
+                    MessageDialogResult::No => Ok(FileDialog::new().set_title("Selecionar exportação verificada").add_filter("Exportação SQLite", &["sqlite"]).pick_file().map(Some)),
+                    _ => Ok(None),
+                };
+            }
             MessageDialogResult::Yes => {},
             _ => return Ok(None),
         }
-        match MessageDialog::new().set_title(TITLE).set_level(MessageLevel::Info).set_buttons(MessageButtons::YesNoCancel)
-            .set_description("Os dados estão no formato antigo WINDEV/HFSQL?\n\nSim: criar e importar uma cópia verificada.\nNão: selecionar uma exportação SQLite já preparada.\nCancelar: sair.").show() {
-            MessageDialogResult::No => return Ok(FileDialog::new().set_title("Selecionar exportação verificada").add_filter("Exportação SQLite", &["sqlite"]).pick_file().map(Some)),
-            MessageDialogResult::Yes => {},
-            _ => return Ok(None),
-        }
-        message(
-            "Feche o programa antigo antes de continuar. Selecione a pasta que contém os ficheiros .FIC e depois o ficheiro de análise .WDD correspondente. É necessário o driver ODBC HFSQL 28 de 32 bits.",
-            MessageLevel::Info,
-        );
-        let Some(data) = FileDialog::new()
-            .set_title("Selecionar pasta dos dados antigos")
+        let Some(selected) = FileDialog::new()
+            .set_title("Selecionar pasta do programa antigo ou dos dados")
             .pick_folder()
         else {
             return Ok(None);
         };
-        let Some(analysis) = FileDialog::new()
-            .set_title("Selecionar análise antiga")
-            .add_filter("Análise WINDEV", &["wdd"])
-            .pick_file()
-        else {
-            return Ok(None);
+        let data = if let Some(data) = data_folder(&selected) {
+            data
+        } else {
+            message(
+                "Não foi possível identificar uma única pasta de dados. Selecione a pasta que contém os ficheiros Clientes.fic e Viaturas.fic.",
+                MessageLevel::Info,
+            );
+            let Some(data) = FileDialog::new()
+                .set_directory(&selected)
+                .set_title("Selecionar pasta dos ficheiros .FIC")
+                .pick_folder()
+            else {
+                return Ok(None);
+            };
+            data
+        };
+        let analysis = if let Some(analysis) = analysis_file(&data) {
+            analysis
+        } else {
+            message(
+                "Não foi possível identificar uma única análise WINDEV. Selecione o ficheiro .WDD correspondente aos dados.",
+                MessageLevel::Info,
+            );
+            let Some(analysis) = FileDialog::new()
+                .set_directory(data.parent().unwrap_or(&data))
+                .set_title("Selecionar análise antiga")
+                .add_filter("Análise WINDEV", &["wdd"])
+                .pick_file()
+            else {
+                return Ok(None);
+            };
+            analysis
         };
         message(
             "Será criada uma cópia privada e verificada dos dados. Aguarde; esta operação pode demorar vários minutos.",
@@ -557,6 +653,36 @@ mod windows {
     mod tests {
         use super::*;
         use std::{fs, net::TcpListener};
+
+        #[test]
+        fn discovers_only_unambiguous_legacy_data_and_analysis() {
+            let root = std::env::temp_dir().join(format!(
+                "gestao-discovery-{}-{}",
+                std::process::id(),
+                SystemTime::now()
+                    .duration_since(UNIX_EPOCH)
+                    .unwrap()
+                    .as_nanos()
+            ));
+            let data = root.join("Exe");
+            fs::create_dir_all(&data).unwrap();
+            fs::write(data.join("Clientes.fic"), b"").unwrap();
+            fs::write(data.join("Viaturas.fic"), b"").unwrap();
+            let analysis = root.join("GestaoOficinas.wdd");
+            fs::write(&analysis, b"").unwrap();
+            assert_eq!(data_folder(&root), Some(data.clone()));
+            assert_eq!(data_folder(&data), Some(data.clone()));
+            assert_eq!(analysis_file(&data), Some(analysis.clone()));
+            fs::write(data.join("Other.WDD"), b"").unwrap();
+            assert_eq!(analysis_file(&data), None);
+            fs::remove_file(data.join("Other.WDD")).unwrap();
+            fs::remove_file(&analysis).unwrap();
+            assert_eq!(analysis_file(&data), None);
+            fs::write(root.join("Clientes.fic"), b"").unwrap();
+            fs::write(root.join("Viaturas.fic"), b"").unwrap();
+            assert_eq!(data_folder(&root), None);
+            fs::remove_dir_all(root).unwrap();
+        }
 
         #[test]
         fn setup_file_accepts_only_the_bounded_token_format() {
