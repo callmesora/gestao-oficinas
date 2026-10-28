@@ -2,7 +2,7 @@ import { randomBytes } from "node:crypto";
 import { mkdir, unlink, access, realpath } from "node:fs/promises";
 import { join, resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { migrate } from "../db/migrate";
+import { assertCurrentMigrations, migrate } from "../db/migrate";
 import { SqliteLegacySource, importLegacy, type ImportResult } from "../db/legacy-import";
 import { readServiceConfiguration } from "../configuration";
 import { createBusinessApp } from "../business-app";
@@ -60,7 +60,7 @@ export async function startLocalService(options: { directory?: string; frontend?
   try {
     const renderer = await createLocalReportRenderer(paths.directory, environment), binaries = await installedPostgres();
     postgres = await startOwnedPostgres(paths.directory, profile, binaries);
-    const check = await connectLocal(profile); try { if ((await check.query('SELECT 1 FROM public.schema_migrations LIMIT 1')).rowCount !== 1) throw new LocalServiceError("initialized_database_required"); } finally { await check.end(); }
+    const check = await connectLocal(profile); try { await assertCurrentMigrations(check); } catch { throw new LocalServiceError("schema_update_required"); } finally { await check.end(); }
     app = await createBusinessApp(configuration, renderer); await mountLocalFrontend(app, frontend); await app.listen({ host: configuration.host, port: configuration.port });
     return { origin: `http://127.0.0.1:${configuration.port}`, close };
   } catch (error) { await close(); if (error instanceof LocalServiceError) throw error; throw new LocalServiceError("start_failed"); }

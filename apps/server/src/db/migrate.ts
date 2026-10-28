@@ -3,6 +3,18 @@ import { readdir, readFile } from "node:fs/promises";
 import type { Client } from "pg";
 import { rollbackAfterFailure } from "./connection";
 
+/** Ordinary startup must never modify an older, newer, or altered schema. */
+export async function assertCurrentMigrations(client: Client): Promise<void> {
+  const directory = new URL("../../migrations/", import.meta.url);
+  const files = (await readdir(directory)).filter(name => /^\d{4}_[a-z_]+\.sql$/.test(name)).sort();
+  const applied = await client.query<{ name: string; sha256: string }>('SELECT name, sha256 FROM public.schema_migrations ORDER BY name COLLATE "C"');
+  if (!files.length || applied.rows.length !== files.length) throw new Error("Migration inventory differs");
+  for (const [index, name] of files.entries()) {
+    const sql = await readFile(new URL(name, directory), "utf8");
+    if (applied.rows[index].name !== name || applied.rows[index].sha256 !== createHash("sha256").update(sql).digest("hex")) throw new Error("Migration checksum differs");
+  }
+}
+
 export async function migrate(client: Client): Promise<void> {
   const directory = new URL("../../migrations/", import.meta.url);
   const files = (await readdir(directory)).filter(name => /^\d{4}_[a-z_]+\.sql$/.test(name)).sort();

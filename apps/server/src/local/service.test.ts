@@ -27,6 +27,45 @@ function snapshot(file: string, invalid = false) {
 }
 const hash = async (file: string) => createHash("sha256").update(await readFile(file)).digest("hex");
 async function api(origin: string, resource: string, body: unknown, token?: string) { const response = await fetch(`${origin}/api/${resource}`, { method: "POST", headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) }, body: JSON.stringify(body) }); return { status: response.status, body: await response.json() }; }
+it("refuses an incompatible existing migration without changing the database", async () => {
+  const settings = await options("incompatible-migration");
+  await setupLocalService(settings);
+  const paths = profilePaths(settings.directory), profile = await readLocalProfile(settings.directory), binaries = await installedPostgres();
+  let postgres = await startOwnedPostgres(settings.directory, profile, binaries);
+  let original: { name: string; sha256: string };
+  try {
+    const client = await connectLocal(profile);
+    try {
+      await client.query('INSERT INTO app."Clientes" ("ClientesID", "Codigo", "Descricao") VALUES (99001, 99001, $1)', ["Synthetic protected record"]);
+      original = (await client.query<{ name: string; sha256: string }>('SELECT name,sha256 FROM public.schema_migrations ORDER BY name COLLATE "C" LIMIT 1')).rows[0];
+    } finally { await client.end(); }
+  } finally { await postgres.stop(); }
+  for (const kind of ["extra", "changed", "missing"] as const) {
+    postgres = await startOwnedPostgres(settings.directory, profile, binaries);
+    try {
+      const client = await connectLocal(profile);
+      try {
+        if (kind === "extra") await client.query("INSERT INTO public.schema_migrations (name, sha256) VALUES ($1, $2)", ["9999_future.sql", "a".repeat(64)]);
+        if (kind === "changed") await client.query("UPDATE public.schema_migrations SET sha256=$1 WHERE name=$2", ["b".repeat(64), original.name]);
+        if (kind === "missing") await client.query("DELETE FROM public.schema_migrations WHERE name=$1", [original.name]);
+      } finally { await client.end(); }
+    } finally { await postgres.stop(); }
+    await expect(startLocalService({ directory: settings.directory, frontend, environment: {} })).rejects.toThrow("schema_update_required");
+    expect(await exists(paths.lock)).toBe(false); expect(await exists(join(paths.data, "postmaster.pid"))).toBe(false);
+    postgres = await startOwnedPostgres(settings.directory, profile, binaries);
+    try {
+      const client = await connectLocal(profile);
+      try {
+        expect((await client.query('SELECT "Descricao" FROM app."Clientes" WHERE "Codigo"=99001')).rows[0].Descricao).toBe("Synthetic protected record");
+        if (kind === "extra") { expect((await client.query("SELECT sha256 FROM public.schema_migrations WHERE name=$1", ["9999_future.sql"])).rows[0].sha256).toBe("a".repeat(64)); await client.query("DELETE FROM public.schema_migrations WHERE name=$1", ["9999_future.sql"]); }
+        if (kind === "changed") { expect((await client.query("SELECT sha256 FROM public.schema_migrations WHERE name=$1", [original.name])).rows[0].sha256).toBe("b".repeat(64)); await client.query("UPDATE public.schema_migrations SET sha256=$1 WHERE name=$2", [original.sha256, original.name]); }
+        if (kind === "missing") { expect((await client.query("SELECT 1 FROM public.schema_migrations WHERE name=$1", [original.name])).rowCount).toBe(0); await client.query("INSERT INTO public.schema_migrations (name, sha256) VALUES ($1, $2)", [original.name, original.sha256]); }
+      } finally { await client.end(); }
+    } finally { await postgres.stop(); }
+  }
+  const running = await startLocalService({ directory: settings.directory, frontend, environment: {} });
+  await running.close();
+}, 120000);
 it("ADR017 actual one-time readonly snapshot setup and strict restart preserve edits/accounts/sessions without reimporting or touching the snapshot", async () => {
   const settings = await options("persistent"), copied = join(directory, "synthetic.sqlite"); snapshot(copied); const before = await hash(copied);
   const result = await setupLocalService({ ...settings, snapshot: copied }); expect(result.imported).toBe(7); expect(await hash(copied)).toBe(before);
