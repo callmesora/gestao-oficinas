@@ -1,5 +1,8 @@
 #![cfg_attr(target_os = "windows", windows_subsystem = "windows")]
 
+#[cfg(all(target_os = "windows", not(debug_assertions), not(feature = "custom-protocol")))]
+compile_error!("Release customer launcher requires custom-protocol to bundle its wizard assets.");
+
 #[cfg(not(target_os = "windows"))]
 fn main() {
     eprintln!("Windows only");

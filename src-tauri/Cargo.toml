@@ -29,6 +29,7 @@ required-features = ["customer-launcher"]
 [features]
 development-tools = []
 customer-launcher = []
+custom-protocol = ["tauri/custom-protocol"]
 
 [lib]
 name = "gestao_oficinas_lib"

@@ -24,7 +24,7 @@ const digest = async file => { const hash = createHash("sha256"); for await (con
 // target/release executable is never accepted as evidence for the source commit.
 const client = spawnSync("cmd.exe", ["/d", "/s", "/c", "npm run tauri -- build --no-bundle"], { cwd: root, stdio: "inherit", windowsHide: true });
 if (client.status !== 0) throw new Error("Desktop client build failed");
-const launcher = spawnSync("cargo", ["build", "--release", "--manifest-path", "src-tauri/Cargo.toml", "--features", "customer-launcher", "--bin", "gestao-oficinas-launcher"], { cwd: root, stdio: "inherit", windowsHide: true });
+const launcher = spawnSync("cargo", ["build", "--release", "--manifest-path", "src-tauri/Cargo.toml", "--features", "customer-launcher,custom-protocol", "--bin", "gestao-oficinas-launcher"], { cwd: root, stdio: "inherit", windowsHide: true });
 if (launcher.status !== 0) throw new Error("Customer launcher build failed");
 const afterBuild = spawnSync("git", ["status", "--porcelain", "--untracked-files=all"], { cwd: root, encoding: "utf8", windowsHide: true });
 const afterHead = spawnSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8", windowsHide: true });
