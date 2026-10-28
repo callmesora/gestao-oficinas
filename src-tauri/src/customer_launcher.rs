@@ -57,6 +57,19 @@ mod windows {
         let mut result = Command::new(file);
         result.current_dir(directory).creation_flags(HIDDEN);
         clean_environment(&mut result);
+        // The installer places the redistributable runtime beside the launcher.
+        // PostgreSQL runs from a nested directory, so let its child processes
+        // find those DLLs without requiring a machine-wide installation.
+        if let Some(application_dir) = directory.parent() {
+            let paths = std::iter::once(application_dir.to_path_buf()).chain(
+                std::env::var_os("PATH")
+                    .into_iter()
+                    .flat_map(|value| std::env::split_paths(&value).collect::<Vec<_>>()),
+            );
+            if let Ok(path) = std::env::join_paths(paths) {
+                result.env("PATH", path);
+            }
+        }
         result
     }
     fn marker(child: &mut Child) -> io::Result<BufReader<ChildStdout>> {

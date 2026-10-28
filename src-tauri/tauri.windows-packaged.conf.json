@@ -5,13 +5,15 @@
     "resources": {
       "../analysis-local/windows-runtime/": "service/",
       "target/release/gestao-oficinas.exe": "gestao-oficinas.exe",
-      "../setup/customer-trial-README.pt.txt": "LEIA-PRIMEIRO.txt"
+      "../setup/customer-installer-README.pt.txt": "LEIA-PRIMEIRO.txt"
     },
     "windows": {
       "allowDowngrades": false,
+      "bundleVCRuntime": true,
       "webviewInstallMode": { "type": "offlineInstaller" },
       "nsis": {
         "installMode": "currentUser",
+        "compression": "zlib",
         "languages": ["Portuguese", "English"]
       }
     }

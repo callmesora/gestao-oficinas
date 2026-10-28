@@ -24,12 +24,12 @@ run(process.execPath, [join(root, "scripts/package-windows-trial.mjs"), "--runti
 const manifest = JSON.parse(await readFile(join(portable, "trial-manifest.json"), "utf8"));
 const config = JSON.parse(await readFile(join(root, "src-tauri/tauri.windows-packaged.conf.json"), "utf8"));
 const fromTauri = path => relative(join(root, "src-tauri"), path).split(sep).join("/");
-config.bundle.resources = { [`${fromTauri(join(portable, "service"))}/`]: "service/", [fromTauri(join(portable, "gestao-oficinas.exe"))]: "gestao-oficinas.exe", [fromTauri(join(portable, "LEIA-PRIMEIRO.txt"))]: "LEIA-PRIMEIRO.txt" };
+config.bundle.resources = { [`${fromTauri(join(portable, "service"))}/`]: "service/", [fromTauri(join(portable, "gestao-oficinas.exe"))]: "gestao-oficinas.exe", ["../setup/customer-installer-README.pt.txt"]: "LEIA-PRIMEIRO.txt" };
 const configFile = join(scratch, `installer-config-${manifest.sourceCommit.slice(0, 12)}.json`);
 await writeFile(configFile, JSON.stringify(config, null, 2) + "\n", { flag: "wx" });
 run(process.execPath, [join(root, "node_modules/@tauri-apps/cli/tauri.js"), "bundle", "--bundles", "nsis", "--features", "customer-launcher", "--config", configFile, "--ci"]);
 const script = await readFile(join(root, "src-tauri/target/release/nsis/x64/installer.nsi"), "utf8");
-if (!script.includes('!define MAINBINARYNAME "gestao-oficinas-launcher"') || !script.includes("gestao-oficinas.exe") || !script.includes("service\\")) throw new Error("Installer does not contain the expected launcher, client and service");
+if (!script.includes('!define MAINBINARYNAME "gestao-oficinas-launcher"') || !script.includes("gestao-oficinas.exe") || !script.includes("service\\") || !/vcruntime140\.dll/i.test(script)) throw new Error("Installer does not contain the expected launcher, client, service and Visual C++ runtime");
 const hash = createHash("sha256"); for await (const chunk of createReadStream(installer)) hash.update(chunk);
 await writeFile(join(portable, "installer-build.json"), JSON.stringify({ sourceCommit: manifest.sourceCommit, installer, sha256: hash.digest("hex"), unsigned: true }, null, 2) + "\n", { flag: "wx" });
 console.log(`Installer built from ${manifest.sourceCommit}: ${installer}`);
