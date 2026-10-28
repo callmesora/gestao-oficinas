@@ -1,7 +1,19 @@
 {
+  "mainBinaryName": "gestao-oficinas-launcher",
   "bundle": {
+    "targets": ["nsis"],
     "resources": {
-      "../analysis-local/windows-runtime/": "service/"
+      "../analysis-local/windows-runtime/": "service/",
+      "target/release/gestao-oficinas.exe": "gestao-oficinas.exe",
+      "../setup/customer-trial-README.pt.txt": "LEIA-PRIMEIRO.txt"
+    },
+    "windows": {
+      "allowDowngrades": false,
+      "webviewInstallMode": { "type": "offlineInstaller" },
+      "nsis": {
+        "installMode": "currentUser",
+        "languages": ["Portuguese", "English"]
+      }
     }
   }
 }
